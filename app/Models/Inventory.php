@@ -1,6 +1,6 @@
 <?php
 
-namespace Koboaccountant\Model;
+namespace Koboaccountant\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -20,7 +20,7 @@ class CreateVendorsTable extends Migration
             $table->string('phone', 11);
             $table->string('email');
             $table->string('website');
-            $table->boolean()->default(1);
+            $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
 

@@ -21,13 +21,13 @@ class CreateAccountsTable extends Migration
             $table->string('bank_name')->nullable();
             $table->string('bank_phone')->nullable();
             $table->string('bank_address')->nullable();
-            $able->boolean('status')->default(1);
+            $table->boolean('status')->default(1);
+            $table->string('company_id')->index();
             $table->timestamps();
             $table->softDeletes();
 
             $table->primary('id');
             
-            $table->index('company_id');
         });
     }
 
