@@ -7,9 +7,8 @@ use Koboaccountant\Repositories\UserRepository;
 
 class UserController extends Controller
 {
-
-    public function index(UserRepository $user) {
-       return $user->user();
-    }
-    
+    public function index()
+    {
+        return view('welcome');
+    }    
 }

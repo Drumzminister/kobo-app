@@ -6,6 +6,6 @@ class UserRepository
 {
   
     public function user(){
-        return 'hi user';
+        return 'hi user u';
     }
 }
