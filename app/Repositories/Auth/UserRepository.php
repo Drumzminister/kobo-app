@@ -13,8 +13,8 @@ class UserRepository extends BaseRepository
 {
   
     public function __construct (User $user,Role $role) {
-        $this->users = $user;
-        $this->roles = $role;
+        $this->user = $user;
+        $this->role = $role;
    }
 
     public function all()
@@ -35,6 +35,7 @@ class UserRepository extends BaseRepository
 
    public function createUser($data, $session = null)
    {
+       // Request has been created for validation
        DB::beginTransaction();
 
        $user = User::create([
@@ -45,8 +46,11 @@ class UserRepository extends BaseRepository
            'password' => Hash::make($data->password),
            'status' => 1,
        ]);
-      
-       // Add User to a Role
+              // Added User to a Role
+        $role = new Role(['role' => 1]);
+        $user->roles()->save($role);
+        return $user;
+
 
        if (!$user) {
            DB::rollback();

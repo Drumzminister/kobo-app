@@ -31,3 +31,5 @@ Route::group(['middleware' => ['client']], function () {
 Route::group(['middleware' => ['accountant']], function () {
     //
 });
+
+Route::post('/register', 'UserController@create');
