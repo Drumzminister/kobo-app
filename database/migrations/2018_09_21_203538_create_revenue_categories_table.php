@@ -29,6 +29,6 @@ class CreateRevenueCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('income_categories');
+        Schema::dropIfExists('revenue_categories');
     }
 }

@@ -12,6 +12,7 @@ class CreateInvoicesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('invoices');
         Schema::create('invoices', function (Blueprint $table) {
             $table->string('id');
             $table->string('quantity');
@@ -34,6 +35,7 @@ class CreateInvoicesTable extends Migration
             $table->unique(['customer_id', 'deleted_at']);
         });
 
+        Schema::dropIfExists('invoice_items');
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->string('id');
             $table->string('name');
@@ -51,6 +53,7 @@ class CreateInvoicesTable extends Migration
             $table->string('inventory_id')->index();
         });
 
+        Schema::dropIfExists('invoice_statuses');
         Schema::create('invoice_statuses', function (Blueprint $table) {
             $table->tinyInteger('id');
             $table->string('name');
@@ -63,9 +66,9 @@ class CreateInvoicesTable extends Migration
             $table->string('company_id')->index();
         });
 
+        Schema::dropIfExists('invoice_payments');
         Schema::create('invoice_payments', function (Blueprint $table) {
             $table->string('id');
-            $table->integer('company_id');
             $table->integer('invoice_id');
             $table->integer('account_id');
             $table->date('paid_at');
@@ -76,10 +79,13 @@ class CreateInvoicesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->primary('id');
+
             $table->string('payment_method_id')->index();
             $table->string('company_id')->index();
         });
 
+        Schema::dropIfExists('invoice_histories');
         Schema::create('invoice_histories', function (Blueprint $table) {
             $table->string('id'); 
             $table->boolean('notify');
@@ -87,6 +93,7 @@ class CreateInvoicesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->primary('id');
             $table->string('invoice_id')->index();  
             $table->tinyInteger('status_code_id')->index();
             $table->string('company_id')->index();
