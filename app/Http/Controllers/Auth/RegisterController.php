@@ -1,8 +1,7 @@
 <?php
 
 namespace Koboaccountant\Http\Controllers\Auth;
-
-use Koboaccountant\User;
+use Koboaccountant\Models\User;
 use Koboaccountant\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -39,6 +38,8 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+
+
 
     /**
      * Get a validator for an incoming registration request.

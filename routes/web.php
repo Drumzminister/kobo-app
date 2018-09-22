@@ -16,3 +16,18 @@ Route::get('/', 'UserController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Admin routes
+Route::group(['middleware' => ['admin']], function () {
+    //
+});
+
+// Client routes
+Route::group(['middleware' => ['client']], function () {
+    //
+});
+
+// Accountant routes
+Route::group(['middleware' => ['accountant']], function () {
+    //
+});

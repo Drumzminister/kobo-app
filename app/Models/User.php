@@ -2,6 +2,7 @@
 
 namespace Koboaccountant\Models;
 
+use Koboaccountant\Repositories\BaseRepository;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Uuids;
+    // use Uuids;
     use Notifiable;
 
     public $incrementing = false;
@@ -19,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'first_name', 'last_name', 'attachment'
+        'id', 'name', 'email', 'password', 'first_name', 'last_name', 'attachment'
     ];
 
     /**
