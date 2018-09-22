@@ -26,7 +26,8 @@ class CreateInvoicesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->tinyInteger('invoice_status_id')->index();
+            $table->string('payment_method')->index();
+            $table->string('category_id')->index();
             $table->tinyInteger('invoice_status_id')->index();
             $table->string('inventory_id')->index();
             $table->string('company_id')->index();
@@ -52,46 +53,43 @@ class CreateInvoicesTable extends Migration
 
         Schema::create('invoice_statuses', function (Blueprint $table) {
             $table->tinyInteger('id');
-            $table->integer('company_id');
             $table->string('name');
             $table->string('code');
             $table->timestamps();
             $table->softDeletes();
 
             $table->primary('id');
-            $table->index('company_id');
+
+            $table->string('company_id')->index();
         });
 
         Schema::create('invoice_payments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id');
             $table->integer('company_id');
             $table->integer('invoice_id');
             $table->integer('account_id');
             $table->date('paid_at');
             $table->double('amount', 15, 4);
-            $table->string('currency_code');
-            $table->double('currency_rate', 15, 8);
             $table->text('description')->nullable();
-            $table->string('payment_method');
             $table->string('reference')->nullable();
             $table->string('attachment')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index('company_id');
+            $table->string('payment_method_id')->index();
+            $table->string('company_id')->index();
         });
 
         Schema::create('invoice_histories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('company_id');
-            $table->integer('invoice_id');
-            $table->string('status_code');
+            $table->string('id'); 
             $table->boolean('notify');
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index('company_id');
+            $table->string('invoice_id')->index();  
+            $table->tinyInteger('status_code_id')->index();
+            $table->string('company_id')->index();
         });
     }
 
