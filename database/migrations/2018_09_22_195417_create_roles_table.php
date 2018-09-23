@@ -16,7 +16,9 @@ class CreateRolesTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->string('id', 100)->index();
             $table->enum('role', ['Client', 'Accountant', 'Superadmin'])->default('Client');
-            $table->string('description');
+            $table->string('user_id')->index();
+            $table->string('description')->nullable();
+
             $table->timestamps();
         });
     }
