@@ -45,12 +45,13 @@ class UserRepository extends BaseRepository
            'email' => strtolower($data->email),
            'password' => Hash::make($data->password),
            'status' => 1,
+           'role_id' => 1,
        ]);
         // Added User to a Role
-        // $user->roles()->id = 1;
 
-        $role = new Role(['role' => 1]);
+        $role = new Role;
         $role->id = $this->generateUuid();
+        $role->user_id = $user->id;
         $user->roles()->save($role);
         // return $user;
 
@@ -66,6 +67,6 @@ class UserRepository extends BaseRepository
 
    public function users()
    {
-       return User::find(1)->roles();
+       return Role::all();
    }
 }

@@ -11,4 +11,9 @@ class Role extends Model
     public $incrementing = false;
     
     protected $fillable = ['role'];
+
+    public function users()
+    {
+        return $this->hasMany('Koboaccountant\Models\User');
+    }
 }
