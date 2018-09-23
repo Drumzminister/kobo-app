@@ -12,7 +12,7 @@ use Koboaccountant\Repositories\BaseRepository;
 class UserRepository extends BaseRepository
 {
   
-    public function __construct (User $user,Role $role) {
+    public function __construct (User $user, Role $role) {
         $this->user = $user;
         $this->role = $role;
    }
@@ -47,6 +47,8 @@ class UserRepository extends BaseRepository
            'status' => 1,
        ]);
         // Added User to a Role
+        // $user->roles()->id = 1;
+
         $role = new Role(['role' => 1]);
         $role->id = $this->generateUuid();
         $user->roles()->save($role);
@@ -60,5 +62,10 @@ class UserRepository extends BaseRepository
        DB::commit();
 
        return $user->save();
+   }
+
+   public function users()
+   {
+       return User::find(1)->roles();
    }
 }

@@ -22,4 +22,8 @@ class UserController extends Controller
     {
         return $this->users->createUser($request);
     }
+
+    public function users() {
+        return $this->users->users();
+    }
 }
