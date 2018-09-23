@@ -20,7 +20,6 @@ class UserController extends Controller
     
     public function create(UserRegistration $request)
     {
-        $this->users->createUser($request);
-        return 'User Created';
+        return $this->users->createUser($request);
     }
 }

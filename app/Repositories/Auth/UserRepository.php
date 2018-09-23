@@ -46,7 +46,7 @@ class UserRepository extends BaseRepository
            'password' => Hash::make($data->password),
            'status' => 1,
        ]);
-              // Added User to a Role
+        // Added User to a Role
         $role = new Role(['role' => 1]);
         $role->id = $this->generateUuid();
         $user->roles()->save($role);
