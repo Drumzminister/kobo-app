@@ -12,7 +12,6 @@ class UserController extends Controller
     public function __construct(UserRepository $users)
     {
         $this->users = $users;
-
     }
     public function index()
     {
@@ -21,6 +20,7 @@ class UserController extends Controller
     
     public function create(UserRegistration $request)
     {
-        return $this->users->createUser($request);
+        $this->users->createUser($request);
+        return 'User Created';
     }
 }

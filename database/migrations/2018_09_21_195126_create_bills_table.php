@@ -13,7 +13,7 @@ class CreateBillsTable extends Migration
     public function up()
     {
         Schema::create('bills', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id', 100);
             $table->string('bill_number');
             $table->string('order_number')->nullable();
             $table->date('due_at');
@@ -33,7 +33,7 @@ class CreateBillsTable extends Migration
         });
 
         Schema::create('bill_items', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id', 100);
             $table->integer('item_id')->nullable();
             $table->string('name');
             $table->string('sku')->nullable();
@@ -60,7 +60,7 @@ class CreateBillsTable extends Migration
         });
 
         Schema::create('bill_payments', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id', 100);
             $table->integer('bill_id');
             $table->integer('account_id');
             $table->date('paid_at');
@@ -76,7 +76,7 @@ class CreateBillsTable extends Migration
         });
 
         Schema::create('bill_histories', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id', 100);
             $table->integer('bill_id');
             $table->string('status_code');
             $table->text('description')->nullable();

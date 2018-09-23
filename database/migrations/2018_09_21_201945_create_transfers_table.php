@@ -14,7 +14,7 @@ class CreateTransfersTable extends Migration
     public function up()
     {
         Schema::create('transfers', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id', 100);
             $table->date('transfer_date');
             $table->timestamps();
 

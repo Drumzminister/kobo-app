@@ -48,8 +48,9 @@ class UserRepository extends BaseRepository
        ]);
               // Added User to a Role
         $role = new Role(['role' => 1]);
+        $role->id = $this->generateUuid();
         $user->roles()->save($role);
-        return $user;
+        // return $user;
 
 
        if (!$user) {
@@ -58,6 +59,6 @@ class UserRepository extends BaseRepository
        }
        DB::commit();
 
-       return $user;
+       return $user->save();
    }
 }
