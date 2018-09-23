@@ -34,6 +34,6 @@ class User extends Authenticatable
     
     public function roles()
     {
-        return $this->belongsToMany('Koboaccountant\Models\Role');
+        return $this->hasOne('Koboaccountant\Models\Role');
     }
 }

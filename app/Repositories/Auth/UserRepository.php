@@ -8,6 +8,7 @@ use Koboaccountant\Models\UserRole;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use Koboaccountant\Repositories\BaseRepository;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class UserRepository extends BaseRepository
 {
@@ -50,7 +51,6 @@ class UserRepository extends BaseRepository
         // Added User to a Role
 
         $role = new Role;
-        $role->id = $this->generateUuid();
         $role->user_id = $user->id;
         $user->roles()->save($role);
         // return $user;
@@ -62,11 +62,13 @@ class UserRepository extends BaseRepository
        }
        DB::commit();
 
-       return $user->save();
+        // $user->save();
+
+
    }
 
    public function users()
    {
-       return Role::all();
+       return User::with('roles')->get();
    }
 }
