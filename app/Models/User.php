@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('Koboaccountant\Models\Role');
     }
+
+    public function verifyUser()
+    {
+        return $this->hasOne('Koboaccountant\Models\VerifyUser');
+    }
 }

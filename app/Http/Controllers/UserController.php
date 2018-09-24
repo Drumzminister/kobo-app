@@ -23,7 +23,7 @@ class UserController extends Controller
 
         $user = $this->users->createUser($request);
 
-        return view('message')->with('status', 'We sent you an activation code. Check your email.');
+        return 'Check your mail for verification';
     }
 
     public function users() {

@@ -37,3 +37,5 @@ Route::post('/register', 'UserController@create');
 Route::get('/users', 'UserController@users');
 
 Route::get('/message', 'UserController@message');
+
+Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');

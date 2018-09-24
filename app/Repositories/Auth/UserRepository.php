@@ -2,7 +2,8 @@
 
 namespace Koboaccountant\Repositories\Auth;
 
-
+use Koboaccountant\Models\VerifyUser;
+use Koboaccountant\Mail\VerifyMail;
 use Koboaccountant\Models\User;
 use Koboaccountant\Models\Role;
 use Koboaccountant\Models\UserRole;
@@ -43,7 +44,7 @@ class UserRepository extends BaseRepository
    public function createUser($data, $session = null)
    {
        // Request has been created for validation
-       DB::beginTransaction();
+    //    DB::beginTransaction();
 
        $user = User::create([
            'id' => $this->generateUuid(),
@@ -57,15 +58,22 @@ class UserRepository extends BaseRepository
 
         $role = new Role;
         $role->user_id = $user->id;
+
         $user->roles()->save($role);
         // return $user;
 
-        
-       if (!$user) {
-           DB::rollback();
-           return false;
-       }
-       DB::commit();
+
+          $verifyUser = VerifyUser::create([
+            'user_id' => $user->id,
+            'token' => sha1(time())
+        ]);
+        \Mail::to($user->email)->send(new VerifyMail($user));
+        return $user;
+    //    if (!$user) {
+    //        DB::rollback();
+    //        return false;
+    //    }
+    //    DB::commit();
 
         // $user->save();
 
