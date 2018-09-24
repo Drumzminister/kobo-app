@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id', 100)->primary();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
@@ -27,17 +27,17 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->primary('id');
+            // $tabl/e->primary('id');
         });
 
         //Create table for associating companies to users
 
         Schema::create('user_companies', function (Blueprint $table) {
-            $table->string('user_id')->index();
+            $table->string('user_id')->index()->primary();
             $table->string('company_id')->index();
-            $table->string('user_type');
+            $table->string('user_role')->index();
 
-            $table->primary(['user_id', 'company_id', 'user_type']);
+            // $table->primary(['user_id', 'company_id', 'user_role']);
         });
     }
 
@@ -47,8 +47,8 @@ class CreateUsersTable extends Migration
      * @return void
      */
     public function down()
-    {
-        Schema::dropIfExists('user_companies');
+    {   
         Schema::dropIfExists('users');
+        Schema::dropIfExists('user_companies');
     }
 }
