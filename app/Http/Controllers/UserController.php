@@ -1,7 +1,7 @@
 <?php
 
 namespace Koboaccountant\Http\Controllers;
-
+use Koboaccountant\Mail\RegistrationConfirmation;
 use Koboaccountant\Http\Requests\UserRegistration;
 use Koboaccountant\Repositories\Auth\UserRepository;
 use Illuminate\Http\Request;
@@ -20,11 +20,10 @@ class UserController extends Controller
     
     public function create(UserRegistration $request)
     {
+
         $user = $this->users->createUser($request);
 
-        \Auth::login($user);
-
-        return redirect()->home();
+        return view('message')->with('status', 'We sent you an activation code. Check your email.');
     }
 
     public function users() {

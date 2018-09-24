@@ -6,7 +6,12 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
+                @if ($message = Session::has('status'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
 
+                @endif
                 <div class="card-body">
                     <form method="POST" action="/register">
                         @csrf

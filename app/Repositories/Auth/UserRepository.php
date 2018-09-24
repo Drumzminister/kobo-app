@@ -2,17 +2,16 @@
 
 namespace Koboaccountant\Repositories\Auth;
 
+
 use Koboaccountant\Models\User;
 use Koboaccountant\Models\Role;
 use Koboaccountant\Models\UserRole;
 use Illuminate\Support\Facades\Hash;
-use DB;
+use DB, Mail;
 use Koboaccountant\Repositories\BaseRepository;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class UserRepository extends BaseRepository
 {
-  
     public function __construct (User $user, Role $role) {
         $this->user = $user;
         $this->role = $role;
@@ -34,6 +33,13 @@ class UserRepository extends BaseRepository
        return $this->slugIt($text);
    }
 
+    /**
+    * Handle a registration request for the application.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\Response
+    */
+
    public function createUser($data, $session = null)
    {
        // Request has been created for validation
@@ -46,7 +52,6 @@ class UserRepository extends BaseRepository
            'email' => strtolower($data->email),
            'password' => Hash::make($data->password),
            'status' => 1,
-           'role_id' => 1,
        ]);
         // Added User to a Role
 
@@ -55,7 +60,7 @@ class UserRepository extends BaseRepository
         $user->roles()->save($role);
         // return $user;
 
-
+        
        if (!$user) {
            DB::rollback();
            return false;
@@ -64,8 +69,8 @@ class UserRepository extends BaseRepository
 
         // $user->save();
 
-
    }
+
 
    public function users()
    {
