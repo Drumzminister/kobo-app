@@ -1,7 +1,7 @@
 <?php
 
 namespace Koboaccountant\Http\Controllers;
-use Koboaccountant\Mail\RegistrationConfirmation;
+// use Koboaccountant\Mail\RegistrationConfirmation;
 use Koboaccountant\Http\Requests\UserRegistration;
 use Koboaccountant\Repositories\Auth\UserRepository;
 use Illuminate\Http\Request;

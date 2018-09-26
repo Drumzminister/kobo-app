@@ -18,4 +18,4 @@ Route::get('/message', 'UserController@message');
 Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 Route::get('/accountant', 'UserController@accountant');
 
-Route::post('/company', 'CompanyController@store');
+Route::post('/company', 'CompanyController@store')->name('company');
