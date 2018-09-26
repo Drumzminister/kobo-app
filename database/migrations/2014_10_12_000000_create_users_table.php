@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('attachment')->nullable();
             $table->boolean('verified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
-            $table->boolean('status')->default(1);
+            $table->boolean('isActive')->default(1);
             $table->string('last_logged_in_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -20,7 +20,7 @@ class CreateCustomersTable extends Migration
             $table->text('address');
             $table->string('phone');
             $table->string('website');
-            $table->boolean('status')->default(1);
+            $table->boolean('isActive')->default(1);
             $table->string('company_id')->index();
             $table->timestamps();
             $table->softDeletes();

@@ -15,7 +15,7 @@ class CreateStaffTable extends Migration
             $table->string('designation');
             $table->datetime('employed_date');
             $table->double('salary', 15, 4)->default('0.0000');
-            $table->boolean('status')->default(1);
+            $table->boolean('isActive')->default(1);
             $table->string('company_id')->index();
             $table->timestamps();
             $table->softDeletes();

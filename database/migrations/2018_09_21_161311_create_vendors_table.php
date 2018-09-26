@@ -20,15 +20,15 @@ class CreateVendorsTable extends Migration
             $table->string('phone', 11);
             $table->string('email');
             $table->string('website');
-            $table->boolean('status')->default(1);
-            $table->timestamps();
-            $table->softDeletes();
+            $table->boolean('isActive')->default(1);
 
             $table->primary('id');
             
             $table->string('company_id')->index();
             $table->string('user_id')->index();
 
+            $table->timestamps();
+            $table->softDeletes();
             $table->unique(['company_id', 'user_id', 'deleted_at']);
         });
     }

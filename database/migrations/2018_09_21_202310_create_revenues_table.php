@@ -18,8 +18,7 @@ class CreateRevenuesTable extends Migration
             $table->double('amount', 7, 4)->default(0.0000);
             $table->text('description');
             $table->string('attachment');
-            $table->softDeletes();
-            $table->timestamps();
+            
 
             $table->primary('id');
             
@@ -29,6 +28,8 @@ class CreateRevenuesTable extends Migration
             $table->string('category_id')->index();
             $table->tinyInteger('payment_method_id')->index();
 
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

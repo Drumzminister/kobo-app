@@ -11,11 +11,11 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->string('id', 100);
             $table->string('name');
-            $table->boolean('status')->default(1);
+            $table->boolean('isActive')->default(1);
+            $table->string('user_id')->index();
+            
             $table->timestamps();
             $table->softDeletes();
-
-            $table->string('user_id')->index();
             $table->primary('id');
         });
     }
