@@ -29,4 +29,15 @@ class UserController extends Controller
     public function users() {
         return $this->users->users();
     }
+
+    public function client()
+    {
+        return view('client');
+    }
+
+    public function accountant()
+    {
+        return view('accountant');
+    }
+
 }

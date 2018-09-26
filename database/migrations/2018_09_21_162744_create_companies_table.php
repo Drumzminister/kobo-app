@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCompaniesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('companies', function (Blueprint $table) {
@@ -20,15 +15,11 @@ class CreateCompaniesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->string('user_id')->index();
             $table->primary('id');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('companies');

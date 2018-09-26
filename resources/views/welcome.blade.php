@@ -78,7 +78,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Welcome to <br>Koboaccountant App
                 </div>
 
                 <div class="links">
