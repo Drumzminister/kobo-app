@@ -3,6 +3,7 @@
 namespace Koboaccountant\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Koboaccountant\Models\Company;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $company = Company::all();
+        return view('home', ['company' => $company]);
     }
 }

@@ -58,9 +58,11 @@
                         </div>
                     @endif
 
-                    @foreach ($company as $com)
-                        {{$com}}                            
-                    @endforeach
+                    @if (count($company) > 0)
+                        @foreach ($company as $com)
+                            {{$com}}                            
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
