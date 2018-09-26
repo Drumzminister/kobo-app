@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('Koboaccountant\Models\VerifyUser');
     }
+
+    public function company()
+    {
+        return $this->hasMany('Koboaccountant\Models\Company');
+    }
 }

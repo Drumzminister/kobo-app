@@ -61,7 +61,7 @@ class UserRepository extends BaseRepository
             'user_id' => $user->id,
             'token' => sha1(time())
         ]);
-        
+
         \Mail::to($user->email)->send(new VerifyMail($user));
 
         return $user;
@@ -70,5 +70,15 @@ class UserRepository extends BaseRepository
            return false;
        }
    }
+
+    public function getUser($id)
+    {
+        return $this->users->findOrFail($id);
+    }
+
+    public function users()
+    {
+        return User::with('company')->get();
+    }
 
 }

@@ -20,7 +20,7 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                                 Create Company
                             </button>
-
+                            @include('sessions.message')
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -37,7 +37,8 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                 <label for="inputEmail4">company</label>
-                                                <input type="company" class="form-control" id="inputEmail4" placeholder="name">
+                                                <input type="company" name="name" class="form-control" id="inputEmail4" placeholder="name">
+                                                {{--  <input type = "hidden" name = "user_id" value = "{{Auth::user()->id}}">  --}}
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Create</button>  
@@ -56,6 +57,10 @@
                             </div>
                         </div>
                     @endif
+
+                    @foreach ($company as $com)
+                        {{$com}}                            
+                    @endforeach
                 </div>
             </div>
         </div>

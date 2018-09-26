@@ -1,10 +1,9 @@
 <?php
 
 namespace Koboaccountant\Repositories\Company;
-use Koboaccountant\Http\Requests\CompanyRequest;
 use Koboaccountant\Repositories\BaseRepository;
+use Koboaccountant\Models\User;
 use Koboaccountant\Models\Company;
-use Illuminate\Support\Facades\Auth;
 
 class CompanyRepository extends BaseRepository
 {
@@ -19,13 +18,14 @@ class CompanyRepository extends BaseRepository
        if(is_array($data))
             $data = (Object) $data;
 
+
        return $company = Company::create([
            'id' => $this->generateUuid(),
-           'user_id' => $this->authUserId(),
+           'user_id' => \Auth::user()->id,
            'name' => ucfirst($data->name),
        ]);
 
-       if(!$company) {
+       if(! $company) {
            return null;
        }
     }

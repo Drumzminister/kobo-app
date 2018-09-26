@@ -26,14 +26,13 @@ class CompanyRequest extends FormRequest
        
         return [
             'name'      => 'required',
-            'user_id' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'name' => 'Provide a valid work email address',
+            'name' => 'Provide a valid work name',
         ];
     }
 }
