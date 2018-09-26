@@ -20,6 +20,7 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                                 Create Company
                             </button>
+                            <a href=""
                             @include('sessions.message')
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -58,11 +59,12 @@
                         </div>
                     @endif
 
-                    @if (count($company) > 0)
+                    {{--  @if (count($company) > 0)
                         @foreach ($company as $com)
                             {{$com}}                            
                         @endforeach
-                    @endif
+                    @endif  --}}
+
                 </div>
             </div>
         </div>

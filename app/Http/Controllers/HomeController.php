@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $company = Company::all();
-        return view('home', ['company' => $company]);
+        // $company = Company::all();
+        return view('home');
     }
 }
