@@ -9,7 +9,7 @@ class CreateCompaniesTable extends Migration
     public function up()
     {
         Schema::create('companies', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id');
             $table->string('name');
             $table->boolean('isActive')->default(1);
             $table->string('user_id')->index();

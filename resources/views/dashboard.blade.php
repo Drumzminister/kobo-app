@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>Dashboard | {{\Auth::user()->roles->role}}</title>
 
     <!-- Fontfaces CSS-->
     <link href="{{asset('css/font-face.css')}}" rel="stylesheet" media="all">
@@ -32,7 +32,12 @@
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
-
+<style>
+.modal-backdrop {
+    /* bug fix - no overlay */    
+    display: none;    
+}
+</style>
 </head>
 
 <body class="animsition">
@@ -414,12 +419,73 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">overview</h2>
-                                    <button class="au-btn au-btn-icon au-btn--blue">
-                                        <i class="zmdi zmdi-plus"></i>add item</button>
+                                    <h2 class="title-1"></h2>
+                                    <!-- Table -->
+                                <div class="table-responsive table--no-card m-b-30">
+                                    <table class="table table-borderless table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Created</th>
+                                                <th>Date</th>
+                                                <th>Created By</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                
+                                                @foreach(Auth::user()->company as $company)
+                                                    <td>{{$company->name}}</td>
+                                                    <td>{{$company->created_at->diffForHumans()}}</td>
+                                                    <td></td>{{Auth::user()->last_name}}</td>
+                                                                                          
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
+
+
+                                    <!-- End of table -->
+                                    
+                                        @if(Auth::user()->roles->role == "Client")
+                                        <div>
+                                            <button class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#exampleModal">
+                                                add company
+                                            </button> 
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Create Company</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="post" action="{{ route('company') }}">
+                                                            @csrf
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                                                <label for="inputEmail4">company</label>
+                                                                <input type="company" name="name" class="form-control" id="inputEmail4" placeholder="name">
+                                                                {{--  <input type = "hidden" name = "user_id" value = "{{Auth::user()->id}}">  --}}
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">Create</button>  
+                                                        </form>                                  
+                                                        
+                                                    </div>
+                                                    <div class="modal-footer">                   
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                                   
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                       
+                                        @endif
+                            </div>
                         </div>
+                        
                         <!-- <div class="row m-t-25">
                             <div class="col-sm-6 col-lg-3">
                                 <div class="overview-item overview-item--c1">
@@ -977,7 +1043,6 @@
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
-
 </body>
 
 </html>
