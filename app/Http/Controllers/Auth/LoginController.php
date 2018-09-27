@@ -34,13 +34,13 @@ class LoginController extends Controller
         // Check user role
         switch ($role) {
             case 'Client':
-                    return '/client';
+                    return '/dashboard';
                 break;
             case 'Accountant':
-                    return '/accountant';
+                    return '/dashboard';
                 break; 
             default:
-                    return '/superadmin'; 
+                    return '/dashboard'; 
                 break;
         }
     }

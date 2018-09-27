@@ -2,9 +2,11 @@
 Route::get('/', 'UserController@index');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
 // Admin routes
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/client', 'UserController@client');
+    Route::get('/dashboard', 'DashboardController@index');
 });
 // Client routes
 Route::group(['middleware' => ['client']], function () {
@@ -19,3 +21,4 @@ Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 Route::get('/accountant', 'UserController@accountant');
 
 Route::post('/company', 'CompanyController@store')->name('company');
+
