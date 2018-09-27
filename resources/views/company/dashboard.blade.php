@@ -14,24 +14,24 @@
 
     <!-- Fontfaces CSS-->
     <link href="{{asset('css/font-face.css')}}" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/font-awesome-4.7/css/font-awesome.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/font-awesome-5/css/fontawesome-all.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/mdi-font/css/material-design-iconic-font.min.css')}}" rel="stylesheet" media="all">
 
     <!-- Bootstrap CSS-->
-    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/bootstrap-4.1/bootstrap.min.css')}}" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
-    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/animsition/animsition.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/wow/animate.css" rel="stylesheet')}}" media="all">
+    <link href="{{asset('vendor/css-hamburgers/hamburgers.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/slick/slick.css" rel="stylesheet')}}" media="all">
+    <link href="{{asset('vendor/select2/select2.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.css')}}" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="css/theme.css" rel="stylesheet" media="all">
+    <link href="{{asset('css/theme.css')}}" rel="stylesheet" media="all">
 <style>
 .modal-backdrop {
     /* bug fix - no overlay */    
@@ -48,7 +48,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin" />
+                            <img src="{{asset('images/icon/logo.png')}}" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -146,7 +146,7 @@
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
                 <a href="#">
-                    <img src="images/icon/logo.png" alt="Cool Admin" />
+                    <img src="{{asset('images/icon/logo.png')}}" alt="Cool Admin" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
@@ -156,7 +156,7 @@
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-                        <!-- <li>
+                         <li>
                             <a href="chart.html">
                                 <i class="fas fa-chart-bar"></i>Charts</a>
                         </li>
@@ -175,8 +175,8 @@
                         <li>
                             <a href="map.html">
                                 <i class="fas fa-map-marker-alt"></i>Maps</a>
-                        </li> -->
-                        <!-- <li class="has-sub">
+                        </li> 
+                        <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-copy"></i>Pages</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
@@ -229,7 +229,7 @@
                                     <a href="typo.html">Typography</a>
                                 </li>
                             </ul>
-                        </li> -->
+                        </li> 
                     </ul>
                 </nav>
             </div>
@@ -260,7 +260,7 @@
                                             </div>
                                             <div class="mess__item">
                                                 <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
+                                                    <img src="{{asset('images/icon/avatar-06.jpg')}}" alt="Michelle Moreno" />
                                                 </div>
                                                 <div class="content">
                                                     <h6>Michelle Moreno</h6>
@@ -270,7 +270,7 @@
                                             </div>
                                             <div class="mess__item">
                                                 <div class="image img-cir img-40">
-                                                    <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
+                                                    <img src="{{asset('images/icon/avatar-04.jpg')}}" alt="Diane Myers" />
                                                 </div>
                                                 <div class="content">
                                                     <h6>Diane Myers</h6>
@@ -283,7 +283,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{--  <div class="noti__item js-item-menu">
+                                   <div class="noti__item js-item-menu">
                                         <i class="zmdi zmdi-email"></i>
                                         <span class="quantity">1</span>
                                         <div class="email-dropdown js-dropdown">
@@ -360,12 +360,12 @@
                                                 <a href="#">All notifications</a>
                                             </div>
                                         </div>
-                                    </div>  --}}
+                                    </div>
                                 </div>
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                            <img src="{{asset('images/icon/avatar-01.jpg')}}" alt="John Doe" />
                                         </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#">{{Auth::user()->first_name}}</a>
@@ -374,7 +374,7 @@
                                             <div class="info clearfix">
                                                 <div class="image">
                                                     <a href="#">
-                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                        <img src="{{asset('images/icon/avatar-01.jpg')}}" alt="John Doe" />
                                                     </a>
                                                 </div>
                                                 <div class="content">
@@ -420,72 +420,12 @@
                             <div class="col-md-12">
                                 <div class="overview-wrap">
                                     <h2 class="title-1"></h2>
-                                    <!-- Table -->
-                                <div class="table-responsive table--no-card m-b-30">
-                                    <table class="table table-borderless table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Created</th>
-                                                <th>Date</th>
-                                                <th>Created By</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                
-                                                @foreach(Auth::user()->company as $company)
-                                                    <td><a href="company/{{$company->id}}">{{$company->name}}</a></td>
-                                                    <td>{{$company->created_at->diffForHumans()}}</td>
-                                                    <td>{{Auth::user()->last_name}}</td>                                                                                         
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-
-                                    <!-- End of table -->
-                                    
-                                        @if(Auth::user()->roles->role == "Client")
-                                        <div>
-                                            <button class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#exampleModal">
-                                                add company
-                                            </button> 
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Create Company</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form method="post" action="{{ route('company') }}">
-                                                            @csrf
-                                                            <div class="form-row">
-                                                                <div class="form-group col-md-6">
-                                                                <label for="inputEmail4">company</label>
-                                                                <input type="company" name="name" class="form-control" id="inputEmail4" placeholder="name">
-                                                                {{--  <input type = "hidden" name = "user_id" value = "{{Auth::user()->id}}">  --}}
-                                                                </div>
-                                                            </div>
-                                                            <button type="submit" class="btn btn-primary">Create</button>  
-                                                        </form>                                  
-                                                        
-                                                    </div>
-                                                    <div class="modal-footer">                   
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                                   
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>                       
-                                        @endif
+                                                                    
+                                       
                             </div>
                         </div>
                         
-                        <!-- <div class="row m-t-25">
+                        <div class="row m-t-25">
                             <div class="col-sm-6 col-lg-3">
                                 <div class="overview-item overview-item--c1">
                                     <div class="overview__inner">
@@ -559,7 +499,7 @@
                                 </div>
                             </div>
                         </div> -->
-                        <!-- <div class="row">
+                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="au-card recent-report">
                                     <div class="au-card-inner">
@@ -620,8 +560,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
-                        <!-- <div class="row">
+                        </div>
+                        <div class="row">
                             <div class="col-lg-9">
                                 <h2 class="title-1 m-b-25">Earnings By Items</h2>
                                 <div class="table-responsive table--no-card m-b-40">
@@ -1002,7 +942,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">
@@ -1020,28 +960,28 @@
     </div>
 
     <!-- Jquery JS-->
-    <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="{{asset('vendor/jquery-3.2.1.min.js')}}"></script>
     <!-- Bootstrap JS-->
-    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <script src="{{ asset('vendor/bootstrap-4.1/popper.min.js')}}"></script>
+    <script src="{{asset('vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
     <!-- Vendor JS       -->
-    <script src="vendor/slick/slick.min.js">
+    <script src="{{asset('vendor/slick/slick.min.js')}}">
     </script>
-    <script src="vendor/wow/wow.min.js"></script>
-    <script src="vendor/animsition/animsition.min.js"></script>
-    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    <script src="{{asset('vendor/wow/wow.min.js')}}"></script>
+    <script src="{{asset('vendor/animsition/animsition.min.js')}}"></script>
+    <script src="{{asset('vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}">
     </script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js">
+    <script src="{{asset('vendor/counter-up/jquery.waypoints.min.js')}}"></script>
+    <script src="{{asset('vendor/counter-up/jquery.counterup.min.js')}}">
     </script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
+    <script src="{{asset('vendor/circle-progress/circle-progress.min.js')}}"></script>
+    <script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+    <script src="{{asset('vendor/chartjs/Chart.bundle.min.js')}}"></script>
+    <script src="{{asset('vendor/select2/select2.min.js')}}">
     </script>
 
     <!-- Main JS-->
-    <script src="js/main.js"></script>
+    <script src="{{asset('js/main.js')}}"></script>
 </body>
 
 </html>
