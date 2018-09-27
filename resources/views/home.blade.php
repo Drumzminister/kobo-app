@@ -39,7 +39,6 @@
                                                 <div class="form-group col-md-6">
                                                 <label for="inputEmail4">company</label>
                                                 <input type="company" name="name" class="form-control" id="inputEmail4" placeholder="name">
-                                                {{--  <input type = "hidden" name = "user_id" value = "{{Auth::user()->id}}">  --}}
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Create</button>  
@@ -58,13 +57,6 @@
                             </div>
                         </div>
                     @endif
-
-                    {{--  @if (count($company) > 0)
-                        @foreach ($company as $com)
-                            {{$com}}                            
-                        @endforeach
-                    @endif  --}}
-
                 </div>
             </div>
         </div>
