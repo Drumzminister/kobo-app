@@ -22,5 +22,4 @@ class BaseRepository {
     {
         return Auth::id();
     }
-
 }

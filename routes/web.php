@@ -13,11 +13,12 @@ Route::group(['middle' => ['guest']], function() {
     Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
     Route::get('/logout', 'UserController@logout');
     Route::get('/accountant', 'UserController@accountant');
+        
 
 });
 
 // Admin routes
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/client', 'UserController@client');
     Route::get('/dashboard', 'DashboardController@index');
     Route::post('/company', 'CompanyController@store')->name('company');
