@@ -1,1 +1,0 @@
-Welcome accountant to your dashboard

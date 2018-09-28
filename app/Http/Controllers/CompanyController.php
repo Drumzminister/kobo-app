@@ -6,6 +6,7 @@ use Koboaccountant\Repositories\Company\CompanyRepository;
 use Koboaccountant\Http\Controllers;
 use Koboaccountant\Http\Requests\CompanyRequest;
 use Illuminate\Http\Request;
+
 class CompanyController extends Controller
 {
 
@@ -14,10 +15,14 @@ class CompanyController extends Controller
         $this->company = $company;
     }
 
+    public function index() {
+        return view('company.dashboard');
+    }
     public function store(CompanyRequest $request)
     {
         $company = $this->company->createCompany($request);
-
-        return response()->json(['status' => 'Company created successfully']);
+        return back();
+        // return response()->json(['status' => 'Company created successfully']);
     }
+
 }

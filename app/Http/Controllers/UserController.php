@@ -5,7 +5,7 @@ use Koboaccountant\Http\Requests\UserRegistration;
 use Koboaccountant\Repositories\Auth\UserRepository;
 use Illuminate\Http\Request;
 use Koboaccountant\Repositories\BaseRepository;
-
+use Auth;
 
 
 class UserController extends Controller
@@ -27,18 +27,13 @@ class UserController extends Controller
         return 'Check your mail for verification';
     }
 
+ 
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('/login');
+    }
+
     public function users() {
         return $this->users->users();
     }
-
-    public function client()
-    {
-        return view('client');
-    }
-
-    public function accountant()
-    {
-        return view('accountant');
-    }
-
 }
