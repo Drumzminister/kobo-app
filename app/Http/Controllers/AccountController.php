@@ -26,6 +26,6 @@ class AccountController extends Controller
     public function create($company)
     {
     	$data['company'] = Auth::user()->companies->where('name', $company);
-    	return view('company.account.create', $data) ;
+    	return view('company.account.create', $data);
     } 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Koboaccountant\Repositories\Company;
+namespace Koboaccountant\Repositories\Sales;
 
 use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\SalesChannel;
@@ -12,9 +12,10 @@ use Koboaccountant\Models\Sales;
 class SalesRepository extends BaseRepository
 {
 	
-	function __construct()
+	function __construct(SalesChannel $saleschannel, Sales $sale)
 	{
-		# code...
+		$this->salesModel = $sale;
+		$this->saleschannelModel = $channel;
 	}
 	public function addChannel($data)
 	{

@@ -13,8 +13,8 @@ use Koboaccountant\Repositories\BaseRepository;
 class UserRepository extends BaseRepository
 {
     public function __construct (User $user, Role $role) {
-        $this->user = $user;
-        $this->role = $role;
+        $this->userModel = $user;
+        $this->roleModel = $role;
     }
 
     public function all()
@@ -61,7 +61,7 @@ class UserRepository extends BaseRepository
             'user_id' => $user->id,
             'token' => sha1(time())
         ]);
-
+            //send verification email
         \Mail::to($user->email)->send(new VerifyMail($user));
 
         return $user;

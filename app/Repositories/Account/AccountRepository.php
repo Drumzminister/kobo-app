@@ -1,6 +1,6 @@
 <?php
 
-namespace Koboaccountant\Repositories\Company;
+namespace Koboaccountant\Repositories\Accountant;
 
 use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\Company;
@@ -32,7 +32,6 @@ class AccountRepository extends BaseRepository
 
 		$account->save();
 		return true;
-
 	}
 
 	public function update($data)

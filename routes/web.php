@@ -17,7 +17,7 @@ Route::group(['middle' => ['guest']], function() {
 
 });
 
-// Admin routes
+// Auth routes
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/client', 'UserController@client');
     Route::get('/dashboard', 'DashboardController@index');
@@ -25,6 +25,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/company/{company}', 'CompanyController@index')->name('dashboard');
 });
 
-
+Route::post('/company', 'CompanyController@store')->name('company');
 
 
