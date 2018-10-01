@@ -1,5 +1,5 @@
 <?php
-use Koboaccountant\Models\Company;
+
 Route::get('/', 'UserController@index');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
@@ -13,8 +13,6 @@ Route::group(['middle' => ['guest']], function() {
     Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
     Route::get('/logout', 'UserController@logout');
     Route::get('/accountant', 'UserController@accountant');
-        
-
 });
 
 // Auth routes
@@ -23,8 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'DashboardController@index');
     Route::post('/company', 'CompanyController@store')->name('company');
     Route::get('/company/{company}', 'CompanyController@index')->name('dashboard');
-});
+ });
+Route::get('/customer', 'CustomerController@index');
 
-Route::post('/company', 'CompanyController@store')->name('company');
-
-
+Route::post('/customer', 'CustomerController@store');

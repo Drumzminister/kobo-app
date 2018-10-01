@@ -3,7 +3,7 @@
 namespace Koboaccountant\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Koboaccountant\Repositories\Company\AccountRepository;
+use Koboaccountant\Repositories\Account\AccountRepository;
 use Auth;
 
 class AccountController extends Controller

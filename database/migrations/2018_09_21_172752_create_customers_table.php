@@ -21,7 +21,7 @@ class CreateCustomersTable extends Migration
             $table->string('phone');
             $table->string('website')->nullable();
             $table->boolean('isActive')->default(1);
-            $table->string('company_id')->index();
+            $table->string('account_id')->index();
             $table->timestamps();
             $table->softDeletes();
     

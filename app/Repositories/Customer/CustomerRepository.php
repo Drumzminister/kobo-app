@@ -14,7 +14,6 @@ class CustomerRepository extends BaseRepository
 	public function __construct(Customer $customer)
 	{
 		$this->customerModel = $customer;
-		$this->accountModel = $account;
 	}
 
 	public function create($data)
@@ -22,12 +21,12 @@ class CustomerRepository extends BaseRepository
 		$customer = new Customer();
 		$customer->id = $this->generateUuid();
 		$customer->name = $data['name'];
+		$customer->email = $data['email'];		
 		$customer->phone = $data['phone'];
-		$customer->email = $data['email'];
 		$customer->address = $data['address'];
 		$customer->website = $data['website'];
 		$customer->isActive = $data['isActive'];
-		$customer->account_id = $account->id;
+		$customer->account_id = $data['account_id'];
 
 		$customer->save();
 		return true;
@@ -42,7 +41,7 @@ class CustomerRepository extends BaseRepository
 		$customer->address = isset($data['address']) ? $data['address'] : null;
 		$customer->website = isset($data['website'])? $data['website'] : null;
 		$customer->isActive = $data['isActive'];
-		$customer->account_id = $account->id;
+		$customer->account_id = $data['account_id'];
 
 
 		$customer->save();
