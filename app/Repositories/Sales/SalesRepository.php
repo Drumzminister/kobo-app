@@ -29,15 +29,35 @@ class SalesRepository extends BaseRepository
 
 	public function create($data)
 	{
-		$sale = new Sales;
-		$sale->id = $this->generateUuid();
+		$sales = new Sales;
+		$sales->id = $this->generateUuid();
 		//Upload any Image 
-		$sale->attachment = $data['attachment'];
-		$sale->customer_id = $data['customer_id'];
-		$sale->inventory_id = $data['inventory_id'];
-		$sale->sales_date = $data['sales_date'];
-		$sale->description = $data['description'];
-		$sale->save();
+		$sales->attachment = $data['attachment'];
+		$sales->customer_id = $data['customer_id'];
+		$sales->inventory_id = $data['inventory_id'];
+		$sales->sales_date = $data['sales_date'];
+		$sales->description = $data['description'];
+		$sales->save();
 		return true;
+	}
+
+	public function update($data)
+    {
+        $sales = Sales::where('id', $data['sales_id'])->first();
+        $sales->attachment = $data['attachment'];
+		$sales->customer_id = $data['customer_id'];
+		$sales->inventory_id = $data['inventory_id'];
+		$sales->sales_date = $data['sales_date'];
+		$sales->description = $data['description'];
+		$sales->save();
+		
+		return true;
+
+	}
+	
+	public function delete($data)
+	{
+		$sales = Sales::where('id', $data['sales_id'])->first();
+		$sales->delete();
 	}
 }

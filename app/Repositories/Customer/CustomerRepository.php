@@ -47,4 +47,10 @@ class CustomerRepository extends BaseRepository
 		$customer->save();
 		return true; 
 	}
+
+	public function delete($data)
+	{
+		$customer = Customer::where('id', $data['customer_id'])->first();
+		$customer->delete();
+	}
 }

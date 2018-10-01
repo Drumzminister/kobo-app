@@ -55,4 +55,10 @@ class InventoryRepository extends BaseRepository
         $inventory->save();
         return true;
     }
+
+    public function delete($data)
+    {
+        $inventory = Inventory::where('id', $data['inventory_id'])->first();
+        $inventory->delete();
+    }
 }

@@ -33,10 +33,16 @@ class PaymentMethodRepository extends BaseRepository
 
     public function update($data)
     {
-        $paymentMethod = Customer::where('id', $data['company_id'])->first();
+        $paymentMethod = Customer::where('id', $data['paymentMethod_id'])->first();
         $paymentMethod->name = isset($data['name']) ? $data['name'] : null;
         $paymentMethod->save();
 
         return true;
+    }
+
+    public function delete($data)
+    {
+        $paymentMethod = PaymentMethod::where('id', $data['paymentMethod_id'])->first();
+        $paymentMethod->delete();
     }
 }
