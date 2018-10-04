@@ -18,6 +18,11 @@ class CompanyController extends Controller
     public function index() {
         return view('company.dashboard');
     }
+
+    public function create(){
+        return "View to create company";
+    }
+
     public function store(CompanyRequest $request)
     {
         $company = $this->company->createCompany($request);
