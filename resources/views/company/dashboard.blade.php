@@ -386,7 +386,7 @@
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#"></a>
+                                                    <a href="#">
                                                         <i class="zmdi zmdi-account"></i>Account</a>
                                                 </div>
                                                 <div class="account-dropdown__item">
@@ -425,7 +425,7 @@
                             </div>
                         </div>
                         
-                        <div class="row m-t-25">
+                        {{--  <div class="row m-t-25">
                             <div class="col-sm-6 col-lg-3">
                                 <div class="overview-item overview-item--c1">
                                     <div class="overview__inner">
@@ -498,7 +498,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                          <div class="row">
                             <div class="col-lg-6">
                                 <div class="au-card recent-report">
@@ -949,7 +949,7 @@
                                     <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
                                 </div>
                             </div>
-                        </div>
+                        </div>  --}}
                     </div>
                 </div>
             </div>

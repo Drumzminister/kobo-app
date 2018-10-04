@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRevenueCategoriesTable extends Migration
+class CreateReviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateRevenueCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('revenue_categories', function (Blueprint $table) {
-            $table->tinyInteger('id');
-            $table->string('name');
-            $table->string('account_id')->index();
+        Schema::create('reviews', function (Blueprint $table) {
+            $table->string('id');
+            $table->string('user_id')->index();
+            $table->string('accountant_id')->index();
+            $table->text('reviews');
+            $table->string('rating');
             $table->timestamps();
+             $table->softDeletes();
         });
     }
 
@@ -28,6 +31,6 @@ class CreateRevenueCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('revenue_categories');
+        Schema::dropIfExists('reviews');
     }
 }

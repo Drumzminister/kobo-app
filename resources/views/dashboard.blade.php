@@ -420,7 +420,7 @@
                             <div class="col-md-12">
                                 <div class="overview-wrap">
                                     <h2 class="title-1"></h2>
-                                    <!-- Table -->
+                                    
                                 <div class="table-responsive table--no-card m-b-30">
                                     <table class="table table-borderless table-striped">
                                         <thead>
@@ -431,21 +431,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                {{--  url("/posts/{$post->id}");  --}}
-                                                @foreach(Auth::user()->company as $company)
-                                                    <td><a href="company/{{$company->id}}">{{$company->name}}</a></td>
-                                                    <td>{{$company->created_at->diffForHumans()}}</td>
-                                                    <td>{{Auth::user()->last_name}}</td>                                                                                         
+                                            <tr>                                               
+                                                <td><a href="company"></a></td>
+                                                <td></td>
+                                                <td></td>                                                                                           
                                             </tr>
-                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-
-
-                                    <!-- End of table -->
+                                   <!-- End of table -->
                                     
                                         @if(Auth::user()->roles->role == "Client")
                                         <div>

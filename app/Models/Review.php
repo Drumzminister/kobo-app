@@ -1,11 +1,10 @@
 <?php
 
 namespace Koboaccountant\Models;
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 
-class Transfer extends Model
+class Review extends Model
 {
     use SoftDeletes;
 

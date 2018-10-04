@@ -21,8 +21,8 @@ class CompanyRepository extends BaseRepository
 
        return $company = Company::create([
            'id' => $this->generateUuid(),
-           'user_id' => \Auth::user()->id,
-           'name' => ucfirst($data->name),
+           'user_id' => $data['user_id'],
+           'name' => ucfirst($data['name']),
        ]);
 
        if(! $company) {
