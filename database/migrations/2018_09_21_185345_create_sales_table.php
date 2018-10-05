@@ -17,7 +17,7 @@ class CreateSalesTable extends Migration
             $table->string('id', 100);
             $table->text('description');
             $table->date('sales_date');
-            $table->string('attachment');
+            $table->string('quantity');
             $table->string('customer_id');
             $table->string('inventory_id');
             $table->timestamps();
