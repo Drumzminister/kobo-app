@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Koboaccountant\Repositories\Account\AccountRepository;
 use Auth;
 
-class AccountController extends Controller
+class BankAccountController extends Controller
 {
 	function __construct(AccountRepository $accRepo)
 	{

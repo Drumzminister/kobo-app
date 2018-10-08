@@ -4,7 +4,7 @@ namespace Koboaccountant\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BankAccount extends Model
+class Client extends Model
 {
     //
 }
