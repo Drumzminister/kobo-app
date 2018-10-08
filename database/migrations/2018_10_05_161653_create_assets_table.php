@@ -20,10 +20,11 @@ class CreateAssetsTable extends Migration
             $table->string('quantity');
             $table->string('asset_class');
             $table->date('date');
-            $table->double('amount', 2,7);
-            $table->double('total', 2, 7);
+            $table->double('amount', 7, 2);
+            $table->double('total', 7, 2);
             $table->string('attachment');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
