@@ -14,4 +14,8 @@ class Company extends Model
     
     protected $fillable = [ 'id', 'name', 'user_id'];
 
+    public function accountant(){
+    	return $this->hasOne('Koboaccountant\Models\User','accountant_id');
+    }
+
 }

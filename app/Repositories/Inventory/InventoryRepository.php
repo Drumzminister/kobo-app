@@ -56,9 +56,38 @@ class InventoryRepository extends BaseRepository
         return true;
     }
 
+    public function findInventory($id)
+    {
+        return Inventory::find($id);
+    }
+
+    public function checkAvailability($id, $amt)
+    {
+        $inventory = $this->findInventory($id);
+        if (! ($inventory === null)) {
+            return false;
+        }
+        if ($inventory->quantity >= $amt) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function delete($data)
     {
         $inventory = Inventory::where('id', $data['inventory_id'])->first();
         $inventory->delete();
+    }
+
+    public function reduceQuantity($id, Int $quantity)
+    {
+        $inventory = $this->findInventory($id);
+        if ($inventory && $this->checkAvailability($id, $quantity)) {
+            $inventory->quantity -= $quantity;
+            $inventory->save();
+            return true;
+        }
+        return false;
     }
 }
