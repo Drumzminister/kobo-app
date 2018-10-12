@@ -431,11 +431,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>                                               
-                                                <td><a href="company"></a></td>
+                                            <tr>
+                                                @foreach($company as $comp)                                               
+                                                <td><a href="{{$comp->slug}}">{{$comp->name}}</a></td>
+                                                <td>{{$comp->created_at}}</td>
                                                 <td></td>
-                                                <td></td>                                                                                           
+                                                                                                                                    
                                             </tr>
+                                            @endforeach    
                                         </tbody>
                                     </table>
                                 </div>

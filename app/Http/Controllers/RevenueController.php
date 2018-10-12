@@ -1,10 +1,8 @@
 <?php
 
 namespace Koboaccountant\Http\Controllers;
-
-use Illuminate\Http\Request;
-
+use Koboaccountant\Repositories\Revenue;
 class RevenueController extends Controller
 {
-    //
+    
 }

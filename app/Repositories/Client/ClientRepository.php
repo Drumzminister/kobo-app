@@ -25,8 +25,6 @@ class ProfileRepository extends BaseRepository
     public function add($data)
     {
         $client = new Client;
-        $client->
-
     }
 
 }

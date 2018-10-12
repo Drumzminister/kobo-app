@@ -19,6 +19,7 @@ class CreateBankAccountsTable extends Migration
             $table->string('number');
             $table->double('opening_balance', 15, 4)->default('0.0000');
             $table->string('bank_name')->nullable();
+            $table->double('current_balance', 15, 4)->default('0.0000');
             $table->string('bank_phone')->nullable();
             $table->string('bank_address')->nullable();
             $table->boolean('isActive')->default(1);

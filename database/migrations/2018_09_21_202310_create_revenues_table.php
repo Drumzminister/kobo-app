@@ -18,18 +18,18 @@ class CreateRevenuesTable extends Migration
             $table->double('amount', 7, 4)->default(0.0000);
             $table->text('description');
             $table->string('attachment');
-            
-
-            $table->primary('id');
+            $table->date('date');
             
             $table->string('company_id')->index();
             $table->string('account_id')->index();
             $table->string('customer_id')->index();
-            $table->string('category_id')->index();
+            $table->string('revenue_category_id')->index();
             $table->tinyInteger('payment_method_id')->index();
-
+            
             $table->softDeletes();
             $table->timestamps();
+            
+            $table->primary('id');
         });
     }
 

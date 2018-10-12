@@ -4,7 +4,7 @@ namespace Koboaccountant\Repositories\Company;
 use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\User;
 use Koboaccountant\Models\Company;
-
+use Auth;
 class CompanyRepository extends BaseRepository
 {
     public function __construct(Company $company)
@@ -21,8 +21,9 @@ class CompanyRepository extends BaseRepository
 
        return $company = Company::create([
            'id' => $this->generateUuid(),
-           'user_id' => $data['user_id'],
+           'user_id' => Auth::user()->id,
            'name' => ucfirst($data['name']),
+           'accountant_id' => 1
        ]);
 
        if(! $company) {

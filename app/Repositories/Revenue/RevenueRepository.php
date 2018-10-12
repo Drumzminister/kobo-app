@@ -6,15 +6,33 @@ use Koboaccountant\Models\Revenue;
 use Koboaccountant\Models\RevenueCategory;
 use Koboaccountant\Models\Account;
 use Koboaccountant\Models\PaymentMethod;
-
+use Auth;
+use Koboaccountant\Models\Income;
 Class RevenueRepository extends BaseRepository
 {
-    public function __construct(Revenue $revenue, RevenueCategory $revenueCategory, Account $account, PaymentMethod $paymentMethod)
+    public function __construct(
+        Revenue $revenue, 
+        RevenueCategory $revenueCategory, 
+        Account $account, 
+        PaymentMethod $paymentMethod,
+        Income $income
+    )
     {
         $this->revenueModel = $revenue;
         $this->revenueCategoryModel = $revenueCategory;
         $this->accountModel = $account;
         $this->paymentMethodModel = $paymentMethod;
+        $this->income = $income;
+    }
+
+    public function FetchAllRevenue()
+    {
+        return $this->revenue->orderBy('date', 'DESC')->get()->take(10);
+    }
+
+    public function filterByIncomeType($incomeType)
+    {
+        return $income::where('name', $incomeType);
     }
 
     public function create($data)
@@ -23,10 +41,11 @@ Class RevenueRepository extends BaseRepository
         $revenue->id = $this->generateUuid();
         $revenue->amount = $date['amount'];
         $revenue->description = $data['description'];
+        $revenue->date = $data['date'];
         $revenue->attachment = $data['attachment'];
-        $revenue->account_id = $account->id;
-        $revenue->category_id = $revenueCategory;
-        $revenue->payment_method_id = $paymentMethod;
+        $revenue->account_id = $data['account_id'];
+        $revenue->revenue_category_id = $data['revenue_category_id'];
+        $revenue->payment_method_id = $data['payment_method_id'];
 
         $revenue->save();
         return true;
