@@ -22,4 +22,18 @@ class BaseRepository {
     {
         return Auth::id();
     }
+
+    public function awsUpload($attachment) 
+    {
+        // cache the file
+        $file = $request->file($attachment);
+
+        // generate a new filename. getClientOriginalExtension() for the file extension
+        $filename = 'kobo-app-attachment' . time() . '.' . $file->getClientOriginalExtension();
+
+        // save to storage/app/photos as the new $filename
+        $path = $file->storeAs('attachment', $filename);
+
+        return;
+    }
 }

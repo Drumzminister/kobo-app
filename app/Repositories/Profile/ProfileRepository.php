@@ -15,11 +15,4 @@ class ProfileRepository extends BaseRepository
     {
         $this->user = $user;
     }
-
-    public function add($data)
-    {
-        $profile = new Profile;
-        $profile->
-    }
-
 }

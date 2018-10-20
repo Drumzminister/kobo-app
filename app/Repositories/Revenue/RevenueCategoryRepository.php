@@ -10,4 +10,11 @@ class RevenueCategoryRepository {
     {
         
     }
+
+    public function add($data)
+    {
+        $revenueCategory = new RevenueCategory;
+        $revenueCategory->name = $data['name'];
+        $revenueCategory->save();
+    }
 }

@@ -26,5 +26,4 @@ class ProfileRepository extends BaseRepository
     {
         $client = new Client;
     }
-
 }
