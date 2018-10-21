@@ -49,7 +49,7 @@ class InventoryRepository extends BaseRepository
         $inventory->sales_price = isset($data['sales_price']) ?: null;
         $inventory->quantity = isset($date['quantity']) ?: null;
         $inventory->date = isset($data['date']) ?: null;
-        $inventory->description = isset($date['description']) ? $data['description'] : null;
+        $inventory->description = isset($date['description']) ?: null;
         $inventory->attachment = isset($date['attachment']) ?: null;
 
         $inventory->save();
