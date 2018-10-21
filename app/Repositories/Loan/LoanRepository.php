@@ -69,4 +69,12 @@ class LoanRepository {
         return true;
     }
 
+    public function searchLoan($from, $to)
+    {
+        $current = Loan::where('isActive', 1)
+            ->whereBetween('created_at', array($from, $to))->first();
+
+        return $current;
+    }
+
 }
