@@ -65,10 +65,10 @@ class SalesRepository extends BaseRepository
 
 	public function update($data)
     {
-        $sales = Sales::where('id', $data['sales_id'])->first();
+		$sales = Sales::where('id', $data['sales_id'])->first();
         $sales->attachment = $data['attachment'];
-		$sales->customer_id = $data['customer_id'];
 		$sales->inventory_id = $data['inventory_id'];
+		$sales->customer_id = $data['customer_id'];
 		$sales->sales_date = $data['sales_date'];
 		$sales->description = $data['description'];
 		$sales->save();

@@ -44,13 +44,13 @@ class InventoryRepository extends BaseRepository
     public function update($data)
     {
         $inventory = Inventory::where('id', $data['inventory_id'])->first();
-        $inventory->name = isset($data['name']) ? $data['name'] : null;
-        $inventory->purchase_price = isset($data['purchase_price']) ? $data['purchase_price'] : null;
-        $inventory->sales_price = isset($data['sales_price']) ? $data['sales_price'] : null;
-        $inventory->quantity = isset($date['quantity']) ? $date['quantity'] : null;
-        $inventory->date = isset($data['date']) ? $data['date'] : null;
-        $inventory->description = isset($date['description']) ? $data['description'] : null;
-        $inventory->attachment = isset($date['attachment']) ? $data['attachment'] : null;
+        $inventory->name = isset($data['name']) ?: null;
+        $inventory->purchase_price = isset($data['purchase_price']) ?: null;
+        $inventory->sales_price = isset($data['sales_price']) ?: null;
+        $inventory->quantity = isset($date['quantity']) ?: null;
+        $inventory->date = isset($data['date']) ?: null;
+        $inventory->description = isset($date['description']) ?: null;
+        $inventory->attachment = isset($date['attachment']) ?: null;
 
         $inventory->save();
         return true;
@@ -61,13 +61,13 @@ class InventoryRepository extends BaseRepository
         return Inventory::find($id);
     }
 
-    public function checkAvailability($id, $amt)
+    public function checkAvailability($id, $amount)
     {
         $inventory = $this->findInventory($id);
         if (! ($inventory === null)) {
             return false;
         }
-        if ($inventory->quantity >= $amt) {
+        if ($inventory->quantity >= $amount) {
             return true;
         }
 

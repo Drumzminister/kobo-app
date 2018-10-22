@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateAccountsTable extends Migration
+class AddSlugColumnToCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdateAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::table('accounts', function (Blueprint $table) {
-            $table->double('current_balance', 15, 4)->default('0.0000');
+        Schema::table('companies', function (Blueprint $table) {
+            $table->string('slug')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class UpdateAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::table('accounts', function (Blueprint $table) {
-            //
+        Schema::table('companies', function (Blueprint $table) {
+            $table->dropColumn('slug');
         });
     }
 }
