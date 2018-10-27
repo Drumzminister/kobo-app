@@ -44,7 +44,7 @@ class SalesRepository extends BaseRepository
 			$sales->customer_id = $data['customer_id'];
 			$sales->inventory_id = $data['inventory_id'];
 			$sales->sales_date = $data['sales_date'];
-			$sales->description = $data['description'];
+			$sales->tax = $data['tax'];
 			$sales->quantity = $data['quantity'];
 			$sales->save();
 
@@ -81,5 +81,72 @@ class SalesRepository extends BaseRepository
 	{
 		$sales = Sales::where('id', $data['sales_id'])->first();
 		$sales->delete();
+	}
+
+	public function getTopSales()
+	{
+		if (!is_null(Auth::user())) {
+			$company = Auth::user()->company();
+			$topsales = $company->sales->sortBy('amount');
+			return $topsales;
+		}
+		return [];
+	}
+
+	public function getAllSales()
+	{
+		if (!is_null(Auth::user())) {
+			$company = Auth::user()->company();
+			$sales = $company->sales;
+			return $sales;
+		}
+		return [];
+	}
+
+	public function getSales($amount)
+	{
+		$allSales = $this->getAllSales();
+		if (count($allSales) > $amount) {
+			return $allSales->take($amount);
+		}
+		return $allSales;
+	}
+
+	public function getSalesByDuration($start, $end)
+	{
+		if (!is_null(Auth::user())) {
+			$sales = Sales::where('company_id', Auth::user()->company->id)->whereDate('sales_date', '<', $start)->whereDate('sales_date', '<', $end)->get();
+			return $sales;
+		}
+
+		return [];
+	}
+
+	public function getDailySales($day)
+	{
+		if (!is_null(Auth::user())) {
+			$sales = Sales::where('company_id', Auth::user()->company->id)->whereDate('sales_date', $day)->get();
+			return $sales;
+		}
+	}
+	
+	public function getSaleById($id)
+	{
+		$sale = Sales::find($id);
+		$data = [];
+		if (!is_null($sale)) {
+			$data['sale'] =  $sale;
+			$data ['product'] = $sale->inventory;
+		}
+		return $data;
+	}
+
+	public function sendSaleAsInvoice(/*prbably gonna need some arguments*/)
+	{
+		/*
+
+		TODO
+
+		*/
 	}
 }

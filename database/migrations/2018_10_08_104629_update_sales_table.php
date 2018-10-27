@@ -15,6 +15,7 @@ class UpdateSalesTable extends Migration
     {
         Schema::table('sales', function (Blueprint $table) {
             $table->integer('amount');
+            $table->float('tax');
             $table->string('company_id')->index();
         });
     }
