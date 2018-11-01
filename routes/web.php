@@ -6,7 +6,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Guest  routes
 Route::group(['middle' => ['guest']], function() {
-
     Route::post('/register', 'UserController@create');
     Route::get('/users', 'UserController@users');
     Route::get('/message', 'UserController@message');
@@ -15,15 +14,16 @@ Route::group(['middle' => ['guest']], function() {
     Route::get('/accountant', 'UserController@accountant');
 });
 
+
 // Auth routes
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/client', 'UserController@client');
     Route::get('/dashboard', 'DashboardController@index');
-    
-    Route::post('/company', 'CompanyController@store')->name('company');
-    Route::get('/{company}', 'CompanyController@index')->name('dashboard');
 });
-Route::get('/customer', 'CustomerController@index');
 
-Route::post('/customer', 'CustomerController@store');
+
+// Accountant rotes 
+Route::group(['middleware' => 'accountant'], function() {
+    Route::get('/dashboard', 'DashboardController@index');
+});
+
 
