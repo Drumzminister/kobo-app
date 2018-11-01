@@ -26,6 +26,10 @@ class Company extends Model
             ]
         ];
     }
+    public function sales()
+    {
+        return $this->hasMany('Koboaccountant\Models\Sales', 'company_id');
+    }
     // public function accountant(){
     // 	return $this->hasOne('Koboaccountant\Models\User',  'accountant_id');
     // }
