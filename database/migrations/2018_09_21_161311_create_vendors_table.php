@@ -17,7 +17,7 @@ class CreateVendorsTable extends Migration
             $table->string('id');
             $table->string('name');
             $table->text('address');
-            $table->string('phone', 11);
+            $table->string('phone');
             $table->string('email');
             $table->string('website');
             $table->boolean('isActive')->default(1);
