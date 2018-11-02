@@ -4,7 +4,7 @@ namespace Koboaccountant\Http\Middleware;
 
 use Closure;
 
-class Admin
+class MustBeClient
 {
     /**
      * Handle an incoming request.
