@@ -29,7 +29,6 @@ class CreateBillsTable extends Migration
             $table->string('vendor_id')->index();
             $table->string('company_id')->index();
 
-            $table->unique(['company_id', 'bill_number', 'deleted_at']);
         });
 
         Schema::create('bill_items', function (Blueprint $table) {
