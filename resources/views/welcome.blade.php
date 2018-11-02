@@ -78,7 +78,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Welcome to <br>Koboaccountant App
+                    Koboaccountant App
                 </div>
 
                 <div class="links">
