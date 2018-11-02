@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->string('id')->primary()->index();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
@@ -27,8 +27,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-
-            // $tabl/e->primary('id');
         });
 
         //Create table for associating companies to users

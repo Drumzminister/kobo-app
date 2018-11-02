@@ -26,7 +26,6 @@ class CreateSalesTable extends Migration
 
             $table->primary('id');
 
-            $table->index(['customer_id', 'inventory_id']);
             
         });
     }

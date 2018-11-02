@@ -29,7 +29,6 @@ class CreateVendorsTable extends Migration
 
             $table->timestamps();
             $table->softDeletes();
-            $table->unique(['company_id', 'user_id', 'deleted_at']);
         });
     }
 
