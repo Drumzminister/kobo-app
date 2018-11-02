@@ -13,7 +13,7 @@ class CreateBillsTable extends Migration
     public function up()
     {
         Schema::create('bills', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id');
             $table->string('bill_number');
             $table->string('order_number')->nullable();
             $table->date('due_at');
