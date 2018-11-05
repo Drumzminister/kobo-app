@@ -4,10 +4,11 @@ namespace Koboaccountant\Repositories\Auth;
 
 use Koboaccountant\Jobs\ConfirmEmailRegistration;
 use Koboaccountant\Models\VerifyUser;
+use Koboaccountant\Mail\VerifyMail;
 use Koboaccountant\Models\User;
 use Koboaccountant\Models\Role;
 use Illuminate\Support\Facades\Hash;
-use DB, Mail;
+use DB, Mail, Log;
 use Koboaccountant\Repositories\BaseRepository;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
@@ -58,15 +59,16 @@ class UserRepository extends BaseRepository
         $role->user_id = $user->id;
         $user->roles()->save($role);
 
+        //Verify the user
         $verifyUser = VerifyUser::create([
             'user_id' => $user->id,
             'token' => sha1(time())
         ]);
 
         //send verification email via jobs
-        $emailJob = (new ConfirmationEmailRegistration())->delay(Carbon::now()->addSeconds(3));
-        dispatch($emailJob);
-           
+
+
+        \Mail::to($user->email)->send(new VerifyMail($user));
 
         return $user;
 
