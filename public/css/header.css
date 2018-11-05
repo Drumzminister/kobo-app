@@ -1,0 +1,157 @@
+body{
+    background: #F5F5F5;
+}
+header{
+    background: #00100F;
+}
+
+.logoo{
+    width: 120px;
+    height: 40px;
+    -webkit-transition: width 2s, height 2s, -webkit-transform 2s; /* Safari */
+    transition: width 2s, height 2s, transform 2s;
+  }
+  
+  .logoo:hover{
+    width: 140px;
+    height: 50px;
+    -webkit-transform: rotate(360deg); /* Safari */
+    transform: rotate(360deg);
+  }
+
+.navbar-toggler{
+    background: #E0E0E0;
+}
+
+/* notification      */
+    .dropdown-menu-notification{
+    max-width: 250px;
+    padding-bottom: 0;
+    border: none;
+    } 
+
+    
+    .notifications-div{
+        clip-path: polygon(5% 0%, 10% 30%, 100% 30%, 100% 100%, 70% 100%, 40% 100%, 0 100%, 0 50%);
+        padding: 20px;
+        background-color: #fff;
+        height: 50px;
+        text-align: center;
+        color: #000;
+        font-size: 18px;
+        width: 245px;
+        margin-top: -36px;
+        border-radius: 0px 40px 2px 3px;
+    }
+
+    
+    .dropdown-item.hover-text{
+        background-color: #E0E0E0;
+        height: 52px;
+         padding-left: 6px;
+        white-space: normal;
+        
+    }
+    .dropdown-item img{
+        float: left;
+        padding-right: 5px;
+       
+    }
+    .dropdown-item.hover{
+        height: 52px;
+        padding: 12px 0px 5px 6px;
+        line-height: 17px;
+        padding-left: 6px;
+        white-space: normal;
+    }
+    .dropdown-item.hover:hover{
+        color: #000000;
+        background-color: #E0E0E0;
+    }
+        #notification-badge{
+        position: absolute;
+        margin-top: -30px;
+        margin-left: 10px;
+    }
+    .drop-footer{
+        background-color: #00C259;
+        border-radius: 0px 0px 5px 5px;  
+        text-align: center;
+       
+    }
+    .drop-footer a {
+        text-transform: uppercase;
+        text-decoration: none;
+        line-height: 40px;
+         font-size: 12px!important;
+        font-weight: 800;
+        box-sizing: border-box;
+        color: rgba(0, 0, 0, 0.795);   
+    }
+
+    .drop-footer:hover {
+        background-color:#eee;
+    }
+    .line{
+        margin:0px;
+    }
+    .line1{
+        margin-top:0px;
+    }
+
+    /* nav-link */
+    
+    .activ, .nav-link:hover {
+        color: #00C259 !important;
+        border-bottom:3px solid #00C259;
+
+    }
+    .activee, .recommend:hover, a.message:hover {
+        background-color: #00C259;
+        color: #fff!important;
+    }
+    
+    .nav-link{
+        color: #fff;
+    }
+    /* message section */
+    .notifications-divv{
+        clip-path: polygon(5% 0%, 10% 30%, 100% 30%, 100% 100%, 70% 100%, 40% 100%, 0 100%, 0 80%);
+        padding: 5px 0px 0px 0px;
+        background-color: #fff;
+        height: 50px;
+        text-align: center;
+        color: #000;
+        font-size: 18px;
+        width: 245px;
+        margin-top: -36px;
+        border-radius: 0px 40px 2px 5px;
+        -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    vertical-align: middle;
+    }
+
+    .notifications-divv a.message{
+        width: 40%;
+        float: left;
+        text-transform: uppercase;
+        text-decoration: none;
+        text-align: center;
+        color: #908674;
+        font-size: 11px!important;
+        font-weight: 700;
+        
+        }
+        .notifications-divv a.recommend{
+            width: 60%;
+            float: left;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
+            color: #908674;
+            font-size: 11px!important;
+            font-weight: 700; 
+            }
+    
