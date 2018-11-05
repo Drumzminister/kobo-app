@@ -76,9 +76,4 @@ class UserRepository extends BaseRepository
         return $this->users->findOrFail($id);
     }
 
-    public function users()
-    {
-        return User::with('company')->get();
-    }
-
 }

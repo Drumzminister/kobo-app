@@ -14,10 +14,6 @@ class UserController extends Controller
     {
         $this->users = $users;
     }
-    public function index()
-    {
-        return view('welcome');
-    }
     
     public function create(UserRegistration $request)
     {
@@ -31,9 +27,5 @@ class UserController extends Controller
     public function logout(Request $request) {
         Auth::logout();
         return redirect('/login');
-    }
-
-    public function users() {
-        return $this->users->users();
     }
 }

@@ -3,6 +3,7 @@
 namespace Koboaccountant\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class MustBeAdmin
 {
@@ -15,8 +16,8 @@ class MustBeAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::guard($guard)->check()) {
-			if (Auth::user()->roles()->name !== 'Admin')
+        if (Auth::guard()->check()) {
+			if (Auth::user()->roles->name !== 'Admin')
 				return redirect()->route('login');
 		}
         return $next($request);
