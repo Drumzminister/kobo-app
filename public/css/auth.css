@@ -1,0 +1,146 @@
+/*================
+login page
+===============*/
+#load{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:9999;
+    background:url("https://www.creditmutuel.fr/cmne/fr/banques/webservices/nswr/images/loading.gif") no-repeat center center rgba(0,0,0,0.75)
+}
+
+body{
+  /* background: blue; */
+  margin: 0;
+  padding: 0;
+  background: #a7a6a6b0;
+
+}
+
+#particles{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* background: #666; */
+  /* z-index: -1; */
+}
+
+
+#login{
+    width: 90%;
+    margin: auto;
+    position:absolute;
+      width: 100%;
+      text-align: center;
+      background: transparent;
+      z-index: -2;
+}
+
+.login-kobo{
+  background: rgba(0, 15, 16, 0.8);
+  margin: auto;
+  animation-name: example;
+    animation-duration: 3s;    
+    animation-fill-mode: forwards;
+}
+
+@keyframes example {
+  from {top: 200px;}
+  to {top: 0px;}
+}
+
+.logo{
+    width: 120px;
+    height: 120px;
+    -webkit-transition: width 2s, height 2s, -webkit-transform 2s; /* Safari */
+    transition: width 2s, height 2s, transform 2s;
+  }
+  
+  .logo:hover{
+    width: 150px;
+    height: 150px;
+    -webkit-transform: rotate(360deg); /* Safari */
+    transform: rotate(360deg);
+  }
+
+  .login-bg{
+    background-image: url("https://res.cloudinary.com/syfon/image/upload/c_scale,w_2144/v1536855775/kobo1.jpg");
+    background-size: cover;
+    width: 100%;
+    padding: 0;
+  }
+  .login-cover{
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)); 
+    color: #fff;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+
+  .login-p{
+      margin: auto;
+      width: 60%;
+  }
+
+  .input-box input{
+      background-color: transparent;
+      margin-bottom: 20px;
+  }
+  .login-forgot{
+    color: #fff;
+    float: right;
+    font-size:12px;
+
+  }
+  span.forgot{
+      float: right !important;
+
+  }
+
+  /* button style */
+  .btn-loginn{
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 8px 30px;
+    border: 1px solid;
+    transition: 0.9s;
+    color: #fff;
+    background: #00C259;
+  
+  }
+  .btn-loginn span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.8s;
+  }
+  
+  .btn-loginn span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.8s;
+  }
+  
+  .btn-loginn:hover {
+    padding-right: 25px;
+    color: #00C259 ;
+    background: #fff;
+
+  }
+  
+  .btn-loginn:hover span:after {
+    opacity: 1;
+    right: 2;
+    color: #00C259 ;
+    background: #fff;
+
+    
+  }
+  
+  
