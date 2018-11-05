@@ -1,1 +1,0 @@
-This is the page to create an account for this company
