@@ -9,7 +9,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}"> 
   <!-- Favicons -->
   <link href="https://res.cloudinary.com/syfon/image/upload/v1536857508/favicon.png" rel="icon">
-
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 {{-- styles --}}
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/landing-page.css') }}" rel="stylesheet">
@@ -26,7 +26,7 @@
         <div class="landing-cover">
 
             <div class="container">
-                <div class="landing-page pt-5 pb-5 ">
+                <div class=" w3-animate-bottom landing-page pt-5 pb-5 ">
                     <div class="land-logo text-center">
                     <img src="{{asset('img/logo.svg')}}" alt="logo" srcset="" class="img-fluid logo">
                     </div>
