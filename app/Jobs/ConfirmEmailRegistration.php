@@ -29,8 +29,8 @@ class ConfirmEmailRegistration implements ShouldQueue
      *
      * @return void
      */
-    public function handle(VerifyMail $user)
+    public function handle()
     {
-        \Mail::to($user->email)->send(new VerifyMail($user));
+        \Mail::to('ekponoambr')->send(new VerifyMail($user));
     }
 }
