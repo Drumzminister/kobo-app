@@ -1,8 +1,6 @@
 <?php
 
 namespace Koboaccountant\Jobs;
-
-use Koboaccountant\Models\User;
 use Koboaccountant\Mail\VerifyMail;
 use Mail;
 use Illuminate\Bus\Queueable;
@@ -32,6 +30,6 @@ class ConfirmEmailRegistration implements ShouldQueue
      */
     public function handle()
     {
-        //
+        \Mail::to($user->email)->send(new VerifyMail($user));
     }
 }

@@ -48,10 +48,7 @@ Route::get('/creditors', function () {
 });
 
 
-Route::get('/header', function () {
-    return view('layouts.app');
-});
-
+Auth::routes();
 
 
 
@@ -61,7 +58,6 @@ Route::group(['middle' => ['guest']], function() {
     Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
     Route::get('/logout', 'UserController@logout');
     Route::get('/accountant', 'UserController@accountant');
-    Auth::routes();
     
 });
 
