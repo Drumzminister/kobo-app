@@ -14,7 +14,7 @@ class CreateRevenuesTable extends Migration
     public function up()
     {
         Schema::create('revenues', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id');
             $table->double('amount', 7, 4)->default(0.0000);
             $table->text('description');
             $table->string('attachment');

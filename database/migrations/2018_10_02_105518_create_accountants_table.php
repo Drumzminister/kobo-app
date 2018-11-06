@@ -18,8 +18,6 @@ class CreateAccountantsTable extends Migration
             $table->string('user_id')->index();
             $table->string('client_id')->index();
             $table->timestamps();
-
-            $table->unique(['user_id', 'client_id']);
         });
     }
 

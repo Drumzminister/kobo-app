@@ -14,10 +14,10 @@ class CreateVendorsTable extends Migration
     public function up()
     {
         Schema::create('vendors', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id');
             $table->string('name');
             $table->text('address');
-            $table->string('phone', 11);
+            $table->string('phone');
             $table->string('email');
             $table->string('website');
             $table->boolean('isActive')->default(1);
@@ -29,7 +29,6 @@ class CreateVendorsTable extends Migration
 
             $table->timestamps();
             $table->softDeletes();
-            $table->unique(['company_id', 'user_id', 'deleted_at']);
         });
     }
 

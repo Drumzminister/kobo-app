@@ -13,7 +13,7 @@ class CreateBillsTable extends Migration
     public function up()
     {
         Schema::create('bills', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id');
             $table->string('bill_number');
             $table->string('order_number')->nullable();
             $table->date('due_at');
@@ -29,7 +29,6 @@ class CreateBillsTable extends Migration
             $table->string('vendor_id')->index();
             $table->string('company_id')->index();
 
-            $table->unique(['company_id', 'bill_number', 'deleted_at']);
         });
 
         Schema::create('bill_items', function (Blueprint $table) {

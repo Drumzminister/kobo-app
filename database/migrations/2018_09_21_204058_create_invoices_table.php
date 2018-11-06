@@ -14,7 +14,7 @@ class CreateInvoicesTable extends Migration
     {
         Schema::dropIfExists('invoices');
         Schema::create('invoices', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id');
             $table->string('quantity');
             $table->double('amount', 15, 4);
             $table->string('invoice_number')->nullable();
@@ -37,7 +37,7 @@ class CreateInvoicesTable extends Migration
 
         Schema::dropIfExists('invoice_items');
         Schema::create('invoice_items', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id');
             $table->string('name');
             $table->string('sku')->nullable();
             $table->double('quantity', 7, 2);
@@ -68,7 +68,7 @@ class CreateInvoicesTable extends Migration
 
         Schema::dropIfExists('invoice_payments');
         Schema::create('invoice_payments', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id');
             $table->integer('invoice_id');
             $table->integer('account_id');
             $table->date('paid_at');
@@ -87,7 +87,7 @@ class CreateInvoicesTable extends Migration
 
         Schema::dropIfExists('invoice_histories');
         Schema::create('invoice_histories', function (Blueprint $table) {
-            $table->string('id', 100); 
+            $table->string('id'); 
             $table->boolean('notify');
             $table->text('description')->nullable();
             $table->timestamps();

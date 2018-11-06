@@ -14,7 +14,7 @@ class CreateBankAccountsTable extends Migration
     public function up()
     {
         Schema::create('bank_accounts', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id');
             $table->string('name');
             $table->string('number');
             $table->double('opening_balance', 15, 4)->default('0.0000');

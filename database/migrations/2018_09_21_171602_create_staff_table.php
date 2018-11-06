@@ -10,7 +10,7 @@ class CreateStaffTable extends Migration
     public function up()
     {
         Schema::create('staff', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id');
             $table->string('name');
             $table->string('designation');
             $table->datetime('employed_date');

@@ -14,7 +14,7 @@ class CreateSalesTable extends Migration
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
-            $table->string('id', 100);
+            $table->string('id');
             $table->text('description')->nullable();
             $table->date('sales_date');
             $table->string('quantity');
@@ -26,7 +26,6 @@ class CreateSalesTable extends Migration
 
             $table->primary('id');
 
-            $table->index(['customer_id', 'inventory_id']);
             
         });
     }
