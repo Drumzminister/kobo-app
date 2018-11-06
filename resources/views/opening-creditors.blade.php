@@ -73,7 +73,7 @@ input {
                     </tbody>
                 </table>
                 <div class="pull-right">
-                    <a class="btn btn-started" href="/">Next</a>
+                    <a class="btn btn-started" href="/dashboard">Next</a>
                 </div>
             </div> 
                        
