@@ -67,7 +67,7 @@ class UserRepository extends BaseRepository
             'user_id' => $user->id,
             'token' => sha1(time())
         ]);
-
+        // dd($user);
         // dd($user->email);
         //send verification email via jobs
         $job = (new ConfirmEmailRegistration($user))

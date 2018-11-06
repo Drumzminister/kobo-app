@@ -33,6 +33,7 @@ class ConfirmEmailRegistration implements ShouldQueue
      */
     public function handle()
     {
+        // dd($this->user);
         Mail::to($this->user->email)->send(new VerifyMail($this->user));
     }
 }
