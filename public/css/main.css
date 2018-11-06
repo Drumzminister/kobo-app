@@ -11,6 +11,7 @@ sales pages
 tbody tr:hover{
     background: #00C259!important;
     color: white!important;
+    box-shadow: 2px 2px 2px 3px #999;
 }
 .tab{
     background: #00C259;

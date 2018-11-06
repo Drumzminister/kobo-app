@@ -17,7 +17,7 @@ input {
     <div class="container bg-white mt-5">
         <div aria-label="breadcrumb arr-right">
             <ol class="breadcrumb bg-white">
-                <li class="breadcrumb-item"><a href="/opening-balance">Opening Balance</a></li>
+                <li class="breadcrumb-item"><a href="/assets">Opening Balance</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Debtors</li>                
             </ol>
         </div>

@@ -135,8 +135,10 @@ input {
     <section id="sale-table">
         <div class="container mt-4">
                 <div class="row p-3">
-                    <div id="addNew" class="btn btn-addSale" >Add Expenses</div>            
-                    <div id="" class="btn btn-success ml-2">Filter</div>
+                    <div id="addNew" class="btn btn-addSale mr-2" >Add Expenses</div>
+                    <div id="" onclick="">
+                        <button style="font-size:18px" class="btn btn-started">Filter <i class="fa fa-filter"></i></button>         
+                    </div>
                 </div>
             <div class="bg-white mt">
                 
@@ -145,55 +147,71 @@ input {
                         <thead class="p-3">
                           <tr class="tab">
                             <th scope="col">Date</th>
-                            <th scope="col">Inventory Items</th>
-                            <th scope="col">QTY sold</th>
-                            <th scope="col">Sales Price (&#8358;)</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Channel</th>
-
-                
+                            <th scope="col">Transaction details</th>
+                            <th scope="col">Amount (&#8358;)</th>
+                            <th scope="col">Class Type</th>
+                            <th scope="col">Payment Mode</th>              
                           </tr>
                         </thead>
+
                         <tbody>
                           <tr>
                               <td >
                                   21/08/2020
                               </td>
                             <td>
-                                Car
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.
                             </td>
                             <td>
-                                23
+                                23,000
                             </td>
                             <td>
-                                43,000
+                                Transportation
                             </td>
                             <td>
-                                Mercy Ikpe
+                                GTB 
                             </td>
-                            <td>
-                                IG
-                            </td>
+                            
                           </tr>
 
-                            <tr>
-                               <td >21/08/2020 </td>
-                               <td> Car </td>
-                              <td> 23</td>
-                              <td> 43,000</td>
-                              <td> Mercy Ikpe</td>
-                              <td> IG</td>
-                            </tr>
-
-                            <tr>
-                                <td >21/08/2020 </td>
-                                <td> Car </td>
-                                <td> 23</td>
-                                <td> 43,000</td>
-                                <td> Mercy Ikpe</td>
-                                <td> IG</td>
-                            </tr>
+                          <tr>
+                            <td >
+                                21/08/2020
+                            </td>
+                          <td>
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit. A neque odio incidunt iure consequatur saepe ipsam natus quibusdam tempora quo!
+                          </td>
+                          <td>
+                              23,000
+                          </td>
+                          <td>
+                              Transportation
+                          </td>
+                          <td>
+                              GTB 
+                          </td>
                           
+                        </tr>
+
+                        <tr>
+                            <td >
+                                21/08/2020
+                            </td>
+                          <td>
+                              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.
+                          </td>
+                          <td>
+                              23,000
+                          </td>
+                          <td>
+                              Transportation
+                          </td>
+                          <td>
+                              GTB 
+                          </td>
+                          
+                        </tr>
+
                         </tbody>
                     </table>
                 </div>
