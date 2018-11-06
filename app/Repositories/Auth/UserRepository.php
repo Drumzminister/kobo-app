@@ -12,7 +12,7 @@ use DB, Mail, Log;
 use Carbon\Carbon;
 use Koboaccountant\Repositories\BaseRepository;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Illuminate\Contracts\Queue\ShouldQueue;
+
 
 class UserRepository extends BaseRepository
 {
@@ -68,12 +68,14 @@ class UserRepository extends BaseRepository
             'token' => sha1(time())
         ]);
 
+        // dd($user->email);
         //send verification email via jobs
         $job = (new ConfirmEmailRegistration($user))
                 ->delay(Carbon::now()->addSeconds(2));
         dispatch($job);
-
-        // \Mail::to($user->email)->send(new VerifyMail($user));    
+        
+        // Mail::to($user->email)->send(new VerifyMail($user));    
+        
 
         return $user;
 

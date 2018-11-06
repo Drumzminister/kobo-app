@@ -4,25 +4,26 @@ namespace Koboaccountant\Jobs;
 
 use Koboaccountant\Mail\VerifyMail;
 use Mail;
-use Koboaccountant\Models\User;
+use Koboaccountant\Repositories\Auth\UserRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Foundation\Console\Presets\React;
 
 class ConfirmEmailRegistration implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+    public $user;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -32,6 +33,6 @@ class ConfirmEmailRegistration implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($user->email)->send(new VerifyMail($user));
+        Mail::to($this->user->email)->send(new VerifyMail($this->user));
     }
 }
