@@ -41,7 +41,7 @@
                     <div class="row pb-4">
                         <div class="col-md-1"></div>
                         <div class="col-md-4 col-12">
-                            <a class="btn btn-started" href="#" role="button">Get Started</a>
+                            <a class="btn btn-started" href="/register" role="button">Get Started</a>
                         </div>
                         <div class="col-md-1"></div>
 

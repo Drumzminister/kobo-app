@@ -13,7 +13,7 @@
                 <p class="modal-account">Setup your account by providing some details about your Debtors, Creditors, Value of existing assets and Rent. This will help the accountant to easily start taking records of you company.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-started mr-auto"> <a href="/opening-asset" target="_blank">Get Started</a> </button>
+                <button type="button" class="btn btn-started mr-auto"> <a href="/assets" target="_blank">Get Started</a> </button>
                 <button type="button" class="btn btn-login pr-4 pl-4" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalCenter">Skip</button>
             </div>
         </div>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-started mr-auto" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-login pr-4 pl-4"><a href="/opening-asset" target="_blank"> Continue</a></button>
+                            <button type="button" class="btn btn-login pr-4 pl-4"><a href="/assets" target="_blank"> Continue</a></button>
                         </div>
                 </div>
         </div>
