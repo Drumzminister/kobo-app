@@ -37,28 +37,28 @@ input {
                     </thead>
                     <tbody>
                       <tr>
-                          <td > Housing Estate</td>
+                          <td> Housing Estate</td>
                         <td> 43,000 </td>
                         <td>21/09/2009</td>
                         <td>IG</td>
                       </tr>
             
                       <tr>
-                        <td > Housing Estate</td>
+                        <td> Housing Estate</td>
                       <td> 43,000 </td>
                       <td>21/09/2009</td>
                       <td>IG</td>
                     </tr>
             
                     <tr>
-                        <td > Housing Estate</td>
+                        <td> Housing Estate</td>
                       <td> 43,000 </td>
                       <td>21/09/2009</td>
                       <td>IG</td>
                     </tr>
             
                     <tr>
-                            <td ><input type="text" placeholder=""> </td>
+                        <td><input type="text" placeholder=""> </td>
                           <td> <input type="number" placeholder=""></td>
                           <td> <input type="" placeholder=""> </td>
                           <td>IG</td>

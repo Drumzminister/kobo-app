@@ -11,7 +11,7 @@ sales pages
 tbody tr:hover{
     background: #00C259!important;
     color: white!important;
-    box-shadow: 2px 2px 2px 3px #999;
+    box-shadow: 1px 1px 1px 2px #999;
 }
 .tab{
     background: #00C259;
@@ -75,4 +75,25 @@ opening balance page
 
   .table-responsive {
     display: table;
+}
+
+/*==============================
+expenses page
+=============================*/
+.btn-filter{
+    background: transparent;
+    color: #00C259;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 8px 30px;
+    transition: 0.9s;
+}
+
+.btn-filter:hover{
+    background: #00C259;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid;
 }

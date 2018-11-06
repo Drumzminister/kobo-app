@@ -135,15 +135,15 @@ input {
     <section id="sale-table">
         <div class="container mt-4">
                 <div class="row p-3">
-                    <div id="addNew" class="btn btn-addSale mr-2" >Add Expenses</div>
+                    <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale mr-2" >Add Expenses</div>
                     <div id="" onclick="">
-                        <button style="font-size:18px" class="btn btn-started">Filter <i class="fa fa-filter"></i></button>         
+                        <button style="font-size:18px" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
                     </div>
                 </div>
             <div class="bg-white mt">
                 
                 <div class="table-responsive table-responsive-sm">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
                           <tr class="tab">
                             <th scope="col">Date</th>
@@ -156,61 +156,38 @@ input {
 
                         <tbody>
                           <tr>
-                              <td >
-                                  21/08/2020
-                              </td>
-                            <td>
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.
-                            </td>
-                            <td>
-                                23,000
-                            </td>
-                            <td>
-                                Transportation
-                            </td>
-                            <td>
-                                GTB 
-                            </td>
-                            
+                                <td> 21/08/2020 </td>
+                                <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
+                                <td>23,000 </td>
+                                <td>Transportation </td>
+                                <td> GTB </td>      
                           </tr>
 
                           <tr>
-                            <td >
-                                21/08/2020
-                            </td>
-                          <td>
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. A neque odio incidunt iure consequatur saepe ipsam natus quibusdam tempora quo!
-                          </td>
-                          <td>
-                              23,000
-                          </td>
-                          <td>
-                              Transportation
-                          </td>
-                          <td>
-                              GTB 
-                          </td>
-                          
-                        </tr>
+                                <td > 21/08/2020 </td>
+                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. A neque odio incidunt iure consequatur saepe ipsam natus quibusdam tempora quo!</td>
+                                <td> 23,000</td>
+                                <td>Transportation</td>
+                                <td>GTB </td>      
+                          </tr>
 
                         <tr>
-                            <td >
-                                21/08/2020
-                            </td>
-                          <td>
-                              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.
-                          </td>
-                          <td>
-                              23,000
-                          </td>
-                          <td>
-                              Transportation
-                          </td>
-                          <td>
-                              GTB 
-                          </td>
+                            <td >21/08/2020</td>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto </td>
+                            <td>23,000 </td>
+                            <td>Transportation</td>
+                            <td> GTB </td>
                           
                         </tr>
+                        <tr class="d-none">
+                            <td><input type="" placeholder=""> </td>
+                              <td> <input type="text" placeholder=""></td>
+                              <td> <input type="number" placeholder=""> </td>
+                              <td><input type="text" placeholder=""></td>
+                              <td><input type="text" placeholder=""></td>
+
+                            </tr>
+    
 
                         </tbody>
                     </table>
