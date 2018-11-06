@@ -4,6 +4,7 @@ namespace Koboaccountant\Jobs;
 
 use Koboaccountant\Mail\VerifyMail;
 use Mail;
+use Koboaccountant\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -31,6 +32,6 @@ class ConfirmEmailRegistration implements ShouldQueue
      */
     public function handle()
     {
-        \Mail::to('ekponoambr')->send(new VerifyMail($user));
+        Mail::to($user->email)->send(new VerifyMail($user));
     }
 }

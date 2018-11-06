@@ -61,6 +61,7 @@ class UserRepository extends BaseRepository
         $role->user_id = $user->id;
         $user->roles()->save($role);
 
+        
         //Verify the user
         $verifyUser = VerifyUser::create([
             'user_id' => $user->id,
@@ -68,7 +69,7 @@ class UserRepository extends BaseRepository
         ]);
 
         //send verification email via jobs
-        $job = (new ConfirmEmailRegistration())
+        $job = (new ConfirmEmailRegistration($user))
                 ->delay(Carbon::now()->addSeconds(2));
         dispatch($job);
 
