@@ -50,7 +50,7 @@
 
                                 <div class="form-group">
                                     <div class="input-box">
-                                        <input type="email" class="form-control" id="email" aria-describedby="" placeholder="Email or Username" required="">
+                                        <input type="email" class="form-control" id="email" aria-describedby="" placeholder="Email" required="">
                                         @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('email') }}</strong>
@@ -75,14 +75,14 @@
                                     </label>
                                     <spa class="forgot"><a href="#" class="login-forgot pull-right">Forgot Password?</a></spa>
                                 </div>
-                                <a class="btn btn-loginn" href="/login" role="button"><span>Login</span></a>
+                                <a class="btn btn-loginn" href="/dashboard" role="button"><span>Login</span></a>
 
                             </form>
                     </div>
                     <div class="register-link">
-                        <p class="text-white pb-3">
+                        <p class="text-white pb-5">
                             Don't you have account?
-                            <a href="#">Sign Up Here</a>
+                            <a href="/register">Sign Up Here</a>
                         </p>
                     </div>
 
