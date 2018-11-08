@@ -46,7 +46,11 @@ Route::get('/debtors', function () {
 Route::get('/creditors', function () {
     return view('opening-creditors');
 });
+use Illuminate\Http\Request;
 
+Route::post('webhook', function(Request $request){
+    dd($request);
+});
 
 Auth::routes();
 

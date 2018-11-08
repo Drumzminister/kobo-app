@@ -4,7 +4,8 @@ namespace Koboaccountant\Repositories;
 use Koboaccountant\Models\Loan;
 use Koboaccountant\Models\LoanHistory;
 
-class LoanRepository {
+class LoanRepository extends BaseRepository
+{
     public function __construct(Loan $loan)
     {
         $this->loan = $loan;

@@ -9,6 +9,11 @@ use Koboaccountant\Models\User;
 use Koboaccountant\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use Paystack;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+
 use Koboaccountant\Repositories\BaseRepository;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
@@ -66,12 +71,14 @@ class UserRepository extends BaseRepository
             'user_id' => $user->id,
             'token' => sha1(time())
         ]);
+        return Paystack::getAuthorizationUrl()->redirectNow();
         
         //send verification email via jobs
         $job = (new ConfirmEmailRegistration($user))
                 ->delay(Carbon::now()->addSeconds(2));
         dispatch($job);
-          
+        
+        
         return $user;
 
        if (!$user) {

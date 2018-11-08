@@ -1,6 +1,6 @@
 <?php
 
-namespace Koboaccountant\Repositories\Company;
+namespace Koboaccountant\Repositories;
 use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\User;
 use Koboaccountant\Models\Company;
