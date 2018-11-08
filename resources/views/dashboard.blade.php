@@ -172,7 +172,7 @@
         <div class="row p-5">
             <div class="col-md-4 text-center">
                 <div class="circle text-center p-5">
-                    <a href="" class="service-link">
+                    <a href="/sales" class="service-link">
                         <img src="{{asset('img/sales.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
                         <h5 class="h5 pt-1">SALES</h5>
                         <p class="service-p">Lorem ipsum dolor sit amet consectetur </p>
@@ -182,7 +182,7 @@
 
             <div class="col-md-4">
                 <div class="circle text-center p-5">
-                    <a href="" class="service-link">
+                    <a href="/inventory" class="service-link">
                         <img src="{{asset('img/inventory.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
                         <h5 class="h5 pt-1">INVENTORY</h5>
                         <p class="service-p">Lorem ipsum dolor sit amet consectetur </p>
@@ -192,7 +192,7 @@
 
             <div class="col-md-4">
                 <div class="circle text-center p-5">
-                    <a href="" class="service-link">
+                    <a href="/expenses" class="service-link">
                         <img src="{{asset('img/expenses.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
                         <h5 class="h5 pt-1">EXPENSES</h5>
                         <p class="service-p">Lorem ipsum dolor sit amet consectetur </p>
@@ -204,7 +204,7 @@
         <div class="row p-5">
                 <div class="col-md-4 text-center">
                     <div class="circle text-center p-5">
-                        <a href="" class="service-link">
+                        <a href="/loans" class="service-link">
                             <img src="{{asset('img/loans.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
                             <h5 class="h5 pt-1">LOANS</h5>
                             <p class="service-p">Lorem ipsum dolor sit amet consectetur </p>
@@ -214,7 +214,7 @@
 
                 <div class="col-md-4">
                     <div class="circle text-center p-5">
-                        <a href="" class="service-link">
+                        <a href="/rent" class="service-link">
                             <img src="{{asset('img/rent.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
                             <h5 class="h5 pt-1">RENT</h5>
                             <p class="service-p">Lorem ipsum dolor sit amet consectetur </p>
@@ -224,7 +224,7 @@
 
                 <div class="col-md-4">
                     <div class="circle text-center p-5">
-                        <a href="" class="service-link"> 
+                        <a href="/banking" class="service-link"> 
                             <img src="{{asset('img/banking.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
                             <h5 class="h5 pt-1">BANKING</h5>
                             <p class="service-p">Lorem ipsum dolor sit amet consectetur </p>
