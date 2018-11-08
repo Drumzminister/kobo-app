@@ -3,7 +3,7 @@
 namespace Koboaccountant\Http\Middleware;
 
 use Closure;
-
+use Auth;
 class MustBeClient
 {
     /**
@@ -15,6 +15,11 @@ class MustBeClient
      */
     public function handle($request, Closure $next)
     {
+
+        if (Auth::guard()->check()) {
+            if (Auth::user()->roles->name !== 'Client' && Auth::user()->isActive == true)
+            return redirect()->route('login');
+        }
         return $next($request);
     }
 }

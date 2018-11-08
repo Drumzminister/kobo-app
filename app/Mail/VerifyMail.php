@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Koboaccountant\Jobs\ConfirmEmailRegistration;
 
 class VerifyMail extends Mailable
 {
