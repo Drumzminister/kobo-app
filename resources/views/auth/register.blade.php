@@ -45,7 +45,7 @@
                             <h5 class="login-h2 pb-3 text-white">
                                 Sign Up to Kobo Accountant
                             </h5>
-                            <form method="POST" action="{{ route('login') }}">
+                            <form method="POST" action="{{ route('register') }}">
                                 @csrf
 
                                 <div class="form-group">

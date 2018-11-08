@@ -22,7 +22,7 @@ class BaseRepository {
 
     public function generateUuid()
     {
-        return Uuid::generate(5,str_random(5), Uuid::NS_DNS);
+        return Uuid::generate(5,str_random(5), Uuid::NS_DNS)->string;
     }
 
     public function slugIt($text)
