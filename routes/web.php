@@ -47,6 +47,11 @@ Route::get('/creditors', function () {
     return view('opening-creditors');
 });
 
+Route::get('/started', function () {
+    return view('get-started');
+});
+
+
 
 Auth::routes();
 
