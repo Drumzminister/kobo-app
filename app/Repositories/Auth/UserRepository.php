@@ -58,7 +58,7 @@ class UserRepository extends BaseRepository
            'last_name' => ucfirst($data->last_name),
            'email' => strtolower($data->email),
            'password' => Hash::make($data->password),
-           'isActive' => 1,
+           'isActive' => 0,
        ]);
         // Added User to a Role
         $role = new Role;
@@ -71,7 +71,7 @@ class UserRepository extends BaseRepository
             'user_id' => $user->id,
             'token' => sha1(time())
         ]);
-        return Paystack::getAuthorizationUrl()->redirectNow();
+        // return Paystack::getAuthorizationUrl()->redirectNow();
         
         //send verification email via jobs
         $job = (new ConfirmEmailRegistration($user))
