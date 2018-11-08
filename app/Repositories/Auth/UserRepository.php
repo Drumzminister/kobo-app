@@ -45,7 +45,6 @@ class UserRepository extends BaseRepository
    {
        // Request has been created for validation
 
-
        $user = User::create([
            'id' => $this->generateUuid(),
            'first_name' => ucfirst($data->first_name),
