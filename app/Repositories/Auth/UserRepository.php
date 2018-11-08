@@ -8,7 +8,6 @@ use Koboaccountant\Mail\VerifyMail;
 use Koboaccountant\Models\User;
 use Koboaccountant\Models\Role;
 use Illuminate\Support\Facades\Hash;
-use DB, Mail, Log;
 use Carbon\Carbon;
 use Koboaccountant\Repositories\BaseRepository;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
@@ -67,16 +66,12 @@ class UserRepository extends BaseRepository
             'user_id' => $user->id,
             'token' => sha1(time())
         ]);
-        // dd($user);
-        // dd($user->email);
+        
         //send verification email via jobs
         $job = (new ConfirmEmailRegistration($user))
                 ->delay(Carbon::now()->addSeconds(2));
         dispatch($job);
-        
-        // Mail::to($user->email)->send(new VerifyMail($user));    
-        
-
+          
         return $user;
 
        if (!$user) {
