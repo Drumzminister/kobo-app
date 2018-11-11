@@ -7,11 +7,13 @@ use Koboaccountant\Models\Company;
 use Auth;
 class DashboardController extends Controller
 {
+	function __construct(){
+		$this->middleware('has_paid');
+	}
+
     public function index()
     {
-
-        $company = Company::where('user_id', Auth::user()->id)->get();
-       
-        return view('dashboard', ['company' => $company]);
+    	// dd(Auth::user());
+        return view('dashboard');
     }
 }

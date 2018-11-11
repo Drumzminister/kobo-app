@@ -136,13 +136,13 @@ input {
     <section id="sale-table">
         <div class="container mt-4">
                 <div class="row p-3">
-                    <div id="addNew" class="btn btn-addSale data-step="3" data-intro="Want your transaction? Here is it."  data-position='left'" >Add Sales</div>            
+                    <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale" data-step="3" data-intro="Want your transaction? Here is it."  data-position='left'" >Add Sales</div>            
                     <div id="" class="btn btn-success ml-2">Filter</div>
                 </div>
             <div class="bg-white mt">
                 
                 <div class="table-responsive table-responsive-sm">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
                           <tr class="tab">
                             <th scope="col">Date</th>
@@ -194,6 +194,16 @@ input {
                                 <td> Mercy Ikpe</td>
                                 <td> IG</td>
                             </tr>
+                            <tr class="d-none">
+                                <td><input type="date" placeholder=""> </td>
+                                  <td> <input type="text" placeholder=""></td>
+                                  <td> <input type="number" placeholder=""> </td>
+                                  <td><input type="number" placeholder=""></td>
+                                  <td><input type="text" placeholder=""></td>
+                                <td> IG</td>
+
+                                </tr>
+        
                           
                         </tbody>
                     </table>

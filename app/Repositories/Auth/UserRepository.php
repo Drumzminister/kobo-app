@@ -8,9 +8,15 @@ use Koboaccountant\Mail\VerifyMail;
 use Koboaccountant\Models\User;
 use Koboaccountant\Models\Role;
 use Illuminate\Support\Facades\Hash;
-use DB, Mail, Log;
+use Carbon\Carbon;
+use Paystack;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+
 use Koboaccountant\Repositories\BaseRepository;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
+
 
 class UserRepository extends BaseRepository
 {
@@ -51,24 +57,27 @@ class UserRepository extends BaseRepository
            'last_name' => ucfirst($data->last_name),
            'email' => strtolower($data->email),
            'password' => Hash::make($data->password),
-           'isActive' => 1,
+           'isActive' => 0,
        ]);
         // Added User to a Role
         $role = new Role;
         $role->user_id = $user->id;
         $user->roles()->save($role);
 
+        
         //Verify the user
         $verifyUser = VerifyUser::create([
             'user_id' => $user->id,
             'token' => sha1(time())
         ]);
-
+        // return Paystack::getAuthorizationUrl()->redirectNow();
+        
         //send verification email via jobs
-
-
-        \Mail::to($user->email)->send(new VerifyMail($user));
-
+        $job = (new ConfirmEmailRegistration($user))
+                ->delay(Carbon::now()->addSeconds(2));
+        dispatch($job);
+        
+        
         return $user;
 
        if (!$user) {

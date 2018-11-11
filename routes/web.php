@@ -23,9 +23,7 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+Route::get('/dashboard','DashboardController@index');
 
 Route::get('/sales', function () {
     return view('sales');
@@ -46,7 +44,13 @@ Route::get('/debtors', function () {
 Route::get('/creditors', function () {
     return view('opening-creditors');
 });
+use Illuminate\Http\Request;
 
+Route::get('/started', 'PaymentController@index');
+
+Route::post('webhook', function(Request $request){
+    dd($request);
+});
 
 Auth::routes();
 
@@ -64,9 +68,10 @@ Route::group(['middle' => ['guest']], function() {
 
 // Auth routes
 Route::group(['middleware' => 'auth'], function () {
-
+    Route::get('/payment/success', 'PaymentController@paid');
 });
 
+Route::get('plans','PaymentController@getAllPlans');
 
 // Accountant rotes 
 Route::group(['middleware' => 'accountant'], function() {
