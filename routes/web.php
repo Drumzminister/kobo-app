@@ -46,22 +46,18 @@ Route::get('/creditors', function () {
 });
 use Illuminate\Http\Request;
 
-<<<<<<< HEAD
 
 Route::get('/started', function () {
     return view('get-started');
 });
-=======
+
 Route::get('/started', 'PaymentController@index');
->>>>>>> dev
+
 
 Route::post('webhook', function(Request $request){
     dd($request);
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> dev
 
 Auth::routes();
 
