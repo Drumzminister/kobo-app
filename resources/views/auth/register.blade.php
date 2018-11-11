@@ -100,6 +100,13 @@
 
                                 <div class="form-group">
                                     <div class="input-box">
+                                        <input type="password" name="password_confirmation"  class="form-control" id="inputPassword" placeholder="Confirm password" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="input-box">
                                         <input type="name" name="business_name"  class="form-control" id="inputPassword" placeholder="Business Name" required>
 
                                     </div>

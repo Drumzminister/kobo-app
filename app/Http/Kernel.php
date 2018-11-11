@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'client' => \Koboaccountant\Http\Middleware\MustBeClient::class,
         'accountant' => \Koboaccountant\Http\Middleware\MustBeAccountant::class,
         'admin' => \Koboaccountant\Http\Middleware\MustBeAdmin::class,
+        'has_paid'=> \Koboaccountant\Http\Middleware\CheckPayment::class,
     ];
 
     /**

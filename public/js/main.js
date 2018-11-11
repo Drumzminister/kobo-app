@@ -30,13 +30,6 @@ $('.land-header').on('mousemove',function(e){
 
 
 /*=================
-navbar-header
-===================*/
-$(function () {
-    $('[data-tooltip="tooltip"]').tooltip();
-});
-
-/*=================
 nav-active link
 ===================*/
 // Add active class to the current button (highlight it)

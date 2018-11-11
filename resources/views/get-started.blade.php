@@ -21,6 +21,7 @@
 
 </head>
 <body>
+   {{--{{dd(Auth::user())}}--}}
     <div id="load"></div>
          <section id="particles"></section>
 
@@ -28,11 +29,12 @@
             <div class="container">
               <div class="row">
                 <!-- Basic Tier -->
+
                 <div class="col-md-3">
                   <div class="card mb-5 mb-lg-0">
                     <div class="card-body">
-                      <h5 class="card-title text-muted text-uppercase text-center">Basic</h5>
-                      <h6 class="card-price text-center">&#8358;5,628<span class="period">/month</span></h6>
+                      <h5 class="card-title text-muted text-uppercase text-center">{{$plans[0]['name']}}</h5>
+                      <h6 class="card-price text-center">&#8358;{{number_format($plans[0]['amount']/100,2) }}<span class="period">monthly</span></h6>
                       <hr>
                       <ul class="fa-ul">
                         <li><span class="fa-li"><i class="fa fa-check"></i></span>Book Keeping</li>
@@ -47,7 +49,8 @@
                         <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Investment analysis and advisory</li>
                         <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Preparation of Annual financial statements</li>
                       </ul>
-                      <a href="/register" class="btn btn-block btn-loginn text-uppercase">Register</a>
+                      <button onclick="payWithPaystack('{{$plans[0]['plan_code']}}', {{$plans[0]['amount']}}) "
+                              class="btn btn-block btn-loginn text-uppercase">Register</button>
                     </div>
                   </div>
                 </div>
@@ -55,8 +58,8 @@
                 <div class="col-md-3">
                   <div class="card mb-5 mb-lg-0">
                     <div class="card-body">
-                      <h5 class="card-title text-muted text-uppercase text-center">Classic</h5>
-                      <h6 class="card-price text-center">&#8358;10,628<span class="period">/month</span></h6>
+                      <h5 class="card-title text-muted text-uppercase text-center">{{$plans[3]['name']}}</h5>
+                      <h6 class="card-price text-center">&#8358;{{number_format($plans[3]['amount']/100,2) }}<span class="period">monthly</span></h6>
                       <hr>
                       <ul class="fa-ul">
                         <li><span class="fa-li"><i class="fa fa-check"></i></span>Book Keeping</li>
@@ -72,7 +75,10 @@
                         <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Preparation of Annual financial statements</li>
 
                       </ul>
-                      <a href="/register" class="btn btn-block btn-loginn text-uppercase">Register</a>
+                      <button onclick="payWithPaystack('{{$plans[3]['plan_code']}}', {{$plans[3]['amount']}}) "
+                              class="btn btn-block btn-loginn text-uppercase">
+                        Register
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -80,8 +86,8 @@
                 <div class="col-md-3">
                   <div class="card">
                     <div class="card-body">
-                      <h5 class="card-title text-muted text-uppercase text-center">Standard</h5>
-                      <h6 class="card-price text-center">&#8358;19,528<span class="period">/month</span></h6>
+                      <h5 class="card-title text-muted text-uppercase text-center">{{$plans[2]['name']}}</h5>
+                      <h6 class="card-price text-center">&#8358;{{number_format($plans[2]['amount']/100,2) }}<span class="period">monthly</span></h6>
                       <hr>
                       <ul class="fa-ul">
                         <li><span class="fa-li"><i class="fa fa-check"></i></span>Book Keeping</li>
@@ -97,7 +103,10 @@
                         <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Preparation of Annual financial statements</li>
 
                       </ul>
-                      <a href="/register" class="btn btn-block btn-loginn text-uppercase">Register</a>
+                      <button onclick="payWithPaystack('{{$plans[2]['plan_code']}}', {{$plans[2]['amount']}}) "
+                          class="btn btn-block btn-loginn text-uppercase">
+                        Register
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -106,8 +115,8 @@
                 <div class="col-md-3">
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title text-muted text-uppercase text-center">Pro</h5>
-                        <h6 class="card-price text-center">&#8358;30,628<span class="period">/month</span></h6>
+                        <h5 class="card-title text-muted text-uppercase text-center">{{$plans[1]['name']}}</h5>
+                        <h6 class="card-price text-center">&#8358;{{number_format($plans[1]['amount']/100,2) }}<span class="period">monthly</span></h6>
                         <hr>
                         <ul class="fa-ul">
                             <li><span class="fa-li"><i class="fa fa-check"></i></span>Book Keeping</li>
@@ -122,21 +131,48 @@
                             <li><span class="fa-li"><i class="fa fa-check"></i></span>Investment analysis and advisory</li>
                             <li><span class="fa-li"><i class="fa fa-check"></i></span>Preparation of Annual financial statements</li>
                             </ul>
-                        <a href="/register" class="btn btn-block btn-loginn text-uppercase">Register</a>
+                        <button onclick="payWithPaystack('{{$plans[1]['plan_code']}}', {{$plans[1]['amount']}}) " class="btn btn-block btn-loginn text-uppercase">Register</button>
                       </div>
                     </div>
-                  </div>
-
+                </div>
               </div>
             </div>
-          </section>
+         </section>
+  
 
 
 <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/particles.js')}}"></script>
 <script src="{{asset('js/appp.js')}}"></script>
-
-
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+    let email = "{{Auth::user()->email}}"
+  function payWithPaystack(plan, amount){
+    var handler = PaystackPop.setup({
+    key: 'pk_test_faa9bf8429df2dc056462940439cea55a237cb7b',
+    email: "{{Auth::user()->email}}",
+    amount: amount,
+    plan: plan,
+    metadata: {
+      custom_fields: [
+        {
+            display_name: "{{Auth::user()->first_name}} {{Auth::user()->last_name}}",
+            variable_name: "mobile_number",
+            value: "{{Auth::user()->phone}}"
+        }
+      ]
+    },
+    callback: function(response){
+        location.href = "/payment/success/?authorization="+response.reference+"&customer="+email+"&plan="+plan;
+        // alert(response.reference);
+    },
+    onClose: function(){
+        alert('window closed');
+    }
+  });
+    handler.openIframe();
+  }
+</script>
 </body>
 </html>

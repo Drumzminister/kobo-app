@@ -50,7 +50,7 @@
 
                                 <div class="form-group">
                                     <div class="input-box">
-                                        <input type="email" class="form-control" id="email" aria-describedby="" placeholder="Email" required="" value="{{ old('email') }}">
+                                        <input type="email" name="email" class="form-control" id="email" aria-describedby="" placeholder="Email" required="" value="{{ old('email') }}">
                                         @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('email') }}</strong>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-box">
-                                        <input type="password" class="form-control" id=""  aria-describedby="" placeholder="Password" required="" value="{{ old('password') }}">
+                                        <input type="password" name="password" class="form-control" id=""  aria-describedby="" placeholder="Password" required="" value="{{ old('password') }}">
                                         @if ($errors->has('password'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('password') }}</strong>
@@ -73,9 +73,9 @@
                                     <label>
                                         <input type="checkbox"  name="remember" class="text-white"> Remember me
                                     </label>
-                                    <spa class="forgot"><a href="#" class="login-forgot pull-right">Forgot Password?</a></spa>
+                                    <span class="forgot"><a href="#" class="login-forgot pull-right">Forgot Password?</a></span>
                                 </div>
-                                <a class="btn btn-loginn" href="/dashboard" role="button"><span>Login</span></a>
+                                <button class="btn btn-loginn" type="submit"><span>Login</span></button>
 
                             </form>
                     </div>

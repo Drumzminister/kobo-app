@@ -17,7 +17,6 @@ class UserController extends Controller
     
     public function create(UserRegistration $request)
     {
-
         $user = $this->users->createUser($request);
 
         return 'Check your mail for verification';
