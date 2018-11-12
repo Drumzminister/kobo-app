@@ -19,9 +19,8 @@ trait Payments
             $sub = $this->paystack->createSubscription();
         } catch (ClientException $e){
 //            dd($e->getMessage());
-            return response()->json([
-                'message'   =>  'Error, You have already been subscribed'
-            ])->setStatusCode(400);
+            $this->updatePaymentStatus('paid');
+            return redirect('/dashboard');
         }
         $this->updatePaymentStatus('paid');
         return redirect('/dashboard');
