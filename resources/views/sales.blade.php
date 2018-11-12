@@ -48,8 +48,8 @@ input {
 @section('content')
 
 {{-- heading section --}}
-    <section id="history">
-        <div class="container mt-5">
+    <section id="top">
+        <div class="container p-2">
             <div class="row p-3">
                 <h2>Sales</h2>
                 <span class="accountant ml-auto btn btn-accountant">
@@ -136,7 +136,7 @@ input {
     <section id="sale-table">
         <div class="container mt-4">
                 <div class="row p-3">
-                    <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale" data-step="3" data-intro="Want your transaction? Here is it."  data-position='left'" >Add Sales</div>            
+                    <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale" data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</div>            
                     <div id="" class="btn btn-success ml-2">Filter</div>
                 </div>
             <div class="bg-white mt">
@@ -195,7 +195,7 @@ input {
                                 <td> IG</td>
                             </tr>
                             <tr class="d-none">
-                                <td><input type="date" placeholder=""> </td>
+                                <td><input type="text" placeholder=""> </td>
                                   <td> <input type="text" placeholder=""></td>
                                   <td> <input type="number" placeholder=""> </td>
                                   <td><input type="number" placeholder=""></td>

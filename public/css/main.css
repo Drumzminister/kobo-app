@@ -171,3 +171,21 @@ section.pricing {
       opacity: 1;
     }
   }
+
+  /*=============================
+  addsales page
+  ==============================*/
+.customer-input{
+  background: #00C259!important;
+  color:#fff;
+}
+.vat-input{
+  background: #FF8800;
+  color: #fff;
+}
+.date-input{
+  background: transparent;
+  color: #FF8800;
+  border-radius:0px 4px 4px 0px!important;
+
+}

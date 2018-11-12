@@ -44,6 +44,17 @@ Route::get('/debtors', function () {
 Route::get('/creditors', function () {
     return view('opening-creditors');
 });
+
+Route::get('/acct-dashboard', function () {
+    return view('account-dashboard');
+});
+
+Route::get('/addSales', function () {
+    return view('addSales');
+});
+
+
+
 use Illuminate\Http\Request;
 
 Route::get('/started', 'PaymentController@index');
