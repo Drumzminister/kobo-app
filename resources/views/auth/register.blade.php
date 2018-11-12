@@ -87,6 +87,20 @@
 
                                 <div class="form-group">
                                     <div class="input-box">
+                                        <input type="name" name="business_name"  class="form-control" id="inputPassword" placeholder="Business Name" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <input type="name" name="business_location" class="form-control" id="inputname" placeholder="Business Location" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="input-box">
                                         <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password"  name="password" required>
 
                                         @if ($errors->has('password'))
@@ -104,22 +118,6 @@
 
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <div class="input-box">
-                                        <input type="name" name="business_name"  class="form-control" id="inputPassword" placeholder="Business Name" required>
-
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="input-box">
-                                        <input type="name" name="business_location" class="form-control" id="inputname" placeholder="Business Location" required>
-
-                                    </div>
-                                </div>
-
-
                                
                                 <button type="submit" class="btn btn-loginn">
                                     {{ __('Register') }}
