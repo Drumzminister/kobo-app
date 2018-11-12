@@ -66,7 +66,7 @@
 <section id="sale-table">
         <div class="container mt-4">
                 
-            <div class="bg-white mt">
+            <div class="bg-white">
                 <div class="table-responsive table-responsive-sm">
                     <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
@@ -164,9 +164,170 @@
                     </table>
                     <span id="addNew" value="Add Row" onclick="addRow('dataTable')" class="float-right"  >Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                     </span>            
+                </div>
+                    {{-- payment section --}}
+                    <div class="row p-3 mt-2 ">
+                        <div class="col-md-6">
+                            <div class="bg-grey pt-5 pb-5 px-3">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h5 class="h5 uppercase">Payment Mode</h5>
+                                        <div class="dropdown show mt-3">
+                                                <a class="btn btn-lg btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  Bank (GTB)
+                                                </a>
+                                              
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                  <a class="dropdown-item" href="#">GTB 1</a>
+                                                  <a class="dropdown-item" href="#">GTB 2</a>
+                                                  <a class="dropdown-item" href="#">Skye Bank</a>
+                                                </div>
+                                              </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h5 class="h5 uppercase">Amount</h5>
+                                        <div class="dropdown show mt-3">
+                                                <a class="btn btn-lg btn-secondary dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                  500,000
+                                                </a>
+                                              
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                  <a class="dropdown-item" href="#">200,000</a>
+                                                  <a class="dropdown-item" href="#">100,000</a>
+                                                  <a class="dropdown-item" href="#">50,000</a>
+                                                </div>
+                                              </div>
+                                
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                
+                                
+                                <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="dropdown show mt-3">
+                                                    <a class="btn btn-lg btn-secondary dropdown-toggle px-4" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                      Cash
+                                                    </a>
+                                                  
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                      <a class="dropdown-item" href="#">ATM</a>
+                                                      <a class="dropdown-item" href="#">GTB 2</a>
+                                                      <a class="dropdown-item" href="#">Skye Bank</a>
+                                                    </div>
+                                                  </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="dropdown show mt-3">
+                                                    <a class="btn btn-lg btn-secondary dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                      750,000
+                                                    </a>
+                                                  
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                      <a class="dropdown-item" href="#">500,000</a>
+                                                      <a class="dropdown-item" href="#">200,000</a>
+                                                      <a class="dropdown-item" href="#">50,000</a>
+                                                    </div>
+                                                  </div>
+                                    
+                                        </div>
+                                        <div class="col-md-2">
 
+                                        </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                    {{-- end of current payment --}}
+
+                    {{-- total sum section --}}
+                        <div class="col-md-6">
+                                <div class="bg-grey pt-5 pb-5 px-3">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <h5 class="h5 uppercase">Payment Mode</h5>
+                                                <div class="dropdown show mt-3">
+                                                        <a class="btn btn-lg btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                          Bank (GTB)
+                                                        </a>
+                                                      
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                          <a class="dropdown-item" href="#">GTB 1</a>
+                                                          <a class="dropdown-item" href="#">GTB 2</a>
+                                                          <a class="dropdown-item" href="#">Skye Bank</a>
+                                                        </div>
+                                                      </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <h5 class="h5 uppercase">Amount</h5>
+                                                <div class="dropdown show mt-3">
+                                                        <a class="btn btn-lg btn-secondary dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                          500,000
+                                                        </a>
+                                                      
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                          <a class="dropdown-item" href="#">200,000</a>
+                                                          <a class="dropdown-item" href="#">100,000</a>
+                                                          <a class="dropdown-item" href="#">50,000</a>
+                                                        </div>
+                                                      </div>
+                                        
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                        </div>
+                                        
+                                        
+                                        <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="dropdown show mt-3">
+                                                            <a class="btn btn-lg btn-secondary dropdown-toggle px-4" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                              Cash
+                                                            </a>
+                                                          
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                              <a class="dropdown-item" href="#">ATM</a>
+                                                              <a class="dropdown-item" href="#">GTB 2</a>
+                                                              <a class="dropdown-item" href="#">Skye Bank</a>
+                                                            </div>
+                                                          </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="dropdown show mt-3">
+                                                            <a class="btn btn-lg btn-secondary dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                              750,000
+                                                            </a>
+                                                          
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                              <a class="dropdown-item" href="#">500,000</a>
+                                                              <a class="dropdown-item" href="#">200,000</a>
+                                                              <a class="dropdown-item" href="#">50,000</a>
+                                                            </div>
+                                                          </div>
+                                            
+                                                </div>
+                                                <div class="col-md-2">
+        
+                                                </div>
             
-                </div>           
+                                        </div>
+                                    </div>
+
+                        </div>
+                        {{-- end of total sum section --}}                    
+                    </div>  
+                    
+                    {{-- payment buttons --}}
+                    <div class="row p-5">
+                        <div class="col">
+                            
+                        <a href="" class="btn btn-lg btn-secondary">Send Invoice</a>
+                    </div>
+                    <div class="col">
+                        <span class="float-right">
+                            <a href="" class="btn btn-lg btn-started">Save</a>
+                        </span>
+                    </div>
+                    </div>
             </div> 
            
         </div>

@@ -93,7 +93,7 @@ input {
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="bg-white p-3  data-step="2" data-intro="Here is your performance" data-position='right' data-scrollTo='tooltip'">
+                    <div class="bg-white p-3"  data-step="2" data-intro="Here is your performance" data-position='right' data-scrollTo='tooltip'>
                         <h4 class="sale-h4">Top Sales</h4>
                         <table class="table table-striped table-hover">
                             <thead class="sale-head">
