@@ -50,7 +50,7 @@
                         <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Preparation of Annual financial statements</li>
                       </ul>
                       <button onclick="payWithPaystack('{{$plans[0]['plan_code']}}', {{$plans[0]['amount']}}) "
-                              class="btn btn-block btn-loginn text-uppercase">Register</button>
+                              class="btn btn-block btn-loginn text-uppercase">Make Payment</button>
                     </div>
                   </div>
                 </div>
@@ -77,7 +77,7 @@
                       </ul>
                       <button onclick="payWithPaystack('{{$plans[3]['plan_code']}}', {{$plans[3]['amount']}}) "
                               class="btn btn-block btn-loginn text-uppercase">
-                        Register
+                        Make Payment
                       </button>
                     </div>
                   </div>
@@ -105,7 +105,7 @@
                       </ul>
                       <button onclick="payWithPaystack('{{$plans[2]['plan_code']}}', {{$plans[2]['amount']}}) "
                           class="btn btn-block btn-loginn text-uppercase">
-                        Register
+                        Make Payment
                       </button>
                     </div>
                   </div>
@@ -131,7 +131,7 @@
                             <li><span class="fa-li"><i class="fa fa-check"></i></span>Investment analysis and advisory</li>
                             <li><span class="fa-li"><i class="fa fa-check"></i></span>Preparation of Annual financial statements</li>
                             </ul>
-                        <button onclick="payWithPaystack('{{$plans[1]['plan_code']}}', {{$plans[1]['amount']}}) " class="btn btn-block btn-loginn text-uppercase">Register</button>
+                        <button onclick="payWithPaystack('{{$plans[1]['plan_code']}}', {{$plans[1]['amount']}}) " class="btn btn-block btn-loginn text-uppercase">Make Payment</button>
                       </div>
                     </div>
                 </div>
