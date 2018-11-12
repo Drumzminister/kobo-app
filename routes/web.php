@@ -44,6 +44,7 @@ Route::get('/debtors', function () {
 Route::get('/creditors', function () {
     return view('opening-creditors');
 });
+
 use Illuminate\Http\Request;
 
 
