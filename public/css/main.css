@@ -179,6 +179,9 @@ section.pricing {
   background: #00C259!important;
   color:#fff;
 }
+.cus{
+  border: 2px solid #00C259!important;
+}
 .vat-input{
   background: #FF8800;
   color: #fff;
@@ -196,4 +199,10 @@ section.pricing {
 }
 .uppercase{
   text-transform: uppercase;
+}
+.btn-payment{
+    background: linear-gradient(to right, rgba(255,136,0,0.9),rgba(255, 136, 0, 0.8),rgba(255, 136, 0, 0.7),rgba(255, 136, 0, 0.6), rgba(255,74,0,0.5));
+    color: #fff;
+    width: 200px;
+    
 }
