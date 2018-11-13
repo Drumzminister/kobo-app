@@ -143,7 +143,7 @@
                         <a class="nav-link mr-2 remove-after notification" href="#" 
                             id="navbarSettings" onclick ="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="login">
-                            <span>David Tolu</span>
+                            <span>{{Auth::user()->full_name}}</span>
                             <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" >
                             </div>
                         </a>

@@ -1,8 +1,5 @@
 <?php
 Auth::routes();
-
-
-
 // Guest  routes
 Route::group(['middle' => ['guest']], function() {
     // Landing Page
@@ -25,8 +22,11 @@ Route::group(['middle' => ['guest']], function() {
 // Auth routes
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/payment/success', 'PaymentController@paid');
+
     Route::get('/dashboard','DashboardController@index');
+
     Route::get('/sales', 'SalesController@index');
+    
     Route::get('/addSales', 'SalesController@sales');
     Route::get('/expenses', 'ExpensesController@index');
     Route::get('/assets', 'AssetController@openingAsset');
