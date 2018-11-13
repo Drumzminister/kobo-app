@@ -45,6 +45,21 @@ Route::get('/debtors', function () {
 Route::get('/creditors', function () {
     return view('opening-creditors');
 });
+<<<<<<< HEAD
+=======
+
+Route::get('/acct-dashboard', function () {
+    return view('account-dashboard');
+});
+
+Route::get('/addSales', function () {
+    return view('addSales');
+});
+
+
+
+use Illuminate\Http\Request;
+>>>>>>> dev
 
 Route::get('/started', function () {
     return view('get-started');

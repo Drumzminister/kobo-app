@@ -31,7 +31,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-started mr-auto" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-login pr-4 pl-4"><a href="/assets" target="_blank"> Continue</a></button>
+                            <button type="button" class="btn btn-login pr-4 pl-4"><a href="/dashboard" target="_blank"> Continue</a></button>
                         </div>
                 </div>
         </div>

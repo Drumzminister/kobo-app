@@ -8,17 +8,17 @@ input {
 @section('content')
 <section id="particles"></section>
     <div id="container">  
-        <div class="progress">
+        <div class="progress " style="height:35px">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:75%">
-            <h6> 75%</h6>
+            <h4> 75%</h4>
             </div>
         </div>
     </div>
     <div class="container bg-white mt-5">
         <div aria-label="breadcrumb arr-right">
             <ol class="breadcrumb bg-white">
-                <li class="breadcrumb-item"><a href="/opening-balance">Opening Balance</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Debtors</li>                
+                <li class="breadcrumb-item"><a href="/assets">Opening Balance</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Creditors</li>                
             </ol>
         </div>
 

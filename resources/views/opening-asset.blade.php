@@ -8,9 +8,9 @@ input {
 @section('content')
 <section id="particles"></section>
     <div id="container">  
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:25%">
-            <h6> 25%</h6>
+        <div class="progress" style="height: 35px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height:50px;width:25%;">
+            <h4> 25%</h4>
             </div>
         </div>
     </div>
