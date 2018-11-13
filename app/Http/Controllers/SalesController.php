@@ -7,11 +7,19 @@ use Koboaccountant\Repositories\Sales\SalesRepository;
 
 class SalesController extends Controller
 {
-	function __construct()
+	// function __construct()
+	// {
+	// 	$this->salesRepo = new SalesRepository;
+	// }
+	public function index()
 	{
-		$this->salesRepo = new SalesRepository;
+		return view('sales');
 	}
 
+	public function sales()
+	{
+		return view('addSales');
+	}
     public function create(Request $request)
     {
     	//Validations

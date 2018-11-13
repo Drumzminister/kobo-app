@@ -4,10 +4,10 @@ namespace Koboaccountant\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AccountantController extends Controller
+class CreditorController extends Controller
 {
     public function index()
     {
-        return view('account-dashboard');
+        return view('opening-creditors');
     }
 }

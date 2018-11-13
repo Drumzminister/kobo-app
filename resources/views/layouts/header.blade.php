@@ -151,7 +151,7 @@
                         <div class="dropdown-menu dropdown-menu-right " style="width:240px;" aria-labelledby="navbarSettings">
                         <div class="">
                                 <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" style="width:50px" >
-                            David Tolu <span class="pl-4" >deee@gmail.com</span>
+                            {{Auth::user()->full_name}} <span class="pl-4" > {{Auth::user()->email}}</span>
                         </div>
                             <div class="dropdown-divider"></div>   
                             <a class="dropdown-item hover" href="#"><i class="fa fa-user-o pr-3" style="font-size:24px"></i>Account</a>

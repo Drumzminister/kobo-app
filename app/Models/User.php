@@ -47,7 +47,10 @@ class User extends Authenticatable
         return $this->hasOne('Koboaccountant\Models\Company');
     }
 
-    //First Time Login action
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->first_name) .' '. ucfirst($this->last_name);
+    }
 
     
 }
