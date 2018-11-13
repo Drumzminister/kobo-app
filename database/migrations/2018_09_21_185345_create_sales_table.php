@@ -17,10 +17,12 @@ class CreateSalesTable extends Migration
             $table->string('id');
             $table->text('description')->nullable();
             $table->date('sales_date');
-            $table->string('quantity');
-            $table->string('customer_id');
-            $table->string('inventory_id');
+            $table->string('quantity')->nullable();
+            $table->string('inventory_id')->index();
             $table->string('catogory')->nullable();
+            $table->integer('amount');
+            $table->float('tax');
+            $table->string('company_id')->index();
             $table->timestamps();
             $table->softDeletes();
 
