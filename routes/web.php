@@ -55,7 +55,7 @@ Route::get('/addSales', function () {
     return view('addSales');
 });
 
-
+Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');
 
 use Illuminate\Http\Request;
 

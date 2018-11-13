@@ -81,8 +81,7 @@ input {
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label><input type="radio" name="select" /><span>Y</span></label>
-                                    </div>
-                                          
+                                    </div>                                          
                             </div>
                             <div class="col-md-4">
 
