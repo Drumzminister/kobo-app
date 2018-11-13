@@ -116,3 +116,18 @@ function addRow(tableID) {
   
   // intro js
 
+// Format number
+function AddComma() {
+  $('input.number').keyup(function(event) {
+  // skip for arrow keys
+
+  if(event.which >= 37 && event.which <= 40) return;
+
+  // format number
+  $(this).val(function(index, value) {
+    return value
+    .replace(/\D/g, "")
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  });
+});
+}

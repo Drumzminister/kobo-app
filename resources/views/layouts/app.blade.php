@@ -15,6 +15,7 @@
 
 {{-- intro js --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
 {{-- styles --}}
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -37,12 +38,12 @@
      <!-- Header -->
      @include('layouts.header')
         
-     <!-- include main content --->
+     <!-- include main content -->
      <main>
              @yield('content')
       </main>
 
-     <!-- Footer -->
+     <!-- //Footer -->
     @include('layouts.footer')
 </section>
 
@@ -51,7 +52,7 @@
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/particles.js')}}"></script>
 <script src="{{asset('js/appp.js')}}"></script>
-
+<script src="{{asset('js/main.js')}}"></script>
 
 
 
@@ -63,9 +64,30 @@
  <script src="{{asset('js/chart.js')}}"></script>
 
  <script>
-    introJs().start();
 
-    </script>
+var introguide = introJs();
+
+
+// and check for it when deciding whether to start.
+window.addEventListener('load', function () {
+    var doneTour = localStorage.getItem('EventTour') === 'Completed';
+    if (doneTour) {
+        return;
+    }
+    else {
+        introguide.start()
+
+        introguide.oncomplete(function () {
+            localStorage.setItem('EventTour', 'Completed');
+        });
+
+        introguide.onexit(function () {
+            localStorage.setItem('EventTour', 'Completed');
+        });
+    }
+});
+
+</script>
 
  
 </body>

@@ -157,7 +157,7 @@
                             <a class="dropdown-item hover" href="#"><i class="fa fa-user-o pr-3" style="font-size:24px"></i>Account</a>
                             <a class="dropdown-item hover" href="#"><i class="fa fa-gear pr-3" style="font-size:24px"></i>Setting</a>
                                 <div class="dropdown-divider"></div>
-                            <a class="dropdown-item hover" href="#"><i class="fa fa-power-off pr-3" style="font-size:24px"></i>Logout</a>
+                            <a class="dropdown-item hover" href="/logout"><i class="fa fa-power-off pr-3" style="font-size:24px"></i>Logout</a>
                         </div>
                     </li>
                 </ul>

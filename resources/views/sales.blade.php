@@ -136,7 +136,7 @@ input {
     <section id="sale-table">
         <div class="container mt-4">
                 <div class="row p-3">
-                    <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale" data-step="3" data-intro="Want your transaction? Here is it."  data-position='left'" >Add Sales</div>            
+                    <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale" data-step="3" data-intro="Want your transaction? Here is it."  data-position="left" >Add Sales</div>            
                     <div id="" class="btn btn-success ml-2">Filter</div>
                 </div>
             <div class="bg-white mt">
@@ -198,13 +198,11 @@ input {
                                 <td><input type="date" placeholder=""> </td>
                                   <td> <input type="text" placeholder=""></td>
                                   <td> <input type="number" placeholder=""> </td>
-                                  <td><input type="number" placeholder=""></td>
+                                  <td><input class="number" onKeyup="AddComma()"placeholder=""></td>
                                   <td><input type="text" placeholder=""></td>
                                 <td> IG</td>
 
-                                </tr>
-        
-                          
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -212,6 +210,7 @@ input {
                     <div class="text-center mb-5 pb-3">
                         <a href="" class="view-more">View More</a> 
                     </div>
+                   
             </div> 
            
         </div>

@@ -47,5 +47,15 @@ class User extends Authenticatable
         return $this->hasOne('Koboaccountant\Models\Company');
     }
 
+    //First Time Login action
+    public function firstTimeLogin() 
+    {
+        $first_time_login = false;
+        if ($this->first_time_login) {
+            $first_time_login = true;
+            Auth::user()->first_time_login = 1; // Flip the flag to true
+            Auth::user()->save(); // By that you tell it to save the new flag value into the users table
+        }
+    }
     
 }

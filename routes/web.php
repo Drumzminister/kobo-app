@@ -26,7 +26,8 @@ Route::get('/login', function () {
 Route::get('/dashboard','DashboardController@index');
 
 Route::get('/sales', function () {
-    return view('sales');
+    $data = Auth::user()->firstTimeLogin();
+    return view('sales', compact('data'));
 });
 
 Route::get('/expenses', function () {
@@ -45,19 +46,10 @@ Route::get('/creditors', function () {
     return view('opening-creditors');
 });
 
-use Illuminate\Http\Request;
-
-
 Route::get('/started', function () {
     return view('get-started');
 });
 
-Route::get('/started', 'PaymentController@index');
-
-
-Route::post('webhook', function(Request $request){
-    dd($request);
-});
 
 
 Auth::routes();
@@ -66,11 +58,14 @@ Auth::routes();
 
 // Authentication  routes
 Route::group(['middle' => ['guest']], function() {
+    //Authentication routes
     Route::post('/register', 'UserController@create');
     Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
     Route::get('/logout', 'UserController@logout');
-    Route::get('/accountant', 'UserController@accountant');
+    Route::get('/started', 'PaymentController@index');
     
+    // Guest accountant routes
+    Route::get('/accountant', 'UserController@accountant');
 });
 
 
