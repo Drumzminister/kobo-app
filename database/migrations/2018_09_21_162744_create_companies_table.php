@@ -13,7 +13,7 @@ class CreateCompaniesTable extends Migration
             $table->string('name');
             $table->boolean('isActive')->default(1);
             $table->string('user_id')->index();
-            
+            $table->string('logo')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->primary('id');
