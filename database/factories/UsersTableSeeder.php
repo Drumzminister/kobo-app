@@ -13,8 +13,9 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Koboaccountant\User::class, function (Faker $faker) {
+$factory->define('Koboaccountant\Models\User', function (Faker $faker) {
     return [
+        'id' => $faker->uuid,
         'first_name' => $faker->name,
         'last_name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
@@ -27,7 +28,7 @@ $factory->define(Koboaccountant\User::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(Koboaccountant\Models\Vendor::class, function (Faker $faker) {
+$factory->define('Koboaccountant\Models\Vendor', function (Faker $faker) {
     return [
         'id' => $faker->uuid,
         'name' => $faker->name,
@@ -36,8 +37,30 @@ $factory->define(Koboaccountant\Models\Vendor::class, function (Faker $faker) {
         'email' => $faker->email,
         'website' => $faker->url,
         'isActive' => $faker->numberBetween(0,1),
-        'company_id' => $this->CompanyId,
-        'user_id' => $this->UserId,
+        'company_id' => $faker->numberBetween(30, 400),
+    ];
+});
+
+
+$factory->define(Koboaccountant\Models\Inventory::class, function (Faker $faker) {
+    return [
+        'name' => $faker->words(6),
+        'sales_price' => $faker->randomFloat(2),
+        'purchase_price' => $faker->randomFloat(2),
+        'quantity' => $faker->numberBetween(20,49),
+        'description' => $faker->sentence(20),
+        'delivered_date' => $faker->dateTimeThisYear,
+        'attachment' => $faker->url,
+        'vendor_id' => function() {
+            return Koboaccountant\Models\Vendor::inRandomOrder()->id;
+        }
+    ];
+});
+
+$factory->define(Koboaccountant\Models\SalesChannel::class, function() {
+    return [
+        'name' => $faker->name,
+        'company_id' => $this->CompanyId(),
     ];
 });
 
@@ -49,9 +72,13 @@ $factory->define(Koboaccountant\Models\Sales::class, function (Faker $faker) {
         'amount' => $faker->float,
         'staff_id' => '',
         'company_id' => $this->CompanyId,          
-        'inventory_id' => '',
+        'inventory_id' => function() {
+            return Koboaccountant\Models\Inventory::inRandomOrder()->id;
+        },
     ];
 });
+
+
 
 function CompanyId()
 {
@@ -62,6 +89,6 @@ function UserId()
     return Koboaccountant\Models\User::inRandomOrder()->id();
 }
 
-$threads->each(function($thread) {
-    factory('App\Reply', 10)->create(['thread_id' => $thread->id]);
-});
+// $threads->each(function($thread) {
+//     factory('App\Reply', 10)->create(['thread_id' => $thread->id]);
+// });

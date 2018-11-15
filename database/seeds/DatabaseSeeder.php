@@ -12,12 +12,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::ungard();
+        Eloquent::unguard();
 
 
-        $this->call(UsersTableSeeder::class, 20)->create();
+        factory('Koboaccountant\Models\User', 5)->create()->each(function ($user) {
+            $user->vendors()->saveMany(factory('Koboaccountant\Models\Vendor', 20)->make());
+        });
+        // $this->call(UsersTableSeeder::class, 20)->create();
 
 
-        Model::reguard();
+        Eloquent::reguard();
     }
 }
