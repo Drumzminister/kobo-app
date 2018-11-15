@@ -30,8 +30,11 @@ class Company extends Model
     {
         return $this->hasMany('Koboaccountant\Models\Sales', 'company_id');
     }
-    // public function accountant(){
-    // 	return $this->hasOne('Koboaccountant\Models\User',  'accountant_id');
-    // }
+    
+    public function vendors()
+    {
+        return $this->hasMany('Koboaccountant\Models\Vendor');
+    }
 
+    
 }

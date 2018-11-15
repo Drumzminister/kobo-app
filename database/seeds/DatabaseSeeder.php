@@ -4,23 +4,32 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    protected $toTruncate = ['users'];
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
     public function run()
     {
-        Eloquent::unguard();
-
-
-        factory('Koboaccountant\Models\User', 5)->create()->each(function ($user) {
-            $user->vendors()->saveMany(factory('Koboaccountant\Models\Vendor', 20)->make());
+        $user = factory('Koboaccountant\Models\User', 10)->create()->each(function($user) {
+            $user->company()->save(factory('Koboaccountant\Models\Company')->make());
         });
-        // $this->call(UsersTableSeeder::class, 20)->create();
+        
+        $inventory = factory('Koboaccountant\Models\Inventory', 20)->create();
 
+        $staff = factory('Koboaccountant\Models\Staff', 20)->create(['company_id' => $this->getRandomCompanyId()]);
+        
+        $sales = factory('Koboaccountant\Models\Sales', 30)->create(['staff_id' => $staff->id, 'company_id' => $this->getRandomCompanyId(), 'inventory_id' => $inventory->id]);
+    
 
-        Eloquent::reguard();
     }
+
+    public function getRandomCompanyId()
+    {
+        $company = \Koboaccountant\Models\Company::all();
+
+        return $company->random()->id;
+    }
+    public function getRandomUserId()
+    {
+        $user = \Koboaccountant\Models\User::all();
+
+        return $user->random()->id;
+    }
+
 }

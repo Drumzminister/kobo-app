@@ -8,5 +8,8 @@ class Inventory extends Model
 {
     use SoftDeletes;
 
-    
+    public function vendor()
+    {
+        return $this->belongsTo('Koboaccountant\Models\Vendor');
+    }
 }
