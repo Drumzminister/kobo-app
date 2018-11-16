@@ -9,13 +9,15 @@
   <meta content="koboaccountant, accounting, kobo" name="keywords">
   <meta name="csrf-token" content="{{ csrf_token() }}"> 
   <!-- Favicons -->
+
+  
   <link href="https://res.cloudinary.com/syfon/image/upload/v1536857508/favicon.png" rel="icon">
 {{-- font-awesome --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 {{-- intro js --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css">
-
+<<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css">
+ 
 {{-- styles --}}
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/landing-page.css') }}" rel="stylesheet">
@@ -46,6 +48,7 @@
     @include('layouts.footer')
 </section>
 
+ 
 {{-- javascript --}}
 <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
@@ -61,12 +64,16 @@
  <script src="{{asset('js/bundle.js')}}"></script>
  <script src="{{asset('js/jquery.circliful.js')}}"></script>
  <script src="{{asset('js/chart.js')}}"></script>
-
+ 
  <script>
     introJs().start();
+    
+    $('#datepicker').datepicker({
+      uiLibrary: 'bootstrap4'
+    });
 
     </script>
 
- 
+  
 </body>
 </html>
