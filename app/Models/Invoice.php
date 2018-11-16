@@ -8,5 +8,7 @@ class Invoice extends Model
 {
     use SoftDeletes;
 
+    public $incrementing = false;
+    
     protected $dates = ['deleted_at'];
 }

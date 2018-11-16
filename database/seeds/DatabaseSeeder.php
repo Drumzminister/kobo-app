@@ -6,17 +6,23 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $user = factory('Koboaccountant\Models\User', 10)->create()->each(function($user) {
+        $users = factory('Koboaccountant\Models\User', 10)->create()->each(function($user) {
             $user->company()->save(factory('Koboaccountant\Models\Company')->make());
         });
-        
-        $inventory = factory('Koboaccountant\Models\Inventory', 20)->create();
+
+        $companies = $users->each(function ($user) {
+            factory('Koboaccountant\Models\Company', 10)->create(['user_id' => $this->getRandomUserId()]);
+        });
+
+        $vendor = factory('Koboaccountant\Models\Vendor', 10)->create(['company_id' => $this->getRandomCompanyId()]);
+
+        $inventories = $vendor->each(function  ($vendor) {
+            factory('Koboaccountant\Models\Inventory', 3)->create();
+        });
 
         $staff = factory('Koboaccountant\Models\Staff', 20)->create(['company_id' => $this->getRandomCompanyId()]);
-        
-        $sales = factory('Koboaccountant\Models\Sales', 30)->create(['staff_id' => $staff->id, 'company_id' => $this->getRandomCompanyId(), 'inventory_id' => $inventory->id]);
-    
-
+       
+        $sales = factory('Koboaccountant\Models\Sales', 20)->create(['company_id' => $this->getRandomCompanyId(), 'inventory_id' => $this->getRandomInventoryId(), 'staff_id' => $this->getRandomStaffId()]);
     }
 
     public function getRandomCompanyId()
@@ -30,6 +36,27 @@ class DatabaseSeeder extends Seeder
         $user = \Koboaccountant\Models\User::all();
 
         return $user->random()->id;
+    }
+
+    public function getRandomVendorId()
+    {
+        $vendors = \Koboaccountant\Models\Vendor::all();
+
+        return $vendors->random()->id;
+    }
+
+    public function getRandomInventoryId()
+    {
+        $inventories = \Koboaccountant\Models\Inventory::all();
+
+        return $inventories->random()->id;
+    }
+
+    public function getRandomStaffId()
+    {
+        $staff = \Koboaccountant\Models\Staff::all();
+
+        return $staff->random()->id;
     }
 
 }

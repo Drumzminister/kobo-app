@@ -54,13 +54,13 @@ $factory->define('Koboaccountant\Models\Vendor', function (Faker $faker) {
 $factory->define(Koboaccountant\Models\Inventory::class, function (Faker $faker) {
     return [
         'id' => $faker->uuid,
-        'name' => $faker->words(6),
+        'name' => $faker->word(20),
         'sales_price' => $faker->randomFloat(2),
         'purchase_price' => $faker->randomFloat(2),
         'quantity' => $faker->numberBetween(20,49),
-        'description' => $faker->sentence(20),
-        'delivered_date' => $faker->dateTimeThisYear,
-        'attachment' => $faker->url,
+        'description' => $faker->word(20),
+        'delivered_date' => $faker->dateTime(),
+        'attachment' => $faker->word(6),
         'vendor_id' => ''
     ];
 });
@@ -68,11 +68,11 @@ $factory->define(Koboaccountant\Models\Inventory::class, function (Faker $faker)
 $factory->define(Koboaccountant\Models\Staff::class, function (Faker $faker) {
     return [
         'id' => $faker->uuid,
-        'name' => $faker->words(6),
+        'name' => $faker->word(6),
         'designation' => $faker->word(8),
-        'salary' => $faker->randomFloat(3),
+        'salary' => $faker->randomFloat(2),
         'isActive' => $faker->numberBetween(0,1),
-        'employed_date' => $faker->dateTimeThisYear,
+        'employed_date' => $faker->dateTime(),
         'company_id' => ''
     ];
 });
@@ -89,17 +89,10 @@ $factory->define(Koboaccountant\Models\Sales::class, function (Faker $faker) {
         'id' => $faker->uuid,
         'sales_date' => $faker->DateTime,
         'quantity' => $faker->numberBetween(1,20),
-        'amount' => $faker->float,
+        'amount' => $faker->randomFloat(2),
         'staff_id' => '',
         'company_id' => '',          
         'inventory_id' => ''
     ];
 });
 
-
-
-
-
-// $threads->each(function($thread) {
-//     factory('App\Reply', 10)->create(['thread_id' => $thread->id]);
-// });

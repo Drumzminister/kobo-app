@@ -1,4 +1,5 @@
 <?php
+
 Auth::routes();
 // Guest  routes
 Route::group(['middle' => ['guest']], function() {

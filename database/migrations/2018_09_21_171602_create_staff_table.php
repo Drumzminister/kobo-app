@@ -13,8 +13,8 @@ class CreateStaffTable extends Migration
             $table->string('id');
             $table->string('name');
             $table->string('designation');
-            $table->datetime('employed_date');
-            $table->double('salary', 15, 4)->default('0.0000');
+            $table->date('employed_date');
+            $table->double('salary')->default('0.0000');
             $table->boolean('isActive')->default(1);
             $table->string('company_id')->index();
             $table->timestamps();

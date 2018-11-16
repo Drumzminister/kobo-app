@@ -36,5 +36,8 @@ class Company extends Model
         return $this->hasMany('Koboaccountant\Models\Vendor');
     }
 
-    
+    public function customers()
+    {
+        $this->hasMany('Koboaccountant\Models\Customer');
+    }
 }
