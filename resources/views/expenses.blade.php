@@ -48,19 +48,23 @@ input {
 @section('content')
 
 {{-- heading section --}}
-    <section id="history">
-        <div class="container mt-5">
+    <section id="top">
+        <div class="container p-2">
             <div class="row p-3">
-                <h2>Sales</h2>
+                <h2>Expenses</h2>
                 <span class="accountant ml-auto btn btn-accountant">
                 <a href="" class="btn-accountant">
                     <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
                 </a>                
                 </span>
             </div>
+        </div>
+    </section>
 {{-- end of heading section --}}
 
 {{-- sales chart --}}
+    <section>
+        <div class="container">
             <div class="row mt-4">
                 <div class="col-md-8">
                     <div class="bg-white p-3"> 

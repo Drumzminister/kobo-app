@@ -9,9 +9,16 @@ sales pages
     text-decoration: none;
 }
 tbody tr:hover{
-    background: #00C259!important;
+    background: #408080 !important;
     color: white!important;
-    box-shadow: 1px 1px 1px 2px #999;
+    box-shadow: 0rem 0.5rem 1rem 0rem rgba(0, 0, 0, 0.5);
+}
+tr{
+  color:#666;
+  font-weight: 500;
+  transition: all 0.8s;
+  padding: 5px 0px;
+
 }
 .tab{
     background: #00C259;
@@ -70,7 +77,7 @@ opening balance page
 
   .table-style{
       border: 1px solid #666;
-      box-shadow: 3px 4px 5px #666;
+      box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
   }
 
   .table-responsive {
@@ -197,6 +204,10 @@ section.pricing {
   background: #F8F8F8;
   
 }
+.bg-green{
+  background: #00C259;
+  /* color: #fff; */
+}
 .uppercase{
   text-transform: uppercase;
 }
@@ -205,4 +216,37 @@ section.pricing {
     color: #fff;
     width: 200px;
     
+}
+
+/* ==================
+loan section
+======================== */
+.completed{
+  color: #00C259;
+}
+
+.running{
+  color: #FF8800;
+}
+.total-loan{
+  font-size: 24px;
+  font-weight: 800;
+}
+.text-grey{
+  color: #B2B2B2;
+
+}
+.loa{
+  transition: all 0.5s;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+.loa:hover {
+  margin-top: -.25rem;
+  margin-bottom: .25rem;
+  box-shadow: 0.5rem 1rem 1.5rem 0.5rem rgba(0, 0, 0, 0.4);
+}
+.loan-form .form-group label{
+  font-size: 14px;
+  color: rgb(155, 155, 155);
+  font-weight: 600;
 }

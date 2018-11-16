@@ -53,6 +53,9 @@ Route::get('/addSales', function () {
     return view('addSales');
 });
 
+Route::get('/loans', function () {
+    return view('loans');
+});
 
 
 use Illuminate\Http\Request;
