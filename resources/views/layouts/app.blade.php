@@ -55,14 +55,13 @@
 <script src="{{asset('js/particles.js')}}"></script>
 <script src="{{asset('js/appp.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
-<<<<<<< HEAD
-=======
+
 <script src="{{asset('js/datepicker.js')}}"></script>
 
 
 
 
->>>>>>> dev
+
 
 
 
@@ -76,7 +75,7 @@
 
  <script>
 
-<<<<<<< HEAD
+
 var introguide = introJs();
 
 
@@ -100,11 +99,8 @@ window.addEventListener('load', function () {
 });
 
 </script>
-=======
     
     </script>
->>>>>>> dev
-
  
 </body>
 </html>

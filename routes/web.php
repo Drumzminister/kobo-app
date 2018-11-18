@@ -1,21 +1,10 @@
 <?php
-use Koboaccountant\Models\Sales;
 
-Route::get('/users', function(){
-    return Sales::with('Customer')->get();
-});
 Route::get('/loans', function () {
     return view('loans');
 });
 
-
-use Illuminate\Http\Request;
-
 Route::get('/started', 'PaymentController@index');
-
-Route::post('webhook', function(Request $request){
-    dd($request);
-});
 
 
 Auth::routes();
@@ -39,7 +28,7 @@ Route::group(['middle' => ['guest']], function() {
 
 
 // Auth routes
-Route::group(['middleware' => 'auth'], function () {
+// Route::group(['middleware' => 'auth'], function () {
     Route::get('/payment/success', 'PaymentController@paid');
 
     Route::get('/dashboard','DashboardController@index');
@@ -52,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/debtors', 'DebtorController@index');
     Route::get('/creditors', 'CreditorController@index');
     Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');
-});
+// });
 
 
 

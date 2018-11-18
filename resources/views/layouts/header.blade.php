@@ -143,7 +143,7 @@
                         <a class="nav-link mr-2 remove-after notification" href="#" 
                             id="navbarSettings" onclick ="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="login">
-                            <span>{{Auth::user()->full_name}}</span>
+                            <span>Ekpono Ambrose</span>
                             <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" >
                             </div>
                         </a>
@@ -151,7 +151,7 @@
                         <div class="dropdown-menu dropdown-menu-right " style="width:240px;" aria-labelledby="navbarSettings">
                         <div class="">
                                 <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" style="width:50px" >
-                            {{Auth::user()->full_name}} <span class="pl-4" > {{Auth::user()->email}}</span>
+                            {{Ekpono Ambrose <span class="pl-4" > ekponoambrose@gmail.com</span>
                         </div>
                             <div class="dropdown-divider"></div>   
                             <a class="dropdown-item hover" href="#"><i class="fa fa-user-o pr-3" style="font-size:24px"></i>Account</a>
