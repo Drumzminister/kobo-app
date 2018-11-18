@@ -21,6 +21,7 @@ class CreateSalesTable extends Migration
             $table->integer('amount');
             $table->string('company_id')->index();
             $table->string('staff_id')->index();
+            // $table->string('customer_id')->index();
             $table->timestamps();
             $table->softDeletes();
 

@@ -73,7 +73,8 @@ $factory->define(Koboaccountant\Models\Staff::class, function (Faker $faker) {
         'salary' => $faker->randomFloat(2),
         'isActive' => $faker->numberBetween(0,1),
         'employed_date' => $faker->dateTime(),
-        'company_id' => ''
+        'image' => $faker->imageUrl,        
+        'company_id' => '',
     ];
 });
 
@@ -93,6 +94,19 @@ $factory->define(Koboaccountant\Models\Sales::class, function (Faker $faker) {
         'staff_id' => '',
         'company_id' => '',          
         'inventory_id' => ''
+    ];
+});
+
+$factory->define(Koboaccountant\Models\Customer::class, function (Faker $faker){
+    return [
+        'id' => $faker->uuid,
+        'name' => $faker->firstName,
+        'email' => $faker->lastName,
+        'address' => $faker->address,
+        'phone' => $faker->phoneNumber,
+        'website' => $faker->url,
+        'image' => $faker->imageUrl,
+        'isActive' => $faker->numberBetween(0,1),
     ];
 });
 

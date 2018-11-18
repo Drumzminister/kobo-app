@@ -26,4 +26,9 @@ class Sales extends Model
     {
         return $this->belongsTo('Koboaccountant\Models\Staff');
     }
+
+    public function customer()
+    {
+        return $this->hasMany('Koboaccountant\Models\Customer');
+    }
 }

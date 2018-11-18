@@ -1,5 +1,9 @@
 <?php
+use Koboaccountant\Models\Sales;
 
+Route::get('/users', function(){
+    return Sales::with('Customer')->get();
+});
 Auth::routes();
 // Guest  routes
 Route::group(['middle' => ['guest']], function() {

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Company extends Model
 {
     use Sluggable;
+    
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
@@ -39,5 +40,10 @@ class Company extends Model
     public function customers()
     {
         $this->hasMany('Koboaccountant\Models\Customer');
+    }
+
+    public function staff()
+    {
+        return $this->hasMany('Koboaccountant\Models\Staff');
     }
 }

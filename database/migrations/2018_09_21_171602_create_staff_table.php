@@ -17,8 +17,9 @@ class CreateStaffTable extends Migration
             $table->double('salary')->default('0.0000');
             $table->boolean('isActive')->default(1);
             $table->string('company_id')->index();
+            $table->string('image');
             $table->timestamps();
-            $table->softDeletes();
+        $table->softDeletes();
 
             $table->primary('id');
         });
