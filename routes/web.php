@@ -4,9 +4,6 @@ use Koboaccountant\Models\Sales;
 Route::get('/users', function(){
     return Sales::with('Customer')->get();
 });
-<<<<<<< HEAD
-=======
-
 Route::get('/loans', function () {
     return view('loans');
 });
@@ -20,7 +17,7 @@ Route::post('webhook', function(Request $request){
     dd($request);
 });
 
->>>>>>> dev
+
 Auth::routes();
 // Guest  routes
 Route::group(['middle' => ['guest']], function() {
