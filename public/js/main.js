@@ -14,9 +14,15 @@
     });
 
 
+    
+       
+      
+
 /*=============
 landing page
 ===============*/
+
+// date picker
 
 
 // rotate
@@ -83,6 +89,13 @@ jQuery(document).ready(function($) {
   });
 });
 
+$(function() {
+  $('.dates #usr1').datepicker({
+    'format': 'dd-mm-yyyy',
+    'autoclose': true
+  });
+});
+
 // sales table
 function addRow(tableID) {
 
@@ -114,6 +127,7 @@ function addRow(tableID) {
     }
       
   
+
   // intro js
 
 // Format number

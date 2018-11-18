@@ -57,18 +57,25 @@ input {
                       <td>IG</td>
                     </tr>
             
-                    <tr>
+                    <tr class="d-none">
                         <td><input type="text" placeholder=""> </td>
                           <td> <input type="number" placeholder=""></td>
-                          <td> <input type="" placeholder=""> </td>
+                          <td> <div class="dates">
+                                <input type="text" id="usr1" name="event_date" placeholder="" autocomplete="off" >
+                            </div></td>
                           <td>IG</td>
                         </tr>
                 
                        
                     </tbody>
                 </table>
-                <div class="pull-right">
-                    <a class="btn btn-started" href="/debtors">Next</a>
+                <div class="row">
+                    <div class = "col">
+                            <a class="btn btn-started" href="/">Previous</a>
+                    </div>
+                    <div class = "col">
+                            <a class="btn btn-started float-right" href="/debtors">Next</a>
+                    </div>
                 </div>
             </div> 
                        

@@ -11,6 +11,7 @@
   
   <!-- Favicons -->
   <link href="https://res.cloudinary.com/syfon/image/upload/v1536857508/favicon.png" rel="icon">
+
 {{-- font-awesome --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -24,13 +25,14 @@
 <link href="{{ asset('css/header.css') }}" rel="stylesheet">
 <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
 <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+<link href="{{ asset('css/datepicker.css') }}" rel="stylesheet">
+
 
 
 
 {{-- jquery --}}
 <script src="js/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-
 
 </head>
 <body>
@@ -50,10 +52,17 @@
 
 {{-- javascript --}}
 <script src="{{asset('js/app.js')}}"></script>
-<script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/particles.js')}}"></script>
 <script src="{{asset('js/appp.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
+<<<<<<< HEAD
+=======
+<script src="{{asset('js/datepicker.js')}}"></script>
+
+
+
+
+>>>>>>> dev
 
 
 
@@ -64,8 +73,10 @@
  <script src="{{asset('js/jquery.circliful.js')}}"></script>
  <script src="{{asset('js/chart.js')}}"></script>
 
+
  <script>
 
+<<<<<<< HEAD
 var introguide = introJs();
 
 
@@ -89,6 +100,10 @@ window.addEventListener('load', function () {
 });
 
 </script>
+=======
+    
+    </script>
+>>>>>>> dev
 
  
 </body>

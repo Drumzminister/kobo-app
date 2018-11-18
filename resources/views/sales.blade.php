@@ -58,9 +58,13 @@ input {
                 </a>                
                 </span>
             </div>
+        </div>
+    </section>
 {{-- end of heading section --}}
 
 {{-- sales chart --}}
+    <section id ="">
+        <div class = "container">
             <div class="row mt-4">
                 <div class="col-md-8">
                     <div class="bg-white p-3 introduction"> 
@@ -136,9 +140,13 @@ input {
         <div class="container mt-4">
                 <div class="row p-3">
 
+
                     <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale" data-step="3" data-intro="Want your transaction? Here is it."  data-position="left" >Add Sales</div>            
 
                     <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale" data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</div>            
+
+
+                    <a href="/addSales" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>            
 
                     <div id="" class="btn btn-success ml-2">Filter</div>
                 </div>
@@ -198,7 +206,11 @@ input {
                                 <td> IG</td>
                             </tr>
                             <tr class="d-none">
-                                <td><input type="text" placeholder=""> </td>
+                                <td>
+                                    <div class="dates">
+                                        <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
+                                    </div>
+                                </td>
                                   <td> <input type="text" placeholder=""></td>
                                   <td> <input type="number" placeholder=""> </td>
                                   <td><input class="number" onKeyup="AddComma()"placeholder=""></td>
@@ -218,6 +230,9 @@ input {
            
         </div>
     </section>
+
+
+    {{-- modal --}}
     <div class="modal left fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

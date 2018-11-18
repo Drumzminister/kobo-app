@@ -7,6 +7,7 @@
 
 
 </style>
+
 @section('content')
 {{-- heading section --}}
 <section id="top">
@@ -44,16 +45,11 @@
                         <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="10%">                            
                     </div>
                 </div>
-
+                
                 <div class="col-md-3">
-                    <div class="input-group mb-3 input-group-lg">
-                        {{-- <input placeholder="08/08/2018" class="form-control " type="date" >  --}}
-                        <input type="text" class="form-control " id="" format="dd/MM/yyyy" placeholder="08/08/2018">
-
-                        <div class="input-group-prepend">
-                            <span class="input-group-text date-input" id="basic-addon3"><i class="fa fa-calendar"></i></span>
-                        </div>                                
-                    </div>
+                        <div class="dates input-group mb-3 input-group-lg">
+                            <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
+                        </div>
                 </div>
             </div>
         </form>
@@ -152,7 +148,11 @@
                                         
                                 
                             <tr class="d-none">
-                                <td><input type="date" placeholder=""> </td>
+                                <td>
+                                    <div class="dates">
+                                        <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
+                                    </div>
+                                </td>
                                   <td> <input type="text" placeholder=""></td>
                                   <td> <input type="number" placeholder=""> </td>
                                   <td><input type="number" placeholder=""></td>
@@ -286,7 +286,7 @@
                     {{-- payment buttons --}}
                     <div class="row p-5">
                         <div class="col">                           
-                            <a href="" class="btn btn-lg btn-login">Send Invoice</a>
+                            <a href="" class="btn btn-lg btn-login" data-toggle="modal" data-target="#exampleModalCenter">Send Invoice</a>
                         </div>
                         <div class="col">
                             <span class="float-right">
@@ -299,5 +299,30 @@
         </div>
     </section>
 
+
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="container p-5">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h5 class="h5 uppercase" id="">Send</h5>
+
+            </div>
+            <div class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
     
+
+      
 @endsection
