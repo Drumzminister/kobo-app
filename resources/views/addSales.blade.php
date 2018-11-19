@@ -67,12 +67,19 @@
                     <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
                           <tr class="tab">
-                            <th scope="col">Date</th>
-                            <th scope="col">Inventory Items</th>
-                            <th scope="col">QTY sold</th>
+                            <th scope="col" data-toggle="tooltip" data-placement="top" title="Add Inventory here">
+                            Inventory Items
+                            </th>
+                            <th scope="col" data-toggle="tooltip" data-placement="top" title="Description of item needed">
+                                    Description
+                                    </th>
+                            <th scope="col" data-toggle="tooltip" data-placement="top" title="Quantity needed">
+                                QTY sold
+                            </th>
                             <th scope="col">Sales Price (&#8358;)</th>
                             <th scope="col">Customer</th>
                             <th scope="col">Channel</th>
+                            
                 
                           </tr>
                         </thead>
