@@ -2,6 +2,7 @@
 
 @section('content')
 <section class="bg-white pb-5">
+    
 <section id="top">
     <div class="container pt-3 pb-3">
         <h2>
