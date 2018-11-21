@@ -16,5 +16,15 @@ class RevenueCategoryRepository {
         $revenueCategory = new RevenueCategory;
         $revenueCategory->name = $data['name'];
         $revenueCategory->save();
+
+        return true;
+    }
+
+    public function delete($data)
+    {
+        $revenueCategory = RevenueCategory::where('id', $data['revenueCategory_id'])->first();
+        $revenueCategory->delete();
+
+        return true;
     }
 }
