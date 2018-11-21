@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:200,400,600,800");
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: Raleway;
+  font-weight: 600;
+ }
+
 /* ========================
 sales pages
 ============================ */
@@ -27,12 +35,6 @@ tr{
 }
 .view-more{
     color: #00C259;
-    font-weight: 600;
-}
-.btn-addSale{
-    background: linear-gradient(rgba(255,136,0,0.9), rgba(255,136,0,0.6));
-    color: #fff;
-    padding: 10px 20px;
     font-weight: 600;
 }
 .product-details h5{
@@ -87,23 +89,6 @@ opening balance page
 /*==============================
 expenses page
 =============================*/
-.btn-filter{
-    background: transparent;
-    color: #00C259;
-    font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    display: inline-block;
-    padding: 8px 30px;
-    transition: 0.9s;
-}
-
-.btn-filter:hover{
-    background: #00C259;
-    color: #fff;
-    text-decoration: none;
-    border: 1px solid;
-}
 
 /*=========================
 Get started page
@@ -120,7 +105,6 @@ section.pricing {
   to {top: 0px;}
 }
    
-
   .pricing .card {
     border: none;
     border-radius: 1rem;
@@ -164,10 +148,9 @@ section.pricing {
     padding: 1rem;
     opacity: 0.7;
     transition: all 0.3s;
-  }
-  
-  /* Hover Effects on Card */
-  
+  } 
+
+  /* Hover Effects on Card */  
   @media (min-width: 992px) {
     .pricing .card:hover {
       margin-top: -.25rem;
@@ -197,12 +180,10 @@ section.pricing {
   background: transparent;
   color: #FF8800;
   border-radius:0px 4px 4px 0px!important;
-
 }
 
 .bg-grey{
-  background: #F8F8F8;
-  
+  background: #F8F8F8;  
 }
 .bg-green{
   background: #00C259;
@@ -210,12 +191,6 @@ section.pricing {
 }
 .uppercase{
   text-transform: uppercase;
-}
-.btn-payment{
-    background: linear-gradient(to right, rgba(255,136,0,0.9),rgba(255, 136, 0, 0.8),rgba(255, 136, 0, 0.7),rgba(255, 136, 0, 0.6), rgba(255,74,0,0.5));
-    color: #fff;
-    width: 200px;
-    
 }
 
 /* ==================
@@ -234,7 +209,6 @@ loan section
 }
 .text-grey{
   color: #B2B2B2;
-
 }
 .loa{
   transition: all 0.5s;
@@ -249,4 +223,214 @@ loan section
   font-size: 14px;
   color: rgb(155, 155, 155);
   font-weight: 600;
+}
+
+/*===================
+buttons
+===================*/
+
+.btn-secondary {
+    background-color: #333;
+    text-shadow: none;
+    /* Prevent inheritance from `body` */
+    color: #fff;
+    border: .05rem solid #333;
+    /* padding: .8em 4em; */
+    /* transition: all 0.5s; */
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    color: #00C259;
+    font-weight: 600;
+    text-shadow: none;
+    /* Prevent inheritance from `body` */
+    background-color: transparent;
+    border: .05rem solid #00C259;
+    /* padding: .8em 4em; */
+}
+
+.btn-filter{
+  background: transparent;
+  color: #00C259;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 30px;
+  transition: 0.9s;
+}
+
+.btn-filter:hover{
+  background: #00C259;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid;
+}
+
+.btn-payment, .btn-addsale{
+  background: linear-gradient(to right, rgba(255,136,0,0.9),rgba(255, 136, 0, 0.8),rgba(255, 136, 0, 0.7),rgba(255, 136, 0, 0.6), rgba(255,74,0,0.5));
+  color: #fff;
+  width: 175px;
+  font-weight: 600;   
+  font-size: 1.1rem;
+    transition: all 0.5s;
+
+}
+
+.btn-payment, .btn-addsale:hover{
+color: #FF8800; 
+background: transparent;
+border: .05rem solid #FF8800;
+}
+
+
+
+
+/*===================================
+tooltips styling
+====================================*/
+
+.tool {
+  cursor: help;
+  position: relative;
+}
+
+/*== common styles for both parts of tool tip ==*/
+.tool::before,
+.tool::after {
+    left: 50%;
+    opacity: 0;
+    position: absolute;
+    z-index: -100;
+}
+
+.tool:hover::before,
+.tool:focus::before,
+.tool:hover::after,
+.tool:focus::after {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    z-index: 100; 
+}
+
+/*== pointer tip ==*/
+.tool::before {
+    border-style: solid;
+    border-width: 1em 0.75em 0 0.75em;
+    border-color: #00C259 transparent;
+    bottom: 100%;
+    content: "";
+    margin-left: -0.5em;
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26), opacity .65s .5s;
+    transform:  scale(.6) translateY(-90%);
+} 
+
+.tool:hover::before,
+.tool:focus::before {
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26) .2s;
+}
+
+/*== speech bubble ==*/
+.tool::after {
+    background: #00C259;
+    border-radius: 35%;
+    bottom: 120%;
+    color: #EDEFF0;
+    content: attr(data-tip);
+    margin-left: -5.75em;
+    padding: 1em;
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26) .2s;
+    transform:  scale(.6) translateY(50%);  
+    width: 10.5em;
+    /* height: 7.5em; */
+}
+
+.tool:hover::after,
+.tool:focus::after  {
+    transition: all .65s cubic-bezier(.84,-0.18,.31,1.26);
+}
+
+@media (max-width: 760px) {
+  .tool::after { 
+        font-size: .75em;
+        margin-left: -5em;
+        width: 10em; 
+  }
+}
+
+/* rating */
+.rate-base-layer
+  {
+      color: #aaa;
+  }
+  .rate-hover-layer
+  {
+      color: orange;
+  }
+  .rate .rate-select-layer{
+      color: orange;
+
+  }
+.rating-number{
+  font-size:48px;
+  color: #2887F6;
+  font-weight:bold;
+}
+.scroll{
+  max-height: 248px;
+  overflow-y: scroll;
+  
+}
+.rate-table{
+  font-size: 12px!important;
+}
+/* width */
+.scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+.scroll::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+  background: #00C259; 
+}
+
+/* Handle on hover */
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: #408080; 
+}
+
+.show-more{
+  color: #00C259;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+.show-more:hover{
+  color:#FDC70C;
+  text-decoration: none;
+}
+
+.p-12{
+  font-size: 12px;
+  font-weight:700;
+}
+
+.topp{
+  box-shadow: 3px 3px 3px 3px rgb(238, 236, 236);
+  border-radius: 5px;
+  transition: all 0.5s;
+}
+.topp:hover{
+  box-shadow: 3px 3px 3px 3px rgb(238, 236, 236);
+  margin-top: -.25rem;
+  margin-bottom: .25rem;
+}
+.text-green{
+  color: #00C259;
 }

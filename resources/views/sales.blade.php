@@ -91,12 +91,12 @@ input {
 
                             </div>
                         </div>
-                            <canvas id="canvasSale"></canvas>
+                            <canvas id="canvasSale"  height="100"></canvas>
 
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="bg-white p-3"  data-step="2" data-intro="Here is your performance" data-position='right' data-scrollTo='tooltip'>
+                    <div class="bg-white p-2"  data-step="2" data-intro="Here is your performance" data-position='right' data-scrollTo='tooltip'>
                         <h4 class="sale-h4">Top Sales</h4>
                         <table class="table table-striped table-hover">
                             <thead class="sale-head">
@@ -149,6 +149,9 @@ input {
                     <a href="/addSales" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>            
 
                     <div id="" class="btn btn-success ml-2">Filter</div>
+                    <div id="" onclick="">
+                        <button style="font-size:18px" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
+                    </div>
                 </div>
             <div class="bg-white mt">
                 
