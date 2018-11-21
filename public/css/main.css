@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:200,400,600,800");
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: Raleway;
+  font-weight: 600;
+ }
+
 /* ========================
 sales pages
 ============================ */
@@ -27,12 +35,6 @@ tr{
 }
 .view-more{
     color: #00C259;
-    font-weight: 600;
-}
-.btn-addSale{
-    background: linear-gradient(rgba(255,136,0,0.9), rgba(255,136,0,0.6));
-    color: #fff;
-    padding: 10px 20px;
     font-weight: 600;
 }
 .product-details h5{
@@ -87,23 +89,6 @@ opening balance page
 /*==============================
 expenses page
 =============================*/
-.btn-filter{
-    background: transparent;
-    color: #00C259;
-    font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    display: inline-block;
-    padding: 8px 30px;
-    transition: 0.9s;
-}
-
-.btn-filter:hover{
-    background: #00C259;
-    color: #fff;
-    text-decoration: none;
-    border: 1px solid;
-}
 
 /*=========================
 Get started page
@@ -120,7 +105,6 @@ section.pricing {
   to {top: 0px;}
 }
    
-
   .pricing .card {
     border: none;
     border-radius: 1rem;
@@ -164,10 +148,9 @@ section.pricing {
     padding: 1rem;
     opacity: 0.7;
     transition: all 0.3s;
-  }
-  
-  /* Hover Effects on Card */
-  
+  } 
+
+  /* Hover Effects on Card */  
   @media (min-width: 992px) {
     .pricing .card:hover {
       margin-top: -.25rem;
@@ -197,12 +180,10 @@ section.pricing {
   background: transparent;
   color: #FF8800;
   border-radius:0px 4px 4px 0px!important;
-
 }
 
 .bg-grey{
-  background: #F8F8F8;
-  
+  background: #F8F8F8;  
 }
 .bg-green{
   background: #00C259;
@@ -210,12 +191,6 @@ section.pricing {
 }
 .uppercase{
   text-transform: uppercase;
-}
-.btn-payment{
-    background: linear-gradient(to right, rgba(255,136,0,0.9),rgba(255, 136, 0, 0.8),rgba(255, 136, 0, 0.7),rgba(255, 136, 0, 0.6), rgba(255,74,0,0.5));
-    color: #fff;
-    width: 200px;
-    
 }
 
 /* ==================
@@ -234,7 +209,6 @@ loan section
 }
 .text-grey{
   color: #B2B2B2;
-
 }
 .loa{
   transition: all 0.5s;
@@ -250,6 +224,10 @@ loan section
   color: rgb(155, 155, 155);
   font-weight: 600;
 }
+
+/*===================
+buttons
+===================*/
 
 .btn-secondary {
     background-color: #333;
@@ -271,6 +249,42 @@ loan section
     border: .05rem solid #00C259;
     /* padding: .8em 4em; */
 }
+
+.btn-filter{
+  background: transparent;
+  color: #00C259;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 30px;
+  transition: 0.9s;
+}
+
+.btn-filter:hover{
+  background: #00C259;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid;
+}
+
+.btn-payment, .btn-addsale{
+  background: linear-gradient(to right, rgba(255,136,0,0.9),rgba(255, 136, 0, 0.8),rgba(255, 136, 0, 0.7),rgba(255, 136, 0, 0.6), rgba(255,74,0,0.5));
+  color: #fff;
+  width: 175px;
+  font-weight: 600;   
+  font-size: 1.1rem;
+    transition: all 0.5s;
+
+}
+
+.btn-payment, .btn-addsale:hover{
+color: #FF8800; 
+background: transparent;
+border: .05rem solid #FF8800;
+}
+
+
 
 
 /*===================================
@@ -300,7 +314,6 @@ tooltips styling
     z-index: 100; 
 }
 
-
 /*== pointer tip ==*/
 .tool::before {
     border-style: solid;
@@ -317,7 +330,6 @@ tooltips styling
 .tool:focus::before {
     transition: all .65s cubic-bezier(.84,-0.18,.31,1.26) .2s;
 }
-
 
 /*== speech bubble ==*/
 .tool::after {
@@ -399,10 +411,14 @@ tooltips styling
   font-size: 12px;
   font-weight: 700;
 }
+.show-more:hover{
+  color:#FDC70C;
+  text-decoration: none;
+}
 
 .p-12{
   font-size: 12px;
-  font-weight: 700;
+  font-weight:700;
 }
 
 .topp{
@@ -414,4 +430,7 @@ tooltips styling
   box-shadow: 3px 3px 3px 3px rgb(238, 236, 236);
   margin-top: -.25rem;
   margin-bottom: .25rem;
+}
+.text-green{
+  color: #00C259;
 }

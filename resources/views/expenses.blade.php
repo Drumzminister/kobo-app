@@ -66,7 +66,7 @@ input {
     <section>
         <div class="container">
             <div class="row mt-4">
-                <div class="col-md-8">
+                <div class="col-md-8 chart-length">
                     <div class="bg-white p-3"> 
                         <div class="row">
                             <div class="col-md-5">
@@ -91,7 +91,7 @@ input {
 
                             </div>
                         </div>
-                            <canvas id="canvasSale"></canvas>
+                            <canvas id="canvasSale" height="100"></canvas>
 
                     </div>
                 </div>

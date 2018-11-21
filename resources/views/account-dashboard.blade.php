@@ -2,7 +2,6 @@
 
 @section('content')
 <section class="bg-white pb-5">
-    
 <section id="top">
     <div class="container pt-3 pb-3">
         <h2>
@@ -19,32 +18,30 @@
                     <div class="row">
                         <div class="col-md-4 ">
                             <span class="rating-number" >3.0</span>
-                            <div class="rate" data-rate-value=6 style="font-size:34px;">
-                            
+                            <div class="rate" data-rate-value=6 style="font-size:34px;">                           
                             </div>
                             <h6 class="h6">Highly Recommended</h6>
                         </div>
-    
                     
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-4 ">
                                     <div id="test-circle"></div>
-                                        <div class= "text-center">
-                                            <h6 class="h6 ">Performance</h6>
-                                        </div>
+                                    <div class= "text-center">
+                                        <h6 class="h6 ">Performance</h6>
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div id="test-circle2"></div>
-                                        <div class= "text-center">
-                                            <h6 class="h6">Performance</h6>
-                                        </div>
+                                    <div class= "text-center">
+                                        <h6 class="h6">Performance</h6>
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div id="test-circle3"></div>
-                                        <div class= "text-center">
-                                            <h6 class="h6">Performance</h6>
-                                        </div>
+                                    <div class= "text-center">
+                                        <h6 class="h6">Performance</h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +66,7 @@
                                 <tbody>
                                   <tr>
                                       <td >
-                                          21/08/2020
+                                          <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="img-fluid service-img">
                                       </td>
                                     <td>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing 
@@ -84,7 +81,8 @@
         
                                   <tr>
                                     <td >
-                                        21/08/2020
+                                        <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="img-fluid service-img">
+                                        
                                     </td>
                                     <td>
                                         Lorem ipsum dolor sit amet, consectetur ptate.
@@ -99,7 +97,7 @@
         
                                     <tr>
                                         <td >
-                                            21/08/2020
+                                          <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="img-fluid service-img">
                                         </td>
                                         <td>
                                             Lorem ipsum dolor sit amet, consectetur adptate.
@@ -113,7 +111,7 @@
                                     </tr>
                                     <tr>
                                             <td >
-                                                21/08/2020
+                                                <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="img-fluid service-img">
                                             </td>
                                             <td>
                                                 Lorem ipsum dolor sit amet, consectetur adptate.
@@ -126,7 +124,10 @@
                                             </td>                                   
                                         </tr>
                                     <tr class="d-none">
-                                            <td> <input type="text" placeholder=""></td>
+                                            <td >
+                                                 <img src=" " alt="client logo" srcset="" class="img-fluid service-img">
+                                                </td>
+                                            <td> <textarea class="form-control"></textarea></td>
                                             
                                             <td> <input type="number" placeholder=""> </td>
 
@@ -154,7 +155,62 @@
                     <div class="row">
                         <div class="col-md-9">
                             <h5 class="h5 ">Manage Clients</h5>
-                            <p class="p-12 text-grey">
+                            <p class="p-12 text-muted">
+                                Take records, reports, Statictics of the clients and easily access their 
+                                records.
+                            </p>
+                            <span class="show"><a href="/clients" class="show-more uppercase">Show More</a></span>
+                        </div>
+                        <div class="col-md-3">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4"> 
+                <div class="bg-white p-3 loa" id="topp">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h5 class="h5 ">Payments Received</h5>
+                            <p class="p-12 text-muted">
+                                    View the transaction details, the amount received and the deliverables.
+                            </p>
+                            <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
+                        </div>
+                        <div class="col-md-3">
+
+                        </div>
+                    </div>        
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="bg-white p-3 loa" id="topp">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h5 class="h5 ">Payments Receivables</h5>
+                            <p class="p-12 text-muted">
+                                    Take records, reports, Statictics of the clients and easily access their 
+                                    records.
+                            </p>
+                            <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
+                        </div>
+                        <div class="col-md-3">
+
+                        </div>
+                    </div>        
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="bg-white p-3 loa" id="topp">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h5 class="h5">Budgeting</h5>
+                            <p class="p-12 text-muted">
                                 Take records, reports, Statictics of the clients and easily access their 
                                 records.
                             </p>
@@ -164,113 +220,44 @@
 
                         </div>
                     </div>
-
                 </div>
-
-            </div>
-
-            <div class="col-md-4"> 
-                    <div class="bg-white p-3 loa" id="topp">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <h5 class="h5 ">Payments Received</h5>
-                                    <p class="p-12 text-grey">
-                                            View the transaction details, the amount received and the deliverables.
-                                    </p>
-                                    <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
-                                </div>
-                                <div class="col-md-3">
-        
-                                </div>
-                            </div>
-        
-                        </div>
             </div>
 
             <div class="col-md-4">
-                    <div class="bg-white p-3 loa" id="topp">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <h5 class="h5 ">Payments Receivables</h5>
-                                    <p class="p-12 text-grey">
-                                            Take records, reports, Statictics of the clients and easily access their 
-                                            records.
-                                    </p>
-                                    <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
-                                </div>
-                                <div class="col-md-3">
-        
-                                </div>
-                            </div>
-        
+                <div class="bg-white p-3 loa" id="topp">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h5 class="h5">Toolkits</h5>
+                            <p class="p-12 text-muted">
+                                View the transaction details, the amount received and the deliverables.
+                            </p>
+                            <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
                         </div>
+                        <div class="col-md-3">
 
+                        </div>
+                    </div>        
+                </div>
             </div>
 
-        </div>
-
-        <div class="row mt-5">
-                <div class="col-md-4">
-                    <div class="bg-white p-3 loa" id="topp">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <h5 class="h5">Budgeting</h5>
-                                <p class="p-12 text-grey">
+            <div class="col-md-4">
+                <div class="bg-white p-3 loa" id="topp">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h5 class="h6">Resources & Training Modules</h5>
+                            <p class="p-12 text-muted">
                                     Take records, reports, Statictics of the clients and easily access their 
                                     records.
-                                </p>
-                                <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
-                            </div>
-                            <div class="col-md-3">
-    
-                            </div>
+                            </p>
+                            <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
                         </div>
-    
-                    </div>
-    
-                </div>
-    
-                <div class="col-md-4">
-                        <div class="bg-white p-3 loa" id="topp">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <h5 class="h5">Toolkits</h5>
-                                        <p class="p-12 text-grey">
-                                                View the transaction details, the amount received and the deliverables.
-                                        </p>
-                                        <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
-                                    </div>
-                                    <div class="col-md-3">
-            
-                                    </div>
-                                </div>
-            
-                            </div>
-                </div>
-    
-                <div class="col-md-4">
-                        <div class="bg-white p-3 loa" id="topp">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <h5 class="h6">Resources & Training Modules</h5>
-                                        <p class="p-12 text-grey">
-                                                Take records, reports, Statictics of the clients and easily access their 
-                                                records.
-                                        </p>
-                                        <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
-                                    </div>
-                                    <div class="col-md-3">
-            
-                                    </div>
-                                </div>
-            
-                            </div>
-    
-                </div>
-    
-            </div>
-    
+                        <div class="col-md-3">
 
+                        </div>
+                    </div>        
+                </div>    
+            </div>    
+        </div>
     </div>
 </section>
 </section>
