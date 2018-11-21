@@ -228,6 +228,61 @@ loan section
 /*===================
 buttons
 ===================*/
+.btn-started{
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 30px;
+  transition: 0.9s;
+  color: #fff;
+  background: #00C259;
+}
+.btn-started:hover{
+  background: transparent;
+  color: #00C259;
+  text-decoration: none;
+  border: 1px solid;
+}
+.btn-login{
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 30px;
+  border: 1px solid;
+  transition: 0.9s;
+  color: #00C259;
+  background:transparent ;
+
+}
+.btn-login span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.8s;
+}
+
+.btn-login span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.8s;
+}
+
+.btn-login:hover span {
+  padding-right: 25px;
+  color: #fff ;
+
+}
+
+.btn-login:hover span:after {
+  opacity: 1;
+  right: 0;
+  color: #fff ; 
+}
 
 .btn-secondary {
     background-color: #333;
@@ -236,7 +291,7 @@ buttons
     color: #fff;
     border: .05rem solid #333;
     /* padding: .8em 4em; */
-    /* transition: all 0.5s; */
+    transition: 0.8s;
 }
 
 .btn-secondary:hover,
@@ -274,8 +329,7 @@ buttons
   width: 175px;
   font-weight: 600;   
   font-size: 1.1rem;
-    transition: all 0.5s;
-
+  transition: 0.9s;
 }
 
 .btn-payment, .btn-addsale:hover{
