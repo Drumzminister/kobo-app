@@ -66,7 +66,7 @@ Class RevenueRepository extends BaseRepository
 
     public function delete($data)
     {
-        $revenue = Revenue::where('id', $date['revenue_id'])->first();
+        $revenue = Revenue::where('id', $data['revenue_id'])->first();
         $revenue->delete();
 
         return true;
