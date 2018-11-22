@@ -151,7 +151,7 @@
                         <div class="dropdown-menu dropdown-menu-right " style="width:240px;" aria-labelledby="navbarSettings">
                         <div class="">
                                 <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" style="width:50px" >
-                            {{Ekpono Ambrose <span class="pl-4" > ekponoambrose@gmail.com</span>
+                            Sifon Isaac <span class="pl-4"> syfonisaac@gmail.com </span> 
                         </div>
                             <div class="dropdown-divider"></div>   
                             <a class="dropdown-item hover" href="#"><i class="fa fa-user-o pr-3" style="font-size:24px"></i>Account</a>
@@ -162,54 +162,6 @@
                     </li>
                 </ul>
             </div>
-
-
-
-
-            {{-- <div class="account-wrap">
-                <div class="account-item clearfix js-item-menu">
-                    <div class="image">
-                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                    </div>
-                    <div class="content">
-                        <a class="js-acc-btn" href="#">john doe</a>
-                    </div>
-                    <div class="account-dropdown js-dropdown">
-                        <div class="info clearfix">
-                            <div class="image">
-                                <a href="#">
-                                    <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                </a>
-                            </div>
-                            <div class="content">
-                                <h5 class="name">
-                                    <a href="#">john doe</a>
-                                </h5>
-                                <span class="email">johndoe@example.com</span>
-                            </div>
-                        </div>
-                        <div class="account-dropdown__body">
-                            <div class="account-dropdown__item">
-                                <a href="#">
-                                    <i class="zmdi zmdi-account"></i>Account</a>
-                            </div>
-                            <div class="account-dropdown__item">
-                                <a href="#">
-                                    <i class="zmdi zmdi-settings"></i>Setting</a>
-                            </div>
-                            <div class="account-dropdown__item">
-                                <a href="#">
-                                    <i class="zmdi zmdi-money-box"></i>Billing</a>
-                            </div>
-                        </div>
-                        <div class="account-dropdown__footer">
-                            <a href="#">
-                                <i class="zmdi zmdi-power"></i>Logout</a>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-            {{-- end of user section --}}
         </div>
     </nav>
 </header>
