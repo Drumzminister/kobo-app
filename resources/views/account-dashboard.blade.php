@@ -1,16 +1,16 @@
 @extends('layouts.app-acct')
 
 @section('content')
-<section class="bg-white pb-5">
+<section class="bg-white pb-3">
 <section id="top">
-    <div class="container pt-3 pb-3">
+    <div class="container py-3">
         <h2>
             Dashboard
         </h2>
     </div>
 </section>
 <section id="performance">
-    <div class="container mt-5 ">
+    <div class="container mt-3 ">
         <div class="row">
             <div class="col-md-7 heigh " >
                 <div class="bg-white py-4 px-4 loa" id="topp">
@@ -59,7 +59,7 @@
                                     <th scope="col">Client</th>
                                     <th scope="col">Transaction</th>
                                     <th scope="col">Amount (&#8358;)</th>
-                                    <th scope="col">Date</th
+                                    <th scope="col">Date</th>
                                  </tr>
                                 </thead>
 
@@ -147,8 +147,9 @@
     </div>
 </section>
 
+{{-- service section --}}
 <section id="menu">
-    <div class="container mt-5">
+    <div class="container mt-4">
         <div class="row">
             <div class="col-md-4">
                 <div class="bg-white p-3 loa" id="topp">
@@ -204,7 +205,7 @@
             </div>
         </div>
 
-        <div class="row mt-5">
+        <div class="row mt-4">
             <div class="col-md-4">
                 <div class="bg-white p-3 loa" id="topp">
                     <div class="row">

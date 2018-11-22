@@ -40,8 +40,8 @@
                         <tbody>
                           <tr>
                               <td >
-                                  <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="img-fluid service-img">
-                                    Lagos Insurance
+                                  <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                                  <span class="text-green pl-3"> Lagos Insurance</span>
                                 </td>
                             <td>
                                 KB12
@@ -56,8 +56,8 @@
 
                           <tr>
                                 <td >
-                                    <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="img-fluid service-img">
-                                      Lagos Insurance
+                                    <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                                      <span class="text-green pl-3"> Lagos Insurance</span>
                                   </td>
                               <td>
                                   KB12
@@ -72,9 +72,9 @@
   
                             <tr>
                                     <td >
-                                        <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="img-fluid service-img">
-                                          Lagos Insurance
-                                      </td>
+                                        <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class=" rounded-circle img-fluid service-img">
+                                        <span class="text-green pl-3"> Lagos Insurance</span>
+                                    </td>
                                   <td>
                                       KB12
                                   </td>
@@ -88,9 +88,9 @@
 
                                 <tr>
                                         <td >
-                                            <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="img-fluid service-img">
-                                              Lagos Insurance
-                                          </td>
+                                            <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                                            <span class="text-green pl-3"> Lagos Insurance</span>
+                                        </td>
                                       <td>
                                           KB12
                                       </td>
@@ -104,8 +104,9 @@
           
                             <tr class="d-none">
                                     <td >
-                                         <img src=" " alt="client logo" srcset="" class="img-fluid service-img">
-                                        </td>
+                                         <img src=" " alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                                         <span class="text-green pl-3"> Lagos Insurance</span>
+                                    </td>
                                     <td> <textarea class="form-control"></textarea></td>
                                     
                                     <td> <input type="number" placeholder=""> </td>

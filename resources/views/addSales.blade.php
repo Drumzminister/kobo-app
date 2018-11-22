@@ -197,21 +197,21 @@
                                 <div class="row">
                                         <div class="col-md-5">
                                             <div class="dropdown show mt-3">
-                                                    <a class="btn btn-lg btn-payment dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                      Cash
-                                                    </a>
-                                                  
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                      <a class="dropdown-item" href="#">ATM</a>
-                                                      <a class="dropdown-item" href="#">GTB 2</a>
-                                                      <a class="dropdown-item" href="#">Skye Bank</a>
-                                                    </div>
-                                                  </div>
+                                                <a class="btn btn-lg btn-payment dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Cash
+                                                </a>
+                                                
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="#">ATM</a>
+                                                    <a class="dropdown-item" href="#">GTB 2</a>
+                                                    <a class="dropdown-item" href="#">Skye Bank</a>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="col-md-5">
                                             <div class="show input-group input-group-lg mt-3">
-                                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="750,000">
+                                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="750,000">
                                             </div>                                   
                                         </div>
                                         <div class="col-md-2 mt-4 "> 

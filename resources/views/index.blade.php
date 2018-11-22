@@ -13,6 +13,8 @@
 {{-- styles --}}
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/landing-page.css') }}" rel="stylesheet">
+<link href="{{ asset('css/main.css') }}" rel="stylesheet">
+
 
 {{-- jquery --}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

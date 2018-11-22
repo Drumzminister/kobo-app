@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:200,400,600,800");
+@import url("https://fonts.googleapis.com/css?family=Alef:200,400,600,800");
+
+body{
+  font-family: Alef;
+}
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -25,9 +30,15 @@ tr{
   color:#666;
   font-weight: 500;
   transition: all 0.8s;
-  padding: 5px 0px;
+  /* padding: 5px 0px; */
 
 }
+td a { 
+  display: block; 
+  
+  margin: 0px !important;
+}
+
 .tab{
     background: #00C259;
     color: #fff;
@@ -487,4 +498,5 @@ tooltips styling
 }
 .text-green{
   color: #00C259;
+  font-weight: 600;
 }

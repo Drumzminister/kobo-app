@@ -83,6 +83,10 @@ Sales Dashboard
 =====================*/
 
 // table row
+$("#container").on('click-row.bs.table', function (e, row, $element) {
+  window.location = $element.data('href');
+});
+
 jQuery(document).ready(function($) {
   $(".clickable-row").click(function() {
       window.location = $(this).data("href");
