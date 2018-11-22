@@ -23,7 +23,7 @@ $factory->define('Koboaccountant\Models\User', function (Faker $faker) {
         'verified' => $faker->numberBetween(0,1),
         'attachment' => $faker->imageUrl(),
         'isActive' => $faker->numberBetween(0,1),
-        'payment_status' => $faker->numberBetween(0,1),
+        'payment_status' => 'paid',
         'remember_token' => str_random(10),
     ];
 });
