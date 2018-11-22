@@ -13,7 +13,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        Auth::loginUsingId('44e34d94-943b-3150-93fb-90da43504907');
+        Auth::loginUsingId('03f2409e-1fb2-32b3-be51-e5ba45df1b19');
         return view('dashboard');
     }
 }
