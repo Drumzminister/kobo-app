@@ -4,18 +4,13 @@ namespace Koboaccountant\Repositories\Auth;
 
 use Koboaccountant\Jobs\ConfirmEmailRegistration;
 use Koboaccountant\Models\VerifyUser;
-use Koboaccountant\Mail\VerifyMail;
 use Koboaccountant\Models\User;
 use Koboaccountant\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Paystack;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Client;
 
 use Koboaccountant\Repositories\BaseRepository;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 
 class UserRepository extends BaseRepository
@@ -79,10 +74,6 @@ class UserRepository extends BaseRepository
         
         
         return $user;
-
-       if (!$user) {
-           return false;
-       }
    }
 
     public function getUser($id)

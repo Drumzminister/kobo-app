@@ -45,6 +45,11 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        'accountant'    =>  [
+            'driver'    =>  'session',
+            'provider'  =>  'accountants',
+        ]
     ],
 
     /*
@@ -69,7 +74,10 @@ return [
             'driver' => 'eloquent',
             'model' => Koboaccountant\Models\User::class,
         ],
-
+        'accountants' => [
+            'driver'    => 'eloquent',
+            'model'     =>  Koboaccountant\Models\Accountant::class
+        ]
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
