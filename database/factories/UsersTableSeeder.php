@@ -100,7 +100,8 @@ $factory->define(Koboaccountant\Models\Sales::class, function (Faker $faker) {
 $factory->define(Koboaccountant\Models\Customer::class, function (Faker $faker){
     return [
         'id' => $faker->uuid,
-        'name' => $faker->firstName,
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,        
         'email' => $faker->lastName,
         'address' => $faker->address,
         'phone' => $faker->phoneNumber,

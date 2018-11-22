@@ -62,12 +62,7 @@ Route::get('/clients', function () {
     return view('clients');
 });
 
-
-use Illuminate\Http\Request;
-
-
 Route::get('/started', 'PaymentController@index');
-
 
 Auth::routes();
 // Guest  routes
@@ -97,7 +92,10 @@ Route::group(['middle' => ['guest']], function() {
 
     Route::get('/sales', 'SalesController@index');
     
-    Route::get('/addSales', 'SalesController@sales');
+    Route::prefix('sales')->group(function () {
+        Route::get('/addSales', 'SalesController@sales');  
+    });
+
     Route::get('/expenses', 'ExpensesController@index');
     Route::get('/assets', 'AssetController@openingAsset');
     Route::get('/debtors', 'DebtorController@index');
