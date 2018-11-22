@@ -45,7 +45,7 @@ Route::get('/creditors', function () {
     return view('opening-creditors');
 });
 
-Route::get('/acct-dashboard', function () {
+Route::get('/accountant/dashboard', function () {
     return view('account-dashboard');
 });
 
@@ -55,6 +55,10 @@ Route::get('/addSales', function () {
 
 Route::get('/loans', function () {
     return view('loans');
+});
+
+Route::get('/clients', function () {
+    return view('clients');
 });
 
 

@@ -37,7 +37,7 @@
 
     <div id="load"></div>
      <!-- Header -->
-     @include('layouts.header')
+     @include('layouts.header-acct')
         
      <!-- include main content --->
      <main>
