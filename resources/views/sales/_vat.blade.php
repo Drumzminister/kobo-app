@@ -8,7 +8,18 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text customer-input" id="basic-addon3">Customer Name</span>
                         </div>
-                        <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="">                        
+                        
+                        @if(count($customers) > 0)
+                        <select class="customer" name="customer" class="form-control">
+                            @foreach($customers as $customer)
+                                <option style="height:500px">
+                                    {{$customer['first_name']}}
+                                </option>
+                            @endforeach
+                        </select>
+                        @endif
+                    </form> 
+                        
                     </div>
                 </div>
 
@@ -19,7 +30,7 @@
                           <option>PAT (10%)</option>
                           <option>Cashh</option>
                         </select>
-                    </div>
+                    </div> 
                 </div>
                 
                 <div class="col-md-3">
@@ -31,7 +42,29 @@
         </form>
     </div>
 </section>
-<script src="js/moment.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script> 
+    $('.customer').select2({
+        placeholder: 'Select an item',
+        ajax: {
+          url: 'getCustomers',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (customer) {
+                    return {
+                        text: customer.name,
+                        id: customer.id
+                    }
+                })
+            };
+          },
+          cache: true
+        }
+      });
+</script>
 <script>
 var date = new Date();
 var month = date.getMonth()+1;

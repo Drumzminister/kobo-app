@@ -49,9 +49,7 @@ Route::get('/accountant/dashboard', function () {
     return view('account-dashboard');
 });
 
-Route::get('/addSales', function () {
-    return view('addSales');
-});
+
 
 Route::get('/loans', function () {
     return view('loans');
@@ -92,10 +90,11 @@ Route::group(['middle' => ['guest']], function() {
 
     Route::get('/sales', 'SalesController@index');
     
-    Route::prefix('sales')->group(function () {
+    // Route::prefix('sales')->group(function () {
         Route::get('/addSales', 'SalesController@sales');  
-    });
-
+        Route::get('/getCustomers', 'SalesController@getCustomer');
+        
+    // });
     Route::get('/expenses', 'ExpensesController@index');
     Route::get('/assets', 'AssetController@openingAsset');
     Route::get('/debtors', 'DebtorController@index');

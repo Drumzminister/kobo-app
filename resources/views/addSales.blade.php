@@ -25,9 +25,5 @@
       @include('sales._vat')
 {{--End of modal --}}
 
-<script>
-$(document).ready( function() {
-$('#usr1').val(new Date().toDateInputValue());
-});​
-</script>      
+    
 @endsection
