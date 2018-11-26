@@ -60,15 +60,13 @@ Route::get('/clients', function () {
     return view('clients');
 });
 
-<<<<<<< HEAD
-=======
+
 Route::get('/manage/clients', function () {
     return view('manage-clients');
 });
 
 use Illuminate\Http\Request;
 
->>>>>>> dev
 Route::get('/started', 'PaymentController@index');
 
 Auth::routes();

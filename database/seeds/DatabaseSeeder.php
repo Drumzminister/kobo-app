@@ -32,7 +32,6 @@ class DatabaseSeeder extends Seeder
     public function getRandomCompanyId()
     {
         $company = \Koboaccountant\Models\Company::all();
-
         return $company->random()->id;
     }
     public function getRandomUserId()
