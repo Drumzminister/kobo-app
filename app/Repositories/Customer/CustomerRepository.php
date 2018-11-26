@@ -4,6 +4,7 @@ namespace Koboaccountant\Repositories\Customer;
 
 use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\Customer;
+use Koboaccountant\Models\Sales;
 
 /**
  * 
@@ -11,11 +12,29 @@ use Koboaccountant\Models\Customer;
 class CustomerRepository extends BaseRepository
 {
 	
-	public function __construct(Customer $customer)
+	public function __construct(Customer $customer, Sales $sales)
 	{
 		$this->customerModel = $customer;
+		$this->salesModel = $sales;
 	}
 
+	public function allCustomer() 
+	{
+		if (!is_null(Auth::user())) {
+			$customer = Auth::user()->customer();
+			return $customer;
+		}
+		return [];
+	}
+	public function sales()
+	{
+		if(!Auth::user()) {
+			 $customer = Auth::user()->company();	
+			 $sales = $customer->sales;	
+			 return $sales;	
+		}
+		return [];
+	}
 	public function create($data)
 	{	
 		$customer = new Customer();

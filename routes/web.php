@@ -108,5 +108,12 @@ Route::group(['middle' => ['guest']], function() {
 // Route::group(['middleware' => ''], function() {
     Route::get('/accountant/dashboard', 'AccountantController@index');
 // });
+use Koboaccountant\Models\Company;
 
 
+Route::get('/api1', function(){
+    // Auth::loginUsingId('0587c5f0-9005-3f23-aace-d0faf74f19ba');
+
+    $customer =  Company::with('customer')->get();
+    return $customer;
+});

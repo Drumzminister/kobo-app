@@ -29,7 +29,7 @@ class Company extends Model
     }
     public function sales()
     {
-        return $this->hasMany('Koboaccountant\Models\Sales', 'company_id');
+        return $this->hasMany('Koboaccountant\Models\Sales');
     }
     
     public function vendors()
@@ -37,13 +37,18 @@ class Company extends Model
         return $this->hasMany('Koboaccountant\Models\Vendor');
     }
 
-    public function customers()
+    public function customer()
     {
-        $this->hasMany('Koboaccountant\Models\Customer');
+        return $this->hasMany('Koboaccountant\Models\Customer');
     }
 
     public function staff()
     {
         return $this->hasMany('Koboaccountant\Models\Staff');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('Koboaccountant\Models\User'); 
     }
 }

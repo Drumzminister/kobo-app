@@ -5,9 +5,10 @@ namespace Koboaccountant\Repositories\Sales;
 use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\SalesChannel;
 use Koboaccountant\Models\Sales;
-use Koboaccountant\Reopsitories\Inventory\InventoryRepository;
+// use Koboaccountant\Reopsitories\Inventory\InventoryRepository;
 use Koboaccountant\Notifications\MadeSales;
 use Auth;
+use Koboaccountant\Repositories\Inventory\InventoryRepository;
 
 /**
  * 
@@ -15,11 +16,15 @@ use Auth;
 class SalesRepository extends BaseRepository
 {
 	
-	function __construct(SalesChannel $saleschannel, Sales $sale)
+	function __construct(
+		SalesChannel $salesChannel, 
+		Sales $sale, 
+		InventoryRepository $inventory
+		)
 	{
-		$this->inventoryRepo = new InventoryRepository;
+		$this->inventoryRepo = $inventory;
 		$this->salesModel = $sale;
-		$this->saleschannelModel = $channel;
+		$this->saleschannelModel = $salesChannel;
 	}
 	public function addChannel($data)
 	{
@@ -93,11 +98,21 @@ class SalesRepository extends BaseRepository
 		return [];
 	}
 
+	public function company()
+	{
+		return $this->salesModel->company();
+	}
+
+	public function customer()
+	{
+		return $this->salesModel->customer();
+	}
+	
 	public function getAllSales()
 	{
 		if (!is_null(Auth::user())) {
 			$company = Auth::user()->company();
-			$sales = $company->sales;
+			$sales = $company->sales();
 			return $sales;
 		}
 		return [];
@@ -106,7 +121,7 @@ class SalesRepository extends BaseRepository
 	public function getSales($amount)
 	{
 		$allSales = $this->getAllSales();
-		if (count($allSales) > $amount) {
+		if (count($allSales) >= $amount) {
 			return $allSales->take($amount);
 		}
 		return $allSales;

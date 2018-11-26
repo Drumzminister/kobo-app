@@ -51,5 +51,10 @@ class User extends Authenticatable
     {
         return ucfirst($this->first_name) .' '. ucfirst($this->last_name);
     }
+
+    public function customers()
+    {
+        return $this->hasMany('Koboaccountant\Models\Customer');
+    }
     
 }

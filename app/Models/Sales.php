@@ -31,4 +31,5 @@ class Sales extends Model
     {
         return $this->hasMany('Koboaccountant\Models\Customer');
     }
+    
 }

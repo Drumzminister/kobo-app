@@ -1,11 +1,9 @@
 @extends('layouts.app')
 <style>
-     input[type=text] {
-    background:transparent;
+    input[type=text] {
+    background: transparent;
     border-radius: 4px;
 }
-
-
 </style>
 
 @section('content')
@@ -22,7 +20,7 @@
 {{-- end of sales table --}}
 
 {{-- Invoice Modal --}}
-      @include('sales._vat')
+      @include('sales._modal')
 {{--End of modal --}}
 
     

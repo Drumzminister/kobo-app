@@ -23,7 +23,7 @@ $factory->define('Koboaccountant\Models\User', function (Faker $faker) {
         'verified' => $faker->numberBetween(0,1),
         'attachment' => $faker->imageUrl(),
         'isActive' => $faker->numberBetween(0,1),
-        'payment_status' => 'paid',
+        'payment_status' => $faker->dateTime,
         'remember_token' => str_random(10),
     ];
 });
@@ -88,7 +88,8 @@ $factory->define(Koboaccountant\Models\SalesChannel::class, function() {
 $factory->define(Koboaccountant\Models\Sales::class, function (Faker $faker) {
     return [
         'id' => $faker->uuid,
-        'sales_date' => $faker->DateTime,
+        'name' => $faker->sentence(8),
+        'sales_date' => $faker->dateTime,
         'quantity' => $faker->numberBetween(1,20),
         'amount' => $faker->randomFloat(2),
         'staff_id' => '',

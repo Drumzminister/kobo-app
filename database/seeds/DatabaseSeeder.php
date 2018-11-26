@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $sales = factory('Koboaccountant\Models\Sales', 10)->create(['company_id' => $this->getRandomCompanyId(), 'inventory_id' => $this->getRandomInventoryId(), 'staff_id' => $this->getRandomStaffId()]);
         
         $customer = $sales->each(function ($sales){
-            factory('Koboaccountant\Models\Customer', 10)->create();
+            factory('Koboaccountant\Models\Customer', 10)->create(['company_id', $this->getRandomCompanyId()]);
         });
     }
 
