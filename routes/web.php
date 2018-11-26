@@ -23,7 +23,7 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard','DashboardController@index');
+Route::get('/dashboard', 'DashboardController@index');
 
 Route::get('/sales', function () {
     return view('sales');
@@ -49,29 +49,23 @@ Route::get('/accountant/dashboard', function () {
     return view('account-dashboard');
 });
 
-
-
 Route::get('/loans', function () {
     return view('loans');
 });
-
 
 Route::get('/clients', function () {
     return view('clients');
 });
 
-
 Route::get('/manage/clients', function () {
     return view('manage-clients');
 });
-
-use Illuminate\Http\Request;
 
 Route::get('/started', 'PaymentController@index');
 
 Auth::routes();
 // Guest  routes
-Route::group(['middle' => ['guest']], function() {
+Route::group(['middle' => ['guest']], function () {
     // Landing Page
     Route::get('/', 'UserController@home');
 
@@ -82,25 +76,24 @@ Route::group(['middle' => ['guest']], function() {
     Route::get('/login', 'UserController@login')->name('login');
     Route::get('/logout', 'UserController@logout');
     Route::get('/started', 'PaymentController@index');
-    Route::get('plans','PaymentController@getAllPlans');
+    Route::get('plans', 'PaymentController@getAllPlans');
 
     // Guest accountant routes
     Route::get('/accountant', 'UserController@accountant');
 });
 
-
 // Auth routes
 // Route::group(['middleware' => 'auth'], function () {
     Route::get('/payment/success', 'PaymentController@paid');
 
-    Route::get('/dashboard','DashboardController@index');
+    Route::get('/dashboard', 'DashboardController@index');
 
     Route::get('/sales', 'SalesController@index');
-    
+
     // Route::prefix('sales')->group(function () {
-        Route::get('/addSales', 'SalesController@sales');  
+        Route::get('/addSales', 'SalesController@sales');
         Route::get('/getCustomers', 'SalesController@getCustomer');
-        
+
     // });
     Route::get('/expenses', 'ExpensesController@index');
     Route::get('/assets', 'AssetController@openingAsset');
@@ -109,18 +102,16 @@ Route::group(['middle' => ['guest']], function() {
     Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');
 // });
 
-
-
-// Accountant rotes 
+// Accountant rotes
 // Route::group(['middleware' => ''], function() {
     Route::get('/accountant/dashboard', 'AccountantController@index');
 // });
 use Koboaccountant\Models\Company;
 
-
-Route::get('/api1', function(){
+Route::get('/api1', function () {
     // Auth::loginUsingId('0587c5f0-9005-3f23-aace-d0faf74f19ba');
 
-    $customer =  Company::with('customer')->get();
+    $customer = Company::with('customer')->get();
+
     return $customer;
 });

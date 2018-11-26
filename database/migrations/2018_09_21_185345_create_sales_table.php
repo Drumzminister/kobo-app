@@ -8,14 +8,12 @@ class CreateSalesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->string('id');
-            $table->timestamps('sales_date');
+            $table->timestamp('sales_date');
             $table->string('name');
             $table->string('quantity')->nullable();
             $table->string('inventory_id')->index();
@@ -25,14 +23,12 @@ class CreateSalesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->primary('id');            
+            $table->primary('id');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
