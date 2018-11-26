@@ -35,7 +35,7 @@
             
             <div class="col-md-3">
                     <div class="dates input-group mb-3 input-group-lg">
-                        <input type="text"  class="form-control" id="usr1" name="event_date"  autocomplete="off" value="">
+                        <input type="date"  class="form-control" id="usr1" name="event_date"  autocomplete="off" value="">
                     </div>
             </div>
         </div>

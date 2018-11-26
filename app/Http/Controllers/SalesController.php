@@ -3,45 +3,46 @@
 namespace Koboaccountant\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Koboaccountant\Models\Customer;
 use Koboaccountant\Repositories\Sales\SalesRepository;
 
 class SalesController extends Controller
 {
-	function __construct(SalesRepository $sales)
-	{
-		$this->salesRepo = $sales;
-	}
-	public function index()
-	{
-		
-		return view('sales');
-	}
+    public function __construct(SalesRepository $sales)
+    {
+        $this->salesRepo = $sales;
+    }
 
+    public function index()
+    {
+        return view('sales');
+    }
 
+    public function sales()
+    {
+        $customers = Customer::pluck('first_name', 'id')->toArray();
+        // $customers = $this->salesRepo->customer();
 
-	public function sales()
-	{
-		// $customers = Customer::pluck('first_name', 'id')->toArray();
-		$customers = $this->salesRepo->customer()->get();
-		return view('addSales', compact('customers'));
-	}
+        return view('addSales', compact('customers'));
+    }
+
     public function create(Request $request)
     {
-    	//Validations
-    	$this->salesRepo->create($request->all());
-	} 
+        //Validations
+        $this->salesRepo->create($request->all());
+    }
 
-	public function getCustomer(Request $request)
-	{
+    public function getCustomer(Request $request)
+    {
+        $data = [];
 
-		$data = [];
-		
-        if($request->has('q')){
+        if ($request->has('q')) {
             $search = $request->q;
-            $data = Customer::where('last_name','LIKE',"%$search%")
-					->orWhere('last_name', 'LIKE', "%$search%")
-					->get();
-				}
-			return response()->json($data);
-			}
+            $data = Customer::where('last_name', 'LIKE', "%$search%")
+                    ->orWhere('last_name', 'LIKE', "%$search%")
+                    ->get();
+        }
+
+        return response()->json($data);
+    }
 }
