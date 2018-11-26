@@ -27,9 +27,10 @@
 
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 {{-- jquery --}}
-<script src="js/jquery.js"></script>
+{{-- <script src="js/jquery.js"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 </head>
@@ -48,26 +49,26 @@
     @include('layouts.footer')
 </section>
 
+
+
+
+
+
+
+
 {{-- javascript --}}
+<script src="{{asset('js/rater.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
-<script src="{{asset('js/particles.js')}}"></script>
-<script src="{{asset('js/appp.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
 <script src="{{asset('js/datepicker.js')}}"></script>
-<script src="{{asset('js/rater.js')}}"></script>
-
-
-
-
-
-
-
+<script src="{{asset('js/particles.js')}}"></script>
 
  {{-- chart js --}}
  <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.js"></script>
  <script src="{{asset('js/bundle.js')}}"></script>
  <script src="{{asset('js/jquery.circliful.js')}}"></script>
- <script src="{{asset('js/chart.js')}}"></script>
+<script src="{{asset('js/chart.js')}}"></script>
+ <script src="{{asset('js/appp.js')}}"></script>
 
 
  <script>
@@ -75,6 +76,16 @@
 
     
     </script>
+<script>
+$(function() {
+      $('#navigation li').click(function() {
+              $('#navigation li').removeClass('selected');
+              $(this).addClass('selected');
+          
+      });
+  });
+
+</script>
 
  
 </body>

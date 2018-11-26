@@ -89,8 +89,10 @@
         <div class="container mt-4">
                 <div class="row p-3">
                         <a href="" class="btn btn-addSale left-modal" data-toggle="modal" data-target="#exampleModal">Add Loan</a>            
-                        <div id="" class="btn btn-success ml-2">Filter</div>
-                    </div>
+                        <div id="" onclick="">
+                                <button style="font-size:18px" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
+                        </div>
+                </div>
             <div class="bg-white mt">
                 
                 <div class="table-responsive table-responsive-sm">

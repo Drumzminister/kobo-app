@@ -92,13 +92,12 @@ input {
                             </div>
                         </div>
                             <canvas id="canvasSale"  height="100"></canvas>
-
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="bg-white p-2"  data-step="2" data-intro="Here is your performance" data-position='right' data-scrollTo='tooltip'>
                         <h4 class="sale-h4">Top Sales</h4>
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover" id="table">
                             <thead class="sale-head">
                               <tr>
                                 <th scope="col">Products</th>
@@ -107,25 +106,25 @@ input {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">Cars</a></td>
-                                <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal" >33</a></td>
-                                <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">12,000</a></td>
+                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
+                                <td>Cars</td>
+                                <td>33</td>
+                                <td>12,000</td>
                               </tr>
-                              <tr>
-                                <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">Furnitures</a></td>
-                                <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">55</a></td>
-                                <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">68,000</a></td>
+                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
+                                <td>Furnitures</td>
+                                <td>55</td>
+                                <td>68,000</td>
                               </tr>
-                              <tr>
-                                <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">Phone</a></td>
-                                <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">45 </a></td>
-                                <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">23123 </a></td>
+                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
+                                <td>Phone</td>
+                                <td>45 </td>
+                                <td>23123 </td>
                               </tr>
-                              <tr>
-                                <td> <a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">Car </a></td>
-                                <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">33 </a></td>
-                                <td> <a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">12,000 </a></td>
+                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
+                                <td> Car </td>
+                                <td>33 </td>
+                                <td> 12,000 </td>
                                 </tr>
                             </tbody>
                           </table>
@@ -270,4 +269,5 @@ input {
             </div>
         </div>
     </div>
+
 @endsection

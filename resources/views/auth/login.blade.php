@@ -34,11 +34,11 @@
          @endif
          
 
-           <div id="login pt-5">
-            <div class="container pt-5">               
+        <div id="login pt-3">
+            <div class="container pt-3">               
                 <div class="col-md-6 login-kobo">
                     <div class=" p-3">
-                        <div class="pb-4">
+                        <div class="pb-2">
                             <img src="{{asset('img/logo.svg')}}" alt="logo" srcset="" class="img-fluid logo">
                         </div>
 

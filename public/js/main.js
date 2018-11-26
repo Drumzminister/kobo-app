@@ -1,5 +1,5 @@
   document.onreadystatechange = function () {
-    var state = document.readyState
+    var state = document.readyState;
     if (state == 'complete') {
         setTimeout(function(){
             document.getElementById('interactive');
@@ -83,12 +83,19 @@ Sales Dashboard
 =====================*/
 
 // table row
-jQuery(document).ready(function($) {
-  $(".clickable-row").click(function() {
-      window.location = $(this).data("href");
-  });
-});
+var table = document.getElementById("table"),rIndex;
 
+var rows = table.rows.length;
+
+for(var i = 0; i < rows; i++ ){
+  table.rows[i].onclick = function()
+  {
+    rIndex = this.rowIndex;
+    console.log(rIndex);
+  };
+}
+ 
+//  date picker
 $(function() {
   $('.dates #usr1').datepicker({
     'format': 'dd-mm-yyyy',
@@ -126,7 +133,6 @@ function addRow(tableID) {
     }
     }
       
-  
 
 
   // intro js
@@ -158,4 +164,35 @@ function AddComma() {
 //   }
 //   $(".rate").rate();
 // });
+
+  $(function(){
+    $(".rating").rate();
+
+    //or for example
+    var options = {
+        max_value: 6,
+        step_size: 0.5,
+    };
+    $(".rating").rate(options);
+  });
+
+$(document).ready(function(){
+  var options = {
+      max_value: 6,
+      step_size: 0.5,
+      selected_symbol_type: 'hearts',
+      url: 'http://localhost/test.php',
+      initial_value: 3,
+      update_input_field_name: $("#input2"),
+  }
+  $(".rate").rate();
+});
+
+    $(function() {
+      $('#navigation li').click(function() {
+              $('#navigation li').removeClass('selected');
+              $(this).addClass('selected');
+          
+      });
+  });
 

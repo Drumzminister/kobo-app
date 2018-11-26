@@ -162,6 +162,9 @@
                     </li>
                 </ul>
             </div>
+
+            </div>                        {{-- end of user section --}}
+
         </div>
     </nav>
 </header>
