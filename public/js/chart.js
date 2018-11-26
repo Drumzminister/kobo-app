@@ -1,5 +1,4 @@
 // performance chart
-
 $( document ).ready(function() { // 6,32 5,38 2,34
     $("#test-circle").circliful({
         animation: 1,

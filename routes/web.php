@@ -61,6 +61,9 @@ Route::get('/clients', function () {
     return view('clients');
 });
 
+Route::get('/manage/clients', function () {
+    return view('manage-clients');
+});
 
 use Illuminate\Http\Request;
 
