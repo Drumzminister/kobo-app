@@ -9,17 +9,20 @@ use Koboaccountant\Models\Sales;
 use Koboaccountant\Notifications\MadeSales;
 use Auth;
 use Koboaccountant\Repositories\Inventory\InventoryRepository;
+use Koboaccountant\Models\Company;
 
 class SalesRepository extends BaseRepository
 {
     public function __construct(
         SalesChannel $salesChannel,
         Sales $sale,
-        InventoryRepository $inventory
+        InventoryRepository $inventory,
+        Company $company
         ) {
         $this->inventoryRepo = $inventory;
         $this->salesModel = $sale;
         $this->saleschannelModel = $salesChannel;
+        $this->companyModel = $company;
     }
 
     public function addChannel($data)
@@ -95,12 +98,12 @@ class SalesRepository extends BaseRepository
 
     public function company()
     {
-        return $this->salesModel->company();
+        return $this->companyModel::get();
     }
 
     public function customer()
     {
-        return $this->company();
+        return $this->company('customer');
     }
 
     public function getAllSales()

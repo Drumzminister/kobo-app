@@ -94,14 +94,6 @@ for(var i = 0; i < rows; i++ ){
     console.log(rIndex);
   };
 }
- 
-//  date picker
-$(function() {
-  $('.dates #usr1').datepicker({
-    'format': 'dd-mm-yyyy',
-    'autoclose': true
-  });
-});
 
 // sales table
 function addRow(tableID) {

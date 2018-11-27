@@ -140,7 +140,7 @@
                             </div>
                     </div>
                             
-                    <div style="">
+                    <div>
                             <canvas id="canvas" height="100"></canvas>
                     </div>
                 </div>
