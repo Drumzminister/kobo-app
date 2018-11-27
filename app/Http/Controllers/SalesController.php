@@ -20,7 +20,6 @@ class SalesController extends Controller
 
     public function sales()
     {
-        // $customers = Customer::pluck('first_name', 'id')->toArray();
         $customers = $this->salesRepo->customer('first_name', 'id');
 
         return view('addSales', compact('customers'));

@@ -22,7 +22,7 @@
 
             <div class="col-md-4">
                 <div class="form-group">
-                        <select class="form-control form-control-lg form-control vat-input" id="basic-addon3">
+                        <select class="form-control form-control-lg form-control vat-input" name="tax" id="basic-addon3">
                         <option value="5">Value Added Tax (VAT) 5%</option>
                         <option value="10">PAT (10%)</option>
                         <option value="">Cashh</option>
@@ -43,7 +43,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script> 
-$('.customer').select2({
+
+ $('.customer').select2({
     placeholder: 'Select an item',
     ajax: {
       url: 'getCustomers',
@@ -62,7 +63,8 @@ $('.customer').select2({
       },
       cache: true
     }
-  });
+  });  
+
 </script>
 
 <!-- This disables and set date -->

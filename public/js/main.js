@@ -123,11 +123,7 @@ function addRow(tableID) {
                     break;
         }
     }
-    }
-      
-
-
-  // intro js
+  }
 
 // Format number
 function AddComma() {
