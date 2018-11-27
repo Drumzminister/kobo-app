@@ -158,6 +158,7 @@ return [
         Koboaccountant\Providers\AuthServiceProvider::class,
         // Koboaccountant\Providers\BroadcastServiceProvider::class,
         Koboaccountant\Providers\EventServiceProvider::class,
+        Koboaccountant\Providers\TelescopeServiceProvider::class,
         Koboaccountant\Providers\RouteServiceProvider::class,
         
 

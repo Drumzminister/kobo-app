@@ -94,14 +94,6 @@ for(var i = 0; i < rows; i++ ){
     console.log(rIndex);
   };
 }
- 
-//  date picker
-$(function() {
-  $('.dates #usr1').datepicker({
-    'format': 'dd-mm-yyyy',
-    'autoclose': true
-  });
-});
 
 // sales table
 function addRow(tableID) {
@@ -131,8 +123,36 @@ function addRow(tableID) {
                     break;
         }
     }
-    }
-      
+  }
+
+// Format number
+function AddComma() {
+  $('input.number').keyup(function(event) {
+  // skip for arrow keys
+
+  if(event.which >= 37 && event.which <= 40) return;
+
+  // format number
+  $(this).val(function(index, value) {
+    return value
+    .replace(/\D/g, "")
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  });
+});
+}
+
+// $(document).ready(function(){
+//   var options = {
+//       max_value: 6,
+//       step_size: 0.5,
+//       selected_symbol_type: 'hearts',
+//       url: 'http://localhost/test.php',
+//       initial_value: 3,
+//       update_input_field_name: $("#input2"),
+//   }
+//   $(".rate").rate();
+// });
+
   $(function(){
     $(".rating").rate();
 
@@ -163,3 +183,4 @@ $(document).ready(function(){
           
       });
   });
+

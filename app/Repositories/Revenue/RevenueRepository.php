@@ -10,7 +10,8 @@ use Auth;
 use Koboaccountant\Models\Income;
 Class RevenueRepository extends BaseRepository
 {
-    public function __construct(
+    public function __construct
+    (
         Revenue $revenue, 
         RevenueCategory $revenueCategory, 
         Account $account, 
@@ -54,10 +55,10 @@ Class RevenueRepository extends BaseRepository
     public function update() 
     {
         $revenue = Revenue::where('id', $date['revenue_id'])->first();
-        $revenue->amount = isset($data['amount']) ? $data['amount'] : null;
-        $revenue->description = isset($data['description']) ? $data['description'] : null;
-        $revenue->attachment = isset($data['attachment']) ? $data['attachment'] : null;
-        $revenue->category_id = isset($data['category_id']) ? $data['category_id'] : null;
+        $revenue->amount = isset($data['amount']) ?: null;
+        $revenue->description = isset($data['description']) ?: null;
+        $revenue->attachment = isset($data['attachment']) ?: null;
+        $revenue->category_id = isset($data['category_id']) ?: null;
 
         $revenue->save();
         return true;
@@ -65,7 +66,7 @@ Class RevenueRepository extends BaseRepository
 
     public function delete($data)
     {
-        $revenue = Revenue::where('id', $date['revenue_id'])->first();
+        $revenue = Revenue::where('id', $data['revenue_id'])->first();
         $revenue->delete();
 
         return true;

@@ -143,7 +143,7 @@
                         <a class="nav-link mr-2 remove-after notification" href="#" 
                             id="navbarSettings" onclick ="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="login">
-                            <span>David Tolu</span>
+                            <span>Ekpono Ambrose</span>
                             <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" >
                             </div>
                         </a>
@@ -151,17 +151,20 @@
                         <div class="dropdown-menu dropdown-menu-right " style="width:240px;" aria-labelledby="navbarSettings">
                         <div class="">
                                 <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" style="width:50px" >
-                            David Tolu <span class="pl-4" >deee@gmail.com</span>
+                            Sifon Isaac <span class="pl-4"> syfonisaac@gmail.com </span> 
                         </div>
                             <div class="dropdown-divider"></div>   
                             <a class="dropdown-item hover" href="#"><i class="fa fa-user-o pr-3" style="font-size:24px"></i>Account</a>
                             <a class="dropdown-item hover" href="#"><i class="fa fa-gear pr-3" style="font-size:24px"></i>Setting</a>
                                 <div class="dropdown-divider"></div>
-                            <a class="dropdown-item hover" href="#"><i class="fa fa-power-off pr-3" style="font-size:24px"></i>Logout</a>
+                            <a class="dropdown-item hover" href="/logout"><i class="fa fa-power-off pr-3" style="font-size:24px"></i>Logout</a>
                         </div>
                     </li>
                 </ul>
+            </div>
+
             </div>                        {{-- end of user section --}}
+
         </div>
     </nav>
 </header>

@@ -10,4 +10,16 @@ class Vendor extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
+    public $incrementing = false;
+    
+    public function inventories()
+    {
+        return $this->hasMany('Koboaccountant\Models\Inventory');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('Koboaccountant\Models\User');
+    }
 }

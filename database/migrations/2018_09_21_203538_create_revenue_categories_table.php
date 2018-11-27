@@ -16,7 +16,7 @@ class CreateRevenueCategoriesTable extends Migration
         Schema::create('revenue_categories', function (Blueprint $table) {
             $table->tinyInteger('id');
             $table->string('name');
-            $table->string('account_id')->index();
+            $table->string('company_id')->index();
             $table->timestamps();
         });
     }

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Company extends Model
 {
     use Sluggable;
+    
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
@@ -28,10 +29,26 @@ class Company extends Model
     }
     public function sales()
     {
-        return $this->hasMany('Koboaccountant\Models\Sales', 'company_id');
+        return $this->hasMany('Koboaccountant\Models\Sales');
     }
-    // public function accountant(){
-    // 	return $this->hasOne('Koboaccountant\Models\User',  'accountant_id');
-    // }
+    
+    public function vendors()
+    {
+        return $this->hasMany('Koboaccountant\Models\Vendor');
+    }
 
+    public function customer()
+    {
+        return $this->hasMany('Koboaccountant\Models\Customer');
+    }
+
+    public function staff()
+    {
+        return $this->hasMany('Koboaccountant\Models\Staff');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('Koboaccountant\Models\User'); 
+    }
 }

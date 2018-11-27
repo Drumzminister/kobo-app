@@ -1,17 +1,21 @@
 <?php 
+
 namespace Koboaccountant\Repositories\Inventory;
 
-use Koboaccountant\Models\Inventory;
-use Koboaccountant\Models\Account;
 use Koboaccountant\Models\Vendor;
+use Koboaccountant\Models\Accountant;
+use Koboaccountant\Models\Inventory;
+use Koboaccountant\Models\PaymentMethod;
 use Koboaccountant\Repositories\BaseRepository;
+
 
 class InventoryRepository extends BaseRepository 
 {
     public function __construct(
         PaymentMethod $paymentMethod,
         Accountant $account,
-        Vendor $vendor) 
+        Vendor $vendor,
+        Inventory $inventory) 
     {
         $this->inventoryModel = $inventory;
         $this->accountantModel = $account;

@@ -23,7 +23,7 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard','DashboardController@index');
+Route::get('/dashboard', 'DashboardController@index');
 
 Route::get('/sales', function () {
     return view('sales');
@@ -49,10 +49,6 @@ Route::get('/accountant/dashboard', function () {
     return view('account-dashboard');
 });
 
-Route::get('/addSales', function () {
-    return view('addSales');
-});
-
 Route::get('/loans', function () {
     return view('loans');
 });
@@ -65,6 +61,7 @@ Route::get('/manage/clients', function () {
     return view('manage-clients');
 });
 
+<<<<<<< HEAD
 Route::get('/toolkits', function () {
     return view('toolkit');
 });
@@ -72,36 +69,56 @@ Route::get('/toolkits', function () {
 
 use Illuminate\Http\Request;
 
+=======
+>>>>>>> 00da062d3a138f4da5dd5a7827240f39b8303a41
 Route::get('/started', 'PaymentController@index');
 
-Route::post('webhook', function(Request $request){
-    dd($request);
-});
-
 Auth::routes();
+// Guest  routes
+Route::group(['middle' => ['guest']], function () {
+    // Landing Page
+    Route::get('/', 'UserController@home');
 
-
-
-// Authentication  routes
-Route::group(['middle' => ['guest']], function() {
+    //Registration Steps
     Route::post('/register', 'UserController@create');
     Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
+    Route::get('/started', 'UserController@started');
+    Route::get('/login', 'UserController@login')->name('login');
     Route::get('/logout', 'UserController@logout');
-    Route::get('/accountant', 'UserController@accountant');
-    
-});
+    Route::get('/started', 'PaymentController@index');
+    Route::get('plans', 'PaymentController@getAllPlans');
 
+    // Guest accountant routes
+    Route::get('/accountant', 'UserController@accountant');
+});
 
 // Auth routes
-Route::group(['middleware' => 'auth'], function () {
+// Route::group(['middleware' => 'auth'], function () {
     Route::get('/payment/success', 'PaymentController@paid');
+
+    Route::get('/dashboard', 'DashboardController@index');
+
+    Route::get('/sales', 'SalesController@index');
+
+    // Route::prefix('sales')->group(function () {
+        Route::get('/addSales', 'SalesController@sales');
+        Route::get('/getCustomers', 'SalesController@getCustomer');
+
+    // });
+    Route::get('/expenses', 'ExpensesController@index');
+    Route::get('/assets', 'AssetController@openingAsset');
+    Route::get('/debtors', 'DebtorController@index');
+    Route::get('/creditors', 'CreditorController@index');
+    Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');
+// });
+
+// Accountant rotes
+// Route::group(['middleware' => ''], function() {
+    Route::get('/accountant/dashboard', 'AccountantController@index');
+// });
+
+Route::get('/api1', function () {
+    // Auth::loginUsingId('0587c5f0-9005-3f23-aace-d0faf74f19ba');
+
+    return view('test');
 });
-
-Route::get('plans','PaymentController@getAllPlans');
-
-// Accountant rotes 
-Route::group(['middleware' => 'accountant'], function() {
-
-});
-
-

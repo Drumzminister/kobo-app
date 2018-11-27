@@ -7,13 +7,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Accountant extends Authenticatable
 {
+    public $incrementing = false;
+    
     use Notifiable;
 
     /**
      *
      * @var boolean
      */
-    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
@@ -48,5 +49,4 @@ class Accountant extends Authenticatable
     {
         return $this->hasMany('Koboaccountant\Models\User');
     }
-
 }

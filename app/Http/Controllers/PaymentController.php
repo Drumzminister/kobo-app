@@ -10,7 +10,9 @@ use Unicodeveloper\Paystack\Paystack;
 class PaymentController extends Controller
 {
     use Payments;
+
     public $paystack;
+    
     function __construct()
     {
         $this->paystack = new Paystack();

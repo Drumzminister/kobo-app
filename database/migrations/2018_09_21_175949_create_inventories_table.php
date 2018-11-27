@@ -16,14 +16,13 @@ class CreateInventoriesTable extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->string('id');
             $table->string('name');
-            $table->double('sales_price', 7, 4)->default(0.0000);
-            $table->double('purchase_price', 7, 4)->default(0.0000);            
+            $table->double('sales_price')->default(0.0000);
+            $table->double('purchase_price')->default(0.0000);            
             $table->string('quantity');
-            $table->text('description')->nullable();
-            $table->date('delivered_date');
+            $table->string('description');
+            $table->timestamp('delivered_date');
             $table->string('attachment')->nullable();
             $table->string('vendor_id')->index();
-            $table->string('company_id')->index();
             $table->timestamps();
             $table->softDeletes();
 

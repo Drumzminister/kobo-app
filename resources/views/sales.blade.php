@@ -85,8 +85,7 @@ input {
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label><input type="radio" name="select" /><span>Y</span></label>
-                                    </div>
-                                          
+                                    </div>                                          
                             </div>
                             <div class="col-md-4">
 
@@ -139,7 +138,16 @@ input {
     <section id="sale-table">
         <div class="container mt-4">
                 <div class="row p-3">
+
+
+                    <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale" data-step="3" data-intro="Want your transaction? Here is it."  data-position="left" >Add Sales</div>            
+
+                    <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale" data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</div>            
+
+
                     <a href="/addSales" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>            
+
+                    <div id="" class="btn btn-success ml-2">Filter</div>
                     <div id="" onclick="">
                         <button style="font-size:18px" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
                     </div>
@@ -207,13 +215,11 @@ input {
                                 </td>
                                   <td> <input type="text" placeholder=""></td>
                                   <td> <input type="number" placeholder=""> </td>
-                                  <td><input type="number" placeholder=""></td>
+                                  <td><input class="number" onKeyup="AddComma()"placeholder=""></td>
                                   <td><input type="text" placeholder=""></td>
                                 <td> IG</td>
 
-                                </tr>
-        
-                          
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -221,6 +227,7 @@ input {
                     <div class="text-center mb-5 pb-3">
                         <a href="" class="view-more">View More</a> 
                     </div>
+                   
             </div> 
            
         </div>
@@ -262,6 +269,5 @@ input {
             </div>
         </div>
     </div>
-
 
 @endsection

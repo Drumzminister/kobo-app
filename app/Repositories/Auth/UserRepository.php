@@ -8,7 +8,11 @@ use Koboaccountant\Models\User;
 use Koboaccountant\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-use Paystack;
+use Paystack, Auth;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+
 
 use Koboaccountant\Repositories\BaseRepository;
 
@@ -81,4 +85,10 @@ class UserRepository extends BaseRepository
         return $this->users->findOrFail($id);
     }
 
+    public function upDateFirstTimeVisit($data)
+    {
+        Auth::user()->first_time_login = $data['update_first_time_visit']; // Flip the flag to true
+        Auth::user()->save();  // By that you tell it to save the new flag value into the users table
+        return true;
+    }
 }

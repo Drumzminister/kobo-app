@@ -8,32 +8,27 @@ class CreateSalesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->string('id');
-            $table->text('description')->nullable();
-            $table->date('sales_date');
-            $table->string('quantity');
-            $table->string('customer_id');
-            $table->string('inventory_id');
-            $table->string('catogory')->nullable();
+            $table->timestamp('sales_date');
+            $table->string('name');
+            $table->string('quantity')->nullable();
+            $table->string('inventory_id')->index();
+            $table->integer('amount');
+            $table->string('company_id')->index();
+            $table->string('staff_id')->index();
             $table->timestamps();
             $table->softDeletes();
 
             $table->primary('id');
-
-            
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

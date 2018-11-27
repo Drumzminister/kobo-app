@@ -9,4 +9,6 @@ class PaymentMethod extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
+    public $incrementing = false;
 }
