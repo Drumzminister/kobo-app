@@ -61,6 +61,16 @@ Route::get('/manage/clients', function () {
     return view('manage-clients');
 });
 
+<<<<<<< HEAD
+Route::get('/toolkits', function () {
+    return view('toolkit');
+});
+
+
+use Illuminate\Http\Request;
+
+=======
+>>>>>>> 00da062d3a138f4da5dd5a7827240f39b8303a41
 Route::get('/started', 'PaymentController@index');
 
 Auth::routes();
