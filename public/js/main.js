@@ -117,7 +117,7 @@ function addRow(tableID) {
     
         var newcell	= row.insertCell(i);
     
-        newcell.innerHTML = table.rows[4].cells[i].innerHTML;
+        newcell.innerHTML = table.rows[6].cells[i].innerHTML;
         //alert(newcell.childNodes);
         switch(newcell.childNodes[0].type) {
             case "text":

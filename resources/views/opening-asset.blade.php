@@ -40,21 +40,21 @@ input {
                           <td> Housing Estate</td>
                         <td> 43,000 </td>
                         <td>21/09/2009</td>
-                        <td>IG</td>
+                        <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                       </tr>
             
                       <tr>
                         <td> Housing Estate</td>
                       <td> 43,000 </td>
                       <td>21/09/2009</td>
-                      <td>IG</td>
+                      <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                     </tr>
             
                     <tr>
                         <td> Housing Estate</td>
                       <td> 43,000 </td>
                       <td>21/09/2009</td>
-                      <td>IG</td>
+                      <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                     </tr>
             
                     <tr class="d-none">
@@ -63,7 +63,7 @@ input {
                           <td> <div class="dates">
                                 <input type="text" id="usr1" name="event_date" placeholder="" autocomplete="off" >
                             </div></td>
-                          <td>IG</td>
+                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                         </tr>
                 
                        

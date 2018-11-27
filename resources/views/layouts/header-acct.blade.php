@@ -136,8 +136,8 @@
         {{-- End of message --}}
 
             {{-- user section --}} 
-            <div class=" multi-collapse py-0 my-0 " id="">
-                <ul class="navbar-nav ml-auto navbar-row upper-navbar py-0 my-0">
+            <div class=" multi-collapse " id="">
+                <ul class="navbar-nav mr-auto navbar-row ">
         
                     <li class="nav-item dropdown py-3">
                         <a class="nav-link mr-2 remove-after notification" href="#" 

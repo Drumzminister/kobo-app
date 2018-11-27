@@ -124,7 +124,7 @@
                                 <td> IG</td>
                             </tr>
 
-                            <tr>
+                            {{-- <tr>
                                     <td> Car </td>
                                     <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, neque?</td>
                                     <td> 23</td>
@@ -143,9 +143,9 @@
                                     <td> Mercy Ikpe</td>
                                     <td> IG</td>
                                 </tr>
-                                        
+                                         --}}
                                 
-                            <tr class="d-none">
+                            <tr class="">
                                 
                                   <td> <input type="text" placeholder=""></td>
                                   <td><textarea class="form-control"></textarea></td>
