@@ -59,20 +59,18 @@
 		<td>5</td>
 		<td>Bread</td>
 		<td><input class="txt" type="text" name="txt"/></td>
-		<td><input type="button" id="addmorebutton0" value="Add Row Below" onclick="addRow(this)"/></td>	
+		<td><input type="button" id="addmorebutton0" value="Add Row Below" onclick="addRow()"/></td>	
 	</tr>
 	<tr>
 		<td>5</td>
 		<td>Bread</td>
 		<td><input class="txt" type="text" name="txt"/></td>
 	</tr>
-	<tr id="summation">
-		<td>&nbsp;</td>
-		<td align="right">Sum :</td>
-		<td align="center"><span id="sum">0</span></td>
-	</tr>
-	<td>
+	
 </table>
+<div class="display">
+	<div><span>Sum :</span> <span id="sum">0</span></div>
+</div>
   </div>
 </div>
 
@@ -80,12 +78,7 @@
 $(document).ready(function(){
   //iterate through each textboxes and add keyup
   //handler to trigger sum event
-  $(".txt").each(function() {
-
-    $(this).keyup(function(){
-      calculateSum();
-    });
-  });
+	listener()  
 
 });
 function calculateSum() {
@@ -101,16 +94,33 @@ function calculateSum() {
   //.toFixed() method will roundoff the final sum to 2 decimal places
   $("#sum").html(sum.toFixed(2));
 }
-</script>
-<script>
-function addRow(row)
+function listener () {
+	$(".txt").each(function() {
+
+    $(this).keyup(function(){
+      calculateSum();
+    });
+  });
+}
+function addRow()
 {
-	var i = row.parentNode.parentNode.rowIndex;
-	var tr = document.getElementById('Table').insertRow(i+1);
-	tr.innerHTML = row.parentNode.parentNode.innerHTML;
-	var inputs = tr.querySelectorAll("input[type='text']");
-	for(var i=0; i<inputs.length; i++)
-		inputs[i].value = "";
-	}
+	let table = document.querySelector('#Table');
+	let tr = document.createElement('tr');
+	let td1 = document.createElement('td');
+	let td2 = document.createElement('td');
+	let td3 = document.createElement('td');
+	let inp = document.createElement('input');
+	inp.type = "text";
+	inp.classList = "txt";
+	td3.appendChild(inp);
+	td1.innerHTML = "5";
+	td2.innerHTML = "Bread";
+	tr.appendChild(td1);
+	tr.appendChild(td2);
+	tr.appendChild(td3);
+	table.appendChild(tr);
+
+	listener();
+}
 </script>
 </html>
