@@ -61,10 +61,20 @@ Route::get('/manage/clients', function () {
     return view('manage-clients');
 });
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5097e800aa271ec32b54312659bed8fa07d3c01a
 Route::get('/toolkits', function () {
     return view('toolkit');
 });
 
+<<<<<<< HEAD
+
+use Illuminate\Http\Request;
+
+=======
+>>>>>>> 5097e800aa271ec32b54312659bed8fa07d3c01a
 Route::get('/started', 'PaymentController@index');
 
 Auth::routes();

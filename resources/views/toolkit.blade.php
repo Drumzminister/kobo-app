@@ -17,6 +17,36 @@
             </div>
         </div>
     </section>
+
+    <section>
+        <div class="container mt-3">
+            <div class="bg-white p-3">
+                <h4 class="h4">Toolkit</h4>
+                <p class="text-muted">These are some tools that help as an accountant <br>
+                become better and faster
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="bg-white loa p-3">
+                            <h5 class="h5">Analytical Tools</h5>
+                            <div class="row pt-2">
+                                <div class="col-md-5">
+                                <img src="{{asset('img/toolkit1.png')}}" alt="services-img" srcset="" class="img-fluid">
+                                </div>
+                                <div class="col-md-7">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     
 
 @endsection
