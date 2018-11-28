@@ -116,3 +116,8 @@ Route::get('/api1', function () {
 
     return view('test');
 });
+Route::post('/api1', function () {
+    // foreach (Request::get('amount') as $update) {
+    dd(Request::all());
+    // }
+});
