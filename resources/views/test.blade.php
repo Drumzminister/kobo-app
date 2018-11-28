@@ -86,7 +86,7 @@ function addRow()
 	inp.classList = "txt";
 	inp.name = "amount[]";
 	td3.appendChild(inp);
-	td1.innerHTML = "5";
+	td1.innerHTML = 5;
 	td2.innerHTML = "Bread";
 	tr.appendChild(td1);
 	tr.appendChild(td2);
