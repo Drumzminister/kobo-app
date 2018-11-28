@@ -83,47 +83,112 @@ Sales Dashboard
 =====================*/
 
 // table row
-var table = document.getElementById("table"),rIndex;
+// var table = document.getElementById("table"),rIndex;
 
-var rows = table.rows.length;
+// var rows = table.rows.length;
 
-for(var i = 0; i < rows; i++ ){
-  table.rows[i].onclick = function()
-  {
-    rIndex = this.rowIndex;
-    console.log(rIndex);
-  };
-}
+// for(var i = 0; i < rows; i++ ){
+//   table.rows[i].onclick = function()
+//   {
+//     rIndex = this.rowIndex;
+//     console.log(rIndex);
+//   };
+// }
 
 // sales table
-function addRow(tableID) {
+var $TABLE = $('#table');
+var $BTN = $('#export-btn');
+var $EXPORT = $('#export');
 
-    var table = document.getElementById(tableID);
+$('.table-add').click(function () {
+var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
+$TABLE.find('table').append($clone);
+});
+
+$('.table-remove').click(function () {
+$(this).parents('tr').detach();
+});
+
+$('.table-up').click(function () {
+var $row = $(this).parents('tr');
+if ($row.index() === 1) return; // Don't go above the header
+$row.prev().before($row.get(0));
+});
+
+$('.table-down').click(function () {
+var $row = $(this).parents('tr');
+$row.next().after($row.get(0));
+});
+
+// A few jQuery helpers for exporting only
+jQuery.fn.pop = [].pop;
+jQuery.fn.shift = [].shift;
+
+$BTN.click(function () {
+var $rows = $TABLE.find('tr:not(:hidden)');
+var headers = [];
+var data = [];
+
+// Get the headers (add special header logic here)
+$($rows.shift()).find('th:not(:empty)').each(function () {
+headers.push($(this).text().toLowerCase());
+});
+
+// Turn all existing rows into a loopable array
+$rows.each(function () {
+var $td = $(this).find('td');
+var h = {};
+
+// Use the headers from earlier to name our hash keys
+headers.forEach(function (header, i) {
+h[header] = $td.eq(i).text();
+});
+
+data.push(h);
+});
+
+// Output the result
+$EXPORT.text(JSON.stringify(data));
+});
+
+
+// function addRow(row)
+// {
+// var i = row.parentNode.parentNode.rowIndex;
+// var tr = document.getElementById('Table').insertRow(i+1);
+// tr.innerHTML = row.parentNode.parentNode.innerHTML;
+// var inputs = tr.querySelectorAll("input[type='text']");
+// for(var i=0; i<inputs.length; i++)
+//    inputs[i].value = "";
+// }
+// function addRow(tableID) {
+
+//     var table = document.getElementById(tableID);
     
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
+//     var rowCount = table.rows.length;
+//     var row = table.insertRow(rowCount);
     
-    var colCount = table.rows[1].cells.length;
+//     var colCount = table.rows[1].cells.length;
     
-    for(var i=0; i<colCount; i++) {
+//     for(var i=0; i<colCount; i++) {
     
-        var newcell	= row.insertCell(i);
+//         var newcell	= row.insertCell(i);
     
-        newcell.innerHTML = table.rows[6].cells[i].innerHTML;
-        //alert(newcell.childNodes);
-        switch(newcell.childNodes[0].type) {
-            case "text":
-                    newcell.childNodes[0].value = "";
-                    break;
-            case "checkbox":
-                    newcell.childNodes[0].checked = false;
-                    break;
-            case "select-one":
-                    newcell.childNodes[0].selectedIndex = 0;
-                    break;
-        }
-    }
-  }
+//         newcell.innerHTML = table.rows[6].cells[i].innerHTML;
+//         //alert(newcell.childNodes);
+//         switch(newcell.childNodes[0].type) {
+//             case "text":
+//                     newcell.childNodes[0].value = "";
+//                     break;
+//             case "checkbox":
+//                     newcell.childNodes[0].checked = false;
+//                     break;
+//             case "select-one":
+//                     newcell.childNodes[0].selectedIndex = 0;
+//                     break;
+//         }
+//     }
+//   }
 
 // Format number
 function AddComma() {

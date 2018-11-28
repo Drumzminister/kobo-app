@@ -2,8 +2,8 @@
         <div class="container mt-4">
                 
             <div class="bg-white">
-                <div class="table-responsive table-responsive-sm">
-                    <table class="table table-striped table-hover" id="dataTable">
+                    <div id="table" class="table-editable">
+                    <table class="table table-bordered table-responsive-md table-striped text-center">
                         <thead class="p-3">
                           <tr class="tab">
                             <th scope="col" class="tool" data-tip="Add all your inventory here." tabindex="1">
@@ -27,55 +27,77 @@
                             <th scope="col" class="tool" data-tip="Channel of sale" tabindex="1">
                                 Channel
                             </th>
-                            
+                            <th class="text-center">Remove</th>            
                 
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>  Car   </td>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, neque.</td>
-                            <td>  23  </td>
-                            <td> 2,000</td>
-                            <td> 43,000   </td>
-                            <td> Mercy Ikpe </td>
-                            <td>  IG </td>
-                          </tr>
-
                             <tr>
-                               <td> Car </td>
-                               <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, aut!</td>
-                              <td> 23</td>
-                                <td> 2,000</td>
-                              <td> 43,000</td>
-                              <td> Mercy Ikpe</td>
-                              <td> IG</td>
+                                <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                <td class="pt-3-half" contenteditable="true">30</td>
+                                <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                <td class="pt-3-half" contenteditable="true">Spain</td>
+                                <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                <td class="pt-3-half" contenteditable="true">Spain</td>
+                                <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                <td>
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                    </td>
                             </tr>
-
                             <tr>
-                                <td> Car </td>
-                                <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis, a.</td>
-                                <td> 23</td>
-                                <td> 2,000</td>
-                                <td> 43,000</td>
-                                <td> Mercy Ikpe</td>
-                                <td> IG</td>
-                            </tr>
+                                    <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                    <td class="pt-3-half" contenteditable="true">30</td>
+                                    <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                    <td class="pt-3-half" contenteditable="true">Spain</td>
+                                    <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                    <td class="pt-3-half" contenteditable="true">Spain</td>
+                                    <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                    <td>
+                                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                        </td>
+                                </tr><tr>
+                                        <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                        <td class="pt-3-half" contenteditable="true">30</td>
+                                        <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                        <td class="pt-3-half" contenteditable="true">Spain</td>
+                                        <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                        <td class="pt-3-half" contenteditable="true">Spain</td>
+                                        <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                        <td>
+                                            <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                            </td>
+                                    </tr>
+                                    <tr>
+                                            <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                            <td class="pt-3-half" contenteditable="true">30</td>
+                                            <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                            <td class="pt-3-half" contenteditable="true">Spain</td>
+                                            <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                            <td class="pt-3-half" contenteditable="true">Spain</td>
+                                            <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                            <td>
+                                                <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                                </td>
+                                        </tr>
 
-                            <tr>
-                                    <td> Car </td>
-                                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, neque?</td>
-                                    <td> 23</td>
-                                    <td> 2,000</td>
-                                    <td> 43,000</td>
-                                    <td> Mercy Ikpe</td>
-                                    <td> IG</td>
-                            </tr>
-
+                                        <tr>
+                                                <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                                <td class="pt-3-half" contenteditable="true">30</td>
+                                                <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                                <td class="pt-3-half" contenteditable="true">Spain</td>
+                                                <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                                <td class="pt-3-half" contenteditable="true">Spain</td>
+                                                <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                                <td>
+                                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                                    </td>
+                                            </tr>
+                     
                  
                         </tbody>
+                            
                     </table>
-                    <span id="addNew" value="Add Row" onclick="addRow('dataTable')" class="float-right"  >Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
+                    <span class="table-add float-right"  >Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                     </span>            
                 </div>
 
