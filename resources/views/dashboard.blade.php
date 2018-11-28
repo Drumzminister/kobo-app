@@ -4,12 +4,12 @@
 
 {{-- modal section --}}
 {{-- first modal --}}
-@if(! Auth::user()->first_time_login)
+
 <div class="modal hide fade m-auto" id="myModal" tabindex="-1" role="dialog">
     <div class=" modal-dialog modal-dialog-centered" role="document">
       <div class="container p-5 modal-content">
             <div class="modal-body text-center">
-                <h5 class="modal-h5">Welcome {{Auth::user()->first_name}} &#x1f642 !!!</h5>
+                <h5 class="modal-h5">Welcome Ekpono &#x1f642 !!!</h5>
                 <h5 class="h5 pt-3">SETUP AN OPENING ACCOUNT</h5>
                 <p class="modal-account">Setup your account by providing some details about your Debtors, Creditors, Value of existing assets and Rent. This will help the accountant to easily start taking records of you company.</p>
             </div>
@@ -27,7 +27,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="container p-5 modal-content">
                         <div class="modal-body text-center">
-                            <h5 class="modal-h5">Hi {{Auth::user()->first_name}} &#x1f642 !!!</h5>
+                            <h5 class="modal-h5">Hi Ekpono &#x1f642 !!!</h5>
                             <p class="modal-account pt-3">You can continue without providing the details but your records might not be detailed. Do you wish to continue ?</p>
                         </div>
                         <div class="modal-footer">
@@ -37,7 +37,7 @@
                 </div>
         </div>
 </div>
-@endif
+
 {{-- end of modal --}}
 
 {{-- heading section --}}

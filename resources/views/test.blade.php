@@ -28,69 +28,29 @@
 <div class="container">
   <div class="row col-md-6">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<form method="post">
+	@csrf
+	<table width="300px" id="Table" border="1" style="border-collapse:collapse;background-color:#E8DCFF">
+			<td>5</td>
+			<td>Bread</td>
+			<td><input class="txt" type="text" name="amount[]" value=""/></td>
 
-<table width="300px" border="1" style="border-collapse:collapse;background-color:#E8DCFF">
-	<tr>
-		<td width="40px">1</td>
-		<td>Butter</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>Cheese</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	<tr>
-		<td>3</td>
-		<td>Eggs</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	<tr>
-		<td>4</td>
-		<td>Milk</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	<tr>
-		<td>5</td>
-		<td>Bread</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	<tr>
-		<td>6</td>
-		<td>Soap</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	<tr id="summation">
-		<td>&nbsp;</td>
-		<td align="right">Sum :</td>
-		<td align="center"><span id="sum">0</span></td>
-	</tr>
-</table>
-  </div>
-</div>
-
-<input type="button" onclick="cloneRow()" value="Clone Row" />
-  <input type="button" onclick="createRow()" value="Create Row" />
-  <table>
-    <tbody id="tableToModify">
-      <tr id="rowToClone">
-        <td></td>
-        <td><input type="text"/></td>
-      </tr>
-    </tbody>
-  </table>
-</body>
-
+			
+		</tr>
+	</table>
+	<div class="display">
+		<div value="20"><span>Sum :</span> <span id="sum" value="">0</span></div>
+	</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Send</button>
+	</div>
+</form>
+<input type="button" id="addmorebutton0"  value="Add Row Below" onclick="addRow()"/>
 <script>
 $(document).ready(function(){
   //iterate through each textboxes and add keyup
   //handler to trigger sum event
-  $(".txt").each(function() {
-
-    $(this).keyup(function(){
-      calculateSum();
-    });
-  });
+	// listener()  
 
 });
 function calculateSum() {
@@ -104,28 +64,36 @@ function calculateSum() {
     }
   });
   //.toFixed() method will roundoff the final sum to 2 decimal places
-  $("#sum").text(sum.toFixed(2));
+  $("#sum").html(sum.toFixed(2));
+}
+function listener () {
+	$(".txt").each(function() {
+
+    $(this).keyup(function(){
+      calculateSum();
+    });
+  });
+}
+function addRow()
+{
+	let table = document.querySelector('#Table');
+	let tr = document.createElement('tr');
+	let td1 = document.createElement('td');
+	let td2 = document.createElement('td');
+	let td3 = document.createElement('td');
+	let inp = document.createElement('input');
+	inp.type = "text";
+	inp.classList = "txt";
+	inp.name = "amount[]";
+	td3.appendChild(inp);
+	td1.innerHTML = "5";
+	td2.innerHTML = "Bread";
+	tr.appendChild(td1);
+	tr.appendChild(td2);
+	tr.appendChild(td3);
+	table.appendChild(tr);
+
+	// listener();
 }
 </script>
-<script type="text/javascript">
-    function cloneRow() {
-      var row = document.getElementById("rowToClone"); // find row to copy
-      var table = document.getElementById("tableToModify"); // find table to append to
-      var clone = row.cloneNode(true); // copy children too
-      clone.id = "newID"; // change id or other attributes/contents
-      table.appendChild(clone); // add new row to end of table
-    }
-
-    function createRow() {
-      var row = document.createElement('tr'); // create row node
-      var col = document.createElement('td'); // create column node
-      var col2 = document.createElement('td'); // create second column node
-      row.appendChild(col); // append first column to row
-      row.appendChild(col2).value = ''; // append second column to row
-      col.innerHTML = "qwe"; // put data in first column
-      col2.innerHTML = "rty"; // put data in second column
-      var table = document.getElementById("tableToModify"); // find table to append to
-      table.appendChild(row); // append row to table
-    }
-  </script>
 </html>

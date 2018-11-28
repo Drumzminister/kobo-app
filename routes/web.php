@@ -61,14 +61,20 @@ Route::get('/manage/clients', function () {
     return view('manage-clients');
 });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5097e800aa271ec32b54312659bed8fa07d3c01a
 Route::get('/toolkits', function () {
     return view('toolkit');
 });
 
+<<<<<<< HEAD
 
 use Illuminate\Http\Request;
 
+=======
+>>>>>>> 5097e800aa271ec32b54312659bed8fa07d3c01a
 Route::get('/started', 'PaymentController@index');
 
 Auth::routes();
@@ -119,4 +125,9 @@ Route::get('/api1', function () {
     // Auth::loginUsingId('0587c5f0-9005-3f23-aace-d0faf74f19ba');
 
     return view('test');
+});
+Route::post('/api1', function () {
+    // foreach (Request::get('amount') as $update) {
+    dd(Request::all());
+    // }
 });
