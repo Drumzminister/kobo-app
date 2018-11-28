@@ -93,7 +93,7 @@ function addRow()
 	tr.appendChild(td3);
 	table.appendChild(tr);
 
-	// listener();
+	listener();
 }
 </script>
 </html>
