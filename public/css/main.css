@@ -259,7 +259,7 @@ buttons
   font-size: 1.1rem;
   letter-spacing: 1px;
   display: inline-block;
-  padding: 8px 30px;
+  padding: 6px 30px;
   transition: 0.9s;
   color: #fff;
   background: #00C259;
@@ -275,7 +275,7 @@ buttons
   font-size: 1.1rem;
   letter-spacing: 1px;
   display: inline-block;
-  padding: 8px 30px;
+  padding: 6px 30px;
   border: 1px solid;
   transition: 0.9s;
   color: #00C259;
@@ -562,4 +562,12 @@ Manage client page
 a:hover{
   text-decoration: none;
   color: inherit;
+}
+.rounded-circlee{
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  background:#fff;
+  box-shadow: 3px 1px 3px 1px rgb(238, 236, 236);
+
 }
