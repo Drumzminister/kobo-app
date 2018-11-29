@@ -64,6 +64,17 @@ Route::get('/manage/clients', function () {
 Route::get('/toolkits', function () {
     return view('toolkit');
 });
+
+Route::get('/resources', function () {
+    return view('resource');
+});
+
+Route::get('/chats', function () {
+    return view('chat');
+});
+
+
+
 use Illuminate\Http\Request;
 
 Route::get('/started', 'PaymentController@index');
