@@ -65,6 +65,18 @@ Route::get('/toolkits', function () {
     return view('toolkit');
 });
 
+Route::get('/resources', function () {
+    return view('resource');
+});
+
+Route::get('/chats', function () {
+    return view('chat');
+});
+
+
+
+use Illuminate\Http\Request;
+
 Route::get('/started', 'PaymentController@index');
 
 Auth::routes();
@@ -115,4 +127,9 @@ Route::get('/api1', function () {
     // Auth::loginUsingId('0587c5f0-9005-3f23-aace-d0faf74f19ba');
 
     return view('test');
+});
+Route::post('/api1', function () {
+    // foreach (Request::get('amount') as $update) {
+    dd(request()->all());
+    // }
 });

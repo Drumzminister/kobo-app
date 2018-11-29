@@ -226,12 +226,12 @@ loan section
 }
 .loa{
   transition: all 0.5s;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.1);
 }
 .loa:hover {
   margin-top: -.25rem;
   margin-bottom: .25rem;
-  box-shadow: 0.5rem 1rem 1.5rem 0.5rem rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 3px 3px 2px rgba(0, 0, 0, 0.4);
 }
 .loan-form .form-group label{
   font-size: 14px;
@@ -259,7 +259,7 @@ buttons
   font-size: 1.1rem;
   letter-spacing: 1px;
   display: inline-block;
-  padding: 8px 30px;
+  padding: 6px 30px;
   transition: 0.9s;
   color: #fff;
   background: #00C259;
@@ -275,7 +275,7 @@ buttons
   font-size: 1.1rem;
   letter-spacing: 1px;
   display: inline-block;
-  padding: 8px 30px;
+  padding: 6px 30px;
   border: 1px solid;
   transition: 0.9s;
   color: #00C259;
@@ -562,4 +562,12 @@ Manage client page
 a:hover{
   text-decoration: none;
   color: inherit;
+}
+.rounded-circlee{
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  background:#fff;
+  box-shadow: 3px 1px 3px 1px rgb(238, 236, 236);
+
 }

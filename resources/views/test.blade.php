@@ -28,57 +28,29 @@
 <div class="container">
   <div class="row col-md-6">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<form method="post">
+	@csrf
+	<table width="300px" id="Table" border="1" style="border-collapse:collapse;background-color:#E8DCFF">
+			<td>5</td>
+			<td>Bread</td>
+			<td><input class="txt" type="text" name="amount[]" value=""/></td>
 
-<table width="300px" id="Table" border="1" style="border-collapse:collapse;background-color:#E8DCFF">
-	<tr>
-		<td width="40px">1</td>
-		<td>Butter</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>Cheese</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	<tr>
-		<td>3</td>
-		<td>Eggs</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	<tr>
-		<td>4</td>
-		<td>Milk</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	<tr>
-		<td>5</td>
-		<td>Bread</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	<tr>
-		<td>5</td>
-		<td>Bread</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-		<td><input type="button" id="addmorebutton0" value="Add Row Below" onclick="addRow()"/></td>	
-	</tr>
-	<tr>
-		<td>5</td>
-		<td>Bread</td>
-		<td><input class="txt" type="text" name="txt"/></td>
-	</tr>
-	
-</table>
-<div class="display">
-	<div><span>Sum :</span> <span id="sum">0</span></div>
-</div>
-  </div>
-</div>
-
+			
+		</tr>
+	</table>
+	<div class="display">
+		<div value="20"><span>Sum :</span> <span id="sum" value="">0</span></div>
+	</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Send</button>
+	</div>
+</form>
+<input type="button" id="addmorebutton0"  value="Add Row Below" onclick="addRow()"/>
 <script>
 $(document).ready(function(){
   //iterate through each textboxes and add keyup
   //handler to trigger sum event
-	listener()  
+	// listener()  
 
 });
 function calculateSum() {
@@ -112,8 +84,9 @@ function addRow()
 	let inp = document.createElement('input');
 	inp.type = "text";
 	inp.classList = "txt";
+	inp.name = "amount[]";
 	td3.appendChild(inp);
-	td1.innerHTML = "5";
+	td1.innerHTML = 5;
 	td2.innerHTML = "Bread";
 	tr.appendChild(td1);
 	tr.appendChild(td2);

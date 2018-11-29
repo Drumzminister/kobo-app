@@ -83,47 +83,101 @@ Sales Dashboard
 =====================*/
 
 // table row
-var table = document.getElementById("table"),rIndex;
+// var table = document.getElementById("table"),rIndex;
 
-var rows = table.rows.length;
+// var rows = table.rows.length;
 
-for(var i = 0; i < rows; i++ ){
-  table.rows[i].onclick = function()
-  {
-    rIndex = this.rowIndex;
-    console.log(rIndex);
-  };
-}
+// for(var i = 0; i < rows; i++ ){
+//   table.rows[i].onclick = function()
+//   {
+//     rIndex = this.rowIndex;
+//     console.log(rIndex);
+//   };
+// }
 
 // sales table
-/* function addRow(tableID) {
+var $TABLE = $('#table');
+var $BTN = $('#export-btn');
+var $EXPORT = $('#export');
 
-    var table = document.getElementById(tableID);
-    
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-    
-    var colCount = table.rows[1].cells.length;
-    
-    for(var i=0; i<colCount; i++) {
-    
-        var newcell	= row.insertCell(i);
-    
-        newcell.innerHTML = table.rows[6].cells[i].innerHTML;
-        //alert(newcell.childNodes);
-        switch(newcell.childNodes[0].type) {
-            case "text":
-                    newcell.childNodes[0].value = "";
-                    break;
-            case "checkbox":
-                    newcell.childNodes[0].checked = false;
-                    break;
-            case "select-one":
-                    newcell.childNodes[0].selectedIndex = 0;
-                    break;
-        }
-    }
-  } */
+function addRow(){
+  let table = document.querySelector(".tbodyRow");
+  let tr = document.createElement('tr');
+  tr.classList.add("tbodyRow");
+	let td1 = document.createElement('td');
+	let td2 = document.createElement('td');
+  let td3 = document.createElement('td');
+  let td4 = document.createElement('td');
+	let td5 = document.createElement('td');
+  let td6 = document.createElement('td');
+  let td7 = document.createElement('td');
+  let new1 = $(td7).html("<span><button onclick='removeRow()'  type='button' class='btn btn-danger btn-rounded btn-sm my-0'>Remove</button></span>");
+  td1.classList.add("pt-3-half");
+  td1.setAttribute("contenteditable", "true");
+  td2.classList.add("pt-3-half");
+  td2.setAttribute("contenteditable", "true");
+  td3.classList.add("pt-3-half");
+  td3.setAttribute("contenteditable", "true");
+  td4.classList.add("pt-3-half");
+  td4.setAttribute("contenteditable", "true");
+  td5.classList.add("pt-3-half");
+  td5.setAttribute("contenteditable", "true");
+  td6.classList.add("pt-3-half");
+  td6.setAttribute("contenteditable", "true");
+	tr.appendChild(td1);
+	tr.appendChild(td2);
+  tr.appendChild(td3);
+  tr.appendChild(td4);
+	tr.appendChild(td5);
+  tr.appendChild(td6);
+  tr.appendChild(td7);
+	table.appendChild(tr);
+}
+
+// function removeRow() {
+//   $('.tbodyRow').removeRow(0);
+// }
+function removeRow() {
+  $(this).parents('tr').remove(); 
+}
+
+
+$('.table-down').click(function () {
+var $row = $(this).parents('tr');
+$row.next().after($row.get(0));
+});
+
+// A few jQuery helpers for exporting only
+jQuery.fn.pop = [].pop;
+jQuery.fn.shift = [].shift;
+
+$BTN.click(function () {
+var $rows = $TABLE.find('tr:not(:hidden)');
+var headers = [];
+var data = [];
+
+// Get the headers (add special header logic here)
+$($rows.shift()).find('th:not(:empty)').each(function () {
+headers.push($(this).text().toLowerCase());
+});
+
+// Turn all existing rows into a loopable array
+$rows.each(function () {
+var $td = $(this).find('td');
+var h = {};
+
+// Use the headers from earlier to name our hash keys
+headers.forEach(function (header, i) {
+h[header] = $td.eq(i).text();
+});
+
+data.push(h);
+});
+
+// Output the result
+$EXPORT.text(JSON.stringify(data));
+});
+
 
 // Format number
 function AddComma() {

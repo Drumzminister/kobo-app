@@ -64,7 +64,7 @@
 		<td>&nbsp;</td>
 		<td align="right">Sum :</td>
 		<td align="center"><span id="sum">0</span></td>
-    </tr>
+  </tr>
     
 </table>
   </div>

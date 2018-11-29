@@ -1,4 +1,4 @@
-function addRow(id) {
+function addExpense(id) {
 
     let tbody = document.querySelector(`#${id} tbody`);
     let row = document.createElement('tr');

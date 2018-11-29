@@ -132,7 +132,7 @@ input {
     <section id="sale-table">
         <div class="container mt-4">
                 <div class="row p-3">
-                    <div id="addNew" value="Add Row" onclick="addRow('expenseTable')" class="btn btn-addSale mr-2" >Add Expenses</div>
+                    <div id="addNew" value="Add Row" onclick="addExpense('expenseTable')" class="btn btn-addSale mr-2" >Add Expenses</div>
                     <div id="" onclick="">
                         <button style="font-size:18px" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
                     </div>
