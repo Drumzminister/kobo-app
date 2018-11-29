@@ -100,20 +100,46 @@ var $TABLE = $('#table');
 var $BTN = $('#export-btn');
 var $EXPORT = $('#export');
 
-$('.table-add').click(function () {
-var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
-$TABLE.find('table').append($clone);
-});
+function addRow(){
+  let table = document.querySelector(".tbodyRow");
+  let tr = document.createElement('tr');
+  tr.classList.add("tbodyRow");
+	let td1 = document.createElement('td');
+	let td2 = document.createElement('td');
+  let td3 = document.createElement('td');
+  let td4 = document.createElement('td');
+	let td5 = document.createElement('td');
+  let td6 = document.createElement('td');
+  let td7 = document.createElement('td');
+  let new1 = $(td7).html("<span><button onclick='removeRow()'  type='button' class='btn btn-danger btn-rounded btn-sm my-0'>Remove</button></span>");
+  td1.classList.add("pt-3-half");
+  td1.setAttribute("contenteditable", "true");
+  td2.classList.add("pt-3-half");
+  td2.setAttribute("contenteditable", "true");
+  td3.classList.add("pt-3-half");
+  td3.setAttribute("contenteditable", "true");
+  td4.classList.add("pt-3-half");
+  td4.setAttribute("contenteditable", "true");
+  td5.classList.add("pt-3-half");
+  td5.setAttribute("contenteditable", "true");
+  td6.classList.add("pt-3-half");
+  td6.setAttribute("contenteditable", "true");
+	tr.appendChild(td1);
+	tr.appendChild(td2);
+  tr.appendChild(td3);
+  tr.appendChild(td4);
+	tr.appendChild(td5);
+  tr.appendChild(td6);
+  tr.appendChild(td7);
+	table.appendChild(tr);
 
-$('.table-remove').click(function () {
-$(this).parents('tr').detach();
-});
+}
 
-$('.table-up').click(function () {
-var $row = $(this).parents('tr');
-if ($row.index() === 1) return; // Don't go above the header
-$row.prev().before($row.get(0));
-});
+function removeRow() {
+  $('.tbodyRow').remove();
+}
+
+
 
 $('.table-down').click(function () {
 var $row = $(this).parents('tr');
@@ -152,43 +178,6 @@ $EXPORT.text(JSON.stringify(data));
 });
 
 
-// function addRow(row)
-// {
-// var i = row.parentNode.parentNode.rowIndex;
-// var tr = document.getElementById('Table').insertRow(i+1);
-// tr.innerHTML = row.parentNode.parentNode.innerHTML;
-// var inputs = tr.querySelectorAll("input[type='text']");
-// for(var i=0; i<inputs.length; i++)
-//    inputs[i].value = "";
-// }
-// function addRow(tableID) {
-
-//     var table = document.getElementById(tableID);
-    
-//     var rowCount = table.rows.length;
-//     var row = table.insertRow(rowCount);
-    
-//     var colCount = table.rows[1].cells.length;
-    
-//     for(var i=0; i<colCount; i++) {
-    
-//         var newcell	= row.insertCell(i);
-    
-//         newcell.innerHTML = table.rows[6].cells[i].innerHTML;
-//         //alert(newcell.childNodes);
-//         switch(newcell.childNodes[0].type) {
-//             case "text":
-//                     newcell.childNodes[0].value = "";
-//                     break;
-//             case "checkbox":
-//                     newcell.childNodes[0].checked = false;
-//                     break;
-//             case "select-one":
-//                     newcell.childNodes[0].selectedIndex = 0;
-//                     break;
-//         }
-//     }
-//   }
 
 // Format number
 function AddComma() {

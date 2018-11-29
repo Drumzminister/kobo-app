@@ -1,23 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "bc7286a1176354fff3a083f947b47446",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.76.0",
+            "version": "3.78.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "ae331953146493aa71853b5c675f0b7b48c9c952"
+                "reference": "11f4ad57d2e6094fd64784fb461fa854e6a0a3d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ae331953146493aa71853b5c675f0b7b48c9c952",
-                "reference": "ae331953146493aa71853b5c675f0b7b48c9c952",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/11f4ad57d2e6094fd64784fb461fa854e6a0a3d6",
+                "reference": "11f4ad57d2e6094fd64784fb461fa854e6a0a3d6",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-11-27T05:14:58+00:00"
+            "time": "2018-11-28T19:12:56+00:00"
         },
         {
             "name": "cocur/slugify",

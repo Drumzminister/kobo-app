@@ -119,6 +119,6 @@ Route::get('/api1', function () {
 });
 Route::post('/api1', function () {
     // foreach (Request::get('amount') as $update) {
-    dd(Request::all());
+    dd(request()->all());
     // }
 });
