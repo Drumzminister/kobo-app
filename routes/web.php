@@ -110,7 +110,7 @@ Route::group(['middle' => ['guest']], function () {
 // Route::group(['middleware' => ''], function() {
     Route::get('/accountant/dashboard', 'AccountantController@index');
 // });
-
+Route::post('/expenses/create', 'ExpensesController@store');
 Route::get('/api1', function () {
     // Auth::loginUsingId('0587c5f0-9005-3f23-aace-d0faf74f19ba');
 

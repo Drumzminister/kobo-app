@@ -96,7 +96,7 @@ for(var i = 0; i < rows; i++ ){
 }
 
 // sales table
-function addRow(tableID) {
+/* function addRow(tableID) {
 
     var table = document.getElementById(tableID);
     
@@ -123,7 +123,7 @@ function addRow(tableID) {
                     break;
         }
     }
-  }
+  } */
 
 // Format number
 function AddComma() {

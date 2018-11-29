@@ -4,7 +4,7 @@ namespace Koboaccountant\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Expenses extends Model
+class Expense extends Model
 {
     public $incrementing = false;
 }

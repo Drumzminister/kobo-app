@@ -56,5 +56,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('Koboaccountant\Models\Customer');
     }
+
+    public function expenses()
+    {
+        return $this->hasMany('Koboaccountant\Models\Expense', 'user_id');
+    }
     
 }
