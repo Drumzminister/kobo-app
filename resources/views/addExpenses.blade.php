@@ -26,7 +26,15 @@
 <section id="sale-table">
         <div class="container mt-4">
                 
-            <div class="bg-white">
+            <div class="bg-white py-3 px-5">
+                <div class="date float-right">
+                    <div class="dates input-group input-group-lg pb-3">
+                            <input type="text"  class="form-control" id="datepicker" value="{{Date('m/d/Y')}}" name="event_date">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-calendar icon" id="datepicker" name="event_date" ></i></span>
+                            </div> 
+                    </div>
+                </div>
                     <div id="table" class="table-editableWTF">
                     <table class="table table-bordered table-responsive-md table-striped text-center">
                         <thead class="p-3">
