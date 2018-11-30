@@ -69,8 +69,20 @@ Route::get('/resources', function () {
     return view('resource');
 });
 
+Route::get('/chats/history', function () {
+    return view('chat-history');
+});
+
 Route::get('/chats', function () {
     return view('chat');
+});
+
+Route::get('/addExpenses', function () {
+    return view('addExpenses');
+});
+
+Route::get('/View/Sales', function () {
+    return view('view-sales');
 });
 
 

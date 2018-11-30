@@ -12,6 +12,10 @@
                             <th scope="col" class="tool" data-tip="Provide description of item" tabindex="1">
                                     Description
                                     </th>
+                            <th scope="col" class="tool" data-tip="Provide description of item" tabindex="1">
+                                    Invoice
+                            </th>
+        
                             <th scope="col" class="tool" data-tip="Include the quantity sold." tabindex="1">
                                 QTY sold
                             </th>
@@ -36,6 +40,7 @@
                                 <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
                                 <td class="pt-3-half" contenteditable="true">30</td>
                                 <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                <td class="pt-3-half" contenteditable="true">invoice</td>
                                 <td class="pt-3-half" contenteditable="true">Spain</td>
                                 <td class="pt-3-half" contenteditable="true">Madrid</td>
                                 <td class="pt-3-half" contenteditable="true">Spain</td>
@@ -48,6 +53,7 @@
                                     <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
                                     <td class="pt-3-half" contenteditable="true">30</td>
                                     <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                    <td class="pt-3-half" contenteditable="true">invoice</td>
                                     <td class="pt-3-half" contenteditable="true">Spain</td>
                                     <td class="pt-3-half" contenteditable="true">Madrid</td>
                                     <td class="pt-3-half" contenteditable="true">Spain</td>
@@ -59,6 +65,7 @@
                                         <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
                                         <td class="pt-3-half" contenteditable="true">30</td>
                                         <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                        <td class="pt-3-half" contenteditable="true">invoice</td>
                                         <td class="pt-3-half" contenteditable="true">Spain</td>
                                         <td class="pt-3-half" contenteditable="true">Madrid</td>
                                         <td class="pt-3-half" contenteditable="true">Spain</td>
@@ -71,6 +78,7 @@
                                             <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
                                             <td class="pt-3-half" contenteditable="true">30</td>
                                             <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                            <td class="pt-3-half" contenteditable="true">invoice</td>
                                             <td class="pt-3-half" contenteditable="true">Spain</td>
                                             <td class="pt-3-half" contenteditable="true">Madrid</td>
                                             <td class="pt-3-half" contenteditable="true">Spain</td>
@@ -84,6 +92,7 @@
                                                 <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
                                                 <td class="pt-3-half" contenteditable="true">30</td>
                                                 <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                                <td class="pt-3-half" contenteditable="true">invoice</td>
                                                 <td class="pt-3-half" contenteditable="true">Spain</td>
                                                 <td class="pt-3-half" contenteditable="true">Madrid</td>
                                                 <td class="pt-3-half" contenteditable="true">Spain</td>

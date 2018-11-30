@@ -47,6 +47,9 @@ td a {
 .view-more{
     color: #00C259;
     font-weight: 600;
+    border-radius: 50px;
+    box-shadow: 2px 3px 3px 2px rgba(0, 0, 0, 0.4);
+    padding: 5px 20px;
 }
 .product-details h5{
     font-weight: 900;
@@ -310,6 +313,46 @@ buttons
   color: #fff ; 
 }
 
+.btn-loginn{
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 6px 15px;
+  border: 1px solid;
+  transition: 0.9s;
+  color: #00C259;
+  background:transparent ;
+
+}
+.btn-loginn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.8s;
+}
+
+.btn-loginn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.8s;
+}
+
+.btn-loginn:hover span {
+  padding-right: 25px;
+  color: #fff ;
+
+}
+
+.btn-loginn:hover span:after {
+  opacity: 1;
+  right: 0;
+  color: #fff ; 
+}
+
 .btn-secondary {
     background-color: #333;
     text-shadow: none;
@@ -332,19 +375,19 @@ buttons
 }
 
 .btn-filter{
-  background: transparent;
-  color: #00C259;
-  font-weight: 600;
-  font-size: 1.1rem;
+  color: #fff;
+  background: #00C259;
+   font-weight: 600;
+  font-size: 1.0rem;
   letter-spacing: 1px;
   display: inline-block;
-  padding: 8px 30px;
+  padding: 6px 30px;
   transition: 0.9s;
 }
 
 .btn-filter:hover{
-  background: #00C259;
-  color: #fff;
+  background: transparent;
+  color: #00C259;
   text-decoration: none;
   border: 1px solid;
 }
@@ -352,9 +395,9 @@ buttons
 .btn-payment, .btn-addsale{
   background: linear-gradient(to right, rgba(255,136,0,0.9),rgba(255, 136, 0, 0.8),rgba(255, 136, 0, 0.7),rgba(255, 136, 0, 0.6), rgba(255,74,0,0.5));
   color: #fff;
-  width: 175px;
+  padding: 6px 30px;
   font-weight: 600;   
-  font-size: 1.1rem;
+  font-size: 1.0rem;
   transition: 0.9s;
 }
 
@@ -457,15 +500,16 @@ tooltips styling
   color: #2887F6;
   font-weight:bold;
 }
-.scroll{
-  max-height: 220px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  
-}
+
 .rate-table{
   font-size: 12px!important;
 }
+.scroll{
+  max-height: 150px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}  
+
 /* width */
 .scroll::-webkit-scrollbar {
   width: 6px;
@@ -485,6 +529,89 @@ tooltips styling
 .scroll::-webkit-scrollbar-thumb:hover {
   background: #408080; 
 }
+
+/* all scrollbar */
+.all-scroll{
+  max-height: 250px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}  
+
+/* width */
+.all-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+.all-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+.all-scroll::-webkit-scrollbar-thumb {
+  background: #00C259; 
+}
+
+/* Handle on hover */
+.all-scroll::-webkit-scrollbar-thumb:hover {
+  background: #408080; 
+}
+
+/* longer scrollbar */
+.long-scroll{
+  max-height: 320px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}  
+
+/* width */
+.long-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+.long-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+.long-scroll::-webkit-scrollbar-thumb {
+  background: #00C259; 
+}
+
+/* Handle on hover */
+.long-scroll::-webkit-scrollbar-thumb:hover {
+  background: #408080; 
+}
+
+
+/* chat area scroll */
+.chat-scroll{
+  max-height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}  
+
+/* width */
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+.chat-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: #00C259; 
+}
+
+/* Handle on hover */
+.chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: #408080; 
+}
+
 
 .show-more{
   color: #00C259;
@@ -518,11 +645,6 @@ tooltips styling
   border-radius: 5px;
   transition: all 0.5s;
 }
-/* #topp:hover{
-  box-shadow: 3px 3px 3px 3px rgb(238, 236, 236);
-  margin-top: -.25rem;
-  margin-bottom: .25rem;
-} */
 .text-green{
   color: #00C259;
   font-weight: 600;
@@ -570,4 +692,33 @@ a:hover{
   background:#fff;
   box-shadow: 3px 1px 3px 1px rgb(238, 236, 236);
 
+}
+
+.curve-month{
+  border-radius: 50px;
+  background:rgba(231, 228, 228, 0.47);
+  padding: 0px 20px;
+}
+
+#notification-badg{
+  position: absolute;
+  margin-top: -10px;
+  margin-left: 10px;
+}
+.chat-area{
+  bottom: 0;
+  position: absolute;
+  width: 80%;
+}
+.input-placeholder{
+  font-size: 6px;
+}
+
+.icon{
+  color: rgba(255, 136, 0, 0.852);
+}
+
+
+table.table.table-condensed {
+  border: 2px solid rgb(182, 180, 180);
 }
