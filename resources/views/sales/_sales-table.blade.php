@@ -2,7 +2,7 @@
         <div class="container mt-4">
                 
             <div class="bg-white">
-                    <div id="table" class="table-editable">
+                    <div id="table" class="table-editableWTF">
                     <table class="table table-bordered table-responsive-md table-striped text-center">
                         <thead class="p-3">
                           <tr class="tab">
@@ -25,9 +25,6 @@
                             <th scope="col"class="tool" data-tip="Add the total price of sales." tabindex="1">
                             Total Price (&#8358;)
                         </th>
-                            <th scope="col" class="tool" data-tip="" tabindex="1">
-                                Customer
-                            </th>
                             <th scope="col" class="tool" data-tip="Channel of sale" tabindex="1">
                                 Channel
                             </th>
@@ -103,10 +100,43 @@
                                             </tr>
                      
                  
+                            <tr class="tbodyRow">
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td>
+                                        <span><button onclick="removeRow(this)"  type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                    </td>
+                            </tr>
+                            <tr class="tbodyRow">
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td>
+                                        <span><button onclick="removeRow(this)"  type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                    </td>
+                            </tr>
+                            <tr id="tbodyRow">
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td>
+                                        <span><button onclick="removeRow()"  type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                    </td>
+                            </tr>
                         </tbody>
                             
                     </table>
-                    <span class="table-add float-right"  >Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
+                    <span class="float-right" onclick="addRow()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                     </span>            
                 </div>
 

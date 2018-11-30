@@ -6,7 +6,7 @@ label span {border: 1px solid #ccc; width: 17px; height: 17px; position: absolut
 input:checked + span {background: #ccf; border-color: #ccf;}
 
 input {
-    border: none;
+    /* border: none; */
     background: transparent;
 }
 
@@ -138,32 +138,19 @@ input {
                               </tr>
                             </thead>
                             <tbody>
-                                <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                <td>Cars</td>
-                                <td>3,000</td>
-                                <td>GTB</td>
-                              </tr>
-                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                <td>Furnitures</td>
-                                <td>55,000</td>
-                                <td>Access Bank></td>
-                            </tr>
-                                
-                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal" >
-                                <td>Phone</td>
-                                <td>45,000 </td>
-                                <td>Access</td>
-                              </tr>
-                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                <td>Car</td>
-                                <td>33,000 </td>
-                                <td>GTB </td>
-                                </tr>
-                                <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                    <td>Car</td>
-                                    <td>33,000 </td>
-                                    <td>GTB </td>
-                                </tr>
+                                @forelse($highExpenses as $expense)
+                                    <tr>
+                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">{{$expense->class_type}}</a></td>
+                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal" >{{$expense->amount}}</a></td>
+                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">{{$expense->payment_mode}}</a></td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3">
+                                            No expense Available
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                           </table>
                         </div>
@@ -209,7 +196,7 @@ input {
                         </div>
                 
                 <div class="table-responsive table-responsive-sm">
-                    <table class="table table-striped table-hover" id="dataTable">
+                    <table class="table table-striped table-hover" id="expenseTable">
                         <thead class="p-3">
                           <tr class="tab">
                             <th scope="col">Date</th>
@@ -221,40 +208,21 @@ input {
                         </thead>
 
                         <tbody>
-                          <tr>
-                                <td> 21/08/2020 </td>
-                                <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
-                                <td>23,000 </td>
-                                <td>Transportation </td>
-                                <td> GTB </td>      
-                          </tr>
-
-                          <tr>
-                                <td > 21/08/2020 </td>
-                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. A neque odio incidunt iure consequatur saepe ipsam natus quibusdam tempora quo!</td>
-                                <td> 23,000</td>
-                                <td>Transportation</td>
-                                <td>GTB </td>      
-                          </tr>
-
-                        <tr>
-                            <td >21/08/2020</td>
-                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto </td>
-                            <td>23,000 </td>
-                            <td>Transportation</td>
-                            <td> GTB </td>
-                          
-                        </tr>
-                        <tr class="d-none">
-                            <td><input type="" placeholder=""> </td>
-                              <td> <input type="text" placeholder=""></td>
-                              <td> <input type="number" placeholder=""> </td>
-                              <td><input type="text" placeholder=""></td>
-                              <td><input type="text" placeholder=""></td>
-
-                            </tr>
-    
-
+                            @forelse(Auth::user()->expenses as $expense)
+                                <tr>
+                                    <td>{{$expense->date}}</td>
+                                    <td>{{$expense->details}}</td>
+                                    <td>{{number_format($expense->amount, 2)}}</td>
+                                    <td>{{$expense->class_type}}</td>
+                                    <td> {{strtoupper($expense->payment_mode)}}</td>
+                                </tr>
+                            @empty
+                                <tr id="noExpense">
+                                    <td colspan="5">
+                                        You have no expense. <br> Use the add expense button to add new expenses.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -300,4 +268,5 @@ input {
             </div>
         </div>
     </div>
+    <script src ="/js/expenses.js"></script>
 @endsection
