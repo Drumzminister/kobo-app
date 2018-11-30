@@ -8,9 +8,9 @@ input {
 @section('content')
 <section id="particles"></section>
     <div id="container">  
-        <div class="progress" style="height: 35px;">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height:50px;width:25%;">
-            <h4> 25%</h4>
+        <div class="progress" style="height:35px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+            <h4> 50%</h4>
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@ input {
                         <div aria-label="breadcrumb arr-right">
                                 <ol class="breadcrumb bg-white">
                                     <li class="breadcrumb-item"><a href="/assets">Opening Balance</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Existing Assets</li>                
+                                    <li class="breadcrumb-item active" aria-current="page">Debtors</li>                
                                 </ol>
                         </div>   
                     </div>
@@ -34,60 +34,59 @@ input {
                     </div>
                     
                 </div>       
+
         <div class="bg-white mt">
                 
             <div class="table-responsive table-responsive-sm p-4 ">
-                <table  width="200" class="table table-striped table-hover table-style"  id="dataTable">
+                <table class="table table-striped table-hover table-style" id="dataTable">
                     <thead class="p-3">
                       <tr class="tab">
-                        <th scope="col">Asset Name</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Cost Price (&#8358;)</th>
+                        <th scope="col">Vendor</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">QTY</th>
+                        <th scope="col">Cost Price/Unit (&#8358;)</th>
+                        <th scope="col">Sales Price/Unit (&#8358;)</th>
                         <th scope="col"><i class="fa fa-plus-square" style="font-size:24px" value="Add Row" onclick="addRow('dataTable')"></i></th>
             
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                          <td> Housing Estate</td>
-                        <td> Exchange </td>
-                        <td>24,000</td>
+                          <td > Aqua Villa</td>
+                          <td > Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, ex.</td>
+                        <td> 5</td>
+                        <td> 43,000 </td>
+                        <td> 23,000 </td>
                         <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
-                      </tr>
+                    </tr>
             
-                      <tr>
-                        <td> Housing Estate</td>
-                      <td> Estate</td>
-                      <td>45,000</td>
+                    <tr>
+                      <td> Aqua Villa</td>
+                      <td > Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quae.</td>
+                      <td> 4 </td>
+                      <td> 43,000 </td>
+                      <td> 43,000 </td>
                       <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                     </tr>
             
                     <tr>
-                        <td> Housing Estate</td>
-                      <td> Management</td>
-                      <td>60,000</td>
+                      <td > Aqua Villa</td>
+                      <td > Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, qui.</td>
+                      <td> 40 </td>
+                      <td> 43,000 </td>
+                      <td> 430,000 </td>
                       <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
-                    </tr>
-            
-                    <tr class="d-none">
-                        <td><input type="text" placeholder=""> </td>
-                          <td> <input type="number" placeholder=""></td>
-                          <td> <div class="dates">
-                                <input type="text" id="usr1" name="event_date" placeholder="" autocomplete="off" >
-                            </div></td>
-                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
-                        </tr>
-                
+                    </tr>                   
                        
                     </tbody>
                 </table>
                 <div class="row">
-                    <div class = "col">
-                            <a class="btn btn-started" href="/">Previous</a>
-                    </div>
-                    <div class = "col">
-                            <a class="btn btn-started float-right" href="/opening/debtors">Next</a>
-                    </div>
+                        <div class = "col">
+                                <a class="btn btn-started" href="/opening/creditors">Previous</a>
+                        </div>
+                        <div class = "col">
+                                <a class="btn btn-started float-right" href="/dashboard">Next</a>
+                        </div>
                 </div>
             </div> 
                        

@@ -33,15 +33,15 @@ Route::get('/expenses', function () {
     return view('expenses');
 });
 
-Route::get('/assets', function () {
+Route::get('/opening/assets', function () {
     return view('opening-asset');
 });
 
-Route::get('/debtors', function () {
+Route::get('/opening/debtors', function () {
     return view('opening-debtors');
 });
 
-Route::get('/creditors', function () {
+Route::get('/opening/creditors', function () {
     return view('opening-creditors');
 });
 
@@ -83,6 +83,10 @@ Route::get('/addExpenses', function () {
 
 Route::get('/View/Sales', function () {
     return view('view-sales');
+});
+
+Route::get('/opening/inventory', function () {
+    return view('opening-inventory');
 });
 
 
