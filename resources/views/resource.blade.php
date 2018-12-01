@@ -6,7 +6,7 @@
         <h3 class="h3">Resource and Training Modules</h3>
     
         <div class="row">
-            <div class="col-md-9 col-6">
+            <div class="col-md-10 col-6">
                 <div class="input-group mt-2">
                     <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
@@ -14,9 +14,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-6">
-                <div id="" class="mt-2" onclick="">
-                    <button style="font-size:18px" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
+            <div class="col-md-2 col-6">
+                <div id="" class="mt-2 float-right" onclick="">
+                    <button  class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
                 </div>
             </div>
         </div>
@@ -27,15 +27,18 @@
     <div class="container my-3">
         <div class="bg-white py-4 px-5">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-7">
                     <h5 class="h5">Resources</h5>
                     <p class="text-muted">20 Resources Found</p>
 
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-4"> 
                     <a href="" class="btn btn-addsale">All</a>
-                    <a href="" class="btn btn-login">Ongoing</a>
-                    <a href="" class="btn btn-login">Finished</a>
+                    <a href="" class="btn btn-loginn">Ongoing</a>
+                    <a href="" class="btn btn-loginn">Finished</a>
+                </div>
+                    <div class="col-md-1">
+                    {{-- <a href="" class="mt-5"><i class="fa fa-plus-circle" style="font-size:48px;color:#00C259;"></i></a> --}}
                     <span class=" rounded-circlee float-right p-2 ">
                         <a href="" class=""><i class="fa fa-plus fa-2x p-1" style="font-size:; color:#00C259;"></i></a>
                     </span>
@@ -91,20 +94,23 @@
             {{-- training modules --}}
             <div class="container my-5">
                 <div class="row ">
-                    <div class="col-md-5">
+                    <div class="col-md-7">
                         <h5 class="h5">Training Module</h5>
                         <p class="text-muted">20 Resources Found</p>
 
                     </div>
-                    <div class="col-md-7">
-                        <a href="" class="btn btn-addsale">All</a>
-                        <a href="" class="btn btn-login">Ongoing</a>
-                        <a href="" class="btn btn-login">Finished</a>
-                        <span class=" rounded-circlee float-right p-2 ">
-                        <a href="" class=""><i class="fa fa-plus fa-2x p-1" style="font-size:; color:#00C259;"></i></a>
-                        </span>
+                    <div class="col-md-4"> 
+                            <a href="" class="btn btn-addsale">All</a>
+                            <a href="" class="btn btn-loginn">Ongoing</a>
+                            <a href="" class="btn btn-loginn">Finished</a>
+                        </div>
+                            <div class="col-md-1">
+                            {{-- <a href="" class="mt-5"><i class="fa fa-plus-circle" style="font-size:48px;color:#00C259;"></i></a> --}}
+                            <span class=" rounded-circlee float-right p-2 ">
+                                <a href="" class=""><i class="fa fa-plus fa-2x p-1" style="font-size:; color:#00C259;"></i></a>
+                            </span>
+                        </div>
                     </div>
-                </div>
                 {{-- </div> --}}
         
                     {{-- card --}}

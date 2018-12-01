@@ -50,8 +50,9 @@
             </div>
 
             <div class="col-md-5 heigh" >
-                <div class="bg-white p-3 scroll" id="topp">
+                <div class="bg-white p-3" id="topp">
                     <h3 class="h3">HISTORY</h3>
+                    <div class="scroll">
                     <div class="table-responsive table-responsive-sm">
                             <table class="table table-striped table-hover text-grey rate-table" id="dataTable">
                                 <thead class="">
@@ -141,6 +142,7 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

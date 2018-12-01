@@ -12,6 +12,10 @@
                             <th scope="col" class="tool" data-tip="Provide description of item" tabindex="1">
                                     Description
                                     </th>
+                            <th scope="col" class="tool" data-tip="Provide description of item" tabindex="1">
+                                    Invoice
+                            </th>
+        
                             <th scope="col" class="tool" data-tip="Include the quantity sold." tabindex="1">
                                 QTY sold
                             </th>
@@ -29,13 +33,91 @@
                           </tr>
                         </thead>
                         <tbody>
-                            <tr id="tbodyRow">
-                                    <td class="pt-3-half" contenteditable="true"><input type="date" name=""></td>
-                                    <td class="pt-3-half" contenteditable="true"><input type="date" name=""></td>
-                                    <td class="pt-3-half" contenteditable="true"><input type="date" name=""></td>
-                                    <td class="pt-3-half" contenteditable="true"><input type="date" name=""></td>
-                                    <td class="pt-3-half" contenteditable="true"><input type="date" name=""></td>
-                                    <td class="pt-3-half" contenteditable="true"><input type="date" name=""></td>
+                            <tr>
+                                <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                <td class="pt-3-half" contenteditable="true">30</td>
+                                <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                <td class="pt-3-half" contenteditable="true">invoice</td>
+                                <td class="pt-3-half" contenteditable="true">Spain</td>
+                                <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                <td class="pt-3-half" contenteditable="true">Spain</td>
+                                <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                <td>
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                    </td>
+                            </tr>
+                            <tr>
+                                    <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                    <td class="pt-3-half" contenteditable="true">30</td>
+                                    <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                    <td class="pt-3-half" contenteditable="true">invoice</td>
+                                    <td class="pt-3-half" contenteditable="true">Spain</td>
+                                    <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                    <td class="pt-3-half" contenteditable="true">Spain</td>
+                                    <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                    <td>
+                                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                        </td>
+                                </tr><tr>
+                                        <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                        <td class="pt-3-half" contenteditable="true">30</td>
+                                        <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                        <td class="pt-3-half" contenteditable="true">invoice</td>
+                                        <td class="pt-3-half" contenteditable="true">Spain</td>
+                                        <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                        <td class="pt-3-half" contenteditable="true">Spain</td>
+                                        <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                        <td>
+                                            <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                            </td>
+                                    </tr>
+                                    <tr>
+                                            <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                            <td class="pt-3-half" contenteditable="true">30</td>
+                                            <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                            <td class="pt-3-half" contenteditable="true">invoice</td>
+                                            <td class="pt-3-half" contenteditable="true">Spain</td>
+                                            <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                            <td class="pt-3-half" contenteditable="true">Spain</td>
+                                            <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                            <td>
+                                                <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                                </td>
+                                        </tr>
+
+                                        <tr>
+                                                <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
+                                                <td class="pt-3-half" contenteditable="true">30</td>
+                                                <td class="pt-3-half" contenteditable="true">Deepends</td>
+                                                <td class="pt-3-half" contenteditable="true">invoice</td>
+                                                <td class="pt-3-half" contenteditable="true">Spain</td>
+                                                <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                                <td class="pt-3-half" contenteditable="true">Spain</td>
+                                                <td class="pt-3-half" contenteditable="true">Madrid</td>
+                                                <td>
+                                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                                    </td>
+                                            </tr>
+                     
+                 
+                            <tr class="tbodyRow">
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td>
+                                        <span><button onclick="removeRow(this)"  type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                    </td>
+                            </tr>
+                            <tr class="tbodyRow">
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
+                                    <td class="pt-3-half" contenteditable="true"></td>
                                     <td>
                                         <span><button onclick="removeRow()"  type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
                                     </td>

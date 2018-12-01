@@ -3,7 +3,7 @@
 <div class="container mt-3">
     <form action="">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="input-group mb-3 input-group-lg">
                     <div class="input-group-prepend">
                         <span class="input-group-text customer-input" id="basic-addon3">Customer Name</span>
@@ -14,13 +14,12 @@
                              Select Name
                             </option>
                     </select>
-
-                </form> 
-                    
                 </div>
             </div>
 
-            <div class="col-md-4">
+                    
+                
+            <div class="col-md-3">
                 <div class="form-group">
                         <select class="form-control form-control-lg form-control vat-input" name="tax" id="basic-addon3">
                         <option value="5">Value Added Tax (VAT) 5%</option>
@@ -32,9 +31,12 @@
             
             <div class="col-md-3">
                     <div class="dates input-group mb-3 input-group-lg">
-                        <input type="text" onclick="dateFormatter()" class="form-control" id="datepicker" value="{{Date('m/d/Y')}}" name="event_date">
+                        <input type="text"  class="form-control" id="datepicker" value="{{Date('m/d/Y')}}" name="event_date">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-calendar icon" id="datepicker" name="event_date" ></i></span>
+                        </div> 
                     </div>
-            </div>
+                </div>       
         </div>
     </form>
 </div>
