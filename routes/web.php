@@ -73,8 +73,6 @@ Route::get('/chats', function () {
     return view('chat');
 });
 
-
-
 use Illuminate\Http\Request;
 
 Route::get('/started', 'PaymentController@index');

@@ -67,6 +67,8 @@
  <script src="{{asset('js/jquery.circliful.js')}}"></script>
 <script src="{{asset('js/chart.js')}}"></script>
 <script src="{{asset('js/appp.js')}}"></script>
+<script src="{{asset('js/sales.js')}}"></script>
+
 
 <!-- Date Picker CDN -->
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>

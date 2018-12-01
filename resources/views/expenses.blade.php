@@ -212,5 +212,5 @@ input {
             </div>
         </div>
     </div>
-    <script src ="/js/expenses.js"></script>
+    <script src="/js/expenses.js"></script>
 @endsection

@@ -32,7 +32,7 @@
             
             <div class="col-md-3">
                     <div class="dates input-group mb-3 input-group-lg">
-                        <input type="text"  class="form-control" id="datepicker" value="{{Date('m/d/Y')}}" name="event_date">
+                        <input type="text" onclick="dateFormatter()" class="form-control" id="datepicker" value="{{Date('m/d/Y')}}" name="event_date">
                     </div>
             </div>
         </div>
@@ -42,42 +42,15 @@
 <!-- This Calls ajax and displays all customers -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script> 
-
- $('.customer').select2({
-    placeholder: 'Select an item',
-    ajax: {
-      url: 'getCustomers',
-      dataType: 'json',
-      delay: 250,
-      processResults: function (data) {
-        return {
-          results:  $.map(data, function (customer) {
-                return {
-                    text: customer.first_name,
-                    id: customer.id
-
-                }
-            })
-        };
-      },
-      cache: true
-    }
-  });  
-
-</script>
-
-<!-- This disables and set date -->
 <script>
-    $(function() {
-    var date = new Date();
-    var currentMonth = date.getMonth();
-    var currentDate = date.getDate();
-    var currentYear = date.getFullYear();
-    $('#datepicker').datepicker({
-    maxDate: new Date(currentYear, currentMonth, currentDate),
+// $(function() {
+//     var date = new Date();
+//     var currentMonth = date.getMonth();
+//     var currentDate = date.getDate();
+//     var currentYear = date.getFullYear();
+//     $('#datepicker').datepicker({
+//     maxDate: new Date(currentYear, currentMonth, currentDate),
 
-    });
-});
-
+//     });
+// });
 </script>
