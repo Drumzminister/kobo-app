@@ -6,7 +6,7 @@
             <h3 class="h3">Toolkits</h3>
         
             <div class="row">
-                <div class="col-md-9 col-6">
+                <div class="col-md-10 col-6">
                     <div class="input-group mt-2">
                         <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
@@ -14,9 +14,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-6">
-                    <div id="" class="mt-2" onclick="">
-                        <button style="font-size:18px" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
+                <div class="col-md-2 col-6">
+                    <div id="" class="mt-2 float-right" onclick="">
+                        <button  class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
                     </div>
                 </div>
             </div>

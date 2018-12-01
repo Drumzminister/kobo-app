@@ -132,13 +132,14 @@ function addRow(){
   tr.appendChild(td6);
   tr.appendChild(td7);
 	table.appendChild(tr);
-
 }
 
+// function removeRow() {
+//   $('.tbodyRow').removeRow(0);
+// }
 function removeRow() {
-  $('.tbodyRow').remove();
+  $(this).parents('tr').remove(); 
 }
-
 
 
 $('.table-down').click(function () {
@@ -176,7 +177,6 @@ data.push(h);
 // Output the result
 $EXPORT.text(JSON.stringify(data));
 });
-
 
 
 // Format number

@@ -33,15 +33,15 @@ Route::get('/expenses', function () {
     return view('expenses');
 });
 
-Route::get('/assets', function () {
+Route::get('/opening/assets', function () {
     return view('opening-asset');
 });
 
-Route::get('/debtors', function () {
+Route::get('/opening/debtors', function () {
     return view('opening-debtors');
 });
 
-Route::get('/creditors', function () {
+Route::get('/opening/creditors', function () {
     return view('opening-creditors');
 });
 
@@ -69,8 +69,24 @@ Route::get('/resources', function () {
     return view('resource');
 });
 
+Route::get('/chats/history', function () {
+    return view('chat-history');
+});
+
 Route::get('/chats', function () {
     return view('chat');
+});
+
+Route::get('/addExpenses', function () {
+    return view('addExpenses');
+});
+
+Route::get('/View/Sales', function () {
+    return view('view-sales');
+});
+
+Route::get('/opening/inventory', function () {
+    return view('opening-inventory');
 });
 
 
@@ -122,7 +138,7 @@ Route::group(['middle' => ['guest']], function () {
 // Route::group(['middleware' => ''], function() {
     Route::get('/accountant/dashboard', 'AccountantController@index');
 // });
-
+Route::post('/expenses/create', 'ExpensesController@store');
 Route::get('/api1', function () {
     // Auth::loginUsingId('0587c5f0-9005-3f23-aace-d0faf74f19ba');
 

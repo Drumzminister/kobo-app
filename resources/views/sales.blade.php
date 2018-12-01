@@ -67,11 +67,11 @@ input {
         <div class = "container">
             <div class="row mt-4">
                 <div class="col-md-8">
-                    <div class="bg-white p-3 introduction"> 
+                    <div class="bg-white px-3 py-4 introduction" id="topp"> 
                             <a href='http://example.com/' data-intro='Hello step one! View your History'></a>
                         <div class="row">
-                            <div class="col-md-5">
-                                <h4 class="sale-h3">Monthly sales</h4>
+                            <div class="col-md-3">
+                                    <h5 class="h5">Monthly sales</h5>
                             </div>
                             <div class="col-md-3">
                                     <div class="form-check form-check-inline">
@@ -85,18 +85,60 @@ input {
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label><input type="radio" name="select" /><span>Y</span></label>
-                                    </div>                                          
+                                    </div>
+                                            
                             </div>
-                            <div class="col-md-4">
-
+                            <div class="col-md-6 row">
+                                <div class="form-group col">
+                                    <select id="inputState" class="form-control btn-loginn">
+                                        <option selected>Start Date</option>
+                                        <option>January</option>
+                                        <option>Feburary</option>
+                                        <option>March</option>
+                                        <option>April</option>
+                                        <option>May</option>
+                                        <option>June</option>
+                                        
+                                    </select>
+                                </div>
+                                <div class="form-group col">
+                                    <select id="inputState" class="form-control btn-loginn">
+                                        <option selected class>End Date</option>
+                                        <option>January</option>
+                                        <option>Feburary</option>
+                                        <option>March</option>
+                                        <option>April</option>
+                                        <option>May</option>
+                                        <option>June</option>  
+                                    </select>
+                                </div>
                             </div>
                         </div>
                             <canvas id="canvasSale"  height="100"></canvas>
                     </div>
                 </div>
+
+                {{-- top sales --}}
                 <div class="col-md-4">
-                    <div class="bg-white p-2"  data-step="2" data-intro="Here is your performance" data-position='right' data-scrollTo='tooltip'>
-                        <h4 class="sale-h4">Top Sales</h4>
+                    <div class="bg-white p-2 " id="topp"  data-step="2" data-intro="Here is your performance" data-position='right' data-scrollTo='tooltip'>
+                        <div class="row">
+                            <div class="col mt-1">
+                                <h5 class="h5">Top Sales</h5>
+                            </div>
+                            <div class="col">
+                                <div class="dropdown show">
+                                    <a class="btn btn-filter" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Filter <i class="fa fa-filter"></i>                                    
+                                    </a>                                   
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
+                                        <a class="dropdown-item" href="#" class="text-green">By Amount</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="all-scroll">
                         <table class="table table-striped table-hover" id="table">
                             <thead class="sale-head">
                               <tr>
@@ -127,7 +169,12 @@ input {
                                 <td> 12,000 </td>
                                 </tr>
                             </tbody>
+
                           </table>
+                        </div>
+                        <div class="text-center p-1">
+                                <a href="" class="view-more">View More Analytics</a> 
+                            </div>
                     </div>
                 </div>
             </div>
@@ -137,29 +184,40 @@ input {
 
     <section id="sale-table">
         <div class="container mt-4">
-                <div class="row p-3">
-
-
-                    <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale" data-step="3" data-intro="Want your transaction? Here is it."  data-position="left" >Add Sales</div>            
-
-                    <div id="addNew" value="Add Row" onclick="addRow('dataTable')" class="btn btn-addSale" data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</div>            
-
-
-                    <a href="/addSales" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>            
-
-                    <div id="" class="btn btn-success ml-2">Filter</div>
-                    <div id="" onclick="">
-                        <button style="font-size:18px" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
-                    </div>
-                </div>
-            <div class="bg-white mt">
+                        
+                    <div class="bg-white p-4">
+                            <div class="row py-3">
+                                    <div class="col-md-3">
+                                        <a href="/addSales" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>            
+                                    </div>
+                
+                                    <div class="col-md-7">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 float-right">
+                                        <div class="dropdown show float-right">
+                                                <a class="btn btn-filter" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Filter <i class="fa fa-filter"></i>                                    
+                                                </a>                                   
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
+                                                    <a class="dropdown-item" href="#" class="text-green">By Amount</a>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>    
                 
                 <div class="table-responsive table-responsive-sm">
                     <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
                           <tr class="tab">
                             <th scope="col">Date</th>
-                            <th scope="col">Inventory Items</th>
+                            <th scope="col">Invoice</th>
                             <th scope="col">QTY sold</th>
                             <th scope="col">Sales Price (&#8358;)</th>
                             <th scope="col">Customer</th>
@@ -174,7 +232,7 @@ input {
                                   21/08/2020
                               </td>
                             <td>
-                                Car
+                                <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
                             </td>
                             <td>
                                 23
@@ -192,7 +250,9 @@ input {
 
                             <tr>
                                <td >21/08/2020 </td>
-                               <td> Car </td>
+                               <td>
+                                    <a href="">invoice 1234</a>
+                                </td> 
                               <td> 23</td>
                               <td> 43,000</td>
                               <td> Mercy Ikpe</td>
@@ -201,7 +261,9 @@ input {
 
                             <tr>
                                 <td >21/08/2020 </td>
-                                <td> Car </td>
+                                <td>
+                                    <a href="">invoice 1234</a>
+                                </td>
                                 <td> 23</td>
                                 <td> 43,000</td>
                                 <td> Mercy Ikpe</td>
@@ -224,8 +286,8 @@ input {
                     </table>
                 </div>
                     <hr class="mt-0">
-                    <div class="text-center mb-5 pb-3">
-                        <a href="" class="view-more">View More</a> 
+                    <div class="text-center pb-3">
+                        <a href="/view-sale" class="view-more">View More</a> 
                     </div>
                    
             </div> 
@@ -233,6 +295,158 @@ input {
         </div>
     </section>
 
+
+
+    {{-- invoice modal --}}
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                        <div class="container p-3">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                            <div class="row px-5 pt-3">
+                                <div class="col-md-2">
+                                    <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                                </div>
+                                <div class="col-md-10">
+                                    <h5 class="text-green h5">Mary Ikpe</h5>
+                                    <h6 class="text-primary h6">Invoice NO:KB &#x2d; 1234</h6>
+
+                                    <form action="" method="post">
+                                        <div class="form row pt-3 px-3">
+                                            <div class="col-md-4">
+                                                <div class="p-2" id="topp">
+                                                    <h5 class="h5">Total Amount</h5>
+                                                    <h4 class="text-orange">&#8358;18,000</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="p-2" id="topp">
+                                                    <h5 class="h5">Amount Paid</h5>
+                                                    <h4 class="text-orange">&#8358;18,000.45</h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="p-2" id="topp">
+                                                    <h5 class="h5 "> Balance</h5>
+                                                    <h4 class="text-orange">&#8358;18,000.53</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                       
+                            <div class="modal-body">
+                        <section id="sale-table">
+                                <div class="container">                                               
+                                    <div class="long-scroll">
+                                        <div class="table-responsive table-responsive-sm" id="topp">
+                                            <table class="table table-striped table-hover table-condensed" id="dataTable">
+                                                <thead class="p-3">
+                                                    <tr class="tab">
+                                                    <th scope="col">Payment Date</th>
+                                                    <th scope="col">Product</th>
+                                                    <th scope="col">QTY</th>
+                                                    <th scope="col">Sales Price (&#8358;)</th>
+                                                    <th scope="col">Balance</th>
+                        
+                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                        
+                                                    <tr>
+                                                        <td >21/08/2020 </td>
+                                                        <td>
+                                                        Lorem ipsum dolor si
+                                                        </td> 
+                                                        <td> 23</td>
+                                                        <td> 43,000</td>
+                                                        <td>123,0000</td>
+                                                        
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>21/08/2020 </td>
+                                                        <td>
+                                                                Lorem ipsum dolor si
+                                                                </td> 
+                                                                <td> 23</td>
+                                                                <td> 43,000</td>
+                                                                <td>123,0000</td>
+                                                                
+                                                        </tr>
+                        
+                                                    <tr>
+                                                        <td >21/08/2020 </td>
+                                                        <td>
+                                                                Lorem ipsum dolor si
+                                                                </td> 
+                                                                <td> 23</td>
+                                                                <td> 43,000</td>
+                                                                <td>123,0000</td>        
+                                                    </tr>
+                        
+                                                    <tr>
+                                                        <td >21/08/2020 </td>
+                                                        <td>
+                                                                Lorem ipsum dolor si
+                                                                </td> 
+                                                                <td> 23</td>
+                                                                <td> 43,000</td>
+                                                                <td>123,0000</td>        
+                                                    </tr>
+                                                    <tr>
+                                                        <td >21/08/2020 </td>
+                                                        <td>
+                                                                Lorem ipsum dolor si
+                                                                </td> 
+                                                                <td> 23</td>
+                                                                <td> 43,000</td>
+                                                                <td>123,0000</td>
+          
+                                                    </tr>                                                    <tr>
+                                                    <tr>
+                                                            <td >21/08/2020 </td>
+                                                            <td>
+                                                                    Lorem ipsum dolor si
+                                                                    </td> 
+                                                                    <td> 23</td>
+                                                                    <td> 43,000</td>
+                                                                    <td>123,0000</td>
+                                                                    
+                                                   </tr>
+                                                   <tr>
+                                                            <td >21/08/2020 </td>
+                                                            <td>
+                                                                    Lorem ipsum dolor si
+                                                                    </td> 
+                                                                    <td> 23</td>
+                                                                    <td> 43,000</td>
+                                                                    <td>123,0000</td>            
+                                                   </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>                                   
+                                </div>
+                            </section>                                    
+                        </div>
+
+                        <div class="modal-footer text-center">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                        
+                      </div>
+            </div>
+        </div>
+    </div>
+
+      {{-- end of invoice modal --}}
 
     {{-- modal --}}
     <div class="modal left fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
