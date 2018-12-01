@@ -13,6 +13,8 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "league/flysystem-aws-s3-v3": "~1.0",
+        "lucid-arch/laravel-console": "^5.7",
+        "lucid-arch/laravel-foundation": "^5.7",
         "unicodeveloper/laravel-paystack": "^1.0",
         "webpatser/laravel-uuid": "^3.0"
     },
@@ -31,7 +33,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "Koboaccountant\\": "app/"
+            "Koboaccountant\\": "app/",
+            "App\\": "src/"
         }
     },
     "autoload-dev": {

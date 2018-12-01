@@ -160,6 +160,8 @@ return [
         Koboaccountant\Providers\EventServiceProvider::class,
         Koboaccountant\Providers\TelescopeServiceProvider::class,
         Koboaccountant\Providers\RouteServiceProvider::class,
+
+	    App\Foundation\ServiceProvider::class,
         
 
     ],
