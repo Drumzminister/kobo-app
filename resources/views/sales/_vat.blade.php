@@ -45,14 +45,14 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
-// $(function() {
-//     var date = new Date();
-//     var currentMonth = date.getMonth();
-//     var currentDate = date.getDate();
-//     var currentYear = date.getFullYear();
-//     $('#datepicker').datepicker({
-//     maxDate: new Date(currentYear, currentMonth, currentDate),
+$(function() {
+    var date = new Date();
+    var currentMonth = date.getMonth();
+    var currentDate = date.getDate();
+    var currentYear = date.getFullYear();
+    $('#datepicker').datepicker({
+    maxDate: new Date(currentYear, currentMonth, currentDate),
 
-//     });
-// });
+    });
+});
 </script>
