@@ -96,15 +96,6 @@ input {
     </div>
 
     <script>
-$(function() {
-    var date = new Date();
-    var currentMonth = date.getMonth();
-    var currentDate = date.getDate();
-    var currentYear = date.getFullYear();
-    $('#datepicker').datepicker({
-    maxDate: new Date(currentYear, currentMonth, currentDate),
 
-    });
-});
 </script>
 @endsection
