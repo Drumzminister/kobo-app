@@ -53,7 +53,7 @@ input {
                                 <td>{{$asset->name}}</td>
                                 <td>{{$asset->category}}</td>
                                 <td>{{number_format($asset->price, 2)}}</td>
-                                <td><i class="fa fa-edit pr-2" style="font-size:24px" onclick="makeEditable(this.parentElement.parentElement)"></i><i class="fa fa-trash-o" style="font-size:24px"  onclick="deleteAsset(this.parentElement.parentElement)"></i></td>
+                                <td><i class="fa fa-edit pr-2" style="font-size:24px; cursor: pointer;" onclick="makeEditable(this.parentElement.parentElement)"></i><i class="fa fa-trash-o" style="font-size:24px; cursor: pointer"  onclick="deleteAsset(this.parentElement.parentElement)"></i></td>
                                 <input type="hidden" class="id" value="{{$asset->id}}">
                             </tr>
                         @empty

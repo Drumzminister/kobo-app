@@ -38,9 +38,10 @@ Route::post('/opening/assets', 'OpeningController@addAsset');
 Route::post('/opening/assets/{id}', 'OpeningController@updateAsset');
 Route::post('/opening/assets/{id}/delete', 'OpeningController@deleteAsset');
 
-Route::get('/opening/debtors', function () {
-    return view('opening-debtors');
-});
+Route::get('/opening/debtors', 'OpeningController@showDebtorsPage');
+Route::post('/opening/debtor', 'OpeningController@addDebtor');
+Route::post('/opening/debtor/{id}', 'OpeningController@updateDebtor');
+Route::post('/opening/debtor/{id}/delete', 'OpeningController@deleteDebtor');
 
 Route::get('/opening/creditors', function () {
     return view('opening-creditors');
