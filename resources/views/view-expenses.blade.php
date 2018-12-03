@@ -4,7 +4,20 @@
 <section id="top">
     <div class="container py-3">
         <h3 class="h3">Sales</h3>
-    
+    </div>
+</section>
+
+<section>
+        <div class="container my-3">
+            <div class="client-info bg-white p-3 loa" id="topp">
+                <h6 class="h6">Total Expenses Amount</h6>
+                <h2 class="h2">&#8358; 1,275,000</h2>
+            </div>
+        </div>
+</section>
+
+<section>
+    <div class="container">    
         <div class="row">
             <div class="col-md-10 col-6">
                 <div class="input-group mt-2">
@@ -33,90 +46,63 @@
                         <thead class="p-3">
                           <tr class="tab">
                             <th scope="col">Date</th>
-                            <th scope="col">Invoice</th>
-                            <th scope="col">QTY sold</th>
-                            <th scope="col">Sales Price (&#8358;)</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Channel</th>
+                            <th scope="col">Transaction details</th>
+                            <th scope="col">Amount(&#8358;)</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Payment Mode</th>
 
                 
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                              <td >
-                                  21/08/2020
-                              </td>
-                            <td>
-                                <a href="">invoice 1234</a>
-                            </td>
-                            <td>
-                                23
-                            </td>
-                            <td>
-                                43,000
-                            </td>
-                            <td>
-                                Mercy Ikpe
-                            </td>
-                            <td>
-                                IG
-                            </td>
+                            <td >21/08/2020 </td>
+                            <td>Lorem ipsum, dolor sit amet consectetur adipisicin. </td> 
+                           <td> 43,000</td>
+                           <td>Transportation</td>
+                           <td> Skye Bank</td>
                           </tr>
 
                             <tr>
-                               <td >21/08/2020 </td>
-                               <td>
-                                    <a href="">invoice 1234</a>
-                                </td> 
-                              <td> 23</td>
-                              <td> 43,000</td>
-                              <td> Mercy Ikpe</td>
-                              <td> IG</td>
+                                <td >21/08/2020 </td>
+                                <td>Lorem ipsum, dolor sit amet consectetur adipisicin. </td> 
+                               <td> 40,000</td>
+                               <td>Transportation</td>
+                               <td> Access Bank</td>
+    
                             </tr>
 
                             <tr>
                                 <td >21/08/2020 </td>
-                                <td>
-                                    <a href="">invoice 1234</a>
-                                </td>
-                                <td> 23</td>
-                                <td> 43,000</td>
-                                <td> Mercy Ikpe</td>
-                                <td> IG</td>
+                            <td>Lorem ipsum, dolor sit amet consectetur adipisicin. </td> 
+                           <td> 43,000</td>
+                           <td>Transportation</td>
+                           <td> Skye Bank</td>
+
                             </tr>
 
                             <tr>
                                     <td >21/08/2020 </td>
-                                    <td>
-                                        <a href="">invoice 1234</a>
-                                    </td>
-                                    <td> 23</td>
-                                    <td> 43,000</td>
-                                    <td> Mercy Ikpe</td>
-                                    <td> IG</td>
+                                    <td>Lorem ipsum, dolor sit amet consectetur adipisicin. </td> 
+                                   <td> 43,000</td>
+                                   <td>Transportation</td>
+                                   <td> Skye Bank</td>
                                 </tr>
 
                                 <tr>
                                         <td >21/08/2020 </td>
-                                        <td>
-                                            <a href="">invoice 1234</a>
-                                        </td>
-                                        <td> 23</td>
-                                        <td> 43,000</td>
-                                        <td> Mercy Ikpe</td>
-                                        <td> IG</td>
+                                        <td>Lorem ipsum, dolor sit amet consectetur adipisicin. </td> 
+                                       <td> 43,000</td>
+                                       <td>Transportation</td>
+                                       <td> Skye Bank</td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>
-                                            <td>
-                                                <a href="">invoice 1234</a>
-                                            </td>
-                                            <td> 23</td>
-                                            <td> 43,000</td>
-                                            <td> Mercy Ikpe</td>
-                                            <td> IG</td>
-                                    </tr>
+                                            <td>Lorem ipsum, dolor sit amet consectetur adipisicin. </td> 
+                                           <td> 43,000</td>
+                                           <td>Transportation</td>
+                                           <td> Skye Bank</td>
+                                        </tr>
                         </tbody>
                     </table>
                 </div>

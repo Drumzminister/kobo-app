@@ -57,41 +57,121 @@
     </section>
 {{-- end of heading section --}}
 
-{{--  --}}
-    <section>
+{{-- sales chart --}}
+<section>
         <div class="container">
-            <div class="row mt-5">
+            <div class="row mt-4">
+                <div class="col-md-8">
+                    <div class="bg-white px-3 py-4" id="topp"> 
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5 class="h5">Loan Overview</h5>
+                            </div>
+                            <div class="col-md-3">
+                                    <div class="form-check form-check-inline">
+                                        <label><input type="radio" name="select" /><span>D</span></label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label><input type="radio" name="select" /><span>W</span></label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label><input type="radio" name="select" /><span>M</span></label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label><input type="radio" name="select" /><span>Y</span></label>
+                                    </div>
+                                          
+                            </div>
+                            <div class="col-md-6 row">
+                                    <div class="form-group col">
+                                        <select id="inputState" class="form-control btn-loginn">
+                                            <option selected>Start Date</option>
+                                            <option>January</option>
+                                            <option>Feburary</option>
+                                            <option>March</option>
+                                            <option>April</option>
+                                            <option>May</option>
+                                            <option>June</option>                                            
+                                        </select>
+                                    </div>
+                                    <div class="form-group col">
+                                        <select id="inputState" class="form-control btn-loginn">
+                                            <option selected class>End Date</option>
+                                            <option>January</option>
+                                            <option>Feburary</option>
+                                            <option>March</option>
+                                            <option>April</option>
+                                            <option>May</option>
+                                            <option>June</option>                                
+                                        </select>
+                                    </div>
+                            </div>
+                        </div>
+                            <canvas id="canvasSale" height="100"></canvas>
+
+                    </div>
+                </div>
                 <div class="col-md-4 ">
-                    <div class="bg-green loa p-4 text-white" >
-                        <h5 class="h5">Total Current Loan</h5>
-                        <span class="total-loan">&#8358;1,000,000</span>        
-                    </div>                    
-                </div>
-                <div class="col-md-4">
-                    <div class="bg-white text-grey loa p-4">
-                        <h5 class="h5">Total Amount Paid</h5>
-                        <span class="total-loan">&#8358;1,000,000</span>        
+                    <div class="bg-white p-4" id="topp">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="h6">Total Current Loan
+                                <span class="h6 text-muted">Running</>
+                                </h6>
+                            </div>
+                            <div class="col">
+                                <div class="h5 text-green">NGN <br>
+                                    <span class="h5 text-green">1,760,000.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3 px-2 py-3" id="topp">
+                            <div class="col-md-6">
+                                    <div class="h5 text-green">NGN <br>
+                                        <span class="h5 text-green">1,760,000.00</span>
+                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="bg-orange p-2 text-white">
+                                    Amount Paid
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3 px-2 py-3" id="topp">
+                            <div class="col-md-6">
+                                <div class="h5 text-green">NGN <br>
+                                    <span class="h5 text-green">1,760,000.00</span>
+                                </div>                            
+                            </div>
+                            <div class="col-md-6">
+                                <div class="bg-blue p-2 text-white">
+                                        Amount Owing
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                        <a href="/" class="view-more">View More Details</a> 
+                        </div>
                     </div>
-
-                </div>
-                <div class="col-md-4">
-                    <div class="bg-white text-grey loa p-4">
-                        <h5 class="h5">Total Amount Owed</h5>
-                        <span class="total-loan"> &#8358;1,000,000</span>        
                     </div>
-
                 </div>
             </div>
+{{-- end of sales chart --}}
         </div>
     </section>
 
-    <section id="sale-table">
+    <section id="loan-table">
         <div class="container mt-4">
                 <div class="row p-3">
+                    <div class="col">
                         <a href="" class="btn btn-addSale left-modal" data-toggle="modal" data-target="#exampleModal">Add Loan</a>            
-                        <div id="" onclick="">
-                                <button style="font-size:18px" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
+                    </div>
+                    <div class="col">
+                        <div class="float-right">
+                                <button  class="btn btn-started">Pay Loan</button>         
                         </div>
+                    </div>                      
                 </div>
             <div class="bg-white mt">
                 
@@ -112,7 +192,7 @@
                                 <td> Microfinance Bank</td>
                                 <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
                                 <td >237,000 </td>
-                                <td class="completed">Completed</td>
+                                <td ><a href="" class="completed" data-toggle="modal" data-target="#exampleModalCenter">Completed</a></td>
                                 <td> 10 years </td>      
                           </tr>
 
@@ -120,7 +200,7 @@
                                 <td> Microfinance Bank</td>
                                 <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
                                 <td>230,000 </td>
-                                <td class="running">Running </td>
+                                <td ><a href="" class="running" data-toggle="modal" data-target="#exampleModalCenter">Running</a> </td>
                                 <td> 10 years </td>      
                           </tr>
 
@@ -128,7 +208,7 @@
                                 <td> Microfinance Bank</td>
                                 <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
                                 <td >135,000 </td>
-                                <td class="completed">Completed </td>
+                                <td ><a href="" class="completed" data-toggle="modal" data-target="#exampleModalCenter">Completed</a> </td>
                                 <td> 10 years </td>      
                           </tr>
 
@@ -136,7 +216,7 @@
                                 <td> Microfinance Bank</td>
                                 <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
                                 <td>230,000 </td>
-                                <td class="running">Running </td>
+                                <td ><a href="" class="running" data-toggle="modal" data-target="#exampleModalCenter">Running</a> </td>
                                 <td> 10 years </td>      
                           </tr>
 
@@ -144,14 +224,14 @@
                                 <td> Microfinance Bank</td>
                                 <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
                                 <td >135,000 </td>
-                                <td class="completed">Completed </td>
+                                <td ><a href="" class="completed" data-toggle="modal" data-target="#exampleModalCenter">Completed</a> </td>
                                 <td> 10 years </td>      
                           </tr>
                           <tr>
                                 <td> Microfinance Bank</td>
                                 <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
                                 <td >173,000 </td>
-                                <td class="running">Running </td>
+                                <td ><a href="" class="running" data-toggle="modal" data-target="#exampleModalCenter">Running </a></td>
                                 <td> 10 years </td>      
                           </tr>
 
@@ -167,7 +247,7 @@
         </div>
     </section>
 
-    {{-- modal --}}
+    {{--Add loan modal --}}
     <div class="modal left fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -180,47 +260,54 @@
 
                                     <div class="form-group">
                                       <label for="exampleFormControlInput1">Source</label>
-                                      <input type="text" class="form-control" id="" placeholder="">
+                                      <input type="text" class="form-control" id="" placeholder="E.g Microfinance Banks">
                                     </div>
                                     
                                     
                                     <div class="form-group">
                                       <label for="exampleFormControlTextarea1">Description</label>
-                                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Briefly Describe the purpose of loan"></textarea>
                                     </div>
 
-                                    <h5 class="h5 pt-3">Additional</h5>
+                                    <h5 class="h5 pt-1">Additional</h5>
                                         <div class="form-group">
                                                 <label for="exampleFormControlInput1">Loan Amount</label>
-                                                <input type="text" class="form-control" id="" placeholder="">
+                                                <input type="text" class="form-control" id="" placeholder="200,000">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Interest Rate Amount</label>
-                                            <input type="text" class="form-control" id="" placeholder="">
+                                            <input type="text" class="form-control" id="" placeholder="50">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Loan Term</label>
-                                            <input type="text" class="form-control" id="" placeholder="">
+                                            <input type="text" class="form-control" id="" placeholder="10 years">
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Number of Payments per Year</label>
-                                            <input type="text" class="form-control" id="" placeholder="">
+                                            <label for="">Number of Payments per Year</label>
+                                            <input type="text" class="form-control" id="" placeholder="2 times per year " >
                                         </div>
 
-                                        <div class="form-group dates">
-                                                <label for="exampleFormControlInput1">Start Date of the Loan</label>
-                                                <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
-                                            </div>                           
+                                        <div class="form-group">
+                                                <label for="">Start date of Loan</label>
+                                            <div class="date ">
+                                                <div class="dates input-group input-group-lg pb-3">
+                                                        <input type="text"  class="form-control" id="datepicker" value="{{Date('m/d/Y')}}" name="event_date">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-calendar icon" id="datepicker" name="event_date" ></i></span>
+                                                        </div> 
+                                                </div>  
+                                            </div>  
+                                        </div>                           
 
                                   </form>
                         </div>               
                     </div>
                     <div class="row">
                         <div class="col">
-                                <button type="button" class="btn btn-secondary py-2 px-4" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary py-2 px-4" data-dismiss="modal">Cancel</button>
                         </div>
                         <div class="col">
                             <button type="button" class="btn btn-started pull-right ">Add</button>
@@ -231,4 +318,162 @@
             </div>
         </div>
     </div>
+
+
+       {{--view lender modal --}}
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                        <div class="container p-3">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                            <div class="row px-3 pt-3">
+                                <div class="col-md-1">
+                                    <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                                </div>
+                                <div class="col-md-11">
+                                    <h5 class="text-green h5">Mary Ikpe</h5>
+
+                                    <form action="" method="post">
+                                        <div class="form row pt-3">
+                                            <div class="col-md-3">
+                                                <div class="px-2 py-1" id="topp">
+                                                    <h6 class="h6">Loan Amount</h6>
+                                                    <h5 class="text-orange">&#8358;18,000</h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="px-2 py-1" id="topp">
+                                                    <h6 class="h6">Loan Period</h6>
+                                                    <h5 class="text-orange">&#8358;18,000.45</h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="px-2 py-1" id="topp">
+                                                    <h6 class="h6 "> Amount Paid</h6>
+                                                    <h5 class="text-orange">&#8358;18,000.53</h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class=" py-1" id="topp">
+                                                    <h6 class="h6 ">Amount Remaining</h6>
+                                                    <h5 class="text-orange">&#8358;18,000.53</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                       
+                            <div class="modal-body">
+                        <section id="sale-table">
+                                <div class="container">                                               
+                                    <div class="long-scroll">
+                                        <div class="table-responsive table-responsive-sm" id="topp">
+                                            <table class="table table-striped table-hover table-condensed" id="dataTable">
+                                                <thead class="p-3">
+                                                    <tr class="tab">
+                                                    <th scope="col">Payment Date</th>
+                                                    <th scope="col">Schedule Payment (&#8358;)</th>
+                                                    <th scope="col">Principal Paid (&#8358;)</th>
+                                                    <th scope="col">Interest Paid (&#8358;)</th>
+                                                    <th scope="col">Balance</th>
+                        
+                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                        
+                                                    <tr>
+                                                        <td >21/08/2020 </td>
+                                                        <td>
+                                                        56,000
+                                                        </td> 
+                                                        <td> 23,000</td>
+                                                        <td> 43,000</td>
+                                                        <td>123,0000</td>
+                                                        
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>21/08/2020 </td>
+                                                        <td>
+                                                            45,000
+                                                                </td> 
+                                                                <td> 23,000</td>
+                                                                <td> 43,000</td>
+                                                                <td>123,0000</td>
+                                                                
+                                                        </tr>
+                        
+                                                    <tr>
+                                                        <td >21/08/2020 </td>
+                                                        <td>
+                                                                12393
+                                                                </td> 
+                                                                <td> 23009</td>
+                                                                <td> 43,000</td>
+                                                                <td>123,0000</td>        
+                                                    </tr>
+                        
+                                                    <tr>
+                                                        <td >21/08/2020 </td>
+                                                        <td>
+                                                        39394
+                                                                </td> 
+                                                                <td> 23,000</td>
+                                                                <td> 43,000</td>
+                                                                <td>123,0000</td>        
+                                                    </tr>
+                                                    <tr>
+                                                        <td >21/08/2020 </td>
+                                                        <td>
+                                                        23443
+                                                                </td> 
+                                                                <td> 23,000</td>
+                                                                <td> 43,000</td>
+                                                                <td>123,0000</td>
+          
+                                                    </tr>                                                    <tr>
+                                                    <tr>
+                                                            <td >21/08/2020 </td>
+                                                            <td>
+                                                                    12933
+                                                                    </td> 
+                                                                    <td> 2343</td>
+                                                                    <td> 43,000</td>
+                                                                    <td>123,0000</td>
+                                                                    
+                                                   </tr>
+                                                   <tr>
+                                                            <td >21/08/2020 </td>
+                                                            <td>
+                                                                09940
+                                                                    </td> 
+                                                                    <td> 24423</td>
+                                                                    <td> 43,000</td>
+                                                                    <td>123,0000</td>            
+                                                   </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>                                   
+                                </div>
+                            </section>                                    
+                        </div>
+
+                        <div class="modal-footer text-center">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                        
+                    </div>
+            </div>
+        </div>
+    </div>
+
+      {{-- end of view lender modal --}}
+
 @endsection

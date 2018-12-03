@@ -25,14 +25,30 @@ Route::get('/login', function () {
 
 Route::get('/dashboard', 'DashboardController@index');
 
+// sales
 Route::get('/sales', function () {
     return view('sales');
 });
 
+Route::get('/View/Sales', function () {
+    return view('view-sales');
+});
+
+
+// expense
 Route::get('/expenses', function () {
     return view('expenses');
 });
+Route::get('/addExpenses', function () {
+    return view('addExpenses');
+});
 
+Route::get('/view-expenses', function () {
+    return view('view-expenses');
+});
+
+
+// opening-balance pages
 Route::get('/opening/assets', function () {
     return view('opening-asset');
 });
@@ -45,14 +61,27 @@ Route::get('/opening/creditors', function () {
     return view('opening-creditors');
 });
 
-Route::get('/accountant/dashboard', function () {
-    return view('account-dashboard');
+Route::get('/opening/inventory', function () {
+    return view('opening-inventory');
 });
 
+
+// loans page
 Route::get('/loans', function () {
     return view('loans');
 });
 
+
+
+
+
+
+// accountant dashboard
+Route::get('/accountant/dashboard', function () {
+    return view('account-dashboard');
+});
+
+// client
 Route::get('/clients', function () {
     return view('clients');
 });
@@ -77,17 +106,6 @@ Route::get('/chats', function () {
     return view('chat');
 });
 
-Route::get('/addExpenses', function () {
-    return view('addExpenses');
-});
-
-Route::get('/View/Sales', function () {
-    return view('view-sales');
-});
-
-Route::get('/opening/inventory', function () {
-    return view('opening-inventory');
-});
 
 use Illuminate\Http\Request;
 

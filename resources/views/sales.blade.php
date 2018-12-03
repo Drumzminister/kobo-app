@@ -251,7 +251,7 @@ input {
                             <tr>
                                <td >21/08/2020 </td>
                                <td>
-                                    <a href="">invoice 1234</a>
+                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
                                 </td> 
                               <td> 23</td>
                               <td> 43,000</td>
@@ -262,7 +262,7 @@ input {
                             <tr>
                                 <td >21/08/2020 </td>
                                 <td>
-                                    <a href="">invoice 1234</a>
+                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
                                 </td>
                                 <td> 23</td>
                                 <td> 43,000</td>
