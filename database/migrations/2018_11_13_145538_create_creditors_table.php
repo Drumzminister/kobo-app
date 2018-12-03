@@ -8,21 +8,21 @@ class CreateCreditorsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
         Schema::create('creditors', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('item');
+            $table->double('amount');
+            $table->timestamp()('date');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

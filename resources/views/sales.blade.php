@@ -483,5 +483,4 @@ input {
             </div>
         </div>
     </div>
-
 @endsection

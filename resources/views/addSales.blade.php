@@ -23,5 +23,4 @@
       @include('sales._modal')
 {{--End of modal --}}
 
-    
 @endsection

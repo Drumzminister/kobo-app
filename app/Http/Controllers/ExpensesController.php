@@ -10,7 +10,8 @@ use Koboaccountant\Repositories\Expense\ExpenseRepository;
 class ExpensesController extends Controller
 {
     protected $expenseRepo;
-    function __construct()
+
+    public function __construct()
     {
         $this->middleware('auth');
         $this->expenseRepo = new ExpenseRepository();
@@ -26,8 +27,9 @@ class ExpensesController extends Controller
     public function store(Request $request)
     {
         $this->expenseRepo->create($request);
+
         return response()->json([
-            'message'   =>  'Saved Successfully',
+            'message' => 'Saved Successfully',
         ])->setStatusCode(200);
     }
     

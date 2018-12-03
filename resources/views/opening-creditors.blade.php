@@ -95,5 +95,7 @@ input {
         
     </div>
 
+    <script>
 
+</script>
 @endsection

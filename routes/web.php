@@ -107,8 +107,6 @@ Route::get('/chats', function () {
 });
 
 
-
-
 use Illuminate\Http\Request;
 
 Route::get('/started', 'PaymentController@index');

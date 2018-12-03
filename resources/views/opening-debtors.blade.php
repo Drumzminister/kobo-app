@@ -96,6 +96,4 @@ input {
         </div>
         
     </div>
-
-
 @endsection

@@ -103,9 +103,8 @@ function hideElements(row) {
 
     let bank = row.querySelector('.myBank');
     assignValToParent(bank);
-
-
 }
+
 function hide(elem)
 {
     elem.style.display = "none";
