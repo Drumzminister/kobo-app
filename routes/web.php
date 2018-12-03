@@ -33,9 +33,10 @@ Route::get('/expenses', function () {
     return view('expenses');
 });
 
-Route::get('/opening/assets', function () {
-    return view('opening-asset');
-});
+Route::get('/opening/assets', 'OpeningController@showAssetsPage');
+Route::post('/opening/assets', 'OpeningController@addAsset');
+Route::post('/opening/assets/{id}', 'OpeningController@updateAsset');
+Route::post('/opening/assets/{id}/delete', 'OpeningController@deleteAsset');
 
 Route::get('/opening/debtors', function () {
     return view('opening-debtors');
@@ -128,7 +129,7 @@ Route::group(['middle' => ['guest']], function () {
 
     // });
     Route::get('/expenses', 'ExpensesController@index');
-    Route::get('/assets', 'AssetController@openingAsset');
+    Route::get('/assets', 'OpeningController@showAssetsPage');
     Route::get('/debtors', 'DebtorController@index');
     Route::get('/creditors', 'CreditorController@index');
     Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');

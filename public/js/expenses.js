@@ -110,15 +110,3 @@ function hide(elem)
 {
     elem.style.display = "none";
 }
-function assignValToParent(elem) {
-    let val = Number(elem.value);
-    if (isNaN(val)) {
-        elem.parentElement.innerText = elem.value;
-    } else {
-        elem.parentElement.innerText = formatter.format(val);
-    }
-
-}
-const formatter = new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 2
-});
