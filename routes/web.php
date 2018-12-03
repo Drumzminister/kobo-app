@@ -70,8 +70,14 @@ Route::get('/opening/inventory', function () {
 Route::get('/loans', function () {
     return view('loans');
 });
+Route::get('/view-loans', function () {
+    return view('view-loans');
+});
 
-
+// debtor
+Route::get('/debtor', function () {
+    return view('debtors');
+});
 
 
 

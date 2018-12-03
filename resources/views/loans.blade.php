@@ -163,13 +163,13 @@
 
     <section id="loan-table">
         <div class="container mt-4">
-                <div class="row p-3">
+                <div class="row py-3">
                     <div class="col">
                         <a href="" class="btn btn-addSale left-modal" data-toggle="modal" data-target="#exampleModal">Add Loan</a>            
                     </div>
                     <div class="col">
                         <div class="float-right">
-                                <button  class="btn btn-started">Pay Loan</button>         
+                                <button  class="btn btn-started" data-toggle="modal" data-target="#pay-load">Pay Loan</button>         
                         </div>
                     </div>                      
                 </div>
@@ -240,7 +240,7 @@
                 </div>
                     <hr class="mt-0">
                     <div class="text-center mb-5 pb-3">
-                        <a href="" class="view-more">View More</a> 
+                        <a href="/view-loans" class="view-more">View More</a> 
                     </div>
             </div> 
            
@@ -369,7 +369,7 @@
                             </div>
                        
                             <div class="modal-body">
-                        <section id="sale-table">
+                            <section id="loan-table">
                                 <div class="container">                                               
                                     <div class="long-scroll">
                                         <div class="table-responsive table-responsive-sm" id="topp">
@@ -476,4 +476,51 @@
 
       {{-- end of view lender modal --}}
 
+{{-- Pay loan modal --}}
+<div class="modal fade" id="pay-load" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="container p-3">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h5 class="h5 uppercase" id="">Pay Loan</h5>
+
+            <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <label for="loan source">Select Loan Source</label>
+                            <select class="form-control" id="">
+                              <option>Microfinance</option>
+                              <option>Contribution Group</option>
+                            </select>
+                          </div>
+                        <div class="form-group row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="Amount">Enter Amount</label>
+                                    <input type="text" class="form-control" id="" placeholder="NGN 10,000.00">
+                                </div>
+
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="payment mode">Select Payment Mode</label>
+                                    <select class="form-control" id="">
+                                        <option>Cash 1</option>
+                                        <option>Bank</option>
+                                        <option>ATM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="justify-content-around text-center">
+                                <a href="" class="btn btn-started">Pay Loan</a>
+                        </div>
+                    </form>               
+        </div>
+        
+      </div>
+    </div>
+  </div>
 @endsection
