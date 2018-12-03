@@ -147,3 +147,6 @@ Route::post('/api1', function () {
     dd(request()->all());
     // }
 });
+
+Route::get('/posts', function () {
+});
