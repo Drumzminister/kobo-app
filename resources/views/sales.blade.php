@@ -170,7 +170,7 @@ input {
                                 </tr>
                             </tbody>
 
-                          </table>
+                        </table>
                         </div>
                         <div class="text-center p-1">
                                 <a href="" class="view-more">View More Analytics</a> 
@@ -448,7 +448,7 @@ input {
 
       {{-- end of invoice modal --}}
 
-    {{-- modal --}}
+    {{--top sales modal --}}
     <div class="modal left fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
