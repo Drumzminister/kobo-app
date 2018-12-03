@@ -197,6 +197,19 @@ $(document).ready(function(){
       });
   });
 
+  function assignValToParent(elem) {
+      let val = Number(elem.value);
+      if (isNaN(val)) {
+          elem.parentElement.innerText = elem.value;
+      } else {
+          elem.parentElement.innerText = formatter.format(val);
+      }
+
+  }
+  const formatter = new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 2
+  });
+
   $(function() {
     var date = new Date();
     var currentMonth = date.getMonth();

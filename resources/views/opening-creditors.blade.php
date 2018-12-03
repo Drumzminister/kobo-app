@@ -46,12 +46,12 @@ input {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                          <td > Aqua Villa</td>
-                          <td > Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, sequi?</td>
-                        <td> 43,000 </td>
-                        <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
-                    </tr>
+                        <tr>
+                            <td > Aqua Villa</td>
+                            <td > Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, sequi?</td>
+                            <td> 43,000 </td>
+                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                        </tr>
             
                     <tr>
                       <td> Aqua Villa</td>
