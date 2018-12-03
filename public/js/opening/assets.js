@@ -1,3 +1,16 @@
+let token = document.querySelector('meta[name="csrf-token"]').content;
+
+$(function() {
+    let date = new Date();
+    let currentMonth = date.getMonth();
+    let currentDate = date.getDate();
+    let currentYear = date.getFullYear();
+    $('#assetDate').datepicker({
+        maxDate: new Date(currentYear, currentMonth, currentDate),
+
+    });
+});
+
 function addAsset(id)
 {
     let tbody = document.querySelector(`#${id} tbody`);
@@ -41,7 +54,6 @@ function addAsset(id)
 
 function saveAssets(row)
 {
-    let token = document.querySelector('meta[name="csrf-token"]').content;
     let date = document.querySelector('#assetDate').value;
     if (!date.trim()) {
         swal("Error", "Please select a date", "error");
@@ -134,7 +146,6 @@ function makeEditable(row)
 
 function updateAsset(row, id)
 {
-    let token = document.querySelector('meta[name="csrf-token"]').content;
     let date = document.querySelector('#assetDate').value;
     if (!date.trim()) {
         swal("Error", "Please select a date", "error");

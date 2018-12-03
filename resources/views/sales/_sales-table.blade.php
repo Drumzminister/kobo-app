@@ -119,7 +119,7 @@
                                     <td class="pt-3-half" contenteditable="true"></td>
                                     <td class="pt-3-half" contenteditable="true"></td>
                                     <td>
-                                        <span><button onclick="removeRow(this)"  type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                        <span><button onclick="removeRow()"  type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
                                     </td>
                             </tr>
                             <tr id="tbodyRow">

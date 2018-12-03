@@ -2,10 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
-<<<<<<< HEAD
-=======
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
->>>>>>> dev
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
@@ -72,11 +69,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-<<<<<<< HEAD
-                        <a href="{{ url('/dashboard') }}">Home</a>
-=======
                         <a href="{{ url('/home') }}">Home</a>
->>>>>>> dev
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
@@ -86,11 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-<<<<<<< HEAD
-                    Koboaccountant App
-=======
                     Laravel
->>>>>>> dev
                 </div>
 
                 <div class="links">

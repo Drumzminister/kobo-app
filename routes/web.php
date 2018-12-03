@@ -25,12 +25,26 @@ Route::get('/login', function () {
 
 Route::get('/dashboard', 'DashboardController@index');
 
+// sales
 Route::get('/sales', function () {
     return view('sales');
 });
 
+Route::get('/View/Sales', function () {
+    return view('view-sales');
+});
+
+
+// expense
 Route::get('/expenses', function () {
     return view('expenses');
+});
+Route::get('/addExpenses', function () {
+    return view('addExpenses');
+});
+
+Route::get('/view-expenses', function () {
+    return view('view-expenses');
 });
 
 Route::get('/opening/assets', 'OpeningController@showAssetsPage');
@@ -47,14 +61,33 @@ Route::get('/opening/creditors', function () {
     return view('opening-creditors');
 });
 
+Route::get('/opening/inventory', function () {
+    return view('opening-inventory');
+});
+
+
+// loans page
+Route::get('/loans', function () {
+    return view('loans');
+});
+Route::get('/view-loans', function () {
+    return view('view-loans');
+});
+
+// debtor
+Route::get('/debtor', function () {
+    return view('debtors');
+});
+
+
+
+
+// accountant dashboard
 Route::get('/accountant/dashboard', function () {
     return view('account-dashboard');
 });
 
-Route::get('/loans', function () {
-    return view('loans');
-});
-
+// client
 Route::get('/clients', function () {
     return view('clients');
 });
@@ -78,19 +111,6 @@ Route::get('/chats/history', function () {
 Route::get('/chats', function () {
     return view('chat');
 });
-
-Route::get('/addExpenses', function () {
-    return view('addExpenses');
-});
-
-Route::get('/View/Sales', function () {
-    return view('view-sales');
-});
-
-Route::get('/opening/inventory', function () {
-    return view('opening-inventory');
-});
-
 
 
 use Illuminate\Http\Request;
@@ -150,4 +170,7 @@ Route::post('/api1', function () {
     // foreach (Request::get('amount') as $update) {
     dd(request()->all());
     // }
+});
+
+Route::get('/posts', function () {
 });

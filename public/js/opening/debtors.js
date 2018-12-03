@@ -1,4 +1,16 @@
 let token = document.querySelector('meta[name="csrf-token"]').content;
+
+$(function() {
+    let date = new Date();
+    let currentMonth = date.getMonth();
+    let currentDate = date.getDate();
+    let currentYear = date.getFullYear();
+    $('#debtorDate').datepicker({
+        maxDate: new Date(currentYear, currentMonth, currentDate),
+
+    });
+});
+
 function addDebtor(id)
 {
     let tbody = document.querySelector(`#${id} tbody`);

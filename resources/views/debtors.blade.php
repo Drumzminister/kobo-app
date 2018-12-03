@@ -51,7 +51,7 @@ input {
     <section id="top">
         <div class="container p-2">
             <div class="row p-3">
-                <h2>Expenses</h2>
+                <h2>Debtors</h2>
                 <span class="accountant ml-auto btn btn-accountant">
                 <a href="" class="btn-accountant">
                     <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
@@ -68,9 +68,18 @@ input {
             <div class="row mt-4">
                 <div class="col-md-8">
                     <div class="bg-white px-3 py-4" id="topp"> 
+                            <div class="dropdown show pull-right">
+                                    <a class="btn btn-filter dropdown-toggle" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Switch Graph                                    
+                                    </a>                                   
+                                    <div class="dropdown-menu text-green" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="#" class="text-orange">Highest Debtors</a>
+                                        <a class="dropdown-item" href="#" class="text-orange">Fastest Paying Debtors</a>
+                                    </div>
+                            </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <h5 class="h5">Monthly sales</h5>
+                                <h5 class="h5">Debtors Overview</h5>
                             </div>
                             <div class="col-md-3">
                                     <div class="form-check form-check-inline">
@@ -121,42 +130,46 @@ input {
                         {{-- <h4 class="sale-h4">Most Expenses Transaction</h4> --}}
                         <div class="dropdown show text-orange">
                                 <a class="text-orange dropdown-toggle bg-white" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Most Recent Expenses                                    
+                                        Most Recent Debtors                                    
                                 </a>                                   
                                 <div class="dropdown-menu text-green" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="#" class="text-green">Highest Expenses</a>
-                                    <a class="dropdown-item" href="#" class="text-green">Lowest Expenses</a>
+                                    <a class="dropdown-item" href="#" class="text-orange">Highest Debtors</a>
+                                    <a class="dropdown-item" href="#" class="text-orange">Fastest Paying Debtors</a>
                                 </div>
                         </div>
                         <div class="all-scroll">
-                        <table class="table table-striped table-hover">
-                            <thead class="sale-head">
-                              <tr>
-                                <th scope="col">Products</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Payment Mode</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($highExpenses as $expense)
-                                    <tr>
-                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">{{$expense->class_type}}</a></td>
-                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal" >{{$expense->amount}}</a></td>
-                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">{{$expense->payment_mode}}</a></td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="3">
-                                            No expense Available
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                          </table>
+                                <table class="table table-striped table-hover" id="table">
+                                        <thead class="sale-head">
+                                          <tr>
+                                            <th scope="col">Company Name</th>
+                                            <th scope="col">Amount</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td>Broomstick Ltd</td>
+                                            <td>12,000</td>
+                                          </tr>
+                                          <tr>
+                                                <td>Broomstick Ltd</td>
+                                                <td>12,000</td>
+                                            <tr>
+                                            <tr>
+                                                <td>Broomstick Ltd</td>
+                                                <td>12,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Broomstick Ltd</td>
+                                                <td>12,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Broomstick Ltd</td>
+                                                <td>12,000</td>
+                                            </tr>
+                                        </tbody>
+            
+                                </table>
                         </div>
-                        <div class="text-center p-1">
-                                <a href="" class="view-more">View More Analytics</a> 
-                            </div>
                     </div>
                     </div>
                 </div>
@@ -171,10 +184,10 @@ input {
             <div class="bg-white p-4">
                     <div class="row py-3">
                             <div class="col-md-3">
-                                <a href="/addExpenses" class="btn btn-addSale px-3"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Expenses</a>            
+                            <h4 class= "h4">Debtors List </h4>
                             </div>
         
-                            {{-- <div class="col-md-7">
+                            <div class="col-md-7">
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
@@ -192,39 +205,74 @@ input {
                                             <a class="dropdown-item" href="#" class="text-green">By Amount</a>
                                         </div>
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
                 
                 <div class="table-responsive table-responsive-sm">
-                    <table class="table table-striped table-hover" id="expenseTable">
-                        <thead class="p-3">
-                          <tr class="tab">
-                            <th scope="col">Date</th>
-                            <th scope="col">Transaction details</th>
-                            <th scope="col">Amount (&#8358;)</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Payment Mode</th>              
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                            @forelse(Auth::user()->expenses as $expense)
-                                <tr>
-                                    <td>{{$expense->date}}</td>
-                                    <td>{{$expense->details}}</td>
-                                    <td>{{number_format($expense->amount, 2)}}</td>
-                                    <td>{{$expense->class_type}}</td>
-                                    <td> {{strtoupper($expense->payment_mode)}}</td>
-                                </tr>
-                            @empty
-                                <tr id="noExpense">
-                                    <td colspan="5">
-                                        You have no expense. <br> Use the add expense button to add new expenses.
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                        <table class="table table-striped table-hover" id="dataTable">
+                                <thead class="p-3">
+                                  <tr class="tab">
+                                    <th scope="col">Sales Date</th>
+                                    <th scope="col">Customer</th>                                    
+                                    <th scope="col">Total Invoices Owed (&#8358;)</th>
+                                    <th scope="col">Total Payment (&#8358;)</th>
+                                    <th scope="col">Amount Receivables</th>
+        
+                        
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                        <td >21/08/2020 </td>                                       
+                                        <td> Mercy Ikpe</td>                                        
+                                        <td> 23,000</td>
+                                        <td> 43,000</td>
+                                        <td>50,000</td>
+                                  </tr>
+        
+                                    <tr>
+                                            <td >21/08/2020 </td>                                       
+                                            <td> Mercy Ikpe</td>                                        
+                                            <td> 23,000</td>
+                                            <td> 43,000</td>
+                                            <td>50,000</td>                                    </tr>
+        
+                                    <tr>
+                                            <td >21/08/2020 </td>                                       
+                                            <td> Mercy Ikpe</td>                                        
+                                            <td> 23,000</td>
+                                            <td> 43,000</td>
+                                            <td>50,000</td>
+                                    </tr>
+                                    <tr>
+                                            <td >21/08/2020 </td>                                       
+                                            <td> Mercy Ikpe</td>                                        
+                                            <td> 23,000</td>
+                                            <td> 43,000</td>
+                                            <td>50,000</td>
+                                    </tr>
+                                    <tr>
+                                            <td >21/08/2020 </td>                                       
+                                            <td> Mercy Ikpe</td>                                        
+                                            <td> 23,000</td>
+                                            <td> 43,000</td>
+                                            <td>50,000</td>
+                                    </tr>
+                                    <tr class="d-none">
+                                        <td>
+                                            <div class="dates">
+                                                <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
+                                            </div>
+                                        </td>
+                                          <td> <input type="text" placeholder=""></td>
+                                          <td> <input type="number" placeholder=""> </td>
+                                          <td><input class="number" onKeyup="AddComma()"placeholder=""></td>
+                                          <td><input type="text" placeholder=""></td>
+                                        <td> IG</td>
+        
+                                    </tr>
+                                </tbody>
+                            </table>
                 </div>
                     <hr class="mt-0">
                     <div class="text-center pb-3">

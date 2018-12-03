@@ -105,8 +105,8 @@
 
                     {{-- payment section --}}
 
-                    <div class="row p-2 mt-2 ">
-                        <div class="col-md-6">
+                    <div class="row p-2 mt-3 ">
+                        <div class="col-md-6 mt-5">
                             <div class="bg-grey py-4 px-3" id="topp">
                                 <div class="row" >
                                     <div class="col-md-5">

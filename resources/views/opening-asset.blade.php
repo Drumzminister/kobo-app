@@ -81,6 +81,6 @@ input {
         
     </div>
 
-<script src="/js/assets.js">
-</script>
+<script src="/js/opening/assets.js"></script>
+
 @endsection

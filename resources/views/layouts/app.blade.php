@@ -68,6 +68,8 @@
  <script src="{{asset('js/jquery.circliful.js')}}"></script>
 <script src="{{asset('js/chart.js')}}"></script>
 <script src="{{asset('js/appp.js')}}"></script>
+<script src="{{asset('js/sales.js')}}"></script>
+
 
 <!-- Date Picker CDN -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
