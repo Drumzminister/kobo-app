@@ -47,15 +47,15 @@ Route::get('/view-expenses', function () {
     return view('view-expenses');
 });
 
+Route::get('/opening/assets', 'OpeningController@showAssetsPage');
+Route::post('/opening/assets', 'OpeningController@addAsset');
+Route::post('/opening/assets/{id}', 'OpeningController@updateAsset');
+Route::post('/opening/assets/{id}/delete', 'OpeningController@deleteAsset');
 
-// opening-balance pages
-Route::get('/opening/assets', function () {
-    return view('opening-asset');
-});
-
-Route::get('/opening/debtors', function () {
-    return view('opening-debtors');
-});
+Route::get('/opening/debtors', 'OpeningController@showDebtorsPage');
+Route::post('/opening/debtor', 'OpeningController@addDebtor');
+Route::post('/opening/debtor/{id}', 'OpeningController@updateDebtor');
+Route::post('/opening/debtor/{id}/delete', 'OpeningController@deleteDebtor');
 
 Route::get('/opening/creditors', function () {
     return view('opening-creditors');
@@ -170,7 +170,7 @@ Route::group(['middle' => ['guest']], function () {
 
     // });
     Route::get('/expenses', 'ExpensesController@index');
-    Route::get('/assets', 'AssetController@openingAsset');
+    Route::get('/assets', 'OpeningController@showAssetsPage');
     Route::get('/debtors', 'DebtorController@index');
     Route::get('/creditors', 'CreditorController@index');
     Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');
@@ -190,4 +190,7 @@ Route::post('/api1', function () {
     // foreach (Request::get('amount') as $update) {
     dd(request()->all());
     // }
+});
+
+Route::get('/posts', function () {
 });
