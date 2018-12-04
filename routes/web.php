@@ -77,6 +77,27 @@ Route::get('/debtor', function () {
     return view('debtors');
 });
 
+Route::get('/debt', function () {
+    return view('debt');
+});
+
+Route::get('/view-debtor', function () {
+    return view('view-debtor');
+});
+
+// creditors
+Route::get('/creditor', function () {
+    return view('creditors');
+});
+
+Route::get('/credit', function () {
+    return view('credit');
+});
+
+Route::get('/view-creditor', function () {
+    return view('view-creditor');
+});
+
 // accountant dashboard
 Route::get('/accountant/dashboard', function () {
     return view('account-dashboard');
