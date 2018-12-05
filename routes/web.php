@@ -163,7 +163,7 @@ Route::group(['middle' => ['guest']], function () {
     Route::get('/', 'UserController@home');
 
     //Registration Steps
-    Route::post('/register', 'UserController@create');
+    Route::post('/register', 'UserController@create')->name('register');
     Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
     Route::get('/started', 'UserController@started');
     Route::get('/login', 'UserController@login')->name('login');
@@ -200,8 +200,4 @@ Route::group(['middle' => ['guest']], function () {
     Route::get('/accountant/dashboard', 'AccountantController@index');
 // });
 Route::post('/expenses/create', 'ExpensesController@store');
-Route::get('/api1', function () {
-    // Auth::loginUsingId('0587c5f0-9005-3f23-aace-d0faf74f19ba');
-
-    return view('test');
 });
