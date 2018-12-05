@@ -16,7 +16,7 @@ class CreateCreditorsTable extends Migration
             $table->string('name');
             $table->string('item');
             $table->double('amount');
-            $table->timestamp()('date');
+            $table->timestamp('date');
             $table->timestamps();
         });
     }

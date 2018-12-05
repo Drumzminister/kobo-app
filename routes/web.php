@@ -100,6 +100,31 @@ Route::get('/view-creditor', function () {
     return view('view-creditor');
 });
 
+// vendors page
+Route::get('/vendors', function () {
+    return view('vendors');
+});
+
+Route::get('/add-vendors', function () {
+    return view('add-vendor');
+});
+
+Route::get('/view-vendors', function () {
+    return view('view-vendors');
+});
+
+// Customers page
+Route::get('/customers', function () {
+    return view('customers');
+});
+
+Route::get('/add-customers', function () {
+    return view('add-customers');
+});
+
+Route::get('/view-customers', function () {
+    return view('view-customers');
+});
 
 
 // accountant dashboard
