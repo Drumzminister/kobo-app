@@ -34,7 +34,6 @@ Route::get('/View/Sales', function () {
     return view('view-sales');
 });
 
-
 // expense
 Route::get('/expenses', function () {
     return view('expenses');
@@ -64,7 +63,6 @@ Route::get('/opening/creditors', function () {
 Route::get('/opening/inventory', function () {
     return view('opening-inventory');
 });
-
 
 // loans page
 Route::get('/loans', function () {
@@ -98,7 +96,6 @@ Route::get('/credit', function () {
 
 Route::get('/view-creditor', function () {
     return view('view-creditor');
-});
 
 // vendors page
 Route::get('/vendors', function () {
@@ -157,9 +154,6 @@ Route::get('/chats', function () {
     return view('chat');
 });
 
-
-use Illuminate\Http\Request;
-
 Route::get('/started', 'PaymentController@index');
 
 Auth::routes();
@@ -210,12 +204,4 @@ Route::get('/api1', function () {
     // Auth::loginUsingId('0587c5f0-9005-3f23-aace-d0faf74f19ba');
 
     return view('test');
-});
-Route::post('/api1', function () {
-    // foreach (Request::get('amount') as $update) {
-    dd(request()->all());
-    // }
-});
-
-Route::get('/posts', function () {
 });
