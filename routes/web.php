@@ -96,87 +96,86 @@ Route::get('/credit', function () {
 
 Route::get('/view-creditor', function () {
     return view('view-creditor');
-
-// vendors page
-Route::get('/vendors', function () {
-    return view('vendors');
 });
+    // vendors page
+    Route::get('/vendors', function () {
+        return view('vendors');
+    });
 
-Route::get('/add-vendors', function () {
-    return view('add-vendor');
-});
+    Route::get('/add-vendors', function () {
+        return view('add-vendor');
+    });
 
-Route::get('/view-vendors', function () {
-    return view('view-vendors');
-});
+    Route::get('/view-vendors', function () {
+        return view('view-vendors');
+    });
 
-// Customers page
-Route::get('/customers', function () {
-    return view('customers');
-});
+    // Customers page
+    Route::get('/customers', function () {
+        return view('customers');
+    });
 
-Route::get('/add-customers', function () {
-    return view('add-customers');
-});
+    Route::get('/add-customers', function () {
+        return view('add-customers');
+    });
 
-Route::get('/view-customers', function () {
-    return view('view-customers');
-});
+    Route::get('/view-customers', function () {
+        return view('view-customers');
+    });
 
+    // accountant dashboard
+    Route::get('/accountant/dashboard', function () {
+        return view('account-dashboard');
+    });
 
-// accountant dashboard
-Route::get('/accountant/dashboard', function () {
-    return view('account-dashboard');
-});
+    // client
+    Route::get('/clients', function () {
+        return view('clients');
+    });
 
-// client
-Route::get('/clients', function () {
-    return view('clients');
-});
+    Route::get('/manage/clients', function () {
+        return view('manage-clients');
+    });
 
-Route::get('/manage/clients', function () {
-    return view('manage-clients');
-});
+    Route::get('/toolkits', function () {
+        return view('toolkit');
+    });
 
-Route::get('/toolkits', function () {
-    return view('toolkit');
-});
+    Route::get('/resources', function () {
+        return view('resource');
+    });
 
-Route::get('/resources', function () {
-    return view('resource');
-});
+    Route::get('/chats/history', function () {
+        return view('chat-history');
+    });
 
-Route::get('/chats/history', function () {
-    return view('chat-history');
-});
+    Route::get('/chats', function () {
+        return view('chat');
+    });
 
-Route::get('/chats', function () {
-    return view('chat');
-});
-
-Route::get('/started', 'PaymentController@index');
-
-Auth::routes();
-// Guest  routes
-Route::group(['middle' => ['guest']], function () {
-    // Landing Page
-    Route::get('/', 'UserController@home');
-
-    //Registration Steps
-    Route::post('/register', 'UserController@create')->name('register');
-    Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
-    Route::get('/started', 'UserController@started');
-    Route::get('/login', 'UserController@login')->name('login');
-    Route::get('/logout', 'UserController@logout');
     Route::get('/started', 'PaymentController@index');
-    Route::get('plans', 'PaymentController@getAllPlans');
 
-    // Guest accountant routes
-    Route::get('/accountant', 'UserController@accountant');
-});
+    Auth::routes();
+    // Guest  routes
+    Route::group(['middle' => ['guest']], function () {
+        // Landing Page
+        Route::get('/', 'UserController@home');
 
-// Auth routes
-// Route::group(['middleware' => 'auth'], function () {
+        //Registration Steps
+        Route::post('/register', 'UserController@create')->name('register');
+        Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
+        Route::get('/started', 'UserController@started');
+        Route::get('/login', 'UserController@login')->name('login');
+        Route::get('/logout', 'UserController@logout');
+        Route::get('/started', 'PaymentController@index');
+        Route::get('plans', 'PaymentController@getAllPlans');
+
+        // Guest accountant routes
+        Route::get('/accountant', 'UserController@accountant');
+    });
+
+    // Auth routes
+    // Route::group(['middleware' => 'auth'], function () {
     Route::get('/payment/success', 'PaymentController@paid');
 
     Route::get('/dashboard', 'DashboardController@index');
@@ -184,8 +183,8 @@ Route::group(['middle' => ['guest']], function () {
     Route::get('/sales', 'SalesController@index');
 
     // Route::prefix('sales')->group(function () {
-        Route::get('/addSales', 'SalesController@sales');
-        Route::get('/getCustomers', 'SalesController@getCustomer');
+    Route::get('/addSales', 'SalesController@sales');
+    Route::get('/getCustomers', 'SalesController@getCustomer');
 
     // });
     Route::get('/expenses', 'ExpensesController@index');
@@ -193,11 +192,10 @@ Route::group(['middle' => ['guest']], function () {
     Route::get('/debtors', 'DebtorController@index');
     Route::get('/creditors', 'CreditorController@index');
     Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');
-// });
+    // });
 
-// Accountant rotes
-// Route::group(['middleware' => ''], function() {
+    // Accountant rotes
+    // Route::group(['middleware' => ''], function() {
     Route::get('/accountant/dashboard', 'AccountantController@index');
-// });
-Route::post('/expenses/create', 'ExpensesController@store');
-});
+    // });
+    Route::post('/expenses/create', 'ExpensesController@store');
