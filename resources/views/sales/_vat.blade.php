@@ -9,9 +9,9 @@
                         <span class="input-group-text customer-input" id="basic-addon3">Customer Name</span>
                     </div> 
 
-                    <select class="customer" name="customer" class="form-control" onClick="this.form.submit">
+                    <select class="customer" name="customer" class="form-control">
                             <option selected="Pick customer Name" style="width:200">
-                             Select Name
+                                Pick customer name
                             </option>
                     </select>
                 </div>
@@ -22,7 +22,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                         <select class="form-control form-control-lg form-control vat-input" name="tax" id="basic-addon3">
-                        <option value="5">Value Added Tax (VAT) 5%</option>
+                        <option value="5" >Value Added Tax (VAT) 5%</option>
                         <option value="10">PAT (10%)</option>
                         <option value="">Cashh</option>
                     </select>
@@ -44,15 +44,3 @@
 <!-- This Calls ajax and displays all customers -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script>
-$(function() {
-    var date = new Date();
-    var currentMonth = date.getMonth();
-    var currentDate = date.getDate();
-    var currentYear = date.getFullYear();
-    $('#datepicker').datepicker({
-    maxDate: new Date(currentYear, currentMonth, currentDate),
-
-    });
-});
-</script>

@@ -20,7 +20,7 @@ class SalesController extends Controller
 
     public function sales()
     {
-        $customers = $this->salesRepo->customer('first_name', 'id');
+        $customers = $this->salesRepo->customer();
 
         return view('addSales', compact('customers'));
     }

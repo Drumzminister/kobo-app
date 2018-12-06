@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -184,7 +185,7 @@ Route::get('/view-creditor', function () {
 
     // Route::prefix('sales')->group(function () {
     Route::get('/addSales', 'SalesController@sales');
-    Route::get('/getCustomers', 'SalesController@getCustomer');
+    Route::get('/getCustomers', 'CustomerController@allCustomers');
 
     // });
     Route::get('/expenses', 'ExpensesController@index');
@@ -199,3 +200,9 @@ Route::get('/view-creditor', function () {
     Route::get('/accountant/dashboard', 'AccountantController@index');
     // });
     Route::post('/expenses/create', 'ExpensesController@store');
+
+    use Koboaccountant\Models\Sales;
+
+    Route::get('/comp', function () {
+        return Sales::with('company')->get();
+    });

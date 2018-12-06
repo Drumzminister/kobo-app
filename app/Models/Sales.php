@@ -10,16 +10,17 @@ class Sales extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    
+
     public $incrementing = false;
 
     public function company()
     {
-    	return $this->belongsTo('Koboaccountant\Models\Company');
+        return $this->belongsTo('Koboaccountant\Models\Company');
     }
+
     public function inventory()
     {
-    	return $this->hasOne('Koboaccountant\Models\Inventory');
+        return $this->hasOne('Koboaccountant\Models\Inventory');
     }
 
     public function staff()
@@ -27,9 +28,8 @@ class Sales extends Model
         return $this->belongsTo('Koboaccountant\Models\Staff');
     }
 
-    public function customer()
+    public function customers()
     {
-        return $this->hasMany('Koboaccountant\Models\Customer');
+        return $this->belongsToMany('Koboaccountant\Models\Customer');
     }
-    
 }

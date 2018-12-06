@@ -4,6 +4,7 @@ namespace Koboaccountant\Http\Controllers;
 
 use Koboaccountant\Repositories\Customer\CustomerRepository;
 use Koboaccountant\Http\Requests\CustomerRegistrationRequest;
+
 class CustomerController extends Controller
 {
     public function __construct(CustomerRepository $customer)
@@ -16,9 +17,14 @@ class CustomerController extends Controller
         return view('customer');
     }
 
-    public function store(CustomerRegistrationRequest $request) 
+    public function allCustomers()
     {
-        if(! $this->customer){
+        return $this->customer->allCustomers();
+    }
+
+    public function store(CustomerRegistrationRequest $request)
+    {
+        if (!$this->customer) {
             return 'Error occured';
         }
         $this->customer->create($request);

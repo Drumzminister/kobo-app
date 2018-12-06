@@ -2,11 +2,8 @@
 
 namespace Koboaccountant\Models;
 
-use Koboaccountant\Repositories\BaseRepository;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 
 class User extends Authenticatable
 {
@@ -20,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'email_token', 'name', 'email', 'password', 'first_name', 'last_name', 'attachment'
+        'id', 'email_token', 'name', 'email', 'password', 'first_name', 'last_name', 'attachment',
     ];
 
     /**
@@ -31,7 +28,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
+
     public function roles()
     {
         return $this->hasOne('Koboaccountant\Models\Role');
@@ -49,10 +46,10 @@ class User extends Authenticatable
 
     public function getFullNameAttribute()
     {
-        return ucfirst($this->first_name) .' '. ucfirst($this->last_name);
+        return ucfirst($this->first_name).' '.ucfirst($this->last_name);
     }
 
-    public function customers()
+    public function customer()
     {
         return $this->hasMany('Koboaccountant\Models\Customer');
     }
@@ -61,5 +58,4 @@ class User extends Authenticatable
     {
         return $this->hasMany('Koboaccountant\Models\Expense', 'user_id');
     }
-    
 }
