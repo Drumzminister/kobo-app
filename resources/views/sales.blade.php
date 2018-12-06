@@ -210,7 +210,7 @@ input {
                                                 </div>
                                         </div>
                                     </div>
-                                </div>    
+                            </div>    
                 
                 <div class="table-responsive table-responsive-sm">
                     <table class="table table-striped table-hover" id="dataTable">
@@ -299,7 +299,7 @@ input {
 
     {{-- invoice modal --}}
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                         <div class="container p-3">

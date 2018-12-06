@@ -96,7 +96,7 @@ function hideElements(row)
     assignValToParent(name);
 
     let category = row.querySelector('.category');
-    assignValToParent(category);
+    assignValToParent(category); 
 
     let price = row.querySelector('.price');
     assignValToParent(price);
