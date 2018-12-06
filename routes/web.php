@@ -57,14 +57,15 @@ Route::post('/opening/debtor', 'OpeningController@addDebtor');
 Route::post('/opening/debtor/{id}', 'OpeningController@updateDebtor');
 Route::post('/opening/debtor/{id}/delete', 'OpeningController@deleteDebtor');
 
-Route::get('/opening/creditors', function () {
-    return view('opening-creditors');
-});
+Route::get('/opening/creditors', 'OpeningController@showCreditorsPage');
+Route::post('/opening/creditors', 'OpeningController@addCreditor');
+Route::post('/opening/creditor/{id}', 'OpeningController@updateCreditor');
+Route::post('/opening/creditor/{id}/delete', 'OpeningController@deleteCreditor');
 
-Route::get('/opening/inventory', function () {
-    return view('opening-inventory');
-});
-
+Route::get('/opening/inventory','OpeningController@showInventoriesPage');
+Route::post('/opening/inventory', 'OpeningController@addInventory');
+Route::post('/opening/inventory/{id}', 'OpeningController@updateInventory');
+Route::post('/opening/inventory/{id}/delete', 'OpeningController@deleteInventory');
 
 // loans page
 Route::get('/loans', function () {
