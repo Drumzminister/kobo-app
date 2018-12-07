@@ -1,23 +1,4 @@
-$('.customer').select2({
-    placeholder: 'Select an item',
-    ajax: {
-      url: 'getCustomers',
-      dataType: 'json',
-      delay: 250,
-      processResults: function (data) {
-        return {
-          results:  $.map(data, function (customer) {
-                return {
-                    text: customer.first_name,
-                    id: customer.id
 
-                }
-            })
-        };
-      },
-      cache: true
-    }
-  });
 
 function addRow(){
     let table = document.querySelector(".tbodyRow");

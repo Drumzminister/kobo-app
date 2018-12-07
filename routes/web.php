@@ -62,7 +62,7 @@ Route::post('/opening/creditors', 'OpeningController@addCreditor');
 Route::post('/opening/creditor/{id}', 'OpeningController@updateCreditor');
 Route::post('/opening/creditor/{id}/delete', 'OpeningController@deleteCreditor');
 
-Route::get('/opening/inventory','OpeningController@showInventoriesPage');
+Route::get('/opening/inventory', 'OpeningController@showInventoriesPage');
 Route::post('/opening/inventory', 'OpeningController@addInventory');
 Route::post('/opening/inventory/{id}', 'OpeningController@updateInventory');
 Route::post('/opening/inventory/{id}/delete', 'OpeningController@deleteInventory');
@@ -187,7 +187,7 @@ Route::get('/view-creditor', function () {
 
     // Route::prefix('sales')->group(function () {
     Route::get('/addSales', 'SalesController@sales');
-    Route::get('/getCustomers', 'CustomerController@allCustomers');
+    Route::get('/getCustomer', 'CustomerController@allUserCustomers');
 
     // });
     Route::get('/expenses', 'ExpensesController@index');
@@ -202,9 +202,3 @@ Route::get('/view-creditor', function () {
     Route::get('/accountant/dashboard', 'AccountantController@index');
     // });
     Route::post('/expenses/create', 'ExpensesController@store');
-
-    use Koboaccountant\Models\Sales;
-
-    Route::get('/comp', function () {
-        return Sales::with('company')->get();
-    });

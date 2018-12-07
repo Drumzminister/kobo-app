@@ -7,12 +7,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $users = factory('Koboaccountant\Models\User', 2)->create()->each(function ($user) {
-            $user->company()->save(factory('Koboaccountant\Models\Company')->make());
+            $companies = $user->company()->save(factory('Koboaccountant\Models\Company')->make());
         });
 
-        $companies = $users->each(function ($user) {
-            factory('Koboaccountant\Models\Company', 10)->create(['user_id' => $this->getRandomUserId()]);
-        });
+        // $companies = $users->each(function ($user) {
+        //     factory('Koboaccountant\Models\Company')->create(['user_id' => $this->getRandomUserId()]);
+        // });
 
         $vendor = factory('Koboaccountant\Models\Vendor', 10)->create(['company_id' => $this->getRandomCompanyId()]);
 

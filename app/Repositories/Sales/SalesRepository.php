@@ -89,7 +89,7 @@ class SalesRepository extends BaseRepository
 
     public function customer()
     {
-        return $this->customerModel::where('user_id', Auth::user()->id)->get();
+        return $this->customerModel::where('user_id', Auth::user()->id);
     }
 
     public function getTopSales()

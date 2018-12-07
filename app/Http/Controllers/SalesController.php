@@ -4,7 +4,9 @@ namespace Koboaccountant\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Koboaccountant\Models\Customer;
+use Illuminate\Support\Facades\Auth;
 use Koboaccountant\Repositories\Sales\SalesRepository;
+use Koboaccountant\Http\Requests\CustomerRegistrationRequest;
 
 class SalesController extends Controller
 {
@@ -20,8 +22,7 @@ class SalesController extends Controller
 
     public function sales()
     {
-        $customers = $this->salesRepo->customer();
-
+        $customers = $this->salesRepo->customer()->get();
         return view('addSales', compact('customers'));
     }
 
@@ -35,11 +36,9 @@ class SalesController extends Controller
     {
         $data = [];
 
-        if ($request->has('q')) {
+        if ($request->all) {
             $search = $request->q;
-            $data = Customer::where('last_name', 'LIKE', "%$search%")
-                    ->orWhere('last_name', 'LIKE', "%$search%")
-                    ->get();
+            $data = $this->customer->allUserCustomers()->where('last_name', 'LIKE', "%$search%")->get();
         }
 
         return response()->json($data);

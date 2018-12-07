@@ -15,11 +15,10 @@ class CustomerRepository extends BaseRepository
         $this->salesModel = $sales;
     }
 
-    public function allCustomers()
+    public function allUserCustomers()
     {
         if (!is_null(Auth::user())) {
-            $customer = Auth::user()->customer();
-
+            $customer = $this->customerModel->where('user_id', Auth::user()->id);
             return $customer;
         }
 
@@ -30,7 +29,6 @@ class CustomerRepository extends BaseRepository
     {
         if (!Auth::user()) {
             $customer = Auth::user()->company();
-            // Auth::user()->with('company')->first();
             $sales = $customer->sales;
 
             return $sales;
