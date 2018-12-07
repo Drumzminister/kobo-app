@@ -27,16 +27,16 @@ class DebtorRepository extends BaseRepository
      */
     public function create(Request $request)
     {
-        $asset = $this->model;
-        $asset->id = $this->generateUuid();
-        $asset->company_name = $request->company_name;
-        $asset->details = $request->details;
-        $asset->date = new Carbon($request->date);
-        $asset->amount = $request->amount;
-        $asset->user_id = $request->user()->id;
+        $debtor = $this->model;
+        $debtor->id = $this->generateUuid();
+        $debtor->company_name = $request->company_name;
+        $debtor->details = $request->details;
+        $debtor->date = new Carbon($request->date);
+        $debtor->amount = $request->amount;
+        $debtor->user_id = $request->user()->id;
 
-        $asset->save();
-        return $asset;
+        $debtor->save();
+        return $debtor;
     }
 
     /**
@@ -46,13 +46,13 @@ class DebtorRepository extends BaseRepository
      */
     public function update($id, Request $request)
     {
-        $asset = $this->model::find($id);
-        $asset->company_name = $request->company_name;
-        $asset->amount = $request->amount;
-        $asset->details = $request->details;
+        $debtor = $this->model::find($id);
+        $debtor->company_name = $request->company_name;
+        $debtor->amount = $request->amount;
+        $debtor->details = $request->details;
 
-        $asset->save();
-        return $asset;
+        $debtor->save();
+        return $debtor;
     }
 
     /**
@@ -61,8 +61,8 @@ class DebtorRepository extends BaseRepository
      */
     public function delete($id)
     {
-        $asset = $this->model->find($id);
-        $asset->delete();
+        $debtor = $this->model->find($id);
+        $debtor->delete();
         return true;
     }
 
@@ -71,7 +71,7 @@ class DebtorRepository extends BaseRepository
      */
     public function getAll()
     {
-        $assets = $this->model->where('user_id', $this->getAuthUserId())->get();
-        return $assets;
+        $debtors = $this->model->where('user_id', $this->getAuthUserId())->get();
+        return $debtors;
     }
 }

@@ -6,13 +6,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $users = factory('Koboaccountant\Models\User', 10)->create()->each(function ($user) {
-            $user->company()->save(factory('Koboaccountant\Models\Company')->make());
+        $users = factory('Koboaccountant\Models\User', 2)->create()->each(function ($user) {
+            $companies = $user->company()->save(factory('Koboaccountant\Models\Company')->make());
         });
 
-        $companies = $users->each(function ($user) {
-            factory('Koboaccountant\Models\Company', 10)->create(['user_id' => $this->getRandomUserId()]);
-        });
+        // $companies = $users->each(function ($user) {
+        //     factory('Koboaccountant\Models\Company')->create(['user_id' => $this->getRandomUserId()]);
+        // });
 
         $vendor = factory('Koboaccountant\Models\Vendor', 10)->create(['company_id' => $this->getRandomCompanyId()]);
 
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $sales = factory('Koboaccountant\Models\Sales', 10)->create(['company_id' => $this->getRandomCompanyId(), 'inventory_id' => $this->getRandomInventoryId(), 'staff_id' => $this->getRandomStaffId()]);
 
         $customer = $sales->each(function ($sales) {
-            factory('Koboaccountant\Models\Customer', 10)->create(['company_id' => $this->getRandomCompanyId()]);
+            factory('Koboaccountant\Models\Customer', 10)->create(['company_id' => $this->getRandomCompanyId(), 'user_id' => $this->getRandomUserId()]);
         });
     }
 

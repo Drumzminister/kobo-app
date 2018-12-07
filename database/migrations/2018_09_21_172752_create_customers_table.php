@@ -8,17 +8,16 @@ class CreateCustomersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->string('id');
             $table->string('first_name');
-            $table->string('last_name');    
-            $table->string('company_id');        
-            $table->string('email')->nullable();;
+            $table->string('last_name');
+            $table->string('company_id')->index();
+            $table->string('user_id')->index();
+            $table->string('email')->nullable();
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('website')->nullable();
@@ -26,17 +25,13 @@ class CreateCustomersTable extends Migration
             $table->string('image');
             $table->timestamps();
             $table->softDeletes();
-    
-            $table->primary('id');
 
-            
+            $table->primary('id');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
