@@ -174,7 +174,7 @@ input {
                                 <a href="/addExpenses" class="btn btn-addSale px-3"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Expenses</a>            
                             </div>
         
-                            <div class="col-md-7">
+                            {{-- <div class="col-md-7">
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
@@ -192,7 +192,7 @@ input {
                                             <a class="dropdown-item" href="#" class="text-green">By Amount</a>
                                         </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                 
                 <div class="table-responsive table-responsive-sm">
@@ -202,7 +202,7 @@ input {
                             <th scope="col">Date</th>
                             <th scope="col">Transaction details</th>
                             <th scope="col">Amount (&#8358;)</th>
-                            <th scope="col">Class Type</th>
+                            <th scope="col">Category</th>
                             <th scope="col">Payment Mode</th>              
                           </tr>
                         </thead>
@@ -228,7 +228,7 @@ input {
                 </div>
                     <hr class="mt-0">
                     <div class="text-center pb-3">
-                        <a href="" class="view-more">View More</a> 
+                        <a href="/view-expenses" class="view-more">View More</a> 
                     </div>
             </div> 
            
@@ -268,5 +268,5 @@ input {
             </div>
         </div>
     </div>
-    <script src ="/js/expenses.js"></script>
+    <script src="/js/expenses.js"></script>
 @endsection

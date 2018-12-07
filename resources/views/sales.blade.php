@@ -170,7 +170,7 @@ input {
                                 </tr>
                             </tbody>
 
-                          </table>
+                        </table>
                         </div>
                         <div class="text-center p-1">
                                 <a href="" class="view-more">View More Analytics</a> 
@@ -210,7 +210,7 @@ input {
                                                 </div>
                                         </div>
                                     </div>
-                                </div>    
+                            </div>    
                 
                 <div class="table-responsive table-responsive-sm">
                     <table class="table table-striped table-hover" id="dataTable">
@@ -251,7 +251,7 @@ input {
                             <tr>
                                <td >21/08/2020 </td>
                                <td>
-                                    <a href="">invoice 1234</a>
+                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
                                 </td> 
                               <td> 23</td>
                               <td> 43,000</td>
@@ -262,7 +262,7 @@ input {
                             <tr>
                                 <td >21/08/2020 </td>
                                 <td>
-                                    <a href="">invoice 1234</a>
+                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
                                 </td>
                                 <td> 23</td>
                                 <td> 43,000</td>
@@ -299,7 +299,7 @@ input {
 
     {{-- invoice modal --}}
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                         <div class="container p-3">
@@ -448,7 +448,7 @@ input {
 
       {{-- end of invoice modal --}}
 
-    {{-- modal --}}
+    {{--top sales modal --}}
     <div class="modal left fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -483,5 +483,4 @@ input {
             </div>
         </div>
     </div>
-
 @endsection

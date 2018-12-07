@@ -16,80 +16,67 @@ input {
     </div>
     <div class="container bg-white mt-5">
             <div class="row py-3">
-                    <div class="col-md-9">
-                        <div aria-label="breadcrumb arr-right">
-                                <ol class="breadcrumb bg-white">
-                                    <li class="breadcrumb-item"><a href="/assets">Opening Balance</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Debtors</li>                
-                                </ol>
-                        </div>   
+                <div class="col-md-9">
+                    <div aria-label="breadcrumb arr-right">
+                        <ol class="breadcrumb bg-white">
+                            <li class="breadcrumb-item"><a href="/debtors">Opening Balance</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Debtors</li>
+                        </ol>
                     </div>
-                    <div class="col-md-3">
-                            <div class="dates input-group input-group-lg">
-                                <input type="text"  class="form-control" id="datepicker" value="{{Date('m/d/Y')}}" name="event_date">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-calendar icon" id="datepicker" name="event_date" ></i></span>
-                                </div> 
-                            </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dates input-group input-group-lg">
+                        <input type="text"  class="form-control" id="debtorDate" value="{{Date('m/d/Y')}}" name="event_date">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-calendar icon" id="datepicker" name="event_date" ></i></span>
+                        </div>
                     </div>
+                </div>
                     
-                </div>       
+            </div>
 
         <div class="bg-white mt">
                 
             <div class="table-responsive table-responsive-sm p-4 ">
-                <table class="table table-striped table-hover table-style" id="dataTable">
+                <table class="table table-striped table-hover table-style" id="debtorsTable">
                     <thead class="p-3">
                       <tr class="tab">
                         <th scope="col">Company Name</th>
                         <th scope="col">Details</th>
                         <th scope="col">Amount (&#8358;)</th>
-                        <th scope="col"><i class="fa fa-plus-square" style="font-size:24px" value="Add Row" onclick="addRow('dataTable')"></i></th>
+                        <th scope="col"><i class="fa fa-plus-square" style="font-size:24px; cursor: pointer;" onclick="addDebtor('debtorsTable')"></i></th>
             
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                          <td > Aqua Villa</td>
-                          <td > Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, ex.</td>
-                        <td> 43,000 </td>
-                        <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
-                    </tr>
-            
-                    <tr>
-                      <td> Aqua Villa</td>
-                      <td > Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, quae.</td>
-                      <td> 43,000 </td>
-                      <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
-                    </tr>
-            
-                    <tr>
-                      <td > Aqua Villa</td>
-                      <td > Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, qui.</td>
-                      <td> 43,000 </td>
-                      <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
-                    </tr>
-            
-                    <tr class= "d-none">
-                          <td ><input type="text" placeholder=""> </td>
-                          <td ><input type="text" placeholder=""> </td>
-                          <td> <input type="number" placeholder=""></td>
-                          <td> <div class="dates">
-                                <input type="text" id="usr1" name="event_date" placeholder="" autocomplete="off" >
-                            </div></td>
-                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
-                        </tr>
-                
-                       
+                        @forelse($debtors as $debtor)
+                            <tr>
+                                <td>{{$debtor->company_name}}</td>
+                                <td>{{$debtor->details}}</td>
+                                <td>{{number_format($debtor->amount, 2)}}</td>
+                                <td>
+                                    <i class="fa fa-edit pr-2" style="font-size:24px; cursor: pointer" onclick="makeEditable(this.parentElement.parentElement)"></i>
+                                    <i class="fa fa-trash-o" style="font-size:24px; cursor: pointer"  onclick="deleteDebtor(this.parentElement.parentElement)"></i>
+                                </td>
+                                <input type="hidden" class="id" value="{{$debtor->id}}">
+                            </tr>
+                        @empty
+                            <tr>
+                                <td><input type="text" class="form-control company_name"></td>
+                                <td><input type="text" class="form-control details"></td>
+                                <td><input type="number" class="form-control amount"></td>
+                                <td><button class="btn btn-sm btn-success px-3" onclick="saveDebtor(this.parentElement.parentElement)">Add</button></td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
                 <div class="row">
-                        <div class = "col">
-                                <a class="btn btn-started" href="/opening/assets">Previous</a>
-                        </div>
-                        <div class = "col">
-                                <a class="btn btn-started float-right" href="/opening/creditors">Next</a>
-                        </div>
+                    <div class = "col">
+                        <a class="btn btn-started" href="/opening/assets">Previous</a>
+                    </div>
+                    <div class = "col">
+                        <a class="btn btn-started float-right" href="/opening/creditors">Next</a>
+                    </div>
                 </div>
             </div> 
                        
@@ -97,5 +84,5 @@ input {
         
     </div>
 
-
+<script src="/js/opening/debtors.js"></script>
 @endsection

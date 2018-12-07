@@ -23,5 +23,6 @@
       @include('sales._modal')
 {{--End of modal --}}
 
-    
+<script src="/js/sales.js"></script>
+
 @endsection

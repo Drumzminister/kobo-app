@@ -87,66 +87,36 @@
                             </tr>
 
                             <tr>
-                                    <td >
-                                        21/08/2020
+                                    <td >21/08/2020 </td>
+                                    <td>
+                                        <a href="">invoice 1234</a>
                                     </td>
-                                  <td>
-                                      <a href="">invoice 1234</a>
-                                  </td>
-                                  <td>
-                                      23
-                                  </td>
-                                  <td>
-                                      43,000
-                                  </td>
-                                  <td>
-                                      Mercy Ikpe
-                                  </td>
-                                  <td>
-                                      IG
-                                  </td>
+                                    <td> 23</td>
+                                    <td> 43,000</td>
+                                    <td> Mercy Ikpe</td>
+                                    <td> IG</td>
                                 </tr>
 
                                 <tr>
-                                        <td >
-                                            21/08/2020
+                                        <td >21/08/2020 </td>
+                                        <td>
+                                            <a href="">invoice 1234</a>
                                         </td>
-                                      <td>
-                                          <a href="">invoice 1234</a>
-                                      </td>
-                                      <td>
-                                          23
-                                      </td>
-                                      <td>
-                                          43,000
-                                      </td>
-                                      <td>
-                                          Mercy Ikpe
-                                      </td>
-                                      <td>
-                                          IG
-                                      </td>
+                                        <td> 23</td>
+                                        <td> 43,000</td>
+                                        <td> Mercy Ikpe</td>
+                                        <td> IG</td>
                                     </tr>
                                     <tr>
-                                            <td >
-                                                21/08/2020
+                                            <td >21/08/2020 </td>
+                                            <td>
+                                                <a href="">invoice 1234</a>
                                             </td>
-                                          <td>
-                                              <a href="">invoice 1234</a>
-                                          </td>
-                                          <td>
-                                              23
-                                          </td>
-                                          <td>
-                                              43,000
-                                          </td>
-                                          <td>
-                                              Mercy Ikpe
-                                          </td>
-                                          <td>
-                                              IG
-                                          </td>
-                                        </tr>
+                                            <td> 23</td>
+                                            <td> 43,000</td>
+                                            <td> Mercy Ikpe</td>
+                                            <td> IG</td>
+                                    </tr>
                         </tbody>
                     </table>
                 </div>

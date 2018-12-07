@@ -10,6 +10,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
   <!-- Favicons -->
   <link href="https://res.cloudinary.com/syfon/image/upload/v1536857508/favicon.png" rel="icon">
 
@@ -35,8 +36,7 @@
 
 
 {{-- jquery --}}
-<script src="js/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="/js/jquery.js"></script>
 
 </head>
 <body>
@@ -57,6 +57,8 @@
 
 
 {{-- javascript --}}
+
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/particles.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
@@ -67,13 +69,18 @@
  <script src="{{asset('js/jquery.circliful.js')}}"></script>
 <script src="{{asset('js/chart.js')}}"></script>
 <script src="{{asset('js/appp.js')}}"></script>
+<script src="{{asset('js/sales.js')}}"></script>
+
 
 <!-- Date Picker CDN -->
-<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 
-<!-- Select2 Ajax CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
 
 <script>
 var introguide = introJs();
