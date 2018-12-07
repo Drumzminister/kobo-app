@@ -19,9 +19,9 @@ class ModifyAccountantsTable extends Migration
 		    $table->string('state');
 		    $table->string('address');
 		    $table->string('sex');
-		    $table->string('age');
 		    $table->string('country');
 		    $table->string('how_you_heard');
+		    $table->string('date_of_birth');
 
 		    $table->dropColumn('password');
 		    $table->dropColumn('email');
@@ -46,7 +46,7 @@ class ModifyAccountantsTable extends Migration
 		    $table->dropColumn('state');
 		    $table->dropColumn('address');
 		    $table->dropColumn('sex');
-		    $table->dropColumn('age');
+		    $table->dropColumn('date_of_birth');
 		    $table->dropColumn('country');
 		    $table->dropColumn('how_you_heard');
 

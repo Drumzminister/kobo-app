@@ -24,7 +24,24 @@ class AccountantRegistrationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'first_name'                => 'required',
+            'last_name'                 => 'required',
+            'sex'                       => 'required',
+            'phone'                     => 'required',
+            'phone_2'                   => '',
+            'date_of_birth'             => 'required|date',
+            'city'                      => 'required',
+            'address'                   => 'required',
+            'state'                     => 'required',
+            'country'                   => 'required',
+            'email'                     => 'required|unique:users',
+            'password'                  => 'required|min:8|confirmed',
+            'qualification'             => 'required',
+            'job_status'                => 'required',
+            'experience'                => 'required',
+            'chattered'                 => 'required',
+            'social_account'            => 'required',
+            'terms'                     => 'required',
         ];
     }
 }
