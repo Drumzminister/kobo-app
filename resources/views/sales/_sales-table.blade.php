@@ -32,21 +32,21 @@
                         <tbody>
                             <tr>
                             <td>
-                            <select class="customer" class="customer" class="form-control">
+                            <select class="search" id="inventory" class="form-control">
                                 @if(count($inventories) > 0)
                                     @foreach($inventories as $key => $inventory)
                                         <option selected="Pick product Name" value="{{$inventory->id}}">
                                             {{$inventory->name}}
                                         </option>
-                                    @endforeach
+                                @endforeach
                                 @endif
                             </select>
 </td>
-                            <td><input type="text" class="form-control "></td>
-                            <td><input type="text" class="form-control "></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control" disabled></td>
-                            <td><input type="text" class="form-control "></td>
+                            <td><input type="text" id="description" class="form-control "></td>
+                            <td><input type="text" id="quantity" class="form-control "></td>
+                            <td><input type="text" id="price" class="form-control"></td>
+                            <td><input type="text" id="total" class="form-control" disabled></td>
+                            <td><input type="text" id="channel" class="form-control "></td>
                             <td></td>
       
                             </tr>
@@ -176,3 +176,9 @@
            
         </div>
     </section>
+
+<script>
+$(document.ready(function(){
+
+}));
+</script>

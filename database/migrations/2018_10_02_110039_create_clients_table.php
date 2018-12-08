@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
             $table->string('id');
             $table->string('user_id')->index();
             $table->string('accountant_id')->index();
-        $table->string('attachment')->nullable();
+            $table->string('attachment')->nullable();
             $table->tinyInteger('subscription_plan_id')->index();
             $table->string('bussiness_name');
             $table->string('business_address');

@@ -14,14 +14,24 @@ class CreateAccountantClientsTable extends Migration
     public function up()
     {
         Schema::create('accountant_clients', function (Blueprint $table) {
-            $table->string('id', 36);
-            $table->string('client_id', 36);
-            $table->string('accountant_id', 36);
+            $table->string('id', 36)->unique();
+            $table->string('client_id', 36)->index();
+            $table->string('accountant_id', 36)->index();
             $table->timestamps();
 
             $table->primary('id');
-            $table->foreign('client_id')->references('id')->on('clients');
-            $table->foreign('accountant_id')->references('id')->on('accountants');
+
+            $table->foreign('client_id')
+                ->references('id')
+                ->on('clients')
+                ->onDelete('cascade');
+
+            $table->foreign('accountant_id')
+                ->references('id')
+                ->on('accountants')
+                ->onDelete('cascade');
+
+            $table->unique(['client_id', 'accountant']);
         });
     }
 
