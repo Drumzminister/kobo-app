@@ -1,5 +1,12 @@
 <?php
 
+use Koboaccountant\Models\Company;
+use Illuminate\Support\Facades\Auth;
+use Koboaccountant\Models\Inventory;
+use Koboaccountant\Models\User;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -221,3 +228,12 @@ Route::get('/view-creditor', function () {
     Route::get('/accountant/dashboard', 'AccountantController@index');
     // });
     Route::post('/expenses/create', 'ExpensesController@store');
+
+    Route::get('/checking', function(){
+        $auth = Auth::id();
+        $user = Auth::user()->company()->pluck('user_id');
+        $result = substr($user, 2);
+        $result = rtrim($result, '"]"');
+        
+        // return Auth::user()->id;
+    });

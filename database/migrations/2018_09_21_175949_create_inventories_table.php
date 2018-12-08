@@ -23,6 +23,7 @@ class CreateInventoriesTable extends Migration
             $table->timestamp('delivered_date');
             $table->string('attachment')->nullable();
             $table->string('vendor_id')->index();
+            $table->string('user_id')->index();
             $table->timestamps();
             $table->softDeletes();
 
