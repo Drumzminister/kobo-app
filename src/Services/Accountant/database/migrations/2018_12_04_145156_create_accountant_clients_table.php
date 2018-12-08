@@ -31,7 +31,7 @@ class CreateAccountantClientsTable extends Migration
                 ->on('accountants')
                 ->onDelete('cascade');
 
-            $table->unique(['client_id', 'accountant']);
+            $table->unique(['client_id', 'accountant_id']);
         });
     }
 
