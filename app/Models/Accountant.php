@@ -22,7 +22,7 @@ class Accountant extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'email_token', 'name', 'email', 'password', 'first_name', 'last_name',
+        'id', 'password', 'first_name', 'last_name',
     ];
 
     /**
