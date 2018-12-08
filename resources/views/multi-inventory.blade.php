@@ -11,7 +11,7 @@
 <section id="top">
         <div class="container p-2">
             <div class="row p-3">
-                <h2 class="h2">Sales</h2>
+                <h2 class="h2"><a href="/inventory" class="text-dark"> Purchase Order</a> </h2>
                 <span class="accountant ml-auto btn btn-accountant">
                 <a href="" class="btn-accountant">
                     <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
@@ -79,6 +79,7 @@
                             <th scope="col">Inventory Item</th>
                             <th scope="col">Description</th>
                             <th scope="col">QTY Bought</th>
+                            <th scope="col">Cost Price (&#8358;)</th>
                             <th scope="col">Sales Price (&#8358;)</th>
                             <th scope="col"></th>
 
@@ -93,6 +94,7 @@
                                     </td> 
                                 <td> 23</td>
                                 <td> 43,000</td>
+                                <td> 43,000</td>
                                 <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
 
@@ -102,6 +104,7 @@
                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, distinctio.
                                 </td> 
                               <td> 23</td>
+                              <td> 43,000</td>
                               <td> 43,000</td>
                               <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
@@ -113,6 +116,7 @@
                                     </td> 
                                 <td> 23</td>
                                 <td> 43,000</td>
+                                <td> 43,000</td>
                                 <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
                             <tr>
@@ -121,6 +125,7 @@
                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, distinctio.
                                     </td> 
                                 <td> 23</td>
+                                <td> 43,000</td>
                                 <td> 43,000</td>
                                 <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
@@ -237,7 +242,7 @@
             {{-- payment buttons --}}
             <div class="row p-3">
                 <div class="col">                           
-                    <a href="" class="btn btn-lg btn-login" data-toggle="modal" data-target="#exampleModalCenter">Send Invoice</a>
+                    <a href="" class="btn btn-lg btn-login" data-toggle="modal" data-target="">Send Order</a>
                 </div>
                 <div class="col">
                     <span class="float-right">

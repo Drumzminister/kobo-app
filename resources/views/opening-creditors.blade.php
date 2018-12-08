@@ -14,7 +14,7 @@ input {
             </div>
         </div>
     </div>
-    <div class="container bg-white mt-5">
+    <div class="container bg-white m-5">
         <div class="row py-3">
             <div class="col-md-9">
                 <div aria-label="breadcrumb arr-right">
@@ -33,14 +33,14 @@ input {
                 </div>
             </div>
         </div>
-        <div class="table-responsive table-responsive-sm px-4 py-2 ">
+        <div class="table-responsive table-responsive-sm px-4 ">
                 <table class="table table-striped table-hover table-style" id="creditorsTable">
                     <thead class="p-3">
                       <tr class="tab">
                         <th scope="col">Vendor</th>
                         <th scope="col">Details </th>
                         <th scope="col">Amount (&#8358;)</th>
-                        <th scope="col"><i class="fa fa-plus-square" style="font-size:24px; cursor: pointer;" value="Add Row" onclick="addCreditor('creditorsTable')"></i></th>
+                        <th scope="col"></th>
             
                       </tr>
                     </thead>
@@ -63,7 +63,10 @@ input {
                         @endforelse
                     </tbody>
                 </table>
-                <div class="row">
+                <span class="float-right" value="Add Row" onclick="addCreditor('creditorsTable')" style="cursor: pointer;">Add Row <i class="fa fa-plus-square" style="font-size:32px; color:#00C259;" value="Add Row" onclick="addCreditor('creditorsTable')"></i>
+                </span>
+            </div>
+                <div class="row p-4">
                     <div class = "col">
                         <a class="btn btn-started" href="/opening/debtors">Previous</a>
                     </div>
