@@ -15,8 +15,8 @@ class CreateAccountantClientsTable extends Migration
     {
         Schema::create('accountant_clients', function (Blueprint $table) {
             $table->string('id', 36)->unique();
-            $table->string('client_id', 36)->index();
-            $table->string('accountant_id', 36)->index();
+            $table->string('client_id', 36)->unsigned();
+            $table->string('accountant_id', 36)->unsigned();
             $table->timestamps();
 
             $table->primary('id');
