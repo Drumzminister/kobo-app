@@ -10,48 +10,14 @@ input {
     background: transparent;
 }
 
-.modal.left .modal-dialog {
-	position: fixed;
-	margin: auto;
-	width: 300px;
-	height: 100%;
-	-webkit-transform: translate3d(0%, 0, 0);
-	-ms-transform: translate3d(0%, 0, 0);
-	-o-transform: translate3d(0%, 0, 0);
-	transform: translate3d(0%, 0, 0);
-}
-
-.modal.left .modal-content {
-	height: 100%;
-	overflow-y: auto;
-}
-
-.modal.left .modal-body {
-	padding: 15px 15px 80px;
-}
-
-.modal.left.fade .modal-dialog {
-	right: -320px;
-	-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
-	-moz-transition: opacity 0.3s linear, left 0.3s ease-out;
-	-o-transition: opacity 0.3s linear, left 0.3s ease-out;
-	transition: opacity 0.3s linear, left 0.3s ease-out;
-}
-
-.modal.left.fade.show .modal-dialog {
-	right: 0;
-}
-
-
-
 </style>
 @section('content')
 
 {{-- heading section --}}
     <section id="top">
         <div class="container p-2">
-            <div class="row p-3">
-                <h2>Sales</h2>
+            <div class="row py-2">
+                <h2><a href="/inventory" class="text-dark">Purchase</a></h2>
                 <span class="accountant ml-auto btn btn-accountant">
                 <a href="" class="btn-accountant">
                     <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
@@ -71,7 +37,7 @@ input {
                             <a href='http://example.com/' data-intro='Hello step one! View your History'></a>
                         <div class="row">
                             <div class="col-md-3">
-                                    <h5 class="h5">Monthly sales</h5>
+                                    <h5 class="h5">Monthly Purchases</h5>
                             </div>
                             <div class="col-md-3">
                                     <div class="form-check form-check-inline">
@@ -114,16 +80,16 @@ input {
                                 </div>
                             </div>
                         </div>
-                            <canvas id="canvasSale"  height="100"></canvas>
+                        <canvas id="canvasSale"  height="100"></canvas>
                     </div>
                 </div>
 
                 {{-- top sales --}}
                 <div class="col-md-4">
-                    <div class="bg-white p-2 " id="topp"  data-step="2" data-intro="Here is your performance" data-position='right' data-scrollTo='tooltip'>
+                    <div class="bg-white p-2 " id="topp">
                         <div class="row">
                             <div class="col mt-1">
-                                <h5 class="h5">Top Sales</h5>
+                                <h5 class="h5">Top Purchases</h5>
                             </div>
                             <div class="col">
                                 <div class="dropdown show">
@@ -143,27 +109,27 @@ input {
                             <thead class="sale-head">
                               <tr>
                                 <th scope="col">Products</th>
-                                <th scope="col">Number sold</th>
+                                <th scope="col">Number Bought</th>
                                 <th scope="col">Amount</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
+                              <tr>
                                 <td>Cars</td>
                                 <td>33</td>
                                 <td>12,000</td>
                               </tr>
-                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
+                              <tr>
                                 <td>Furnitures</td>
                                 <td>55</td>
                                 <td>68,000</td>
                               </tr>
-                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
+                              <tr>
                                 <td>Phone</td>
                                 <td>45 </td>
                                 <td>23123 </td>
                               </tr>
-                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
+                              <tr>
                                 <td> Car </td>
                                 <td>33 </td>
                                 <td> 12,000 </td>
@@ -188,10 +154,18 @@ input {
                     <div class="bg-white p-4">
                             <div class="row py-3">
                                     <div class="col-md-3">
-                                        <a href="/addSales" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>            
+                                        <div class="dropdown show">
+                                            <a class="btn btn-addSale" href="/addInventory" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Add Purchase                                    
+                                            </a>                                   
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item" href="/single-inventory" class="text-green">Single Product</a>
+                                                <a class="dropdown-item" href="/multiple-inventory" class="text-green">Multi Products</a>
+                                            </div>
+                                        </div>                                              
                                     </div>
                 
-                                    <div class="col-md-7">
+                                    {{-- <div class="col-md-7">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                             <div class="input-group-append">
@@ -209,7 +183,7 @@ input {
                                                     <a class="dropdown-item" href="#" class="text-green">By Amount</a>
                                                 </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                             </div>    
                 
                 <div class="table-responsive table-responsive-sm">
@@ -217,11 +191,11 @@ input {
                         <thead class="p-3">
                           <tr class="tab">
                             <th scope="col">Date</th>
-                            <th scope="col">Invoice</th>
-                            <th scope="col">QTY sold</th>
+                            <th scope="col">Product ID</th>
+                            <th scope="col">QTY Bought</th>
                             <th scope="col">Sales Price (&#8358;)</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Channel</th>
+                            <th scope="col">Vendors</th>
+                            <th scope="col"></th>
 
                 
                           </tr>
@@ -243,10 +217,8 @@ input {
                             <td>
                                 Mercy Ikpe
                             </td>
-                            <td>
-                                IG
-                            </td>
-                          </tr>
+                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                        </tr>
 
                             <tr>
                                <td >21/08/2020 </td>
@@ -256,7 +228,7 @@ input {
                               <td> 23</td>
                               <td> 43,000</td>
                               <td> Mercy Ikpe</td>
-                              <td> IG</td>
+                              <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
 
                             <tr>
@@ -267,27 +239,25 @@ input {
                                 <td> 23</td>
                                 <td> 43,000</td>
                                 <td> Mercy Ikpe</td>
-                                <td> IG</td>
+                                <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
-                            <tr class="d-none">
-                                <td>
-                                    <div class="dates">
-                                        <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
-                                    </div>
-                                </td>
-                                  <td> <input type="text" placeholder=""></td>
-                                  <td> <input type="number" placeholder=""> </td>
-                                  <td><input class="number" onKeyup="AddComma()"placeholder=""></td>
-                                  <td><input type="text" placeholder=""></td>
-                                <td> IG</td>
-
+                            <tr>
+                                    <td >21/08/2020 </td>
+                                    <td>
+                                        <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
+                                    </td>
+                                    <td> 23</td>
+                                    <td> 43,000</td>
+                                    <td> Mercy Ikpe</td>
+                                    <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
+                            
                         </tbody>
                     </table>
                 </div>
                     <hr class="mt-0">
                     <div class="text-center pb-3">
-                        <a href="/view-sale" class="view-more">View More</a> 
+                        <a href="/view-inventory" class="view-more">View More</a> 
                     </div>
                    
             </div> 
@@ -437,20 +407,8 @@ input {
                             </section>                                    
                         </div>
 
-                        <div class="modal-foote mt-3">
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col">
-                                <button type="button" class="btn btn-login" data-dismiss="modal">Reverse Invoice</button>
-                                </div>
-                                <div class="col">
-                                        <button type="button" class="btn btn-started" data-dismiss="modal">Update Invoice</button>
-                                </div>
-                                <div class="col">
-                                <button type="button" class="btn btn-danger px-5" data-dismiss="modal">Close</button>
-                                </div>
-                                <div class="col-md-2"></div>
-                            </div>
+                        <div class="modal-footer text-center">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
                         
                       </div>
@@ -460,39 +418,5 @@ input {
 
       {{-- end of invoice modal --}}
 
-    {{--top sales modal --}}
-    <div class="modal left fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="nav flex-sm-column flex-row">
-                        <div class="product-details">
-                            <h5>Product Name</h5>
-                            <p>Wallpaper</p>
-
-                            <h5>Description</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, aliquid cumque asperiores, eius totam m ex itaque.</p>
-                        
-                            <h5>Amount Sold</h5>
-                            <p>&#8358; 50,000</p>
-
-                            <h5>Customer</h5>
-                            <p>Mercy Ikpe</p>
-
-                            <h5>Accountant Review</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda et dolore, necessitatibus sit .</p>
-
-
-                        </div>
-
-
-                        
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 @endsection

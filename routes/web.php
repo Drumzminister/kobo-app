@@ -54,6 +54,25 @@ Route::get('/view-expenses', function () {
     return view('view-expenses');
 });
 
+// inventory pages
+Route::get('/inventory', function () {
+    return view('inventory');
+});
+
+Route::get('/view-inventory', function () {
+    return view('view-inventory');
+});
+
+Route::get('/single-inventory', function () {
+    return view('single-inventory');
+});
+
+Route::get('/multi-inventory', function () {
+    return view('multi-inventory');
+});
+
+
+
 Route::get('/opening/assets', 'OpeningController@showAssetsPage');
 Route::post('/opening/assets', 'OpeningController@addAsset');
 Route::post('/opening/assets/{id}', 'OpeningController@updateAsset');

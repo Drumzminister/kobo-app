@@ -35,16 +35,16 @@ input {
                     
             </div>
 
-        <div class="bg-white mt">
+        <div class="bg-white p-4">
                 
-            <div class="table-responsive table-responsive-sm p-4 ">
+            <div class="table-responsive table-responsive-sm">
                 <table class="table table-striped table-hover table-style" id="debtorsTable">
                     <thead class="p-3">
                       <tr class="tab">
                         <th scope="col">Company Name</th>
                         <th scope="col">Details</th>
                         <th scope="col">Amount (&#8358;)</th>
-                        <th scope="col"><i class="fa fa-plus-square" style="font-size:24px; cursor: pointer;" onclick="addDebtor('debtorsTable')"></i></th>
+                        <th scope="col"></th>
             
                       </tr>
                     </thead>
@@ -70,7 +70,10 @@ input {
                         @endforelse
                     </tbody>
                 </table>
-                <div class="row">
+                <span class="float-right" value="Add Row" onclick="addDebtor('debtorsTable')" style="cursor: pointer;">Add Row <i class="fa fa-plus-square" style="font-size:32px; color:#00C259;" value="Add Row" onclick="addDebtor('debtorsTable')"></i>
+                </span>
+            </div>
+                <div class="row mt-3">
                     <div class = "col">
                         <a class="btn btn-started" href="/opening/assets">Previous</a>
                     </div>
