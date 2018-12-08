@@ -15,17 +15,19 @@ class CreateBudgetsTable extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->string('id');
+	        $table->string('item');
 	        $table->string('client_id');
 	        $table->string('accountant_id');
-	        $table->string('item');
+	        $table->string('expense_id');
 	        $table->string('actual_amount');
 	        $table->string('projected_amount');
 	        $table->text('assumptions');
-	        $table->text('expense_id');
             $table->timestamps();
 
             $table->primary('id');
-            $table->foreign(['client_id', 'accountant_id', 'expense_id'])->references(['id', 'id', 'id'])->on(['clients', 'accountants', 'expenses']);
+            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('accountant_id')->references('id')->on('accountants');
+            $table->foreign('expense_id')->references('id')->on('expenses');
         });
     }
 
