@@ -31,29 +31,38 @@
                         </thead>
                         <tbody>
                             <tr>
+                            <td id="inventory">
+                                <select class="search" class="form-control">
+                                    @if(count($inventories) > 0)
+                                        @foreach($inventories as $key => $inventory)
+                                            <option selected="Pick product Name" value="{{$inventory->id}}">
+                                                {{$inventory->name}}
+                                            </option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                            </td>
+                            <td><input type="text" id="sales_description" class="form-control "></td>
+                            <td><input type="text" id="sales_quantity" class="form-control "></td>
+                            <td><input type="text" onkeyup="calculateSum()" id="sales_price" class="form-control"></td>
+                            <td><input type="text" id="sales_total" class="form-control" disabled></td>
                             <td>
-                            <select class="search" id="inventory" class="form-control">
-                                @if(count($inventories) > 0)
-                                    @foreach($inventories as $key => $inventory)
-                                        <option selected="Pick product Name" value="{{$inventory->id}}">
-                                            {{$inventory->name}}
-                                        </option>
-                                @endforeach
-                                @endif
-                            </select>
-</td>
-                            <td><input type="text" id="description" class="form-control "></td>
-                            <td><input type="text" id="quantity" class="form-control "></td>
-                            <td><input type="text" id="price" class="form-control"></td>
-                            <td><input type="text" id="total" class="form-control" disabled></td>
-                            <td><input type="text" id="channel" class="form-control "></td>
+                            <select class="search" class="form-control">
+                                    @if(count($salesChannels) > 0)
+                                        @foreach($salesChannels as $key => $saleschannel)
+                                            <option selected="Pick product Name" value="{{$saleschannel->id}}">
+                                                {{$saleschannel->name}}
+                                            </option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                            </td>
                             <td></td>
       
                             </tr>
-                        </tbody>
-                            
+                        </tbody>                      
                     </table>
-                    <span class="float-right" onclick="addRow()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
+                    <span class="float-right" onclick="calculateSum()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                     </span>            
                 </div>
 
@@ -124,9 +133,3 @@
            
         </div>
     </section>
-
-<script>
-$(document.ready(function(){
-
-}));
-</script>
