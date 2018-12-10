@@ -25,9 +25,9 @@ class CreateBudgetsTable extends Migration
             $table->timestamps();
 
             $table->primary('id');
-            $table->foreign('client_id')->references('id')->on('clients');
-            $table->foreign('accountant_id')->references('id')->on('accountants');
-            $table->foreign('expense_id')->references('id')->on('expenses');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('accountant_id')->references('id')->on('accountants')->onDelete('cascade');
+            $table->foreign('expense_id')->references('id')->on('expenses')->onDelete('cascade');
         });
     }
 
