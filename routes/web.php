@@ -1,28 +1,4 @@
 <?php
-
-use Koboaccountant\Models\Company;
-use Illuminate\Support\Facades\Auth;
-use Koboaccountant\Models\Inventory;
-use Koboaccountant\Models\User;
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', function () {
     return view('index');
 });
@@ -228,12 +204,3 @@ Route::get('/view-creditor', function () {
     Route::get('/accountant/dashboard', 'AccountantController@index');
     // });
     Route::post('/expenses/create', 'ExpensesController@store');
-
-    Route::get('/checking', function(){
-        $auth = Auth::id();
-        $user = Auth::user()->company()->pluck('user_id');
-        $result = substr($user, 2);
-        $result = rtrim($result, '"]"');
-        
-        // return Auth::user()->id;
-    });
