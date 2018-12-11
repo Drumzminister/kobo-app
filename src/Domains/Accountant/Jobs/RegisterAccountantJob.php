@@ -48,6 +48,7 @@ class RegisterAccountantJob extends Job
 	 */
     public function handle()
     {
+    	$this->data['role']  = 'Accountant';
     	$user = $this->user->createUser((object) $this->data);
         $accountant = $this->accountant->fillAndSave(array_merge($this->data, ['user_id' => $user->id]));
 
