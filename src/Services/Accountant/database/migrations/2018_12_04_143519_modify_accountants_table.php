@@ -14,7 +14,8 @@ class ModifyAccountantsTable extends Migration
     public function up()
     {
 	    Schema::table('accountants', function (Blueprint $table) {
-		    $table->string('user_id');
+//	    	$table->dropTimestamps();
+		    $table->string('user_id')->after('id');
 		    $table->string('city');
 		    $table->string('state');
 		    $table->string('address');
@@ -22,6 +23,7 @@ class ModifyAccountantsTable extends Migration
 		    $table->string('country');
 		    $table->string('how_you_heard');
 		    $table->string('date_of_birth');
+		    $table->timestamps();
 
 		    $table->dropColumn('password');
 		    $table->dropColumn('email');
@@ -30,6 +32,7 @@ class ModifyAccountantsTable extends Migration
 		    $table->dropColumn('remember_token');
 		    $table->dropColumn('verified');
 		    $table->dropColumn('email_verified_at');
+		    $table->dropColumn('client_id');
 	    });
     }
 
@@ -49,6 +52,7 @@ class ModifyAccountantsTable extends Migration
 		    $table->dropColumn('date_of_birth');
 		    $table->dropColumn('country');
 		    $table->dropColumn('how_you_heard');
+		    $table->dropTimestamps();
 
 		    $table->string('password');
 		    $table->string('email');
@@ -57,6 +61,7 @@ class ModifyAccountantsTable extends Migration
 		    $table->string('remember_token');
 		    $table->string('verified');
 		    $table->string('email_verified_at');
+		    $table->string('column_id');
 	    });
     }
 }

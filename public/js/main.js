@@ -1,3 +1,4 @@
+let token = document.querySelector('meta[name="csrf-token"]').content;
   document.onreadystatechange = function () {
     var state = document.readyState;
     if (state == 'complete') {
@@ -49,8 +50,6 @@ for (var i = 0; i < links.length; i++) {
     }
     this.className += " activ";
   });
-  
-
 }
 
 // message tab
@@ -209,6 +208,9 @@ $(document).ready(function(){
   const formatter = new Intl.NumberFormat('en-US', {
       minimumFractionDigits: 2
   });
+
+
+  // window.formatter = formatter;
 
   $(function() {
     var date = new Date();

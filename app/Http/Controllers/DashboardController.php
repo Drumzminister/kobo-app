@@ -7,8 +7,9 @@ use Koboaccountant\Models\Company;
 use Auth;
 class DashboardController extends Controller
 {
-	function __construct(){
-		// $this->middleware('has_paid');
+	public function __construct()
+	{
+		 $this->middleware(['auth', 'client']);
 	}
 
     public function index()

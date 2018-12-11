@@ -1,28 +1,4 @@
 <?php
-
-use Koboaccountant\Models\Company;
-use Illuminate\Support\Facades\Auth;
-use Koboaccountant\Models\Inventory;
-use Koboaccountant\Models\User;
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', function () {
     return view('index');
 });
@@ -53,7 +29,27 @@ Route::get('/addExpenses', function () {
 Route::get('/view-expenses', function () {
     return view('view-expenses');
 });
+Route::prefix('opening')->group(function () {
+    Route::get('/assets', 'OpeningController@showAssetsPage');
+    Route::post('/assets', 'OpeningController@addAsset');
+    Route::post('/assets/{id}', 'OpeningController@updateAsset');
+    Route::post('/assets/{id}/delete', 'OpeningController@deleteAsset');
 
+    Route::get('/debtors', 'OpeningController@showDebtorsPage');
+    Route::post('/debtor', 'OpeningController@addDebtor');
+    Route::post('/debtor/{id}', 'OpeningController@updateDebtor');
+    Route::post('/debtor/{id}/delete', 'OpeningController@deleteDebtor');
+
+    Route::get('/creditors', 'OpeningController@showCreditorsPage');
+    Route::post('/creditors', 'OpeningController@addCreditor');
+    Route::post('/creditor/{id}', 'OpeningController@updateCreditor');
+    Route::post('/creditor/{id}/delete', 'OpeningController@deleteCreditor');
+
+    Route::get('/inventory', 'OpeningController@showInventoriesPage');
+    Route::post('/inventory', 'OpeningController@addInventory');
+    Route::post('/inventory/{id}', 'OpeningController@updateInventory');
+    Route::post('/inventory/{id}/delete', 'OpeningController@deleteInventory');
+});
 // inventory pages
 Route::get('/inventory', function () {
     return view('inventory');
@@ -70,6 +66,7 @@ Route::get('/single-inventory', function () {
 Route::get('/multi-inventory', function () {
     return view('multi-inventory');
 });
+
 
 // staff pages
 Route::get('/staffs', function () {
@@ -116,6 +113,17 @@ Route::post('/opening/inventory/{id}/delete', 'OpeningController@deleteInventory
 Route::get('/loans', function () {
     return view('loans');
 });
+Route::post('/loans', 'LoanController@store');
+Route::get('/loans/get', 'LoanController@getLoans');
+Route::get('/loans/{loan}', 'LoanController@show');
+Route::get('/loans/sources/all', 'LoanController@getAllSources');
+Route::get('/loans/running/count', 'LoanController@sumAllRunning');
+Route::get('/loans/completed/count', 'LoanController@sumAllPaid');
+Route::get('/loans/owing/count', 'LoanController@sumAllOwing');
+Route::get('/loans/sources/{query}', 'LoanController@searchForSource');
+Route::post('/loans/sources', 'LoanController@addSource');
+Route::get('/loans/{loan}/payments', 'LoanController@getPayments');
+Route::post('/loans/payment', 'LoanController@makePayment');
 Route::get('/view-loans', function () {
     return view('view-loans');
 });
@@ -226,7 +234,7 @@ Route::get('/view-creditor', function () {
     // Route::group(['middleware' => 'auth'], function () {
     Route::get('/payment/success', 'PaymentController@paid');
 
-    Route::get('/dashboard', 'DashboardController@index');
+    Route::get('/dashboard', 'DashboardController@index')->name('client.dashboard');
 
     Route::get('/sales', 'SalesController@index');
 
@@ -247,12 +255,3 @@ Route::get('/view-creditor', function () {
     Route::get('/accountant/dashboard', 'AccountantController@index');
     // });
     Route::post('/expenses/create', 'ExpensesController@store');
-
-    Route::get('/checking', function(){
-        $auth = Auth::id();
-        $user = Auth::user()->company()->pluck('user_id');
-        $result = substr($user, 2);
-        $result = rtrim($result, '"]"');
-        
-        // return Auth::user()->id;
-    });

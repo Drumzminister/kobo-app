@@ -17,8 +17,8 @@ class MustBeClient
     {
 
         if (Auth::guard()->check()) {
-            if (Auth::user()->roles->name !== 'Client' && Auth::user()->isActive == true)
-            return redirect()->route('login');
+            if (Auth::user()->role->name !== 'Client' && Auth::user()->isActive == true)
+                return redirect()->route('login');
         }
         return $next($request);
     }
