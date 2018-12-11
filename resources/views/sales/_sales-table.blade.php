@@ -30,7 +30,7 @@
                           </tr>
                         </thead>
                         <tbody id="salesTable">
-                            <tr>
+                            <tr class="salesTable2">
                             <td id="inventory">
                                 <select class="search" class="form-control">
                                     @if(count($inventories) > 0)
@@ -58,10 +58,36 @@
                                 </select>
                             </td>
 
-                            <td  onclick="deleteRow()"><i id="delete" class="fa fa-trash-o"></i></td>
-      
+                            <td  onclick="deleteRow(this.parentElement)"><i id="delete" class="fa fa-trash-o"></i></td>
                             </tr>
-                            
+                        
+                            <!-- <tr>
+                            <td id="inventory">
+                                <select class="search" class="form-control">
+                                    @if(count($inventories) > 0)
+                                        @foreach($inventories as $key => $inventory)
+                                            <option selected="Pick product Name" value="{{$inventory->id}}">
+                                                {{$inventory->name}}
+                                            </option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                            </td>
+                            <td><input type="text" id="sales_description" class="form-control "></td>
+                            <td><input type="number" onchange="calculateSum()" id="sales_quantity" class="form-control "></td>
+                            <td><input type="number" onkeyup="calculateSum()" id="sales_price" class="form-control"></td>
+                            <td><input type="text" id="sales_total" class="form-control" disabled></td>
+                            <td>
+                                <select class="search" class="form-control">
+                                    @if(count($salesChannels) > 0)
+                                        @foreach($salesChannels as $key => $salesChannel)
+                                            <option selected="Pick product Name" value="{{$salesChannel->id}}">
+                                                {{$salesChannel->name}}
+                                            </option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </td> -->
                         </tbody>                      
                     </table>
                     <span class="float-right" onclick="addRow()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>

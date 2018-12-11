@@ -17,51 +17,100 @@ function calculateSum ()
   }
 }
 
+axios.get('/getInventory')
+.then(function (response) {
+  userInventory = response.data;
+  console.log(response.data);
+})
+.catch(function (error) {
+  console.log(error);
+});
+
 function addRow()
 {
-  let tableRow = document.querySelector("salesTable");
+  let tableRow = document.querySelector("#salesTable"); 
   let row = document.createElement('tr');
-
+  
   let td1 = document.createElement('td');
-  let selected = document.createElement('select');
   let option = document.createElement('option');
-
+  let selected = document.createElement('select');
   td1.id = "inventory";
   selected.setAttribute("class", "search form-control");
   option.setAttribute("selected", "Pick Product Name");
   option.setAttribute("value", "inventory->id");
-  option.innerHTML = "{{$sales->name}}";
+  option.innerHTML = "";
   selected.appendChild(option);
   td1.appendChild(selected);
 
   let td2 = document.createElement('td');
-  td2.input = "text";
-  td2.id = "sales_description";
-  td2.setAttribute("class", "form-control");
+  let input2 = document.createElement("input");
+  input2.type = "text";
+  input2.id = "sales_description";
+  input2.setAttribute("class", "form-control");
+  td2.appendChild(input2);
 
   let td3 = document.createElement('td');
-  td3.input = "number";
-  td3.setAttribute("class", "form-control");
-  td3.id = "sales_quantity";
-  td3.addEventListener("click¡", function(){
+  let input3 = document.createElement("input");
+  input3.type = "text";
+  input3.setAttribute("class", "form-control");
+  input3.id = "sales_quantity";
+  input3.addEventListener("onchange", function(){
     calculateSum();
-  })
-  console.log(td3);
+  });
+  td3.appendChild(input3);
 
-  // td2.id = "inventory";
-  // selected2.setAttribute("class", "search form-control");
-  // option2.setAttribute("selected", "Pick Product Name");
-  // option2.setAttribute("value", "inventory->id");
-  // option2.innerHTML = "{{$sales->name}}";
-  // selected2.appendChild(option);
-  // td2.appendChild(selected);
+  let td4 = document.createElement('td');
+  let input4 = document.createElement("input");
+  input4.input = "number";
+  input4.setAttribute("class", "form-control");
+  input4.id = "sales_price";
+  input4.addEventListener("keyup", function(){
+    calculateSum();
+  });
+  td4.appendChild(input4);
 
+  let td5 = document.createElement('td');
+  let input5 = document.createElement("input");
+  input5.input = "text";
+  input5.id = "sales_total";
+  input5.setAttribute("class", "form-control");  
+  input5.disabled = true;
+  td5.appendChild(input5);
 
+  let td6 = document.createElement('td');
+  let option6 = document.createElement('option');
+  let selected6 = document.createElement('select');
+  td6.id = "inventory";
+  selected.setAttribute("class", "search form-control");
+  option6.setAttribute("selected", "Pick Product Name");
+  option6.setAttribute("value", "inventory->id");
+  option6.innerHTML = '';
+  selected.appendChild(option);
+  td6.appendChild(selected6);
+  
+  let td7 = document.createElement('td');
+  let i = document.createElement("i");
+  i.id = "delete";
+  i.setAttribute("class", "fa fa-trash-o");
+  td7.addEventListener("click", function(){
+    deleteRow(row);
+  });
+  td7.appendChild(i);
 
+  row.innerHTML = "";
+  row.appendChild(td1);  
+  row.appendChild(td2);
+  row.appendChild(td3);
+  row.appendChild(td4);
+  row.appendChild(td5);
+  row.appendChild(td6);
+  row.appendChild(td7);  
+  tableRow.appendChild(row);
+  console.log(tableRow);
 }
 
 let deleteBtn = document.querySelector('#delete').style.cursor = "pointer" 
-function deleteRow()
+function deleteRow(row)
 {
   swal({
     title: "Are you sure?",
@@ -71,7 +120,7 @@ function deleteRow()
     dangerMode: true,
   }).then((willDelete) => {
     if(willDelete) {
-      document.getElementById("salesTable").deleteRow(0);
+      row.style.display = "none";
     }
   });
 }
