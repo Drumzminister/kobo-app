@@ -46,31 +46,44 @@ Route::get('/addExpenses', function () {
 Route::get('/view-expenses', function () {
     return view('view-expenses');
 });
+Route::prefix('opening')->group(function () {
+    Route::get('/assets', 'OpeningController@showAssetsPage');
+    Route::post('/assets', 'OpeningController@addAsset');
+    Route::post('/assets/{id}', 'OpeningController@updateAsset');
+    Route::post('/assets/{id}/delete', 'OpeningController@deleteAsset');
 
-Route::get('/opening/assets', 'OpeningController@showAssetsPage');
-Route::post('/opening/assets', 'OpeningController@addAsset');
-Route::post('/opening/assets/{id}', 'OpeningController@updateAsset');
-Route::post('/opening/assets/{id}/delete', 'OpeningController@deleteAsset');
+    Route::get('/debtors', 'OpeningController@showDebtorsPage');
+    Route::post('/debtor', 'OpeningController@addDebtor');
+    Route::post('/debtor/{id}', 'OpeningController@updateDebtor');
+    Route::post('/debtor/{id}/delete', 'OpeningController@deleteDebtor');
 
-Route::get('/opening/debtors', 'OpeningController@showDebtorsPage');
-Route::post('/opening/debtor', 'OpeningController@addDebtor');
-Route::post('/opening/debtor/{id}', 'OpeningController@updateDebtor');
-Route::post('/opening/debtor/{id}/delete', 'OpeningController@deleteDebtor');
+    Route::get('/creditors', 'OpeningController@showCreditorsPage');
+    Route::post('/creditors', 'OpeningController@addCreditor');
+    Route::post('/creditor/{id}', 'OpeningController@updateCreditor');
+    Route::post('/creditor/{id}/delete', 'OpeningController@deleteCreditor');
 
-Route::get('/opening/creditors', 'OpeningController@showCreditorsPage');
-Route::post('/opening/creditors', 'OpeningController@addCreditor');
-Route::post('/opening/creditor/{id}', 'OpeningController@updateCreditor');
-Route::post('/opening/creditor/{id}/delete', 'OpeningController@deleteCreditor');
+    Route::get('/inventory', 'OpeningController@showInventoriesPage');
+    Route::post('/inventory', 'OpeningController@addInventory');
+    Route::post('/inventory/{id}', 'OpeningController@updateInventory');
+    Route::post('/inventory/{id}/delete', 'OpeningController@deleteInventory');
+});
 
-Route::get('/opening/inventory', 'OpeningController@showInventoriesPage');
-Route::post('/opening/inventory', 'OpeningController@addInventory');
-Route::post('/opening/inventory/{id}', 'OpeningController@updateInventory');
-Route::post('/opening/inventory/{id}/delete', 'OpeningController@deleteInventory');
 
 // loans page
 Route::get('/loans', function () {
     return view('loans');
 });
+Route::post('/loans', 'LoanController@store');
+Route::get('/loans/get', 'LoanController@getLoans');
+Route::get('/loans/{loan}', 'LoanController@show');
+Route::get('/loans/sources/all', 'LoanController@getAllSources');
+Route::get('/loans/running/count', 'LoanController@sumAllRunning');
+Route::get('/loans/completed/count', 'LoanController@sumAllPaid');
+Route::get('/loans/owing/count', 'LoanController@sumAllOwing');
+Route::get('/loans/sources/{query}', 'LoanController@searchForSource');
+Route::post('/loans/sources', 'LoanController@addSource');
+Route::get('/loans/{loan}/payments', 'LoanController@getPayments');
+Route::post('/loans/payment', 'LoanController@makePayment');
 Route::get('/view-loans', function () {
     return view('view-loans');
 });
