@@ -61,6 +61,7 @@ $factory->define(Koboaccountant\Models\Inventory::class, function (Faker $faker)
         'delivered_date' => $faker->dateTime(),
         'attachment' => $faker->word(6),
         'vendor_id' => '',
+        'user_id' => ''
     ];
 });
 

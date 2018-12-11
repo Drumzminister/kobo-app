@@ -2,6 +2,10 @@
 
 namespace App\Data\Repositories;
 
+use Illuminate\Support\Facades\Auth;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+
 /**
  * Base Repository.
  */
@@ -18,6 +22,37 @@ class Repository
     {
         $this->model = $model;
     }
+
+	/**
+	 * Generates a fresh UUID
+	 *
+	 * @return UuidInterface
+	 * @throws \Exception
+	 */
+	protected function generateUuid(): UuidInterface
+	{
+		return Uuid::uuid1();
+	}
+
+	/**
+	 * Gets Authenticated user Object
+	 *
+	 * @return \Illuminate\Contracts\Auth\Authenticatable|null
+	 */
+	protected function getAuthUser()
+	{
+		return Auth::user();
+	}
+
+	/**
+	 * Gets Authenticated user ID
+	 *
+	 * @return mixed
+	 */
+	protected function getAuthUserId()
+	{
+		return $this->getAuthUser()->id;
+	}
 
     /**
      * Returns the first record in the database.
@@ -145,29 +180,33 @@ class Repository
         return $query->get();
     }
 
-    /**
-     * Fills out an instance of the model
-     * with $attributes.
-     *
-     * @param array $attributes
-     *
-     * @return \Illuminate\Database\Eloquent\Model
-     */
+	/**
+	 * Fills out an instance of the model
+	 * with $attributes.
+	 *
+	 * @param array $attributes
+	 *
+	 * @return \Illuminate\Database\Eloquent\Model
+	 * @throws \Exception
+	 */
     public function fill($attributes)
     {
+    	$attributes['id'] = isset($attributes['id']) ? $attributes['id'] : $this->generateUuid();
         return $this->model->fill($attributes);
     }
 
-    /**
-     * Fills out an instance of the model
-     * and saves it, pretty much like mass assignment.
-     *
-     * @param array $attributes
-     *
-     * @return \Illuminate\Database\Eloquent\Model
-     */
+	/**
+	 * Fills out an instance of the model
+	 * and saves it, pretty much like mass assignment.
+	 *
+	 * @param array $attributes
+	 *
+	 * @return \Illuminate\Database\Eloquent\Model
+	 * @throws \Exception
+	 */
     public function fillAndSave($attributes)
     {
+	    $attributes['id'] = isset($attributes['id']) ? $attributes['id'] : $this->generateUuid();
         $this->model->fill($attributes);
         $this->model->save();
 

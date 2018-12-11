@@ -437,8 +437,20 @@ input {
                             </section>                                    
                         </div>
 
-                        <div class="modal-footer text-center">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <div class="modal-foote mt-3">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col">
+                                <button type="button" class="btn btn-login" data-dismiss="modal">Reverse Invoice</button>
+                                </div>
+                                <div class="col">
+                                        <button type="button" class="btn btn-started" data-dismiss="modal">Update Invoice</button>
+                                </div>
+                                <div class="col">
+                                <button type="button" class="btn btn-danger px-5" data-dismiss="modal">Close</button>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
                         </div>
                         
                       </div>

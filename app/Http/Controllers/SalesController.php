@@ -6,41 +6,41 @@ use Illuminate\Http\Request;
 use Koboaccountant\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Koboaccountant\Repositories\Sales\SalesRepository;
-use Koboaccountant\Http\Requests\CustomerRegistrationRequest;
+use Koboaccountant\Repositories\Customer\CustomerRepository;
+use Koboaccountant\Models\Inventory;
+use Koboaccountant\Repositories\Inventory\InventoryRepository;
+
 
 class SalesController extends Controller
 {
-    public function __construct(SalesRepository $sales)
+    public function __construct(
+        SalesRepository $sales,
+        CustomerRepository $customer,
+        InventoryRepository $inventory
+        )
     {
         $this->salesRepo = $sales;
+        $this->customerRepo = $customer;
+        $this->inventoryRepo = $inventory;
     }
-
+    
     public function index()
     {
         return view('sales');
     }
-
+    
     public function sales()
     {
-        $customers = $this->salesRepo->customer()->get();
-        return view('addSales', compact('customers'));
+        $customers = $this->customerRepo->allUserCustomers()->get();
+        $inventories = $this->inventoryRepo->allUserInventory()->get();
+        $salesChannels = $this->salesRepo->getUserSalesChannel()->get();
+        dd($salesChannels);
+        return view('addSales', compact('customers', 'inventories','salesChannels'));
     }
 
     public function create(Request $request)
     {
         //Validations
         $this->salesRepo->create($request->all());
-    }
-
-    public function getCustomer(Request $request)
-    {
-        $data = [];
-
-        if ($request->all) {
-            $search = $request->q;
-            $data = $this->customer->allUserCustomers()->where('last_name', 'LIKE', "%$search%")->get();
-        }
-
-        return response()->json($data);
     }
 }

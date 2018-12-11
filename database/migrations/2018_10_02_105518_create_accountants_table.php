@@ -15,9 +15,9 @@ class CreateAccountantsTable extends Migration
     {
         Schema::create('accountants', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('user_id')->index();
+//            $table->string('user_id')->index();
             $table->string('client_id')->index();
-            $table->timestamps();
+//            $table->timestamps();
         });
     }
 

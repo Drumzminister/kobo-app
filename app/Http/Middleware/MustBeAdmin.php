@@ -17,7 +17,7 @@ class MustBeAdmin
     public function handle($request, Closure $next)
     {
         if (Auth::guard()->check()) {
-			if (Auth::user()->roles->name !== 'Admin')
+			if (Auth::user()->role->name !== 'Admin')
 				return redirect()->route('login');
 		}
         return $next($request);

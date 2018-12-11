@@ -34,16 +34,16 @@ input {
                     </div>
                     
                 </div>       
-        <div class="bg-white mt">
+        <div class="bg-white p-4">
                 
-            <div class="table-responsive table-responsive-sm p-4 ">
+            <div class="table-responsive table-responsive-sm ">
                 <table  width="200" class="table table-striped table-hover table-style"  id="assetTable">
                     <thead class="p-3">
                       <tr class="tab">
                         <th scope="col">Asset Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Cost Price (&#8358;)</th>
-                        <th scope="col" onclick="addAsset('assetTable')" style="cursor: pointer;"><i class="fa fa-plus-square" style="font-size:24px" value="Add Row"></i></th>
+                        <th scope="col"> </th>
             
                       </tr>
                     </thead>
@@ -63,11 +63,14 @@ input {
                                 <td><input type="number" class="form-control price"></td>
                                 <td><button class="btn btn-sm btn-success px-3" onclick="saveAssets(this.parentElement.parentElement)">Add</button></td>
                             </tr>
-                        @endforelse
+                        @endforelse 
 
                     </tbody>
                 </table>
-                <div class="row">
+                <span class="float-right" onclick="addAsset('assetTable')" style="cursor: pointer;">Add Row <i class="fa fa-plus-square" style="font-size:32px; color:#00C259;" value="Add Row"></i>
+                </span>
+            </div>
+                <div class="row mt-3">
                     <div class = "col">
                             <a class="btn btn-started" href="/">Previous</a>
                     </div>
@@ -77,9 +80,6 @@ input {
                 </div>
             </div> 
                        
-        </div>
-        
-    </div>
 
 <script src="/js/opening/assets.js"></script>
 

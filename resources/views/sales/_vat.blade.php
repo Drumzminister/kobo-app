@@ -8,7 +8,7 @@
                         <span class="input-group-text customer-input" id="basic-addon3">Customer Name</span>
                     </div> 
 
-                    <select class="customer" class="customer" class="form-control">
+                    <select class="search" class="customer" class="form-control">
                         @if(count($customers) > 0)
                             @foreach($customers as $key => $customer)
                                 <option selected="Pick customer Name" value="{{$customer->id}}">
@@ -46,8 +46,3 @@
 <!-- This Calls ajax and displays all customers -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('.customer').select2();
-});
-</script>

@@ -20,20 +20,6 @@ class CustomerController extends Controller
         return view('customer');
     }
 
-    public function allUserCustomers(Request $request)
-    {
-        // return response()->json($this->customer->allUserCustomers());
-        
-        $data = [];
-        if ($request->has('q')) {
-            $search = trim($request->q);
-            $data = $this->customer->allUserCustomers()->where('last_name', 'LIKE', "%$search%")
-            ->get();
-        }
-
-        return response()->json($data);
-    }
-
     public function store(CustomerRegistrationRequest $request)
     {
         if (!$this->customer) {
