@@ -3,10 +3,14 @@
 namespace App\Domains\Accountant\Jobs;
 
 use App\Data\Repositories\AccountantRepository;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Koboaccountant\Repositories\Auth\UserRepository;
 use Lucid\Foundation\Job;
 
 class RegisterAccountantJob extends Job
 {
+	use RegistersUsers;
+
 	/**
 	 * Accountant Repository Object
 	 *
@@ -22,6 +26,11 @@ class RegisterAccountantJob extends Job
 	private $data;
 
 	/**
+	 * @var \Illuminate\Foundation\Application|UserRepository
+	 */
+	private $user;
+
+	/**
 	 * Create a new job instance.
 	 *
 	 * @param $data
@@ -30,6 +39,7 @@ class RegisterAccountantJob extends Job
     {
     	$this->data = $data;
         $this->accountant = app(AccountantRepository::class);
+        $this->user = app( UserRepository::class);
     }
 
 	/**
@@ -38,7 +48,11 @@ class RegisterAccountantJob extends Job
 	 */
     public function handle()
     {
-        $accountant = $this->accountant->fillAndSave($this->data);
+    	$user = $this->user->createUser((object) $this->data);
+        $accountant = $this->accountant->fillAndSave(array_merge($this->data, ['user_id' => $user->id]));
+
+	    $this->guard()->login($user);
+
         return $accountant;
     }
 }

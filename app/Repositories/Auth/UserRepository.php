@@ -61,7 +61,7 @@ class UserRepository extends BaseRepository
         // Added User to a Role
         $role = new Role;
         $role->user_id = $user->id;
-        $user->roles()->save($role);
+        $user->role()->save($role);
 
         
         //Verify the user
