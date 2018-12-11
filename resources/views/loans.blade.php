@@ -44,8 +44,8 @@
 
 {{-- heading section --}}
     <section id="top">
-        <div class="container p-2">
-            <div class="row p-3">
+        <div class="container py-3">
+            <div class="row ">
                 <h2>Loans</h2>
                 <span class="accountant ml-auto btn btn-accountant">
                 <a href="" class="btn-accountant">
@@ -59,10 +59,10 @@
 
 {{-- sales chart --}}
 <section>
-        <div class="container">
-            <div class="row mt-4">
+        <div class="container mt-4">
+            <div class="row ">
                 <div class="col-md-8">
-                    <div class="bg-white px-3 py-4" id="topp"> 
+                    <div class="bg-white p-4" id="topp"> 
                         <div class="row">
                             <div class="col-md-3">
                                 <h5 class="h5">Loan Overview</h5>
@@ -82,8 +82,8 @@
                                     </div>
                                           
                             </div>
-                            <div class="col-md-6 row">
-                                    <div class="form-group col">
+                            <div class="col-md-6 row ml-auto">
+                                    <div class="form-group col pull-right">
                                         <select id="inputState" class="form-control btn-loginn">
                                             <option selected>Start Date</option>
                                             <option>January</option>
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                         
-                        <div class="row mt-3 px-2 py-3" id="topp">
+                        <div class="row mt-3 p-3" id="topp">
                             <div class="col-md-6">
                                     <div class="h5 text-green">NGN <br>
                                         <span class="h5 text-green">1,760,000.00</span>
@@ -138,7 +138,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-3 px-2 py-3" id="topp">
+                        <div class="row mt-3 p-3" id="topp">
                             <div class="col-md-6">
                                 <div class="h5 text-green">NGN <br>
                                     <span class="h5 text-green">1,760,000.00</span>
@@ -162,7 +162,7 @@
     </section>
 
     <section id="loan-table">
-        <div class="container mt-4">
+        <div class="container my-3">
                 <div class="row py-3">
                     <div class="col">
                         <a href="" class="btn btn-addSale left-modal" data-toggle="modal" data-target="#exampleModal">Add Loan</a>            

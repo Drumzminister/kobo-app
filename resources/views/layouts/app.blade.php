@@ -41,14 +41,14 @@
 </head>
 <body>
 
-    <div id="load"></div>
+    {{-- <div id="load"></div> --}}
      <!-- Header -->
      @include('layouts.header')
         
      <!-- include main content -->
      <main>
              @yield('content')
-      </main>
+     </main>
 
      <!-- //Footer -->
     @include('layouts.footer')

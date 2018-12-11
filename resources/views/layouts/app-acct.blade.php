@@ -35,7 +35,7 @@
 </head>
 <body class="">
 
-    <div id="load"></div>
+    {{-- <div id="load"></div> --}}
      <!-- Header -->
      @include('layouts.header-acct')
         

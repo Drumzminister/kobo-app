@@ -71,6 +71,25 @@ Route::get('/multi-inventory', function () {
     return view('multi-inventory');
 });
 
+// staff pages
+Route::get('/staffs', function () {
+    return view('staffs');
+});
+Route::get('/add-staff', function () {
+    return view('add-staff');
+});
+Route::get('/pay-staff', function () {
+    return view('pay-staff');
+});
+
+// rent pages
+Route::get('/rent', function () {
+    return view('rent');
+});
+Route::get('/view-rent', function () {
+    return view('view-rent');
+});
+
 
 
 Route::get('/opening/assets', 'OpeningController@showAssetsPage');
