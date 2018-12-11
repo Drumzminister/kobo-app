@@ -14,11 +14,11 @@ class Budget extends Model
 
     public function client()
     {
-    	return $this->hasOne('App\Models\Client');
+    	return $this->hasOne('Koboaccountant\Models\Client');
     }
 
     public function expense()
     {
-    	return $this->hasOne('App\Models\Expense');
+    	return $this->hasOne('Koboaccountant\Models\Expense');
     }
 }

@@ -174,7 +174,7 @@ Route::get('/view-creditor', function () {
     // Route::group(['middleware' => 'auth'], function () {
     Route::get('/payment/success', 'PaymentController@paid');
 
-    Route::get('/dashboard', 'DashboardController@index');
+    Route::get('/dashboard', 'DashboardController@index')->name('client.dashboard');
 
     Route::get('/sales', 'SalesController@index');
     
