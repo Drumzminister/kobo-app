@@ -1,4 +1,6 @@
 <?php
+
+use Koboaccountant\Models\Inventory;
 Route::get('/', function () {
     return view('index');
 });
@@ -31,24 +33,13 @@ Route::get('/view-expenses', function () {
 });
 
 // inventory pages
-Route::get('/inventory', function () {
-    return view('inventory');
-});
+Route::get('/inventory', 'InventoryController@index');
+Route::get('/view-inventory', 'InventoryController@View');
+Route::get('/single-inventory','InventoryController@singleView');
+Route::get('/multiple-inventory', 'InventoryController@multiView');
+Route::get('/getInventory', 'InventoryController@getInventory');
 
-Route::get('/view-inventory', function () {
-    return view('view-inventory');
-});
-
-Route::get('/single-inventory', function () {
-    return view('single-inventory');
-});
-
-Route::get('/multi-inventory', function () {
-    return view('multi-inventory');
-});
-
-
-
+//Opening
 Route::get('/opening/assets', 'OpeningController@showAssetsPage');
 Route::post('/opening/assets', 'OpeningController@addAsset');
 Route::post('/opening/assets/{id}', 'OpeningController@updateAsset');
@@ -186,7 +177,8 @@ Route::get('/view-creditor', function () {
     Route::get('/dashboard', 'DashboardController@index');
 
     Route::get('/sales', 'SalesController@index');
-
+    
+    Route::get('/getSalesChannels', 'SalesChannelsController@getAll');
     // Route::prefix('sales')->group(function () {
     Route::get('/addSales', 'SalesController@sales');
     Route::get('/getCustomer', 'CustomerController@allUserCustomers');

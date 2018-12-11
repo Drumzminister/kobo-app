@@ -1,9 +1,9 @@
-<section id="sale-table">
+  <section id="sale-table">
         <div class="container mt-4">
                 
             <div class="bg-white">
-                    <div id="table" class="table-editableWTF">
-                    <table class="table table-bordered table-responsive-md table-striped text-center">
+                    <div class="table-editableWTF">
+                    <table id="tableRow" class="table table-bordered table-responsive-md table-striped text-center">
                         <thead class="p-3">
                           <tr class="tab">
                             <th scope="col" class="tool" data-tip="Add all your inventory here." tabindex="1">
@@ -29,7 +29,7 @@
                 
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="salesTable">
                             <tr>
                             <td id="inventory">
                                 <select class="search" class="form-control">
@@ -43,26 +43,28 @@
                                 </select>
                             </td>
                             <td><input type="text" id="sales_description" class="form-control "></td>
-                            <td><input type="text" id="sales_quantity" class="form-control "></td>
-                            <td><input type="text" onkeyup="calculateSum()" id="sales_price" class="form-control"></td>
+                            <td><input type="number" onchange="calculateSum()" id="sales_quantity" class="form-control "></td>
+                            <td><input type="number" onkeyup="calculateSum()" id="sales_price" class="form-control"></td>
                             <td><input type="text" id="sales_total" class="form-control" disabled></td>
                             <td>
-                            <select class="search" class="form-control">
+                                <select class="search" class="form-control">
                                     @if(count($salesChannels) > 0)
-                                        @foreach($salesChannels as $key => $saleschannel)
-                                            <option selected="Pick product Name" value="{{$saleschannel->id}}">
-                                                {{$saleschannel->name}}
+                                        @foreach($salesChannels as $key => $salesChannel)
+                                            <option selected="Pick product Name" value="{{$salesChannel->id}}">
+                                                {{$salesChannel->name}}
                                             </option>
-                                    @endforeach
+                                        @endforeach
                                     @endif
                                 </select>
                             </td>
-                            <td></td>
+
+                            <td  onclick="deleteRow()"><i id="delete" class="fa fa-trash-o"></i></td>
       
                             </tr>
+                            
                         </tbody>                      
                     </table>
-                    <span class="float-right" onclick="calculateSum()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
+                    <span class="float-right" onclick="addRow()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                     </span>            
                 </div>
 
