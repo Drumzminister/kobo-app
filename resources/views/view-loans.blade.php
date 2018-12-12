@@ -13,6 +13,12 @@
         .box {
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
+        .mysearch {
+            border: solid 1px #eb7e00;
+        }
+        .searchP :hover {
+            background-color: #eb7e00;
+        }
     </style>
     <div id="loanApp">
         <section id="top">
@@ -31,9 +37,9 @@
                 <div class="row">
                     <div class="col-md-10 col-6">
                         <div class="input-group mt-2">
-                            <input type="text" class="form-control" v-model="search"  placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div style="cursor:pointer;" @click="searchLoan()" class="input-group-append">
-                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                            <input type="text" class="form-control" v-model="search"  placeholder="&#xF002; Search different sources, purposes or status of loans" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div style="cursor:pointer;" @click="searchLoan()" class="input-group-append searchP">
+                                <span class="input-group-text vat-input px-5 py-2 mysearch" id="basic-addon2">Search</span>
                             </div>
                         </div>
                     </div>
@@ -48,6 +54,7 @@
                             </ul>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -58,6 +65,7 @@
                 <div class="bg-white p-4">
 
                     <div v-if="!loadingLoans" class="table-responsive table-responsive-sm">
+
                         <table class="table table-striped table-hover" id="dataTable">
                             <thead class="p-3">
                                 <tr class="tab">

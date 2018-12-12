@@ -70,8 +70,8 @@
 <section id="loan">
     {{-- heading section --}}
     <section id="top">
-        <div class="container p-2">
-            <div class="row p-3">
+        <div class="container py-3">
+            <div class="row ">
                 <h2>Loans</h2>
                 <span class="accountant ml-auto btn btn-accountant">
                 <a href="" class="btn-accountant">
@@ -161,7 +161,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-3 px-2 py-3" id="topp">
+                        <div class="row mt-3 p-3" id="topp">
                             <div class="col-md-6">
                                 <div class="h5 text-green">NGN <br>
                                     <span class="h5 text-green">@{{amtOwing | numberFormat }}</span>

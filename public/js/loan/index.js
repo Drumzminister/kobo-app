@@ -178,6 +178,7 @@ let app = new Vue({
         },
         toOriginal () {
             this.loadingLoans = true;
+            this.search = "";
             axios.get('/loans/paginated').then(res => {
                 this.loadingLoans = false;
                 this.total = res.data.total;

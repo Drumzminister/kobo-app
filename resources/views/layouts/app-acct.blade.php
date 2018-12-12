@@ -39,7 +39,6 @@
 
 </head>
 <body class="">
-
      <!-- Header -->
      @include('layouts.header-acct')
         
