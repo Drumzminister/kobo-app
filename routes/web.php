@@ -202,3 +202,11 @@ Route::get('/view-creditor', function () {
     Route::get('/accountant/dashboard', 'AccountantController@index');
     // });
     Route::post('/expenses/create', 'ExpensesController@store');
+
+
+
+
+    // opening pages
+    Route::get('/opening-pages', function () {
+        return view('opening-pages.index');
+    });

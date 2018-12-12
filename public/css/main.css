@@ -33,9 +33,9 @@ tr{
   /* padding: 5px 0px; */
 
 }
-td a { 
-  display: block; 
-  
+td a {
+  display: block;
+
   margin: 0px !important;
 }
 
@@ -82,7 +82,7 @@ opening balance page
     height: 100%;
     z-index: -1;
   }
-  
+
   .arr-right .breadcrumb-item+.breadcrumb-item::before {
     content: "�";
     vertical-align:top;
@@ -110,7 +110,7 @@ Get started page
 section.pricing {
     background: transparent;
     animation-name: example;
-    animation-duration: 3s;    
+    animation-duration: 3s;
     animation-fill-mode: forwards;
 }
 
@@ -118,42 +118,42 @@ section.pricing {
   from {top: 200px;}
   to {top: 0px;}
 }
-   
+
   .pricing .card {
     border: none;
     border-radius: 1rem;
     transition: all 0.3s;
     box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
   }
-  
+
   .pricing hr {
     margin: 1.0rem 0;
   }
-  
+
   .pricing .card-title {
     margin: 0.5rem 0;
     font-size: 1rem;
     letter-spacing: .1rem;
     font-weight: bold;
   }
-  
+
   .pricing .card-price {
     font-size: 2.5rem;
     margin: 0;
   }
-  
+
   .pricing .card-price .period {
     font-size: 0.8rem;
   }
-  
+
   .pricing ul li {
     margin-bottom: 1rem;
   }
-  
+
   .pricing .text-muted {
     opacity: 0.7;
   }
-  
+
   .pricing .btn {
     font-size: 80%;
     border-radius: 5rem;
@@ -162,9 +162,9 @@ section.pricing {
     padding: 1rem;
     opacity: 0.7;
     transition: all 0.3s;
-  } 
+  }
 
-  /* Hover Effects on Card */  
+  /* Hover Effects on Card */
   @media (min-width: 992px) {
     .pricing .card:hover {
       margin-top: -.25rem;
@@ -197,7 +197,7 @@ section.pricing {
 }
 
 .bg-grey{
-  background: #F8F8F8;  
+  background: #F8F8F8;
 }
 .bg-green{
   background: #00C259;
@@ -316,7 +316,7 @@ buttons
 .btn-login:hover span:after {
   opacity: 1;
   right: 0;
-  color: #fff ; 
+  color: #fff ;
 }
 
 .btn-loginn{
@@ -356,7 +356,7 @@ buttons
 .btn-loginn:hover span:after {
   opacity: 1;
   right: 0;
-  color: #fff ; 
+  color: #fff ;
 }
 
 .btn-secondary {
@@ -402,13 +402,13 @@ buttons
   background: linear-gradient(to right, rgba(255,136,0,0.9),rgba(255, 136, 0, 0.8),rgba(255, 136, 0, 0.7),rgba(255, 136, 0, 0.6), rgba(255,74,0,0.5));
   color: #fff;
   padding: 6px 30px;
-  font-weight: 600;   
+  font-weight: 600;
   font-size: 1.0rem;
   transition: 0.9s;
 }
 
 .btn-payment, .btn-addsale:hover{
-color: #FF8800; 
+color: #FF8800;
 background: transparent;
 border: .05rem solid #FF8800;
 }
@@ -440,7 +440,7 @@ tooltips styling
 .tool:focus::after {
     opacity: 1;
     transform: scale(1) translateY(0);
-    z-index: 100; 
+    z-index: 100;
 }
 
 /*== pointer tip ==*/
@@ -453,7 +453,7 @@ tooltips styling
     margin-left: -0.5em;
     transition: all .65s cubic-bezier(.84,-0.18,.31,1.26), opacity .65s .5s;
     transform:  scale(.6) translateY(-90%);
-} 
+}
 
 .tool:hover::before,
 .tool:focus::before {
@@ -470,7 +470,7 @@ tooltips styling
     margin-left: -5.75em;
     padding: 1em;
     transition: all .65s cubic-bezier(.84,-0.18,.31,1.26) .2s;
-    transform:  scale(.6) translateY(50%);  
+    transform:  scale(.6) translateY(50%);
     width: 10.5em;
     /* height: 7.5em; */
 }
@@ -481,10 +481,10 @@ tooltips styling
 }
 
 @media (max-width: 760px) {
-  .tool::after { 
+  .tool::after {
         font-size: .75em;
         margin-left: -5em;
-        width: 10em; 
+        width: 10em;
   }
 }
 
@@ -514,7 +514,7 @@ tooltips styling
   max-height: 150px;
   overflow-y: scroll;
   overflow-x: hidden;
-}  
+}
 
 /* width */
 .scroll::-webkit-scrollbar {
@@ -523,17 +523,17 @@ tooltips styling
 
 /* Track */
 .scroll::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
 
 /* Handle */
 .scroll::-webkit-scrollbar-thumb {
-  background: #00C259; 
+  background: #00C259;
 }
 
 /* Handle on hover */
 .scroll::-webkit-scrollbar-thumb:hover {
-  background: #408080; 
+  background: #408080;
 }
 
 /* all scrollbar */
@@ -541,7 +541,7 @@ tooltips styling
   max-height: 250px;
   overflow-y: scroll;
   overflow-x: hidden;
-}  
+}
 
 /* width */
 .all-scroll::-webkit-scrollbar {
@@ -550,17 +550,17 @@ tooltips styling
 
 /* Track */
 .all-scroll::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
 
 /* Handle */
 .all-scroll::-webkit-scrollbar-thumb {
-  background: #00C259; 
+  background: #00C259;
 }
 
 /* Handle on hover */
 .all-scroll::-webkit-scrollbar-thumb:hover {
-  background: #408080; 
+  background: #408080;
 }
 
 /* longer scrollbar */
@@ -568,7 +568,7 @@ tooltips styling
   max-height: 320px;
   overflow-y: scroll;
   overflow-x: hidden;
-}  
+}
 
 /* width */
 .long-scroll::-webkit-scrollbar {
@@ -577,17 +577,17 @@ tooltips styling
 
 /* Track */
 .long-scroll::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
 
 /* Handle */
 .long-scroll::-webkit-scrollbar-thumb {
-  background: #00C259; 
+  background: #00C259;
 }
 
 /* Handle on hover */
 .long-scroll::-webkit-scrollbar-thumb:hover {
-  background: #408080; 
+  background: #408080;
 }
 
 
@@ -596,7 +596,7 @@ tooltips styling
   max-height: 500px;
   overflow-y: scroll;
   overflow-x: hidden;
-}  
+}
 
 /* width */
 .chat-scroll::-webkit-scrollbar {
@@ -605,17 +605,17 @@ tooltips styling
 
 /* Track */
 .chat-scroll::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
 
 /* Handle */
 .chat-scroll::-webkit-scrollbar-thumb {
-  background: #00C259; 
+  background: #00C259;
 }
 
 /* Handle on hover */
 .chat-scroll::-webkit-scrollbar-thumb:hover {
-  background: #408080; 
+  background: #408080;
 }
 
 
@@ -738,7 +738,7 @@ table.table.table-condensed {
   height: 34px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
