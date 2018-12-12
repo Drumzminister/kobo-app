@@ -33,7 +33,6 @@ class GetBankAccountsJob extends Job
 	 */
 	public function handle()
 	{
-		// ToDo: Validate Account: Check if Same has been stored before
 		return $this->bankDetail->getByAttributes(['user_id' => $this->userId]);
 	}
 }
