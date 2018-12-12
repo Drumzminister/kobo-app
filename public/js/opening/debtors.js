@@ -1,5 +1,3 @@
-let token = document.querySelector('meta[name="csrf-token"]').content;
-
 $(function() {
     let date = new Date();
     let currentMonth = date.getMonth();

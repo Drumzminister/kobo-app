@@ -1,52 +1,77 @@
 <?php
 namespace Koboaccountant\Repositories;
 
+use Illuminate\Http\Request;
 use Koboaccountant\Models\Loan;
-use Koboaccountant\Models\LoanHistory;
+
 
 class LoanRepository extends BaseRepository
 {
-    public function __construct(Loan $loan)
+    public function __construct()
     {
-        $this->loan = $loan;
+        parent::__construct(new Loan());
     }
 
-    public function create($data)
+    public function create(Request $request)
     {
-        $loan = new Loan;
-        $loan->company_id = $data['company_id'];
-        $loan->name = $data['name'];
-        $loan->start_date = $data['start_date'];
-        $loan->end_date = $data['end_date'];
-        $loan->duration = $data['duration'];
-        $loan->amount = $data['amount'];
-        $loan->purpose = $data['purpose'];
-        $loan->isActive = 1;
-        $loan->save();
+       $loan = $this->model;
+       $loan->id = $this->generateUuid();
+       $loan->user_id = $this->getAuthUserId();
+       $loan->loan_source_id = $request->source_id;
+       $loan->fill($request->all());
 
-        return true;
+       $loan->save();
+       return $this->find($loan->id);
     }
 
-    public function update($data)
-    {
-        $loan = Loan::where('id', $data['loan_id'] && 'isActive')->first();
-        if($loan === null){
-            return false;
-        }
-        $loan->name = isset($data['name']) ?: null;
-        $loan->start_date = isset($data['start_date']) ?: null;
-        $loan->duration = isset($data['duration']) ?: null;
-        $loan->amount = isset($data['amount']) ?: null;
-        $loan->purpose = isset($data['purpose']) ?: null;
-        $loan->save();
+    public function loanWithSourceExists($source){
+        $loan = is_null($this->model->where('user_id', $this->getAuthUserId())->where('loan_source_id', $source)->where('status', 'running')->first());
+        return !$loan;
+    }
 
-        return true;
+    public function update($id, Request $request)
+    {
+        $loan = $this->model::find($id);
+        $loan->loan_source_id = $request->source_id;
+        $loan->update($request->all());
+
+        $loan->save();
+        return $loan;
+    }
+
+    public function pay(Request $request)
+    {
+
     }
 
     public function find($id)
     {
-        $loan = Loan::where('id', $data['data_id'])->first();
-        return $loan;
+        return $this->model::find($id);
+    }
+
+    public function getAll()
+    {
+        return $this->model->where('user_id', $this->getAuthUserId())->get();
+    }
+
+    public function getAllRunning()
+    {
+        return $this->model->where('user_id', $this->getAuthUserId())->where('status', 'running')->get();
+    }
+
+    public function getAllPaid()
+    {
+        return $this->model->where('user_id', $this->getAuthUserId())->get();
+    }
+
+    public function search($query)
+    {
+        return $this->model->where('user_id', $this->getAuthUserId())->where('description', 'like', '%'. $query .'%')->orWhere('status', 'like', '%'. $query .'%')->get();
+    }
+    
+    public function page($limit = 10, $offset = 0, array $relations = [], $orderBy = 'created_at', $sorting = 'desc')
+    {
+        return $this->model->with($relations)->take($limit)->skip($offset)->orderBy($orderBy, $sorting)->get();
     }
 
     public function transaction($data, $loanTransaction)

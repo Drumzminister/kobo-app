@@ -29,7 +29,27 @@ Route::get('/addExpenses', function () {
 Route::get('/view-expenses', function () {
     return view('view-expenses');
 });
+Route::prefix('opening')->group(function () {
+    Route::get('/assets', 'OpeningController@showAssetsPage');
+    Route::post('/assets', 'OpeningController@addAsset');
+    Route::post('/assets/{id}', 'OpeningController@updateAsset');
+    Route::post('/assets/{id}/delete', 'OpeningController@deleteAsset');
 
+    Route::get('/debtors', 'OpeningController@showDebtorsPage');
+    Route::post('/debtor', 'OpeningController@addDebtor');
+    Route::post('/debtor/{id}', 'OpeningController@updateDebtor');
+    Route::post('/debtor/{id}/delete', 'OpeningController@deleteDebtor');
+
+    Route::get('/creditors', 'OpeningController@showCreditorsPage');
+    Route::post('/creditors', 'OpeningController@addCreditor');
+    Route::post('/creditor/{id}', 'OpeningController@updateCreditor');
+    Route::post('/creditor/{id}/delete', 'OpeningController@deleteCreditor');
+
+    Route::get('/inventory', 'OpeningController@showInventoriesPage');
+    Route::post('/inventory', 'OpeningController@addInventory');
+    Route::post('/inventory/{id}', 'OpeningController@updateInventory');
+    Route::post('/inventory/{id}/delete', 'OpeningController@deleteInventory');
+});
 // inventory pages
 Route::get('/inventory', function () {
     return view('inventory');
@@ -45,6 +65,26 @@ Route::get('/single-inventory', function () {
 
 Route::get('/multi-inventory', function () {
     return view('multi-inventory');
+});
+
+
+// staff pages
+Route::get('/staffs', function () {
+    return view('staffs');
+});
+Route::get('/add-staff', function () {
+    return view('add-staff');
+});
+Route::get('/pay-staff', function () {
+    return view('pay-staff');
+});
+
+// rent pages
+Route::get('/rent', function () {
+    return view('rent');
+});
+Route::get('/view-rent', function () {
+    return view('view-rent');
 });
 
 
@@ -73,9 +113,20 @@ Route::post('/opening/inventory/{id}/delete', 'OpeningController@deleteInventory
 Route::get('/loans', function () {
     return view('loans');
 });
-Route::get('/view-loans', function () {
-    return view('view-loans');
-});
+Route::post('/loans', 'LoanController@store');
+Route::get('/loans/all', 'LoanController@index');
+Route::get('/loans/get', 'LoanController@getLoans');
+Route::get('/loans/search', 'LoanController@search');
+Route::get('/loans/paginated', 'LoanController@paginated');
+Route::get('/loans/sources/all', 'LoanController@getAllSources');
+Route::get('/loans/running/count', 'LoanController@sumAllRunning');
+Route::get('/loans/completed/count', 'LoanController@sumAllPaid');
+Route::get('/loans/owing/count', 'LoanController@sumAllOwing');
+Route::get('/loans/sources/{query}', 'LoanController@searchForSource');
+Route::post('/loans/sources', 'LoanController@addSource');
+Route::get('/loans/{loan}/payments', 'LoanController@getPayments');
+Route::post('/loans/payment', 'LoanController@makePayment');
+Route::get('/loans/{loan}', 'LoanController@show');
 
 // debtor
 Route::get('/debtor', function () {
@@ -204,3 +255,11 @@ Route::get('/view-creditor', function () {
     Route::get('/accountant/dashboard', 'AccountantController@index');
     // });
     Route::post('/expenses/create', 'ExpensesController@store');
+
+
+
+
+    // opening pages
+    Route::get('/opening-pages', function () {
+        return view('opening-pages.index');
+    });

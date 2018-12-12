@@ -121,13 +121,13 @@ input {
                 {{-- top sales --}}
                 <div class="col-md-4">
                     <div class="bg-white p-2 " id="topp"  data-step="2" data-intro="Here is your performance" data-position='right' data-scrollTo='tooltip'>
-                        <div class="row">
+                        <div class="row my-1">
                             <div class="col mt-1">
                                 <h5 class="h5">Top Sales</h5>
                             </div>
                             <div class="col">
                                 <div class="dropdown show">
-                                    <a class="btn btn-filter" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="btn btn-filter pull-right" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Filter <i class="fa fa-filter"></i>                                    
                                     </a>                                   
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -187,11 +187,11 @@ input {
                         
                     <div class="bg-white p-4">
                             <div class="row py-3">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <a href="/addSales" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>            
                                     </div>
                 
-                                    <div class="col-md-7">
+                                    <div class="col-md-6">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                             <div class="input-group-append">
