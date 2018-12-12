@@ -13,10 +13,18 @@ class GetBankAccountsJob extends Job
 	private $bankDetail;
 
 	/**
-	 * Create a new job instance.
+	 * @var string
 	 */
-	public function __construct()
+	private $userId;
+
+	/**
+	 * Create a new job instance.
+	 *
+	 * @param $userId
+	 */
+	public function __construct($userId)
 	{
+		$this->userId = $userId;
 		$this->bankDetail = app(BankDetailRepository::class);
 	}
 
@@ -26,6 +34,6 @@ class GetBankAccountsJob extends Job
 	public function handle()
 	{
 		// ToDo: Validate Account: Check if Same has been stored before
-		return $this->bankDetail->all();
+		return $this->bankDetail->getByAttributes(['user_id' => $this->userId]);
 	}
 }
