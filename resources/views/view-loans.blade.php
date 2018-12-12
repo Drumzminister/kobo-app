@@ -1,6 +1,19 @@
 @extends("layouts.app-acct")
 
 @section("content")
+    <style>
+        .box li {
+            cursor: pointer;
+            background-color: #fdfdfd;
+        }
+        .box li:hover {
+            cursor: pointer;
+            background-color: #dedede;
+        }
+        .box {
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
     <div id="loanApp">
         <section id="top">
             <div class="container py-3">
@@ -25,8 +38,14 @@
                         </div>
                     </div>
                     <div class="col-md-2 col-6">
-                        <div id="" class="mt-2 float-right" onclick="">
-                            <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>
+                        <div id="" class="mt-2" onclick="">
+                            <button style="" @click="showFilterOptions = !showFilterOptions" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>
+                        </div>
+                        <div class="box bg-white py-2" v-if="showFilterOptions">
+                            <ul class="p-0 mb-0">
+                                <li class="d-block py-1 px-2 mb-2" @click="filterBy('source')">By Source</li>
+                                <li class="d-block py-1 px-2 mb-2" @click="filterBy('status')">By Status</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -75,12 +94,16 @@
             <div class="container py-3">
                 <div class="row">
                     <div class="col-md-7">
-                        <ul class="pagination">
+                        <ul class="pagination" v-if="!hasSearched">
                             <li class="page-item" v-if="canPrevious"><button class="page-link" @click="toPrevious"><< Previous</button></li>
                             <li class="page-item" v-if="!canPrevious"><button class="page-link" disabled><< Previous</button></li>
                             <li class="page-item ml-3" v-if="canNext"><button  class="page-link" @click="toNext">Next >></button></li>
                             <li class="page-item ml-3" v-if="!canNext" ><button class="page-link" disabled>Next >></button></li>
                         </ul>
+                        <ul class="pagination" v-if="hasSearched">
+                            <li class="page-item"><button class="page-link" @click="toOriginal"><< Back</button></li>
+                        </ul>
+
                     </div>
                     {{--<div class="col-md-5">
                         <span>Go to page:</span>
@@ -88,7 +111,6 @@
                 </div>
             </div>
         </section>
-
         {{--Loan Details Modal--}}
         @include('partials._loan_details_modal')
     </div>
