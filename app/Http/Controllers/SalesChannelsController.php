@@ -15,7 +15,7 @@ class SalesChannelsController extends Controller
 
     public function getAll()
     {
-        $salesChannels = $this->salesChannels->getAll()->get();
+        $salesChannels = $this->salesChannels->allSalesChannel()->get();
         return $salesChannels;
     }
 }
