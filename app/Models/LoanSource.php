@@ -13,4 +13,9 @@ class LoanSource extends Model
     {
         return $this->belongsTo('Koboaccountant\Models\User', 'user_id');
     }
+
+    public function loans()
+    {
+        return $this->hasMany('Koboaccountant\Models\Loan', 'loan_source_id');
+    }
 }

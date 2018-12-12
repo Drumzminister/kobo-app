@@ -4,13 +4,11 @@ $('.search').select2();
 function calculateSum (row)
 {
   let sum = 0;
-  let sales_quantity = document.querySelector('.sales_quantity').value;
-  let sales_price = document.querySelector('.sales_price').value;
-  if(!isNaN(sales_quantity && sales_price.length!=0)) {
-    sales_total = sales_quantity * sales_price;
-    sum = parseFloat(sales_total);
-    document.querySelector('.sales_total').value = sum;
-  }
+  let sales_quantity = row.querySelector('.sales_quantity').value;
+  let sales_price = row.querySelector('.sales_price').value;
+  sales_total = sales_quantity * sales_price;
+  sum = parseFloat(sales_total);
+  row.querySelector('.sales_total').value = sum;
 }
 
 function addRow()
@@ -42,8 +40,7 @@ function addRow()
   let td3 = document.createElement('td');
   let input3 = document.createElement("input");
   input3.type = "number";
-  input3.setAttribute("class", "form-control");
-  input3.class = "sales_quantity";
+  input3.setAttribute("class", "form-control sales_quantity");
   input3.addEventListener("keyup", function(){
     calculateSum(row);
   });
@@ -53,8 +50,7 @@ function addRow()
   let td4 = document.createElement('td');
   let input4 = document.createElement("input");
   input4.type = "number";
-  input4.setAttribute("class", "form-control");
-  input4.class = "sales_price";
+  input4.setAttribute("class", "form-control sales_price");
   input4.addEventListener("keyup", function(){
     calculateSum(row);
   });
@@ -65,8 +61,7 @@ function addRow()
   let td5 = document.createElement('td');
   let input5 = document.createElement("input");
   input5.input = "text";
-  input5.id = "sales_total";
-  input5.setAttribute("class", "form-control");  
+  input5.setAttribute("class", "form-control sales_total");  
   input5.disabled = true;
   td5.appendChild(input5);
 

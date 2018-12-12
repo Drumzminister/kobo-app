@@ -43,9 +43,9 @@
                                 </select>
                             </td>
                             <td><input type="text" id="sales_description" class="form-control "></td>
-                            <td><input type="number" onchange="calculateSum(this)"  class="sales_quantity form-control "></td>
-                            <td><input type="number" onkeyup="calculateSum(this)" class="form-control sales_price"></td>
-                            <td><input type="text" id="sales_total" class="form-control" disabled></td>
+                            <td><input type="number" onchange="calculateSum(this.parentElement)"  class="sales_quantity form-control "></td>
+                            <td><input type="number" onkeyup="calculateSum(this.parentElement)" class="form-control sales_price"></td>
+                            <td><input type="text" class="form-control sales_total" disabled></td>
                             <td>
                                 <select class="search" class="form-control">
                                     @if(count($salesChannels) > 0)

@@ -70,8 +70,8 @@
 <section id="loan">
     {{-- heading section --}}
     <section id="top">
-        <div class="container p-2">
-            <div class="row p-3">
+        <div class="container py-3">
+            <div class="row ">
                 <h2>Loans</h2>
                 <span class="accountant ml-auto btn btn-accountant">
                 <a href="" class="btn-accountant">
@@ -161,7 +161,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-3 px-2 py-3" id="topp">
+                        <div class="row mt-3 p-3" id="topp">
                             <div class="col-md-6">
                                 <div class="h5 text-green">NGN <br>
                                     <span class="h5 text-green">@{{amtOwing | numberFormat }}</span>
@@ -223,7 +223,7 @@
                 </div>
                 <hr class="mt-0">
                 <div class="text-center mb-5 pb-3">
-                    <a href="/view-loans" class="view-more">View More</a>
+                    <a href="/loans/all" class="view-more">View More</a>
                 </div>
             </div>
         </div>
@@ -315,140 +315,11 @@
 
     {{--view loan details modal --}}
 
-    <div class="modal fade" id="viewSourceModal" tabindex="-1" role="dialog" aria-labelledby="viewSourceModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="container p-3">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-
-                    <div class="px-3 pt-3">
-                        {{--<div class="col-md-1">
-                            <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
-                        </div>--}}
-                        <div class="col-md-11">
-                            <h5 class="text-green h5">@{{currentLoan.source_name}}</h5>
-                            <div class="form row pt-3">
-                                <div class="col-md-3">
-                                    <div class="px-2 py-1" id="topp">
-                                        <h6 class="h6">Loan Amount</h6>
-                                        <h5 class="text-orange">&#8358;@{{currentLoan.amount | numberFormat}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="px-2 py-1" id="topp">
-                                        <h6 class="h6">Loan Period</h6>
-                                        <h5 class="text-orange">@{{ currentLoan.term }} @{{ currentLoan.period }}(s)</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="px-2 py-1" id="topp">
-                                        <h6 class="h6 "> Amount Paid</h6>
-                                        <h5 class="text-orange">&#8358;@{{currentLoan.amount_paid | numberFormat}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class=" py-1" id="topp">
-                                        <h6 class="h6 ">Amount Remaining</h6>
-                                        <h5 class="text-orange">&#8358;@{{(currentLoan.amount - currentLoan.amount_paid) + (currentLoan.interest * currentLoan.amount / 100)  | numberFormat}}</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-body">
-                        <section id="loan-table" v-if="!loadingLoanDetails && currentLoanPayments.length > 0 ">
-                            <div class="container">
-                                <div class="long-scroll">
-                                    <div class="table-responsive table-responsive-sm" id="topp">
-                                        <table class="table table-striped table-hover table-condensed" id="dataTable">
-                                            <thead class="p-3">
-                                                <tr class="tab">
-                                                <th scope="col">Payment Date</th>
-                                                <th scope="col">Schedule Payment</th>
-                                                <th scope="col">Principal Paid (&#8358;)</th>
-                                                <th scope="col">Interest Paid (&#8358;)</th>
-                                                <th scope="col">Balance</th>
-
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr v-for="payment in currentLoanPayments">
-                                                    <td >@{{ payment.created_at }} </td>
-                                                    <td>@{{ payment.schedule_payment }}</td>
-                                                    <td>@{{ payment.amount | numberFormat }}</td>
-                                                    <td>@{{ payment.amount * currentLoan.interest / 100 | numberFormat }}</td>
-                                                    <td>@{{ payment.balance | numberFormat }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <p class="alert alert-info" v-if="!loadingLoanDetails && currentLoanPayments.length === 0">
-                            No payments has been made for this loan. <br>Click the payments button to payoff this loan.
-                        </p>
-                        <h5 class="d-flex justify-content-center mt-3" v-if="loadingLoanDetails">
-                            Loading details ...
-                        </h5>
-                    </div>
-
-                <div class="modal-footer text-center justify-content-between">
-                        <button class="btn btn-started" data-toggle="modal" data-target="#pay-loan">Pay Loan</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-            </div>
-        </div>
-    </div>
+    @include('partials._loan_details_modal')
 
   {{-- end of view lender modal --}}
 
-    {{-- Pay loan modal --}}
-    <div class="modal fade" id="pay-loan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="container p-3">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h5 class="h5 uppercase" id="">Pay @{{currentLoan.source_name}}</h5>
 
-            <div class="modal-body">
-                    <form action="" method="post" @submit="payLoan($event)">
-                        <div class="form-group row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="Amount">Enter Amount</label>
-                                    <input type="number" v-model="paymentAmount" name="amount" class="form-control" id="" placeholder="10,000.00" required>
-                                    <small v-if="paymentValidationError" class="text-danger">@{{ paymentValidationMessage }}</small>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="payment mode">Select Payment Mode</label>
-                                    <select class="form-control" id="" name="payment_method" required>
-                                        <option value="cash" selected>Cash</option>
-                                        <option value="bank">Bank Transfer</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="justify-content-around text-center">
-                            <button type="submit" class="btn btn-started">Pay</button>
-                        </div>
-                    </form>               
-        </div>
-        
-      </div>
-    </div>
-  </div>
-</div>
 </section>
-<script src="/js/loan.js"></script>
+<script src="/js/loan/loan.js"></script>
 @endsection

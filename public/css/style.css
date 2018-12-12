@@ -1,0 +1,81 @@
+p{
+  margin-bottom: 0;
+}
+
+.main-body{
+  width: 90%;
+  background-color: transparent;
+  /* min-height: 842px; */
+  height: 100%;
+  margin-top: 45px;
+  margin-bottom: 45px;
+  padding:0;
+}
+
+
+.main-body .content {
+  width: 100%;
+  padding:0;
+}
+
+.main-body .content .title-div .title{
+  font-weight: bold;
+  line-height: 32px;
+  font-size: 21px;
+  letter-spacing: 0.1em;
+  color: #4D4D4D;
+}
+
+.main-body .content .title-div .subtitle{
+  line-height: 25px;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  color: rgba(1, 25, 12, 0.58);
+}
+
+.main-body .content .title-div .fas{
+  font-size: 16px;
+  color: #B2B2B2;
+}
+
+.main-body .content .input-group{
+  margin: 45px 0px 20px 0px;
+}
+
+.main-body .content .input-group input{
+  border-radius: 3px 0px 0px 3px;
+  background: #F2EEEE;
+}
+.main-body .content .input-group input::placeholder{
+  font-weight: bold;
+  line-height: 22px;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: rgba(196, 196, 196, 0.91);
+}
+/*  */
+.balance-table-1 thead{
+  min-height: 90px!important;
+  background: #00C259;
+  color: #fff!important;
+}
+.balance-table-1 thead th{
+  min-height: 90px!important;
+  background: #00C259;
+  color: #fff!important;
+  font-weight: normal;
+}
+
+.balance-table-1 th{
+  font-weight: normal;
+}
+/*  */
+
+.accordion .btn:focus{
+  border: none;
+  box-shadow: none;
+}
+.accordion .btn:focus{
+  border: none;
+  box-shadow: none;
+}
