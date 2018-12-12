@@ -64,118 +64,147 @@
                         
             <div class="bg-white p-4"> 
                 
-                    <div class="table-responsive table-responsive-sm">
-                            <table class="table table-striped table-hover" id="dataTable">
-                                    <thead class="p-3">
-                                      <tr class="tab">
-                                        <th scope="col">Rental period</th>
-                                        <th scope="col">Rental Properties</th>
-                                        <th scope="col">Amount (&#8358;)</th>
-                                        <th scope="col">Rent Used (&#8358;)</th>
-                                        <th scope="col">Balance(&#8358;)</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Edit/Pay</th>
-            
-                            
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                            <td >2 - 4 months <br>
-                                                <small>Jan - Apr</small>
-                                            </td>
-                                            <td>
-                                                Furniture at Lekki
-                                             </td> 
-                                           <td> 23,000,000</td>
-                                           <td> 43,000</td>
-                                           <td> 43,000</td>
-                                           <td> Mercy Ikpe</td>
-                                           <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
-                                    </tr>
-            
-                                    <tr>
-                                            <td >2 - 4 months <br>
-                                                <small>Jan - Apr</small>
-                                            </td>
-                                            <td>
-                                                Furniture at Lekki
-                                             </td> 
-                                           <td> 23,000,000</td>
-                                           <td> 43,000</td>
-                                           <td> 43,000</td>
-                                           <td> Mercy Ikpe</td>
-                                           <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
-                                    </tr>
+                <div class="table-responsive table-responsive-sm">
+                    <table class="table table-striped table-hover" id="dataTable">
+                            <thead class="p-3">
+                              <tr class="tab">
+                                <th scope="col">Rental period</th>
+                                <th scope="col">Rental Properties</th>
+                                <th scope="col">Amount (&#8358;)</th>
+                                <th scope="col">Rent Used (&#8358;)</th>
+                                <th scope="col">Balance(&#8358;)</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Edit/Pay</th>
     
-                                        <tr>
-                                            <td >2 - 4 months <br>
-                                                <small>Jan - Apr</small>
-                                            </td>
-                                            <td>
-                                                Furniture at Lekki
-                                             </td> 
-                                           <td> 23,000,000</td>
-                                           <td> 43,000</td>
-                                           <td> 43,000</td>
-                                           <td> Mercy Ikpe</td>
-                                           <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
-                                    </tr>
-                                    <tr>
-                                            <td >2 - 4 months <br>
-                                                <small>Jan - Apr</small>
-                                            </td>
-                                            <td>
-                                                Furniture at Lekki
-                                             </td> 
-                                           <td> 23,000,000</td>
-                                           <td> 43,000</td>
-                                           <td> 43,000</td>
-                                           <td> Mercy Ikpe</td>
-                                           <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
-                                    </tr>
-                                    <tr>
-                                            <td >2 - 4 months <br>
-                                                <small>Jan - Apr</small>
-                                            </td>
-                                            <td>
-                                                Furniture at Lekki
-                                             </td> 
-                                           <td> 23,000,000</td>
-                                           <td> 43,000</td>
-                                           <td> 43,000</td>
-                                           <td> Mercy Ikpe</td>
-                                           <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
-                                    </tr>
-                                    <tr>
-                                            <td >2 - 4 months <br>
-                                                <small>Jan - Apr</small>
-                                            </td>
-                                            <td>
-                                                Furniture at Lekki
-                                             </td> 
-                                           <td> 23,000,000</td>
-                                           <td> 43,000</td>
-                                           <td> 43,000</td>
-                                           <td> Mercy Ikpe</td>
-                                           <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
-                                    </tr>
-                                    <tr>
-                                            <td >2 - 4 months <br>
-                                                <small>Jan - Apr</small>
-                                            </td>
-                                            <td>
-                                                Furniture at Lekki
-                                             </td> 
-                                           <td> 23,000,000</td>
-                                           <td> 43,000</td>
-                                           <td> 43,000</td>
-                                           <td> Mercy Ikpe</td>
-                                           <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
-                                    </tr>
-                                    </tbody>
-                                </table>                      
-                    </div>
+                    
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                    <td >2 - 4 months <br>
+                                        <small>Jan - Apr</small>
+                                    </td>
+                                    <td>
+                                        Furniture at Lekki
+                                     </td> 
+                                   <td> 23,000,000</td>
+                                   <td> 43,000</td>
+                                   <td> 43,000</td>
+                                   <td> 
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                      </div>
+                                   </td>
+                                   <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
+                            </tr>
+    
+                            <tr>
+                                    <td >2 - 4 months <br>
+                                        <small>Jan - Apr</small>
+                                    </td>
+                                    <td>
+                                        Furniture at Lekki
+                                     </td> 
+                                   <td> 23,000,000</td>
+                                   <td> 43,000</td>
+                                   <td> 43,000</td>
+                                   <td> 
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">40%</div>
+                                      </div>
+                                   </td>
+                                   <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
+                            </tr>
+
+                                <tr>
+                                    <td >2 - 4 months <br>
+                                        <small>Jan - Apr</small>
+                                    </td>
+                                    <td>
+                                        Furniture at Lekki
+                                     </td> 
+                                   <td> 23,000,000</td>
+                                   <td> 43,000</td>
+                                   <td> 43,000</td>
+                                   <td> 
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+                                      </div>
+                                   </td>
+                                   <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
+                            </tr>
+                            <tr>
+                                    <td >2 - 4 months <br>
+                                        <small>Jan - Apr</small>
+                                    </td>
+                                    <td>
+                                        Furniture at Lekki
+                                     </td> 
+                                   <td> 23,000,000</td>
+                                   <td> 43,000</td>
+                                   <td> 43,000</td>
+                                   <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+                                      </div>
+                                   </td>
+                                   <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
+                            </tr>
+                            <tr>
+                                    <td >2 - 4 months <br>
+                                        <small>Jan - Apr</small>
+                                    </td>
+                                    <td>
+                                        Furniture at Lekki
+                                     </td> 
+                                   <td> 23,000,000</td>
+                                   <td> 43,000</td>
+                                   <td> 43,000</td>
+                                   <td> 
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+                                      </div>
+                                   </td>
+                                   <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
+                            </tr>
+                            <tr>
+                                    <td >2 - 4 months <br>
+                                        <small>Jan - Apr</small>
+                                    </td>
+                                    <td>
+                                        Furniture at Lekki
+                                     </td> 
+                                   <td> 23,000,000</td>
+                                   <td> 43,000</td>
+                                   <td> 43,000</td>
+                                   <td> 
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+                                      </div>
+                                   </td>
+                                   <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
+                            </tr>
+                            <tr>
+                                    <td >2 - 4 months <br>
+                                        <small>Jan - Apr</small>
+                                    </td>
+                                    <td>
+                                        Furniture at Lekki
+                                     </td> 
+                                   <td> 23,000,000</td>
+                                   <td> 43,000</td>
+                                   <td> 43,000</td>
+                                   <td> 
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                      </div>
+                                   </td>
+                                   <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>  
+                            </tr>
+                            </tbody>
+                        </table>
+               
+            </div>
             </div> 
            
         </div>
