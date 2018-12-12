@@ -17,7 +17,7 @@ class MustBeAccountant
     public function handle($request, Closure $next)
     {
         if (Auth::guard()->check()) {
-			if (Auth::user()->roles->name !== 'Accountant')
+			if (Auth::user()->role->name !== 'Accountant')
 				return redirect()->route('login');
 		}
         return $next($request);

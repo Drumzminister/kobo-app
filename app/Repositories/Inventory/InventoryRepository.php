@@ -21,7 +21,10 @@ class InventoryRepository extends BaseRepository
         $this->accountantModel = $account;
         $this->vendorModel = $vendor;
     }
-
+    public function allUserInventory() 
+    {
+        return $this->inventoryModel::where('user_id', $this->getAuthUserId());
+    }
     public function getInventory()
     {
         return $this->inventoryModel->get();

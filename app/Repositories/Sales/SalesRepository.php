@@ -8,7 +8,7 @@ use Koboaccountant\Models\Sales;
 // use Koboaccountant\Reopsitories\Inventory\InventoryRepository;
 use Koboaccountant\Notifications\MadeSales;
 use Auth;
-use Koboaccountant\Repositories\Inventory\InventoryRepository;
+use Koboaccountant\Models\Inventory;
 use Koboaccountant\Models\Company;
 use Koboaccountant\Models\Customer;
 
@@ -17,13 +17,13 @@ class SalesRepository extends BaseRepository
     public function __construct(
         SalesChannel $salesChannel,
         Sales $sale,
-        InventoryRepository $inventory,
+        Inventory $inventory,
         Company $company,
         Customer $customer
         ) {
-        $this->salesInventory = $inventory;
+        $this->inventoryModel = $inventory;
         $this->salesModel = $sale;
-        $this->saleschannelModel = $salesChannel;
+        $this->salesChannelModel = $salesChannel;
         $this->companyModel = $company;
         $this->customerModel = $customer;
     }
@@ -37,6 +37,18 @@ class SalesRepository extends BaseRepository
 
         return true;
     }
+
+    public function getUserSalesChannel()
+    {
+        if (!is_null(Auth::user())) {
+           $salesChannel = $this->salesChannelModel::where('user_id', $this->getAuthUserId());
+
+            return $salesChannel;
+        }
+
+        return [];
+    }
+
 
     public function create($data)
     {
@@ -89,7 +101,12 @@ class SalesRepository extends BaseRepository
 
     public function customer()
     {
-        return $this->customerModel::where('user_id', Auth::user()->id);
+        return $this->customerModel::where('user_id', $this->getAuthUserId());
+    }
+
+    public function inventory()
+    {
+        return $this->inventoryModel->where('company_id', $this->getAuthCompanyId());
     }
 
     public function getTopSales()

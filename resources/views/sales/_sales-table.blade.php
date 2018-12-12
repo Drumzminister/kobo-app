@@ -12,9 +12,6 @@
                             <th scope="col" class="tool" data-tip="Provide description of item" tabindex="1">
                                     Description
                                     </th>
-                            <th scope="col" class="tool" data-tip="Provide description of item" tabindex="1">
-                                    Invoice
-                            </th>
         
                             <th scope="col" class="tool" data-tip="Include the quantity sold." tabindex="1">
                                 QTY sold
@@ -28,115 +25,44 @@
                             <th scope="col" class="tool" data-tip="Channel of sale" tabindex="1">
                                 Channel
                             </th>
-                            <th class="text-center">Remove</th>            
+                            <th class="text-center">Action</th>            
                 
                           </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
-                                <td class="pt-3-half" contenteditable="true">30</td>
-                                <td class="pt-3-half" contenteditable="true">Deepends</td>
-                                <td class="pt-3-half" contenteditable="true">invoice</td>
-                                <td class="pt-3-half" contenteditable="true">Spain</td>
-                                <td class="pt-3-half" contenteditable="true">Madrid</td>
-                                <td class="pt-3-half" contenteditable="true">Spain</td>
-                                <td class="pt-3-half" contenteditable="true">Madrid</td>
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                    </td>
+                            <td id="inventory">
+                                <select class="search" class="form-control">
+                                    @if(count($inventories) > 0)
+                                        @foreach($inventories as $key => $inventory)
+                                            <option selected="Pick product Name" value="{{$inventory->id}}">
+                                                {{$inventory->name}}
+                                            </option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                            </td>
+                            <td><input type="text" id="sales_description" class="form-control "></td>
+                            <td><input type="text" id="sales_quantity" class="form-control "></td>
+                            <td><input type="text" onkeyup="calculateSum()" id="sales_price" class="form-control"></td>
+                            <td><input type="text" id="sales_total" class="form-control" disabled></td>
+                            <td>
+                            <select class="search" class="form-control">
+                                    @if(count($salesChannels) > 0)
+                                        @foreach($salesChannels as $key => $saleschannel)
+                                            <option selected="Pick product Name" value="{{$saleschannel->id}}">
+                                                {{$saleschannel->name}}
+                                            </option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                            </td>
+                            <td></td>
+      
                             </tr>
-                            <tr>
-                                    <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
-                                    <td class="pt-3-half" contenteditable="true">30</td>
-                                    <td class="pt-3-half" contenteditable="true">Deepends</td>
-                                    <td class="pt-3-half" contenteditable="true">invoice</td>
-                                    <td class="pt-3-half" contenteditable="true">Spain</td>
-                                    <td class="pt-3-half" contenteditable="true">Madrid</td>
-                                    <td class="pt-3-half" contenteditable="true">Spain</td>
-                                    <td class="pt-3-half" contenteditable="true">Madrid</td>
-                                    <td>
-                                        <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                        </td>
-                                </tr><tr>
-                                        <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
-                                        <td class="pt-3-half" contenteditable="true">30</td>
-                                        <td class="pt-3-half" contenteditable="true">Deepends</td>
-                                        <td class="pt-3-half" contenteditable="true">invoice</td>
-                                        <td class="pt-3-half" contenteditable="true">Spain</td>
-                                        <td class="pt-3-half" contenteditable="true">Madrid</td>
-                                        <td class="pt-3-half" contenteditable="true">Spain</td>
-                                        <td class="pt-3-half" contenteditable="true">Madrid</td>
-                                        <td>
-                                            <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                            </td>
-                                    </tr>
-                                    <tr>
-                                            <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
-                                            <td class="pt-3-half" contenteditable="true">30</td>
-                                            <td class="pt-3-half" contenteditable="true">Deepends</td>
-                                            <td class="pt-3-half" contenteditable="true">invoice</td>
-                                            <td class="pt-3-half" contenteditable="true">Spain</td>
-                                            <td class="pt-3-half" contenteditable="true">Madrid</td>
-                                            <td class="pt-3-half" contenteditable="true">Spain</td>
-                                            <td class="pt-3-half" contenteditable="true">Madrid</td>
-                                            <td>
-                                                <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                                </td>
-                                        </tr>
-
-                                        <tr>
-                                                <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
-                                                <td class="pt-3-half" contenteditable="true">30</td>
-                                                <td class="pt-3-half" contenteditable="true">Deepends</td>
-                                                <td class="pt-3-half" contenteditable="true">invoice</td>
-                                                <td class="pt-3-half" contenteditable="true">Spain</td>
-                                                <td class="pt-3-half" contenteditable="true">Madrid</td>
-                                                <td class="pt-3-half" contenteditable="true">Spain</td>
-                                                <td class="pt-3-half" contenteditable="true">Madrid</td>
-                                                <td>
-                                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                                    </td>
-                                            </tr>
-                     
-                 
-                            <tr class="tbodyRow">
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td>
-                                        <span><button onclick="removeRow(this)"  type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                    </td>
-                            </tr>
-                            <tr class="tbodyRow">
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td>
-                                        <span><button onclick="removeRow()"  type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                    </td>
-                            </tr>
-                            <tr id="tbodyRow">
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td class="pt-3-half" contenteditable="true"></td>
-                                    <td>
-                                        <span><button onclick="removeRow()"  type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                    </td>
-                            </tr>
-                        </tbody>
-                            
+                        </tbody>                      
                     </table>
-                    <span class="float-right" onclick="addRow()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
+                    <span class="float-right" onclick="calculateSum()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                     </span>            
                 </div>
 
@@ -202,59 +128,7 @@
                     {{-- end of current payment --}}
 
                     {{-- total sum section --}}
-                        <div class="col-md-6">
-                                <div class="bg-grey py-4 px-3" id="topp">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <h5 class="h5 uppercase">Total Discount</h5>
-                                                <div class="input-group mb-3 input-group-lg">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
-                                                    </div>
-                                                    <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="100,000">                        
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <h5 class="h5 uppercase">Total Delivery Amount</h5>
-                                                <div class="input-group mb-3 input-group-lg">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
-                                                    </div>
-                                                    <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="100,000">                        
-                                                </div>
-                            
-                                            </div>
-                                        </div>
-                                                                                
-                                        <div class="row pt-2">
-                                            <div class="col">
-                                            <h5 class="h5 uppercase">Total Amount</h5>
-                                            </div>
-                                            <div class="col input-group input-group-lg">
-                                                <div class="input-group-prepend cus">
-                                                    <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
-                                                </div>
-                                                <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="1,275,000">                        
-                                            </div>            
-                                        </div>
-                                    </div>
-                        </div>
-                        {{-- end of total sum section --}}                    
-                    </div>  
-                    {{-- end of entire payment section --}}
-
-                    {{-- payment buttons --}}
-                    <div class="row p-3">
-                        <div class="col">                           
-                            <a href="" class="btn btn-lg btn-login" data-toggle="modal" data-target="#exampleModalCenter">Send Invoice</a>
-                        </div>
-                        <div class="col">
-                            <span class="float-right">
-                                <a href="" class="btn btn-lg btn-started">Save</a>
-                            </span>
-                        </div>
-                    </div>
+                    @include('sales._payment')
             </div> 
            
         </div>

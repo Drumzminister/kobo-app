@@ -35,6 +35,14 @@ class BaseRepository {
 		return Auth::user()->id;
 	}
 
+	public function getAuthCompanyId()
+	{
+		$user = Auth::user()->company()->pluck('user_id');
+        $result = substr($user, 2);
+        $result = rtrim($result, '"]"');
+        return $result;
+	}
+
     public function awsUpload($attachment) 
     {
         // cache the file
@@ -100,6 +108,6 @@ class BaseRepository {
 			}
 		}
 		return $query->get();
-    }
+	}
     
 }

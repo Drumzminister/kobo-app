@@ -13,9 +13,9 @@ class UpdateAccountantTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('accountants');
-        Schema::create('accountants', function (Blueprint $table) {
-            $table->string('id')->primary();
+//        Schema::dropIfExists('accountants');
+        Schema::table('accountants', function (Blueprint $table) {
+//            $table->string('id')->primary();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
@@ -25,7 +25,7 @@ class UpdateAccountantTable extends Migration
             $table->boolean('isActive')->default(1);
             $table->string('last_logged_in_at')->nullable();
             $table->rememberToken();
-            $table->timestamps();
+//            $table->timestamps();
         });
     }
 

@@ -35,9 +35,9 @@ input {
                     
                 </div>       
 
-        <div class="bg-white mt">
+        <div class="bg-white p-4">
                 
-            <div class="table-responsive table-responsive-sm p-4 ">
+            <div class="table-responsive table-responsive-sm ">
                 <table class="table table-striped table-hover table-style" id="inventoryTable">
                     <thead class="p-3">
                       <tr class="tab">
@@ -46,7 +46,7 @@ input {
                         <th scope="col">QTY</th>
                         <th scope="col">Cost Price/Unit (&#8358;)</th>
                         <th scope="col">Sales Price/Unit (&#8358;)</th>
-                        <th scope="col"><i class="fa fa-plus-square" style="font-size:24px" value="Add Row" onclick="addInventory('inventoryTable')"></i></th>
+                        <th scope="col"></th>
             
                       </tr>
                     </thead>
@@ -74,7 +74,10 @@ input {
                        
                     </tbody>
                 </table>
-                <div class="row">
+                <span class="float-right" value="Add Row" onclick="addInventory('inventoryTable')" style="cursor: pointer;">Add Row <i class="fa fa-plus-square" style="font-size:32px; color:#00C259;" value="Add Row" onclick="addInventory('inventoryTable')"></i>
+                </span>
+            </div>
+                <div class="row mt-3">
                     <div class = "col">
                         <a class="btn btn-started" href="/opening/creditors">Previous</a>
                     </div>

@@ -3,20 +3,22 @@
 @section("content")
 <section id="top">
     <div class="container py-3">
-        <h3 class="h3">Loans</h3>
-        <span class="accountant ml-auto btn btn-accountant">
+        <div class="row ">
+            <h2><a href="/loans" class="text-dark">Loans</a></h2>
+            <span class="accountant ml-auto btn btn-accountant">
             <a href="" class="btn-accountant">
                 <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-            </a>              
-        </span>
+            </a>                
+            </span>
+        </div>
     </div>
 </section>
     
 <section>
     <div class="container">
-        <div class="row">
+        <div class="row my-4">
             <div class="col-md-10 col-6">
-                <div class="input-group mt-2">
+                <div class="input-group">
                     <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
@@ -24,7 +26,7 @@
                 </div>
             </div>
             <div class="col-md-2 col-6">
-                <div id="" class="mt-2 float-right" onclick="">
+                <div id="" class=" float-right" onclick="">
                     <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
                 </div>
             </div>
@@ -33,7 +35,7 @@
 </section>
 
 <section id="sale-table">
-        <div class="container mt-4">
+        <div class="container">
                         
                     <div class="bg-white p-4"> 
                 
