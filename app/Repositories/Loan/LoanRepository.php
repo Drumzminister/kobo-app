@@ -64,6 +64,16 @@ class LoanRepository extends BaseRepository
         return $this->model->where('user_id', $this->getAuthUserId())->get();
     }
 
+    public function search($query)
+    {
+        return $this->model->where('user_id', $this->getAuthUserId())->where('description', 'like', '%'. $query .'%')->get();
+    }
+    
+    public function page($limit = 10, $offset = 0, array $relations = [], $orderBy = 'created_at', $sorting = 'desc')
+    {
+        return $this->model->with($relations)->take($limit)->skip($offset)->orderBy($orderBy, $sorting)->get();
+    }
+
     public function transaction($data, $loanTransaction)
     {
         $loanTransaction = find($data['loan_id']);

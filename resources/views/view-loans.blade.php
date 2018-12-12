@@ -1,130 +1,98 @@
 @extends("layouts.app-acct")
 
 @section("content")
-<section id="top">
-    <div class="container py-3">
-        <h3 class="h3">Loans</h3>
-        <span class="accountant ml-auto btn btn-accountant">
+    <div id="loanApp">
+        <section id="top">
+            <div class="container py-3">
+                <h3 class="h3">Loans</h3>
+                <span class="accountant ml-auto btn btn-accountant">
             <a href="" class="btn-accountant">
                 <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-            </a>              
+            </a>
         </span>
-    </div>
-</section>
-    
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-6">
-                <div class="input-group mt-2">
-                    <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
-                    </div>
-                </div>
             </div>
-            <div class="col-md-2 col-6">
-                <div id="" class="mt-2 float-right" onclick="">
-                    <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
 
-<section id="sale-table">
-        <div class="container mt-4">
-                        
-                    <div class="bg-white p-4"> 
-                
-                <div class="table-responsive table-responsive-sm">
-                        <table class="table table-striped table-hover" id="dataTable">
-                                <thead class="p-3">
-                                  <tr class="tab">
-                                    <th scope="col">Source</th>
-                                    <th scope="col">Purpose</th>
-                                    <th scope="col">Amount (&#8358;)</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Period</th>              
-                                  </tr>
-                                </thead>
-        
-                                <tbody>
-                                  <tr>
-                                        <td> Microfinance Bank</td>
-                                        <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
-                                        <td >237,000 </td>
-                                        <td ><a href="" class="completed" data-toggle="modal" data-target="#exampleModalCenter">Completed</a></td>
-                                        <td> 10 years </td>      
-                                  </tr>
-        
-                                  <tr>
-                                        <td> Microfinance Bank</td>
-                                        <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
-                                        <td>230,000 </td>
-                                        <td ><a href="" class="running" data-toggle="modal" data-target="#exampleModalCenter">Running</a> </td>
-                                        <td> 10 years </td>      
-                                  </tr>
-        
-                                  <tr>
-                                        <td> Microfinance Bank</td>
-                                        <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
-                                        <td >135,000 </td>
-                                        <td ><a href="" class="completed" data-toggle="modal" data-target="#exampleModalCenter">Completed</a> </td>
-                                        <td> 10 years </td>      
-                                  </tr>
-        
-                                  <tr>
-                                        <td> Microfinance Bank</td>
-                                        <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
-                                        <td>230,000 </td>
-                                        <td ><a href="" class="running" data-toggle="modal" data-target="#exampleModalCenter">Running</a> </td>
-                                        <td> 10 years </td>      
-                                  </tr>
-        
-                                  <tr>
-                                        <td> Microfinance Bank</td>
-                                        <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
-                                        <td >135,000 </td>
-                                        <td ><a href="" class="completed" data-toggle="modal" data-target="#exampleModalCenter">Completed</a> </td>
-                                        <td> 10 years </td>      
-                                  </tr>
-                                  <tr>
-                                        <td> Microfinance Bank</td>
-                                        <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus, architecto.</td>
-                                        <td >173,000 </td>
-                                        <td ><a href="" class="running" data-toggle="modal" data-target="#exampleModalCenter">Running </a></td>
-                                        <td> 10 years </td>      
-                                  </tr>
-        
-                                </tbody>
-                            </table>
-                </div>
-            </div> 
-           
-        </div>
-    </section>
-
-    <section id="pagination">
-            <div class="container py-3">
+        <section>
+            <div class="container">
                 <div class="row">
-                    <div class="col-md-7">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                          </ul>
+                    <div class="col-md-10 col-6">
+                        <div class="input-group mt-2">
+                            <input type="text" class="form-control" v-model="search"  placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div style="cursor:pointer;" @click="searchLoan()" class="input-group-append">
+                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-5">
-                        <span>Go to page:</span>
-        
+                    <div class="col-md-2 col-6">
+                        <div id="" class="mt-2 float-right" onclick="">
+                            <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
+        <section id="sale-table">
+            <div class="container mt-4">
+
+                <div class="bg-white p-4">
+
+                    <div v-if="!loadingLoans" class="table-responsive table-responsive-sm">
+                        <table class="table table-striped table-hover" id="dataTable">
+                            <thead class="p-3">
+                                <tr class="tab">
+                                    <th scope="col">Source</th>
+                                    <th scope="col">Purpose</th>
+                                    <th scope="col">Amount (&#8358;)</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Period</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="loan in loans" style="cursor: pointer;" @click="displayLoanDetails(loan, $event)">
+                                    <td>@{{loan.source_name}}</td>
+                                    <td>@{{loan.description}}</td>
+                                    <td >@{{loan.amount | numberFormat}}</td>
+                                    <td><a :class="loan.status">@{{loan.status}}</a></td>
+                                    <td> @{{loan.term}} @{{loan.period}}s </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div v-if="loans.length === 0 && search.trim()" class="alert alert-info">
+                            <h5>No loans found. Please redefine the search parameter</h5>
+                        </div>
+                    </div>
+                    <div v-if="loadingLoans" class="d-flex justify-content-center">
+                        <img src="/img/loader.gif">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="pagination" v-if="displayPaginator">
+            <div class="container py-3">
+                <div class="row">
+                    <div class="col-md-7">
+                        <ul class="pagination">
+                            <li class="page-item" v-if="canPrevious"><button class="page-link" @click="toPrevious"><< Previous</button></li>
+                            <li class="page-item" v-if="!canPrevious"><button class="page-link" disabled><< Previous</button></li>
+                            <li class="page-item ml-3" v-if="canNext"><button  class="page-link" @click="toNext">Next >></button></li>
+                            <li class="page-item ml-3" v-if="!canNext" ><button class="page-link" disabled>Next >></button></li>
+                        </ul>
+                    </div>
+                    {{--<div class="col-md-5">
+                        <span>Go to page:</span>
+                    </div>--}}
+                </div>
+            </div>
+        </section>
+
+        {{--Loan Details Modal--}}
+        @include('partials._loan_details_modal')
+    </div>
 
 
+<script src="/js/loan/index.js"></script>
 @endsection

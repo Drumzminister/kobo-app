@@ -26,6 +26,11 @@ class LoanController extends Controller
         $this->payment_repo = new PaymentRepository();
     }
 
+    public function index (Request $request)
+    {
+        return view('view-loans');
+    }
+
     public function store(Request $request)
     {
         /*if ($this->loan_repo->loanWithSourceExists($request->source_id)) {
@@ -41,7 +46,7 @@ class LoanController extends Controller
 
     public function getLoans()
     {
-        $loans = $this->loan_repo->getAllRunning()->take(5);
+        $loans = $this->loan_repo->page()->take(5);
         return response()->json([
             'loans' =>  $loans,
         ], 200);

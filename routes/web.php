@@ -71,8 +71,10 @@ Route::get('/loans', function () {
     return view('loans');
 });
 Route::post('/loans', 'LoanController@store');
+Route::get('/loans/all', 'LoanController@index');
 Route::get('/loans/get', 'LoanController@getLoans');
-Route::get('/loans/{loan}', 'LoanController@show');
+Route::get('/loans/search', 'LoanController@search');
+Route::get('/loans/paginated', 'LoanController@paginated');
 Route::get('/loans/sources/all', 'LoanController@getAllSources');
 Route::get('/loans/running/count', 'LoanController@sumAllRunning');
 Route::get('/loans/completed/count', 'LoanController@sumAllPaid');
@@ -81,9 +83,7 @@ Route::get('/loans/sources/{query}', 'LoanController@searchForSource');
 Route::post('/loans/sources', 'LoanController@addSource');
 Route::get('/loans/{loan}/payments', 'LoanController@getPayments');
 Route::post('/loans/payment', 'LoanController@makePayment');
-Route::get('/view-loans', function () {
-    return view('view-loans');
-});
+Route::get('/loans/{loan}', 'LoanController@show');
 
 // debtor
 Route::get('/debtor', function () {

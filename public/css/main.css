@@ -220,11 +220,11 @@ section.pricing {
 loan section
 ======================== */
 .completed{
-  color: #00C259;
+  color: #00C259 !important;
 }
 
 .running{
-  color: #FF8800;
+  color: #FF8800 !important;
 }
 .total-loan{
   font-size: 24px;
