@@ -2,7 +2,6 @@
 
 namespace App\Data\Repositories;
 
-
 use Koboaccountant\Models\User;
 
 class UserRepository extends Repository
