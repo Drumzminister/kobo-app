@@ -9,8 +9,8 @@ input {
 <section id="particles"></section>
     <div id="container">  
         <div class="progress" style="height: 35px;">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height:50px;width:25%;">
-            <h4> 25%</h4>
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="height:50px;width:20%;">
+            <h4> 20%</h4>
             </div>
         </div>
     </div>
