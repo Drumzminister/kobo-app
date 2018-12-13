@@ -205,35 +205,45 @@ Route::get('/view-creditor', function () {
         return view('view-customers');
     });
 
+
     // accountant dashboard
     Route::get('/accountant/dashboard', function () {
-        return view('account-dashboard');
+        return view('accountant.account-dashboard');
     });
 
     // client
     Route::get('/clients', function () {
-        return view('clients');
+        return view('accountant.clients');
     });
 
     Route::get('/manage/clients', function () {
-        return view('manage-clients');
+        return view('accountant.manage-clients');
     });
 
     Route::get('/toolkits', function () {
-        return view('toolkit');
+        return view('acccountant.toolkit');
     });
 
     Route::get('/resources', function () {
-        return view('resource');
+        return view('accountant.resource');
     });
 
     Route::get('/chats/history', function () {
-        return view('chat-history');
+        return view('accountant.chat-history');
     });
 
     Route::get('/chats', function () {
-        return view('chat');
+        return view('accountant.chat');
     });
+
+    Route::get('/npv', function () {
+        return view('accountant.npv');
+    });
+
+
+
+
+
 
     Route::get('/started', 'PaymentController@index');
 
@@ -290,3 +300,8 @@ Route::get('/view-creditor', function () {
     Route::get('/opening-pages', function () {
         return view('opening-pages.index');
     });
+
+    Route::get('/opening/cash', function () {
+        return view('opening-cash');
+    });
+    

@@ -240,7 +240,7 @@
                         <div class="form-group row">
                             <div class="form-group row col">
                                     <label for=""><h5>Rental Period</h5></label>
-                                    <label for=""><small>Add the amount of the rent will last</small></label>                            
+                                    <label for=""><small>Add the period the rent will last</small></label>                            
                                     
                                     <div class="form-row">
                                         <div class="col">
@@ -262,7 +262,7 @@
                         </div>
 
                         <div class="form-group shadow-textarea">
-                                <label for=""><h5>Rental Properties</h5></label><br>4
+                                <label for=""><h5>Rental Properties</h5></label><br>
                                 <label for=""><small>Add details of rental property</small></label>                           
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Compose Message"></textarea>
                         </div>
