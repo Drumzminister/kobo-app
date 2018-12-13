@@ -17,7 +17,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                                     </div>
-                                                    <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="100,000">                        
+                                                    <input type="text" class="form-control " id="" aria-describedby="basic-addon3" placeholder="100,000">                        
                                                 </div>
                             
                                             </div>
@@ -31,7 +31,7 @@
                                                 <div class="input-group-prepend cus">
                                                     <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                                 </div>
-                                                <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="1,275,000">                        
+                                                <input type="text" class="form-control" id="total" aria-describedby="basic-addon3" placeholder="1,275,000">                        
                                             </div>            
                                         </div>
                                     </div>

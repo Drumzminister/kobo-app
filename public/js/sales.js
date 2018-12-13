@@ -23,8 +23,16 @@ function addRow()
   td1.id = "inventory";
   selected.setAttribute("class", "search form-control");
   option.setAttribute("selected", "Pick Product Name");
-  option.setAttribute("value", "inventory->id");
-  option.innerHTML = "";
+
+  axios.get('/getInventory').then(function(response){
+    let data = response.data;
+    for(i = 0; i < data.length; i++) {
+    let options2 = document.createElement("option");
+    options2.setAttribute("value", data[i].id);
+    options2.innerHTML = data[i].name;
+    selected.appendChild(options2);
+    }
+  }); 
   selected.appendChild(option);
   td1.appendChild(selected);
 
@@ -85,7 +93,7 @@ function addRow()
 
   td6.appendChild(selected6);
   td6.appendChild(selected6);
-  console.log(td6);
+
   //Delete button
   let td7 = document.createElement('td');
   let i = document.createElement("i");
@@ -122,4 +130,15 @@ function deleteRow(row)
       row.style.display = "none";
     }
   });
+}
+
+
+function total()
+{
+  let sum = document.querySelectorAll('.sales_total');
+  let total = 0;
+  sum.forEach(input => {
+    total += Number(input.value);
+  });
+  return total;
 }
