@@ -263,3 +263,8 @@ Route::get('/view-creditor', function () {
     Route::get('/opening-pages', function () {
         return view('opening-pages.index');
     });
+
+    // Bank reconciiation pages
+    Route::get('/bank-reconciliation', function () {
+        return view('bank.index');
+    });
