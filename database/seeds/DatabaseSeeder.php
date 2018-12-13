@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
         // $companies = $users->each(function ($user) {
         //     factory('Koboaccountant\Models\Company')->create(['user_id' => $this->getRandomUserId()]);
         // });
-
+            
         $vendor = factory('Koboaccountant\Models\Vendor', 10)->create(['company_id' => $this->getRandomCompanyId()]);
 
         $inventories = $vendor->each(function ($vendor) {

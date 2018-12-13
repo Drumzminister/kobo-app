@@ -11,16 +11,24 @@ namespace Koboaccountant\Repositories\Opening;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Koboaccountant\Models\OpeningInventory;
+use Illuminate\Support\Facades\Auth;
+use Koboaccountant\Models\Inventory;
 use Koboaccountant\Repositories\BaseRepository;
 
 class InventoryRepository extends BaseRepository
 {
     public function __construct()
     {
-        parent::__construct(new OpeningInventory());
+        parent::__construct(new Inventory());
     }
-
+    public function getInventory()
+    {
+        if(!is_null(Auth::user())){
+            $inventory = $this->model->where('user_id', $this->getAuthUserId());
+            return $inventory;
+        }
+        return [];
+    }
     public function create(Request $request)
     {
         $inventory = $this->model;
@@ -47,8 +55,4 @@ class InventoryRepository extends BaseRepository
         $this->model::find($id)->delete();
     }
 
-    public function getAll()
-    {
-        return $this->model->where('user_id', $this->getAuthUserId())->get();
-    }
 }

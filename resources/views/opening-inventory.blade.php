@@ -9,8 +9,8 @@ input {
 <section id="particles"></section>
     <div id="container">  
         <div class="progress" style="height:35px;">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:90%">
-            <h4> 90%</h4>
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%">
+            <h4> 80%</h4>
             </div>
         </div>
     </div>
@@ -82,7 +82,7 @@ input {
                         <a class="btn btn-started" href="/opening/creditors">Previous</a>
                     </div>
                     <div class = "col">
-                        <a class="btn btn-started float-right" href="/dashboard">Next</a>
+                        <a class="btn btn-started float-right" href="/opening/cash">Next</a>
                     </div>
                 </div>
             </div> 

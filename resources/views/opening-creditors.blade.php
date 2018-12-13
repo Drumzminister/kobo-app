@@ -9,12 +9,12 @@ input {
 <section id="particles"></section>
     <div id="container">  
         <div class="progress " style="height:35px">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:75%">
-            <h4> 75%</h4>
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">
+            <h4>60%</h4>
             </div>
         </div>
     </div>
-    <div class="container bg-white m-5">
+    <div class="container bg-white mt-5">
         <div class="row py-3">
             <div class="col-md-9">
                 <div aria-label="breadcrumb arr-right">
