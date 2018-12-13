@@ -51,6 +51,33 @@ Route::prefix('opening')->group(function () {
     Route::post('/inventory/{id}/delete', 'OpeningController@deleteInventory');
 });
 // inventory pages
+Route::get('/inventory', 'InventoryController@index');
+Route::get('/view-inventory', 'InventoryController@View');
+Route::get('/single-inventory','InventoryController@singleView');
+Route::get('/multiple-inventory', 'InventoryController@multiView');
+Route::get('/getInventory', 'InventoryController@getInventory');
+
+//Opening
+Route::get('/opening/assets', 'OpeningController@showAssetsPage');
+Route::post('/opening/assets', 'OpeningController@addAsset');
+Route::post('/opening/assets/{id}', 'OpeningController@updateAsset');
+Route::post('/opening/assets/{id}/delete', 'OpeningController@deleteAsset');
+
+Route::get('/opening/debtors', 'OpeningController@showDebtorsPage');
+Route::post('/opening/debtor', 'OpeningController@addDebtor');
+Route::post('/opening/debtor/{id}', 'OpeningController@updateDebtor');
+Route::post('/opening/debtor/{id}/delete', 'OpeningController@deleteDebtor');
+
+Route::get('/opening/creditors', 'OpeningController@showCreditorsPage');
+Route::post('/opening/creditors', 'OpeningController@addCreditor');
+Route::post('/opening/creditor/{id}', 'OpeningController@updateCreditor');
+Route::post('/opening/creditor/{id}/delete', 'OpeningController@deleteCreditor');
+
+Route::get('/opening/inventory', 'OpeningController@showInventoriesPage');
+Route::post('/opening/inventory', 'OpeningController@addInventory');
+Route::post('/opening/inventory/{id}', 'OpeningController@updateInventory');
+Route::post('/opening/inventory/{id}/delete', 'OpeningController@deleteInventory');
+
 Route::get('/inventory', function () {
     return view('inventory');
 });
@@ -66,7 +93,6 @@ Route::get('/single-inventory', function () {
 Route::get('/multi-inventory', function () {
     return view('multi-inventory');
 });
-
 
 // staff pages
 Route::get('/staffs', function () {
@@ -248,6 +274,7 @@ Route::get('/view-creditor', function () {
 
     Route::get('/sales', 'SalesController@index');
 
+    Route::get('/getSalesChannels', 'SalesChannelsController@getAll');
     // Route::prefix('sales')->group(function () {
     Route::get('/addSales', 'SalesController@sales');
     Route::get('/getCustomer', 'CustomerController@allUserCustomers');
@@ -270,11 +297,11 @@ Route::get('/view-creditor', function () {
 
 
     // opening pages
-    Route::get('/opening-pages', function () {
-        return view('opening-pages.index');
-    });
-
     Route::get('/opening/cash', function () {
         return view('opening-cash');
     });
-    
+
+    // Bank reconciiation pages
+    Route::get('/bank-reconciliation', function () {
+        return view('bank.index');
+    });

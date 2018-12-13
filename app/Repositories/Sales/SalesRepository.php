@@ -38,17 +38,6 @@ class SalesRepository extends BaseRepository
         return true;
     }
 
-    public function getUserSalesChannel()
-    {
-        if (!is_null(Auth::user())) {
-           $salesChannel = $this->salesChannelModel::where('user_id', $this->getAuthUserId());
-
-            return $salesChannel;
-        }
-
-        return [];
-    }
-
 
     public function create($data)
     {
