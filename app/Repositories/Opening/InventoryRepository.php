@@ -29,6 +29,16 @@ class InventoryRepository extends BaseRepository
         }
         return [];
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAll()
+    {
+        $assets = $this->model->where('user_id', $this->getAuthUserId())->get();
+        return $assets;
+    }
+
     public function create(Request $request)
     {
         $inventory = $this->model;

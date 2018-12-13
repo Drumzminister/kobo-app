@@ -21,6 +21,7 @@ trait CashTransactions
         $cash->amount = $amount;
         $cash->id = $this->generateUuid();
         $cash->user_id = $this->getAuthUserId();
+        $cash->save();
     }
 
     /**

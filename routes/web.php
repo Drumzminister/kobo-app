@@ -29,6 +29,11 @@ Route::get('/addExpenses', function () {
 Route::get('/view-expenses', function () {
     return view('view-expenses');
 });
+
+/*
+ *  Opening Matters
+ */
+
 Route::prefix('opening')->group(function () {
     Route::get('/assets', 'OpeningController@showAssetsPage');
     Route::post('/assets', 'OpeningController@addAsset');
@@ -49,6 +54,9 @@ Route::prefix('opening')->group(function () {
     Route::post('/inventory', 'OpeningController@addInventory');
     Route::post('/inventory/{id}', 'OpeningController@updateInventory');
     Route::post('/inventory/{id}/delete', 'OpeningController@deleteInventory');
+
+    Route::get('/cash', 'OpeningController@showCashPage');
+    Route::post('/cash', 'OpeningController@addCash');
 });
 // inventory pages
 Route::get('/inventory', 'InventoryController@index');
@@ -57,26 +65,6 @@ Route::get('/single-inventory','InventoryController@singleView');
 Route::get('/multiple-inventory', 'InventoryController@multiView');
 Route::get('/getInventory', 'InventoryController@getInventory');
 
-//Opening
-Route::get('/opening/assets', 'OpeningController@showAssetsPage');
-Route::post('/opening/assets', 'OpeningController@addAsset');
-Route::post('/opening/assets/{id}', 'OpeningController@updateAsset');
-Route::post('/opening/assets/{id}/delete', 'OpeningController@deleteAsset');
-
-Route::get('/opening/debtors', 'OpeningController@showDebtorsPage');
-Route::post('/opening/debtor', 'OpeningController@addDebtor');
-Route::post('/opening/debtor/{id}', 'OpeningController@updateDebtor');
-Route::post('/opening/debtor/{id}/delete', 'OpeningController@deleteDebtor');
-
-Route::get('/opening/creditors', 'OpeningController@showCreditorsPage');
-Route::post('/opening/creditors', 'OpeningController@addCreditor');
-Route::post('/opening/creditor/{id}', 'OpeningController@updateCreditor');
-Route::post('/opening/creditor/{id}/delete', 'OpeningController@deleteCreditor');
-
-Route::get('/opening/inventory', 'OpeningController@showInventoriesPage');
-Route::post('/opening/inventory', 'OpeningController@addInventory');
-Route::post('/opening/inventory/{id}', 'OpeningController@updateInventory');
-Route::post('/opening/inventory/{id}/delete', 'OpeningController@deleteInventory');
 
 Route::get('/inventory', function () {
     return view('inventory');
@@ -113,46 +101,27 @@ Route::get('/view-rent', function () {
     return view('view-rent');
 });
 
-
-
-Route::get('/opening/assets', 'OpeningController@showAssetsPage');
-Route::post('/opening/assets', 'OpeningController@addAsset');
-Route::post('/opening/assets/{id}', 'OpeningController@updateAsset');
-Route::post('/opening/assets/{id}/delete', 'OpeningController@deleteAsset');
-
-Route::get('/opening/debtors', 'OpeningController@showDebtorsPage');
-Route::post('/opening/debtor', 'OpeningController@addDebtor');
-Route::post('/opening/debtor/{id}', 'OpeningController@updateDebtor');
-Route::post('/opening/debtor/{id}/delete', 'OpeningController@deleteDebtor');
-
-Route::get('/opening/creditors', 'OpeningController@showCreditorsPage');
-Route::post('/opening/creditors', 'OpeningController@addCreditor');
-Route::post('/opening/creditor/{id}', 'OpeningController@updateCreditor');
-Route::post('/opening/creditor/{id}/delete', 'OpeningController@deleteCreditor');
-
-Route::get('/opening/inventory', 'OpeningController@showInventoriesPage');
-Route::post('/opening/inventory', 'OpeningController@addInventory');
-Route::post('/opening/inventory/{id}', 'OpeningController@updateInventory');
-Route::post('/opening/inventory/{id}/delete', 'OpeningController@deleteInventory');
-
-// loans page
-Route::get('/loans', function () {
-    return view('loans');
+/*
+ *   Loan Matters
+ */
+Route::prefix('loans')->group(function () {
+    Route::get('/', 'LoanController@overview');
+    Route::post('/', 'LoanController@store');
+    Route::get('/all', 'LoanController@index');
+    Route::get('/get', 'LoanController@getLoans');
+    Route::get('/search', 'LoanController@search');
+    Route::get('/paginated', 'LoanController@paginated');
+    Route::get('/sources/all', 'LoanController@getAllSources');
+    Route::get('/running/count', 'LoanController@sumAllRunning');
+    Route::get('/completed/count', 'LoanController@sumAllPaid');
+    Route::get('/owing/count', 'LoanController@sumAllOwing');
+    Route::get('/sources/{query}', 'LoanController@searchForSource');
+    Route::post('/sources', 'LoanController@addSource');
+    Route::post('/payment', 'LoanController@makePayment');
+    Route::get('/{loan}', 'LoanController@show');
+    Route::get('/{loan}/payments', 'LoanController@getPayments');
 });
-Route::post('/loans', 'LoanController@store');
-Route::get('/loans/all', 'LoanController@index');
-Route::get('/loans/get', 'LoanController@getLoans');
-Route::get('/loans/search', 'LoanController@search');
-Route::get('/loans/paginated', 'LoanController@paginated');
-Route::get('/loans/sources/all', 'LoanController@getAllSources');
-Route::get('/loans/running/count', 'LoanController@sumAllRunning');
-Route::get('/loans/completed/count', 'LoanController@sumAllPaid');
-Route::get('/loans/owing/count', 'LoanController@sumAllOwing');
-Route::get('/loans/sources/{query}', 'LoanController@searchForSource');
-Route::post('/loans/sources', 'LoanController@addSource');
-Route::get('/loans/{loan}/payments', 'LoanController@getPayments');
-Route::post('/loans/payment', 'LoanController@makePayment');
-Route::get('/loans/{loan}', 'LoanController@show');
+
 
 // debtor
 Route::get('/debtor', function () {
@@ -179,64 +148,64 @@ Route::get('/credit', function () {
 Route::get('/view-creditor', function () {
     return view('view-creditor');
 });
-    // vendors page
-    Route::get('/vendors', function () {
+// vendors page
+Route::get('/vendors', function () {
         return view('vendors');
     });
 
-    Route::get('/add-vendors', function () {
+Route::get('/add-vendors', function () {
         return view('add-vendor');
     });
 
-    Route::get('/view-vendors', function () {
+Route::get('/view-vendors', function () {
         return view('view-vendors');
     });
 
-    // Customers page
-    Route::get('/customers', function () {
+// Customers page
+Route::get('/customers', function () {
         return view('customers');
     });
 
-    Route::get('/add-customers', function () {
+Route::get('/add-customers', function () {
         return view('add-customers');
     });
 
-    Route::get('/view-customers', function () {
+Route::get('/view-customers', function () {
         return view('view-customers');
     });
 
 
-    // accountant dashboard
-    Route::get('/accountant/dashboard', function () {
+// accountant dashboard
+Route::get('/accountant/dashboard', function () {
         return view('accountant.account-dashboard');
     });
 
-    // client
-    Route::get('/clients', function () {
+// client
+Route::get('/clients', function () {
         return view('accountant.clients');
     });
 
-    Route::get('/manage/clients', function () {
+Route::get('/manage/clients', function () {
         return view('accountant.manage-clients');
     });
 
-    Route::get('/toolkits', function () {
+Route::get('/toolkits', function () {
         return view('acccountant.toolkit');
     });
 
-    Route::get('/resources', function () {
+Route::get('/resources', function () {
         return view('accountant.resource');
     });
 
-    Route::get('/chats/history', function () {
+Route::get('/chats/history', function () {
         return view('accountant.chat-history');
     });
 
-    Route::get('/chats', function () {
+Route::get('/chats', function () {
         return view('accountant.chat');
     });
 
-    Route::get('/npv', function () {
+Route::get('/npv', function () {
         return view('accountant.npv');
     });
 
@@ -245,11 +214,11 @@ Route::get('/view-creditor', function () {
 
 
 
-    Route::get('/started', 'PaymentController@index');
+Route::get('/started', 'PaymentController@index');
 
-    Auth::routes();
-    // Guest  routes
-    Route::group(['middle' => ['guest']], function () {
+Auth::routes();
+// Guest  routes
+Route::group(['middle' => ['guest']], function () {
         // Landing Page
         Route::get('/', 'UserController@home');
 
@@ -266,42 +235,39 @@ Route::get('/view-creditor', function () {
         Route::get('/accountant', 'UserController@accountant');
     });
 
-    // Auth routes
-    // Route::group(['middleware' => 'auth'], function () {
-    Route::get('/payment/success', 'PaymentController@paid');
+// Auth routes
+// Route::group(['middleware' => 'auth'], function () {
+Route::get('/payment/success', 'PaymentController@paid');
 
-    Route::get('/dashboard', 'DashboardController@index')->name('client.dashboard');
+Route::get('/dashboard', 'DashboardController@index')->name('client.dashboard');
 
-    Route::get('/sales', 'SalesController@index');
-    
-    Route::get('/getSalesChannels', 'SalesChannelsController@getAll');
-    // Route::prefix('sales')->group(function () {
-    Route::get('/addSales', 'SalesController@sales');
-    Route::get('/getCustomer', 'CustomerController@allUserCustomers');
+Route::get('/sales', 'SalesController@index');
 
-    // });
-    Route::get('/expenses', 'ExpensesController@index');
-    Route::get('/assets', 'OpeningController@showAssetsPage');
-    Route::get('/debtors', 'DebtorController@index');
-    Route::get('/creditors', 'CreditorController@index');
-    Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');
-    // });
+Route::get('/getSalesChannels', 'SalesChannelsController@getAll');
+// Route::prefix('sales')->group(function () {
+Route::get('/addSales', 'SalesController@sales');
+Route::get('/getCustomer', 'CustomerController@allUserCustomers');
 
-    // Accountant rotes
-    // Route::group(['middleware' => ''], function() {
-    Route::get('/accountant/dashboard', 'AccountantController@index');
-    // });
-    Route::post('/expenses/create', 'ExpensesController@store');
+// });
+Route::get('/expenses', 'ExpensesController@index');
+Route::get('/assets', 'OpeningController@showAssetsPage');
+Route::get('/debtors', 'DebtorController@index');
+Route::get('/creditors', 'CreditorController@index');
+Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');
+// });
 
-
+// Accountant rotes
+// Route::group(['middleware' => ''], function() {
+Route::get('/accountant/dashboard', 'AccountantController@index');
+// });
+Route::post('/expenses/create', 'ExpensesController@store');
 
 
-    // opening pages
-    Route::get('/opening-pages', function () {
+
+
+// opening pages
+Route::get('/opening-pages', function () {
         return view('opening-pages.index');
     });
 
-    Route::get('/opening/cash', function () {
-        return view('opening-cash');
-    });
-    
+

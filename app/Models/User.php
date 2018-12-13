@@ -61,6 +61,6 @@ class User extends Authenticatable
 
     public function cash ()
     {
-        return $this->hasOne('Koboacountant\Models\Cash', 'user_id');
+        return $this->hasOne('Koboaccountant\Models\Cash', 'user_id');
     }
 }
