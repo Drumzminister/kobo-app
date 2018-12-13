@@ -9,6 +9,7 @@ function calculateSum (row)
   sales_total = sales_quantity * sales_price;
   sum = parseFloat(sales_total);
   row.querySelector('.sales_total').value = sum;
+  document.querySelector("#total").value = total();
 }
 
 function addRow()
@@ -61,9 +62,9 @@ function addRow()
   input4.setAttribute("class", "form-control sales_price");
   input4.addEventListener("keyup", function(){
     calculateSum(row);
+    document.querySelector("#total").value = total();
   });
   td4.appendChild(input4);
-
 
   //Total price
   let td5 = document.createElement('td');
@@ -72,6 +73,7 @@ function addRow()
   input5.setAttribute("class", "form-control sales_total");  
   input5.disabled = true;
   td5.appendChild(input5);
+
 
   //channels
   let td6 = document.createElement('td');
@@ -142,3 +144,4 @@ function total()
   });
   return total;
 }
+
