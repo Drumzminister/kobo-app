@@ -2,6 +2,7 @@
 
 namespace Koboaccountant\Repositories\Account;
 
+use Koboaccountant\Models\BankAccount;
 use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\Company;
 use Koboaccountant\Models\Account;
@@ -19,7 +20,7 @@ class AccountRepository extends BaseRepository
 
 	public function create($data)
 	{	
-		$account = new Account();
+		$account = new BankAccount();
 		$account->id = $this->slugIt($data['name']);
 		$account->name = $data['name'];
 		$account->number = $data['number'];
@@ -36,7 +37,7 @@ class AccountRepository extends BaseRepository
 
 	public function update($data)
 	{
-		$account = Account::where('id', $data['account_id'])->first();
+		$account = BankAccount::where('id', $data['account_id'])->first();
 		$account->name = $data['name'];
 		$account->number = $data['number'];
 		$account->opening_balance = $data['opening_balance'];

@@ -19,7 +19,7 @@
 
 </head>
 <body>
-    <div id="load"></div>
+    {{-- <div id="load"></div> --}}
          <section id="particles"></section>
 
          @if (session('status'))

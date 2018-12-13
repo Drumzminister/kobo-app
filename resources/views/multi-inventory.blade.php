@@ -134,7 +134,7 @@
                     </table>
                     <span class="float-right" onclick="addRow()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                     </span>
-                </div>
+            </div>
 
         <div class="row p-2 mt-2 ">
                 <div class="col-md-6">
