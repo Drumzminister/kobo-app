@@ -4,20 +4,26 @@ namespace Koboaccountant\Repositories;
 
 use Uuid;
 use Illuminate\Support\Facades\Auth;
+use Koboaccountant\Traits\CashTransactions;
 
 class BaseRepository {
+
+    use CashTransactions;
 
 	/**
 	 * The model instance.
 	 *
 	 * @var \Illuminate\Database\Eloquent\Model
 	 */
+
 	protected $model;
 
 	public function __construct($model)
 	{
 		$this->model = $model;
 	}
+
+
 
 
     public function generateUuid()
@@ -42,20 +48,6 @@ class BaseRepository {
         $result = rtrim($result, '"]"');
         return $result;
 	}
-
-    public function awsUpload($attachment) 
-    {
-        // cache the file
-        $file = $request->file($attachment);
-
-        // generate a new filename. getClientOriginalExtension() for the file extension
-        $filename = 'kobo-app-attachment' . time() . '.' . $file->getClientOriginalExtension();
-
-        // save to storage/app/photos as the new $filename
-        $path = $file->storeAs('attachment', $filename);
-
-        return $path;
-    }
 
     public function page($limit = 10, $offset = 0, array $relations = [], $orderBy = 'updated_at', $sorting = 'desc')
 	{
