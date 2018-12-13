@@ -59,6 +59,9 @@ class PaymentRepository extends BaseRepository
         $payment->save();
 
         $loan->amount_paid = floatval($loan->amount_paid) + $payment->amount;
+        if ($loan->amount_paid === ($loan->amount + ($loan->interest / 100 * $loan->amount))) {
+            $loan->status = "completed";
+        }
         $loan->save();
 
         return $this->model::find($payment->id);

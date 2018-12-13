@@ -177,7 +177,7 @@ let loan = new Vue({
                 this.loadingLoanDetails = false;
                 console.error(err)
             });
-            $('#viewSourceModal').modal('show');
+            $('#loanDetailsModal').modal('show');
         },
         payLoan (evt) {
             evt.preventDefault();

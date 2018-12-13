@@ -41,8 +41,6 @@
 
 </head>
 <body>
-
-    {{-- <div id="load"></div> --}}
      <!-- Header -->
      @include('layouts.header')
 
