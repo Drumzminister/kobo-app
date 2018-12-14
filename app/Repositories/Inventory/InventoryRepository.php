@@ -3,8 +3,9 @@
 namespace Koboaccountant\Repositories\Inventory;
 
 use Koboaccountant\Models\Vendor;
-use Koboaccountant\Models\Accountant;
+use Illuminate\Support\Facades\Auth;
 use Koboaccountant\Models\Inventory;
+use Koboaccountant\Models\Accountant;
 use Koboaccountant\Models\PaymentMethod;
 use Koboaccountant\Repositories\BaseRepository;
 
@@ -21,13 +22,13 @@ class InventoryRepository extends BaseRepository
         $this->accountantModel = $account;
         $this->vendorModel = $vendor;
     }
-    public function allUserInventory() 
-    {
-        return $this->inventoryModel::where('user_id', $this->getAuthUserId());
-    }
     public function getInventory()
     {
-        return $this->inventoryModel->get();
+        if(!is_null(Auth::user())){
+            $inventory = $this->inventoryModel->where('user_id', $this->getAuthUserId());
+            return $inventory;
+        }
+        return [];
     }
 
     public function create($data)
@@ -95,4 +96,5 @@ class InventoryRepository extends BaseRepository
         }
         return false;
     }
+    
 }

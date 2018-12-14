@@ -27,6 +27,7 @@ class InventoryRepository extends BaseRepository
         return $this->model::where('user_id', $this->getAuthUserId());
     }
 
+
     public function getInventory()
     {
         if(!is_null(Auth::user())){

@@ -147,5 +147,5 @@ function total()
 
 function save()
 {
-  
+  alert('hi');
 }
