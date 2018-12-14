@@ -94,12 +94,13 @@ Route::get('/pay-staff', function () {
 });
 
 // rent pages
-Route::get('/rent', function () {
-    return view('rent');
+Route::prefix('rent')->group(function () {
+    Route::get('/', 'RentController@show');
+    Route::post('/', 'RentController@store');
+    Route::get('/all', 'RentController@index');
+    Route::post('/rent/{id}/add-payment-method', 'RentController@addPaymentMethods');
 });
-Route::get('/view-rent', function () {
-    return view('view-rent');
-});
+
 
 /*
  *   Loan Matters
@@ -262,7 +263,7 @@ Route::get('/accountant/dashboard', 'AccountantController@index');
 // });
 Route::post('/expenses/create', 'ExpensesController@store');
 
-
+Route::get('/getClientId', 'ClientController@getId');
 
 
 // opening pages

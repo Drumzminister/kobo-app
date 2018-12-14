@@ -12,6 +12,11 @@
         }
         .box {
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            position: absolute;
+            width: 100%;
+            margin-top: 2px;
+            border-radius: 3px;
         }
         .mysearch {
             border: solid 1px #eb7e00;
@@ -44,7 +49,7 @@
                         </div>
                     </div>
                     <div class="col-md-2 col-6">
-                        <div id="" class="mt-2" onclick="">
+                        <div class="mt-2">
                             <button style="" @click="showFilterOptions = !showFilterOptions" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>
                         </div>
                         <div class="box bg-white py-2" v-if="showFilterOptions">
@@ -98,11 +103,11 @@
             </div>
         </section>
 
-        <section id="pagination" v-if="displayPaginator">
+        <section id="pagination">
             <div class="container py-3">
                 <div class="row">
                     <div class="col-md-7">
-                        <ul class="pagination" v-if="!hasSearched">
+                        <ul class="pagination" v-if="!hasSearched && displayPaginator">
                             <li class="page-item" v-if="canPrevious"><button class="page-link" @click="toPrevious"><< Previous</button></li>
                             <li class="page-item" v-if="!canPrevious"><button class="page-link" disabled><< Previous</button></li>
                             <li class="page-item ml-3" v-if="canNext"><button  class="page-link" @click="toNext">Next >></button></li>

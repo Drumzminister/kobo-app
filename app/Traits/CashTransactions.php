@@ -15,9 +15,13 @@ use Koboaccountant\Models\Cash;
 trait CashTransactions
 {
 
+    /**
+     * @param $amount
+     */
     public function createCashAccount ($amount)
     {
         $cash = new Cash();
+        $cash->opening_amount = $amount;
         $cash->amount = $amount;
         $cash->id = $this->generateUuid();
         $cash->user_id = $this->getAuthUserId();

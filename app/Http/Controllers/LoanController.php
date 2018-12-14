@@ -23,6 +23,7 @@ class LoanController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->loan_repo = new LoanRepository();
         $this->source_repo = new SourceRepository();
         $this->payment_repo = new PaymentRepository();

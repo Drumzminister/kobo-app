@@ -23,7 +23,14 @@ class BaseRepository {
 		$this->model = $model;
 	}
 
-
+    /**
+     * @return mixed
+     */
+    public function getAll()
+    {
+        $assets = $this->model->where('user_id', $this->getAuthUserId())->get();
+        return $assets;
+    }
 
 
     public function generateUuid()

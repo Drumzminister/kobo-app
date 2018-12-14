@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('Koboaccountant\Models\Cash', 'user_id');
     }
+
+    public function rent()
+    {
+        return $this->hasMany('Koboaccountant\Models\Rent', 'user_id');
+    }
 }

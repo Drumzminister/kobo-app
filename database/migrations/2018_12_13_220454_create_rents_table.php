@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCashesTable extends Migration
+class CreateRentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,16 @@ class CreateCashesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cashes', function (Blueprint $table) {
+        Schema::create('rents', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('user_id')->index();
-            $table->decimal('opening_amount', 15, 2);
-            $table->decimal('amount', 15, 2)->default(0);
+            $table->decimal('amount', 15, 2);
+            $table->date('start');
+            $table->date('end');
+            $table->text('property_details');
+            $table->decimal('other_costs', 15, 2);
+            $table->boolean('expired')->default(false);
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +34,6 @@ class CreateCashesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cashes');
+        Schema::dropIfExists('rents');
     }
 }

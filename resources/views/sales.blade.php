@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 <style>
 label {display: block; padding: 5px; position: relative; padding-left: 10px;}

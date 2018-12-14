@@ -830,3 +830,6 @@ vertical-align: center;
 .cashh{
 margin: auto;
 }
+::placeholder{
+    color: #d6d8db !important;
+}
