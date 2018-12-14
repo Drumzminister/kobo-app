@@ -16,7 +16,10 @@ Route::group(['prefix' => 'accountant'], function() {
     Route::get('/register', 'AccountantRegistrationController@showNewAccountantForm')->name('register.accountant');
     Route::post('/register', 'AccountantRegistrationController@showNewAccountantForm')->name('register.accountant');
 
+    // Client Review
     Route::get('/clients', 'AccountantDashboardController@showClients')->name('accountant.clients');
     Route::post('/clients-review', 'AccountantDashboardController@reviewClient')->name('client.review');
 
+    // Accountant Budget Routes
+    Route::get('/clients-budget/{id}', 'AccountantDashboardController@viewBudget')->name('view.budget');
 });
