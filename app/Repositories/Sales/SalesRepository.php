@@ -38,7 +38,11 @@ class SalesRepository extends BaseRepository
         return true;
     }
 
+    // private function checkAvailabiliity($inventory_id, $inventory_quantity)
+    // {
+       
 
+    // }
     public function create($data)
     {
         //Check for product availability
@@ -95,7 +99,7 @@ class SalesRepository extends BaseRepository
 
     public function inventory()
     {
-        return $this->inventoryModel->where('company_id', $this->getAuthCompanyId());
+        return $this->inventoryModel->where('user_id', $this->getAuthUserId());
     }
 
     public function getTopSales()

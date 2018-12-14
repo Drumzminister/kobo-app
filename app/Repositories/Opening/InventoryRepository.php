@@ -21,6 +21,12 @@ class InventoryRepository extends BaseRepository
     {
         parent::__construct(new Inventory());
     }
+
+    public function inventory()
+    {
+        return $this->model::where('user_id', $this->getAuthUserId());
+    }
+
     public function getInventory()
     {
         if(!is_null(Auth::user())){
@@ -54,5 +60,4 @@ class InventoryRepository extends BaseRepository
     {
         $this->model::find($id)->delete();
     }
-
 }

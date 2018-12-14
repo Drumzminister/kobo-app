@@ -71,13 +71,11 @@ class InventoryRepository extends BaseRepository
     public function checkAvailability($id, $amount)
     {
         $inventory = $this->findInventory($id);
-        if (! ($inventory === null)) {
+        if ($inventory->quantity === 0) {
             return false;
-        }
-        if ($inventory->quantity >= $amount) {
+        }elseif($inventory->quantity >= $amount) {
             return true;
         }
-
         return false;
     }
 
@@ -87,7 +85,7 @@ class InventoryRepository extends BaseRepository
         $inventory->delete();
     }
 
-    public function reduceQuantity($id, Int $quantity)
+    public function reduceQuantity($id, int $quantity) :bool
     {
         $inventory = $this->findInventory($id);
         if ($inventory && $this->checkAvailability($id, $quantity)) {

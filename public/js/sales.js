@@ -145,3 +145,7 @@ function total()
   return total;
 }
 
+function save()
+{
+  
+}

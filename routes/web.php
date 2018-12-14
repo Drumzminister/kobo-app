@@ -1,4 +1,6 @@
 <?php
+
+use Koboaccountant\Http\Controllers\InventoryController;
 Route::get('/', function () {
     return view('index');
 });
@@ -240,11 +242,6 @@ Route::get('/view-creditor', function () {
         return view('accountant.npv');
     });
 
-
-
-
-
-
     Route::get('/started', 'PaymentController@index');
 
     Auth::routes();
@@ -305,3 +302,4 @@ Route::get('/view-creditor', function () {
         return view('opening-cash');
     });
     
+Route::get('/summation', 'InventoryController@checker');
