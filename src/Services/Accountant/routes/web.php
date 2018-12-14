@@ -20,6 +20,10 @@ Route::group(['prefix' => 'accountant'], function() {
     Route::get('/clients', 'AccountantDashboardController@showClients')->name('accountant.clients');
     Route::post('/clients-review', 'AccountantDashboardController@reviewClient')->name('client.review');
 
+    // Accountant Profile
+    Route::post('/profile-update', 'AccountantDashboardController@updateProfile')->name('accountant.profile.update');
+    Route::get('/profile-update', 'AccountantDashboardController@showProfile')->name('accountant.profile.update');
+
     // Accountant Budget Routes
     Route::get('/clients-budget/{id}', 'AccountantDashboardController@viewBudget')->name('view.budget');
 });
