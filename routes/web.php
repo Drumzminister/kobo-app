@@ -270,7 +270,7 @@ Route::get('/view-creditor', function () {
     Route::get('/dashboard', 'DashboardController@index')->name('client.dashboard');
 
     Route::get('/sales', 'SalesController@index');
-    
+
     Route::get('/getSalesChannels', 'SalesChannelsController@getAll');
     // Route::prefix('sales')->group(function () {
     Route::get('/addSales', 'SalesController@sales');
@@ -294,12 +294,11 @@ Route::get('/view-creditor', function () {
 
 
     // opening pages
-    Route::get('/opening-pages', function () {
-        return view('opening-pages.index');
-    });
-
     Route::get('/opening/cash', function () {
         return view('opening-cash');
     });
-    
-Route::get('/summation', 'InventoryController@checker');
+
+    // Bank reconciiation pages
+    Route::get('/bank-reconciliation', function () {
+        return view('bank.index');
+    });

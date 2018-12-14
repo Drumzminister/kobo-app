@@ -52,3 +52,7 @@ p{
   box-shadow: 0rem 0.5rem 1rem 0rem rgba(0, 0, 0, 0.5);
   /* color: #FFFFFF; */
 }
+
+.w-90{
+  width: 90%;
+}

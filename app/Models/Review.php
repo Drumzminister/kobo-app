@@ -11,4 +11,14 @@ class Review extends Model
     public $incrementing = false;
     
     protected $dates = ['deleted_at'];
+
+    public function client()
+    {
+    	return $this->hasOne('Koboaccountant\Models\Client');
+    }
+
+	public function accountant()
+	{
+		return $this->hasOne('Koboaccountant\Models\Accountant');
+	}
 }
