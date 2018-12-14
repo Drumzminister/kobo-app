@@ -22,11 +22,11 @@ class DatabaseSeeder extends Seeder
 
         $staff = factory('Koboaccountant\Models\Staff', 10)->create(['company_id' => $this->getRandomCompanyId()]);
 
-        $sales = factory('Koboaccountant\Models\Sales', 10)->create(['company_id' => $this->getRandomCompanyId(), 'inventory_id' => $this->getRandomInventoryId(), 'staff_id' => $this->getRandomStaffId()]);
+        // $sales = factory('Koboaccountant\Models\Sales', 10)->create(['company_id' => $this->getRandomCompanyId(), 'inventory_id' => $this->getRandomInventoryId(), 'staff_id' => $this->getRandomStaffId()]);
 
-        $customer = $sales->each(function ($sales) {
+        // $customer = $sales->each(function ($sales) {
             factory('Koboaccountant\Models\Customer', 10)->create(['company_id' => $this->getRandomCompanyId(), 'user_id' => $this->getRandomUserId()]);
-        });
+        // });
     }
 
     public function getRandomCompanyId()
