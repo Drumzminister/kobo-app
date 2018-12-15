@@ -6,7 +6,8 @@ use Uuid;
 use Illuminate\Support\Facades\Auth;
 use Koboaccountant\Traits\CashTransactions;
 
-class BaseRepository {
+class
+BaseRepository {
 
     use CashTransactions;
 
@@ -38,6 +39,33 @@ class BaseRepository {
         return Uuid::generate(5,str_random(5), Uuid::NS_DNS)->string;
     }
 
+		/**
+	 * Returns the count of all the records.
+	 *
+	 * @return int
+	 */
+	public function count()
+	{
+		return $this->model->count();
+	}
+
+		/**
+	 * Returns a range of records bounded by pagination parameters.
+	 *
+	 * @param int    $limit
+	 * @param int    $offset
+	 *
+	 * @param array  $relations
+	 * @param string $orderBy
+	 * @param string $sorting
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection
+	 */
+	public function page($limit = 10, $offset = 0, array $relations = [], $orderBy = 'updated_at', $sorting = 'desc')
+	{
+		return $this->model->with($relations)->take($limit)->skip($offset)->orderBy($orderBy, $sorting)->get();
+	}
+
     public function slugIt($text)
     {
         return str_replace('--', '-', strtolower(preg_replace('/[^a-zA-Z0-9]/', '-', trim($text))));  
@@ -56,11 +84,7 @@ class BaseRepository {
         return $result;
 	}
 
-    public function page($limit = 10, $offset = 0, array $relations = [], $orderBy = 'updated_at', $sorting = 'desc')
-	{
-		return $this->model->with($relations)->take($limit)->skip($offset)->orderBy($orderBy, $sorting)->get();
-    }
-    
+
     public function findBy($attribute, $value, $relations = null)
 	{
 		$query = $this->model->where($attribute, $value);
@@ -108,5 +132,36 @@ class BaseRepository {
 		}
 		return $query->get();
 	}
-    
+	
+		/**
+	 * Fills out an instance of the model
+	 * with $attributes.
+	 *
+	 * @param array $attributes
+	 *
+	 * @return \Illuminate\Database\Eloquent\Model
+	 * @throws
+	 */
+	public function fill($attributes)
+	{
+		$attributes['id'] = $this->generateUuid();
+		return $this->model->fill($attributes);
+	}
+
+	/**
+	 * Fills out an instance of the model
+	 * and saves it, pretty much like mass assignment.
+	 *
+	 * @param array $attributes
+	 *
+	 * @return \Illuminate\Database\Eloquent\Model
+	 * @throws
+	 */
+	public function fillAndSave($attributes)
+	{
+		$attributes['id'] = $this->generateUuid();
+		$this->model->fill($attributes);
+		$this->model->save();
+		return $this->model;
+	}
 }

@@ -63,10 +63,5 @@ class LoanRepository extends BaseRepository
     {
         return $this->model->where('user_id', $this->getAuthUserId())->where('description', 'like', '%'. $query .'%')->orWhere('status', 'like', '%'. $query .'%')->get();
     }
-    
-    public function page($limit = 10, $offset = 0, array $relations = [], $orderBy = 'created_at', $sorting = 'desc')
-    {
-        return $this->model->with($relations)->take($limit)->skip($offset)->orderBy($orderBy, $sorting)->get();
-    }
 
 }

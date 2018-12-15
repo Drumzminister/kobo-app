@@ -10,7 +10,7 @@ use Koboaccountant\Repositories\Customer\CustomerRepository;
 use Koboaccountant\Models\Inventory;
 use Koboaccountant\Repositories\Inventory\InventoryRepository;
 use Koboaccountant\Repositories\SalesChannel\SalesChannelRepository;
-
+use Koboaccountant\Http\Requests\SalesRequest;
 
 class SalesController extends Controller
 {
@@ -36,13 +36,12 @@ class SalesController extends Controller
     {
         $salesChannels = $this->salesChannelRepo->allSalesChannel()->get();
         $customers = $this->customerRepo->allUserCustomers()->get();
-        $inventories = $this->inventoryRepo->allUserInventory()->get();
+        $inventories = $this->inventoryRepo->getInventory()->get();
         return view('addSales', compact('customers', 'inventories', 'salesChannels'));
     }
 
-    public function create(Request $request)
+    public function create(SalesRequest $sales)
     {
-        //Validations
         $this->salesRepo->create($request->all());
     }
 }

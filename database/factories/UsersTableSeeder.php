@@ -85,18 +85,18 @@ $factory->define(Koboaccountant\Models\SalesChannel::class, function () {
     ];
 });
 
-$factory->define(Koboaccountant\Models\Sales::class, function (Faker $faker) {
-    return [
-        'id' => $faker->uuid,
-        'name' => $faker->sentence(8),
-        'sales_date' => $faker->dateTime(),
-        'quantity' => $faker->numberBetween(1, 20),
-        'amount' => $faker->randomFloat(2),
-        'staff_id' => '',
-        'company_id' => '',
-        'inventory_id' => '',
-    ];
-});
+// $factory->define(Koboaccountant\Models\Sales::class, function (Faker $faker) {
+//     return [
+//         'id' => $faker->uuid,
+//         'name' => $faker->sentence(8),
+//         'sales_date' => $faker->dateTime(),
+//         'quantity' => $faker->numberBetween(1, 20),
+//         'amount' => $faker->randomFloat(2),
+//         'staff_id' => '',
+//         'company_id' => '',
+//         'inventory_id' => '',
+//     ];
+// });
 
 $factory->define(Koboaccountant\Models\Customer::class, function (Faker $faker) {
     return [

@@ -1,4 +1,6 @@
 <?php
+
+use Koboaccountant\Http\Controllers\InventoryController;
 Route::get('/', function () {
     return view('index');
 });
@@ -207,13 +209,8 @@ Route::get('/chats', function () {
     });
 
 Route::get('/npv', function () {
-        return view('accountant.npv');
-    });
-
-
-
-
-
+    return view('accountant.npv');
+});
 
 Route::get('/started', 'PaymentController@index');
 
@@ -243,7 +240,6 @@ Route::get('/payment/success', 'PaymentController@paid');
 Route::get('/dashboard', 'DashboardController@index')->name('client.dashboard');
 
 Route::get('/sales', 'SalesController@index');
-
 Route::get('/getSalesChannels', 'SalesChannelsController@getAll');
 // Route::prefix('sales')->group(function () {
 Route::get('/addSales', 'SalesController@sales');
@@ -267,8 +263,16 @@ Route::get('/getClientId', 'ClientController@getId');
 
 
 // opening pages
-Route::get('/opening-pages', function () {
-        return view('opening-pages.index');
-    });
+Route::get('/opening/cash', function () {
+    return view('opening-cash');
+});
 
+// Bank reconciiation pages
+Route::get('/bank-reconciliation', function () {
+    return view('bank.index');
+});
 
+// Bank reconciiation pages
+Route::get('/banking_page', function () {
+    return view('bank.banking-pages');
+});
