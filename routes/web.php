@@ -305,3 +305,8 @@ Route::get('/view-creditor', function () {
     Route::get('/bank-reconciliation', function () {
         return view('bank.index');
     });
+
+    // Bank reconciiation pages
+    Route::get('/banking_page', function () {
+        return view('bank.banking-pages');
+    });
