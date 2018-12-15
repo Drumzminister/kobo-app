@@ -2,7 +2,7 @@
 
 namespace Koboaccountant\Http\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use Koboaccountant\Repositories\Profile\ProfileRepository;
 
 class ClientController extends Controller

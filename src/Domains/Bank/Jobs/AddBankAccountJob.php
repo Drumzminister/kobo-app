@@ -31,7 +31,7 @@ class AddBankAccountJob extends Job
     public function handle()
     {
     	// ToDo: Validate Account: Check if Same has been stored before
-	    if ((new CheckIfBankExistJob($this->data))->handle()) {
+	    if ((new CheckIfBankExistJob($this->data))->handle()->count()) {
 	    	return [
 	    		'status' => 'error',
 			    'message' => 'You already have this account number linked to your account',

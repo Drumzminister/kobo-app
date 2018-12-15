@@ -260,7 +260,7 @@ Route::get('/accountant/dashboard', 'AccountantController@index');
 Route::post('/expenses/create', 'ExpensesController@store');
 
 Route::get('/getClientId', 'ClientController@getId');
-
+Route::get('/allBanks', 'ClientController@getBanks');
 
 // opening pages
 Route::get('/opening/cash', function () {
@@ -272,7 +272,6 @@ Route::get('/bank-reconciliation', function () {
     return view('bank.index');
 });
 
-// Bank reconciiation pages
-Route::get('/banking_page', function () {
-    return view('bank.banking-pages');
-});
+// Banking pages
+Route::get('/banking', 'BankingController@index');
+Route::get('/banks/search', 'BankingController@search');
