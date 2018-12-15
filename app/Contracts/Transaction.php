@@ -9,8 +9,8 @@
 namespace Koboaccountant\Contracts;
 
 
-interface Transaction
+interface TransactionInterface
 {
-    public function create ();
+    public function create (array $data);
     public function update ();
 }
