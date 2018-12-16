@@ -59,7 +59,7 @@ trait CashTransactions
             $cash->amount -= $amount;
             $cash->save();
         } else {
-            throw new \Exception("Cash available is not enough for the transaction you're trying to perform");
+            throw new \Exception("Insufficient funds");
         }
     }
 
@@ -69,10 +69,7 @@ trait CashTransactions
      */
     public function canSpendCash ($amount) :bool
     {
-        if ($this->getUserCash() > $amount) {
-            return true;
-        }
-        return false;
+        return $this->getUserCash() > $amount;
     }
 
     /**

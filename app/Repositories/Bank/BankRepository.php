@@ -20,12 +20,53 @@ class BankRepository extends BaseRepository
         parent::__construct(new BankDetail());
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|Bank[]|mixed
+     */
     public function getAll()
     {
         return Bank::all();
     }
+
+    /**
+     * @param $query
+     * @return \Illuminate\Database\Eloquent\Model
+     */
     public function search ($query)
     {
         return $this->model->where('user_id', $this->getAuthUserId())->where('bank_name', 'like', '%'. $query .'%')->get();
     }
+
+    /**
+     * @param $amount
+     * @param $bank
+     * @return bool
+     */
+    public function canSpend($amount, $bank): bool
+    {
+        return $bank->account_balance >= $amount;
+    }
+
+    /**
+     * @param $amount
+     * @param $bank
+     * @throws \Exception
+     */
+    public function spend($amount, $bank)
+    {
+        if ($this->canSpend($amount, $bank))
+        {
+            $bank->account_balance -= floatval($amount);
+            $bank->save();
+        } else {
+            throw new \Exception("Insufficient funds");
+        }
+    }
+
+    public function add ($amount, $bank)
+    {
+        $bank->account_balance += floatval($amount);
+        $bank->save();
+    }
+
 }
