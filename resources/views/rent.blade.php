@@ -1,4 +1,4 @@
-@extends("layouts.app-acct")
+@extends("layouts.app")
 
 @section("content")
 <section id="top">

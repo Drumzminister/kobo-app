@@ -211,7 +211,7 @@ Route::get('/view-creditor', function () {
         return view('accountant.account-dashboard');
     });
 
-    // client
+    
     Route::get('/clients', function () {
         return view('accountant.clients');
     });
@@ -238,6 +238,10 @@ Route::get('/view-creditor', function () {
 
     Route::get('/npv', function () {
         return view('accountant.npv');
+    });
+
+    Route::get('/profile', function () {
+        return view('accountant.client-profile');
     });
 
 
