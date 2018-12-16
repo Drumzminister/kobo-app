@@ -18,8 +18,9 @@ class AddClientReviewFeature extends Feature
 
 		if ($added)
 			return back()->with('message', 'Review added successfully.');
-		else
-			return back()->with('error', 'Unable to add review');
+
+
+		return back()->with('error', 'Unable to add review');
 
     }
 }
