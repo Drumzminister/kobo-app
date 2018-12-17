@@ -156,7 +156,7 @@ input {
                         </div>
                         <div class="text-center p-1">
                                 <a href="" class="view-more">View More Analytics</a> 
-                            </div>
+                        </div>
                     </div>
                     </div>
                 </div>
