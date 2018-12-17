@@ -13,7 +13,9 @@ class VendorController extends Controller
 
     public function index()
     {
-        return view('vendors');
+        $data['vendors'] = $this->vendorRepo->getAll()->get();
+        $data['count'] = $this->vendorRepo->getAll()->count();
+        return view('vendors', $data);
     }
 
     public function addVendor()

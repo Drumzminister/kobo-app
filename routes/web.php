@@ -276,3 +276,5 @@ Route::get('/bank-reconciliation', function () {
 Route::get('/banking', 'BankingController@index');
 Route::get('/banks/search', 'BankingController@search');
 Route::post('/banking/transfer', 'BankingController@makeTransfer');
+Route::get('/banking/payment_modes', 'PaymentMethodController@get');
+

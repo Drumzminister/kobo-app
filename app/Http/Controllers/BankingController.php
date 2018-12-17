@@ -40,7 +40,7 @@ class BankingController extends Controller
                 'amount'            =>  $request->amount,
                 'class'             =>   get_class($receiver),
                 'description'       =>  "Transferred money from $payer->bank_name account name: $payer->account_name
-                                         to $receiver->bank_name  account name: $receiver->account_name". PHP_EOL . "Comments: $request->comment",
+                                         to $receiver->bank_name  account name: $receiver->account_name". "<br>" . "Comments: $request->comment",
             ]);
         }catch (\Exception $e) {
             return response()->json([$e->getMessage()], 400);
@@ -48,4 +48,5 @@ class BankingController extends Controller
 
         return response()->json(['Transfered successfully'],200);
     }
+
 }

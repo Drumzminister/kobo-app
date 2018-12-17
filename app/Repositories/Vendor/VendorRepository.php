@@ -2,8 +2,9 @@
 
 namespace Koboaccountant\Repositories\Vendor;
 
-use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\Vendor;
+use Illuminate\Support\Facades\Auth;
+use Koboaccountant\Repositories\BaseRepository;
 
 
 class VendorRepository extends BaseRepository
@@ -25,5 +26,14 @@ class VendorRepository extends BaseRepository
         $vendor->company_id = $this->getAuthUserId();
         $vendor->save();
         return true;
+    }
+
+    public function getAll()
+    {
+        if(! is_null(Auth::user()))
+        {
+            return $this->model->where('company_id', $this->getAuthUserId());
+        }
+        return [];
     }
 }

@@ -110,3 +110,9 @@ function deleteRow(row)
     }
   });
 }
+
+function activate()
+{
+    $activate = document.querySelector(".activate");
+    alert('hello')
+}
