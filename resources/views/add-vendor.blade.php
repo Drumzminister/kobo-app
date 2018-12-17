@@ -34,44 +34,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                                <td >Amaka Ekpono</td>                                       
-                                <td>8A lagos state  </td>                                   
-                                <td> 08082023909</td>
-                                <td> syfon@gmail.com</td>
-                                <td>koboaccountant.com</td>
+                            <tr>
+                                <td><input class="name" type="text" class="form-control"></td>                                       
+                                <td><input class="address" type="text" class="form-control"></td>                                   
+                                <td><input class="number" type="number" class="form-control"></td>
+                                <td><input class="email" type="text" class="form-control"></td>
+                                <td><input class="website" type="text" class="form-control"></td>
                                 <td></td>
-                          </tr>
-
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td></td>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td></td>                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td></td>                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td></td>
-                                </tr>
+                            </tr>
                             
                         </tbody>
                 </table>

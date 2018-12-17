@@ -32,14 +32,15 @@
                         <tbody id="salesTable">
                             <tr>
                             <td id="inventory">
-                                <select class="form-control search inventory_id">
-                                    @if(count($inventories) > 0)
-                                        @foreach($inventories as $key => $inventory)
-                                            <option selected="Pick product Name" value="{{$inventory->id}}">
-                                                {{$inventory->name}}
-                                            </option>
-                                    @endforeach
-                                    @endif
+                                <select class="form-control inventory_id">
+                                    <option selected="Pick product Name">
+                                        Rice
+                                    </option>
+                                    <option selected="Pick product Name" value="">
+                                        Beans
+                                    </option> <option selected="Pick product Name" value="">
+                                        Yam
+                                    </option>
                                 </select>
                             </td>
                             <td><input type="text" id="sales_description" class="form-control sales_description "></td>
@@ -47,14 +48,13 @@
                             <td><input type="number" onkeyup="calculateSum(this.parentElement.parentElement)" class="form-control sales_price"></td>
                             <td><input type="text" class="form-control sales_total" id="sales_total"></td>
                             <td>
-                                <select class="form-control search sales_channel_id">
-                                    @if(count($salesChannels) > 0)
-                                        @foreach($salesChannels as $key => $salesChannel)
-                                            <option selected="Pick product Name" value="{{$salesChannel->id}}">
-                                                {{$salesChannel->name}}
-                                            </option>
-                                        @endforeach
-                                    @endif
+                                <select class="form-control search sales_channel">
+                                    <option selected="Pick product Name">
+                                        IG
+                                    </option>
+                                    <option selected="Pick product Name">
+                                        Online Store
+                                    </option>
                                 </select>
                             </td>
 

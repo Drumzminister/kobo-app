@@ -155,14 +155,13 @@ function saveSavings()
   let total = document.querySelector('.sales_total').value; 
   let invoice_number = "IVO-213";
   let discount = document.querySelector('.discount').value;
-  let tax_id = document.querySelector('.tax_id').value;
-  let payment_mode_id = document.querySelectorAll('.payment_mode_id').value;
-  let sales_channel_id = document.querySelector('.sales_channel_id').value;
-  let customer_id = document.querySelector('.customer_id').value;
-  let inventory_id = document.querySelector('.inventory_id').value;
+  let tax_id = document.querySelector('.tax').value;
+  let payment_mode_id = document.querySelectorAll('.payment_mode').value;
+  let sales_channel_id = document.querySelector('.sales_channel').value;
+  let customer_id = document.querySelector('.customer').value;
+  let inventory_id = document.querySelector('.inventory').value;
 
-  if(sales_date.trim() &&
-      description.trim() && 
+  if( description.trim() && 
       quantity.trim() && 
       price.trim() && 
       total.trim() && 
@@ -186,33 +185,5 @@ function saveSavings()
     }).catch(function(error){
       swal('Error', 'Some input are mission')
     });
-  }
-}
-
-function submitted()
-{
-  let description = document.querySelector('.description');
-  let quantity = document.querySelector('.quantity');
-  let token = document.querySelector('meta[name="csrf-token"]').content;  
-  let option = document.querySelector('.option');
-  let date = document.querySelector('.date');
-  
-  if (description.value.trim() && quantity.value.trim() && option.value.trim())
-  {
-    formData = new FormData();
-    formData.append('_token', token);
-    formData.append('description', description.value);
-    formData.append('quantity', quantity.value);
-    formData.append('option', option.value);
-    formData.append('date', date.valuep);
-    
-  
-    console.log(formData.get("description"));
-    console.log(formData.get("quantity"));
-    console.log(formData.get("option"));
-    console.log(formData.get("date"));    
-    
-  }else {
-    swal('Error', 'Input value', );    
   }
 }

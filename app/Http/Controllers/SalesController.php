@@ -34,9 +34,9 @@ class SalesController extends Controller
     
     public function sales()
     {
-        $salesChannels = $this->salesChannelRepo->allSalesChannel()->get();
-        $customers = $this->customerRepo->allUserCustomers()->get();
-        $inventories = $this->inventoryRepo->getInventory()->get();
+        $salesChannels = $this->salesChannelRepo->allSalesChannel();
+        $customers = $this->customerRepo->allUserCustomers();
+        $inventories = $this->inventoryRepo->getInventory();
         return view('addSales', compact('customers', 'inventories', 'salesChannels'));
     }
 
@@ -44,4 +44,5 @@ class SalesController extends Controller
     {
         $this->salesRepo->create($request->all());
     }
+    
 }

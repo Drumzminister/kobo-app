@@ -5,10 +5,10 @@
             <div class="col-md-6">
                 <div class="input-group mb-3 input-group-lg">
                     <div class="input-group-prepend">
-                        <span class="input-group-text customer_id customer-input" id="basic-addon3">Customer Name</span>
+                        <span class="input-group-text customer customer-input" id="basic-addon3">Customer Name</span>
                     </div> 
 
-                    <select class="search" class="customer_id form-control">
+                    <select class="customer_id form-control">
 
                         <option selected="Pick customer Name">
                             Ekpono Ambrose
