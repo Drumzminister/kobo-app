@@ -1,4 +1,5 @@
 
+
 @extends("layouts.app-acct")
 
 @section("content")
@@ -33,28 +34,28 @@
                             <th scope="col"></th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="vendor">
                             <tr>
-                                <td><input class="name" type="text" class="form-control"></td>                                       
-                                <td><input class="address" type="text" class="form-control"></td>                                   
-                                <td><input class="number" type="number" class="form-control"></td>
-                                <td><input class="email" type="text" class="form-control"></td>
-                                <td><input class="website" type="text" class="form-control"></td>
-                                <td></td>
+                                <td><input  type="text" class="form-control name"></td>                                       
+                                <td><input  type="text" class="form-control address"></td>                                   
+                                <td><input  type="number" class="form-control number"></td>
+                                <td><input  type="text" class="form-control email"></td>
+                                <td><input  type="text" class="form-control website"></td>
+                                <td id="delete" onclick="deleteRow(this.parentElement)"><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
                             
                         </tbody>
                 </table>
-                <span class="float-right" >Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
+                <span class="float-right" onclick="addRow()" >Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                 </span> 
              </div>
              <div class="text-center pb-3">
-                    <a href="" class="btn btn-started">Save &amp; Continue</a> 
+                    <a onclick="saveVendor()" class="btn btn-started">Save &amp; Continue</a> 
                 </div>
             </div> 
            
         </div>
     </section>
 
-  
+  <script src="js/vendor.js"></script>
 @endsection

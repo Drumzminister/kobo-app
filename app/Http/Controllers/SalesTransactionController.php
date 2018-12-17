@@ -11,8 +11,10 @@ class SalesTransactionController extends Controller
     {
         $this->salesTransaction = $salesTransactionRepo;
     }
-    public function store()
+    public function store(Request $request)
     {
-        $this->salesTransaction->create($request);  
+        $this->salesTransaction->create($request->all());
+        return 'Data Successfully Submitted';
     }
 }
+

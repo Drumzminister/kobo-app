@@ -11,12 +11,14 @@ use Koboaccountant\Models\Inventory;
 use Koboaccountant\Repositories\Inventory\InventoryRepository;
 use Koboaccountant\Repositories\SalesChannel\SalesChannelRepository;
 use Koboaccountant\Http\Requests\SalesRequest;
+use Koboaccountant\Repositories\Sales\SalesTransactionRepository;
 
 class SalesController extends Controller
 {
     public function __construct(
         SalesChannelRepository $salesChannels,
         SalesRepository $sales,
+        SalesTransactionRepository $trans,
         CustomerRepository $customer,
         InventoryRepository $inventory
         )
@@ -25,11 +27,13 @@ class SalesController extends Controller
         $this->customerRepo = $customer;
         $this->inventoryRepo = $inventory;
         $this->salesChannelRepo = $salesChannels;
+        $this->salesTransactionRepo = $trans;
     }
     
     public function index()
     {
-        return view('sales');
+       $data['sales'] = $this->salesTransactionRepo->trans();
+        return view('sales', $data);
     }
     
     public function sales()
@@ -43,6 +47,7 @@ class SalesController extends Controller
     public function create(SalesRequest $sales)
     {
         $this->salesRepo->create($request->all());
+        return 'Saved successfully';
     }
     
 }

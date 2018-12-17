@@ -9,6 +9,8 @@ class Vendor extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = ['name', 'address', 'phone', 'email', 'website'];
+
     protected $dates = ['deleted_at'];
 
     public $incrementing = false;

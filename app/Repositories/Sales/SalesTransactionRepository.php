@@ -14,50 +14,57 @@ use Koboaccountant\Models\SalesTransaction;
 
 class SalesTransactionRepository extends BaseRepository
 {
-    public function __construct(
-        SalesChannel $salesChannel,
-        Sales $sale,
-        Inventory $inventory,
-        Company $company,
-        Customer $customer
-        ) {
-        $this->inventoryModel = $inventory;
-        $this->salesModel = $sale;
-        $this->salesChannelModel = $salesChannel;
-        $this->companyModel = $company;
-        $this->customerModel = $customer;
+    public function __construct() {
         parent::__construct(new SalesTransaction());
     }
-    
-    
+    public function trans()
+    {
+        return $this->model::all();
+    }
     public function create($data)
     {
-        //Check for product availability
-        if ($this->inventoryRepo->checkAvailability($data['inventory_id'], $data['quantity'])) {
-            //Reduce Inventory
-            $this->inventoryRepo->reduceQuantity($data['inventory_id'], $data['quantity']);
-            $sales = $this->model;
-            $sales->id = $this->generateUuid();
-            $sales->description = $data['description'];            
-            $sales->quantity = $data['quantity'];
-            $sales->inventory_id = $data['inventory_id'];
-            $sales->amount = $data['amount'];
-            $sales->sales_channel_id = $data['sales_channel_id'];
-            $sales->payment_mode_id = $data['payment_mode_id'];
-            $sales->save();
+        $sales = $this->model;
+        $sales->sales_date = $data['sales_date'];
+        $sales->description = $data['description'];
+        $sales->quantity = $data['quantity'];
+        $sales->inventory_id = $data['inventory'];
+        $sales->amount = $data['sales_total'];
+        $sales->payment_mode_id = $data['payment_mode'];
+        $sales->customer_id = $data['customer_id'];
 
-            //notifyAccountant
-            // $accountant = Auth::user()->company->accountant;
-            // $accountant->notify(new MadeSales($sales->id));
+        $sales->sales_channel_id = $data['sales_channel'];
+        $sales->discount = $data['discount'];
 
-            /*
-                TODO logic for the debtor
-            */
-            return true;
-        } else {
-            return false;
-        }
+        $sales->save();
+
+        return true;
     }
+    // public function create($data)
+    // {
+    //     //Check for product availability
+    //     if ($this->inventoryRepo->checkAvailability($data['inventory_id'], $data['quantity'])) {
+    //         //Reduce Inventory
+    //         $this->inventoryRepo->reduceQuantity($data['inventory_id'], $data['quantity']);
+    //         $sales = $this->model;
+    //         $sales->id = $this->generateUuid();
+    //         $sales->description = $data['description'];            
+    //         $sales->quantity = $data['quantity'];
+    //         $sales->inventory_id = $data['inventory'];
+    //         $sales->amount = $data['amount'];
+    //         $sales->sales_channel_id = $data['sales_channel'];
+    //         $sales->payment_mode_id = $data['payment_mode'];
+    //         $sales->save();
+
+    //         /*
+    //             TODO logic for the debtor
+    //         */
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+
+
 
     public function update($data)
     {

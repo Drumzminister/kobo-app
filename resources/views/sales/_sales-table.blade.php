@@ -31,14 +31,14 @@
                         </thead>
                         <tbody id="salesTable">
                             <tr>
-                            <td id="inventory">
-                                <select class="form-control inventory_id">
+                            <td>
+                                <select class="form-control inventory">
                                     <option selected="Pick product Name">
                                         Rice
                                     </option>
-                                    <option selected="Pick product Name" value="">
+                                    <option selected="Pick product Name">
                                         Beans
-                                    </option> <option selected="Pick product Name" value="">
+                                    </option> <option selected="Pick product Name">
                                         Yam
                                     </option>
                                 </select>

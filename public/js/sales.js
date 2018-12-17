@@ -148,7 +148,7 @@ function total()
 function saveSavings()
 {
   let token = document.querySelector('meta[name="csrf-token"]').content;
-  let sales_date = document.querySelector('.date').value;
+  let sales_date = document.querySelector('.sales_date').value;
   let description = document.querySelector('.sales_description').value;
   let quantity = document.querySelector('.sales_quantity').value;
   let price = document.querySelector('.sales_price').value;
@@ -164,8 +164,9 @@ function saveSavings()
   if( description.trim() && 
       quantity.trim() && 
       price.trim() && 
-      total.trim() && 
-      invoice_number)
+      total.trim() &&
+      tax_id.trim()
+    )
   {
     let formData = new FormData();
     formData.append('_token', token);
@@ -178,12 +179,15 @@ function saveSavings()
     formData.append('customer_id', customer_id);    
     formData.append('discount', discount);    
     formData.append('tax_id', tax_id);    
-    formData.append('sales_total', sales_total);    
-    console.log(formData.get('description'));
-    axios.post('/sales/create', formData).then(function(response) {
-      swal('Saved', response.data.message, 'success');
-    }).catch(function(error){
-      swal('Error', 'Some input are mission')
+    formData.append('sales_total', sales_total); 
+    formData.append('payment_mode', payment_mode_id);   
+
+
+    axios.post('/sales/create', formData).then(response => {
+      swal('Saved', response.data, 'Data Saved Successfully');
+      // console.log(response.data.mess)
+    }).catch(error => {
+      swal('Sorry', response.data, 'Input missing');      
     });
   }
 }
