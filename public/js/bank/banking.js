@@ -14,6 +14,7 @@ let banking = new Vue({
         showBalError: false,
         showAccNumError: false,
         selectedPayingBank: {},
+        showFilterOptions: false,
         selectedReceivingBank: {},
         transferAmountError: false,
     },
@@ -42,7 +43,7 @@ let banking = new Vue({
             }),1);
         },
         transferAmount () {
-            this.transferAmountError = (this.transferAmount > this.selectedPayingBank.account_balance) || (this.transferAmount <= 0 && this.transferAmount.trim() !== "") ;
+            this.transferAmountError = Number(this.transferAmount) > Number(this.selectedPayingBank.account_balance);
         }
     },
     filters: {
@@ -74,6 +75,10 @@ let banking = new Vue({
         },
         search (evt) {
             evt.preventDefault();
+            if (this.searchString.trim() === "") {
+                this.searchString = "";
+                return;
+            }
             this.loadingBanks = true;
             this.hasSearched = true;
             axios.get(`/banks/search?q=${this.searchString}`).then(res => {
@@ -86,6 +91,7 @@ let banking = new Vue({
         },
         showAll () {
             this.loadingBanks = true;
+            this.searchString = "";
             axios.get(`/client/${user_id}/banks`).then(res => {
                 this.hasSearched = false;
                 this.banks = res.data;
@@ -94,7 +100,35 @@ let banking = new Vue({
                 this.loadingBanks = false;
             });
         },
-        filter () {},
+        filterBy (option) {
+            let nameA, nameB;
+            this.banks.sort(function (a, b) {
+                if (option === "bank_name") {
+                    nameA = a.bank_name.toUpperCase();
+                    nameB = b.bank_name.toUpperCase();
+                } else if (option === "account_name") {
+                    nameA = a.account_name.toUpperCase();
+                    nameB = b.account_name.toUpperCase();
+                } else {
+                    nameA = Number(a.account_balance);
+                    nameB = Number(b.account_balance);
+
+                    if (nameA > nameB) {
+                        return -1;
+                    }
+                    if (nameA < nameB) {
+                        return 1;
+                    }
+                }
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+            });
+            this.showFilterOptions = false;
+        },
         makeTransfer (evt) {
             evt.preventDefault();
             formData = new FormData();

@@ -69,4 +69,8 @@ class BankRepository extends BaseRepository
         $bank->save();
     }
 
+    public function getAuthUserBanks ()
+    {
+        return $this->model::where('user_id', $this->getAuthUserId())->get();
+    }
 }
