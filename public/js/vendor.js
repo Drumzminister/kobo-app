@@ -86,7 +86,13 @@ function saveVendor()
         formData.append('website', website);
 
         axios.post('/vendor/create', formData).then(response => {
-            swal('Saved', response.data, 'Data Saved Successfully')
+            swal('Saved', response.data, 'Data Saved Successfully');
+            document.querySelector('meta[name="csrf-token"]').content;
+            document.querySelector(".name").value = "";
+            document.querySelector(".address").value = "";
+            document.querySelector(".number").value = "";
+            document.querySelector(".email").value = "";
+            document.querySelector(".website").value ="";
         }).catch(error => {
             swal('Sorry', response.data, 'Some input missing');
         });
@@ -95,7 +101,7 @@ function saveVendor()
 
 
     //delete action
-let deleteBtn = document.querySelector('#delete').style.cursor = "pointer" 
+let deleteBtn = document.querySelector('#delete').cursor = "pointer" 
 function deleteRow(row)
 {
   swal({
@@ -111,8 +117,16 @@ function deleteRow(row)
   });
 }
 
-function activate()
+function activate(id)
 {
-    $activate = document.querySelector(".activate");
-    alert('hello')
+    let token = document.querySelector('meta[name="csrf-token"]').content;    
+    let formData = new FormData();
+    formData.append('_token', token);
+    // formData.append('id', id);
+
+    axios.post(`/vendor/${id}/activate`, formData).then(response => {
+        swal('Saved', response.data, 'Settings Saved')
+    }).catch(error => {
+        swal('Sorry', response.data, 'Some input missing');        
+    })
 }

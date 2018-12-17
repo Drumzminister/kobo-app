@@ -32,6 +32,11 @@ class VendorController extends Controller
         // ])->setStatusCode(200);
     }
 
+    public function activate($id, Request $request)
+    {
+        $this->vendorRepo->activate($id);
+        return 'Deactivated';
+    }
     public function view()
     {
         return view('view-vendors');

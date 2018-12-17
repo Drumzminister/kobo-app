@@ -57,7 +57,7 @@
                             <th scope="col">Phone No</th>
                             <th scope="col">Email</th>
                             <th scope="col">Website</th>
-                            <th scope="col"></th>
+                            <th scope="col" id="delete"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -69,7 +69,7 @@
                                 <td> {{$vendor->email}}</td>
                                 <td>{{$vendor->website}}</td>
                                 <td><label class="switch">
-                                        <input type="checkbox" class="activate" onclick="activate()">
+                                        <input type="checkbox" {{$vendor->isActive ? 'checked' : ''}} onclick="activate('{{$vendor->id}}')">
                                         <span class="slider round"></span>
                                       </label>
                                 </td>

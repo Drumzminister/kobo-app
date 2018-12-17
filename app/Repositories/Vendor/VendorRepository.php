@@ -36,4 +36,24 @@ class VendorRepository extends BaseRepository
         }
         return [];
     }
+
+    public function activate($id)
+    {
+        $vendor = $this->model::find($id);
+        if($vendor->isActive == 1){
+            $vendor->isActive = 0;            
+            $vendor->save();
+            return true;
+        }elseif ($vendor->isActive == 0)
+        {
+            $vendor->isActive = 1;
+            $vendor->save();
+            return true;
+        }else {
+            return false;
+        }
+
+        // if($vendor->isActive == 1 ? 0 : 1);
+        // return true;
+    }
 }
