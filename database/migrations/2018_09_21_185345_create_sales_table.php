@@ -19,7 +19,6 @@ class CreateSalesTable extends Migration
             $table->string('delivery_cost');
             $table->string('user_id')->index();
             $table->string('tax_id');
-            $table->string('sales_date');
             $table->string('discount')->nullable();
             $table->timestamps();
             $table->softDeletes();

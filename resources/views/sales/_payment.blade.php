@@ -7,7 +7,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                                     </div>
-                                                    <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="100,000">                        
+                                                    <input type="text" class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="100,000">                        
                                                 </div>
                                             </div>
 
@@ -47,7 +47,7 @@
                         </div>
                         <div class="col">
                             <span class="float-right">
-                                <button type="submit" onclick="save()" class="btn btn-lg btn-started">Save</a>
+                                <button type="submit" onclick="saveSavings()" class="btn btn-lg btn-started">Save</a>
                                 <!-- <a href="" onclick="save()" class="btn btn-lg btn-started">Save</a> -->
                             </span>
                         </div>
