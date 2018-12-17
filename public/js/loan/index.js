@@ -131,7 +131,7 @@ let app = new Vue({
                     this.currentLoan.amount_paid += Number(res.data.payment.amount);
                     $('#pay-loan').modal('hide');
                 }).catch(err => {
-                    console.error(err);
+                    swal('Oops', err.response.data.error, "error");
                 })
             }
         },

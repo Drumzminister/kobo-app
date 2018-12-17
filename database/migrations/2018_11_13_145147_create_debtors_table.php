@@ -15,6 +15,9 @@ class CreateDebtorsTable extends Migration
     {
         Schema::create('debtors', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('user_id')->index();
+            $table->string('customer_id')->index();
+            $table->decimal('amount', 15, 2)->default(0);
             $table->timestamps();
         });
     }

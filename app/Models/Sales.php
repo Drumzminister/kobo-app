@@ -9,6 +9,13 @@ class Sales extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = [
+        'sales_date',
+        'name',
+        'quantity',
+        'amount',
+    ];
+    
     protected $dates = ['deleted_at'];
 
     public $incrementing = false;

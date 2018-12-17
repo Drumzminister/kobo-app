@@ -1,4 +1,5 @@
 let token = document.querySelector('meta[name="csrf-token"]').content;
+let user_id = "";
   document.onreadystatechange = function () {
     var state = document.readyState;
     if (state == 'complete') {

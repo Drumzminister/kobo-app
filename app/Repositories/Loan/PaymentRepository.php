@@ -46,13 +46,15 @@ class PaymentRepository extends BaseRepository
             } else {
                 $payment->schedule_payment = $currentInterval->addWeeks(4 / $loan->payment_interval);
             }
-        } elseif ($loan->period === 'year') {
+        }
+        elseif ($loan->period === 'year') {
             if ($loan->payment_interval === 1) {
                 $payment->schedule_payment = $currentInterval->addYear();
             } else {
                 $payment->schedule_payment = $currentInterval->addMonths(12 / $loan->payment_interval);
             }
-        } else {
+        }
+        else {
             $payment->schedule_payment = $currentInterval->addDays($loan->payment_interval);
         }
 

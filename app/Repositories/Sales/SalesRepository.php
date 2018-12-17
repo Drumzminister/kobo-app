@@ -38,45 +38,34 @@ class SalesRepository extends BaseRepository
         return true;
     }
 
-
     public function create($data)
     {
         //Check for product availability
-        if ($this->inventoryRepo->checkAvailability($data['inventory_id'], $data['quantity'])) {
-            //Reduce Inventory
-            $this->inventoryRepo->reduceQuantity($data['inventory_id'], $data['quantity']);
-            $sales = new Sales();
-            $sales->id = $this->generateUuid();
-            //Upload any Image
-            $sales->attachment = $data['attachment'];
-            $sales->customer_id = $data['customer_id'];
-            $sales->inventory_id = $data['inventory_id'];
-            $sales->sales_date = $data['sales_date'];
-            $sales->tax = $data['tax'];
-            $sales->quantity = $data['quantity'];
-            $sales->save();
+        $sales = new Sales();
+        $sales->id = $this->generateUuid();
+        $sales->sales_transaction_id = $data['sales_transaction_id'];
+        $sales->invoice_number = $data['invoice_number'];
+        $sales->customer_id = $data['customer_id'];
+        $sales->delivery_cost = $data['delivery_cost'];
+        $sales->user_id = $data['user_id'];
+        $sales->sales_date = $data['sales_date'];
+        $sales->tax_id = $data['tax_id'];
+        $sales->discount = $data['discount'];
+        $sales->save();
 
-            //notifyAccountant
-            $accountant = Auth::user()->company->accountant;
-            $accountant->notify(new MadeSales($sales->id));
-
-            /*
-                TODO logic for the debtor
-            */
-            return true;
-        } else {
-            return false;
-        }
+        //notifyAccountant
+        $accountant = Auth::user()->company->accountant;
+        $accountant->notify(new MadeSales($sales->id));
     }
 
     public function update($data)
     {
         $sales = Sales::where('id', $data['sales_id'])->first();
-        $sales->attachment = $data['attachment'];
-        $sales->inventory_id = $data['inventory_id'];
         $sales->customer_id = $data['customer_id'];
+        $sales->delivery_cost = $data['delivery_cost'];
         $sales->sales_date = $data['sales_date'];
-        $sales->description = $data['description'];
+        $sales->tax_id = $data['tax_id'];
+        $sales->discount = $data['discount'];
         $sales->save();
 
         return true;
@@ -86,16 +75,6 @@ class SalesRepository extends BaseRepository
     {
         $sales = Sales::where('id', $data['sales_id'])->first();
         $sales->delete();
-    }
-
-    public function customer()
-    {
-        return $this->customerModel::where('user_id', $this->getAuthUserId());
-    }
-
-    public function inventory()
-    {
-        return $this->inventoryModel->where('company_id', $this->getAuthCompanyId());
     }
 
     public function getTopSales()
@@ -135,7 +114,7 @@ class SalesRepository extends BaseRepository
     public function getSalesByDuration($start, $end)
     {
         if (!is_null(Auth::user())) {
-            $sales = Sales::where('company_id', Auth::user()->company->id)->whereDate('sales_date', '<', $start)->whereDate('sales_date', '<', $end)->get();
+            $sales = Sales::where('company_id', Auth::user()->company->id)->whereDate('sales_date', '<', $start)->whereDate('sales_date', '<', $end);
 
             return $sales;
         }

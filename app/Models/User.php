@@ -39,23 +39,44 @@ class User extends Authenticatable
         return $this->hasOne('Koboaccountant\Models\VerifyUser');
     }
 
-    public function company()
+    public function company ()
     {
         return $this->hasOne('Koboaccountant\Models\Company');
     }
 
-    public function getFullNameAttribute()
+    public function getFullNameAttribute ()
     {
         return ucfirst($this->first_name).' '.ucfirst($this->last_name);
     }
 
-    public function customer()
+    public function customer ()
     {
         return $this->hasMany('Koboaccountant\Models\Customer');
     }
 
+	public function accountant()
+	{
+		return $this->hasOne('Koboaccountant\Models\Accountant');
+	}
+
+	public function client()
+	{
+		return $this->hasOne('Koboaccountant\Models\Client');
+	}
+
     public function expenses()
+
     {
         return $this->hasMany('Koboaccountant\Models\Expense', 'user_id');
+    }
+
+    public function cash ()
+    {
+        return $this->hasOne('Koboaccountant\Models\Cash', 'user_id');
+    }
+
+    public function rent()
+    {
+        return $this->hasMany('Koboaccountant\Models\Rent', 'user_id');
     }
 }

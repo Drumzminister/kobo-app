@@ -39,11 +39,6 @@ class LoanRepository extends BaseRepository
         return $loan;
     }
 
-    public function pay(Request $request)
-    {
-
-    }
-
     public function find($id)
     {
         return $this->model::find($id);
@@ -67,40 +62,6 @@ class LoanRepository extends BaseRepository
     public function search($query)
     {
         return $this->model->where('user_id', $this->getAuthUserId())->where('description', 'like', '%'. $query .'%')->orWhere('status', 'like', '%'. $query .'%')->get();
-    }
-    
-    public function page($limit = 10, $offset = 0, array $relations = [], $orderBy = 'created_at', $sorting = 'desc')
-    {
-        return $this->model->with($relations)->take($limit)->skip($offset)->orderBy($orderBy, $sorting)->get();
-    }
-
-    public function transaction($data, $loanTransaction)
-    {
-        $loanTransaction = find($data['loan_id']);
-        if ($loanTransaction === null) {
-            //Loan doesn't exist
-            return false;
-        }
-        $loanTransaction = new LoanTransaction;
-        $loanTransaction->decrement($loanTransaction['duration']);
-        $loanTransaction->amount = $loanTransaction['amount'];
-        $loanTransaction->paid_date = $loanTransaction['paid_date'];
-        $loanTransaction->payment_method = $loanTransaction['payment_method'];
-        $loanTransaction->bank_name = $loanTransaction['bank_account_id'];
-        $loanTransaction->save();
-        if($loanTransaction->amount < $data['duration'])
-        {
-            Loan::update(['isActive', 0]);
-        }
-        return true;
-    }
-
-    public function searchLoan($from, $to)
-    {
-        $current = Loan::where('isActive', 1)
-            ->whereBetween('created_at', array($from, $to))->first();
-
-        return $current;
     }
 
 }
