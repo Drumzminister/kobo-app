@@ -163,8 +163,7 @@ let loan = new Vue({
                 this.loans.unshift(loan);
             }).catch(err => {
                 swal('Oops', err.response.data.error, "error");
-                console.error(err);
-            })
+            });
         },
         displayLoanDetails (loan, evt) {
             let row = evt.target;
@@ -195,7 +194,7 @@ let loan = new Vue({
                     this.currentLoan.amount_paid += Number(res.data.payment.amount);
                     $('#pay-loan').modal('hide');
                 }).catch(err => {
-                    console.error(err);
+                    swal('Oops', err.response.data.error, "error");
                 })
             }
         }

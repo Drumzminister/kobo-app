@@ -4,9 +4,11 @@ namespace Koboaccountant\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Koboaccountant\Repositories\Opening\AssetRepository;
+use Koboaccountant\Repositories\Opening\CashRepository;
 use Koboaccountant\Repositories\Opening\CreditorRepository;
 use Koboaccountant\Repositories\Opening\DebtorRepository;
 use Koboaccountant\Repositories\Opening\InventoryRepository;
+use Koboaccountant\Traits\CashTransactions;
 
 class OpeningController extends Controller
 {
@@ -14,6 +16,9 @@ class OpeningController extends Controller
     protected $debtor_repo;
     protected $creditor_repo;
     protected $inventory_repo;
+    protected $cash_repo;
+
+    use CashTransactions;
 
 	function __construct()
 	{
@@ -22,6 +27,7 @@ class OpeningController extends Controller
 		$this->debtor_repo = new DebtorRepository();
 		$this->creditor_repo = new CreditorRepository();
 		$this->inventory_repo = new InventoryRepository();
+		$this->cash_repo = new CashRepository();
 	}
 
 	public function showAssetsPage()
@@ -163,6 +169,20 @@ class OpeningController extends Controller
     {
         $data['inventories'] = $this->inventory_repo->getAll();
         return view('opening-inventory', $data);
+    }
+
+    public function showCashPage()
+    {
+        return view('opening-cash');
+    }
+
+    public function addCash(Request $request)
+    {
+        if (is_null($request->amount)){
+            $amount = 0;
+        }
+        $this->cash_repo->createCashAccount($amount);
+        return redirect('/dashboard');
     }
 
     /**

@@ -53,7 +53,7 @@
      <!-- //Footer -->
     @include('layouts.footer')
 </section>
-
+@yield('other_script')
 
 
 {{-- javascript --}}

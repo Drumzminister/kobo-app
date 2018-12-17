@@ -23,7 +23,22 @@ trait LoanPayment
 
     public function makePayment(Request $request)
     {
-        $payment = $this->payment_repo->create($request);
+        if ($request->payment_method === "cash") {
+            if (!$this->cash_repo->canSpendCash($request->amount)) {
+                return response()->json([
+                    'error' =>  'Amount inserted is greater than available cash',
+                ], 400);
+            }
+            try {
+                $this->cash_repo->spendCash($request->amount);
+                $payment = $this->payment_repo->create($request);
+            }
+            catch (\Exception $e) {
+                return response()->json([
+                    'error' =>  'Unable to pay loan. Please try again later',
+                ], 400);
+            }
+        }
 
         return response()->json([
             'payment'   =>  $payment

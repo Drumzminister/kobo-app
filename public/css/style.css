@@ -9,7 +9,6 @@ p{
 .main-body{
   width: 90%;
   background-color: transparent;
-  /* min-height: 842px; */
   height: 100%;
   margin-top: 45px;
   margin-bottom: 45px;
@@ -335,4 +334,23 @@ p{
 .table-responsive{
   /* max-width: 100%!important; */
   overflow-x: auto!important;
+}
+
+.banking-pages{
+  /* padding-top:30px!important; */
+}
+.banking-pages .input-group{
+  margin: 30px 0px;
+}
+#banksTable{
+  background-color: #ffffff;
+}
+#banksTable tr{
+  height: 90px;
+}
+#banksTable tr td,
+#banksTable tr th
+{
+  height: 90px;
+  border-bottom: 3px solid #f3f3f3;
 }

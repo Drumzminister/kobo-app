@@ -2,6 +2,7 @@
 
 namespace App\Domains\Http\Jobs;
 
+use Illuminate\Support\Facades\Auth;
 use Lucid\Foundation\Job;
 use Illuminate\Routing\ResponseFactory;
 
@@ -22,6 +23,14 @@ class RespondWithViewJob extends Job
 
     public function handle(ResponseFactory $factory)
     {
+	    $this->getAuthData();
         return $factory->view($this->template, $this->data, $this->status, $this->headers);
     }
+
+	public function getAuthData()
+	{
+		if (Auth::check()) {
+			$this->data['user'] = Auth::user();
+		}
+	}
 }
