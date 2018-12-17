@@ -183,8 +183,11 @@ Route::get('/accountant/dashboard', function () {
         return view('accountant.account-dashboard');
     });
 
-// client
+
+    
+   // client
 Route::get('/clients', function () {
+
         return view('accountant.clients');
     });
 
@@ -208,9 +211,14 @@ Route::get('/chats', function () {
         return view('accountant.chat');
     });
 
-Route::get('/npv', function () {
-    return view('accountant.npv');
-});
+    Route::get('/npv', function () {
+        return view('accountant.npv');
+    });
+
+    Route::get('/profile', function () {
+        return view('accountant.client-profile');
+    });
+
 
 Route::get('/started', 'PaymentController@index');
 
