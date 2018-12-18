@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8694d2234472d74e9d360a2760a247ac",
+    "content-hash": "d7fa7d4ad8059526768e130f4e2be45e",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1473,6 +1473,63 @@
                 "jsonpath"
             ],
             "time": "2016-12-03T22:08:25+00:00"
+        },
+        {
+            "name": "musonza/chat",
+            "version": "v3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/musonza/chat.git",
+                "reference": "6e3e175b7a7c75579da8ded7c855516e30c1d57f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/musonza/chat/zipball/6e3e175b7a7c75579da8ded7c855516e30c1d57f",
+                "reference": "6e3e175b7a7c75579da8ded7c855516e30c1d57f",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.4.0|~5.5.0|~5.6.0|~5.7.0",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0.0",
+                "orchestra/database": "~3.3.0|~3.4.2|^3.5.0|~3.7.0",
+                "orchestra/testbench": "~3.3.0|~3.4.2|^3.5.0|~3.7.0",
+                "phpunit/phpunit": "^5.7|6.2|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Musonza\\Chat\\ChatServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Musonza\\Chat\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tinashe Musonza",
+                    "email": "tashtin263@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Chat Package for Laravel 5.4 and up",
+            "keywords": [
+                "chat",
+                "conversation",
+                "laravel",
+                "messaging"
+            ],
+            "time": "2018-12-14T03:45:14+00:00"
         },
         {
             "name": "nesbot/carbon",

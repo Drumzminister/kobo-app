@@ -162,6 +162,7 @@ return [
         Koboaccountant\Providers\RouteServiceProvider::class,
 
 	    App\Foundation\ServiceProvider::class,
+	    Musonza\Chat\ChatServiceProvider::class,
         
 
     ],
@@ -214,7 +215,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Uuid' => Webpatser\Uuid\Uuid::class,
         'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
-
+        'Chat' => Musonza\Chat\Facades\ChatFacade::class,
     ],
 
 ];
