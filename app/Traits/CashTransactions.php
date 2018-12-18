@@ -77,6 +77,9 @@ trait CashTransactions
      */
     public function getUserCash () :float
     {
+        if (is_null(Cash::where('user_id', $this->getAuthUserId())->first())) {
+            $this->createCashAccount(0);
+        }
         return Auth::user()->cash->amount;
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Koboaccountant\Http\Controllers\InventoryController;
 Route::get('/', function () {
     return view('index');
 });
@@ -11,10 +10,7 @@ Route::get('/login', function () {
 
 Route::get('/dashboard', 'DashboardController@index');
 
-// sales
-Route::get('/sales', function () {
-    return view('sales');
-});
+
 
 Route::get('/View/Sales', function () {
     return view('view-sales');
@@ -152,17 +148,15 @@ Route::get('/view-creditor', function () {
     return view('view-creditor');
 });
 // vendors page
-Route::get('/vendors', function () {
-        return view('vendors');
-    });
+Route::get('/vendors', 'VendorController@index');
+Route::get('/add-vendors', 'VendorController@addVendor');
+Route::get('/view-vendors', 'VendorController@view');
+Route::post('/vendor/create', 'VendorController@store');
+Route::post('/vendor/{id}/activate', 'VendorController@activate');
+Route::get('/vendor/search', 'VendorController@search');
 
-Route::get('/add-vendors', function () {
-        return view('add-vendor');
-    });
 
-Route::get('/view-vendors', function () {
-        return view('view-vendors');
-    });
+
 
 // Customers page
 Route::get('/customers', function () {
@@ -252,6 +246,7 @@ Route::get('/getSalesChannels', 'SalesChannelsController@getAll');
 // Route::prefix('sales')->group(function () {
 Route::get('/addSales', 'SalesController@sales');
 Route::get('/getCustomer', 'CustomerController@allUserCustomers');
+Route::post('/sales/create', 'SalesTransactionController@store');
 
 // });
 Route::get('/expenses', 'ExpensesController@index');
@@ -284,3 +279,5 @@ Route::get('/bank-reconciliation', function () {
 Route::get('/banking', 'BankingController@index');
 Route::get('/banks/search', 'BankingController@search');
 Route::post('/banking/transfer', 'BankingController@makeTransfer');
+Route::get('/banking/payment_modes', 'PaymentMethodController@get');
+

@@ -4,13 +4,16 @@ let app = new Vue({
         startDate: "",
         endDate: "",
         amount:"",
-        banks: [],
+        paymentMethods: [],
         showPaymentSettings: false
     },
     mounted () {
         axios.get('/getClientId').then (res => {
             user_id = res.data.id;
-        }).catch ()
+        }).catch ();
+        axios.get('/banking/payment_modes').then (res => {
+            this.paymentMethods = res.data;
+        });
     },
     methods: {
         beforeSubmit () {
@@ -37,9 +40,7 @@ let app = new Vue({
         },
 
         setRentParams () {
-            axios.get(`/client/${user_id}/banks`).then(res => {
-                this.banks = res.data;
-            })
+
         }
     }
 });

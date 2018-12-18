@@ -1,4 +1,5 @@
 
+
 @extends("layouts.app-acct")
 
 @section("content")
@@ -33,58 +34,28 @@
                             <th scope="col"></th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                                <td >Amaka Ekpono</td>                                       
-                                <td>8A lagos state  </td>                                   
-                                <td> 08082023909</td>
-                                <td> syfon@gmail.com</td>
-                                <td>koboaccountant.com</td>
-                                <td></td>
-                          </tr>
-
+                        <tbody id="vendor">
                             <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td></td>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td></td>                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td></td>                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td></td>
-                                </tr>
+                                <td><input  type="text" class="form-control name"></td>                                       
+                                <td><input  type="text" class="form-control address"></td>                                   
+                                <td><input  type="number" class="form-control number"></td>
+                                <td><input  type="text" class="form-control email"></td>
+                                <td><input  type="text" class="form-control website"></td>
+                                <td id="delete" onclick="deleteRow(this.parentElement)"><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                            </tr>
                             
                         </tbody>
                 </table>
-                <span class="float-right" >Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
+                <span class="float-right" onclick="addRow()" >Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                 </span> 
              </div>
              <div class="text-center pb-3">
-                    <a href="" class="btn btn-started">Save &amp; Continue</a> 
+                    <a onclick="saveVendor()" class="btn btn-started">Save &amp; Continue</a> 
                 </div>
             </div> 
            
         </div>
     </section>
 
-  
+  <script src="js/vendor.js"></script>
 @endsection

@@ -295,15 +295,14 @@
                                         <div class="col-md-5">
                                             <label for="paymentMode" class="h5 uppercase">Payment Mode</label>
                                             <select name="payment_mode" id="paymentMode" class="payment_mode custom-select">
-                                                <option value="cash">Cash</option>
-                                                <option v-for="bank in banks" :value="bank.value">@{{ bank.bank_name }}</option>
-                                                <option v-if="banks.length === 0" disabled title="Go to the banking page to add your bank details">No banks available.</option>
+                                                <option v-for="mode in paymentMethods" :value="mode.mode">@{{ mode.mode}}</option>
+                                                <option v-if="paymentMethods.length === 0" disabled title="Go to the banking page to add your bank details">No banks available.</option>
                                             </select>
                                         </div>
                                         <div class="col-md-5">
                                             <h5 class="h5 uppercase">Amount</h5>
                                             <div class="show input-group">
-                                                <input type="text" class="form-control .payment_amount" :value="amount" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
+                                                <input type="number" class="form-control .payment_amount" step="0.01" :value="amount" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
                                             </div>
                                         </div>
                                     </div>
