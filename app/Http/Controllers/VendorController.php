@@ -41,4 +41,9 @@ class VendorController extends Controller
     {
         return view('view-vendors');
     }
+
+    public function search(Request $request)
+    {
+        return $this->vendorRepo->search($request->q);
+    }
 }

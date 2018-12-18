@@ -130,3 +130,24 @@ function activate(id)
         swal('Sorry', response.data, 'Some input missing');        
     })
 }
+
+function search()
+{
+    let query = document.querySelector('.search').value;
+    let tableRow2 = document.querySelector(".vendor").innerHTML;
+    axios.get(`vendor/search?q=${query}`).then(response => {
+        response.data.forEach(data => {
+            let row2 = document.createElement('tr');
+            let td11 = document.createElement('td');
+            td11.innerHTML = data.name;
+            td11.innerHTML = data.address;
+            td11.innerHTML = data.phone;
+            td11.innerHTML = data.email;
+            td11.innerHTML = data.website;
+
+            row2.appendChild(td11);
+        });
+
+    })
+}
+

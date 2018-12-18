@@ -56,4 +56,9 @@ class VendorRepository extends BaseRepository
         // if($vendor->isActive == 1 ? 0 : 1);
         // return true;
     }
+
+    public function search($query)
+    {
+        return $this->model->where('company_id', $this->getAuthUserId())->where('name', 'like', '%'. $query .'%')->get();
+    }
 }

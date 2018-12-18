@@ -153,6 +153,7 @@ Route::get('/add-vendors', 'VendorController@addVendor');
 Route::get('/view-vendors', 'VendorController@view');
 Route::post('/vendor/create', 'VendorController@store');
 Route::post('/vendor/{id}/activate', 'VendorController@activate');
+Route::get('/vendor/search', 'VendorController@search');
 
 
 
