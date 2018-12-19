@@ -16,6 +16,7 @@ class SendMessageFeature extends Feature
     	// Data should contain message and the conversation Id
 		$sent = $this->run(SendMessageJob::class, ['sender' => Auth::user(), 'data' => $request->all()]);
 		if ($sent) {
+			// ToDo: The other User in the conversation must be notified
 			return $this->run(new RespondWithJsonJob(['status' => 'success']));
 		}
 
