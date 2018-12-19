@@ -14,7 +14,7 @@ class SendMessageFeature extends Feature
     public function handle(Request $request)
     {
     	// Data should contain message and the conversation Id
-		$sent = $this->run(SendMessageJob::class, ['senderId' => Auth::user()->id, 'data' => $request->all()]);
+		$sent = $this->run(SendMessageJob::class, ['sender' => Auth::user(), 'data' => $request->all()]);
 		if ($sent) {
 			return $this->run(new RespondWithJsonJob(['status' => 'success']));
 		}
