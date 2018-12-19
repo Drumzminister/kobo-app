@@ -13,7 +13,7 @@ class SendMessageFeature extends Feature
 {
     public function handle(Request $request)
     {
-    	// Data should contain message and the conversation Id
+    	// Data should contain message and the conversation_id and also the recipient_id
 		$sent = $this->run(SendMessageJob::class, ['sender' => Auth::user(), 'data' => $request->all()]);
 		if ($sent) {
 			// ToDo: The other User in the conversation must be notified

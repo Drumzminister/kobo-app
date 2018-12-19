@@ -2,6 +2,7 @@
 
 namespace App\Domains\Chat\Jobs;
 
+use App\Data\Repositories\UserRepository;
 use Koboaccountant\Models\User;
 use Lucid\Foundation\Job;
 use Chat;
@@ -18,6 +19,11 @@ class SendMessageJob extends Job
 	private $data;
 
 	/**
+	 * @var \Illuminate\Foundation\Application|UserRepository
+	 */
+	private $user;
+
+	/**
 	 * Create a new job instance.
 	 *
 	 * @param User $sender
@@ -27,6 +33,7 @@ class SendMessageJob extends Job
     {
 	    $this->sender = $sender;
 	    $this->data   = $data;
+	    $this->user = app(UserRepository::class);
     }
 
     /**
@@ -40,6 +47,16 @@ class SendMessageJob extends Job
 
     private function getConversation()
     {
-    	return Chat::conversations()->getById($this->data['conversation_id']);
+    	// We'll attempt to create a new conversation if there's no existing conversation between the two user
+    	$conversation = Chat::conversations()->between($this->sender, $this->user->find($this->data['recipient_id']));
+
+    	return $conversation ? $conversation : $this->createNewConversation();
+
+//    	return Chat::conversations()->getById($this->data['conversation_id']);
+    }
+
+    private function createNewConversation()
+    {
+    	return (new CreateConversationJob($this->sender, $this->user->find($this->data['recipient_id'])))->handle();
     }
 }
