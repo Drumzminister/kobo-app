@@ -2,7 +2,7 @@
 
 namespace App\Domains\Chat\Tests\Jobs;
 
-use App\Domains\Chat\Jobs\LoadMessagesInCoversationJob;
+use App\Domains\Chat\Jobs\LoadMessagesInConversationJob;
 use Tests\TestCase;
 
 class LoadMessagesInCoversationJobTest extends TestCase
