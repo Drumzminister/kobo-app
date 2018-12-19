@@ -12,7 +12,7 @@ class UpdateProfileFeature extends Feature
     public function handle(ProfileUpdateRequest $request)
     {
 		$data = $request->all();
-		$accountantId = Auth::user()->accountant->id;
+		$accountantId = auth()->user()->accountant->id;
 
 		$isUpdated = $this->run(UpdateAccountantProfileJob::class, ['data' => $data, 'accountantId' => $accountantId]);
 

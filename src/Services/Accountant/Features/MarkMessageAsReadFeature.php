@@ -2,11 +2,11 @@
 
 namespace App\Services\Accountant\Features;
 
+use Illuminate\Http\Request;
+use Lucid\Foundation\Feature;
+use App\Domains\Http\Jobs\RespondWithJsonJob;
 use App\Domains\Chat\Jobs\MarkMessageAsReadJob;
 use App\Domains\Http\Jobs\RespondWithJsonErrorJob;
-use App\Domains\Http\Jobs\RespondWithJsonJob;
-use Lucid\Foundation\Feature;
-use Illuminate\Http\Request;
 
 class MarkMessageAsReadFeature extends Feature
 {
