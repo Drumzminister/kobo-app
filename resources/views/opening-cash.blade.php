@@ -37,8 +37,13 @@ input {
             </div>
             <div class="cash text-center">
                 <h3 class="h3 py-2">Cash at hand</h3>
-                <div class="input-group input-group-lg">               
-                <input type="text" class="form-control" aria-label="Large" aria-describedby="" placeholder="NGN 5,000,000">                   </div>
+                <div class="input-group input-group-lg">
+                    <form action="/opening/cash" method="post" id="cashForm">
+                        @csrf
+                        <input type="number" class="form-control" name="amount" aria-label="Large" aria-describedby="" style="width:200%;" placeholder="NGN 5,000,000" required>
+                    </form>
+
+                </div>
                     
             </div>
 
@@ -47,7 +52,7 @@ input {
                     <a class="btn btn-started" href="/opening/inventory">Previous</a>
                 </div>
                 <div class = "col">
-                    <a class="btn btn-started float-right" href="/dashboard">Next</a>
+                    <button class="btn btn-started float-right" onclick="document.querySelector('#cashForm').submit()">Next</button>
                 </div>
             </div>
         </div>

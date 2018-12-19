@@ -1,10 +1,10 @@
-@extends("layouts.app-acct")
+@extends("layouts.app")
 
 @section("content")
 <section id="top">
     <div class="container py-3">
         <div class="row">
-                <h2><a href="/rent" class="text-dark"> Customers</a></h2>
+                <h2><a href="/inventory" class="text-dark"> Purchase</a></h2>
                 <span class="accountant ml-auto btn btn-accountant">
                     <a href="" class="btn-accountant">
                         <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
@@ -21,19 +21,19 @@
                         <div class="form row py-3">
                             <div class="col-md-4">
                                 <div class="p-3 bg-white text-muted" id="topp">
-                                    <h5 class="h5">Total Rental Properties</h5>
+                                    <h5 class="h5">Total Purchase</h5>
                                     <h2 class="">&#8358;18,000,000</h2>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="p-3 bg-grey text-dark" id="topp">
-                                    <h5 class="h5">Total Used Rent</h5>
+                                    <h5 class="h5">Total Payments</h5>
                                     <h2 class="">&#8358;18,000,000</h2>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="p-3 bg-green text-white" id="topp">
-                                    <h5 class="h5 ">Total Unused Rent</h5>
+                                    <h5 class="h5 ">Total Debts </h5>
                                     <h2 class="">&#8358;18,000,000</h4>
                                 </div>
                             </div>

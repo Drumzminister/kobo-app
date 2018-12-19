@@ -814,12 +814,13 @@ input:checked + .slider:before {
 } */
 .dot{
   /* padding: 2px; */
-  height: 7px;
-width: 7px;
+  height: 5px;
+width: 5px;
 background-color: #bbb;
 border-radius: 50%;
 display: inline-block;
 vertical-align: center;
+line-height: 2px;
 }
 
 .flex{
@@ -829,4 +830,7 @@ vertical-align: center;
 
 .cashh{
 margin: auto;
+}
+::placeholder{
+    color: #d6d8db !important;
 }

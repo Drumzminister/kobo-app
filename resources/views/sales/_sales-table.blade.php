@@ -31,30 +31,30 @@
                         </thead>
                         <tbody id="salesTable">
                             <tr>
-                            <td id="inventory">
-                                <select class="search" class="form-control">
-                                    @if(count($inventories) > 0)
-                                        @foreach($inventories as $key => $inventory)
-                                            <option selected="Pick product Name" value="{{$inventory->id}}">
-                                                {{$inventory->name}}
-                                            </option>
-                                    @endforeach
-                                    @endif
+                            <td>
+                                <select class="form-control inventory">
+                                    <option selected="Pick product Name">
+                                        Rice
+                                    </option>
+                                    <option selected="Pick product Name">
+                                        Beans
+                                    </option> <option selected="Pick product Name">
+                                        Yam
+                                    </option>
                                 </select>
                             </td>
-                            <td><input type="text" id="sales_description" class="form-control "></td>
+                            <td><input type="text" id="sales_description" class="form-control sales_description "></td>
                             <td><input type="number" onchange="calculateSum(this.parentElement.parentElement)"  class="sales_quantity form-control "></td>
                             <td><input type="number" onkeyup="calculateSum(this.parentElement.parentElement)" class="form-control sales_price"></td>
                             <td><input type="text" class="form-control sales_total" id="sales_total"></td>
                             <td>
-                                <select class="search" class="form-control">
-                                    @if(count($salesChannels) > 0)
-                                        @foreach($salesChannels as $key => $salesChannel)
-                                            <option selected="Pick product Name" value="{{$salesChannel->id}}">
-                                                {{$salesChannel->name}}
-                                            </option>
-                                        @endforeach
-                                    @endif
+                                <select class="form-control search sales_channel">
+                                    <option selected="Pick product Name">
+                                        IG
+                                    </option>
+                                    <option selected="Pick product Name">
+                                        Online Store
+                                    </option>
                                 </select>
                             </td>
 
@@ -74,21 +74,21 @@
                                 <div class="row" >
                                     <div class="col-md-5">
                                         <h5 class="h5 uppercase">Payment Mode</h5>
-                                        <div class="dropdown show mt-3">
+                                        <div class="dropdown show mt-3 payment_mode">
                                                 <a class="btn btn-lg btn-payment dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                   Bank (GTB)
                                                 </a>
                                               
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                  <a class="dropdown-item" href="#">GTB 1</a>
-                                                  <a class="dropdown-item" href="#">GTB 2</a>
-                                                  <a class="dropdown-item" href="#">Skye Bank</a>
+                                                <div class="dropdown-menu payment_mode_id" name="payment_method" aria-labelledby="dropdownMenuLink">
+                                                  <a class="dropdown-item" value="gtb1" href="#">GTB 1</a>
+                                                  <a class="dropdown-item" value="gtb2" href="#">GTB 2</a>
+                                                  <a class="dropdown-item" value"skype" href="#">Skye Bank</a>
                                                 </div>
                                               </div>
                                     </div>
 
                                     <div class="col-md-5">
-                                        <h5 class="h5 uppercase">Amount</h5>
+                                        <h5 class="h5 uppercase">Amount1</h5>
                                         <div class="show input-group input-group-lg mt-3">
                                                 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
                                         </div>                                

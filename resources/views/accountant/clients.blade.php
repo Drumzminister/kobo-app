@@ -1,15 +1,5 @@
 @extends('layouts.app-acct')
 <style>
-        label {display: block; padding: 5px; position: relative; padding-left: 10px;}
-        label input {display: none;}
-        label span {border: 1px solid #ccc; width: 17px; height: 17px; position: absolute; overflow: hidden; line-height: 1; text-align: center; border-radius: 100%; font-size: 10pt; left: 0; top: 50%; margin-top: -7.5px;}
-        input:checked + span {background: #ccf; border-color: #ccf;}
-        
-        input {
-            border: none;
-            background: transparent;
-        }
-        
         .modal.left .modal-dialog {
             position: fixed;
             margin: auto;
@@ -50,12 +40,7 @@
             <div class="col">
                 <h3 class="h3">Clients</h3>
             </div>
-            <div class="col">
-                <div class="pull-right">
-                    <a href="" class="btn btn-login">Actions</a>
-                    <a href="" class="btn btn-started">Create Clients</a>
-                </div>
-            </div>
+            
         </div>
         <div class="input-group my-3">
             <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -73,16 +58,19 @@
                     <table class="table table-stripe table-hover text-grey" id="table">
                         <thead class="">
                           <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
+                            <th scope="col"><label><input type="checkbox" value=""></label></th>                           
                             <th scope="col">Client</th>
                             <th scope="col">Prefix</th>
                             <th scope="col">IDNumber</th>
-                            <th scope="col">Staff Number</th
-                         </tr>
+                            <th scope="col">Subscription Plan</th
+                            <th></th>
+                            </tr>
                         </thead>
 
                         <tbody>
                           <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                              <td >
+                            <td><label><input type="checkbox" value=""></label></td>                              
+                            <td >
                                   <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                                   <span class="text-green pl-3"> Lagos Insurance</span>
                                 </td>
@@ -93,12 +81,18 @@
                                 HN-01234
                             </td>
                             <td>
-                                40
-                            </td>                                   
+                                PRO
+                            </td>   
+                            <td class="flex" > 
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </td>                                    
                           </tr>
 
                           <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                <td >
+                            <td><label><input type="checkbox" value=""></label></td>                                
+                            <td >
                                     <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                                       <span class="text-green pl-3"> Lagos Insurance</span>
                                   </td>
@@ -109,12 +103,18 @@
                                   HN-01234
                               </td>
                               <td>
-                                  40
-                              </td>                                   
+                                  Basic
+                              </td>   
+                              <td class="flex" > 
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </td>                                    
                             </tr>
   
                             <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                    <td >
+                                <td><label><input type="checkbox" value=""></label></td>                                    
+                                <td >
                                         <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class=" rounded-circle img-fluid service-img">
                                         <span class="text-green pl-3"> Lagos Insurance</span>
                                     </td>
@@ -125,12 +125,18 @@
                                       HN-01234
                                   </td>
                                   <td>
-                                      40
-                                  </td>                                   
+                                      PRO
+                                  </td>   
+                                  <td class="flex" > 
+                                    <span class="dot"></span>
+                                    <span class="dot"></span>
+                                    <span class="dot"></span>
+                                </td>                                    
                                 </tr>
 
                                 <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                        <td >
+                                    <td><label><input type="checkbox" value=""></label></td>                                        
+                                    <td >
                                             <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                                             <span class="text-green pl-3"> Lagos Insurance</span>
                                         </td>
@@ -141,26 +147,16 @@
                                           HN-01234
                                       </td>
                                       <td>
-                                          40
-                                      </td>                                   
+                                          PRO
+                                      </td> 
+                                      <td class="flex" > 
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </td>                                      
                                     </tr>
           
-                            <tr class="d-none">
-                                    <td >
-                                         <img src=" " alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
-                                         <span class="text-green pl-3"> Lagos Insurance</span>
-                                    </td>
-                                    <td> <textarea class="form-control"></textarea></td>
-                                    
-                                    <td> <input type="number" placeholder=""> </td>
-
-                                <td>
-                                    <div class="dates">
-                                        <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
-                                    </div>
-                                </td>
-                                  
-                                </tr>                                  
+                                                              
                         </tbody>
                     </table>                
             </div>

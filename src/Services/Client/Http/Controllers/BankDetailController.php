@@ -16,9 +16,9 @@ class BankDetailController extends Controller
     	return $this->serve(AddBankAccountFeature::class);
     }
 
-	public function listBanks()
+	public function listBanks($userId)
 	{
-		return $this->serve(GetBankAccountsJob::class);
+		return $this->serve(GetBankAccountsJob::class, ['userId' => $userId]);
 	}
 
 	public function deleteBankDetail()

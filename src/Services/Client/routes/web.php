@@ -19,7 +19,7 @@ Route::group(['prefix' => 'client'], function () {
         return view('client::welcome');
     });
 
-    Route::get('/banks', 'BankDetailController@listBanks')->name('client.banks');
+    Route::get('{userId}/banks', 'BankDetailController@listBanks')->name('client.banks');
     Route::post('/new-bank', 'BankDetailController@addBankDetail')->name('client.new-bank');
     Route::post('/bank-update/{detailId}', 'BankDetailController@updateBankDetail')->name('client.update-bank');
     Route::get('/bank/delete/{detailId}', 'BankDetailController@deleteBankDetail')->name('client.delete-bank');

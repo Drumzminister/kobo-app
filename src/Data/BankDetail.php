@@ -9,7 +9,7 @@ class BankDetail extends Model
     public $incrementing = false;
 
     protected $fillable = [
-    	'id', 'account_name', 'account_number', 'bank_name', 'user_id',
+    	'id', 'account_name', 'account_number', 'bank_name', 'user_id', 'account_balance'
     ];
 
     public function owner()

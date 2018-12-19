@@ -249,11 +249,11 @@
                                 <h5 class="h5 pt-1">Additional</h5>
                                 <div class="form-group">
                                     <label class="px-0"  for="exampleFormControlInput1">Interest Rate(%)</label>
-                                    <input type="number" v-model="interest" class="form-control" id="" placeholder="10">
+                                    <input type="number" step="0.01" v-model="interest" class="form-control" id="" placeholder="10">
                                 </div>
                                 <div class="form-group">
                                     <label class="px-0" for="exampleFormControlInput1">Loan Amount</label>
-                                    <input type="number" v-model="amount" class="form-control" id="" placeholder="200,000">
+                                    <input type="number" step="0.01" v-model="amount" class="form-control" id="" placeholder="200,000">
                                 </div>
                                 <div class="form-group d-flex row">
                                     <div class="col-6">
@@ -266,7 +266,7 @@
                                     </div>
                                     <div class="ml-auto col-6">
                                         <label class="px-0" for="exampleFormControlInput1">Loan Duration</label>
-                                        <input type="number" v-model="term" class="form-control" id="" placeholder="10">
+                                        <input type="number"  v-model="term" class="form-control" id="" placeholder="10">
                                     </div>
                                 </div>
                                 <div class="form-group">

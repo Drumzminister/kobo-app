@@ -26,7 +26,7 @@
                 </li>
 
                 <li class="nav-item pr-3 pl-3">
-                    <a class="nav-link pr-3 pl-3 " href="/vendor">Vendor</a>
+                    <a class="nav-link pr-3 pl-3 " href="/vendors">Vendor</a>
                 </li>
             </ul>
 
