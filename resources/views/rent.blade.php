@@ -35,26 +35,26 @@
                     <div class="col-md-4">
                         <div class="p-3 bg-white text-muted" id="topp">
                             <h5 class="h5">Total Rental Properties</h5>
-                            <h2 class="">&#8358;18,000,000</h2>
+                            <h2 class="">&#8358;{{ number_format($total, 2) }}</h2>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="p-3 bg-grey text-dark" id="topp">
                             <h5 class="h5">Total Used Rent</h5>
-                            <h2 class="">&#8358;18,000,000</h2>
+                            <h2 class="">&#8358;{{ number_format($total_used_rent, 2) }}</h2>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="p-3 bg-green text-white" id="topp">
                             <h5 class="h5 ">Total Unused Rent</h5>
-                            <h2 class="">&#8358;18,000,000</h2>
+                            <h2 class="">&#8358;{{ number_format($total - $total_used_rent, 2) }}</h2>
                         </div>
                     </div>
                 </div>
 
                 <div class="row py-3">
                     <div class="col-md-3">
-                        <button class="btn btn-addsale px-3" @click="setRentParams" data-toggle="modal" data-target="#exampleModalCenter">Add Rent</button>
+                        <button class="btn btn-addsale px-3" @click="setRentParams" data-toggle="modal" data-target="#addRentModal">Add Rent</button>
                     </div>
 
                     <div class="col-md-7">
@@ -102,127 +102,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td >2 - 4 months <br>
-                                <small>Jan - Apr</small>
-                            </td>
-                            <td>
-                                Furniture at Lekki
-                            </td>
-                            <td> 23,000,000</td>
-                            <td> 43,000</td>
-                            <td> 43,000</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                </div>
-                            </td>
-                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>
-                        </tr>
-
-                        <tr>
-                            <td >2 - 4 months <br>
-                                <small>Jan - Apr</small>
-                            </td>
-                            <td>
-                                Furniture at Lekki
-                            </td>
-                            <td> 23,000,000</td>
-                            <td> 43,000</td>
-                            <td> 43,000</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">40%</div>
-                                </div>
-                            </td>
-                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>
-                        </tr>
-
-                        <tr>
-                            <td >2 - 4 months <br>
-                                <small>Jan - Apr</small>
-                            </td>
-                            <td>
-                                Furniture at Lekki
-                            </td>
-                            <td> 23,000,000</td>
-                            <td> 43,000</td>
-                            <td> 43,000</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
-                                </div>
-                            </td>
-                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>
-                        </tr>
-                        <tr>
-                            <td >2 - 4 months <br>
-                                <small>Jan - Apr</small>
-                            </td>
-                            <td>
-                                Furniture at Lekki
-                            </td>
-                            <td> 23,000,000</td>
-                            <td> 43,000</td>
-                            <td> 43,000</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
-                                </div>
-                            </td>
-                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>
-                        </tr>
-                        <tr>
-                            <td >2 - 4 months <br>
-                                <small>Jan - Apr</small>
-                            </td>
-                            <td>
-                                Furniture at Lekki
-                            </td>
-                            <td> 23,000,000</td>
-                            <td> 43,000</td>
-                            <td> 43,000</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
-                                </div>
-                            </td>
-                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>
-                        </tr>
-                        <tr>
-                            <td >2 - 4 months <br>
-                                <small>Jan - Apr</small>
-                            </td>
-                            <td>
-                                Furniture at Lekki
-                            </td>
-                            <td> 23,000,000</td>
-                            <td> 43,000</td>
-                            <td> 43,000</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
-                                </div>
-                            </td>
-                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>
-                        </tr>
-                        <tr>
-                            <td >2 - 4 months <br>
-                                <small>Jan - Apr</small>
-                            </td>
-                            <td>
-                                Furniture at Lekki
-                            </td>
-                            <td> 23,000,000</td>
-                            <td> 43,000</td>
-                            <td> 43,000</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                </div>
-                            </td>
-                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>
-                        </tr>
+                            <tr v-for="rent in rents">
+                                <td>
+                                    @{{ dater(rent.start) }} - @{{ dater(rent.end) }}
+                                </td>
+                                <td>
+                                    @{{ rent.property_details }}
+                                </td>
+                                <td> @{{ rent.amount | numberFormat }}</td>
+                                <td> @{{ rentUsed(rent) | numberFormat}}</td>
+                                <td> @{{ balance(rent) | numberFormat}}</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                    </div>
+                                </td>
+                                <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>
+                            </tr>
                         </tbody>
                     </table>
 
@@ -238,7 +134,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="addRentModal" tabindex="-1" role="dialog" aria-labelledby="addRentModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="container p-3">
@@ -276,7 +172,7 @@
                             <div class="form-group">
                                 <label for=""><h5>Other Rental Cost</h5></label>
                                 <label for="" class="d-block"><small>Add other rental cost </small></label>
-                                <input type="number" name="other_costs" class="form-control" id="" placeholder="">
+                                <input type="number" v-model="other_rental_cost" name="other_costs" class="form-control" id="" placeholder="">
                             </div>
                             <div class="form-group">
                                 <label for=""><h5>Comments</h5></label>
@@ -284,30 +180,32 @@
                                 <textarea name="comment" style="resize: none" id="" class="form-control" cols="30" rows="3"></textarea>
                             </div>
                             <div class="justify-content-around text-center pt-2">
-                                <span style="cursor: pointer" class="submit" @click="showPaymentSettings = !showPaymentSettings">
+                                <span style="cursor: pointer" class="submit" @click="beforeSubmit">
                                     <i class="fa fa-telegram " style="font-size:48px; color:#00C259;"></i>
                                 </span>
                                 <h5 class="h5 text-green">Add Rent</h5>
                             </div>
                             <div v-if="showPaymentSettings" class="col-12 mybox">
                                 <div class="bg-grey py-4 px-3">
-                                    <div class="row" >
+                                    <div class="row" id="paymentParent">
                                         <div class="col-md-5">
                                             <label for="paymentMode" class="h5 uppercase">Payment Mode</label>
-                                            <select name="payment_mode" id="paymentMode" class="payment_mode custom-select">
-                                                <option v-for="mode in paymentMethods" :value="mode.mode">@{{ mode.mode}}</option>
-                                                <option v-if="paymentMethods.length === 0" disabled title="Go to the banking page to add your bank details">No banks available.</option>
-                                            </select>
                                         </div>
                                         <div class="col-md-5">
                                             <h5 class="h5 uppercase">Amount</h5>
-                                            <div class="show input-group">
-                                                <input type="number" class="form-control .payment_amount" step="0.01" :value="amount" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
+                                        </div>
+                                        <div class="d-flex col-12">
+                                            <select name="payment_mode" id="paymentMode" class="payment_mode custom-select col-md-5">
+                                                <option v-for="mode in paymentMethods" :value="mode.mode">@{{ mode.mode}}</option>
+                                                <option v-if="paymentMethods.length === 0" disabled title="Go to the banking page to add your bank details">No Payment mode available.</option>
+                                            </select>
+                                            <div class="show input-group col-md-5">
+                                                <input type="number" class="form-control payment_amount" step="0.01" :value="amount" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mt-2" >
-                                        <span class="" title="Add multiple payment modes">
+                                        <span class="" style="cursor: pointer;" @click="addPaymentMode" title="Add multiple payment modes">
                                             <i class="fa fa-plus-square" style="font-size:32px;color:#00C259;"></i>
                                         </span>
                                     </div>
