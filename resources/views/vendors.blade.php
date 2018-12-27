@@ -39,9 +39,9 @@
         
                             <div class="col-md-6 col-12">
                                 <div class="input-group">
-                                    <input type="text" class="form-control search" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="text" onkeyup="search()" class="form-control search" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                        <span class="input-group-text vat-input px-5 py-2" onclick="search()" id="basic-addon2">Search</span>
+                                        <span  class="input-group-text vat-input px-5 py-2"  id="basic-addon2">Search</span>
                                     </div>
                                 </div>
                             </div>
