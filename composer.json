@@ -15,6 +15,7 @@
         "league/flysystem-aws-s3-v3": "~1.0",
         "lucid-arch/laravel-console": "^5.7",
         "lucid-arch/laravel-foundation": "^5.7",
+        "musonza/chat": "^3.1",
         "unicodeveloper/laravel-paystack": "^1.0",
         "webpatser/laravel-uuid": "^3.0"
     },

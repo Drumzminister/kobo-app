@@ -57,7 +57,8 @@
                             <th scope="col">Phone No</th>
                             <th scope="col">Email</th>
                             <th scope="col">Website</th>
-                          </tr>
+                            <th scope="col"></th>
+                        </tr>
                         </thead>
                         <tbody>
                           <tr>
@@ -66,7 +67,11 @@
                                 <td> 08082023909</td>
                                 <td> syfon@gmail.com</td>
                                 <td>koboaccountant.com</td>
-                               
+                                <td class="flex" > 
+                                    <span class="dot"></span>
+                                    <span class="dot"></span>
+                                    <span class="dot"></span>
+                                </td> 
                           </tr>
 
                             <tr>
@@ -75,7 +80,11 @@
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
-                                    
+                                    <td class="flex" > 
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </td>  
                             </tr>
                             <tr>
                                     <td >Amaka Ekpono</td>                                       
@@ -83,7 +92,11 @@
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
-                        
+                                    <td class="flex" > 
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </td> 
                             </tr>
                             <tr>
                                     <td >Amaka Ekpono</td>                                       
@@ -91,7 +104,11 @@
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
-                                                           
+                                    <td class="flex" > 
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </td>                       
                             </tr>
                             <tr>
                                     <td >Amaka Ekpono</td>                                       
@@ -99,7 +116,11 @@
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
-                                    
+                                    <td class="flex" > 
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </td> 
                                 </tr>
                             
                         </tbody>
