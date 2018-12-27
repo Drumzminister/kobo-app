@@ -56,26 +56,6 @@
                     <div class="col-md-3">
                         <button class="btn btn-addsale px-3" @click="setRentParams" data-toggle="modal" data-target="#addRentModal">Add Rent</button>
                     </div>
-
-                    <div class="col-md-7">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2 float-right">
-                        <div class="dropdown show float-right">
-                            <a class="btn btn-filter" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Filter <i class="fa fa-filter"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
-                                <a class="dropdown-item" href="#" class="text-green">By Amount</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
