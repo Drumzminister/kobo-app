@@ -134,20 +134,42 @@ function activate(id)
 function search()
 {
     let query = document.querySelector('.search').value;
-    let tableRow2 = document.querySelector(".vendor").innerHTML;
-    axios.get(`vendor/search?q=${query}`).then(response => {
-        response.data.forEach(data => {
-            let row2 = document.createElement('tr');
-            let td11 = document.createElement('td');
-            td11.innerHTML = data.name;
-            td11.innerHTML = data.address;
-            td11.innerHTML = data.phone;
-            td11.innerHTML = data.email;
-            td11.innerHTML = data.website;
+    let tableRow2 = document.querySelector(".vendor");
+    axios.post(`vendor/search?q=${query}`).then(response => {
+        $(".vendor").html('');
+        response.data.forEach(function(vendor){
+            let tr = document.createElement('tr');
+            let td1 = document.createElement('td');
+            let td2 = document.createElement('td');
+            let td3 = document.createElement('td');
+            let td4 = document.createElement('td');
+            let td5 = document.createElement('td');
+            let td6 = document.createElement('td');
+            let label = document.createElement('label');
+            let input = document.createElement('input');
+            let span = document.createElement('span');
 
-            row2.appendChild(td11);
-        });
+            td1.innerText = vendor.name;
+            td2.innerText = vendor.address;
+            td3.innerText = vendor.phone;
+            td4.innerText = vendor.email;
+            td5.innerText = vendor.website;
+            label.setAttribute('class', 'switch');
+            input.setAttribute('type', 'checkbox');
+            span.setAttribute('class', 'slider round');
+            input.appendChild(span);
+            label.appendChild(input);
+            td6.appendChild(label)
 
-    })
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td1);
+            tr.appendChild(td5);
+            tr.appendChild(td6);
+            
+            tableRow2.append(tr);
+        })
+    });
 }
 

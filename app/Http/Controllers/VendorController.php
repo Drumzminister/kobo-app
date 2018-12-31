@@ -44,6 +44,7 @@ class VendorController extends Controller
 
     public function search(Request $request)
     {
-        return $this->vendorRepo->search($request->q);
+        return array_values($this->vendorRepo->search($request->q)->all());
+        // return "james";
     }
 }
