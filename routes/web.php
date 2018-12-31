@@ -1,8 +1,7 @@
 <?php
 
-Route::get('/', function () {
-    return view('index');
-});
+use Koboaccountant\Http\Controllers\InventoryController;
+Route::get('/', 'StaticPagesController@index');
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -96,6 +95,7 @@ Route::prefix('rent')->group(function () {
     Route::get('/', 'RentController@show');
     Route::post('/', 'RentController@store');
     Route::get('/all', 'RentController@index');
+    Route::get('/user', 'RentController@getRents');
     Route::post('/rent/{id}/add-payment-method', 'RentController@addPaymentMethods');
 });
 
@@ -219,9 +219,6 @@ Route::get('/started', 'PaymentController@index');
 Auth::routes();
 // Guest  routes
 Route::group(['middle' => ['guest']], function () {
-        // Landing Page
-        Route::get('/', 'UserController@home');
-
         //Registration Steps
         Route::post('/register', 'UserController@create')->name('register');
         Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');

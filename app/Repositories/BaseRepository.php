@@ -29,8 +29,8 @@ BaseRepository {
      */
     public function getAll()
     {
-        $assets = $this->model->where('user_id', $this->getAuthUserId())->get();
-        return $assets;
+        $all = $this->model->where('user_id', $this->getAuthUserId())->get();
+        return $all;
     }
 
 

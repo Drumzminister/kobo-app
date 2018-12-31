@@ -52,7 +52,8 @@ let loan = new Vue({
             value = Number(value);
             if (isNaN(value)) {return value;}
             const formatter = new Intl.NumberFormat('en-US', {
-                minimumFractionDigits: 2
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
             });
             return formatter.format(value);
         }

@@ -20,13 +20,17 @@ class RentRepository extends BaseRepository
         parent::__construct(new Rent());
     }
 
-    public function create(Request $request)
+    public function create(array $data)
     {
         $rent = $this->model;
         $rent->id = $this->generateUuid();
         $rent->user_id = $this->getAuthUserId();
-        $rent->fill($request->all());
+        $data['other_costs'] = $data['other_costs'] ?? 0;
+        $rent->fill($data);
         $rent->save();
+
+        return $rent->id;
     }
+
 
 }

@@ -10,6 +10,11 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<<<<<<< HEAD
+=======
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.js"></script>
+>>>>>>> 0ba5ac54ade6a68effdffa768d77fa9f023a4488
 
   <!-- Favicons -->
   <link href="https://res.cloudinary.com/syfon/image/upload/v1536857508/favicon.png" rel="icon">
@@ -19,11 +24,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 {{-- intro js --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css">
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
-{{-- styles --}}
+
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/landing-page.css') }}" rel="stylesheet">
 <link href="{{ asset('css/header.css') }}" rel="stylesheet">
@@ -33,11 +34,6 @@
 <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="https://codepen.io/nedy/pen/oaMKLG.css">
 
-
-
-
-{{-- jquery --}}
-<script src="/js/jquery.js"></script>
 
 </head>
 <body>
@@ -51,7 +47,6 @@
 
      <!-- //Footer -->
     @include('layouts.footer')
-</section>
 @yield('other_script')
 
 
