@@ -49,16 +49,15 @@
                             <td><input type="text" class="form-control sales_total" id="sales_total"></td>
                             <td>
                                 <select class="form-control search sales_channel">
-                                    <option selected="Pick product Name">
-                                        IG
-                                    </option>
-                                    <option selected="Pick product Name">
-                                        Online Store
-                                    </option>
+                                    @foreach($salesChannels as $sales_channel)
+                                        <option selected="Pick product Name">
+                                            {{$sales_channel->name}}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </td>
 
-                            <td  onclick="deleteRow(this.parentElement)"><i id="delete" class="fa fa-trash-o"></i></td>
+                            <td  onclick="deleteRow(this.parentElement)" id="delete"><i class="fa fa-trash-o"></i></td>
                             </tr>
                         </tbody>                      
                     </table>
@@ -82,7 +81,7 @@
                                                 <div class="dropdown-menu payment_mode_id" name="payment_method" aria-labelledby="dropdownMenuLink">
                                                   <a class="dropdown-item" value="gtb1" href="#">GTB 1</a>
                                                   <a class="dropdown-item" value="gtb2" href="#">GTB 2</a>
-                                                  <a class="dropdown-item" value"skype" href="#">Skye Bank</a>
+                                                  <a class="dropdown-item" value="skype" href="#">Skye Bank</a>
                                                 </div>
                                               </div>
                                     </div>
