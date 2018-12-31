@@ -10,11 +10,9 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<<<<<<< HEAD
-=======
+
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.js"></script>
->>>>>>> 0ba5ac54ade6a68effdffa768d77fa9f023a4488
 
   <!-- Favicons -->
   <link href="https://res.cloudinary.com/syfon/image/upload/v1536857508/favicon.png" rel="icon">
