@@ -23,10 +23,10 @@
                     <div class="col-md-3 p-3 bg-green">
                         <div class="row">
                             <div class="col-md-8">
-                                <h4 class="h4 text-white">Total Number of customers</h4>
+                                <h4 class="h4 text-white">Total Number of Vendors</h4>
                             </div>
                             <div class="col-md-4">
-                                <h1 class="h1 text-orange">32</h1>
+                                <h1 class="h1 text-orange"> {{$count}}</h1>
                             </div>
                         </div>
                     </div>
@@ -39,9 +39,9 @@
         
                             <div class="col-md-6 col-12">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="text" onkeyup="search()" class="form-control search" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                        <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                                        <span  class="input-group-text vat-input px-5 py-2"  id="basic-addon2">Search</span>
                                     </div>
                                 </div>
                             </div>
@@ -57,76 +57,24 @@
                             <th scope="col">Phone No</th>
                             <th scope="col">Email</th>
                             <th scope="col">Website</th>
-                            <th scope="col"></th>
+                            <th scope="col" id="delete"></th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="vendor">
+                            @foreach($vendors as $vendor)
                           <tr>
-                                <td >Amaka Ekpono</td>                                       
-                                <td>8A lagos state  </td>                                   
-                                <td> 08082023909</td>
-                                <td> syfon@gmail.com</td>
-                                <td>koboaccountant.com</td>
+                                <td >{{$vendor->name}}</td>                                       
+                                <td>{{$vendor->address}}  </td>                                   
+                                <td> {{$vendor->phone}}</td>
+                                <td> {{$vendor->email}}</td>
+                                <td>{{$vendor->website}}</td>
                                 <td><label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" {{$vendor->isActive ? 'checked' : ''}} onclick="activate('{{$vendor->id}}')">
                                         <span class="slider round"></span>
                                       </label>
                                 </td>
                           </tr>
-
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td>
-                                        <label class="switch">
-                                                <input type="checkbox" checked>
-                                                <span class="slider round"></span>
-                                        </label>
-                                    </td>
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td>
-                                            <label class="switch">
-                                                    <input type="checkbox" checked>
-                                                    <span class="slider round"></span>
-                                            </label>                           
-                                    </td>                            
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td>
-                                        <label class="switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </td>                            
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td>
-                                        <label class="switch">
-                                            <input type="checkbox" >
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </td>
-                                </tr>
-                            
+                            @endforeach
                         </tbody>
                 </table>
              </div>
@@ -138,5 +86,5 @@
         </div>
     </section>
 
-  
+  <script src="js/vendor.js"></script>
 @endsection

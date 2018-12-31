@@ -5,7 +5,7 @@
                                                 <h5 class="h5 uppercase">Total Discount</h5>
                                                 <div class="input-group mb-3 input-group-lg">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
+                                                        <span class="input-group-text customer-input">&#8358;</span>
                                                     </div>
                                                     <input type="text" class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="100,000">                        
                                                 </div>

@@ -228,61 +228,31 @@ input {
                           </tr>
                         </thead>
                         <tbody>
+                        @foreach($sales as $key => $sale)
                           <tr>
                               <td >
-                                  21/08/2020
+                                {{$sale->sales_date}}
                               </td>
                             <td>
-                                <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
+
+                                <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 23{{$key+1}}</a>
                             </td>
                             <td>
-                                23
+                            {{$sale->quantity}}
                             </td>
                             <td>
-                                43,000
+                            {{$sale->amount}}
                             </td>
                             <td>
-                                Mercy Ikpe
+                            {{$sale->customer_id}}   
                             </td>
                             <td>
-                                IG
+                            {{$sale->sales_channel_id}}
                             </td>
                           </tr>
 
-                            <tr>
-                               <td >21/08/2020 </td>
-                               <td>
-                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
-                                </td> 
-                              <td> 23</td>
-                              <td> 43,000</td>
-                              <td> Mercy Ikpe</td>
-                              <td> IG</td>
                             </tr>
-
-                            <tr>
-                                <td >21/08/2020 </td>
-                                <td>
-                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
-                                </td>
-                                <td> 23</td>
-                                <td> 43,000</td>
-                                <td> Mercy Ikpe</td>
-                                <td> IG</td>
-                            </tr>
-                            <tr class="d-none">
-                                <td>
-                                    <div class="dates">
-                                        <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
-                                    </div>
-                                </td>
-                                  <td> <input type="text" placeholder=""></td>
-                                  <td> <input type="number" placeholder=""> </td>
-                                  <td><input class="number" onKeyup="AddComma()"placeholder=""></td>
-                                  <td><input type="text" placeholder=""></td>
-                                <td> IG</td>
-
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

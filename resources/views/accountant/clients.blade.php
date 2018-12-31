@@ -62,13 +62,14 @@
                             <th scope="col">Client</th>
                             <th scope="col">Prefix</th>
                             <th scope="col">IDNumber</th>
-                            <th scope="col">Staff Number</th
-                         </tr>
+                            <th scope="col">Subscription Plan</th
+                            <th></th>
+                            </tr>
                         </thead>
 
                         <tbody>
                           <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                            <td>hhhh<label><input type="checkbox" value=""></label></td>                              
+                            <td><label><input type="checkbox" value=""></label></td>                              
                             <td >
                                   <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                                   <span class="text-green pl-3"> Lagos Insurance</span>
@@ -80,8 +81,13 @@
                                 HN-01234
                             </td>
                             <td>
-                                40
-                            </td>                                   
+                                PRO
+                            </td>   
+                            <td class="flex" > 
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </td>                                    
                           </tr>
 
                           <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
@@ -97,8 +103,13 @@
                                   HN-01234
                               </td>
                               <td>
-                                  40
-                              </td>                                   
+                                  Basic
+                              </td>   
+                              <td class="flex" > 
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </td>                                    
                             </tr>
   
                             <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
@@ -114,8 +125,13 @@
                                       HN-01234
                                   </td>
                                   <td>
-                                      40
-                                  </td>                                   
+                                      PRO
+                                  </td>   
+                                  <td class="flex" > 
+                                    <span class="dot"></span>
+                                    <span class="dot"></span>
+                                    <span class="dot"></span>
+                                </td>                                    
                                 </tr>
 
                                 <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
@@ -131,27 +147,16 @@
                                           HN-01234
                                       </td>
                                       <td>
-                                          40
-                                      </td>                                   
+                                          PRO
+                                      </td> 
+                                      <td class="flex" > 
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </td>                                      
                                     </tr>
           
-                            <tr class="d-none">
-                                    <td><label><input type="checkbox" value=""></label></td>
-                                    <td >
-                                         <img src=" " alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
-                                         <span class="text-green pl-3"> Lagos Insurance</span>
-                                    </td>
-                                    <td> <textarea class="form-control"></textarea></td>
-                                    
-                                    <td> <input type="number" placeholder=""> </td>
-
-                                <td>
-                                    <div class="dates">
-                                        <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
-                                    </div>
-                                </td>
-                                  
-                                </tr>                                  
+                                                              
                         </tbody>
                     </table>                
             </div>

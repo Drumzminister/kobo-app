@@ -15,9 +15,13 @@
 </section>
 
 <section>
-    <div class="container px-4 py-3">
+    <div class="bg-white container mt-4 px-4 py-3">
         <div class="row">
-                <div class="col-md-10 col-6">
+                <div class="col-md-4">
+                    <h3 class="h3">Customer's List</h3>
+                    <p class="text-muted">List Of Clients Customer</p>
+                </div>
+                <div class="col-md-6 col-6">
                     <div class="input-group mt-2">
                         <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
@@ -31,122 +35,162 @@
                     </div>
                 </div>
         </div>
+        <section id="sale-table">
+            <div class="container">
+                    <div class="table-responsive table-responsive-sm">
+                        <table class="table table-striped table-hover" id="dataTable">
+                            <thead class="p-3">
+                            <tr class="tab">
+                                <th scope="col">Customer's Name</th>
+                                <th scope="col">Address</th>                                    
+                                <th scope="col">Phone No</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Website</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                    <td >Amaka Ekpono</td>                                       
+                                    <td>8A lagos state  </td>                                   
+                                    <td> 08082023909</td>
+                                    <td> syfon@gmail.com</td>
+                                    <td>koboaccountant.com</td>
+                                    <td class="flex" > 
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </td> 
+                                </tr>
+
+                                <tr>
+                                        <td >Amaka Ekpono</td>                                       
+                                        <td>8A lagos state  </td>                                   
+                                        <td> 08082023909</td>
+                                        <td> syfon@gmail.com</td>
+                                        <td>koboaccountant.com</td>
+                                        <td class="flex" > 
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </td> 
+                                </tr>                               
+                                <tr>
+                                        <td >Amaka Ekpono</td>                                       
+                                        <td>8A lagos state  </td>                                   
+                                        <td> 08082023909</td>
+                                        <td> syfon@gmail.com</td>
+                                        <td>koboaccountant.com</td>
+                                        <td class="flex" > 
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </td> 
+                                </tr>
+                                <tr>
+                                        <td >Amaka Ekpono</td>                                       
+                                        <td>8A lagos state  </td>                                   
+                                        <td> 08082023909</td>
+                                        <td> syfon@gmail.com</td>
+                                        <td>koboaccountant.com</td>
+                                        <td class="flex" > 
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </td>                    
+                                </tr>
+                                <tr>
+                                        <td >Amaka Ekpono</td>                                       
+                                        <td>8A lagos state  </td>                                   
+                                        <td> 08082023909</td>
+                                        <td> syfon@gmail.com</td>
+                                        <td>koboaccountant.com</td>
+                                        <td class="flex" > 
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </td> 
+                                </tr>
+                                    <tr>
+                                        <td >Amaka Ekpono</td>                                       
+                                        <td>8A lagos state  </td>                                   
+                                        <td> 08082023909</td>
+                                        <td> syfon@gmail.com</td>
+                                        <td>koboaccountant.com</td>
+                                        <td class="flex" > 
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </td> 
+                                </tr>
+                                    <tr>
+                                        <td >Amaka Ekpono</td>                                       
+                                        <td>8A lagos state  </td>                                   
+                                        <td> 08082023909</td>
+                                        <td> syfon@gmail.com</td>
+                                        <td>koboaccountant.com</td>
+                                        <td class="flex" > 
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td >Amaka Ekpono</td>                                       
+                                        <td>8A lagos state  </td>                                   
+                                        <td> 08082023909</td>
+                                        <td> syfon@gmail.com</td>
+                                        <td>koboaccountant.com</td>
+                                        <td class="flex" > 
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td >Amaka Ekpono</td>                                       
+                                        <td>8A lagos state  </td>                                   
+                                        <td> 08082023909</td>
+                                        <td> syfon@gmail.com</td>
+                                        <td>koboaccountant.com</td>
+                                        <td class="flex" > 
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td >Amaka Ekpono</td>                                       
+                                        <td>8A lagos state  </td>                                   
+                                        <td> 08082023909</td>
+                                        <td> syfon@gmail.com</td>
+                                        <td>koboaccountant.com</td>
+                                        <td class="flex" > 
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td >Amaka Ekpono</td>                                       
+                                        <td>8A lagos state  </td>                                   
+                                        <td> 08082023909</td>
+                                        <td> syfon@gmail.com</td>
+                                        <td>koboaccountant.com</td>
+                                        <td class="flex" > 
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </td> 
+                                    </tr>
+                                
+                            </tbody>
+                    </table>              
+                    </div>
+                </div> 
+        </section>
     </div>
 </section>
-
-<section id="sale-table">
-        <div class="container mt-4">
-                        
-            <div class="bg-white p-4"> 
-                
-                <div class="table-responsive table-responsive-sm">
-                    <table class="table table-striped table-hover" id="dataTable">
-                        <thead class="p-3">
-                          <tr class="tab">
-                            <th scope="col">Customer's Name</th>
-                            <th scope="col">Address</th>                                    
-                            <th scope="col">Phone No</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Website</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                                <td >Amaka Ekpono</td>                                       
-                                <td>8A lagos state  </td>                                   
-                                <td> 08082023909</td>
-                                <td> syfon@gmail.com</td>
-                                <td>koboaccountant.com</td>
-                         
-                            </tr>
-
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    
-                            </tr>                               
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                        
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                                          
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-
-                            </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-
-                             </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                               </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    
-                                </tr>
-                            
-                        </tbody>
-                </table>              
-                </div>
-            </div> 
-           
-        </div>
-    </section>
 
     <section id="pagination">
             <div class="container py-3">
