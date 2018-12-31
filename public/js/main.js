@@ -1,14 +1,14 @@
-let token = document.querySelector('meta[name="csrf-token"]').content;
-let user_id = "";
-  document.onreadystatechange = function () {
-    var state = document.readyState;
-    if (state == 'complete') {
-        setTimeout(function(){
-            document.getElementById('interactive');
-           document.getElementById('load').style.visibility="hidden";
-        },1000);
-    }
-  };
+// let token = document.querySelector('meta[name="csrf-token"]').content;
+// let user_id = "";
+//   document.onreadystatechange = function () {
+//     var state = document.readyState;
+//     if (state == 'complete') {
+//         setTimeout(function(){
+//             document.getElementById('interactive');
+//            document.getElementById('load').style.visibility="hidden";
+//         },1000);
+//     }
+//   };
 
   // <script type="text/javascript">
     $(window).on('load',function(){
@@ -37,21 +37,7 @@ $('.land-header').on('mousemove',function(e){
 });
 
 
-/*=================
-nav-active link
-===================*/
-// Add active class to the current button (highlight it)
-var header = document.getElementById("navLink");
-var links = header.getElementsByClassName("nav-link");
-for (var i = 0; i < links.length; i++) {
-  links[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("activ");
-    if (current.length > 0) { 
-      current[0].className = current[0].className.replace(" activ", "");
-    }
-    this.className += " activ";
-  });
-}
+
 
 // message tab
 $(document).ready(function(){
@@ -129,7 +115,6 @@ var h = {};
 headers.forEach(function (header, i) {
 h[header] = $td.eq(i).text();
 });
-
 data.push(h);
 });
 
@@ -153,49 +138,13 @@ function AddComma() {
   });
 });
 }
-
-// $(document).ready(function(){
-//   var options = {
-//       max_value: 6,
-//       step_size: 0.5,
-//       selected_symbol_type: 'hearts',
-//       url: 'http://localhost/test.php',
-//       initial_value: 3,
-//       update_input_field_name: $("#input2"),
-//   }
-//   $(".rate").rate();
-// });
-
-  $(function(){
-    $(".rating").rate();
-
-    //or for example
-    var options = {
-        max_value: 6,
-        step_size: 0.5,
-    };
-    $(".rating").rate(options);
-  });
-
-$(document).ready(function(){
-  var options = {
-      max_value: 6,
-      step_size: 0.5,
-      selected_symbol_type: 'hearts',
-      url: 'http://localhost/test.php',
-      initial_value: 3,
-      update_input_field_name: $("#input2"),
-  }
-  $(".rate").rate();
-});
-
     $(function() {
       $('#navigation li').click(function() {
               $('#navigation li').removeClass('selected');
               $(this).addClass('selected');
-          
+
       });
-  });
+    });
 
   function assignValToParent(elem) {
       let val = Number(elem.value);
@@ -212,14 +161,14 @@ $(document).ready(function(){
 
 
   // window.formatter = formatter;
-
-  $(function() {
-    var date = new Date();
-    var currentMonth = date.getMonth();
-    var currentDate = date.getDate();
-    var currentYear = date.getFullYear();
-    $('#datepicker').datepicker({
-    maxDate: new Date(currentYear, currentMonth, currentDate),
-
-    });
-});
+//Date picker
+//   $(function() {
+//     var date = new Date();
+//     var currentMonth = date.getMonth();
+//     var currentDate = date.getDate();
+//     var currentYear = date.getFullYear();
+//     $('#datepicker').datepicker({
+//     maxDate: new Date(currentYear, currentMonth, currentDate),
+//
+//     });
+// });

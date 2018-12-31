@@ -1,5 +1,5 @@
 //Drop down of items
-$('.search').select2();
+// $('.search').select2();
 
 function calculateSum (row)
 {
@@ -118,7 +118,7 @@ function addRow()
 }
 
 //delete action
-let deleteBtn = document.querySelector('#delete').style.cursor = "pointer" 
+let delButton = document.querySelector('#delete').style.cursor = "pointer";
 function deleteRow(row)
 {
   swal({
@@ -145,49 +145,52 @@ function total()
   return total;
 }
 
-function saveSavings()
+function saveSales()
 {
-  let token = document.querySelector('meta[name="csrf-token"]').content;
-  let sales_date = document.querySelector('.sales_date').value;
-  let description = document.querySelector('.sales_description').value;
-  let quantity = document.querySelector('.sales_quantity').value;
-  let price = document.querySelector('.sales_price').value;
-  let total = document.querySelector('.sales_total').value; 
-  let invoice_number = "IVO-213";
-  let discount = document.querySelector('.discount').value;
-  let tax_id = document.querySelector('.tax').value;
-  let payment_mode_id = document.querySelectorAll('.payment_mode').value;
-  let sales_channel_id = document.querySelector('.sales_channel').value;
-  let customer_id = document.querySelector('.customer').value;
-  let inventory_id = document.querySelector('.inventory').value;
+        let token = document.querySelector('meta[name="csrf-token"]').content;
+        let tableRow = document.querySelectorAll('#salesTable');
+        tableRow.forEach(tr => {
+        let sales_date = tr.querySelector('.sales_date').value;
+        let discount = tr.querySelector('.discount').value;
+        let total = tr.querySelector('.sales_total').value;
+        let invoice_number = "IVO-213";
+        let tax_id = tr.querySelector('.tax').value;
+        let customer_id = tr.querySelector('.customer').value;
+        let description = tr.querySelector('.sales_description').value;
+        let quantity = tr.querySelector('.sales_quantity').value;
+        let price = tr.querySelector('.sales_price').value;
+        let payment_mode_id = tr.querySelectorAll('.payment_mode').value;
+        let sales_channel_id = tr.querySelector('.sales_channel').value;
+        let inventory_id = tr.querySelector('.inventory').value;
 
-  if( description.trim() && 
-      quantity.trim() && 
-      price.trim() && 
-      total.trim() &&
-      tax_id.trim()
-    )
-  {
-    let formData = new FormData();
-    formData.append('_token', token);
-    formData.append('sales_date', sales_date);
-    formData.append('description', description);
-    formData.append('quantity', quantity);
-    formData.append('inventory', inventory_id);
-    formData.append('sales_channel', sales_channel_id);
-    formData.append('invoice_number', invoice_number);    
-    formData.append('customer_id', customer_id);    
-    formData.append('discount', discount);    
-    formData.append('tax_id', tax_id);    
-    formData.append('sales_total', sales_total); 
-    formData.append('payment_mode', payment_mode_id);   
+        if( description.trim() &&
+            quantity.trim() &&
+            price.trim() &&
+            total.trim() &&
+            tax_id.trim()
+        )
+        {
+            let formData = new FormData();
+            formData.append('_token', token);
+            formData.append('sales_date', sales_date);
+            formData.append('description', description);
+            formData.append('quantity', quantity);
+            formData.append('inventory', inventory_id);
+            formData.append('sales_channel', sales_channel_id);
+            formData.append('invoice_number', invoice_number);
+            formData.append('customer_id', customer_id);
+            formData.append('discount', discount);
+            formData.append('tax_id', tax_id);
+            formData.append('sales_total', sales_total);
+            formData.append('payment_mode', payment_mode_id);
 
 
-    axios.post('/sales/create', formData).then(response => {
-      swal('Saved', response.data, 'Data Saved Successfully');
-      // console.log(response.data.mess)
-    }).catch(error => {
-      swal('Sorry', response.data, 'Input missing');      
+            axios.post('/sales/create', formData).then(response => {
+                swal('Saved', response.data, 'Data Saved Successfully');
+                // console.log(response.data.mess)
+            }).catch(error => {
+                swal('Sorry', response.data, 'Input missing');
+            });
+        }
     });
-  }
 }

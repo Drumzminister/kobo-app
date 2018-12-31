@@ -44,7 +44,7 @@ class SalesController extends Controller
         return view('addSales', compact('customers', 'inventories', 'salesChannels'));
     }
 
-    public function create(SalesRequest $sales)
+    public function create(Request $request)
     {
         $this->salesRepo->create($request->all());
         return 'Saved successfully';

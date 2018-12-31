@@ -28,11 +28,15 @@ class SalesRepository extends BaseRepository
         $this->customerModel = $customer;
     }
 
+    /**
+     * @param $data
+     * @return bool
+     */
     public function addChannel($data)
     {
         $channel = new SalesChannel();
+        $channel->id = $this->generateUuid();
         $channel->name = $data['name'];
-
         $channel->save();
 
         return true;

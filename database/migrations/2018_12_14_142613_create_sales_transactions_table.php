@@ -23,7 +23,7 @@ class CreateSalesTransactionsTable extends Migration
             $table->string('payment_mode_id')->index();
             $table->string('customer_id')->index();
             $table->string('sales_channel_id')->index();
-            $table->integer('discount');
+            $table->integer('discount')->nullable();
             $table->timestamps();
         });
     }

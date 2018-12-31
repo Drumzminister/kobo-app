@@ -47,8 +47,7 @@
                         </div>
                         <div class="col">
                             <span class="float-right">
-                                <button type="submit" onclick="saveSavings()" class="btn btn-lg btn-started">Save</a>
-                                <!-- <a href="" onclick="save()" class="btn btn-lg btn-started">Save</a> -->
+                                <button type="submit" onclick="saveSales()" class="btn btn-lg btn-started">Save </button>
                             </span>
                         </div>
                     </div>
