@@ -4,7 +4,7 @@ namespace Koboaccountant\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SubcriptionPlan extends Model
+class SubscriptionPlan extends Model
 {
     //
 }

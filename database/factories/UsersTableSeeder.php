@@ -32,7 +32,7 @@ $factory->define('Koboaccountant\Models\Company', function (Faker $faker) {
         'id' => $faker->uuid,
         'name' => $faker->word(6),
         'slug' => $faker->slug,
-        'isActive' => $faker->numberBetween(0, 1),
+        'isActive' => 1,
         'logo' => $faker->imageUrl(),
     ];
 });
@@ -78,7 +78,7 @@ $factory->define(Koboaccountant\Models\Staff::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(Koboaccountant\Models\SalesChannel::class, function () {
+$factory->define(Koboaccountant\Models\SalesChannel::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'company_id' => '',

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubcriptionPlansTable extends Migration
+class CreateSubscriptionPlansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateSubcriptionPlansTable extends Migration
      */
     public function up()
     {
-        Schema::create('subcription_plans', function (Blueprint $table) {
-            $table->tinyInteger('id')->primary();
+        Schema::create('subscription_plans', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateSubcriptionPlansTable extends Migration
     
     public function down()
     {
-        Schema::dropIfExists('subcription_plans');
+        Schema::dropIfExists('subscription_plans');
     }
 }
