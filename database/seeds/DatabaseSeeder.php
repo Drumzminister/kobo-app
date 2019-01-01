@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
 
         $client = factory(Client::class)->create(['accountant_id' => $accountant->id, 'user_id' => $clientUser->id, 'subscription_plan_id' => $subscription->id]);
 
-        $company = factory(Company::class)->create(['user_id' => $clientUser->id]);
+        factory(Company::class)->create(['user_id' => $clientUser->id]);
 
         factory(AccountantClient::class)->create([ 'client_id' => $client->id, 'accountant_id' => $accountant->id]);
     }

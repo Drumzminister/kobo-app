@@ -35,6 +35,7 @@ $factory->define('Koboaccountant\Models\Company', function (Faker $faker) use($s
         'id' => $faker->uuid,
         'name' => $name = ucfirst($faker->sentence(2)) . $suffixes[0],
         'slug' => str_slug($name),
+	    'ID_number' => preg_match_all('/\b(\w)/', strtoupper($name),$m) ? implode('',$m[1]) . '-' . $faker->randomNumber(5) : 'UV', // $v is now SOQTU
         'isActive' => 1,
         'logo' => $faker->imageUrl(),
     ];
