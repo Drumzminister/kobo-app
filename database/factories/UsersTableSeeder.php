@@ -27,11 +27,14 @@ $factory->define('Koboaccountant\Models\User', function (Faker $faker) {
     ];
 });
 
-$factory->define('Koboaccountant\Models\Company', function (Faker $faker) {
+$suffixes = [' LLC.', ' LTD.', ' GmBH.'];
+
+$factory->define('Koboaccountant\Models\Company', function (Faker $faker) use($suffixes) {
+	shuffle($suffixes);
     return [
         'id' => $faker->uuid,
-        'name' => $faker->word(6),
-        'slug' => $faker->slug,
+        'name' => $name = ucfirst($faker->sentence(2)) . $suffixes[0],
+        'slug' => str_slug($name),
         'isActive' => 1,
         'logo' => $faker->imageUrl(),
     ];
