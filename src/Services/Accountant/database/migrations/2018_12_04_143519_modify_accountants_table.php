@@ -25,6 +25,8 @@ class ModifyAccountantsTable extends Migration
 		    $table->string('date_of_birth');
 		    $table->timestamps();
 
+		    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
 		    $table->dropColumn('password');
 		    $table->dropColumn('email');
 		    $table->dropColumn('isActive');
@@ -44,6 +46,7 @@ class ModifyAccountantsTable extends Migration
     public function down()
     {
 	    Schema::table('accountants', function (Blueprint $table) {
+		    $table->dropForeign('accountants_user_id_foreign');
 		    $table->dropColumn('user_id');
 		    $table->dropColumn('city');
 		    $table->dropColumn('state');
