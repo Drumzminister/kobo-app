@@ -18,11 +18,11 @@ class CreateAssetsTable extends Migration
             $table->string('company_id')->index();
             $table->string('name');
             $table->string('quantity');
-            $table->string('asset_class');
-            $table->date('date');
-            $table->double('amount', 7, 2);
-            $table->double('total', 7, 2);
-            $table->string('attachment');
+            $table->string('asset_class')->nullable();
+	        $table->double('amount', 7, 2);
+	        $table->double('total', 7, 2);
+	        $table->date('purchase_date');
+	        $table->string('attachment');
             $table->timestamps();
             $table->softDeletes();
         });
