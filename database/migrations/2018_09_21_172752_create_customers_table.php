@@ -15,8 +15,7 @@ class CreateCustomersTable extends Migration
             $table->string('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('company_id')->index();
-            $table->string('user_id')->index();
+            $table->string('company_id');
             $table->string('email')->nullable();
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
@@ -27,6 +26,8 @@ class CreateCustomersTable extends Migration
             $table->softDeletes();
 
             $table->primary('id');
+
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

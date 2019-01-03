@@ -107,7 +107,7 @@ $factory->define(Koboaccountant\Models\Customer::class, function (Faker $faker) 
         'id' => $faker->uuid,
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
-        'email' => $faker->lastName,
+        'email' => $faker->email,
         'address' => $faker->address,
         'phone' => $faker->phoneNumber,
         'website' => $faker->url,

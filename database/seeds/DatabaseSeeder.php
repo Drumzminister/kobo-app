@@ -7,6 +7,8 @@ use Koboaccountant\Models\Accountant;
 use Koboaccountant\Models\Asset;
 use Koboaccountant\Models\Client;
 use Koboaccountant\Models\Company;
+use Koboaccountant\Models\Customer;
+use Koboaccountant\Models\Debtor;
 use Koboaccountant\Models\Review;
 use Koboaccountant\Models\SubscriptionPlan;
 use Koboaccountant\Models\User;
@@ -44,6 +46,20 @@ class DatabaseSeeder extends Seeder
 	    factory(Review::class)->create(['accountant_id' => $accountant->id, 'client_id' => $client->id]);
 
 	    factory(Asset::class, 6)->create(['company_id' => $company->id]);
+
+	    $customers = factory(Customer::class, 12)->create(['company_id' => $company->id]);
+
+	    $count = 0;
+	    $customers->each(function (Customer $customer) use($company, &$count) {
+		    if ($count === 3) return;
+
+		    if ($customer->isActive) {
+			    factory(Debtor::class)->create([ 'customer_id' => $customer->id, 'company_id' => $company->id]);
+			    $count++;
+		    }
+	    });
+
+
 
     }
 }
