@@ -6,7 +6,7 @@ namespace Koboaccountant\Repositories\Client;
 
 use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\User;
-use Koboaccountant\Models\SubcriptionPlan;
+use Koboaccountant\Models\SubscriptionPlan;
 use Koboaccountant\Models\Accountant;
 
 class ProfileRepository extends BaseRepository
@@ -15,7 +15,7 @@ class ProfileRepository extends BaseRepository
     protected $subscription;
     protected $accountant;
 
-    function __construct(Client $client, User $user, SubcriptionPlan $subscription, Accountant $accountant)
+    function __construct(Client $client, User $user, SubscriptionPlan $subscription, Accountant $accountant)
     {
         $this->user = $user;
         $this->accountant = $accountant;

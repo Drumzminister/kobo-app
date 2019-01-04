@@ -19,7 +19,7 @@ class CreateClientsTable extends Migration
             $table->string('accountant_id');
             $table->string('attachment')->nullable();
             $table->tinyInteger('subscription_plan_id')->index();
-            $table->string('bussiness_name');
+            $table->string('business_name');
             $table->string('business_address');
             $table->timestamps();
             $table->softDeletes();

@@ -19,7 +19,7 @@ class SeedBanks extends Seeder
         foreach ($banks as $bank) {
             $nBank = new Bank;
             $nBank->name = $bank->name;
-            $nBank->code = $bank->longcode;
+            $nBank->code = $bank->code;
             $nBank->save();
         }
 

@@ -13,15 +13,31 @@ class CreateReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('accountant_reviews', function (Blueprint $table) {
             $table->string('id');
-            $table->string('user_id')->index();
-            $table->string('accountant_id')->index();
-            $table->text('reviews');
-            $table->string('rating');
+            $table->string('accountant_id');
+            $table->string('client_id');
+            $table->string('subject')->nullable();
+            $table->text('other_notes')->nullable();
+	        $table->unsignedInteger('rating')->nullable();
+	        $table->text('comment')->nullable();
             $table->timestamps();
-             $table->softDeletes();
+	        $table->softDeletes();
+
+	        $table->primary('id');
         });
+
+	    Schema::create('company_reviews', function (Blueprint $table) {
+		    $table->string('id');
+		    $table->string('company_id');
+		    $table->string('subject')->nullable();
+		    $table->text('last_review')->nullable();
+		    $table->text('review');
+		    $table->timestamps();
+		    $table->softDeletes();
+
+		    $table->primary('id');
+	    });
     }
 
     /**
@@ -31,6 +47,7 @@ class CreateReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('accountant_reviews');
+        Schema::dropIfExists('company_reviews');
     }
 }
