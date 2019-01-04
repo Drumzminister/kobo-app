@@ -63,19 +63,15 @@ function addRow()
 function saveVendor()
 {
     let token = document.querySelector('meta[name="csrf-token"]').content;
-    let name = document.querySelector(".name").value;
-    let address = document.querySelector(".address").value;
-    let number = document.querySelector(".number").value;
-    let email = document.querySelector(".email").value
-    let website = document.querySelector(".website").value;
-
-    if(
-        name.trim() &&
-        address.trim() &&
-        number.trim() &&
-        email.trim() &&
-        website.trim()
-    )
+    let tableRow = document.querySelectorAll('tbody tr');
+    tableRow.forEach( td => {
+    let name = td.querySelector(".name").value;
+    console.log(name);
+    let address = td.querySelector(".address").value;
+    let number = td.querySelector(".number").value;
+    let email = td.querySelector(".email").value
+    let website = td.querySelector(".website").value;
+    if( name.trim() && address.trim() && number.trim() )
     {
         let formData = new FormData();
         formData.append('_token', token);
@@ -87,16 +83,12 @@ function saveVendor()
 
         axios.post('/vendor/create', formData).then(response => {
             swal('Saved', response.data, 'Data Saved Successfully');
-            document.querySelector('meta[name="csrf-token"]').content;
-            document.querySelector(".name").value = "";
-            document.querySelector(".address").value = "";
-            document.querySelector(".number").value = "";
-            document.querySelector(".email").value = "";
-            document.querySelector(".website").value ="";
+            document.querySelectorAll('tr').value = "";
         }).catch(error => {
             swal('Sorry', response.data, 'Some input missing');
         });
     }
+    });
 }
 
 
