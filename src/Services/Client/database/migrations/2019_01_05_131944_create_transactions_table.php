@@ -22,7 +22,7 @@ class CreateTransactionsTable extends Migration
             $table->string('inventory_id', 36)->nullable();
             $table->string('transaction_category_id', 36)->nullable();
             $table->string('transaction_category_id', 36)->nullable();
-            $table->double('amount');
+            $table->double('amount')->default(0);
             $table->text('note')->nullable();
             $table->boolean('isProcessed')->default(0);
             $table->timestamps();
