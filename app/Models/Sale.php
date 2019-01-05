@@ -2,6 +2,7 @@
 
 namespace Koboaccountant\Models;
 
+use App\Data\Transaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -38,5 +39,10 @@ class Sale extends Model
     public function customers()
     {
         return $this->belongsToMany('Koboaccountant\Models\Customer');
+    }
+
+    public function transaction()
+    {
+    	return $this->hasOne(Transaction::class);
     }
 }
