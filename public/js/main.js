@@ -1,12 +1,14 @@
-  document.onreadystatechange = function () {
-    var state = document.readyState;
-    if (state == 'complete') {
-        setTimeout(function(){
-            document.getElementById('interactive');
-           document.getElementById('load').style.visibility="hidden";
-        },1000);
-    }
-  };
+let token = document.querySelector('meta[name="csrf-token"]').content;
+// let user_id = "";
+//   document.onreadystatechange = function () {
+//     var state = document.readyState;
+//     if (state == 'complete') {
+//         setTimeout(function(){
+//             document.getElementById('interactive');
+//            document.getElementById('load').style.visibility="hidden";
+//         },1000);
+//     }
+//   };
 
   // <script type="text/javascript">
     $(window).on('load',function(){
@@ -35,23 +37,7 @@ $('.land-header').on('mousemove',function(e){
 });
 
 
-/*=================
-nav-active link
-===================*/
-// Add active class to the current button (highlight it)
-var header = document.getElementById("navLink");
-var links = header.getElementsByClassName("nav-link");
-for (var i = 0; i < links.length; i++) {
-  links[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("activ");
-    if (current.length > 0) { 
-      current[0].className = current[0].className.replace(" activ", "");
-    }
-    this.className += " activ";
-  });
-  
 
-}
 
 // message tab
 $(document).ready(function(){
@@ -83,59 +69,59 @@ Sales Dashboard
 =====================*/
 
 // table row
-var table = document.getElementById("table"),rIndex;
+// var table = document.getElementById("table"),rIndex;
 
-var rows = table.rows.length;
+// var rows = table.rows.length;
 
-for(var i = 0; i < rows; i++ ){
-  table.rows[i].onclick = function()
-  {
-    rIndex = this.rowIndex;
-    console.log(rIndex);
-  };
-}
- 
-//  date picker
-$(function() {
-  $('.dates #usr1').datepicker({
-    'format': 'dd-mm-yyyy',
-    'autoclose': true
-  });
-});
+// for(var i = 0; i < rows; i++ ){
+//   table.rows[i].onclick = function()
+//   {
+//     rIndex = this.rowIndex;
+//     console.log(rIndex);
+//   };
+// }
 
 // sales table
-function addRow(tableID) {
-
-    var table = document.getElementById(tableID);
-    
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-    
-    var colCount = table.rows[1].cells.length;
-    
-    for(var i=0; i<colCount; i++) {
-    
-        var newcell	= row.insertCell(i);
-    
-        newcell.innerHTML = table.rows[4].cells[i].innerHTML;
-        //alert(newcell.childNodes);
-        switch(newcell.childNodes[0].type) {
-            case "text":
-                    newcell.childNodes[0].value = "";
-                    break;
-            case "checkbox":
-                    newcell.childNodes[0].checked = false;
-                    break;
-            case "select-one":
-                    newcell.childNodes[0].selectedIndex = 0;
-                    break;
-        }
-    }
-    }
-      
+var $TABLE = $('#table');
+var $BTN = $('#export-btn');
+var $EXPORT = $('#export');
 
 
-  // intro js
+$('.table-down').click(function () {
+var $row = $(this).parents('tr');
+$row.next().after($row.get(0));
+});
+
+// A few jQuery helpers for exporting only
+jQuery.fn.pop = [].pop;
+jQuery.fn.shift = [].shift;
+
+$BTN.click(function () {
+var $rows = $TABLE.find('tr:not(:hidden)');
+var headers = [];
+var data = [];
+
+// Get the headers (add special header logic here)
+$($rows.shift()).find('th:not(:empty)').each(function () {
+headers.push($(this).text().toLowerCase());
+});
+
+// Turn all existing rows into a loopable array
+$rows.each(function () {
+var $td = $(this).find('td');
+var h = {};
+
+// Use the headers from earlier to name our hash keys
+headers.forEach(function (header, i) {
+h[header] = $td.eq(i).text();
+});
+data.push(h);
+});
+
+// Output the result
+$EXPORT.text(JSON.stringify(data));
+});
+
 
 // Format number
 function AddComma() {
@@ -152,47 +138,37 @@ function AddComma() {
   });
 });
 }
-
-// $(document).ready(function(){
-//   var options = {
-//       max_value: 6,
-//       step_size: 0.5,
-//       selected_symbol_type: 'hearts',
-//       url: 'http://localhost/test.php',
-//       initial_value: 3,
-//       update_input_field_name: $("#input2"),
-//   }
-//   $(".rate").rate();
-// });
-
-  $(function(){
-    $(".rating").rate();
-
-    //or for example
-    var options = {
-        max_value: 6,
-        step_size: 0.5,
-    };
-    $(".rating").rate(options);
-  });
-
-$(document).ready(function(){
-  var options = {
-      max_value: 6,
-      step_size: 0.5,
-      selected_symbol_type: 'hearts',
-      url: 'http://localhost/test.php',
-      initial_value: 3,
-      update_input_field_name: $("#input2"),
-  }
-  $(".rate").rate();
-});
-
     $(function() {
       $('#navigation li').click(function() {
               $('#navigation li').removeClass('selected');
               $(this).addClass('selected');
-          
+
       });
+    });
+
+  function assignValToParent(elem) {
+      let val = Number(elem.value);
+      if (isNaN(val)) {
+          elem.parentElement.innerText = elem.value;
+      } else {
+          elem.parentElement.innerText = formatter.format(val);
+      }
+
+  }
+  const formatter = new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 2
   });
 
+
+  // window.formatter = formatter;
+//Date picker
+//   $(function() {
+//     var date = new Date();
+//     var currentMonth = date.getMonth();
+//     var currentDate = date.getDate();
+//     var currentYear = date.getFullYear();
+//     $('#datepicker').datepicker({
+//     maxDate: new Date(currentYear, currentMonth, currentDate),
+//
+//     });
+// });

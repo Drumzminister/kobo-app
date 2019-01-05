@@ -2,11 +2,8 @@
 
 namespace Koboaccountant\Models;
 
-use Koboaccountant\Repositories\BaseRepository;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 
 class User extends Authenticatable
 {
@@ -20,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'email_token', 'name', 'email', 'password', 'first_name', 'last_name', 'attachment'
+        'id', 'email_token', 'name', 'email', 'password', 'first_name', 'last_name', 'attachment',
     ];
 
     /**
@@ -31,8 +28,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
-    public function roles()
+
+    public function role()
     {
         return $this->hasOne('Koboaccountant\Models\Role');
     }
@@ -42,19 +39,44 @@ class User extends Authenticatable
         return $this->hasOne('Koboaccountant\Models\VerifyUser');
     }
 
-    public function company()
+    public function company ()
     {
         return $this->hasOne('Koboaccountant\Models\Company');
     }
 
-    public function getFullNameAttribute()
+    public function getFullNameAttribute ()
     {
-        return ucfirst($this->first_name) .' '. ucfirst($this->last_name);
+        return ucfirst($this->first_name).' '.ucfirst($this->last_name);
     }
 
-    public function customers()
+    public function customer ()
     {
         return $this->hasMany('Koboaccountant\Models\Customer');
     }
-    
+
+	public function accountant()
+	{
+		return $this->hasOne('Koboaccountant\Models\Accountant');
+	}
+
+	public function client()
+	{
+		return $this->hasOne('Koboaccountant\Models\Client');
+	}
+
+    public function expenses()
+
+    {
+        return $this->hasMany('Koboaccountant\Models\Expense', 'user_id');
+    }
+
+    public function cash ()
+    {
+        return $this->hasOne('Koboaccountant\Models\Cash', 'user_id');
+    }
+
+    public function rent()
+    {
+        return $this->hasMany('Koboaccountant\Models\Rent', 'user_id');
+    }
 }

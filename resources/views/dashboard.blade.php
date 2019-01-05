@@ -4,12 +4,12 @@
 
 {{-- modal section --}}
 {{-- first modal --}}
-@if(! Auth::user()->first_time_login)
+
 <div class="modal hide fade m-auto" id="myModal" tabindex="-1" role="dialog">
     <div class=" modal-dialog modal-dialog-centered" role="document">
       <div class="container p-5 modal-content">
             <div class="modal-body text-center">
-                <h5 class="modal-h5">Welcome {{Auth::user()->first_name}} &#x1f642 !!!</h5>
+                <h5 class="modal-h5">Welcome Ekpono &#x1f642; !!!</h5>
                 <h5 class="h5 pt-3">SETUP AN OPENING ACCOUNT</h5>
                 <p class="modal-account">Setup your account by providing some details about your Debtors, Creditors, Value of existing assets and Rent. This will help the accountant to easily start taking records of you company.</p>
             </div>
@@ -27,7 +27,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="container p-5 modal-content">
                         <div class="modal-body text-center">
-                            <h5 class="modal-h5">Hi {{Auth::user()->first_name}} &#x1f642 !!!</h5>
+                            <h5 class="modal-h5">Hi Ekpono &#x1f642; !!!</h5>
                             <p class="modal-account pt-3">You can continue without providing the details but your records might not be detailed. Do you wish to continue ?</p>
                         </div>
                         <div class="modal-footer">
@@ -37,22 +37,28 @@
                 </div>
         </div>
 </div>
-@endif
+
 {{-- end of modal --}}
 
 {{-- heading section --}}
-    <section id="top">
+    <!-- <section id="top">
         <div class="container py-3">
             <div class="row account">
                 <h2>Dashboard</h2>
                 <span class="accountant ml-auto btn btn-accountant">
                 <a href="" class="btn-accountant">
                     <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>                
+                </a>
                 </span>
             </div>
         </div>
-    </section>
+    </section> -->
+    @component('includes.dashboard-header-2')
+      @slot('dashboardTitle')
+        Dashboard
+      @endslot
+    @endcomponent
+
 {{-- end of heading section --}}
 
 {{-- history and performance section --}}
@@ -102,11 +108,11 @@
                                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At, s?</p>
                                     </div>
                             </div>
-                        </div>                           
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>       
+        </div>
 </section>
 {{-- end of history and performance --}}
 
@@ -119,7 +125,7 @@
                 <div class="bg-white p-4" >
                     <h5 class="h5 text-green">TRANSACTION</h5>
                     {{-- transaction chart --}}
-                    
+
                     <div class="row">
                             <div class="col">
                             </div>
@@ -136,11 +142,11 @@
                                     <div class="form-check form-check-inline">
                                         <label><input type="radio" name="select" /><span>Y</span></label>
                                     </div>
-                                          
+
                             </div>
                     </div>
-                            
-                    <div style="">
+
+                    <div>
                             <canvas id="canvas" height="100"></canvas>
                     </div>
                 </div>
@@ -216,7 +222,7 @@
                         <h5 class="h5 pt-1">INVENTORY</h5>
                         <p class="service-p">Lorem ipsum dolor sit amet consectetur </p>
                     </a>
-                </div>        
+                </div>
             </div>
 
             <div class="col-md-4">
@@ -248,17 +254,17 @@
                             <h5 class="h5 pt-1">RENT</h5>
                             <p class="service-p">Lorem ipsum dolor sit amet consectetur </p>
                         </a>
-                    </div>        
+                    </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="circle loa text-center p-5">
-                        <a href="/banking" class="service-link"> 
+                        <a href="/banking" class="service-link">
                             <img src="{{asset('img/banking.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
                             <h5 class="h5 pt-1">BANKING</h5>
                             <p class="service-p">Lorem ipsum dolor sit amet consectetur </p>
                         </a>
-                    </div>   
+                    </div>
                 </div>
             </div>
     </div>
@@ -283,7 +289,7 @@
                 update_first_time_visit: jQuery('#first_time_login').val(),
             },
             success: function(result){
-                
+
             }});
         });
     });

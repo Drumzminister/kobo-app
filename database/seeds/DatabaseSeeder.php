@@ -1,66 +1,65 @@
 <?php
 
+use App\Data\AccountantClient;
+use App\Data\CompanyReview;
 use Illuminate\Database\Seeder;
+use Koboaccountant\Models\Accountant;
+use Koboaccountant\Models\Asset;
+use Koboaccountant\Models\Client;
+use Koboaccountant\Models\Company;
+use Koboaccountant\Models\Customer;
+use Koboaccountant\Models\Debtor;
+use Koboaccountant\Models\Review;
+use Koboaccountant\Models\SubscriptionPlan;
+use Koboaccountant\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $users = factory('Koboaccountant\Models\User', 10)->create()->each(function ($user) {
-            $user->company()->save(factory('Koboaccountant\Models\Company')->make());
-        });
+        $this->call(SeedBanks::class);
 
-        $companies = $users->each(function ($user) {
-            factory('Koboaccountant\Models\Company', 10)->create(['user_id' => $this->getRandomUserId()]);
-        });
+	    $plans = collect(['PRO', 'BASIC', 'MID']);
 
-        $vendor = factory('Koboaccountant\Models\Vendor', 10)->create(['company_id' => $this->getRandomCompanyId()]);
+	    $plans->each(function ($plan) {
+	    	factory(SubscriptionPlan::class)->create([ 'name' => $plan]);
+	    });
 
-        $inventories = $vendor->each(function ($vendor) {
-            factory('Koboaccountant\Models\Inventory', 10)->create();
-        });
+	    $subscription = SubscriptionPlan::first();
 
-        $staff = factory('Koboaccountant\Models\Staff', 10)->create(['company_id' => $this->getRandomCompanyId()]);
+        $user = factory(User::class)->create();
 
-        $sales = factory('Koboaccountant\Models\Sales', 10)->create(['company_id' => $this->getRandomCompanyId(), 'inventory_id' => $this->getRandomInventoryId(), 'staff_id' => $this->getRandomStaffId()]);
+        $accountant = factory(Accountant::class)->create(['user_id' => $user->id]);
 
-        $customer = $sales->each(function ($sales) {
-            factory('Koboaccountant\Models\Customer', 10)->create(['company_id' => $this->getRandomCompanyId()]);
-        });
-    }
+        $clientUser = factory(User::class)->create();
 
-    public function getRandomCompanyId()
-    {
-        $company = \Koboaccountant\Models\Company::all();
+        $client = factory(Client::class)->create(['accountant_id' => $accountant->id, 'user_id' => $clientUser->id, 'subscription_plan_id' => $subscription->id]);
 
-        return $company->random()->id;
-    }
+	    factory(AccountantClient::class)->create(['client_id' => $client->id, 'accountant_id' => $accountant->id]);
 
-    public function getRandomUserId()
-    {
-        $user = \Koboaccountant\Models\User::all();
+	    $company = factory(Company::class)->create(['user_id' => $clientUser->id]);
 
-        return $user->random()->id;
-    }
+	    // The accountant Can review a particular company
+	    factory(CompanyReview::class)->create(['company_id' => $company->id]);
 
-    public function getRandomVendorId()
-    {
-        $vendors = \Koboaccountant\Models\Vendor::all();
+	    // Then a client review an accountant
+	    factory(Review::class)->create(['accountant_id' => $accountant->id, 'client_id' => $client->id]);
 
-        return $vendors->random()->id;
-    }
+	    factory(Asset::class, 6)->create(['company_id' => $company->id]);
 
-    public function getRandomInventoryId()
-    {
-        $inventories = \Koboaccountant\Models\Inventory::all();
+	    $customers = factory(Customer::class, 12)->create(['company_id' => $company->id]);
 
-        return $inventories->random()->id;
-    }
+	    $count = 0;
+	    $customers->each(function (Customer $customer) use($company, &$count) {
+		    if ($count === 3) return;
 
-    public function getRandomStaffId()
-    {
-        $staff = \Koboaccountant\Models\Staff::all();
+		    if ($customer->isActive) {
+			    factory(Debtor::class)->create([ 'customer_id' => $customer->id, 'company_id' => $company->id]);
+			    $count++;
+		    }
+	    });
 
-        return $staff->random()->id;
+
+
     }
 }

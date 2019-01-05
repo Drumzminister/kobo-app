@@ -4,14 +4,18 @@ namespace Koboaccountant\Repositories;
 
 use Uuid;
 use Illuminate\Support\Facades\Auth;
+use Koboaccountant\Traits\CashTransactions;
 
 class BaseRepository {
+
+    use CashTransactions;
 
 	/**
 	 * The model instance.
 	 *
 	 * @var \Illuminate\Database\Eloquent\Model
 	 */
+
 	protected $model;
 
 	public function __construct($model)
@@ -19,11 +23,47 @@ class BaseRepository {
 		$this->model = $model;
 	}
 
+    /**
+     * @return mixed
+     */
+    public function getAll()
+    {
+        $all = $this->model->where('user_id', $this->getAuthUserId())->get();
+        return $all;
+    }
+
 
     public function generateUuid()
     {
         return Uuid::generate(5,str_random(5), Uuid::NS_DNS)->string;
     }
+
+		/**
+	 * Returns the count of all the records.
+	 *
+	 * @return int
+	 */
+	public function count()
+	{
+		return $this->model->count();
+	}
+
+		/**
+	 * Returns a range of records bounded by pagination parameters.
+	 *
+	 * @param int    $limit
+	 * @param int    $offset
+	 *
+	 * @param array  $relations
+	 * @param string $orderBy
+	 * @param string $sorting
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection
+	 */
+	public function page($limit = 10, $offset = 0, array $relations = [], $orderBy = 'updated_at', $sorting = 'desc')
+	{
+		return $this->model->with($relations)->take($limit)->skip($offset)->orderBy($orderBy, $sorting)->get();
+	}
 
     public function slugIt($text)
     {
@@ -35,25 +75,15 @@ class BaseRepository {
 		return Auth::user()->id;
 	}
 
-    public function awsUpload($attachment) 
-    {
-        // cache the file
-        $file = $request->file($attachment);
-
-        // generate a new filename. getClientOriginalExtension() for the file extension
-        $filename = 'kobo-app-attachment' . time() . '.' . $file->getClientOriginalExtension();
-
-        // save to storage/app/photos as the new $filename
-        $path = $file->storeAs('attachment', $filename);
-
-        return $path;
-    }
-
-    public function page($limit = 10, $offset = 0, array $relations = [], $orderBy = 'updated_at', $sorting = 'desc')
+	public function getAuthCompanyId()
 	{
-		return $this->model->with($relations)->take($limit)->skip($offset)->orderBy($orderBy, $sorting)->get();
-    }
-    
+		$user = Auth::user()->company()->pluck('user_id');
+        $result = substr($user, 2);
+        $result = rtrim($result, '"]"');
+        return $result;
+	}
+
+
     public function findBy($attribute, $value, $relations = null)
 	{
 		$query = $this->model->where($attribute, $value);
@@ -100,6 +130,37 @@ class BaseRepository {
 			}
 		}
 		return $query->get();
-    }
-    
+	}
+	
+		/**
+	 * Fills out an instance of the model
+	 * with $attributes.
+	 *
+	 * @param array $attributes
+	 *
+	 * @return \Illuminate\Database\Eloquent\Model
+	 * @throws
+	 */
+	public function fill($attributes)
+	{
+		$attributes['id'] = $this->generateUuid();
+		return $this->model->fill($attributes);
+	}
+
+	/**
+	 * Fills out an instance of the model
+	 * and saves it, pretty much like mass assignment.
+	 *
+	 * @param array $attributes
+	 *
+	 * @return \Illuminate\Database\Eloquent\Model
+	 * @throws
+	 */
+	public function fillAndSave($attributes)
+	{
+		$attributes['id'] = $this->generateUuid();
+		$this->model->fill($attributes);
+		$this->model->save();
+		return $this->model;
+	}
 }

@@ -4,29 +4,39 @@ namespace Koboaccountant\Repositories\Sales;
 
 use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\SalesChannel;
-use Koboaccountant\Models\Sales;
+use Koboaccountant\Models\Sale;
 // use Koboaccountant\Reopsitories\Inventory\InventoryRepository;
 use Koboaccountant\Notifications\MadeSales;
 use Auth;
-use Koboaccountant\Repositories\Inventory\InventoryRepository;
+use Koboaccountant\Models\Inventory;
+use Koboaccountant\Models\Company;
+use Koboaccountant\Models\Customer;
 
 class SalesRepository extends BaseRepository
 {
     public function __construct(
         SalesChannel $salesChannel,
-        Sales $sale,
-        InventoryRepository $inventory
+        Sale $sale,
+        Inventory $inventory,
+        Company $company,
+        Customer $customer
         ) {
-        $this->inventoryRepo = $inventory;
+        $this->inventoryModel = $inventory;
         $this->salesModel = $sale;
-        $this->saleschannelModel = $salesChannel;
+        $this->salesChannelModel = $salesChannel;
+        $this->companyModel = $company;
+        $this->customerModel = $customer;
     }
 
+    /**
+     * @param $data
+     * @return bool
+     */
     public function addChannel($data)
     {
         $channel = new SalesChannel();
+        $channel->id = $this->generateUuid();
         $channel->name = $data['name'];
-
         $channel->save();
 
         return true;
@@ -35,41 +45,31 @@ class SalesRepository extends BaseRepository
     public function create($data)
     {
         //Check for product availability
-        if ($this->inventoryRepo->checkAvailability($data['inventory_id'], $data['quantity'])) {
-            //Reduce Inventory
-            $this->inventoryRepo->reduceQuantity($data['inventory_id'], $data['quantity']);
-            $sales = new Sales();
-            $sales->id = $this->generateUuid();
-            //Upload any Image
-            $sales->attachment = $data['attachment'];
-            $sales->customer_id = $data['customer_id'];
-            $sales->inventory_id = $data['inventory_id'];
-            $sales->sales_date = $data['sales_date'];
-            $sales->tax = $data['tax'];
-            $sales->quantity = $data['quantity'];
-            $sales->save();
+        $sales = new Sale();
+        $sales->id = $this->generateUuid();
+        $sales->sales_transaction_id = $data['sales_transaction_id'];
+        $sales->invoice_number = $data['invoice_number'];
+        $sales->customer_id = $data['customer_id'];
+        $sales->delivery_cost = $data['delivery_cost'];
+        $sales->user_id = $data['user_id'];
+        $sales->sales_date = $data['sales_date'];
+        $sales->tax_id = $data['tax_id'];
+        $sales->discount = $data['discount'];
+        $sales->save();
 
-            //notifyAccountant
-            $accountant = Auth::user()->company->accountant;
-            $accountant->notify(new MadeSales($sales->id));
-
-            /*
-                TODO logic for the debtor
-            */
-            return true;
-        } else {
-            return false;
-        }
+        //notifyAccountant
+        $accountant = Auth::user()->company->accountant;
+        $accountant->notify(new MadeSales($sales->id));
     }
 
     public function update($data)
     {
-        $sales = Sales::where('id', $data['sales_id'])->first();
-        $sales->attachment = $data['attachment'];
-        $sales->inventory_id = $data['inventory_id'];
+        $sales = Sale::where('id', $data['sales_id'])->first();
         $sales->customer_id = $data['customer_id'];
+        $sales->delivery_cost = $data['delivery_cost'];
         $sales->sales_date = $data['sales_date'];
-        $sales->description = $data['description'];
+        $sales->tax_id = $data['tax_id'];
+        $sales->discount = $data['discount'];
         $sales->save();
 
         return true;
@@ -77,7 +77,7 @@ class SalesRepository extends BaseRepository
 
     public function delete($data)
     {
-        $sales = Sales::where('id', $data['sales_id'])->first();
+        $sales = Sale::where('id', $data['sales_id'])->first();
         $sales->delete();
     }
 
@@ -91,16 +91,6 @@ class SalesRepository extends BaseRepository
         }
 
         return [];
-    }
-
-    public function company()
-    {
-        return $this->salesModel->company();
-    }
-
-    public function customer()
-    {
-        return $this->company();
     }
 
     public function getAllSales()
@@ -128,7 +118,7 @@ class SalesRepository extends BaseRepository
     public function getSalesByDuration($start, $end)
     {
         if (!is_null(Auth::user())) {
-            $sales = Sales::where('company_id', Auth::user()->company->id)->whereDate('sales_date', '<', $start)->whereDate('sales_date', '<', $end)->get();
+            $sales = Sale::where('company_id', Auth::user()->company->id)->whereDate('sales_date', '<', $start)->whereDate('sales_date', '<', $end);
 
             return $sales;
         }
@@ -139,7 +129,7 @@ class SalesRepository extends BaseRepository
     public function getDailySales($day)
     {
         if (!is_null(Auth::user())) {
-            $sales = Sales::where('company_id', Auth::user()->company->id)->whereDate('sales_date', $day)->get();
+            $sales = Sale::where('company_id', Auth::user()->company->id)->whereDate('sales_date', $day)->get();
 
             return $sales;
         }
@@ -147,7 +137,7 @@ class SalesRepository extends BaseRepository
 
     public function getSaleById($id)
     {
-        $sale = Sales::find($id);
+        $sale = Sale::find($id);
         $data = [];
         if (!is_null($sale)) {
             $data['sale'] = $sale;

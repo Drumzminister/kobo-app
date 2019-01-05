@@ -3,8 +3,9 @@
 namespace Koboaccountant\Repositories\Inventory;
 
 use Koboaccountant\Models\Vendor;
-use Koboaccountant\Models\Accountant;
+use Illuminate\Support\Facades\Auth;
 use Koboaccountant\Models\Inventory;
+use Koboaccountant\Models\Accountant;
 use Koboaccountant\Models\PaymentMethod;
 use Koboaccountant\Repositories\BaseRepository;
 
@@ -21,10 +22,13 @@ class InventoryRepository extends BaseRepository
         $this->accountantModel = $account;
         $this->vendorModel = $vendor;
     }
-
     public function getInventory()
     {
-        return $this->inventoryModel->get();
+        if(!is_null(Auth::user())){
+            $inventory = $this->inventoryModel->where('user_id', $this->getAuthUserId());
+            return $inventory;
+        }
+        return [];
     }
 
     public function create($data)
@@ -68,13 +72,11 @@ class InventoryRepository extends BaseRepository
     public function checkAvailability($id, $amount)
     {
         $inventory = $this->findInventory($id);
-        if (! ($inventory === null)) {
+        if ($inventory->quantity === 0) {
             return false;
-        }
-        if ($inventory->quantity >= $amount) {
+        }elseif($inventory->quantity >= $amount) {
             return true;
         }
-
         return false;
     }
 
@@ -84,7 +86,7 @@ class InventoryRepository extends BaseRepository
         $inventory->delete();
     }
 
-    public function reduceQuantity($id, Int $quantity)
+    public function reduceQuantity($id, int $quantity) :bool
     {
         $inventory = $this->findInventory($id);
         if ($inventory && $this->checkAvailability($id, $quantity)) {
@@ -94,4 +96,5 @@ class InventoryRepository extends BaseRepository
         }
         return false;
     }
+    
 }

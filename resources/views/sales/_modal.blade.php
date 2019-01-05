@@ -9,7 +9,6 @@
               <h5 class="h5 uppercase" id="">Send</h5>
 
                 <div class="modal-body">
-                        <form action="" method="post">
                             <div class="form-group row">
                                 <label for="" class="col-sm-3 col-form-label">To</label>
                                 <div class="col-sm-9">
@@ -29,7 +28,6 @@
                                     <a href="">  <i class="fa fa-telegram " style="font-size:48px; color:#00C259;"></i></a>
                             <h5 class="h5 text-green">Save &amp; Send</h5>
                             </div>
-                        </form>               
             </div>
             
           </div>

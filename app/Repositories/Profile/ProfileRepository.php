@@ -11,8 +11,13 @@ class ProfileRepository extends BaseRepository
 {
     protected $user;
 
-    function __construct(User $user)
+    public function __construct()
     {
-        $this->user = $user;
+        parent::__construct(new User());
+    }
+
+    public function getId()
+    {
+        return $this->getAuthUserId();
     }
 }

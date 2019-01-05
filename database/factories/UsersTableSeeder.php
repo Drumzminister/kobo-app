@@ -27,12 +27,16 @@ $factory->define('Koboaccountant\Models\User', function (Faker $faker) {
     ];
 });
 
-$factory->define('Koboaccountant\Models\Company', function (Faker $faker) {
+$suffixes = [' LLC.', ' LTD.', ' GmBH.'];
+
+$factory->define('Koboaccountant\Models\Company', function (Faker $faker) use($suffixes) {
+	shuffle($suffixes);
     return [
         'id' => $faker->uuid,
-        'name' => $faker->word(6),
-        'slug' => $faker->slug,
-        'isActive' => $faker->numberBetween(0, 1),
+        'name' => $name = ucfirst($faker->sentence(2)) . $suffixes[0],
+        'slug' => str_slug($name),
+	    'ID_number' => preg_match_all('/\b(\w)/', strtoupper($name),$m) ? implode('',$m[1]) . '-' . $faker->randomNumber(5) : 'UV', // $v is now SOQTU
+        'isActive' => 1,
         'logo' => $faker->imageUrl(),
     ];
 });
@@ -61,6 +65,7 @@ $factory->define(Koboaccountant\Models\Inventory::class, function (Faker $faker)
         'delivered_date' => $faker->dateTime(),
         'attachment' => $faker->word(6),
         'vendor_id' => '',
+        'user_id' => ''
     ];
 });
 
@@ -77,32 +82,32 @@ $factory->define(Koboaccountant\Models\Staff::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(Koboaccountant\Models\SalesChannel::class, function () {
+$factory->define(Koboaccountant\Models\SalesChannel::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'company_id' => '',
     ];
 });
 
-$factory->define(Koboaccountant\Models\Sales::class, function (Faker $faker) {
-    return [
-        'id' => $faker->uuid,
-        'name' => $faker->sentence(8),
-        'sales_date' => $faker->dateTime(),
-        'quantity' => $faker->numberBetween(1, 20),
-        'amount' => $faker->randomFloat(2),
-        'staff_id' => '',
-        'company_id' => '',
-        'inventory_id' => '',
-    ];
-});
+// $factory->define(Koboaccountant\Models\Sales::class, function (Faker $faker) {
+//     return [
+//         'id' => $faker->uuid,
+//         'name' => $faker->sentence(8),
+//         'sales_date' => $faker->dateTime(),
+//         'quantity' => $faker->numberBetween(1, 20),
+//         'amount' => $faker->randomFloat(2),
+//         'staff_id' => '',
+//         'company_id' => '',
+//         'inventory_id' => '',
+//     ];
+// });
 
 $factory->define(Koboaccountant\Models\Customer::class, function (Faker $faker) {
     return [
         'id' => $faker->uuid,
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
-        'email' => $faker->lastName,
+        'email' => $faker->email,
         'address' => $faker->address,
         'phone' => $faker->phoneNumber,
         'website' => $faker->url,

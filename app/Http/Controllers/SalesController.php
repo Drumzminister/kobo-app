@@ -4,45 +4,50 @@ namespace Koboaccountant\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Koboaccountant\Models\Customer;
+use Illuminate\Support\Facades\Auth;
 use Koboaccountant\Repositories\Sales\SalesRepository;
+use Koboaccountant\Repositories\Customer\CustomerRepository;
+use Koboaccountant\Models\Inventory;
+use Koboaccountant\Repositories\Inventory\InventoryRepository;
+use Koboaccountant\Repositories\SalesChannel\SalesChannelRepository;
+use Koboaccountant\Http\Requests\SalesRequest;
+use Koboaccountant\Repositories\Sales\SalesTransactionRepository;
 
 class SalesController extends Controller
 {
-    public function __construct(SalesRepository $sales)
+    public function __construct(
+        SalesChannelRepository $salesChannels,
+        SalesRepository $sales,
+        SalesTransactionRepository $trans,
+        CustomerRepository $customer,
+        InventoryRepository $inventory
+        )
     {
         $this->salesRepo = $sales;
+        $this->customerRepo = $customer;
+        $this->inventoryRepo = $inventory;
+        $this->salesChannelRepo = $salesChannels;
+        $this->salesTransactionRepo = $trans;
     }
-
+    
     public function index()
     {
-        return view('sales');
+       $data['sales'] = $this->salesTransactionRepo->trans();
+        return view('sales', $data);
     }
-
+    
     public function sales()
     {
-        $customers = Customer::pluck('first_name', 'id')->toArray();
-        // $customers = $this->salesRepo->customer();
-
-        return view('addSales', compact('customers'));
+        $salesChannels = $this->salesChannelRepo->allSalesChannel();
+        $customers = $this->customerRepo->allUserCustomers();
+        $inventories = $this->inventoryRepo->getInventory();
+        return view('addSales', compact('customers', 'inventories', 'salesChannels'));
     }
 
     public function create(Request $request)
     {
-        //Validations
         $this->salesRepo->create($request->all());
+        return 'Saved successfully';
     }
-
-    public function getCustomer(Request $request)
-    {
-        $data = [];
-
-        if ($request->has('q')) {
-            $search = $request->q;
-            $data = Customer::where('last_name', 'LIKE', "%$search%")
-                    ->orWhere('last_name', 'LIKE', "%$search%")
-                    ->get();
-        }
-
-        return response()->json($data);
-    }
+    
 }

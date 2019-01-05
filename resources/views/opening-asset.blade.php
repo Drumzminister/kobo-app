@@ -9,79 +9,78 @@ input {
 <section id="particles"></section>
     <div id="container">  
         <div class="progress" style="height: 35px;">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height:50px;width:25%;">
-            <h4> 25%</h4>
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="height:50px;width:20%;">
+            <h4> 20%</h4>
             </div>
         </div>
     </div>
     <div class="container bg-white mt-5">
-        <div aria-label="breadcrumb arr-right">
-            <ol class="breadcrumb bg-white">
-                <li class="breadcrumb-item"><a href="/assets">Opening Balance</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Existing Assets</li>                
-            </ol>
-        </div>
-
-        <div class="bg-white mt">
+            <div class="row py-3">
+                    <div class="col-md-9">
+                        <div aria-label="breadcrumb arr-right">
+                                <ol class="breadcrumb bg-white">
+                                    <li class="breadcrumb-item"><a href="/assets">Opening Balance</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Existing Assets</li>                
+                                </ol>
+                        </div>   
+                    </div>
+                    <div class="col-md-3">
+                            <div class="dates input-group input-group-lg">
+                                <input type="text"  class="form-control date-picker" id="assetDate" value="{{Date('m/d/Y')}}" name="event_date">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-calendar icon" id="datepicker" name="event_date" ></i></span>
+                                </div> 
+                            </div>
+                    </div>
+                    
+                </div>       
+        <div class="bg-white p-4">
                 
-            <div class="table-responsive table-responsive-sm p-4 ">
-                <table  width="200" class="table table-striped table-hover table-style"  id="dataTable">
+            <div class="table-responsive table-responsive-sm ">
+                <table  width="200" class="table table-striped table-hover table-style"  id="assetTable">
                     <thead class="p-3">
                       <tr class="tab">
                         <th scope="col">Asset Name</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Cost Price (&#8358;)</th>
-                        <th scope="col">Purchase Date</th>
-                        <th scope="col"><i class="fa fa-plus-square" style="font-size:24px" value="Add Row" onclick="addRow('dataTable')"></i></th>
+                        <th scope="col"> </th>
             
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                          <td> Housing Estate</td>
-                        <td> 43,000 </td>
-                        <td>21/09/2009</td>
-                        <td>IG</td>
-                      </tr>
-            
-                      <tr>
-                        <td> Housing Estate</td>
-                      <td> 43,000 </td>
-                      <td>21/09/2009</td>
-                      <td>IG</td>
-                    </tr>
-            
-                    <tr>
-                        <td> Housing Estate</td>
-                      <td> 43,000 </td>
-                      <td>21/09/2009</td>
-                      <td>IG</td>
-                    </tr>
-            
-                    <tr class="d-none">
-                        <td><input type="text" placeholder=""> </td>
-                          <td> <input type="number" placeholder=""></td>
-                          <td> <div class="dates">
-                                <input type="text" id="usr1" name="event_date" placeholder="" autocomplete="off" >
-                            </div></td>
-                          <td>IG</td>
-                        </tr>
-                
-                       
+                        @forelse($assets as $asset)
+                            <tr>
+                                <td>{{$asset->name}}</td>
+                                <td>{{$asset->category}}</td>
+                                <td>{{number_format($asset->price, 2)}}</td>
+                                <td><i class="fa fa-edit pr-2" style="font-size:24px; cursor: pointer;" onclick="makeEditable(this.parentElement.parentElement)"></i><i class="fa fa-trash-o" style="font-size:24px; cursor: pointer"  onclick="deleteAsset(this.parentElement.parentElement)"></i></td>
+                                <input type="hidden" class="id" value="{{$asset->id}}">
+                            </tr>
+                        @empty
+                            <tr>
+                                <td><input type="text" class="form-control name"></td>
+                                <td><input type="text" class="form-control category"></td>
+                                <td><input type="number" class="form-control price"></td>
+                                <td><button class="btn btn-sm btn-success px-3" onclick="saveAssets(this.parentElement.parentElement)">Add</button></td>
+                            </tr>
+                        @endforelse 
+
                     </tbody>
                 </table>
-                <div class="row">
+                <span class="float-right" onclick="addAsset('assetTable')" style="cursor: pointer;">Add Row <i class="fa fa-plus-square" style="font-size:32px; color:#00C259;" value="Add Row"></i>
+                </span>
+            </div>
+                <div class="row mt-3">
                     <div class = "col">
                             <a class="btn btn-started" href="/">Previous</a>
                     </div>
                     <div class = "col">
-                            <a class="btn btn-started float-right" href="/debtors">Next</a>
+                            <a class="btn btn-started float-right" href="/opening/debtors">Next</a>
                     </div>
                 </div>
             </div> 
                        
-        </div>
-        
-    </div>
 
+<script src="/js/opening/assets.js"></script>
 
 @endsection

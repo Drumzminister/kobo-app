@@ -1,0 +1,356 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+@import url('https://fonts.googleapis.com/css?family=Alef');
+
+p{
+  margin-bottom: 0;
+  font-family: 'Nunito', sans-serif;
+}
+
+.main-body{
+  width: 90%;
+  background-color: transparent;
+  height: 100%;
+  margin-top: 45px;
+  margin-bottom: 45px;
+  padding:0;
+}
+
+
+.main-body .content {
+  width: 100%;
+  padding:0;
+}
+
+.main-body .content .title-div .title{
+  font-weight: bold;
+  line-height: 32px;
+  font-size: 21px;
+  letter-spacing: 0.1em;
+  color: #4D4D4D;
+}
+
+.main-body .content .title-div .subtitle{
+  line-height: 25px;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  color: rgba(1, 25, 12, 0.58);
+}
+
+.main-body .content .title-div .fas{
+  font-size: 16px;
+  color: #B2B2B2;
+}
+
+.main-body .content .input-group{
+  margin: 45px 0px 20px 0px;
+}
+
+.main-body .content .input-group input{
+  border-radius: 3px 0px 0px 3px;
+  background: #F2EEEE;
+}
+.main-body .content .input-group input::placeholder{
+  font-weight: bold;
+  line-height: 22px;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: rgba(196, 196, 196, 0.91);
+}
+/*  */
+.balance-table-1 thead{
+  min-height: 90px!important;
+  background: #00C259;
+  color: #fff!important;
+}
+.balance-table-1 thead th{
+  min-height: 90px!important;
+  background: #00C259;
+  color: #fff!important;
+  font-weight: normal;
+}
+
+.balance-table-1 th{
+  font-weight: normal;
+}
+/*  */
+
+.accordion .btn:focus{
+  border: none;
+  box-shadow: none;
+}
+.accordion .btn:focus{
+  border: none;
+  box-shadow: none;
+}
+
+
+.name-card{
+  width: 234px;
+  height: 95px;
+  margin-top: 27px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.06);
+  border-radius: 3px;
+}
+
+.name-card p{
+  font-weight: bold;
+  line-height: 18px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+
+  color: #909090;
+}
+
+.name-card #name{
+  font-weight: bold;
+  line-height: 25px;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+
+  color: #696969;
+}
+.unreconciled-transactions-contianer{
+  /* display: flex; */
+  margin: 26px 0px 41px 0px!important;
+}
+.unreconciled-transactions-contianer .details{
+  margin-right: 47px !important;
+  width: 811px;
+  height: 253px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.06);
+}
+.unreconciled-transactions-contianer .details .header{
+  height: 62px;
+  background: #34B4C5;
+  padding: 17px 23px;
+  border-left: 7px solid #017F90;
+}
+.unreconciled-transactions-contianer .details .header p{
+  font-weight: 900;
+  line-height: 28px;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+}
+.unreconciled-transactions-contianer .details .body{
+  height: 75.5%;
+  padding: 38px 20px;
+}
+.unreconciled-transactions-contianer .details .body .d-flex{
+  margin-bottom: 24px;
+}
+.unreconciled-transactions-contianer .details .body .left{
+  width: 28%;
+}
+
+.unreconciled-transactions-contianer .details .body .right{
+  width: 72%;
+}
+
+.unreconciled-transactions-contianer .details .body .left ul{
+  padding-left: 0;
+  margin-left: 0;
+}
+.unreconciled-transactions-contianer .details .body .left li{
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+  line-height: 22px;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: #909090;
+  padding-left: 0;
+  margin-left: 0;
+}
+.unreconciled-transactions-contianer .details .body .left li i{
+  margin-right: 9px;
+}
+
+.unreconciled-transactions-contianer .details .body .right p{
+  font-weight: bold;
+  line-height: 22px;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: #909090;
+}
+
+
+.unreconciled-transactions-contianer .stats{
+  width: 291px;
+  height: 253px;
+  left: 935px;
+  top: 343px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.06);
+}
+.unreconciled-transactions-contianer .stats .header{
+  height: 62px;
+  background: rgba(239, 130, 4, 0.65);
+  padding: 17px 23px;
+  border-left: 7px solid #F36D00;
+}
+.unreconciled-transactions-contianer .stats .header p{
+  font-weight: 900;
+  line-height: 25px;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+}
+.unreconciled-transactions-contianer .stats .body{
+  height: 75.5%;
+  padding: 38px 20px;
+}
+.unreconciled-transactions-contianer .stats .body .d-flex p{
+  font-weight: normal;
+  line-height: 22px;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: #909090;
+}
+.unreconciled-transactions-contianer .stats .body .d-flex .amount{
+  font-family: 'Alef', sans-serif;
+  font-weight: bold;
+  line-height: 65px;
+  font-size: 64px;
+  letter-spacing: 0.1em;
+  color: #696969;
+}
+.unreconciled-transactions-contianer .stats .body a{
+  margin-top :30px;
+}
+
+.transactions-container{
+  margin-bottom: 73px;
+}
+.transactions-container .banks{
+  width: 57%;
+  background: #FFFFFF;
+  overflow-x: auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+.transactions-container .banks .header{
+  height: 158px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 16px;
+  padding-right: 105px;
+}
+.transactions-container .banks .header .left {
+  margin-top: 23px;
+}
+.transactions-container .banks .header .left p{
+  font-weight: bold;
+  line-height: 28px;
+  letter-spacing: 0.1em;
+  color: #696969;
+}
+.transactions-container .banks .header .right p{
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: #909090;
+}
+.transactions-container .banks .header .right .btn{
+  width: 163px;
+  height: 32px;
+  background-color: #FB8540;
+  border: none;
+  border-radius: 4px;
+}
+.transactions-container .records{
+  width: 41%;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  overflow-x: auto;
+}
+#transactions tbody tr{
+  font-weight: 600;
+  line-height: 25px;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  color: #909090;
+}
+#transactions tbody tr td{
+
+  border:none!important;
+  min-width: 150px!important;
+  padding-right: 0px;
+}
+#transactions tbody tr:hover{
+    background: rgba(243, 144, 63, 0.07)!important;
+    color: #313030!important;
+    box-shadow: none!important;
+    border-left: 5px solid #F3903F;
+    font-weight: 600!important;
+    cursor: pointer;
+}
+#transactions-records tbody tr{
+  font-weight: 600;
+  line-height: 22px;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  color: #909090;
+}
+#transactions-records tbody tr td{
+
+  border:none!important;
+  min-width: 150px!important;
+  padding-right: 0px;
+}
+#transactions-records tbody tr:hover{
+    background: inherit!important;
+    color:  #599FF1!important;
+    box-shadow: none!important;
+    font-weight: 600!important;
+    cursor: pointer;
+}
+
+
+.transactions-container .records .header{
+  height: 223px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 55px;
+  padding-right: 42px;
+}
+.transactions-container .records .header .input-group{
+  margin-top:30px;
+  width: 100%;
+}
+.transactions-container .records .header .input-group .form-control,
+.transactions-container .records .header .input-group .btn-orange
+{
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1)!important;
+  border:none!important;
+  height: 60px;
+}
+
+.table-responsive{
+  /* max-width: 100%!important; */
+  overflow-x: auto!important;
+}
+
+.banking-pages{
+  /* padding-top:30px!important; */
+}
+.banking-pages .input-group{
+  margin: 30px 0px;
+}
+#banksTable{
+  background-color: #ffffff;
+}
+#banksTable tr{
+  height: 90px;
+}
+#banksTable tr td,
+#banksTable tr th
+{
+  height: 90px;
+  border-bottom: 3px solid #f3f3f3;
+}

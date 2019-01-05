@@ -20,6 +20,6 @@ class Staff extends Model
 
     public function sales()
     {
-        return $this->hasMany('Koboaccountant\Models\Sales');
+        return $this->hasMany( 'Koboaccountant\Models\Sale' );
     }
 }
