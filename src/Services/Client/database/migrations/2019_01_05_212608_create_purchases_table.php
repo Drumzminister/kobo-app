@@ -14,8 +14,10 @@ class CreatePurchasesTable extends Migration
     public function up()
     {
         Schema::create('purchases', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id', 36);
             $table->timestamps();
+
+            $table->primary('id');
         });
     }
 

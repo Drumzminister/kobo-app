@@ -35,4 +35,9 @@ class Transaction extends Model
 	{
 		return $this->belongsTo(Inventory::class, 'inventory_id');
 	}
+
+	public function category()
+	{
+		return $this->belongsTo(TransactionCategory::class);
+	}
 }

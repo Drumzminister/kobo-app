@@ -20,8 +20,7 @@ class CreateTransactionsTable extends Migration
             $table->string('expense_id', 36)->nullable();
             $table->string('purchase_id', 36)->nullable();
             $table->string('inventory_id', 36)->nullable();
-            $table->string('transaction_category_id', 36)->nullable();
-            $table->string('transaction_category_id', 36)->nullable();
+            $table->unsignedInteger('transaction_category_id')->nullable();
             $table->double('amount')->default(0);
             $table->text('note')->nullable();
             $table->boolean('isProcessed')->default(0);
