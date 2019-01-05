@@ -4,7 +4,7 @@ namespace Koboaccountant\Repositories\Sales;
 
 use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\SalesChannel;
-use Koboaccountant\Models\Sales;
+use Koboaccountant\Models\Sale;
 // use Koboaccountant\Reopsitories\Inventory\InventoryRepository;
 use Koboaccountant\Notifications\MadeSales;
 use Auth;
@@ -16,7 +16,7 @@ class SalesRepository extends BaseRepository
 {
     public function __construct(
         SalesChannel $salesChannel,
-        Sales $sale,
+        Sale $sale,
         Inventory $inventory,
         Company $company,
         Customer $customer
@@ -45,7 +45,7 @@ class SalesRepository extends BaseRepository
     public function create($data)
     {
         //Check for product availability
-        $sales = new Sales();
+        $sales = new Sale();
         $sales->id = $this->generateUuid();
         $sales->sales_transaction_id = $data['sales_transaction_id'];
         $sales->invoice_number = $data['invoice_number'];
@@ -64,7 +64,7 @@ class SalesRepository extends BaseRepository
 
     public function update($data)
     {
-        $sales = Sales::where('id', $data['sales_id'])->first();
+        $sales = Sale::where('id', $data['sales_id'])->first();
         $sales->customer_id = $data['customer_id'];
         $sales->delivery_cost = $data['delivery_cost'];
         $sales->sales_date = $data['sales_date'];
@@ -77,7 +77,7 @@ class SalesRepository extends BaseRepository
 
     public function delete($data)
     {
-        $sales = Sales::where('id', $data['sales_id'])->first();
+        $sales = Sale::where('id', $data['sales_id'])->first();
         $sales->delete();
     }
 
@@ -118,7 +118,7 @@ class SalesRepository extends BaseRepository
     public function getSalesByDuration($start, $end)
     {
         if (!is_null(Auth::user())) {
-            $sales = Sales::where('company_id', Auth::user()->company->id)->whereDate('sales_date', '<', $start)->whereDate('sales_date', '<', $end);
+            $sales = Sale::where('company_id', Auth::user()->company->id)->whereDate('sales_date', '<', $start)->whereDate('sales_date', '<', $end);
 
             return $sales;
         }
@@ -129,7 +129,7 @@ class SalesRepository extends BaseRepository
     public function getDailySales($day)
     {
         if (!is_null(Auth::user())) {
-            $sales = Sales::where('company_id', Auth::user()->company->id)->whereDate('sales_date', $day)->get();
+            $sales = Sale::where('company_id', Auth::user()->company->id)->whereDate('sales_date', $day)->get();
 
             return $sales;
         }
@@ -137,7 +137,7 @@ class SalesRepository extends BaseRepository
 
     public function getSaleById($id)
     {
-        $sale = Sales::find($id);
+        $sale = Sale::find($id);
         $data = [];
         if (!is_null($sale)) {
             $data['sale'] = $sale;
