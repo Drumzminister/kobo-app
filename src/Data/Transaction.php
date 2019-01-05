@@ -23,16 +23,16 @@ class Transaction extends Model
 
 	public function expense()
 	{
-		return $this->belongsTo(Expense::class);
+		return $this->belongsTo(Expense::class, 'expense_id');
 	}
 
 	public function purchase()
 	{
-		return $this->belongsTo(Purchase::class);
+		return $this->belongsTo(Purchase::class, 'purchase_id');
 	}
 
 	public function inventory()
 	{
-		return $this->belongsTo(Inventory::class);
+		return $this->belongsTo(Inventory::class, 'inventory_id');
 	}
 }
