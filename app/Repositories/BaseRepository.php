@@ -6,8 +6,7 @@ use Uuid;
 use Illuminate\Support\Facades\Auth;
 use Koboaccountant\Traits\CashTransactions;
 
-class
-BaseRepository {
+class BaseRepository {
 
     use CashTransactions;
 
