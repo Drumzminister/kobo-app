@@ -7,18 +7,18 @@ use Lucid\Foundation\Job;
 
 class ListRentJob extends Job
 {
-    private $userId;
+    private $companyId;
     private $rent;
 
     /**
      * Create a new job instance.
      *
-     * @param $userId
+     * @param $companyId
      */
-    public function __construct($userId)
+    public function __construct($companyId)
     {
         $this->rent = new RentRepository();
-        $this->userId = $userId;
+        $this->companyId = $companyId;
     }
 
     /**
@@ -29,7 +29,7 @@ class ListRentJob extends Job
     public function handle()
     {
         return response()->json([
-            'rents' => array_values($this->rent->getByAttributes(['user_id'=> $this->userId])->all())
+            'rents' => array_values($this->rent->getByCompany_id(['user_id'=> $this->companyId])->all())
         ]);
     }
 }

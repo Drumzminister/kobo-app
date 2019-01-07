@@ -47,6 +47,7 @@ export const rentApp = {
             axios.post('/client/rent/add', formData).then(res => {
                 this.rents.unshift(res.data.rent);
                 swal("Success", "Rent added successfully", "success");
+                location.reload();
                 $('#addRentModal').modal('toggle');
             });
         },
@@ -139,6 +140,7 @@ export const rentApp = {
                 this.rents.splice(this.rents.findIndex((rent) => {
                     return rent.id === this.editingRent.id;
                 }), 1, response.data.rent);
+                // location.reload();
                 $('#editRentModal').modal('toggle');
             });
         },

@@ -13,11 +13,13 @@ class AddRentJob extends Job
      * Create a new job instance.
      *
      * @param $data
-     * @param $userId
+     * @param $staffId
+     * @param $companyId
      */
-    public function __construct($data, $companyId)
+    public function __construct($data, $staffId, $companyId)
     {
-        $data['userId'] = $companyId;
+        $data['staffId'] = $staffId;
+        $data['companyId'] = $companyId;
         $this->data = $data;
         $this->rent = new RentRepository();
     }

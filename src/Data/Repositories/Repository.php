@@ -143,6 +143,18 @@ class Repository
         return $query->firstOrFail();
     }
 
+    public function getBy($attribute, $value, $relations = null)
+    {
+        $query = $this->model->where($attribute, $value);
+        if ($relations && is_array($relations)) {
+            foreach ($relations as $relation) {
+                $query->with($relation);
+            }
+        }
+
+        return $query->get();
+    }
+
     /**
      * Get all records by an associative array of attributes.
      * Two operators values are handled: AND | OR.
@@ -257,6 +269,13 @@ class Repository
             array_unshift($arguments, $attribute);
 
             return call_user_func_array(array($this, 'findBy'), $arguments);
+        }
+
+        if (preg_match('/^getBy/', $method)) {
+            $attribute = strtolower(substr($method, 5));
+            array_unshift($arguments, $attribute);
+
+            return call_user_func_array(array($this, 'getBy'), $arguments);
         }
     }
 }

@@ -44,7 +44,7 @@
                             <textarea name="comment" style="resize: none" id="" class="form-control" cols="30" rows="3"></textarea>
                         </div>
                         <div class="justify-content-around text-center pt-2">
-                                <span style="cursor: pointer" class="submit" @click="beforeSubmit">
+                                <span style="cursor: pointer" class="submit" @click="beforeSubmit('addRentModal')">
                                     <i class="fa fa-telegram " style="font-size:48px; color:#00C259;"></i>
                                 </span>
                             <h5 class="h5 text-green">Add Rent</h5>

@@ -10,6 +10,6 @@ class ListRentFeature extends Feature
 {
     public function handle(Request $request)
     {
-        return $this->run(ListRentJob::class, ['userId' => auth()->id()]);
+        return $this->run(ListRentJob::class, ['companyId' => auth()->user()->company->id]);
     }
 }

@@ -67252,6 +67252,7 @@ var rentApp = {
             axios.post('/client/rent/add', formData).then(function (res) {
                 _this2.rents.unshift(res.data.rent);
                 swal("Success", "Rent added successfully", "success");
+                location.reload();
                 $('#addRentModal').modal('toggle');
             });
         },
@@ -67349,6 +67350,7 @@ var rentApp = {
                 _this4.rents.splice(_this4.rents.findIndex(function (rent) {
                     return rent.id === _this4.editingRent.id;
                 }), 1, response.data.rent);
+                // location.reload();
                 $('#editRentModal').modal('toggle');
             });
         },

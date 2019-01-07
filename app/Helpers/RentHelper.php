@@ -10,7 +10,7 @@ namespace Koboaccountant\Helpers;
 
 
 use Carbon\Carbon;
-use Koboaccountant\Repositories\Rent\RentRepository;
+use App\Data\Repositories\RentRepository;
 
 class RentHelper
 {
@@ -23,8 +23,8 @@ class RentHelper
         $usedRent = 0;
         $total = 0;
         $amortized = null;
-        $rents = self::getRentRepo()->getAll();
-
+        $rents = self::getRentRepo()->getByCompany_id(auth()->user()->company->id);
+//        return $rents;
         foreach ($rents as $rent) {
 //            $rent = $rents[$test];
             $start = new Carbon($rent->start);
