@@ -10,6 +10,7 @@ use Koboaccountant\Models\Company;
 use Koboaccountant\Models\Customer;
 use Koboaccountant\Models\Debtor;
 use Koboaccountant\Models\Review;
+use Koboaccountant\Models\Role;
 use Koboaccountant\Models\SubscriptionPlan;
 use Koboaccountant\Models\User;
 
@@ -27,13 +28,15 @@ class DatabaseSeeder extends Seeder
 
 	    $subscription = SubscriptionPlan::first();
 
-        $user = factory(User::class)->create();
+        $accountantUser = factory(User::class)->create();
+        $accountantRole = factory(Role::class)->create([ 'name' => 'Accountant', 'user_id' => $accountantUser->id]);
 
-        $accountant = factory(Accountant::class)->create(['user_id' => $user->id]);
+        $accountant = factory(Accountant::class)->create(['user_id' => $accountantUser->id]);
 
         $clientUser = factory(User::class)->create();
+        $clientRole = factory(Role::class)->create(['name' => 'Client', 'user_id' => $clientUser->id]);
 
-        $client = factory(Client::class)->create(['accountant_id' => $accountant->id, 'user_id' => $clientUser->id, 'subscription_plan_id' => $subscription->id]);
+	    $client = factory(Client::class)->create(['accountant_id' => $accountant->id, 'user_id' => $clientUser->id, 'subscription_plan_id' => $subscription->id]);
 
 	    factory(AccountantClient::class)->create(['client_id' => $client->id, 'accountant_id' => $accountant->id]);
 

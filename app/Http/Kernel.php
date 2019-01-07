@@ -61,6 +61,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'accountant' => \Koboaccountant\Http\Middleware\MustBeAccountant::class,
+        'client' => \Koboaccountant\Http\Middleware\MustBeClient::class,
         'admin' => \Koboaccountant\Http\Middleware\MustBeAdmin::class,
         'has_paid'=> \Koboaccountant\Http\Middleware\CheckPayment::class,
     ];

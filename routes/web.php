@@ -169,16 +169,8 @@ Route::get('/add-customers', function () {
 
 Route::get('/view-customers', function () {
         return view('view-customers');
-    });
+});
 
-
-// accountant dashboard
-Route::get('/accountant/dashboard', function () {
-        return view('accountant.account-dashboard');
-    });
-
-
-    
    // client
 Route::get('/clients', function () {
 
@@ -218,22 +210,20 @@ Route::get('/started', 'PaymentController@index');
 
 Auth::routes();
 // Guest  routes
-Route::group(['middle' => ['guest']], function () {
+Route::group(['middleware' => ['guest']], function () {
         //Registration Steps
         Route::post('/register', 'UserController@create')->name('register');
         Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
         Route::get('/started', 'UserController@started');
         Route::get('/login', 'UserController@login')->name('login');
-        Route::get('/logout', 'UserController@logout');
         Route::get('/started', 'PaymentController@index');
         Route::get('plans', 'PaymentController@getAllPlans');
-
         // Guest accountant routes
         Route::get('/accountant', 'UserController@accountant');
-    });
+});
 
-// Auth routes
-// Route::group(['middleware' => 'auth'], function () {
+Route::get('/logout', '\Koboaccountant\Http\Controllers\Auth\LoginController@logout')->middleware('auth');
+
 Route::get('/payment/success', 'PaymentController@paid');
 
 Route::get('/dashboard', 'DashboardController@index')->name('client.dashboard');
@@ -245,18 +235,12 @@ Route::get('/addSales', 'SalesController@sales');
 Route::get('/getCustomer', 'CustomerController@allUserCustomers');
 Route::post('/sales/create', 'SalesTransactionController@store');
 
-// });
 Route::get('/expenses', 'ExpensesController@index');
 Route::get('/assets', 'OpeningController@showAssetsPage');
 Route::get('/debtors', 'DebtorController@index');
 Route::get('/creditors', 'CreditorController@index');
 Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');
-// });
 
-// Accountant rotes
-// Route::group(['middleware' => ''], function() {
-Route::get('/accountant/dashboard', 'AccountantController@index');
-// });
 Route::post('/expenses/create', 'ExpensesController@store');
 
 Route::get('/getClientId', 'ClientController@getId');
