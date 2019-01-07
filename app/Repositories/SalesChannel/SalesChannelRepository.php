@@ -17,7 +17,7 @@ class SalesChannelRepository extends BaseRepository
     public function allSalesChannel()
     {
         if (!is_null(Auth::user())) {
-            $salesChannel = $this->model->where('user_id', $this->getAuthUserId());
+            $salesChannel = $this->model->where('user_id', $this->getAuthUserId())->get();
             return $salesChannel;
         }
 

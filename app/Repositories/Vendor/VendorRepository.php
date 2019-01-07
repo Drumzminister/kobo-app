@@ -32,7 +32,7 @@ class VendorRepository extends BaseRepository
     {
         if(! is_null(Auth::user()))
         {
-            return $this->model->where('company_id', $this->getAuthUserId());
+            return $this->model->where('company_id', $this->getAuthUserId()->get());
         }
         return [];
     }

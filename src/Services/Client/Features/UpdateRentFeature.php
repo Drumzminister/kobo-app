@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Features;
+namespace App\Services\Client\Features;
 
 use Lucid\Foundation\Feature;
 use Illuminate\Http\Request;
 
-class ShowNewAccountantFormFeature extends Feature
+class UpdateRentFeature extends Feature
 {
     public function handle(Request $request)
     {
