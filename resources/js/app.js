@@ -8,7 +8,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.swal = require('sweetalert2');
 import {vendorApp} from "./mixins/vendors";
+import {rentApp} from "./mixins/rent";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -20,7 +22,7 @@ import {vendorApp} from "./mixins/vendors";
 
 const app = new Vue({
     el: '#app',
-    mixins: [vendorApp],
+    mixins: [vendorApp, rentApp],
     data: {},
     methods: {}
 });

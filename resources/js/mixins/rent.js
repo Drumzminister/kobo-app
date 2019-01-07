@@ -1,4 +1,4 @@
-export const rent = {
+export const rentApp = {
     data: {
         rents: [],
         amount:"",
@@ -43,7 +43,7 @@ export const rent = {
         createRent (evt) {
             evt.preventDefault();
             let formData = new FormData(evt.target);
-            axios.post('/rent', formData).then(res => {
+            axios.post('/client/rent/add', formData).then(res => {
                 this.rents.unshift(res.data.rent);
                 swal("Success", "Rent added successfully", "success");
                 $('#addRentModal').modal('toggle');
