@@ -71,17 +71,19 @@ $factory->define(Inventory::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(\Koboaccountant\Models\Staff::class, function (Faker $faker) {
+$roles = ['CEO', 'Product Manager', 'Public Servant', 'Marketer', 'Member', 'Developer'];
+$factory->define(\Koboaccountant\Models\Staff::class, function (Faker $faker) use($roles) {
+	shuffle($roles);
     return [
         'id'            => $faker->uuid,
-        'name'          => $faker->word(6),
-        'user_id'       => $faker->word(6),
+        'name'          => $faker->name,
+        'user_id'       => '',
         'company_id'    => '',
-        'designation'   => $faker->word(8),
-        'salary'        => $faker->randomFloat(2),
+        'designation'   => $roles[0],
+        'salary'        => $faker->numberBetween(30000, 150000),
         'isActive'      => $faker->numberBetween(0, 1),
         'employed_date' => $faker->dateTime(),
-        'avatar'         => $faker->imageUrl,
+        'avatar'        => $faker->imageUrl,
     ];
 });
 
