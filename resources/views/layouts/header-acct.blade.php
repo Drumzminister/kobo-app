@@ -19,7 +19,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item " href="/client">Client</a>
-                    <a class="dropdown-item" href="/manage/client">Manage Clients</a>
+                    <a class="dropdown-item" href="/manage/clients">Manage Clients</a>
                     <a class="dropdown-item" href="/profile">Client Profile</a>
                     </div>
                 </li>
@@ -31,7 +31,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item " href="/budget">Budget</a>
                     <a class="dropdown-item" href="/npv">NPV Calculator</a>
-                    <a class="dropdown-item" href="/bank-reconcilation">Bank Reconcilation</a>
+                    <a class="dropdown-item" href="/bank-reconciliation">Bank Reconcilation</a>
                     </div>
                 </li>
 
@@ -41,7 +41,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item " href="/toolkits">Toolkits</a>
-                    <a class="dropdown-item" href="/resource">Resources</a>
+                    <a class="dropdown-item" href="/resources">Resources</a>
                     </div>
                 </li>
 
