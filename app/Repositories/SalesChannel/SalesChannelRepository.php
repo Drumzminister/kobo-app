@@ -3,14 +3,14 @@
 namespace Koboaccountant\Repositories\SalesChannel;
 
 use Illuminate\Support\Facades\Auth;
-use Koboaccountant\Models\SalesChannel;
+use Koboaccountant\Models\SaleChannel;
 use Koboaccountant\Repositories\BaseRepository;
 
 class SalesChannelRepository extends BaseRepository
 {
     public function __construct()
     {
-        parent::__construct(new SalesChannel());
+        parent::__construct(new SaleChannel());
 
     }
 

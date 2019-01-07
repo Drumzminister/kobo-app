@@ -16,6 +16,7 @@ Route::group(['prefix' => 'accountant'], function() {
     Route::get('/register', 'AccountantRegistrationController@showNewAccountantForm')->name('register.accountant');
 	Route::post('/register', 'AccountantRegistrationController@showNewAccountantForm')->name('register.accountant');
 
+	// Accountant Dashboard Routes
 	Route::get('/dashboard', 'AccountantDashboardController@showAccountantDashboardPage')->name('accountant.dashboard');
 
 	// Client Review

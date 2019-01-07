@@ -5,7 +5,7 @@ namespace Koboaccountant\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SalesChannel extends Model
+class SaleChannel extends Model
 {
     use SoftDeletes;
     

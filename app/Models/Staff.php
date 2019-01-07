@@ -10,7 +10,9 @@ class Staff extends Model
     use SoftDeletes;
 
     public $incrementing = false;
-
+	protected $fillable = [
+		'id', 'user_id', 'company_id', 'name', 'designation'
+	];
     protected $dates = ['deleted_at'];
 
     public function company()

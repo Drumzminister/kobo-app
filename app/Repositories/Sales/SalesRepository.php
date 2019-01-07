@@ -3,7 +3,7 @@
 namespace Koboaccountant\Repositories\Sales;
 
 use Koboaccountant\Repositories\BaseRepository;
-use Koboaccountant\Models\SalesChannel;
+use Koboaccountant\Models\SaleChannel;
 use Koboaccountant\Models\Sale;
 // use Koboaccountant\Reopsitories\Inventory\InventoryRepository;
 use Koboaccountant\Notifications\MadeSales;
@@ -15,7 +15,7 @@ use Koboaccountant\Models\Customer;
 class SalesRepository extends BaseRepository
 {
     public function __construct(
-        SalesChannel $salesChannel,
+        SaleChannel $salesChannel,
         Sale $sale,
         Inventory $inventory,
         Company $company,
@@ -34,7 +34,7 @@ class SalesRepository extends BaseRepository
      */
     public function addChannel($data)
     {
-        $channel = new SalesChannel();
+        $channel = new SaleChannel();
         $channel->id = $this->generateUuid();
         $channel->name = $data['name'];
         $channel->save();
