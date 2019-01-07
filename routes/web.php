@@ -173,9 +173,6 @@ Route::get('/view-customers', function () {
 
 
 // accountant dashboard
-Route::get('/accountant/dashboard', function () {
-        return view('accountant.account-dashboard');
-    });
 
 
     
@@ -218,19 +215,19 @@ Route::get('/started', 'PaymentController@index');
 
 Auth::routes();
 // Guest  routes
-Route::group(['middle' => ['guest']], function () {
+Route::group(['middleware' => ['guest']], function () {
         //Registration Steps
         Route::post('/register', 'UserController@create')->name('register');
         Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
         Route::get('/started', 'UserController@started');
         Route::get('/login', 'UserController@login')->name('login');
-        Route::get('/logout', 'UserController@logout');
         Route::get('/started', 'PaymentController@index');
         Route::get('plans', 'PaymentController@getAllPlans');
-
         // Guest accountant routes
         Route::get('/accountant', 'UserController@accountant');
-    });
+});
+
+Route::get('/logout', '\Koboaccountant\Http\Controllers\Auth\LoginController@logout')->middleware('auth');
 
 // Auth routes
 // Route::group(['middleware' => 'auth'], function () {
@@ -255,7 +252,7 @@ Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');
 
 // Accountant rotes
 // Route::group(['middleware' => ''], function() {
-Route::get('/accountant/dashboard', 'AccountantController@index');
+//Route::get('/accountant/dashboard', 'AccountantController@index');
 // });
 Route::post('/expenses/create', 'ExpensesController@store');
 

@@ -157,7 +157,13 @@
                             <a class="dropdown-item hover" href="#"><i class="fa fa-user-o pr-3" style="font-size:24px"></i>Account</a>
                             <a class="dropdown-item hover" href="#"><i class="fa fa-gear pr-3" style="font-size:24px"></i>Setting</a>
                                 <div class="dropdown-divider"></div>
-                            <a class="dropdown-item hover" href="#"><i class="fa fa-power-off pr-3" style="font-size:24px"></i>Logout</a>
+                            <a class="dropdown-item hover" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();"><i class="fa fa-power-off pr-3" style="font-size:24px" >
+                                </i>Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </div>
                     </li>
                 </ul>
