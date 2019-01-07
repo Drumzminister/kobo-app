@@ -182,7 +182,7 @@ Route::get('/manage/clients', function () {
     });
 
 Route::get('/toolkits', function () {
-        return view('acccountant.toolkit');
+        return view('accountant.toolkit');
     });
 
 Route::get('/resources', function () {

@@ -12,22 +12,44 @@
                 <li class="nav-item pr-3 pl-3">
                     <a class="nav-link pr-3 pl-3" href="/accountant/dashboard">Dashboard</a>
                 </li>
-                
-                <li class="nav-item pr-3 pl-3">
-                    <a class="nav-link pr-3 pl-3 " href="/clients">Clients</a>
+
+                <li class="nav-item dropdown pr-4 pl-4">                   
+                    <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Clients
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item " href="/client">Client</a>
+                    <a class="dropdown-item" href="/manage/client">Manage Clients</a>
+                    <a class="dropdown-item" href="/profile">Client Profile</a>
+                    </div>
                 </li>
                 
-                <li class="nav-item dropdown pr-3 pl-3">
-                    <a class="nav-link pr-3 pl-3" href="/inventory">Inventory</a>
-                </li>
-                
-                <li class="nav-item pr-3 pl-3">
-                    <a class="nav-link pr-3 pl-3 " href="/expenses">Expenses</a>
+                <li class="nav-item dropdown pr-4 pl-4">                   
+                    <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Transaction
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item " href="/budget">Budget</a>
+                    <a class="dropdown-item" href="/npv">NPV Calculator</a>
+                    <a class="dropdown-item" href="/bank-reconcilation">Bank Reconcilation</a>
+                    </div>
                 </li>
 
-                <li class="nav-item pr-3 pl-3">
-                    <a class="nav-link pr-3 pl-3 " href="/tools">Tools</a>
+                <li class="nav-item dropdown pr-4 pl-4">                   
+                    <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Tools
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item " href="/toolkits">Toolkits</a>
+                    <a class="dropdown-item" href="/resource">Resources</a>
+                    </div>
                 </li>
+
+
+                <li class="nav-item pr-4 pl-4">
+                    <a class="nav-link pr-3 pl-3 " href="/chats">Chats</a>
+                </li>
+
             </ul>
  
 
@@ -137,7 +159,7 @@
 
             {{-- user section --}} 
             <div class=" multi-collapse " id="">
-                <ul class="navbar-nav mr-auto navbar-row ">
+                <ul class="navbar-nav ml-auto navbar-row ">
         
                     <li class="nav-item dropdown py-3">
                         <a class="nav-link mr-2 remove-after notification" href="#" 
@@ -151,7 +173,7 @@
                         <div class="dropdown-menu dropdown-menu-right " style="width:240px;" aria-labelledby="navbarSettings">
                         <div class="">
                                 <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" style="width:50px" >
-                                Olu David<span class="pl-4" >ekpnoambrose@gmial.com</span>
+                                Olu David <span class="pl-4"> ekpnoambrose@gmial.com</span>
                         </div>
                             <div class="dropdown-divider"></div>   
                             <a class="dropdown-item hover" href="#"><i class="fa fa-user-o pr-3" style="font-size:24px"></i>Account</a>
