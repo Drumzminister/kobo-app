@@ -80,7 +80,10 @@
                                     <td> @{{ balance(rent) | numberFormat}}</td>
                                     <td>
                                         <div class="progress">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                            <div v-if="getStatus(rent) < 31 " class="progress-bar bg-danger" role="progressbar" :style="`width: ${getStatus(rent)}%;`" :aria-valuenow=" `${getStatus(rent)}%` " aria-valuemin="0" aria-valuemax="100">@{{ `${getStatus(rent)}%` }}</div>
+                                            <div v-if="getStatus(rent) > 31 &&getStatus(rent) < 51 " class="progress-bar" role="progressbar" :style="`width: ${getStatus(rent)}%;`" :aria-valuenow=" `${getStatus(rent)}%` " aria-valuemin="0" aria-valuemax="100">@{{ `${getStatus(rent)}%` }}</div>
+                                            <div v-if="getStatus(rent) > 51 && getStatus(rent) < 71 " class="progress-bar bg-info" role="progressbar" :style="`width: ${getStatus(rent)}%;`" :aria-valuenow=" `${getStatus(rent)}%` " aria-valuemin="0" aria-valuemax="100">@{{ `${getStatus(rent)}%` }}</div>
+                                            <div v-if="getStatus(rent) > 79 " class="progress-bar bg-success" role="progressbar" :style="`width: ${getStatus(rent)}%;`" :aria-valuenow=" `${getStatus(rent)}%` " aria-valuemin="0" aria-valuemax="100">@{{ `${getStatus(rent)}%` }}</div>
                                         </div>
                                     </td>
                                     <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-money" style="font-size:24px"></i></td>

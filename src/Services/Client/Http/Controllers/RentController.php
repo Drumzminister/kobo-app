@@ -3,6 +3,7 @@
 namespace App\Services\Client\Http\Controllers;
 
 use App\Services\Client\Features\AddRentFeature;
+use App\Services\Client\Features\ListRentFeature;
 use App\Services\Client\Features\ShowAllRentsFeature;
 use App\Services\Client\Features\ShowRentPageFeature;
 use Illuminate\Http\Request;
@@ -23,5 +24,10 @@ class RentController extends Controller
     public function addRent()
     {
         return $this->serve(AddRentFeature::class);
+    }
+
+    public function listRent()
+    {
+        return $this->serve(ListRentFeature::class);
     }
 }

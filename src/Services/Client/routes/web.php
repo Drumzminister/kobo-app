@@ -31,11 +31,11 @@ Route::group(['prefix' => 'client'], function () {
 
     Route::get('/rent', "RentController@showRentPage")->name('client.rent.show');
     Route::get('/rent/all', 'RentController@showAllRents')->name('client.rent.show-all');
-    Route::post('rent/add', 'RentController@addRent')->name('client.rent.add');
-    Route::get('rent/list', 'RentController@listRent')->name('client.rent.list');
-    Route::post('rent/update/{rentId}', 'RentController@updateRent')->name('client.rent.update');
-    Route::get('rent/search/{param}', 'RentController@searchRent')->name('client.rent.search');
-    Route::post('rent/{rentId}/pay', 'RentController@payRent')->name('client.rent.pay');
+    Route::post('/rent/add', 'RentController@addRent')->name('client.rent.add');
+    Route::get('/rent/list', 'RentController@listRent')->name('client.rent.list');
+    Route::post('/rent/update/{rentId}', 'RentController@updateRent')->name('client.rent.update');
+    Route::get('/rent/search/{param}', 'RentController@searchRent')->name('client.rent.search');
+    Route::post('/rent/{rentId}/pay', 'RentController@payRent')->name('client.rent.pay');
 
 	Route::get('/loans', 'LoanController@show')->name('client.loan.show');
 	Route::get('/loans/all', 'LoanController@index')->name('client.loan.all');

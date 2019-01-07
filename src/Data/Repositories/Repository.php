@@ -146,7 +146,7 @@ class Repository
     public function getByAttributes(array $attributes, $operator = 'AND', $relations = null)
     {
 
-        // In the following it doesn't matter wivh element to start with, in all cases all attributes will be appended to the
+        // In the following it doesn't matter with element to start with, in all cases all attributes will be appended to the
         // builder.
 
         // Get the last value of the associative array

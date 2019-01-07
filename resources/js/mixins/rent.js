@@ -23,7 +23,7 @@ export const rentApp = {
         axios.get('/banking/payment_modes').then (res => {
             this.paymentMethods = res.data;
         });
-        axios.get('/rent/user').then (res => {
+        axios.get('/client/rent/list').then (res => {
             this.rents = res.data.rents;
         });
     },
@@ -50,40 +50,30 @@ export const rentApp = {
             });
         },
         rentUsed (rent) {
-            let start = new Date(rent.start);
-            let end = new Date(rent.end);
-            let today = new Date();
-            let diff;
-            if (end.getFullYear() - start.getFullYear() === 0) {
-                diff = (end.getMonth()) - start.getMonth();
-                if ( diff === 0 ) {
-                    if (today.getDate() < end.getDate()) {
-                        return 0;
-                    } else {
-                        return rent.amount;
-                    }
-                }
-            } else if (end.getFullYear() - start.getFullYear() === 1) {
-                diff = (end.getMonth() + 12) -  start.getMonth();
-                // return diff;
-                if (diff === 1) {
-                    if ((today.getMonth() === end.getMonth() && today.getDate() - end.getDate() > 0) || (today.getMonth() !== end.getMonth() && today.getDate() - end.getDate() > 0 ) ) {
-                        return rent.amount;
-                    } else if ((today.getMonth() === end.getMonth() && today.getDate() - end.getDate() <= 0) || (today.getMonth() !== end.getMonth() && today.getDate() - end.getDate() <= 0 )) {
-                        return 0
-                    }
-                }
-            }
-            if (typeof diff === "number") {
+            let start = moment(rent.start);
+            let end = moment(rent.end);
+            let today = moment();
+            let amortized = 0;
+            let diff = start.diff(end, 'months');
 
-                let amortized = rent.amount / diff;
-                // return diff;
-                if (today.getFullYear() - start.getFullYear() === 0) {
-                    return amortized * (today.getMonth() - start.getMonth() + 1 );
-                } else if (today.getFullYear() - start.getFullYear() === 1) {
-                    return amortized  * (10 + start.getMonth() - today.getMonth() );
-                }
+            if (diff === 0) {
+                amortized = rent.amount;
+            } else {
+                amortized = rent.amount / diff;
             }
+
+            if (today.isAfter(end)) {
+                return rent.amount;
+            }
+            // debugger;
+            return amortized * (diff - today.diff(end, 'months') );
+
+        },
+        getStatus (rent) {
+            let amount = rent.amount;
+            let rentUsed = this.rentUsed(rent);
+            let status = rentUsed * 100 / amount
+            return `${100 - status.toFixed(0)}`;
         },
 
         addPaymentMode () {

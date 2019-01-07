@@ -8,10 +8,12 @@ use Lucid\Foundation\Job;
 class AddRentJob extends Job
 {
     private $rent, $data;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $data
+     * @param $userId
      */
     public function __construct($data, $userId)
     {
