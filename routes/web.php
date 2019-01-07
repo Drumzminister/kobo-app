@@ -1,6 +1,5 @@
 <?php
 
-use Koboaccountant\Http\Controllers\InventoryController;
 Route::get('/', 'StaticPagesController@index');
 
 Route::get('/login', function () {
@@ -147,6 +146,7 @@ Route::get('/credit', function () {
 Route::get('/view-creditor', function () {
     return view('view-creditor');
 });
+
 // vendors page
 Route::get('/vendors', 'VendorController@index');
 Route::get('/add-vendors', 'VendorController@addVendor');
@@ -182,7 +182,7 @@ Route::get('/manage/clients', function () {
     });
 
 Route::get('/toolkits', function () {
-        return view('acccountant.toolkit');
+        return view('accountant.toolkit');
     });
 
 Route::get('/resources', function () {

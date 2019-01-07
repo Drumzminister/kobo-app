@@ -2,6 +2,7 @@
 
 namespace Koboaccountant\Models;
 
+use App\Data\SaleItem;
 use App\Data\Transaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,6 +16,7 @@ class Sale extends Model
         'name',
         'quantity',
         'amount',
+	    'delivery_cost',
     ];
     
     protected $dates = ['deleted_at'];
@@ -26,9 +28,9 @@ class Sale extends Model
         return $this->belongsTo('Koboaccountant\Models\Company');
     }
 
-    public function inventory()
+    public function saleItems()
     {
-        return $this->hasOne('Koboaccountant\Models\Inventory');
+        return $this->hasMany(SaleItem::class);
     }
 
     public function staff()

@@ -88,13 +88,13 @@ input {
                 {{-- top sales --}}
                 <div class="col-md-4">
                     <div class="bg-white p-2 " id="topp">
-                        <div class="row">
+                        <div class="row my-1">
                             <div class="col mt-1">
                                 <h5 class="h5">Top Purchases</h5>
                             </div>
                             <div class="col">
                                 <div class="dropdown show">
-                                    <a class="btn btn-filter" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="btn btn-filter pull-right" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Filter <i class="fa fa-filter"></i>                                    
                                     </a>                                   
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -138,9 +138,14 @@ input {
     </section>
 
     <section id="sale-table">
+<<<<<<< HEAD:src/Services/Client/resources/views/inventory/inventory.blade.php
         <div class="container mt-4">
+=======
+        <div class="container my-4">
+                        
+>>>>>>> b1926513f517e8a008f659ab33fbaf5772f58534:resources/views/inventory.blade.php
                     <div class="bg-white p-4">
-                            <div class="row py-3">
+                            <div class="row pb-3">
                                     <div class="col-md-3">
                                         <div class="dropdown show">
                                             <a class="btn btn-addSale" href="/client/single-inventory" role="button">
@@ -205,7 +210,7 @@ input {
                             <td>
                                 Mercy Ikpe
                             </td>
-                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                         </tr>
 
                             <tr>
@@ -216,7 +221,7 @@ input {
                               <td> 23</td>
                               <td> 43,000</td>
                               <td> Mercy Ikpe</td>
-                              <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                              <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                             </tr>
 
                             <tr>
@@ -227,24 +232,24 @@ input {
                                 <td> 23</td>
                                 <td> 43,000</td>
                                 <td> Mercy Ikpe</td>
-                                <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                             </tr>
                             <tr>
-                                    <td >21/08/2020 </td>
-                                    <td>
-                                        <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
-                                    </td>
-                                    <td> 23</td>
-                                    <td> 43,000</td>
-                                    <td> Mercy Ikpe</td>
-                                    <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                <td >21/08/2020 </td>
+                                <td>
+                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
+                                </td>
+                                <td> 23</td>
+                                <td> 43,000</td>
+                                <td> Mercy Ikpe</td>
+                                <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                             </tr>
                             
                         </tbody>
                     </table>
                 </div>
                     <hr class="mt-0">
-                    <div class="text-center pb-3">
+                    <div class="text-center ">
                         <a href="/view-inventory" class="view-more">View More</a> 
                     </div>
                    

@@ -4,23 +4,21 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSalesChannelsTable extends Migration
+class CreateTaxesTable extends Migration
 {
     /**
      * Run the migrations.
-    *
+     *
      * @return void
      */
     public function up()
     {
-        Schema::create('sales_channels', function (Blueprint $table) {
-            $table->string('id');
+        Schema::create('taxes', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name');
-            $table->string('user_id')->index();
+            $table->unsignedInteger('percentage');
+            $table->enum('type', ['fixed', 'discount', 'variable'])->default('fixed');
             $table->timestamps();
-            $table->softDeletes();
-            
-            $table->primary('id');
         });
     }
 
@@ -31,6 +29,6 @@ class CreateSalesChannelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sales_channels');
+        Schema::dropIfExists('taxes');
     }
 }

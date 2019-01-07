@@ -4,27 +4,23 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVendorsTable extends Migration
+class CreateSaleChannelsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+    *
      * @return void
      */
     public function up()
     {
-        Schema::create('vendors', function (Blueprint $table) {
+        Schema::create('sale_channels', function (Blueprint $table) {
             $table->string('id');
-	        $table->string('company_id')->index();
-	        $table->string('name');
-	        $table->text('address');
-	        $table->string('phone');
-	        $table->string('email');
-	        $table->string('website');
-	        $table->boolean('isActive')->default(1);
+            $table->string('name');
+	        $table->string('user_id');
+	        $table->string('company_id');
             $table->timestamps();
             $table->softDeletes();
-
+            
             $table->primary('id');
         });
     }
@@ -36,6 +32,6 @@ class CreateVendorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendors');
+        Schema::dropIfExists('sales_channels');
     }
 }

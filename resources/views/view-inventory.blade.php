@@ -18,7 +18,7 @@
     <div class="container mt-3">
         <div class="bg-white p-4">
                 <form action="" method="post">
-                        <div class="form row py-3">
+                        <div class="form row ">
                             <div class="col-md-4">
                                 <div class="p-3 bg-white text-muted" id="topp">
                                     <h5 class="h5">Total Purchase</h5>
@@ -44,30 +44,24 @@
     </div>
 </section>
 
-<section>
-    <div class="container px-4 py-3">
-        <div class="row">
-                <div class="col-md-10 col-6">
-                    <div class="input-group mt-2">
-                        <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+<section id="sale-table">
+        <div class="container mt-4">                       
+            <div class="bg-white p-4"> 
+                <div class="row pb-2">
+                    <div class="col-md-10 col-6">
+                        <div class="input-group mt-2">
+                            <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div id="" class="mt-2 float-right" onclick="">
+                            <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-6">
-                    <div id="" class="mt-2 float-right" onclick="">
-                        <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
-                    </div>
-                </div>
-        </div>
-    </div>
-</section>
-
-<section id="sale-table">
-        <div class="container mt-4">
-                        
-            <div class="bg-white p-4"> 
                 
                 <div class="table-responsive table-responsive-sm">
                         <table class="table table-striped table-hover" id="dataTable">
@@ -78,9 +72,7 @@
                                     <th scope="col">QTY Bought</th>
                                     <th scope="col">Sales Price (&#8358;)</th>
                                     <th scope="col">Vendors</th>
-                                    <th scope="col"></th>
-        
-                        
+                                    <th scope="col"></th>               
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -100,7 +92,7 @@
                                     <td>
                                         Mercy Ikpe
                                     </td>
-                                    <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                    <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                                 </tr>
         
                                     <tr>
@@ -111,7 +103,7 @@
                                       <td> 23</td>
                                       <td> 43,000</td>
                                       <td> Mercy Ikpe</td>
-                                      <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                      <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                                     </tr>
         
                                     <tr>
@@ -122,7 +114,7 @@
                                         <td> 23</td>
                                         <td> 43,000</td>
                                         <td> Mercy Ikpe</td>
-                                        <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                        <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>
@@ -132,7 +124,7 @@
                                             <td> 23</td>
                                             <td> 43,000</td>
                                             <td> Mercy Ikpe</td>
-                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>
@@ -142,7 +134,7 @@
                                             <td> 23</td>
                                             <td> 43,000</td>
                                             <td> Mercy Ikpe</td>
-                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>
@@ -152,7 +144,7 @@
                                             <td> 23</td>
                                             <td> 43,000</td>
                                             <td> Mercy Ikpe</td>
-                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>
@@ -162,7 +154,7 @@
                                             <td> 23</td>
                                             <td> 43,000</td>
                                             <td> Mercy Ikpe</td>
-                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>
@@ -172,7 +164,7 @@
                                             <td> 23</td>
                                             <td> 43,000</td>
                                             <td> Mercy Ikpe</td>
-                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>
@@ -182,7 +174,7 @@
                                             <td> 23</td>
                                             <td> 43,000</td>
                                             <td> Mercy Ikpe</td>
-                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>
@@ -192,13 +184,12 @@
                                             <td> 23</td>
                                             <td> 43,000</td>
                                             <td> Mercy Ikpe</td>
-                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                                     </tr>
 
                                     
-                                </tbody>
-                            </table>
-                   
+                            </tbody>
+                        </table>       
                 </div>
             </div> 
            
