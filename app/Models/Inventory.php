@@ -2,6 +2,7 @@
 
 namespace Koboaccountant\Models;
 
+use App\Data\Transaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -25,4 +26,9 @@ class Inventory extends Model
     {
         return $this->belongsTo('Koboaccountant\Models\Vendor');
     }
+
+	public function transaction()
+	{
+		return $this->hasOne(Transaction::class);
+	}
 }

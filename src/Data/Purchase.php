@@ -1,13 +1,12 @@
 <?php
 
-namespace Koboaccountant\Models;
+namespace App\Data;
 
-use App\Data\Transaction;
 use Illuminate\Database\Eloquent\Model;
 
-class Expense extends Model
+class Purchase extends Model
 {
-    public $incrementing = false;
+	public $incrementing = false;
 
 	public function transaction()
 	{

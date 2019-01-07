@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Koboaccountant\Models\Sales;
+use Koboaccountant\Models\Sale;
 
 class MadeSales extends Notification
 {
@@ -41,7 +41,7 @@ class MadeSales extends Notification
      */
     public function toMail($notifiable)
     {
-        $sale = Sales::find($this->sales);
+        $sale = Sale::find($this->sales);
         return (new MailMessage)
                     ->line('A sale was made by one of your client: ' .$sale->company->name)
                     ->action('Notification Action', url('/'))
