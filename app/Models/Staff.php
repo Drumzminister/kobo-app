@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Staff extends Model
 {
-    use SoftDeletes;
+	use SoftDeletes;
 
     public $incrementing = false;
+
 	protected $fillable = [
-		'id', 'user_id', 'company_id', 'name', 'designation'
+		'id', 'user_id', 'company_id', 'name', 'designation', 'employed_date', 'salary', 'isActive', 'avatar',
 	];
+
     protected $dates = ['deleted_at'];
 
     public function company()

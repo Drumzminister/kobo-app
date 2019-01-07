@@ -25,7 +25,7 @@ class AddForeignKeysToTables extends Migration
 		    $table->foreign('user_id')->references('id')->on('users');
 	    });
 
-	    Schema::table('staffs', function (Blueprint $table) {
+	    Schema::table('staff', function (Blueprint $table) {
 		    $table->foreign('user_id')->references('id')->on('users');
 		    $table->foreign('company_id')->references('id')->on('companies');
 	    });
@@ -50,9 +50,9 @@ class AddForeignKeysToTables extends Migration
 		    $table->dropForeign('transaction_categories_user_id_foreign');
 	    });
 
-	    Schema::table('staffs', function (Blueprint $table) {
-		    $table->dropForeign('staffs_company_id_foreign');
-		    $table->dropForeign('staffs_user_id_foreign');
+	    Schema::table('staff', function (Blueprint $table) {
+		    $table->dropForeign('staff_company_id_foreign');
+		    $table->dropForeign('staff_user_id_foreign');
 	    });
     }
 }

@@ -71,7 +71,7 @@ $factory->define(Inventory::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(Koboaccountant\Models\Staff::class, function (Faker $faker) {
+$factory->define(\Koboaccountant\Models\Staff::class, function (Faker $faker) {
     return [
         'id'            => $faker->uuid,
         'name'          => $faker->word(6),
@@ -81,7 +81,7 @@ $factory->define(Koboaccountant\Models\Staff::class, function (Faker $faker) {
         'salary'        => $faker->randomFloat(2),
         'isActive'      => $faker->numberBetween(0, 1),
         'employed_date' => $faker->dateTime(),
-        'image'         => $faker->imageUrl,
+        'avatar'         => $faker->imageUrl,
     ];
 });
 

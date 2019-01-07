@@ -74,46 +74,60 @@ class DatabaseSeeder extends Seeder
 
     private function createClientAndHisCompany($accountant)
     {
+    	// Create some subscriptions
 	    $subscription = SubscriptionPlan::first();
 
+	    // Create a Client user
 	    $clientUser = $this->createUserWithRole('Client');
 
+		// Create some bank accounts for him
 	    $banks = $this->seedBanks(5, $clientUser->id);
+
+	    // Create some sales channels for him
 	    $salesChannels = $this->seedSalesChannel(5, $clientUser->id);
 
+	    // Put him under an accountant specified by $accountant
 	    $client = factory(Client::class)->create(['accountant_id' => $accountant->id, 'user_id' => $clientUser->id, 'subscription_plan_id' => $subscription->id]);
 
+	    // Link the accountant and client
 	    factory(AccountantClient::class)->create(['client_id' => $client->id, 'accountant_id' => $accountant->id]);
 
 	    // Create Company for client
 	    $company = factory(Company::class)->create(['user_id' => $clientUser->id]);
 
-	    // Make this user a Staff
+	    // Make this user a Staff of his company
 	    $staff = $this->createStaff($company, $clientUser);
-		// Create vendor for client
+
+	    // Create Staffs for his company
+	    $staffs = $this->createStaffsForCompany($company);
+
+		// Create vendor for the client
 	    $vendors = $this->createVendorsForUser(10, $company);
 
-	    // Create Inventories from vendors
+	    // Create Inventories (things he bought) from his vendors
 	    $vendors->each(function (Vendor $vendor) use ($clientUser) {
 	    	$inventories = factory(Inventory::class, 4)->create(['user_id' => $clientUser->id, 'vendor_id' => $vendor->id]);
 	    });
 
-	    // The accountant Can review a particular company
+	    // We make an accountant Review his company
 	    factory(CompanyReview::class)->create(['company_id' => $company->id]);
 
-	    // Then a client review an accountant
+	    // Then we make the client review his accountant
 	    factory(Review::class)->create(['accountant_id' => $accountant->id, 'client_id' => $client->id]);
 
+	    // We're creating some assets for his company
 	    factory(Asset::class, 6)->create(['company_id' => $company->id]);
 
+	    // We're creating some customers for his company as well
 	    $customers = factory(Customer::class, 12)->create(['company_id' => $company->id]);
 
+	    // Here, we'll make some Customers debtors 😁
 	    $count = 0;
 	    $customers->each(function (Customer $customer) use($company, &$count) {
 		    if ($count === 3) return;
 
 		    if ($customer->isActive) {
-			    factory(Debtor::class)->create([ 'customer_id' => $customer->id, 'company_id' => $company->id]);
+			    factory(Debtor::class)->create(['customer_id' => $customer->id, 'company_id' => $company->id]);
 			    $count++;
 		    }
 	    });
@@ -128,14 +142,10 @@ class DatabaseSeeder extends Seeder
 
     private function createStaffsForCompany($company)
     {
-    	$users = factory(User::class, 10)->create();
-
-    	$users->each(function (User $user) {
-    		$this->createUserWithRole('Staff');
-	    });
+    	$users = $this->createUserWithRole('Staff', 10);
 
     	$users->each(function (User $user) use($company) {
-    		$staff = factory(Staff::class)->create(['company_id' => $company->id, 'user_id' => $user->id]);
+    		factory(Staff::class)->create(['company_id' => $company->id, 'user_id' => $user->id]);
 	    });
     }
 
@@ -147,9 +157,13 @@ class DatabaseSeeder extends Seeder
 		    return $user;
 	    }
 
-	    $user = factory(User::class)->create();
-	    $userRole = factory(Role::class)->create(['name' => $role, 'user_id' => $user->id]);
-	    return $user;
+	    $users = factory(User::class, $nums)->create();
+
+	    $users->each(function (User $user) use ($role) {
+		    factory(Role::class)->create(['name' => $role, 'user_id' => $user->id]);
+	    });
+
+	    return $users;
 
     }
 }
