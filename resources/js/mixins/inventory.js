@@ -19,9 +19,14 @@ export const inventoryApp = {
             console.log(this.inventoryForm);
             axios.post('/client/inventory/add', this.inventoryForm).then(res => {
                 swal('Success', res.data.message, "success");
+                this.inventoryForm = '';
             }).catch(err => {
                 swal("Oops", "An error occurred when creating this account", "error");
             });
+        },
+
+        quantity() {
+            console.log('hil');
         }
     }
 }

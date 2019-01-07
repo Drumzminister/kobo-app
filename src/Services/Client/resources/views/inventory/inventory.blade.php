@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@extends('client::layouts.app')
 <style>
 label {display: block; padding: 5px; position: relative; padding-left: 10px;}
 label input {display: none;}
@@ -104,7 +104,6 @@ input {
                                 </div>
                             </div>
                         </div>
-
                         <div class="all-scroll">
                         <table class="table table-striped table-hover" id="table">
                             <thead class="sale-head">
@@ -115,26 +114,15 @@ input {
                               </tr>
                             </thead>
                             <tbody>
+                            @forelse($purchase_price as $top_sales)
                               <tr>
-                                <td>Cars</td>
-                                <td>33</td>
-                                <td>12,000</td>
+                                <td>{{$top_sales['name']}}</td>
+                                <td>{{$top_sales['quantity']}}</td>
+                                <td>{{$top_sales['purchase_price']}}</td>
                               </tr>
-                              <tr>
-                                <td>Furnitures</td>
-                                <td>55</td>
-                                <td>68,000</td>
-                              </tr>
-                              <tr>
-                                <td>Phone</td>
-                                <td>45 </td>
-                                <td>23123 </td>
-                              </tr>
-                              <tr>
-                                <td> Car </td>
-                                <td>33 </td>
-                                <td> 12,000 </td>
-                                </tr>
+                            @empty
+                                <td>No Inventory added yet</td>
+                            @endforelse
                             </tbody>
 
                         </table>
@@ -151,16 +139,15 @@ input {
 
     <section id="sale-table">
         <div class="container mt-4">
-                        
                     <div class="bg-white p-4">
                             <div class="row py-3">
                                     <div class="col-md-3">
                                         <div class="dropdown show">
-                                            <a class="btn btn-addSale" href="/addInventory" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a class="btn btn-addSale" href="/client/single-inventory" role="button">
                                                     Add Purchase                                    
-                                            </a>                                   
+                                            </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="/single-inventory" class="text-green">Single Product</a>
+                                                <a class="dropdown-item" href="/client/single-inventory" class="text-green">Single Product</a>
                                                 <a class="dropdown-item" href="/multiple-inventory" class="text-green">Multi Products</a>
                                             </div>
                                         </div>                                              

@@ -50614,13 +50614,19 @@ var inventoryApp = {
 
     methods: {
         createInventory: function createInventory(evt) {
+            var _this = this;
+
             evt.preventDefault();
             console.log(this.inventoryForm);
             axios.post('/client/inventory/add', this.inventoryForm).then(function (res) {
                 swal('Success', res.data.message, "success");
+                _this.inventoryForm = '';
             }).catch(function (err) {
                 swal("Oops", "An error occurred when creating this account", "error");
             });
+        },
+        quantity: function quantity() {
+            console.log('hil');
         }
     }
 };
