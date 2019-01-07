@@ -57,5 +57,5 @@
         </div>
     </section>
 
-  <script src="js/vendor.js"></script>
+  <script src="js/vendor/vendor.js"></script>
 @endsection

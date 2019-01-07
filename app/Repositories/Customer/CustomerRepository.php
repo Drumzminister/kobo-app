@@ -2,14 +2,14 @@
 
 namespace Koboaccountant\Repositories\Customer;
 
-use Koboaccountant\Models\Sales;
+use Koboaccountant\Models\Sale;
 use Koboaccountant\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Koboaccountant\Repositories\BaseRepository;
 
 class CustomerRepository extends BaseRepository
 {
-    public function __construct(Customer $customer, Sales $sales)
+    public function __construct(Customer $customer, Sale $sales)
     {
         $this->customerModel = $customer;
         $this->salesModel = $sales;

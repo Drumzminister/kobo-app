@@ -4,7 +4,7 @@ namespace Koboaccountant\Repositories\Sales;
 
 use Koboaccountant\Repositories\BaseRepository;
 use Koboaccountant\Models\SalesChannel;
-use Koboaccountant\Models\Sales;
+use Koboaccountant\Models\Sale;
 use Koboaccountant\Notifications\MadeSales;
 use Auth;
 use Koboaccountant\Models\Inventory;
