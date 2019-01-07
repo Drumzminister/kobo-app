@@ -22,7 +22,7 @@
 </head>
 <body>
 
-    <div id="load"></div>
+    {{-- <div id="load"></div> --}}
 
     <section id="landing">
         <div class="landing-cover">
