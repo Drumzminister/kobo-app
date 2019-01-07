@@ -30,7 +30,7 @@ class Company extends Model
 
     public function sales()
     {
-        return $this->hasMany( 'Koboaccountant\Models\Sale' );
+        return $this->hasMany('Koboaccountant\Models\Sale');
     }
 
     public function vendors()
@@ -51,5 +51,15 @@ class Company extends Model
     public function user()
     {
         return $this->belongsTo('Koboaccountant\Models\User');
+    }
+
+    public function inventories()
+    {
+    	return $this->hasMany(Inventory::class);
+    }
+
+    public function saleChannels()
+    {
+    	return $this->hasMany(SaleChannel::class);
     }
 }

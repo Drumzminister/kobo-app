@@ -39,7 +39,7 @@ class User extends Authenticatable
         return $this->hasOne('Koboaccountant\Models\VerifyUser');
     }
 
-    public function company ()
+    public function company()
     {
         return $this->hasOne('Koboaccountant\Models\Company');
     }
@@ -49,7 +49,7 @@ class User extends Authenticatable
         return ucfirst($this->first_name).' '.ucfirst($this->last_name);
     }
 
-    public function customer ()
+    public function customer()
     {
         return $this->hasMany('Koboaccountant\Models\Customer');
     }
@@ -64,13 +64,18 @@ class User extends Authenticatable
 		return $this->hasOne('Koboaccountant\Models\Client');
 	}
 
+	public function staff()
+	{
+		return $this->hasOne(Staff::class);
+	}
+
     public function expenses()
 
     {
         return $this->hasMany('Koboaccountant\Models\Expense', 'user_id');
     }
 
-    public function cash ()
+    public function cash()
     {
         return $this->hasOne('Koboaccountant\Models\Cash', 'user_id');
     }
@@ -78,5 +83,10 @@ class User extends Authenticatable
     public function rent()
     {
         return $this->hasMany('Koboaccountant\Models\Rent', 'user_id');
+    }
+
+    public function sales()
+    {
+    	return $this->hasMany(Sale::class);
     }
 }

@@ -15,13 +15,13 @@ class CreateVendorsTable extends Migration
     {
         Schema::create('vendors', function (Blueprint $table) {
             $table->string('id');
-            $table->string('name');
-            $table->text('address');
-            $table->string('phone');
-            $table->string('email');
-            $table->string('website');
-            $table->boolean('isActive')->default(1);      
-            $table->string('company_id')->index();            
+	        $table->string('company_id')->index();
+	        $table->string('name');
+	        $table->text('address');
+	        $table->string('phone');
+	        $table->string('email');
+	        $table->string('website');
+	        $table->boolean('isActive')->default(1);
             $table->timestamps();
             $table->softDeletes();
 

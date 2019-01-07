@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolesTable extends Migration
+class CreateSaleItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('sale_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('name', ['Client', 'Accountant', 'Superadmin', 'Staff'])->default('Client');
-            $table->string('user_id')->index();
-            $table->string('description')->nullable();
-
+            $table->string('sale_id', 36);
+            $table->string('inventory_id', 36);
+            $table->unsignedInteger('quantity');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('sale_items');
     }
 }
