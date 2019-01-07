@@ -92,15 +92,11 @@ input {
                                 <h5 class="h5">Top Purchases</h5>
                             </div>
                             <div class="col">
-                                <div class="dropdown show">
-                                    <a class="btn btn-filter pull-right" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Filter <i class="fa fa-filter"></i>                                    
-                                    </a>                                   
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
-                                        <a class="dropdown-item" href="#" class="text-green">By Amount</a>
-                                    </div>
-                                </div>
+                                <select id="" class="form-control btn-filter pull-right">
+                                        <option selected>Filter <i class="fa fa-filter"></i></option>
+                                        <option class="text-small">By Quantity</option>
+                                        <option class="text-small">By Amount</option>
+                                </select>           
                             </div>
                         </div>
 
