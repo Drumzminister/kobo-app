@@ -29,4 +29,8 @@ Route::group(['prefix' => 'client'], function () {
 	Route::post('/sale/update/{saleId}', 'SaleController@updateSale')->name('client.sale.update');
 	Route::post('/sale/delete/{saleId}', 'SaleController@deleteSale')->name('client.sale.delete');
 
+    Route::post('/inventory/add', 'InventoryController@addInventory')->name('client.inventory.add');
+    Route::get('/inventory/list', 'InventoryController@listInventory')->name('client.inventory.list');
+    Route::get('/inventory/update/{inventoryId}', 'InventoryController@updateInventory')->name('client.inventory.update');
+    Route::post('/inventory/delete', 'InventoryController@deleteInventory')->name('client.inventory.delete');
 });
