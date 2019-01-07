@@ -13919,8 +13919,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-__webpack_require__(42);
-module.exports = __webpack_require__(43);
+__webpack_require__(43);
+module.exports = __webpack_require__(44);
 
 
 /***/ }),
@@ -13931,6 +13931,7 @@ module.exports = __webpack_require__(43);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_vendors__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_rent__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__ = __webpack_require__(42);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13944,6 +13945,7 @@ window.swal = __webpack_require__(39);
 
 
 
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -13954,7 +13956,7 @@ window.swal = __webpack_require__(39);
 
 var app = new Vue({
   el: '#app',
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__["a" /* inventoryApp */]],
   data: {},
   methods: {}
 });
@@ -50591,12 +50593,46 @@ var rentApp = {
 
 /***/ }),
 /* 42 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return inventoryApp; });
+var inventoryApp = {
+    data: {
+        inventoryForm: {
+            name: '',
+            description: '',
+            costPrice: '',
+            salePrice: '',
+            quantity: '',
+            vendor_id: '',
+            category: '',
+            paymentMode: '',
+            attachment: ''
+        }
+    },
+
+    methods: {
+        createInventory: function createInventory(evt) {
+            evt.preventDefault();
+            console.log(this.inventoryForm);
+            axios.post('/client/inventory/add', this.inventoryForm).then(function (res) {
+                swal('Success', res.data.message, "success");
+            }).catch(function (err) {
+                swal("Oops", "An error occurred when creating this account", "error");
+            });
+        }
+    }
+};
+
+/***/ }),
+/* 43 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

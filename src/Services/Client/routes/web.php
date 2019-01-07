@@ -47,6 +47,7 @@ Route::group(['prefix' => 'client'], function () {
 	Route::get('/loan/sources/list', 'LoanController@listSources')->name('client.loan.sources.list');
 	Route::get('/loan/sources/search/{param}', 'LoanController@searchSources')->name('client.loan.sources.search');
 
+	Route::get('/single-inventory', 'InventoryController@showSingleInventory')->name('client.inventory.show-single');
     Route::post('/inventory/add', 'InventoryController@addInventory')->name('client.inventory.add');
     Route::get('/inventory/list', 'InventoryController@listInventory')->name('client.inventory.list');
     Route::get('/inventory/update/{inventoryId}', 'InventoryController@updateInventory')->name('client.inventory.update');

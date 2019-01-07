@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 <style>
 label {display: block; padding: 5px; position: relative; padding-left: 10px;}
@@ -41,16 +42,16 @@ input {
                             </div>
                             <div class="col-md-3">
                                     <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>D</span></label>
+                                        <label><input type="radio" /><span>D</span></label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>W</span></label>
+                                        <label><input type="radio" /><span>W</span></label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>M</span></label>
+                                        <label><input type="radio"  /><span>M</span></label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>Y</span></label>
+                                        <label><input type="radio" /><span>Y</span></label>
                                     </div>
                                             
                             </div>

@@ -25,7 +25,7 @@ class AddInventoryJob extends Job
     public function __construct(array $data)
     {
         $this->data = $data;
-        $this->inventory = new InventoryRepository();
+        $this->inventory = app(InventoryRepository::class);
     }
 
     /**
@@ -35,6 +35,6 @@ class AddInventoryJob extends Job
      */
     public function handle()
     {
-        return $this->inventory->create($this->data);
+        return $this->inventory->fillAndSave($this->data);
     }
 }

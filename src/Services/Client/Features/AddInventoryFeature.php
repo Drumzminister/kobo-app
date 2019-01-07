@@ -15,8 +15,8 @@ class AddInventoryFeature extends Feature
         $added = $this->run(AddInventoryJob::class, ['data' => $data]);
 
         if($added)
-            return back()->with('message', 'Inventory added successfully.');
+            return response()->json(['message' => 'Inventory added successfully.']);
 
-        return back()->with('error', 'Unable to add inventory');
+        return response()->json(['error', 'Unable to add inventory']);
     }
 }
