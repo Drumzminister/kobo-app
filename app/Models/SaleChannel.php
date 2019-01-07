@@ -12,4 +12,9 @@ class SaleChannel extends Model
     public $incrementing = false;
 
     protected $dates = ['deleted_at'];
+
+    public function sales()
+    {
+    	return $this->hasMany(Sale::class);
+    }
 }

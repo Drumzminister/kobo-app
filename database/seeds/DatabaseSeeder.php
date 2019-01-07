@@ -3,6 +3,8 @@
 use App\Data\AccountantClient;
 use App\Data\BankDetail;
 use App\Data\CompanyReview;
+use App\Data\SaleItem;
+use App\Data\Tax;
 use Illuminate\Database\Seeder;
 use Koboaccountant\Models\Accountant;
 use Koboaccountant\Models\Asset;
@@ -13,6 +15,7 @@ use Koboaccountant\Models\Debtor;
 use Koboaccountant\Models\Inventory;
 use Koboaccountant\Models\Review;
 use Koboaccountant\Models\Role;
+use Koboaccountant\Models\Sale;
 use Koboaccountant\Models\SaleChannel;
 use Koboaccountant\Models\Staff;
 use Koboaccountant\Models\SubscriptionPlan;
@@ -23,7 +26,8 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $this->call(SeedBanks::class);
+//        $this->call(SeedBanks::class);
+        $this->createTaxes();
 
 	    $this->createPlans();
 	    $accountant1 = $this->createAccountant();
@@ -107,6 +111,7 @@ class DatabaseSeeder extends Seeder
 
 	    // Create Inventories (things he bought) from his vendors
 	    $inventories = collect([]);
+
 	    $vendors->each(function (Vendor $vendor) use ($company, &$inventories, $clientUser) {
 	    	$inventories->merge(factory(Inventory::class, 4)->create(['company_id' => $company->id, 'vendor_id' => $vendor->id, 'user_id' => $clientUser->id]));
 	    });
@@ -133,6 +138,8 @@ class DatabaseSeeder extends Seeder
 			    $count++;
 		    }
 	    });
+
+	    $this->createSales($staff, $company);
 
 	    return ['subscription' => $subscription, 'company' => $company, 'customers' => $customers];
     }
@@ -169,8 +176,67 @@ class DatabaseSeeder extends Seeder
 
     }
 
-    private function createSales($nums, $comapany)
+    private function createSales($staff, $company)
     {
+	    $taxes = Tax::all();
+	    $channels = $company->saleChannels;
+	    $inventories = $company->inventories;
+	    $customers = $company->customers;
 
+	    $customers->each(function (Customer $customer) use ($inventories, $taxes, $staff, $company, $channels) {
+			$thingsIWantToBuy = $inventories->random(random_int(1, $inventories->count()));
+			$tax_id = $taxes->random()->id;
+			$channel_id = $channels->random()->id;
+
+		    /**
+		     * @var $sale Sale
+		     */
+		    $sale = factory(Sale::class)
+			    ->create([
+				    'customer_id'       => $customer->id,
+				    'tax_id'            => $tax_id,
+				    'staff_id'          => $staff->id,
+				    'sale_channel_id'   => $channel_id,
+				    'company_id'        => $company->id,
+			    ]);
+
+		    $totalAmount = 0;
+
+			$thingsIWantToBuy->each(function (Inventory $inventory) use ($customer, $company, $sale, &$totalAmount) {
+				if ($inventory->quantity > 0) {
+					$saleItem = factory(SaleItem::class)->make([
+						'inventory_id' => $inventory->id,
+						'sale_id' => $sale->id,
+						'quantity' => $quantity = random_int(1, $inventory->quantity),
+					]);
+
+					$totalAmount += $inventory->sales_price;
+					$sale->saleItems()->save($saleItem);
+
+					$inventory->quantity = $inventory->quantity - $quantity;
+					$inventory->save();
+				}
+			});
+
+			$sale->total_amount = $totalAmount;
+			$sale->save();
+	    });
+
+    }
+
+    private function createTaxes()
+    {
+    	$taxes = [
+    		['name' => "Value Added Tax (VAT) 5%", 'percentage' => 5],
+    		['name' => "PAT 10%", 'percentage' => 10],
+    		['name' => "Cash", 'percentage' => 0],
+	    ];
+    	$availableTaxes = collect([]);
+
+    	foreach($taxes as $key => $tax) {
+    		$availableTaxes->push(factory(Tax::class)->create($tax));
+	    }
+
+    	return $availableTaxes;
     }
 }

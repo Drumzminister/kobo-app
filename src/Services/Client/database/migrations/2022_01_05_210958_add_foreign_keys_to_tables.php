@@ -40,6 +40,19 @@ class AddForeignKeysToTables extends Migration
 		    $table->foreign('company_id')->references('id')->on('companies');
 		    $table->foreign('user_id')->references('id')->on('users');
 	    });
+
+	    Schema::table('sales', function (Blueprint $table) {
+		    $table->foreign('company_id')->references('id')->on('companies');
+		    $table->foreign('staff_id')->references('id')->on('staff');
+		    $table->foreign('tax_id')->references('id')->on('taxes');
+		    $table->foreign('customer_id')->references('id')->on('customers');
+		    $table->foreign('sale_channel_id')->references('id')->on('sale_channels');
+	    });
+
+	    Schema::table('sale_items', function (Blueprint $table) {
+		    $table->foreign('sale_id')->references('id')->on('sales');
+		    $table->foreign('inventory_id')->references('id')->on('inventories');
+	    });
     }
 
     /**
@@ -75,6 +88,19 @@ class AddForeignKeysToTables extends Migration
 	    Schema::table('sale_channels', function (Blueprint $table) {
 		    $table->dropForeign('sale_channels_company_id_foreign');
 		    $table->dropForeign('sale_channels_user_id_foreign');
+	    });
+
+	    Schema::table('sales', function (Blueprint $table) {
+		    $table->dropForeign('sales_company_id_foreign');
+		    $table->dropForeign('sales_staff_id_foreign');
+		    $table->dropForeign('sales_tax_id_foreign');
+		    $table->dropForeign('sales_company_id_foreign');
+		    $table->dropForeign('sales_sale_channel_id_foreign');
+	    });
+
+	    Schema::table('sale_items', function (Blueprint $table) {
+		    $table->dropForeign('sale_items_sale_id_foreign');
+		    $table->dropForeign('sale_items_inventory_id_foreign');
 	    });
     }
 }

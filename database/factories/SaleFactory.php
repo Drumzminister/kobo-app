@@ -1,16 +1,15 @@
 <?php
 
 use Koboaccountant\Models\Sale;
+use Faker\Generator as Faker;
 
 $factory->define(Sale::class, function (Faker $faker) {
 	return [
 		'id' => $faker->uuid,
 		'company_id' => '',
 		'staff_id' => '',
-		'inventory_id' => '',
-		'name' => $faker->sentence(8),
-		'date' => $faker->dateTime(),
-		'quantity' => $faker->numberBetween(1, 20),
-		'amount' => $faker->randomFloat(2),
+		'invoice_number' => explode('-', $faker->uuid)[0],
+		'total_amount' => $faker->randomFloat(2),
+		'delivery_cost' => random_int(200, 1500),
 	];
 });
