@@ -16,8 +16,9 @@ class CreateInventoriesTable extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->string('id');
             $table->string('name');
-	        $table->string('user_id')->index();
-	        $table->string('vendor_id')->index();
+	        $table->string('company_id');
+	        $table->string('vendor_id');
+	        $table->string('user_id');
 	        $table->double('sales_price')->default(0.0000);
 	        $table->double('purchase_price')->default(0.0000);
 	        $table->string('quantity');

@@ -48,9 +48,9 @@ class DatabaseSeeder extends Seeder
 	    return factory(BankDetail::class, $nums)->create(['user_id' => $userId]);
     }
 
-    private function seedSalesChannel($nums, $userId)
+    private function seedSalesChannel($nums, $company, $user)
     {
-	    return factory(SaleChannel::class, $nums)->create(['user_id' => $userId]);
+	    return factory(SaleChannel::class, $nums)->create(['company_id' => $company->id, 'user_id' => $user->id]);
     }
 
     private function seedInventories()
@@ -83,8 +83,6 @@ class DatabaseSeeder extends Seeder
 		// Create some bank accounts for him
 	    $banks = $this->seedBanks(5, $clientUser->id);
 
-	    // Create some sales channels for him
-	    $salesChannels = $this->seedSalesChannel(5, $clientUser->id);
 
 	    // Put him under an accountant specified by $accountant
 	    $client = factory(Client::class)->create(['accountant_id' => $accountant->id, 'user_id' => $clientUser->id, 'subscription_plan_id' => $subscription->id]);
@@ -95,8 +93,11 @@ class DatabaseSeeder extends Seeder
 	    // Create Company for client
 	    $company = factory(Company::class)->create(['user_id' => $clientUser->id]);
 
+	    // Create some sales channels for him
+	    $salesChannels = $this->seedSalesChannel(5, $company, $clientUser);
+
 	    // Make this user a Staff of his company
-	    $staff = $this->createStaff($company, $clientUser);
+	    $staff = $this->createStaffFromUser($company, $clientUser);
 
 	    // Create Staffs for his company
 	    $staffs = $this->createStaffsForCompany($company);
@@ -105,8 +106,9 @@ class DatabaseSeeder extends Seeder
 	    $vendors = $this->createVendorsForUser(10, $company);
 
 	    // Create Inventories (things he bought) from his vendors
-	    $vendors->each(function (Vendor $vendor) use ($clientUser) {
-	    	$inventories = factory(Inventory::class, 4)->create(['user_id' => $clientUser->id, 'vendor_id' => $vendor->id]);
+	    $inventories = collect([]);
+	    $vendors->each(function (Vendor $vendor) use ($company, &$inventories, $clientUser) {
+	    	$inventories->merge(factory(Inventory::class, 4)->create(['company_id' => $company->id, 'vendor_id' => $vendor->id, 'user_id' => $clientUser->id]));
 	    });
 
 	    // We make an accountant Review his company
@@ -135,7 +137,7 @@ class DatabaseSeeder extends Seeder
 	    return ['subscription' => $subscription, 'company' => $company, 'customers' => $customers];
     }
 
-    private function createStaff($company, $user)
+    private function createStaffFromUser($company, $user)
     {
     	return factory(Staff::class)->create(['company_id' => $company->id, 'user_id' => $user->id]);
     }
@@ -164,6 +166,11 @@ class DatabaseSeeder extends Seeder
 	    });
 
 	    return $users;
+
+    }
+
+    private function createSales($nums, $comapany)
+    {
 
     }
 }

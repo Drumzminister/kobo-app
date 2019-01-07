@@ -16,7 +16,8 @@ class CreateSaleChannelsTable extends Migration
         Schema::create('sale_channels', function (Blueprint $table) {
             $table->string('id');
             $table->string('name');
-            $table->string('user_id')->index();
+	        $table->string('user_id');
+	        $table->string('company_id');
             $table->timestamps();
             $table->softDeletes();
             

@@ -29,6 +29,17 @@ class AddForeignKeysToTables extends Migration
 		    $table->foreign('user_id')->references('id')->on('users');
 		    $table->foreign('company_id')->references('id')->on('companies');
 	    });
+
+	    Schema::table('inventories', function (Blueprint $table) {
+		    $table->foreign('vendor_id')->references('id')->on('vendors');
+		    $table->foreign('company_id')->references('id')->on('companies');
+		    $table->foreign('user_id')->references('id')->on('users');
+	    });
+
+	    Schema::table('sale_channels', function (Blueprint $table) {
+		    $table->foreign('company_id')->references('id')->on('companies');
+		    $table->foreign('user_id')->references('id')->on('users');
+	    });
     }
 
     /**
@@ -53,6 +64,17 @@ class AddForeignKeysToTables extends Migration
 	    Schema::table('staff', function (Blueprint $table) {
 		    $table->dropForeign('staff_company_id_foreign');
 		    $table->dropForeign('staff_user_id_foreign');
+	    });
+
+	    Schema::table('inventories', function (Blueprint $table) {
+		    $table->dropForeign('inventories_company_id_foreign');
+		    $table->dropForeign('inventories_vendor_id_foreign');
+		    $table->dropForeign('inventories_user_id_foreign');
+	    });
+
+	    Schema::table('sale_channels', function (Blueprint $table) {
+		    $table->dropForeign('sale_channels_company_id_foreign');
+		    $table->dropForeign('sale_channels_user_id_foreign');
 	    });
     }
 }

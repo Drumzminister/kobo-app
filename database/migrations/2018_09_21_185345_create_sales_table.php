@@ -13,7 +13,7 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->string('id');
-            $table->string('sales_transaction_id')->index();
+//            $table->string('sales_transaction_id')->index();
             $table->string('invoice_number');
             $table->string('customer_id')->index();
             $table->string('delivery_cost');
