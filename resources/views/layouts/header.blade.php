@@ -9,25 +9,41 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav" id="navLink">
-                <li class="nav-item pr-3 pl-3">
+                <li class="nav-item pr-4 pl-4">
                     <a class="nav-link pr-3 pl-3 " href="/dashboard">Dashboard</a>
                 </li>
 
-                <li class="nav-item pr-3 pl-3">
-                    <a class="nav-link pr-3 pl-3 " href="/sales">Sales</a>
+                <li class="nav-item dropdown pr-4 pl-4">                   
+                    <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Transaction
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item " href="/sales">Sales</a>
+                    <a class="dropdown-item" href="/inventory">Purchases</a>
+                    <a class="dropdown-item" href="/expenses">Expenses</a>
+                    <a class="dropdown-item" href="/loans">Loans</a>
+                    <a class="dropdown-item" href="/rent">Rents</a>
+                    <a class="dropdown-item" href="/assets">Manage Assets</a>                   
+                    </div>
                 </li>
 
-                <li class="nav-item dropdown pr-3 pl-3">
-                    <a class="nav-link pr-3 pl-3" href="/inventory">Inventory</a>
+                <li class="nav-item dropdown pr-4 pl-4">                   
+                    <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Contacts
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item " href="/vendors">Vendors</a>
+                    <a class="dropdown-item" href="/customers">Customers</a>
+                    <a class="dropdown-item" href="/staffs">Staffs</a>
+                    </div>
                 </li>
 
-                <li class="nav-item pr-3 pl-3">
-                    <a class="nav-link pr-3 pl-3 " href="/expenses">Expenses</a>
+
+                <li class="nav-item pr-4 pl-4">
+                    <a class="nav-link pr-3 pl-3 " href="/">Other Informations</a>
                 </li>
 
-                <li class="nav-item pr-3 pl-3">
-                    <a class="nav-link pr-3 pl-3 " href="/vendors">Vendor</a>
-                </li>
+                
             </ul>
 
 
@@ -154,7 +170,7 @@
                             Sifon Isaac <span class="pl-4"> syfonisaac@gmail.com </span>
                         </div>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item hover" href="#"><i class="fa fa-user-o pr-3" style="font-size:24px"></i>Account</a>
+                            <a class="dropdown-item hover" href="#"><i class="fa fa-user pr-3" style="font-size:24px"></i>Account</a>
                             <a class="dropdown-item hover" href="#"><i class="fa fa-gear pr-3" style="font-size:24px"></i>Setting</a>
                                 <div class="dropdown-divider"></div>
                             <a class="dropdown-item hover" href="/logout"><i class="fa fa-power-off pr-3" style="font-size:24px"></i>Logout</a>

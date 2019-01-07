@@ -17,7 +17,7 @@ class Inventory extends Model
         'quantity', 
         'description',
         'delivered_data',
-        'attachment'
+        'attachment',
     ];
 
     use SoftDeletes;

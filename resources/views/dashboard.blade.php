@@ -5,21 +5,22 @@
 {{-- modal section --}}
 {{-- first modal --}}
 
-<div class="modal hide fade m-auto" id="myModal" tabindex="-1" role="dialog">
-    <div class=" modal-dialog modal-dialog-centered" role="document">
-      <div class="container p-5 modal-content">
-            <div class="modal-body text-center">
-                <h5 class="modal-h5">Welcome Ekpono &#x1f642; !!!</h5>
-                <h5 class="h5 pt-3">SETUP AN OPENING ACCOUNT</h5>
-                <p class="modal-account">Setup your account by providing some details about your Debtors, Creditors, Value of existing assets and Rent. This will help the accountant to easily start taking records of you company.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-started mr-auto"> <a href="/assets" target="_blank">Get Started</a> </button>
-                <button type="button" class="btn btn-login pr-4 pl-4" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalCenter">Skip</button>
-            </div>
-        </div>
-    </div>
-  </div>
+{{--Commented this out since it's not needed for now--}}
+{{--<div class="modal hide fade m-auto" id="myModal" tabindex="-1" role="dialog">--}}
+    {{--<div class=" modal-dialog modal-dialog-centered" role="document">--}}
+      {{--<div class="container p-5 modal-content">--}}
+            {{--<div class="modal-body text-center">--}}
+                {{--<h5 class="modal-h5">Welcome Ekpono &#x1f642; !!!</h5>--}}
+                {{--<h5 class="h5 pt-3">SETUP AN OPENING ACCOUNT</h5>--}}
+                {{--<p class="modal-account">Setup your account by providing some details about your Debtors, Creditors, Value of existing assets and Rent. This will help the accountant to easily start taking records of you company.</p>--}}
+            {{--</div>--}}
+            {{--<div class="modal-footer">--}}
+                {{--<button type="button" class="btn btn-started mr-auto"> <a href="/assets" target="_blank">Get Started</a> </button>--}}
+                {{--<button type="button" class="btn btn-login pr-4 pl-4" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalCenter">Skip</button>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+{{--</div>--}}
 
 {{-- second modal --}}
 <!-- Modal -->
@@ -274,8 +275,8 @@
 <!-- <button type="submit" class="btn btn-started mr-auto" value=1 name="first_time_login" id="first_time_login" >Cancel</button> -->
 
 <script>
-    jQuery(document).ready(function(){
-    jQuery('#first_time_login').click(function(e){
+    jQuery(document).ready(function() {
+    jQuery('#first_time_login').click(function(e) {
         e.preventDefault();
         $.ajaxSetup({
             headers: {
@@ -288,7 +289,7 @@
             data: {
                 update_first_time_visit: jQuery('#first_time_login').val(),
             },
-            success: function(result){
+            success: function(result) {
 
             }});
         });

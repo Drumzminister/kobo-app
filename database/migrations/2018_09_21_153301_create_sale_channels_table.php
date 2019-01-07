@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSalesChannelsTable extends Migration
+class CreateSaleChannelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateSalesChannelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sales_channels', function (Blueprint $table) {
+        Schema::create('sale_channels', function (Blueprint $table) {
             $table->string('id');
             $table->string('name');
-            $table->string('user_id')->index();
+	        $table->string('user_id');
+	        $table->string('company_id');
             $table->timestamps();
             $table->softDeletes();
             
