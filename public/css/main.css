@@ -25,15 +25,13 @@ sales pages
     text-decoration: none;
 }
 tbody tr:hover{
-    background: #408080 !important;
-    color: white!important;
-    box-shadow: 0rem 0.5rem 1rem 0rem rgba(0, 0, 0, 0.5);
+   
+    box-shadow: 0rem 0.05rem 0.2rem 0rem rgba(0, 0, 0, 0.5);
 }
 tr{
-  color:#666;
+  /* color:#666; */
   font-weight: 500;
-  transition: all 0.8s;
-  /* padding: 5px 0px; */
+  
 
 }
 td a {
