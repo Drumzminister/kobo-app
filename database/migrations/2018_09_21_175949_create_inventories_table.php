@@ -19,7 +19,7 @@ class CreateInventoriesTable extends Migration
             $table->double('sales_price')->default(0.0000);
             $table->double('purchase_price')->default(0.0000);            
             $table->string('quantity');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamp('delivered_date');
             $table->string('attachment')->nullable();
             $table->string('vendor_id')->index();
