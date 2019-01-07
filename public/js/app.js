@@ -67195,12 +67195,15 @@ var vendorApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return rentApp; });
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var rentApp = {
     data: {
         rents: [],
         amount: "",
         endDate: "",
         startDate: "",
+        editingRent: {},
         paymentMethods: [],
         other_rental_cost: "",
         showPaymentSettings: false
@@ -67237,9 +67240,9 @@ var rentApp = {
             var year = date.getFullYear();
             return date.getDate() + " " + month + " " + year;
         },
-        beforeSubmit: function beforeSubmit() {
+        beforeSubmit: function beforeSubmit(form) {
             // this.showPaymentSettings = false;
-            document.querySelector('#submitBtn').click();
+            document.querySelector("#" + form).querySelector('.submitBtn').click();
         },
         createRent: function createRent(evt) {
             var _this2 = this;
@@ -67330,6 +67333,24 @@ var rentApp = {
             for (var i = 0; i < paymentModes.length; i++) {
                 _loop(i);
             }
+        },
+        editRent: function editRent(evt, rent) {
+            this.editingRent = _extends({}, rent);
+            $('#editRentModal').modal('show');
+        },
+        updateRent: function updateRent(evt) {
+            var _this4 = this;
+
+            evt.preventDefault();
+
+            var formData = this.editingRent;
+            axios.post("/client/rent/update/" + formData.id, formData).then(function (response) {
+                swal("Success", "Rent updated successfully", "success");
+                _this4.rents.splice(_this4.rents.findIndex(function (rent) {
+                    return rent.id === _this4.editingRent.id;
+                }), 1, response.data.rent);
+                $('#editRentModal').modal('toggle');
+            });
         },
         setRentParams: function setRentParams() {}
     }

@@ -34,4 +34,10 @@ class RentRepository extends Repository
         }
 
     }
+
+    public function update(array $data, $rent) {
+        $rent = $this->find($rent);
+        $rent->update($data);
+        return $rent;
+    }
 }

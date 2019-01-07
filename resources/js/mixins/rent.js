@@ -4,6 +4,7 @@ export const rentApp = {
         amount:"",
         endDate: "",
         startDate: "",
+        editingRent: {},
         paymentMethods: [],
         other_rental_cost: "",
         showPaymentSettings: false
@@ -35,9 +36,9 @@ export const rentApp = {
             let year = date.getFullYear();
             return `${date.getDate()} ${month} ${year}`;
         },
-        beforeSubmit () {
+        beforeSubmit (form) {
             // this.showPaymentSettings = false;
-            document.querySelector('#submitBtn').click();
+            document.querySelector(`#${form}`).querySelector('.submitBtn').click();
         },
 
         createRent (evt) {
@@ -122,6 +123,24 @@ export const rentApp = {
                     }
                 });
             }
+        },
+
+        editRent (evt, rent) {
+            this.editingRent = {...rent};
+            $('#editRentModal').modal('show');
+        },
+
+        updateRent(evt) {
+            evt.preventDefault();
+
+            let formData = this.editingRent;
+            axios.post(`/client/rent/update/${formData.id}`, formData).then((response) => {
+                swal("Success", "Rent updated successfully", "success");
+                this.rents.splice(this.rents.findIndex((rent) => {
+                    return rent.id === this.editingRent.id;
+                }), 1, response.data.rent);
+                $('#editRentModal').modal('toggle');
+            });
         },
 
         setRentParams () {
