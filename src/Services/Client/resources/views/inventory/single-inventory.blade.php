@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client::layouts.app')
 
 @section('content')
 
@@ -10,7 +10,7 @@
                 <span class="accountant ml-auto btn btn-accountant">
                 <a href="" class="btn-accountant">
                     <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>                
+                </a>
                 </span>
             </div>
         </div>
@@ -23,6 +23,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="container">
+                        <form action="client/inventory/add" method="post">
                         <div class="upload">
                             <!-- Drop Zone -->
                             <div class="upload-drop-zone" >
@@ -32,38 +33,35 @@
                                     <span> drag to upload</span>
                                 </div>
                             </div>
-                            <form action="" method="post" enctype="" id=""> 
-                                <button type="submit" class="btn btn-started">Choose a file</button>
-                           </form>
+                                <input onchange="inventoryForm.attachment" name="attachment"type="file" class="btn btn-success"/>
                           </div>
                     </div>
                 </div>
                 <div class="col-md-8 px-2">
-                        <form>
                             <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="name" class="form-control bg-grey" id="" placeholder="Enter Name of product">
+                                <label for="name">Name </label>
+                                <input type="name" v-model="inventoryForm.name" name="name" class="form-control bg-grey" id="" placeholder="Enter Name of product">
                             </div>
-                            
-                            
+
+
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea class="form-control bg-grey" id="" rows="5" placeholder="Brief Placeholder"></textarea>
+                                <textarea v-model="inventoryForm.description" class="form-control bg-grey" name="description" id="" rows="5" placeholder="Brief Placeholder"></textarea>
                             </div>
                             <div class="form-row py-3">
                                 <div class="col">
                                         <label for="name">Cost Price</label>
-                                        <input type="text" class="form-control bg-grey" placeholder="NGN 10,000">
+                                        <input v-model="inventoryForm.costPrice" type="text" name="cost_price" class="form-control bg-grey" placeholder="NGN 10,000">
                                 </div>
                                 <div class="col">
                                         <label for="name">Sales Price</label>
-                                        <input type="text" class="form-control bg-grey" placeholder="NGN 20,000">
+                                        <input v-model="inventoryForm.salePrice" type="text" name="sales_price" nam class="form-control bg-grey" placeholder="NGN 20,000">
                                 </div>
                             </div>
                             <div class="form-row py-3">
                                     <div class="col">
                                         <label for="name">Quantity</label>
-                                        <select id="quantity" class="form-control bg-grey">
+                                        <select v-model="inventoryForm.quantity" name="quantity" id="quantity" class="form-control bg-grey">
                                             <option selected>Choose...</option>
                                             <option>1</option>
                                             <option>2</option>
@@ -74,19 +72,19 @@
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <label for="name">Vendor</label>            
-                                        <select id="inputState" class="form-control bg-grey">
+                                        <label for="name">Vendor</label>
+                                        <select v-model="inventoryForm.vendor_id" id="inputState" name="vendor_id"  class="form-control bg-grey">
                                             <option selected>Choose Vendor</option>
                                             <option>Mercy Bassey</option>
                                             <option>Promise Somto</option>
-                                            
+
                                         </select>
                                 </div>
                             </div>
                             <div class="form-row">
                                     <div class="col">
                                         <label for="name">Category</label>
-                                        <select id="quantity" class="form-control bg-grey">
+                                        <select v-model="inventoryForm.category" name="category" id="quantity" class="form-control bg-grey">
                                                 <option selected>Choose...</option>
                                                 <option>1</option>
                                                 <option>2</option>
@@ -95,7 +93,7 @@
                                                                             </div>
                                     <div class="col">
                                         <label for="name">Payment Mode</label>
-                                        <select id="quantity" class="form-control bg-grey">
+                                        <select v-model="inventoryForm.paymentMode" name="payment_mode" id="quantity" class="form-control bg-grey">
                                                 <option selected>Select Payment</option>
                                                 <option>Cash</option>
                                                 <option>GTB </option>
@@ -111,8 +109,8 @@
                                 </div>
                                 <div class="col-md-2"></div>
                                 <div class="col">
-                                        <button class="btn btn-addsale form-control"> Add Product</button>
-                                    </div>
+                                    <button type="submit" @click="createInventory" class="btn btn-addsale form-control"> Add Product</button>
+                                </div>
                             </div>
                         </form>
                 </div>
@@ -120,10 +118,4 @@
         </div>
     </div>
 </section>
-
-    
-
-
-  
-    
 @endsection
