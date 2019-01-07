@@ -23,7 +23,7 @@ class RentRepository extends Repository
         $rent = $this->model;
         try {
             $rent->id = $this->generateUuid();
-            $rent->user_id = $data['userId'];
+            $rent->company_id = $data['companyId'];
             $data['other_costs'] = $data['other_costs'] ?? 0;
             $rent->fill($data);
             $rent->save();

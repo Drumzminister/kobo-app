@@ -37,12 +37,22 @@ class Repository
 	/**
 	 * Gets Authenticated user Object
 	 *
-	 * @return \Illuminate\Contracts\Auth\Authenticatable|null
+	 * @return \Illuminate\Contracts\Auth\Authenticatable|null|\Koboaccountant\Models\User
 	 */
 	protected function getAuthUser()
 	{
 		return Auth::user();
 	}
+
+    /**
+     * Gets Authenticated user's company
+     *
+     * @return \Koboaccountant\Models\Company
+     */
+	protected function getAuthUserCompany()
+    {
+        return $this->getAuthUser()->company;
+    }
 
 	/**
 	 * Gets Authenticated user ID
