@@ -196,7 +196,7 @@ input {
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                             <div class="input-group-append">
-                                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2" style="height: calc(2.19rem + 2px);">Search</span>
                                             </div>
                                         </div>
                                     </div>
@@ -223,12 +223,10 @@ input {
                             <th scope="col">Sales Price (&#8358;)</th>
                             <th scope="col">Customer</th>
                             <th scope="col">Channel</th>
-
-                
                           </tr>
                         </thead>
                         <tbody>
-                        @foreach($user->company->sales as $key => $sale)
+                        @foreach($sales as $key => $sale)
                           <tr>
                               <td >
                                 {{ $sale->created_at->diffForHumans() }}

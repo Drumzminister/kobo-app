@@ -247,7 +247,7 @@ Route::get('/opening/cash', function () {
     return view('opening-cash');
 });
 
-// Bank reconciiation pages
+// Bank reconciliation pages
 Route::get('/bank-reconciliation', function () {
     return view('bank.index');
 });

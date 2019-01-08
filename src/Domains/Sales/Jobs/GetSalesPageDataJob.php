@@ -2,6 +2,7 @@
 
 namespace App\Domains\Sales\Jobs;
 
+use App\Data\Repositories\CompanyRepository;
 use App\Data\Repositories\SaleRepository;
 use Lucid\Foundation\Job;
 
@@ -22,6 +23,11 @@ class GetSalesPageDataJob extends Job
 	private $sale;
 
 	/**
+	 * @var \Illuminate\Foundation\Application|CompanyRepository
+	 */
+	private $company;
+
+	/**
 	 * Create a new job instance.
 	 *
 	 * @param string $slug
@@ -32,15 +38,20 @@ class GetSalesPageDataJob extends Job
 	    $this->slug = $slug;
 	    $this->userId = $userId;
 	    $this->sale = app(SaleRepository::class);
-	    $this->compa = app(SaleRepository::class);
+	    $this->company = app(CompanyRepository::class);
     }
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle()
     {
+    	$company = $this->company->getByAttributes(['slug' => $this->slug])->first();
+
+    	if (!$company) {
+    		abort(404);
+	    }
+
+    	return $this->sale->getByAttributes(['company_id' => $company->id]);
     }
 }
