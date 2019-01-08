@@ -16,14 +16,14 @@ class CreateBankAccountsTable extends Migration
         Schema::create('bank_accounts', function (Blueprint $table) {
             $table->string('id');
             $table->string('name');
-            $table->string('number');
-            $table->double('opening_balance', 15, 4)->default('0.0000');
-            $table->string('bank_name')->nullable();
-            $table->double('current_balance', 15, 4)->default('0.0000');
-            $table->string('bank_phone')->nullable();
-            $table->string('bank_address')->nullable();
-            $table->boolean('isActive')->default(1);
-            $table->string('company_id')->index();
+	        $table->string('company_id')->index();
+	        $table->string('number');
+	        $table->double('opening_balance', 15, 4)->default('0.0000');
+	        $table->string('bank_name')->nullable();
+	        $table->double('current_balance', 15, 4)->default('0.0000');
+	        $table->string('bank_phone')->nullable();
+	        $table->string('bank_address')->nullable();
+	        $table->boolean('isActive')->default(1);
             $table->timestamps();
             $table->softDeletes();
 

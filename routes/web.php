@@ -6,7 +6,6 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', 'DashboardController@index');
 
 
 
@@ -226,9 +225,6 @@ Route::get('/logout', '\Koboaccountant\Http\Controllers\Auth\LoginController@log
 
 Route::get('/payment/success', 'PaymentController@paid');
 
-Route::get('/dashboard', 'DashboardController@index')->name('client.dashboard');
-
-Route::get('/sales', 'SalesController@index');
 Route::get('/getSalesChannels', 'SalesChannelsController@getAll');
 // Route::prefix('sales')->group(function () {
 Route::get('/addSales', 'SalesController@sales');

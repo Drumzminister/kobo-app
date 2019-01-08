@@ -52,5 +52,8 @@ Route::group(['prefix' => 'client'], function () {
     Route::get('/inventory/update/{inventoryId}', 'InventoryController@updateInventory')->name('client.inventory.update');
     Route::post('/inventory/delete', 'InventoryController@deleteInventory')->name('client.inventory.delete');
 
-	Route::get('/sales/{}', 'ClientDashboardController@showSalesPage');
+	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
 });
+
+Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
+

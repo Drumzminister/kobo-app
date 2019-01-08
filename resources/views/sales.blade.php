@@ -228,26 +228,25 @@ input {
                           </tr>
                         </thead>
                         <tbody>
-                        @foreach($sales as $key => $sale)
+                        @foreach($user->company->sales as $key => $sale)
                           <tr>
                               <td >
-                                {{$sale->sales_date}}
+                                {{ $sale->created_at->diffForHumans() }}
                               </td>
                             <td>
-
-                                <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 23{{$key+1}}</a>
+                                <a href="" data-toggle="modal" data-target="#exampleModalCenter">{{ $sale->invoice_number }}</a>
                             </td>
                             <td>
-                            {{$sale->quantity}}
+                            {{ $sale->saleItems->count() }}
                             </td>
                             <td>
-                            {{$sale->amount}}
+                            {{ $sale->total_amount }}
                             </td>
                             <td>
-                            {{$sale->customer_id}}   
+                            {{ $sale->customer->name }}
                             </td>
                             <td>
-                            {{$sale->sales_channel_id}}
+                            {{ $sale->saleChannel->name }}
                             </td>
                           </tr>
 
