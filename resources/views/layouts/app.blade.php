@@ -39,7 +39,7 @@
      @include('layouts.header')
 
      <!-- include main content -->
-     <main>
+     <main id="app">
              @yield('content')
      </main>
 

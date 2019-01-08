@@ -11,6 +11,7 @@ class Inventory extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'name', 
         'sales_price', 
         'purchase_price', 
@@ -18,6 +19,8 @@ class Inventory extends Model
         'description',
         'delivered_data',
         'attachment',
+        'vendor_id',
+        'user_id'
     ];
 
     use SoftDeletes;

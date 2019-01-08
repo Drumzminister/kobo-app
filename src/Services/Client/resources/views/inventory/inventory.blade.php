@@ -1,4 +1,5 @@
-@extends('layouts.app')
+
+@extends('client::layouts.app')
 <style>
 label {display: block; padding: 5px; position: relative; padding-left: 10px;}
 label input {display: none;}
@@ -41,16 +42,16 @@ input {
                             </div>
                             <div class="col-md-3">
                                     <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>D</span></label>
+                                        <label><input type="radio" /><span>D</span></label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>W</span></label>
+                                        <label><input type="radio" /><span>W</span></label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>M</span></label>
+                                        <label><input type="radio"  /><span>M</span></label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>Y</span></label>
+                                        <label><input type="radio" /><span>Y</span></label>
                                     </div>
                                             
                             </div>
@@ -92,18 +93,13 @@ input {
                                 <h5 class="h5">Top Purchases</h5>
                             </div>
                             <div class="col">
-                                <div class="dropdown show">
-                                    <a class="btn btn-filter pull-right" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Filter <i class="fa fa-filter"></i>                                    
-                                    </a>                                   
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
-                                        <a class="dropdown-item" href="#" class="text-green">By Amount</a>
-                                    </div>
-                                </div>
+                                <select id="" class="form-control btn-filter pull-right">
+                                        <option selected>Filter <i class="fa fa-filter"></i></option>
+                                        <option class="text-small">By Quantity</option>
+                                        <option class="text-small">By Amount</option>
+                                </select>           
                             </div>
                         </div>
-
                         <div class="all-scroll">
                         <table class="table table-striped table-hover" id="table">
                             <thead class="sale-head">
@@ -114,26 +110,15 @@ input {
                               </tr>
                             </thead>
                             <tbody>
+                            @forelse($purchase_price as $top_sales)
                               <tr>
-                                <td>Cars</td>
-                                <td>33</td>
-                                <td>12,000</td>
+                                <td>{{$top_sales['name']}}</td>
+                                <td>{{$top_sales['quantity']}}</td>
+                                <td>{{$top_sales['purchase_price']}}</td>
                               </tr>
-                              <tr>
-                                <td>Furnitures</td>
-                                <td>55</td>
-                                <td>68,000</td>
-                              </tr>
-                              <tr>
-                                <td>Phone</td>
-                                <td>45 </td>
-                                <td>23123 </td>
-                              </tr>
-                              <tr>
-                                <td> Car </td>
-                                <td>33 </td>
-                                <td> 12,000 </td>
-                                </tr>
+                            @empty
+                                <td>No Inventory added yet</td>
+                            @endforelse
                             </tbody>
 
                         </table>
@@ -149,17 +134,21 @@ input {
     </section>
 
     <section id="sale-table">
+<<<<<<< HEAD:src/Services/Client/resources/views/inventory/inventory.blade.php
+        <div class="container mt-4">
+=======
         <div class="container my-4">
                         
+>>>>>>> b1926513f517e8a008f659ab33fbaf5772f58534:resources/views/inventory.blade.php
                     <div class="bg-white p-4">
                             <div class="row pb-3">
                                     <div class="col-md-3">
                                         <div class="dropdown show">
-                                            <a class="btn btn-addSale" href="/addInventory" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a class="btn btn-addSale" href="/client/single-inventory" role="button">
                                                     Add Purchase                                    
-                                            </a>                                   
+                                            </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="/single-inventory" class="text-green">Single Product</a>
+                                                <a class="dropdown-item" href="/client/single-inventory" class="text-green">Single Product</a>
                                                 <a class="dropdown-item" href="/multiple-inventory" class="text-green">Multi Products</a>
                                             </div>
                                         </div>                                              

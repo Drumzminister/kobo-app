@@ -18,7 +18,7 @@ landing page
 
 
 
-#landing{
+.landing{
 background-image: url("https://res.cloudinary.com/syfon/image/upload/c_scale,w_2144/v1536855775/kobo1.jpg");
 background-size: cover;
 width: 100%;
@@ -74,7 +74,7 @@ height: 100vh;
   }
   @media (min-width: 320px) and (max-width: 480px) {
     
-    #landing, .landing-cover{
+    .landing, .landing-cover{
       background-size: cover;
     width: 100%;
     
