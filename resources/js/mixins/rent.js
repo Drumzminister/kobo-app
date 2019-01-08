@@ -1,13 +1,15 @@
 export const rentApp = {
     data: {
         rents: [],
-        amount:"",
+        amount: "",
         endDate: "",
         startDate: "",
         editingRent: {},
+        rentLoading: false,
         paymentMethods: [],
+        rentSearchParam: "",
         other_rental_cost: "",
-        showPaymentSettings: false
+        showPaymentSettings: false,
     },
     filters: {
         numberFormat (value) {
@@ -71,11 +73,28 @@ export const rentApp = {
             return amortized * (diff - today.diff(end, 'months') );
 
         },
+
         getStatus (rent) {
             let amount = rent.amount;
             let rentUsed = this.rentUsed(rent);
             let status = rentUsed * 100 / amount
             return `${100 - status.toFixed(0)}`;
+        },
+
+        searchRent () {
+            if (this.rentSearchParam.trim()) {
+                this.rentLoading = true;
+                axios.get (`/client/rent/search/${this.rentSearchParam.trim()}`)
+                    .then ( (res) => {
+                        this.rents = res.data.rents;
+                        this.rentLoading = false;
+                    } )
+                    .catch ((err) => {
+                        this.rentLoading = false;
+                        swal("Oops", "An error occurred while processing your request", "error");
+                    })
+                ;
+            }
         },
 
         addPaymentMode () {

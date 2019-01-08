@@ -16,6 +16,6 @@ class SearchRentFeature extends Feature
 
     public function handle(Request $request)
     {
-        return $this->run(SearchRentJob::class, ['param' => $this->param]);
+        return $this->run(SearchRentJob::class, ['param' => $this->param, 'companyId' => auth()->user()->company->id]);
     }
 }

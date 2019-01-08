@@ -143,6 +143,12 @@ class Repository
         return $query->firstOrFail();
     }
 
+    /**
+     * @param $attribute
+     * @param $value
+     * @param null $relations
+     * @return \Illuminate\Support\Collection
+     */
     public function getBy($attribute, $value, $relations = null)
     {
         $query = $this->model->where($attribute, $value);
@@ -150,6 +156,22 @@ class Repository
             foreach ($relations as $relation) {
                 $query->with($relation);
             }
+        }
+
+        return $query->get();
+    }
+
+    /**
+     * @param $attribute
+     * @param $value
+     * @param null $company_id
+     * @return \Illuminate\Support\Collection
+     */
+    public function searchBy($attribute, $value, $company_id = null)
+    {
+        $query = $this->model->where($attribute, 'like', '%' . $value . '%');
+        if (!is_null($company_id) && is_string($company_id)) {
+            $query->where('company_id', $company_id);
         }
 
         return $query->get();
@@ -276,6 +298,13 @@ class Repository
             array_unshift($arguments, $attribute);
 
             return call_user_func_array(array($this, 'getBy'), $arguments);
+        }
+
+        if (preg_match('/^searchBy/', $method)) {
+            $attribute = strtolower(substr($method, 8));
+            array_unshift($arguments, $attribute);
+
+            return call_user_func_array(array($this, 'searchBy'), $arguments);
         }
     }
 }

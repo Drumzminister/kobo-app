@@ -53,11 +53,8 @@
             <div class="container">
 
                 <div class="bg-white px-4">
-
-                    <div class="table-responsive table-responsive-sm">
-                        <!-- Rents Table -->
-                        @include('client::rents._rents_table')
-                    </div>
+                    <!-- Rents Table -->
+                    @include('client::rents._rents_table')
                     <div class="text-center pb-3">
                         <a href="{{ route('client.rent.show-all') }}" class="view-more">View More</a>
                     </div>
@@ -65,8 +62,6 @@
 
             </div>
         </section>
-
-
 
         <!--Add Rent Modal -->
         @include('client::rents._add_rent_modal')

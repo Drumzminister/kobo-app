@@ -9,14 +9,16 @@ class SearchRentJob extends Job
 {
     private $param;
     private $rent;
+    private $companyId;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($param)
+    public function __construct($param, $companyId = null)
     {
         $this->param = $param;
+        $this->companyId = $companyId;
         $this->rent = new RentRepository();
     }
 
@@ -27,7 +29,9 @@ class SearchRentJob extends Job
      */
     public function handle()
     {
-//        $this->rent->findBy('company_id', $this->rent->get)
-        return response();
+        $results = $this->rent->searchBy('property_details', $this->param, $this->companyId);
+        return response()->json([
+            'rents' =>  $results
+        ]);
     }
 }
