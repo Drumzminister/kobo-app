@@ -16,7 +16,6 @@ export const inventoryApp = {
     methods: {
         createInventory(evt) {
             evt.preventDefault();
-            console.log(this.inventoryForm);
             axios.post('/client/inventory/add', this.inventoryForm).then(res => {
                 swal('Success', res.data.message, "success");
                 this.inventoryForm = '';
@@ -24,9 +23,15 @@ export const inventoryApp = {
                 swal("Oops", "An error occurred when creating this account", "error");
             });
         },
-
+        // quantity(sortKey) {
+        //         this.reverse = (this.sortKey == sortKey) ? ! this.reverse : false;
+        //         this.sortKey = sortKey;
+        // },
         quantity() {
-            console.log('hil');
+            console.log('changed');
+        },
+        amount() {
+            console.log('amount clicked');
         }
     }
 }

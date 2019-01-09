@@ -95,8 +95,8 @@ input {
                             <div class="col">
                                 <select id="" class="form-control btn-filter pull-right">
                                         <option selected>Filter <i class="fa fa-filter"></i></option>
-                                        <option class="text-small">By Quantity</option>
-                                        <option class="text-small">By Amount</option>
+                                        <option   class="text-small">By Quantity</option>
+                                        <option  class="text-small">By Amount</option>
                                 </select>           
                             </div>
                         </div>
@@ -109,7 +109,7 @@ input {
                                 <th scope="col">Amount</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="tbody">
                             @forelse($purchase_price as $top_sales)
                               <tr>
                                 <td>{{$top_sales['name']}}</td>
@@ -134,12 +134,8 @@ input {
     </section>
 
     <section id="sale-table">
-<<<<<<< HEAD:src/Services/Client/resources/views/inventory/inventory.blade.php
         <div class="container mt-4">
-=======
         <div class="container my-4">
-                        
->>>>>>> b1926513f517e8a008f659ab33fbaf5772f58534:resources/views/inventory.blade.php
                     <div class="bg-white p-4">
                             <div class="row pb-3">
                                     <div class="col-md-3">

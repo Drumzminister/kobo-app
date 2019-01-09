@@ -1,13 +1,13 @@
-@extends("layouts.app")
+@extends("client::layouts.app")
 
 @section("content")
 {{-- heading section --}}
 <section id="top">
         <div class="container p-2">
             <div class="row p-1">
-                    <h2><a href="/customers" class="text-dark"> Customers</a></h2>
+                    <h2><a href="/client/customers" class="text-dark"> Customers</a></h2>
                     <span class="accountant ml-auto ">
-                <a href="/add-customers" class="btn btn-started">
+                <a href="/client/customer/add" class="btn btn-started">
                     Add Customers
                 </a>                
                 </span>

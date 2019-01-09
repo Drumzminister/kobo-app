@@ -22,11 +22,7 @@
 </head>
 <body>
 
-<<<<<<< HEAD
-=======
     {{-- <div id="load"></div> --}}
->>>>>>> b1926513f517e8a008f659ab33fbaf5772f58534
-
     <section id="app" class="landing">
         <div class="landing-cover">
 

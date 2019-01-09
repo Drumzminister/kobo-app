@@ -12,7 +12,9 @@ class Staff extends Model
     public $incrementing = false;
 
 	protected $fillable = [
-		'id', 'user_id', 'company_id', 'name', 'designation', 'employed_date', 'salary', 'isActive', 'avatar',
+		'id', 'user_id', 'company_id', 'first_name', 'last_name',
+        'role', 'phone', 'email', 'years_of_experience', 'employed_date',
+        'salary', 'isActive', 'avatar','comment'
 	];
 
     protected $dates = ['deleted_at'];

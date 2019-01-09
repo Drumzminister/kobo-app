@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('client::layouts.app')
 
 @section('content')
 
 <section id="top">
     <div class="container py-3">
         <div class="row ">
-            <h2> <a href="/staffs" class="text-dark">Staff</a></h2>            
+            <h2> <a href="/client/staffs" class="text-dark">Staff</a></h2>
         </div>
     </div>
 </section>
@@ -24,14 +24,20 @@
                     </div>
                     <div class="col-md-8">
                         <label for="first name">First Name</label>
-                        <input type="text" class="form-control bg-grey" id="" >
+                        <input v-model="staffForm.first_name" type="text" class="form-control bg-grey" id="" >
+
                         <label for="last name">Last name</label>
-                        <input type="text" class="form-control bg-grey" id="" >
+                        <input v-model="staffForm.last_name" type="text" class="form-control bg-grey" id="" >
+
                         <label for="phone">Phone number</label>
-                        <input type="number" class="form-control bg-grey" id="" >
+                        <input v-model="staffForm.phone" type="text" class="form-control bg-grey" id="" >
+
+                        <label for="email">Email</label>
+                        <input v-model="staffForm.email" type="text" class="form-control bg-grey" id="" >
+
                     </div>
                 </div>
-                
+
                 <hr>
 
                 <div class="form-group row py-2">
@@ -41,7 +47,7 @@
                     </div>
                     <div class="col-md-8">
                         <label for="Role">Role</label>
-                        <select name="" id="" class="form-control bg-grey">
+                        <select v-model="staffForm.role" name="" id="" class="form-control bg-grey">
                                 <option value="" selected></option>
                                 <option value="role">CEO</option>
                                 <option value="role">Director</option>
@@ -58,21 +64,16 @@
                         </div>
                         <div class="col-md-8">
                             <label for="first name">Years of Experience</label>
-                            <input type="text" class="form-control bg-grey" id="" value="">
-                            
+                            <input v-model="staffForm.years_of_experience" type="text" class="form-control bg-grey" id="" value="">
+
                             <label for="Role">Date  Of Employment</label>
-                            <select name="" id="" class="form-control bg-grey">
-                                <option value="" selected></option>
-                                    <option value="role">2 years</option>
-                                    <option value="role">5 years</option>
-                                    <option value="role">10 years</option>
-                            </select>
+                            <input v-model="staffForm.employed_date" type="date" />
 
                         </div>
                     </div>
-                    
+
                     <hr>
-    
+
                     <div class="form-group row py-2">
                         <div class="col-md-4">
                             <label for="decription" class="col-form-label">Salary</label>
@@ -80,15 +81,15 @@
                         </div>
                         <div class="col-md-8">
                             <label for="Role">Amount</label>
-                            <select name="" id="" class="form-control bg-grey">
-                                 <option value="" selected></option>
-                                <option value="role">50,000</option>
-                                    <option value="role">100,000</option>
-                                    <option value="role">150,000</option>
+                            <select v-model="staffForm.salary" name="" id="" class="form-control bg-grey">
+                                 <option selected></option>
+                                <option>50000</option>
+                                    <option>100000</option>
+                                    <option>150000</option>
                             </select>
                         </div>
                     </div>
-    
+
                     <hr>
                     <div class="form-group row py-2">
                             <div class="col-md-4">
@@ -97,14 +98,14 @@
                             </div>
                             <div class="col-md-8">
                                 <label for="Role">Brief Comment</label>
-                                <textarea name="" id="" rows="10" class="form-control bg-grey"></textarea>
+                                <textarea v-model="staffForm.comment" name="" id="" rows="10" class="form-control bg-grey"></textarea>
                             </div>
                         </div>
-    
+
                     <div class="form-row mt-3">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-                            <button type="submit" class="btn btn-addsale">Save Information</button>
+                            <button type="submit" @click="createStaff" class="btn btn-addsale">Save Information</button>
                         </div>
                     </div>
               </form>

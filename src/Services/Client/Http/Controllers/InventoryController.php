@@ -6,6 +6,7 @@ use App\Services\Client\Features\AddInventoryFeature;
 use App\Services\Client\Features\DeleteInventoryFeature;
 use App\Services\Client\Features\ListInventoryFeature;
 use App\Services\Client\Features\ShowSingleInventoryFeature;
+use App\Services\Client\Features\ShowMultipleInventoryFeature;
 use App\Services\Client\Features\UpdateInventoryFeature;
 use App\Services\Client\Features\ShowInventoryFeature;
 use Lucid\Foundation\Http\Controller;
@@ -24,6 +25,10 @@ class InventoryController extends Controller
     public function showSingleInventory()
     {
         return $this->serve(ShowSingleInventoryFeature::class);
+    }
+    public function showMultipleInventory()
+    {
+        return $this->serve(ShowMultipleInventoryFeature::class);
     }
     public function addInventory()
     {
