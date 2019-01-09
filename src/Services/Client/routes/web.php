@@ -55,6 +55,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('/inventory/delete', 'InventoryController@deleteInventory')->name('client.inventory.delete');
 
 	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
+	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');
 //	Route::get('/all-sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
 });
 

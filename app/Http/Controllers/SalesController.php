@@ -2,6 +2,7 @@
 
 namespace Koboaccountant\Http\Controllers;
 
+use App\Data\Repositories\InventoryRepository as IRepository;
 use Illuminate\Http\Request;
 use Koboaccountant\Models\Customer;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class SalesController extends Controller
         SalesRepository $sales,
         SalesTransactionRepository $trans,
         CustomerRepository $customer,
-        InventoryRepository $inventory
+        IRepository $inventory
         )
     {
         $this->salesRepo = $sales;

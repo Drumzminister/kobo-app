@@ -65,7 +65,7 @@ $factory->define(Inventory::class, function (Faker $faker) {
         'sales_price' => $salesPrice = random_int(50, 2000),
         'purchase_price' => $salesPrice + random_int(50, 120),
         'quantity' => random_int(19, 50),
-        'description' => $faker->word(20),
+        'description' => $faker->sentence(10),
         'delivered_date' => $faker->dateTime(),
         'attachment' => $faker->word(6),
     ];

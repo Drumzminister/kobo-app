@@ -47,9 +47,9 @@ class DatabaseSeeder extends Seeder
 	    });
     }
 
-    private function seedBanks($nums, $userId)
+    private function seedBankDetails($nums, $companyId)
     {
-	    return factory(BankDetail::class, $nums)->create(['user_id' => $userId]);
+	    return factory(BankDetail::class, $nums)->create(['company_id' => $companyId]);
     }
 
     private function seedSalesChannel($nums, $company, $user)
@@ -84,9 +84,6 @@ class DatabaseSeeder extends Seeder
 	    // Create a Client user
 	    $clientUser = $this->createUserWithRole('Client');
 
-		// Create some bank accounts for him
-	    $banks = $this->seedBanks(5, $clientUser->id);
-
 
 	    // Put him under an accountant specified by $accountant
 	    $client = factory(Client::class)->create(['accountant_id' => $accountant->id, 'user_id' => $clientUser->id, 'subscription_plan_id' => $subscription->id]);
@@ -96,6 +93,9 @@ class DatabaseSeeder extends Seeder
 
 	    // Create Company for client
 	    $company = factory(Company::class)->create(['user_id' => $clientUser->id]);
+
+	    // Create some bank accounts for him
+	    $banks = $this->seedBankDetails(5, $company->id);
 
 	    // Create some sales channels for him
 	    $salesChannels = $this->seedSalesChannel(5, $company, $clientUser);

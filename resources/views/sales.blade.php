@@ -177,7 +177,7 @@
             <div class="bg-white p-4">
                 <div class="row py-3">
                     <div class="col-md-4">
-                        <a href="/addSales" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>
+                        <a href="{{ route("show.add.sale", auth()->user()->getUserCompany()->slug) }}" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>
                     </div>
 
                     <div class="col-md-6">
