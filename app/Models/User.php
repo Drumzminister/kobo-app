@@ -93,4 +93,9 @@ class User extends Authenticatable
     {
     	return $this->hasMany(Sale::class);
     }
+
+    public function getUserCompany()
+    {
+    	return $this->company;
+    }
 }

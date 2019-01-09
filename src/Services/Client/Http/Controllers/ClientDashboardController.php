@@ -2,6 +2,7 @@
 
 namespace App\Services\Client\Http\Controllers;
 
+use App\Services\Client\Features\ShowAddSalesPageFeature;
 use App\Services\Client\Features\ShowCompanySalesFeature;
 use App\Services\Client\Features\ShowDashboardPageFeature;
 use Illuminate\Http\Request;
@@ -22,5 +23,10 @@ class ClientDashboardController extends Controller
 	public function index()
 	{
 		return $this->serve(ShowDashboardPageFeature::class);
+	}
+
+	public function showAddSalesPage($slug)
+	{
+		return $this->serve(ShowAddSalesPageFeature::class);
 	}
 }

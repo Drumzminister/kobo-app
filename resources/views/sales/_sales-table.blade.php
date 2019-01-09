@@ -49,9 +49,9 @@
                             <td><input type="text" class="form-control sales_total" id="sales_total"></td>
                             <td>
                                 <select class="form-control search sales_channel">
-                                    @foreach($salesChannels as $sales_channel)
-                                        <option selected="Pick product Name">
-                                            {{$sales_channel->name}}
+                                    @foreach(auth()->user()->getUserCompany()->saleChannels as $sales_channel)
+                                        <option>
+                                            {{ $sales_channel->name }}
                                         </option>
                                     @endforeach
                                 </select>
