@@ -8,11 +8,11 @@
   <meta name="Description" content="Accounting site, Accounting App ">
   <meta content="koboaccountant, accounting, kobo" name="keywords">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  {{--<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>--}}
+  {{--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>--}}
 
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.js"></script>
+  {{--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>--}}
+  {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.js"></script>--}}
 
   <!-- Favicons -->
   <link href="https://res.cloudinary.com/syfon/image/upload/v1536857508/favicon.png" rel="icon">
@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 {{-- intro js --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css">
+{{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css">--}}
 
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/landing-page.css') }}" rel="stylesheet">
@@ -51,6 +51,7 @@
 {{-- javascript --}}
 
 {{--<script src="http://code.jquery.com/jquery-1.8.2.js"></script>--}}
+@yield("other_js")
 <script src="{{asset('js/app.js')}}"></script>
 {{--<script src="{{asset('js/particles.js')}}"></script>--}}
 {{--<script src="{{asset('js/main.js')}}"></script>--}}
@@ -91,6 +92,5 @@
 {{--});--}}
 {{--</script>--}}
 
-@yield("other_js")
 </body>
 </html>

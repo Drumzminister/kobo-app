@@ -13919,8 +13919,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-__webpack_require__(44);
-module.exports = __webpack_require__(45);
+__webpack_require__(48);
+module.exports = __webpack_require__(49);
 
 
 /***/ }),
@@ -13933,9 +13933,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_rent__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_staff__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_customer__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_salesListView__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_loadingView__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_customer__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_salesListView__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_loadingView__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins_appModals__ = __webpack_require__(47);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13954,6 +13955,7 @@ window.swal = __webpack_require__(39);
 
 
 
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -13964,7 +13966,7 @@ window.swal = __webpack_require__(39);
 
 window.app = new Vue({
     el: '#app',
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_staff__["a" /* staffApp */], __WEBPACK_IMPORTED_MODULE_4__mixins_customer__["a" /* customerApp */], __WEBPACK_IMPORTED_MODULE_5__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_6__mixins_loadingView__["a" /* loadingView */]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_staff__["a" /* staffApp */], __WEBPACK_IMPORTED_MODULE_4__mixins_customer__["a" /* customerApp */], __WEBPACK_IMPORTED_MODULE_5__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_6__mixins_loadingView__["a" /* loadingView */], __WEBPACK_IMPORTED_MODULE_7__mixins_appModals__["a" /* appModal */]],
     data: {},
     methods: {}
 });
@@ -50684,23 +50686,6 @@ var staffApp = {
 
 /***/ }),
 /* 44 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50733,7 +50718,7 @@ var customerApp = {
 };
 
 /***/ }),
-/* 52 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50741,21 +50726,24 @@ var customerApp = {
 var salesListView = {
     data: {
         saleSearchQuery: "",
-        salesList: {}
-    },
-    created: function created() {
-        this.salesList = window.salesList;
+        salesList: window.salesList,
+        saleInvoice: {}
     },
     methods: {
         searchSale: function searchSale() {
             if (this.saleSearchQuery === "") return;
             this.showAppLoading();
+        },
+
+        showSaleInvoice: function showSaleInvoice(saleId) {
+            this.saleInvoice = this.salesList[saleId];
+            this.openModal("#exampleModalCenter");
         }
     }
 };
 
 /***/ }),
-/* 53 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50777,6 +50765,39 @@ var loadingView = {
         }
     }
 };
+
+/***/ }),
+/* 47 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return appModal; });
+var appModal = {
+    data: {},
+    methods: {
+        openModal: function openModal(id) {
+            $(id).modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        },
+        closeModal: function closeModal(id) {
+            $(id).modal('hide');
+        }
+    }
+};
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

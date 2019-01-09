@@ -227,7 +227,6 @@ Route::get('/payment/success', 'PaymentController@paid');
 
 Route::get('/getSalesChannels', 'SalesChannelsController@getAll');
 // Route::prefix('sales')->group(function () {
-Route::get('/addSales', 'SalesController@sales');
 Route::get('/getCustomer', 'CustomerController@allUserCustomers');
 Route::post('/sales/create', 'SalesTransactionController@store');
 
