@@ -30433,8 +30433,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(138);
-__webpack_require__(168);
-module.exports = __webpack_require__(169);
+__webpack_require__(169);
+module.exports = __webpack_require__(170);
 
 
 /***/ }),
@@ -30445,17 +30445,19 @@ module.exports = __webpack_require__(169);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_vendors__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_rent__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_loan__ = __webpack_require__(168);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
 __webpack_require__(139);
 
 window.Vue = __webpack_require__(161);
 window.swal = __webpack_require__(164);
 window.moment = __webpack_require__(0);
+
+
 
 
 
@@ -30469,7 +30471,7 @@ window.moment = __webpack_require__(0);
 
 var app = new Vue({
   el: '#app',
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_loan__["a" /* loanApp */]],
   data: {},
   methods: {}
 });
@@ -67204,7 +67206,9 @@ var rentApp = {
         endDate: "",
         startDate: "",
         editingRent: {},
+        rentLoading: false,
         paymentMethods: [],
+        rentSearchParam: "",
         other_rental_cost: "",
         showPaymentSettings: false
     },
@@ -67281,6 +67285,20 @@ var rentApp = {
             var status = rentUsed * 100 / amount;
             return "" + (100 - status.toFixed(0));
         },
+        searchRent: function searchRent() {
+            var _this3 = this;
+
+            if (this.rentSearchParam.trim()) {
+                this.rentLoading = true;
+                axios.get("/client/rent/search/" + this.rentSearchParam.trim()).then(function (res) {
+                    _this3.rents = res.data.rents;
+                    _this3.rentLoading = false;
+                }).catch(function (err) {
+                    _this3.rentLoading = false;
+                    swal("Oops", "An error occurred while processing your request", "error");
+                });
+            }
+        },
         addPaymentMode: function addPaymentMode() {
             var parent = document.createElement('div');
             parent.classList = "d-flex col-12 mt-3";
@@ -67309,7 +67327,7 @@ var rentApp = {
             return rent.amount - this.rentUsed(rent);
         },
         payRent: function payRent() {
-            var _this3 = this;
+            var _this4 = this;
 
             var amounts = document.querySelectorAll('.payment_amount');
             var paymentModes = document.querySelectorAll('.payment_mode');
@@ -67323,7 +67341,7 @@ var rentApp = {
             }
 
             var _loop = function _loop(i) {
-                _this3.paymentMethods.forEach(function (method) {
+                _this4.paymentMethods.forEach(function (method) {
                     if (method.mode === paymentModes[i].value && Number(amounts[i].value > method.balance)) {
                         swal("Oops", "The amount entered for " + method.mode + " should be lower than  available balance", "warning");
                         return;
@@ -67340,15 +67358,15 @@ var rentApp = {
             $('#editRentModal').modal('show');
         },
         updateRent: function updateRent(evt) {
-            var _this4 = this;
+            var _this5 = this;
 
             evt.preventDefault();
 
             var formData = this.editingRent;
             axios.post("/client/rent/update/" + formData.id, formData).then(function (response) {
                 swal("Success", "Rent updated successfully", "success");
-                _this4.rents.splice(_this4.rents.findIndex(function (rent) {
-                    return rent.id === _this4.editingRent.id;
+                _this5.rents.splice(_this5.rents.findIndex(function (rent) {
+                    return rent.id === _this5.editingRent.id;
                 }), 1, response.data.rent);
                 // location.reload();
                 $('#editRentModal').modal('toggle');
@@ -67360,12 +67378,234 @@ var rentApp = {
 
 /***/ }),
 /* 168 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return loanApp; });
+var loanApp = {
+    data: {
+        newSource: "",
+        searchSource: "",
+        sources: {},
+        chosenSource: "",
+        description: "",
+        amount: "",
+        interest: "",
+        term: "",
+        paymentIntervals: [1, 2, 4],
+        period: "month",
+        paymentPerYear: 1,
+        loanDate: "",
+        loans: [],
+        loadingLoanDetails: false,
+        allSources: [],
+        amtPaid: 0,
+        amtOwing: 0,
+        amtRunning: 0,
+        currentLoan: {},
+        noSourceFound: false,
+        showSourcesForm: false,
+        sourceSearching: false,
+        currentLoanPayments: [],
+        paymentAmount: "",
+        paymentValidationError: false,
+        paymentValidationMessage: ""
+    },
+    watch: {
+        paymentAmount: function paymentAmount() {
+            if (this.paymentAmount > this.currentLoan.amount - this.currentLoan.amount_paid + this.currentLoan.interest * this.currentLoan.amount / 100) {
+                this.paymentValidationError = true;
+                this.paymentValidationMessage = "The amount entered is greater than the maximum payable amount";
+            } else {
+                this.paymentValidationError = false;
+            }
+        },
+        period: function period() {
+            if (this.period === "month") {
+                this.paymentIntervals = [1, 2, 4];
+            } else if (this.period === "year") {
+                this.paymentIntervals = [1, 2, 3, 4, 5, 6, 12];
+            } else {
+                this.paymentIntervals = [1, 2, 3, 4, 5, 6, 7];
+            }
+        }
+    },
+    filters: {
+        numberFormat: function numberFormat(value) {
+            value = Number(value);
+            if (isNaN(value)) {
+                return value;
+            }
+            var formatter = new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            return formatter.format(value);
+        }
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        axios.get('/loans/sources/all').then(function (res) {
+            _this.allSources = res.data.sources;
+            axios.get('/loans/get').then(function (res) {
+                _this.loans = res.data.loans;
+                _this.loans.forEach(function (loan) {
+                    _this.allSources.forEach(function (source) {
+                        if (loan.loan_source_id === source.id) {
+                            loan.source_name = source.name;
+                        }
+                    });
+                });
+            });
+        }).catch(function (err) {
+            console.error(err);
+        });
+
+        axios.get('/loans/running/count').then(function (res) {
+            _this.amtRunning = res.data;
+        }).catch(function (err) {
+            console.error(err);
+        });
+
+        axios.get('/loans/completed/count').then(function (res) {
+            _this.amtPaid = res.data;
+        }).catch(function (err) {
+            console.error(err);
+        });
+
+        axios.get('/loans/owing/count').then(function (res) {
+            _this.amtOwing = res.data;
+        }).catch(function (err) {
+            console.error(err);
+        });
+    },
+
+    methods: {
+        searchForSource: function searchForSource() {
+            var _this2 = this;
+
+            if (this.searchSource.trim() === "") {
+                this.noSourceFound = false;
+                this.showSourcesForm = false;
+                return;
+            }
+            this.noSourceFound = false;
+            this.showSourcesForm = true;
+            this.sourceSearching = true;
+            axios.get("/client/loan/sources/search/" + this.searchSource).then(function (res) {
+                if (res.data.sources.length === 0) {
+                    _this2.sources = {};
+                    _this2.noSourceFound = true;
+                    _this2.newSource = _this2.searchSource;
+                } else {
+                    _this2.newSource = "";
+                    _this2.sources = res.data.sources;
+                    _this2.noSourceFound = false;
+                }
+
+                _this2.sourceSearching = false;
+            }).catch(function (err) {
+                _this2.sourceSearching = false;
+                console.error("An error occurred: " + err);
+            });
+        },
+        selectSource: function selectSource(id, evt) {
+            this.chosenSource = id;
+            this.searchSource = evt.target.innerText;
+            this.showSourcesForm = false;
+        },
+        addSource: function addSource() {
+            var _this3 = this;
+
+            var formData = new FormData();
+            // formData.append('_token', token);
+            formData.append('name', this.newSource);
+            axios.post('/client/loan/sources/add', formData).then(function (res) {
+                swal('Successful', "New loan source added successfully", "success");
+                _this3.showSourcesForm = false;
+                _this3.searchSource = res.data.source.name;
+                _this3.chosenSource = res.data.source.id;
+            }).catch(function (err) {
+                console.error(err);
+            });
+        },
+        saveLoan: function saveLoan() {
+            var _this4 = this;
+
+            if (this.description.trim() === "" || this.amount.trim() === "" || this.interest.trim() === "" || this.period.trim() === "" || this.term.trim() === "" || !this.paymentPerYear || this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
+                swal('Oops', "Some required fields are empty", "error");
+                return;
+            }
+            var formData = new FormData();
+            formData.append('description', this.description);
+            formData.append('amount', this.amount);
+            formData.append('interest', this.interest);
+            formData.append('period', this.period);
+            formData.append('term', this.term);
+            formData.append('payment_interval', this.paymentPerYear);
+            formData.append('source_id', this.chosenSource);
+            formData.append('start_date', this.loanDate);
+            // formData.append('_token', token);
+            axios.post('/loans', formData).then(function (res) {
+                swal('Successful', 'Loan added successfully', 'success');
+                document.querySelector('#cancelLoanModal').click();
+                var loan = res.data.loan;
+                loan.source_name = _this4.searchSource;
+                loan.status = "running";
+                _this4.loans.unshift(loan);
+            }).catch(function (err) {
+                swal('Oops', err.response.data.error, "error");
+            });
+        },
+        displayLoanDetails: function displayLoanDetails(loan, evt) {
+            var _this5 = this;
+
+            var row = evt.target;
+            this.currentLoan = loan;
+            this.loadingLoanDetails = true;
+            axios.get("/loans/" + loan.id + "/payments").then(function (res) {
+                _this5.loadingLoanDetails = false;
+                _this5.currentLoanPayments = res.data.payments;
+            }).catch(function (err) {
+                _this5.loadingLoanDetails = false;
+                console.error(err);
+            });
+            $('#loanDetailsModal').modal('show');
+        },
+        payLoan: function payLoan(evt) {
+            var _this6 = this;
+
+            evt.preventDefault();
+            if (this.paymentValidationError) {
+                swal("Oops", this.paymentValidationMessage, "warning");
+            } else {
+                var formData = new FormData(evt.target);
+                // formData.append('_token', token);
+                formData.append('loan_id', this.currentLoan.id);
+
+                axios.post('/loans/payment', formData).then(function (res) {
+                    _this6.currentLoanPayments.unshift(res.data.payment);
+                    swal('Successful', 'Payments Made Successfully', 'success');
+                    _this6.currentLoan.amount_paid = Number(_this6.currentLoan.amount_paid);
+                    _this6.currentLoan.amount_paid += Number(res.data.payment.amount);
+                    $('#pay-loan').modal('hide');
+                }).catch(function (err) {
+                    swal('Oops', err.response.data.error, "error");
+                });
+            }
+        }
+    }
+};
+
+/***/ }),
+/* 169 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
