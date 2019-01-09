@@ -14,7 +14,7 @@ class ModifyBankDetailsTable extends Migration
     public function up()
     {
         Schema::table('bank_details', function (Blueprint $table) {
-        	$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        	$table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 
@@ -26,7 +26,7 @@ class ModifyBankDetailsTable extends Migration
     public function down()
     {
 	    Schema::table('bank_details', function (Blueprint $table) {
-		    $table->dropForeign('bank_details_user_id_foreign');
+		    $table->dropForeign('bank_details_company_id_foreign');
 	    });
     }
 }

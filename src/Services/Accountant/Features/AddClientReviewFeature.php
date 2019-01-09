@@ -13,7 +13,6 @@ class AddClientReviewFeature extends Feature
     {
     	$data = $request->all();
     	$data['accountant_id'] = Auth::user()->accountant->id;
-
 		$added = $this->run(AddClientReviewJob::class, ['data' => $data]);
 
 		if ($added)

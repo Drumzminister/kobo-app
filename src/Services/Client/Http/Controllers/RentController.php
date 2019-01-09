@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Services\Client\Http\Controllers;
+
+use App\Services\Client\Features\AddRentFeature;
+use App\Services\Client\Features\ShowAllRentsFeature;
+use App\Services\Client\Features\ShowRentPageFeature;
+use Illuminate\Http\Request;
+use Lucid\Foundation\Http\Controller;
+
+class RentController extends Controller
+{
+    public function showRentPage()
+    {
+        return $this->serve(ShowRentPageFeature::class);
+    }
+
+    public function  showAllRents()
+    {
+        return $this->serve(ShowAllRentsFeature::class);
+    }
+
+    public function addRent()
+    {
+        return $this->serve(AddRentFeature::class);
+    }
+}

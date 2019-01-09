@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Customer extends Model
 {
     use SoftDeletes;
-
+    protected $fillable = ['id', 'user_id', 'first_name', 'last_name', 'company_id', 'email', 'address', 'phone', 'website', 'isActive', 'image'];
     public $incrementing = false;
 
     protected $dates = ['deleted_at'];
 
-    public function getFullNameAttribute()
+    public function getNameAttribute()
     {
         return ucfirst($this->first_name) .' '. ucfirst($this->last_name);
     }

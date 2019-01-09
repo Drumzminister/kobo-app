@@ -62,7 +62,6 @@
 <script src="{{asset('js/rater.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
-<script src="{{asset('js/datepicker.js')}}"></script>
 <script src="{{asset('js/particles.js')}}"></script>
 
  {{-- chart js --}}

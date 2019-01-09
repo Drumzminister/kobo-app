@@ -13,12 +13,14 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->string('id');
-            $table->string('sales_transaction_id')->index();
-            $table->string('invoice_number');
-            $table->string('customer_id')->index();
-            $table->string('delivery_cost');
-            $table->string('user_id')->index();
-            $table->string('tax_id');
+	        $table->string('staff_id');
+	        $table->string('company_id');
+	        $table->string('customer_id');
+	        $table->string('sale_channel_id');
+	        $table->unsignedInteger('tax_id');
+	        $table->string('invoice_number')->unique();
+	        $table->string('total_amount');
+	        $table->string('delivery_cost');
             $table->string('discount')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -1,13 +1,11 @@
 <?php
 
-use Koboaccountant\Http\Controllers\InventoryController;
 Route::get('/', 'StaticPagesController@index');
 
 Route::get('/login', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', 'DashboardController@index');
 
 
 
@@ -147,6 +145,7 @@ Route::get('/credit', function () {
 Route::get('/view-creditor', function () {
     return view('view-creditor');
 });
+
 // vendors page
 Route::get('/vendors', 'VendorController@index');
 Route::get('/add-vendors', 'VendorController@addVendor');
@@ -169,16 +168,8 @@ Route::get('/add-customers', function () {
 
 Route::get('/view-customers', function () {
         return view('view-customers');
-    });
+});
 
-
-// accountant dashboard
-Route::get('/accountant/dashboard', function () {
-        return view('accountant.account-dashboard');
-    });
-
-
-    
    // client
 Route::get('/clients', function () {
 
@@ -190,7 +181,7 @@ Route::get('/manage/clients', function () {
     });
 
 Route::get('/toolkits', function () {
-        return view('acccountant.toolkit');
+        return view('accountant.toolkit');
     });
 
 Route::get('/resources', function () {
@@ -218,45 +209,33 @@ Route::get('/started', 'PaymentController@index');
 
 Auth::routes();
 // Guest  routes
-Route::group(['middle' => ['guest']], function () {
+Route::group(['middleware' => ['guest']], function () {
         //Registration Steps
         Route::post('/register', 'UserController@create')->name('register');
         Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
         Route::get('/started', 'UserController@started');
         Route::get('/login', 'UserController@login')->name('login');
-        Route::get('/logout', 'UserController@logout');
         Route::get('/started', 'PaymentController@index');
         Route::get('plans', 'PaymentController@getAllPlans');
-
         // Guest accountant routes
         Route::get('/accountant', 'UserController@accountant');
-    });
+});
 
-// Auth routes
-// Route::group(['middleware' => 'auth'], function () {
+Route::get('/logout', '\Koboaccountant\Http\Controllers\Auth\LoginController@logout')->middleware('auth');
+
 Route::get('/payment/success', 'PaymentController@paid');
 
-Route::get('/dashboard', 'DashboardController@index')->name('client.dashboard');
-
-Route::get('/sales', 'SalesController@index');
 Route::get('/getSalesChannels', 'SalesChannelsController@getAll');
 // Route::prefix('sales')->group(function () {
-Route::get('/addSales', 'SalesController@sales');
 Route::get('/getCustomer', 'CustomerController@allUserCustomers');
 Route::post('/sales/create', 'SalesTransactionController@store');
 
-// });
 Route::get('/expenses', 'ExpensesController@index');
 Route::get('/assets', 'OpeningController@showAssetsPage');
 Route::get('/debtors', 'DebtorController@index');
 Route::get('/creditors', 'CreditorController@index');
 Route::post('updateFirstTimeLogin', 'UserController@upDateFirstTimeVisit');
-// });
 
-// Accountant rotes
-// Route::group(['middleware' => ''], function() {
-Route::get('/accountant/dashboard', 'AccountantController@index');
-// });
 Route::post('/expenses/create', 'ExpensesController@store');
 
 Route::get('/getClientId', 'ClientController@getId');
@@ -267,7 +246,7 @@ Route::get('/opening/cash', function () {
     return view('opening-cash');
 });
 
-// Bank reconciiation pages
+// Bank reconciliation pages
 Route::get('/bank-reconciliation', function () {
     return view('bank.index');
 });

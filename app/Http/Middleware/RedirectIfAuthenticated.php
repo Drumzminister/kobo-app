@@ -24,7 +24,6 @@ class RedirectIfAuthenticated
 		        return redirect()->route('client.dashboard');
 	        if (Auth::user()->role->name === 'Superadmin')
 		        return redirect()->route('admin.dashboard');
-//            return redirect('/login');
         }
 
         return $next($request);

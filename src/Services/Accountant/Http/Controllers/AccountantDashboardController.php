@@ -6,6 +6,7 @@ use App\Services\Accountant\Features\AddClientReviewFeature;
 use App\Services\Accountant\Features\ShowAccountantChatHistoryPageFeature;
 use App\Services\Accountant\Features\ShowAccountantClientListFeature;
 use App\Services\Accountant\Features\ShowAccountantConversationPageFeature;
+use App\Services\Accountant\Features\ShowAccountantDashboardFeature;
 use App\Services\Accountant\Features\ShowAccountantProfileFeature;
 use App\Services\Accountant\Features\UpdateProfileFeature;
 use App\Services\Accountant\Features\ViewBudgetFeature;
@@ -16,6 +17,11 @@ class AccountantDashboardController extends Controller
 	public function __construct()
 	{
 		$this->middleware(['auth', 'accountant']);
+	}
+
+	public function showAccountantDashboardPage()
+	{
+		return $this->serve(ShowAccountantDashboardFeature::class);
 	}
 
 	public function showClients()

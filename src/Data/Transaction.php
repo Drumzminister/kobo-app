@@ -3,6 +3,8 @@
 namespace App\Data;
 
 use Illuminate\Database\Eloquent\Model;
+use Koboaccountant\Models\Expense;
+use Koboaccountant\Models\Inventory;
 use Koboaccountant\Models\Sale;
 
 class Transaction extends Model
@@ -16,18 +18,26 @@ class Transaction extends Model
 
 	public function sale()
 	{
-		return $this->belongsTo(Sale::class);
+		return $this->belongsTo(Sale::class, 'sale_id');
 	}
 
 	public function expense()
 	{
+		return $this->belongsTo(Expense::class, 'expense_id');
 	}
 
 	public function purchase()
 	{
+		return $this->belongsTo(Purchase::class, 'purchase_id');
 	}
 
 	public function inventory()
 	{
+		return $this->belongsTo(Inventory::class, 'inventory_id');
+	}
+
+	public function category()
+	{
+		return $this->belongsTo(TransactionCategory::class, 'transaction_category_id');
 	}
 }

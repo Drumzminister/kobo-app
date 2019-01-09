@@ -22,9 +22,8 @@
 </head>
 <body>
 
-    <div id="load"></div>
-
-    <section id="landing">
+    {{-- <div id="load"></div> --}}
+    <section id="app" class="landing">
         <div class="landing-cover">
 
             <div class="container">

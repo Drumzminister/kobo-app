@@ -15,6 +15,8 @@ class CreateTransactionCategoriesTable extends Migration
     {
         Schema::create('transaction_categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('user_id', 36);
             $table->timestamps();
         });
     }

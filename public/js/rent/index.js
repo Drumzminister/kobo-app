@@ -1,5 +1,4 @@
-let app = new Vue({
-    el: "#rentApp",
+export const rent = {
     data: {
         rents: [],
         amount:"",
@@ -21,9 +20,6 @@ let app = new Vue({
         }
     },
     mounted () {
-        axios.get('/getClientId').then (res => {
-            user_id = res.data.id;
-        }).catch ();
         axios.get('/banking/payment_modes').then (res => {
             this.paymentMethods = res.data;
         });
@@ -142,4 +138,4 @@ let app = new Vue({
 
         }
     }
-});
+};
