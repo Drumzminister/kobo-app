@@ -8,14 +8,15 @@ use Koboaccountant\Helpers\RentHelper as Helper;
 
 class GetRentPageDataJob extends Job
 {
-    private $rent;
+    private $rent, $companyId;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($companyId)
     {
+        $this->companyId = $companyId;
         $this->rent = new RentRepository();
     }
 
@@ -28,6 +29,7 @@ class GetRentPageDataJob extends Job
     {
         $data['total'] = $this->rent->all()->sum('amount');
         $data['total_used_rent'] = Helper::getTotalUsedRent();
+        $data['rents'] = $this->rent->getByCompany_id($this->companyId);
         return $data;
     }
 }

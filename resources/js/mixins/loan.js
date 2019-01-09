@@ -4,94 +4,63 @@ export const loanApp = {
         searchSource: "",
         sources: {},
         chosenSource: "",
-        description: "",
-        amount: "",
-        interest: "",
-        term: "",
-        paymentIntervals: [1,2,4],
+        loanDescription: "",
+        loanAmount: "",
+        loanInterest: "",
+        loanTerm: "",
+        loanPaymentIntervals: [1,2,4],
         period: "month",
         paymentPerYear: 1,
         loanDate: "",
         loans: [],
         loadingLoanDetails: false,
         allSources: [],
-        amtPaid: 0,
-        amtOwing: 0,
-        amtRunning: 0,
+        loanAmtPaid: 0,
+        loanAmtOwing: 0,
+        loanAmtRunning: 0,
         currentLoan: {},
         noSourceFound: false,
         showSourcesForm: false,
         sourceSearching: false,
         currentLoanPayments: [],
-        paymentAmount: "",
-        paymentValidationError: false,
-        paymentValidationMessage: "",
+        loanPaymentAmount: "",
+        loanPaymentValidationError: false,
+        loanPaymentValidationMessage: "",
     },
     watch: {
-        paymentAmount () {
-            if (this.paymentAmount > (this.currentLoan.amount - this.currentLoan.amount_paid) + (this.currentLoan.interest * this.currentLoan.amount / 100)) {
-                this.paymentValidationError = true;
-                this.paymentValidationMessage = "The amount entered is greater than the maximum payable amount";
+        loans () {
+            this.loans.forEach(loan => {
+                this.sources.forEach(source => {
+                    if (loan.loan_source_id === source.id ) {
+                        loan.source_name = source.name;
+                    }
+                });
+            });
+        },
+        loanPaymentAmount () {
+            if (this.loanPaymentAmount > (this.currentLoan.amount - this.currentLoan.amount_paid) + (this.currentLoan.interest * this.currentLoan.amount / 100)) {
+                this.loanPaymentValidationError = true;
+                this.loanPaymentValidationMessage = "The amount entered is greater than the maximum payable amount";
             } else{
-                this.paymentValidationError = false;
+                this.loanPaymentValidationError = false;
             }
         },
         period () {
             if (this.period === "month") {
-                this.paymentIntervals = [1, 2, 4];
+                this.loanPaymentIntervals = [1, 2, 4];
             } else if(this.period === "year") {
-                this.paymentIntervals = [1, 2, 3, 4, 5, 6, 12];
+                this.loanPaymentIntervals = [1, 2, 3, 4, 5, 6, 12];
             } else {
-                this.paymentIntervals = [1, 2, 3, 4, 5, 6, 7];
+                this.loanPaymentIntervals = [1, 2, 3, 4, 5, 6, 7];
             }
         }
     },
-    filters: {
-        numberFormat (value) {
-            value = Number(value);
-            if (isNaN(value)) {return value;}
-            const formatter = new Intl.NumberFormat('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-            return formatter.format(value);
-        }
-    },
     mounted () {
-        axios.get('/loans/sources/all').then (res => {
-            this.allSources = res.data.sources;
-            axios.get('/loans/get').then(res => {
-                this.loans = res.data.loans
-                this.loans.forEach(loan => {
-                    this.allSources.forEach(source => {
-                        if (loan.loan_source_id === source.id ) {
-                            loan.source_name = source.name;
-                        }
-                    });
-
-                });
-            })
-        }).catch(err => {
-            console.error(err);
-        });
-
-        axios.get('/loans/running/count').then(res => {
-            this.amtRunning = res.data;
-        }).catch(err => {
-            console.error(err);
-        });
-
-        axios.get('/loans/completed/count').then(res => {
-            this.amtPaid = res.data;
-        }).catch(err => {
-            console.error(err);
-        });
-
-        axios.get('/loans/owing/count').then(res => {
-            this.amtOwing = res.data;
-        }).catch(err => {
-            console.error(err);
-        });
+        this.loans = window.loans;
+        this.allSources = window.loanSources;
+        this.loanAmtPaid = window.loanAmtPaid;
+        this.loanAmtOwing = window.loanAmtOwing;
+        this.loanAmtRunning = window.loanAmtRunning;
     },
     methods: {
         searchForSource () {
@@ -140,16 +109,16 @@ export const loanApp = {
             })
         },
         saveLoan () {
-            if (this.description.trim() === "" || this.amount.trim() === "" || this.interest.trim() === "" || this.period.trim() === "" || this.term.trim() === "" || !this.paymentPerYear ||  this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
+            if (this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.period.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear ||  this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
                 swal('Oops', "Some required fields are empty", "error");
                 return;
             }
             let formData = new FormData();
-            formData.append('description', this.description);
-            formData.append('amount', this.amount);
-            formData.append('interest', this.interest);
+            formData.append('description', this.loanDescription);
+            formData.append('amount', this.loanAmount);
+            formData.append('interest', this.loanInterest);
             formData.append('period', this.period);
-            formData.append('term', this.term);
+            formData.append('term', this.loanTerm);
             formData.append('payment_interval', this.paymentPerYear);
             formData.append('source_id', this.chosenSource);
             formData.append('start_date', this.loanDate);
@@ -180,8 +149,8 @@ export const loanApp = {
         },
         payLoan (evt) {
             evt.preventDefault();
-            if (this.paymentValidationError) {
-                swal ("Oops", this.paymentValidationMessage, "warning");
+            if (this.loanPaymentValidationError) {
+                swal ("Oops", this.loanPaymentValidationMessage, "warning");
             }else {
                 let formData = new FormData(evt.target);
                 // formData.append('_token', token);

@@ -40,6 +40,17 @@ window.app = new Vue({
         loadingView,
         appModal
     ],
+    filters: {
+        numberFormat (value) {
+            let number = Number(value);
+            if (isNaN(number)) {return value;}
+            const formatter = new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            return formatter.format(number);
+        }
+    },
     data: {},
     methods: {}
 });

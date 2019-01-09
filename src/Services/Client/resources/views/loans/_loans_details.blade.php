@@ -107,8 +107,8 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="Amount">Enter Amount</label>
-                                    <input type="number" step="0.01" v-model="paymentAmount" name="amount" class="form-control" id="" placeholder="10,000.00" required>
-                                    <small v-if="paymentValidationError" class="text-danger">@{{ paymentValidationMessage }}</small>
+                                    <input type="number" step="0.01" v-model="loanPaymentAmount" name="amount" class="form-control" id="" placeholder="10,000.00" required>
+                                    <small v-if="loanPaymentValidationError" class="text-danger">@{{ loanPaymentValidationMessage }}</small>
                                 </div>
                             </div>
                             <div class="col">

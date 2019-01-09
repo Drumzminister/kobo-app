@@ -15,10 +15,10 @@
 
                                 <div class="form-row">
                                     <div class="col">
-                                        <input type="date" class="form-control" name="start" v-model="startDate" :max="endDate" placeholder="Start Date" required>
+                                        <input type="date" class="form-control" name="start" v-model="rentStartDate" :max="rentEndDate" placeholder="Start Date" required>
                                     </div>
                                     <div class="col">
-                                        <input type="date" class="form-control" name="end" v-model="endDate" placeholder="End Date" :min="startDate" required>
+                                        <input type="date" class="form-control" name="end" v-model="rentEndDate" placeholder="End Date" :min="rentStartDate" required>
                                     </div>
                                 </div>
                             </div>
@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <label for="amount" class="d-block"><h5>Rental Fee</h5></label>
                             <label  class="d-block"><small>Add the amount of the rent</small></label>
-                            <input type="number" step="0.01" class="form-control" v-model="amount" name="amount" min="0.00" id="amount" placeholder="NGN 5,0000,000" required>
+                            <input type="number" step="0.01" class="form-control" v-model="rentAmount" name="amount" min="0.00" id="amount" placeholder="NGN 5,0000,000" required>
                         </div>
                         <div class="form-group shadow-textarea">
                             <label for=""><h5>Rental Properties</h5></label>
@@ -49,7 +49,7 @@
                                 </span>
                             <h5 class="h5 text-green">Add Rent</h5>
                         </div>
-                        <div v-if="showPaymentSettings" class="col-12 mybox">
+                        <div v-if="rentShowPaymentSettings" class="col-12 mybox">
                             <div class="bg-grey py-4 px-3">
                                 <div class="row" id="paymentParent">
                                     <div class="col-md-5">
@@ -64,7 +64,7 @@
                                             <option v-if="paymentMethods.length === 0" disabled title="Go to the banking page to add your bank details">No Payment mode available.</option>
                                         </select>
                                         <div class="show input-group col-md-5">
-                                            <input type="number" class="form-control payment_amount" step="0.01" :value="amount" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
+                                            <input type="number" class="form-control payment_amount" step="0.01" :value="rentAmount" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
                                         </div>
                                     </div>
                                 </div>

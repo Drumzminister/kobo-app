@@ -145,14 +145,14 @@
                                 </div>
                                 <div class="col">
                                     <div class="h5 text-green">NGN <br>
-                                        <span class="h5 text-green">@{{amtRunning | numberFormat}}</span>
+                                        <span class="h5 text-green">@{{loanAmtRunning | numberFormat}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-3 px-2 py-3" id="topp">
                                 <div class="col-md-6">
                                     <div class="h5 text-green">NGN <br>
-                                        <span class="h5 text-green">@{{amtPaid | numberFormat}}</span>
+                                        <span class="h5 text-green">@{{loanAmtPaid | numberFormat}}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -164,7 +164,7 @@
                             <div class="row mt-3 p-3" id="topp">
                                 <div class="col-md-6">
                                     <div class="h5 text-green">NGN <br>
-                                        <span class="h5 text-green">@{{amtOwing | numberFormat }}</span>
+                                        <span class="h5 text-green">@{{loanAmtOwing | numberFormat }}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -242,16 +242,16 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" v-model="description" rows="3" placeholder="Briefly Describe the purpose of loan"></textarea>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" v-model="loanDescription" rows="3" placeholder="Briefly Describe the purpose of loan"></textarea>
                                     </div>
                                     <h5 class="h5 pt-1">Additional</h5>
                                     <div class="form-group">
                                         <label class="px-0"  for="exampleFormControlInput1">Interest Rate(%)</label>
-                                        <input type="number" step="0.01" v-model="interest" class="form-control" id="" placeholder="10">
+                                        <input type="number" step="0.01" v-model="loanInterest" class="form-control" id="" placeholder="10">
                                     </div>
                                     <div class="form-group">
                                         <label class="px-0" for="exampleFormControlInput1">Loan Amount</label>
-                                        <input type="number" step="0.01" v-model="amount" class="form-control" id="" placeholder="200,000">
+                                        <input type="number" step="0.01" v-model="loanAmount" class="form-control" id="" placeholder="200,000">
                                     </div>
                                     <div class="form-group d-flex row">
                                         <div class="col-6">
@@ -264,13 +264,13 @@
                                         </div>
                                         <div class="ml-auto col-6">
                                             <label class="px-0" for="exampleFormControlInput1">Loan Duration</label>
-                                            <input type="number"  v-model="term" class="form-control" id="" placeholder="10">
+                                            <input type="number"  v-model="loanTerm" class="form-control" id="" placeholder="10">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="px-0" for="">Number of Payments per @{{period}}</label>
                                         <select v-model="paymentPerYear" class="form-control">
-                                            <option v-for="interval in paymentIntervals" :value="interval">@{{ interval }}</option>
+                                            <option v-for="interval in loanPaymentIntervals" :value="interval">@{{ interval }}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -315,4 +315,13 @@
         @include('client::loans._loans_details')
 
     </section>
+@endsection
+@section('other_js')
+    <script>
+        window.loans = @json($loans);
+        window.loanSources = @json($loanSources);
+        window.loanAmtPaid = @json($runningLoanPaid);
+        window.loanAmtOwing = @json($runningLoanOwing);
+        window.loanAmtRunning = @json($runningLoanCount);
+    </script>
 @endsection

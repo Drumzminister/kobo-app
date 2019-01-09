@@ -1,34 +1,22 @@
 export const rentApp = {
     data: {
         rents: [],
-        amount: "",
-        endDate: "",
-        startDate: "",
+        rentAmount: "",
+        rentEndDate: "",
+        rentStartDate: "",
         editingRent: {},
         rentLoading: false,
         paymentMethods: [],
         rentSearchParam: "",
         other_rental_cost: "",
-        showPaymentSettings: false,
+        rentShowPaymentSettings: false,
     },
-    filters: {
-        numberFormat (value) {
-            value = Number(value);
-            if (isNaN(value)) {return value;}
-            const formatter = new Intl.NumberFormat('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-            return formatter.format(value);
-        }
-    },
+
     mounted () {
-        axios.get('/banking/payment_modes').then (res => {
+        /*axios.get('/banking/payment_modes').then (res => {
             this.paymentMethods = res.data;
-        });
-        axios.get('/client/rent/list').then (res => {
-            this.rents = res.data.rents;
-        });
+        });*/
+        this.rents = window.rents;
     },
     methods: {
         dater (value) {
@@ -39,7 +27,6 @@ export const rentApp = {
             return `${date.getDate()} ${month} ${year}`;
         },
         beforeSubmit (form) {
-            // this.showPaymentSettings = false;
             document.querySelector(`#${form}`).querySelector('.submitBtn').click();
         },
 
@@ -131,7 +118,7 @@ export const rentApp = {
             amounts.forEach(amount => {
                 total += Number(amount.value);
             });
-            if (total !== this.amount+this.other_rental_cost) {
+            if (total !== this.rentAmount+this.other_rental_cost) {
                 swal("Oops", "The amount entered must be equal to the amount paid for rent plus extra costs", "warning");
                 return;
             }

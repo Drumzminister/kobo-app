@@ -3,7 +3,7 @@
     <section id="top">
         <div class="container py-3">
             <div class="row">
-                <h2><a href="/rent" class="text-dark"> Rent</a></h2>
+                <h2><a href="{{ route('client.rent.show') }}" class="text-dark"> Rent</a></h2>
                 <span class="accountant ml-auto btn btn-accountant">
                     <a href="" class="btn-accountant">
                         <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant

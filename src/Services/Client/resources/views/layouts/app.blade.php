@@ -42,8 +42,8 @@
 
 {{-- javascript --}}
 
+@yield('other_js')
 <script src="{{asset('js/app.js')}}"></script>
-
 {{-- chart js --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.js"></script>
 <script src="{{asset('js/bundle.js')}}"></script>

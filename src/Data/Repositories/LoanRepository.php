@@ -18,4 +18,5 @@ class LoanRepository extends Repository
     {
         parent::__construct(new Loan());
     }
+
 }

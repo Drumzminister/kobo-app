@@ -45,12 +45,7 @@
 
      <!-- //Footer -->
     @include('layouts.footer')
-@yield('other_script')
 
-
-{{-- javascript --}}
-
-{{--<script src="http://code.jquery.com/jquery-1.8.2.js"></script>--}}
 @yield("other_js")
 <script src="{{asset('js/app.js')}}"></script>
 {{--<script src="{{asset('js/particles.js')}}"></script>--}}
