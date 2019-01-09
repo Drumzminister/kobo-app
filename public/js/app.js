@@ -50711,8 +50711,8 @@ var customerApp = {
             first_name: '',
             last_name: '',
             phone: '',
-            role: '',
             address: '',
+            email: '',
             website: ''
         }
     },
@@ -50721,7 +50721,7 @@ var customerApp = {
             var _this = this;
 
             evt.preventDefault();
-            axios.post('client/customer/add', this.customerForm).then(function (res) {
+            axios.post('/client/customer/add', this.customerForm).then(function (res) {
                 console.log(_this.customerForm);
                 swal('Success', res.data.message, 'success');
                 _this.customerForm = '';

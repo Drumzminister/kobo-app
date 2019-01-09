@@ -5,6 +5,7 @@ namespace App\Services\Client\Http\Controllers;
 use App\Services\Client\Features\AddCustomerFeature;
 use App\Services\Client\Features\CustomerFeature;
 use App\Services\Client\Features\AddSingleCustomerFeature;
+use App\Services\Client\Features\ListAllCustomersFeature;
 use Illuminate\Http\Request;
 use Lucid\Foundation\Http\Controller;
 
@@ -23,6 +24,11 @@ class CustomerController extends Controller
     public function showCustomer()
     {
         return $this->serve(AddCustomerFeature::class);
+    }
+
+    public function listAllCustomers()
+    {
+        return $this->serve(ListAllCustomersFeature::class);
     }
     public function addCustomer()
     {

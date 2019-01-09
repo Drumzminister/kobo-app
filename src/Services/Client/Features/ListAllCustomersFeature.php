@@ -7,11 +7,11 @@ use App\Domains\Http\Jobs\RespondWithViewJob;
 use Lucid\Foundation\Feature;
 use Illuminate\Http\Request;
 
-class CustomerFeature extends Feature
+class ListAllCustomersFeature extends Feature
 {
     public function handle(Request $request)
     {
         $data = $this->run(GetCustomerDataJob::class);
-        return $this->run(new RespondWithViewJob('client::customer.customers', $data));
+        return $this->run(new RespondWithViewJob('client::customer.view-customers', $data));
     }
 }

@@ -18,8 +18,9 @@
                     Transaction
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item " href="{{ route('company.sales', $company->slug) }}">Sales</a>
-                    <a class="dropdown-item" href="/inventory">Purchases</a>
+                    {{--<a class="dropdown-item " href="{{ route('company.sales', $company->slug) }}">Sales</a>--}}
+                        <a class="dropdown-item " href="/sales">Sales</a>
+                        <a class="dropdown-item" href="/inventory">Purchases</a>
                     <a class="dropdown-item" href="/expenses">Expenses</a>
                     <a class="dropdown-item" href="/loans">Loans</a>
                     <a class="dropdown-item" href="/rent">Rents</a>

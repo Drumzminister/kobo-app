@@ -4,15 +4,15 @@ export const customerApp = {
             first_name: '',
             last_name: '',
             phone: '',
-            role: '',
             address: '',
+            email: '',
             website: ''
         }
     },
     methods:{
         createCustomer(evt) {
             evt.preventDefault();
-            axios.post('client/customer/add', this.customerForm).then( res => {
+            axios.post('/client/customer/add', this.customerForm).then( res => {
                 console.log(this.customerForm);
                 swal('Success', res.data.message, 'success');
                 this.customerForm = '';

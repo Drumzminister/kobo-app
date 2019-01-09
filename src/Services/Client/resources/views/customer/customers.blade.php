@@ -5,7 +5,7 @@
 <section id="top">
         <div class="container p-2">
             <div class="row p-1">
-                    <h2><a href="/client/customers" class="text-dark"> Customers</a></h2>
+                    <h2><a href="/client/customer" class="text-dark"> Customers</a></h2>
                     <span class="accountant ml-auto ">
                 <a href="/client/customer/add" class="btn btn-started">
                     Add Customers
@@ -26,7 +26,7 @@
                                 <h4 class="h4 text-white">Total Number of customers</h4>
                             </div>
                             <div class="col-md-4">
-                                <h1 class="h1 text-orange">32</h1>
+                                <h1 class="h1 text-orange">{{$total_customers}}</h1>
                             </div>
                         </div>
                     </div>
@@ -61,68 +61,21 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($customers as $customer)
                           <tr>
-                                <td >Amaka Ekpono</td>                                       
-                                <td>8A lagos state  </td>                                   
-                                <td> 08082023909</td>
-                                <td> syfon@gmail.com</td>
-                                <td>koboaccountant.com</td>
+                                <td >{{$customer['name']}}</td>
+                                <td>{{$customer['address']}} </td>
+                                <td>{{$customer['phone']}}</td>
+                                <td> {{$customer['email']}}</td>
+                                <td>{{$customer['website']}}</td>
                                 <td class="flex" > 
                                     <span class="dot"></span>
                                     <span class="dot"></span>
                                     <span class="dot"></span>
                                 </td> 
                           </tr>
+                        @endforeach
 
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td class="flex" > 
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                    </td>  
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td class="flex" > 
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                    </td> 
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td class="flex" > 
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                    </td>                       
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td class="flex" > 
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                    </td> 
-                                </tr>
-                            
                         </tbody>
                 </table>
              </div>
