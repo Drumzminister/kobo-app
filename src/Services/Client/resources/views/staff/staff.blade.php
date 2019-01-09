@@ -1,4 +1,4 @@
-@extends("layouts.app")
+@extends("client::layouts.app")
 <style>
     label {display: block; padding: 5px; position: relative; padding-left: 10px;}
     label input {display: none;}
@@ -53,7 +53,7 @@
         <div class="row ">
             <h2>Staffs</h2>
             <span class="accountant ml-auto ">
-                <a href="/add-staff" class="btn btn-started">
+                <a href="/client/staff/single-staff" class="btn btn-started">
                     Add Staff
                 </a>                
                 </span>

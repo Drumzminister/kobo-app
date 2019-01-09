@@ -12,6 +12,8 @@ window.swal = require('sweetalert2');
 import {vendorApp} from "./mixins/vendors";
 import {rentApp} from "./mixins/rent";
 import {inventoryApp} from "./mixins/inventory";
+import {staffApp} from "./mixins/staff";
+import {customerApp} from "./mixins/customer";
 import {salesListView} from "./mixins/salesListView";
 import {loadingView} from "./mixins/loadingView";
 import {appModal} from "./mixins/appModals";
@@ -30,6 +32,8 @@ window.app = new Vue({
         vendorApp,
         rentApp,
         inventoryApp,
+        staffApp,
+        customerApp,
         salesListView,
         loadingView,
         appModal

@@ -13919,8 +13919,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-__webpack_require__(42);
-module.exports = __webpack_require__(43);
+__webpack_require__(48);
+module.exports = __webpack_require__(49);
 
 
 /***/ }),
@@ -13931,10 +13931,12 @@ module.exports = __webpack_require__(43);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_vendors__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_rent__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_salesListView__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_loadingView__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_appModals__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_staff__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_customer__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_salesListView__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_loadingView__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins_appModals__ = __webpack_require__(47);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13952,6 +13954,8 @@ window.swal = __webpack_require__(39);
 
 
 
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -13961,10 +13965,10 @@ window.swal = __webpack_require__(39);
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 window.app = new Vue({
-  el: '#app',
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_4__mixins_loadingView__["a" /* loadingView */], __WEBPACK_IMPORTED_MODULE_5__mixins_appModals__["a" /* appModal */]],
-  data: {},
-  methods: {}
+    el: '#app',
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_staff__["a" /* staffApp */], __WEBPACK_IMPORTED_MODULE_4__mixins_customer__["a" /* customerApp */], __WEBPACK_IMPORTED_MODULE_5__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_6__mixins_loadingView__["a" /* loadingView */], __WEBPACK_IMPORTED_MODULE_7__mixins_appModals__["a" /* appModal */]],
+    data: {},
+    methods: {}
 });
 
 /***/ }),
@@ -50599,23 +50603,6 @@ var rentApp = {
 
 /***/ }),
 /* 42 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50640,7 +50627,6 @@ var inventoryApp = {
             var _this = this;
 
             evt.preventDefault();
-            console.log(this.inventoryForm);
             axios.post('/client/inventory/add', this.inventoryForm).then(function (res) {
                 swal('Success', res.data.message, "success");
                 _this.inventoryForm = '';
@@ -50648,14 +50634,91 @@ var inventoryApp = {
                 swal("Oops", "An error occurred when creating this account", "error");
             });
         },
+
+        // quantity(sortKey) {
+        //         this.reverse = (this.sortKey == sortKey) ? ! this.reverse : false;
+        //         this.sortKey = sortKey;
+        // },
         quantity: function quantity() {
-            console.log('hil');
+            console.log('changed');
+        },
+        amount: function amount() {
+            console.log('amount clicked');
         }
     }
 };
 
 /***/ }),
-/* 50 */
+/* 43 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return staffApp; });
+var staffApp = {
+    data: {
+        staffForm: {
+            first_name: '',
+            last_name: '',
+            role: '',
+            employed_date: '',
+            salary: '',
+            email: '',
+            phone: '',
+            years_of_experience: '',
+            comment: '',
+            avatar: ''
+        }
+    },
+    methods: {
+        createStaff: function createStaff(evt) {
+            var _this = this;
+
+            evt.preventDefault();
+            axios.post('/client/staff/single-staff/add', this.staffForm).then(function (res) {
+                swal('Success', res.data.message, 'success');
+                _this.staffForm = '';
+            }).catch(function (err) {
+                swal("Oops", "An error occurred when creating this staff", "error");
+            });
+        }
+    }
+};
+
+/***/ }),
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return customerApp; });
+var customerApp = {
+    data: {
+        customerForm: {
+            first_name: '',
+            last_name: '',
+            phone: '',
+            role: '',
+            address: '',
+            website: ''
+        }
+    },
+    methods: {
+        createCustomer: function createCustomer(evt) {
+            var _this = this;
+
+            evt.preventDefault();
+            axios.post('client/customer/add', this.customerForm).then(function (res) {
+                console.log(_this.customerForm);
+                swal('Success', res.data.message, 'success');
+                _this.customerForm = '';
+            }).catch(function (err) {
+                swal('Error', 'There was an error adding staff', 'error');
+            });
+        }
+    }
+};
+
+/***/ }),
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50680,7 +50743,7 @@ var salesListView = {
 };
 
 /***/ }),
-/* 51 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50704,7 +50767,7 @@ var loadingView = {
 };
 
 /***/ }),
-/* 52 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50723,6 +50786,18 @@ var appModal = {
         }
     }
 };
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

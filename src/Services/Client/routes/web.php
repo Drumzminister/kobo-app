@@ -47,12 +47,25 @@ Route::group(['prefix' => 'client'], function () {
 	Route::get('/loan/sources/list', 'LoanController@listSources')->name('client.loan.sources.list');
 	Route::get('/loan/sources/search/{param}', 'LoanController@searchSources')->name('client.loan.sources.search');
 
-	Route::get('inventory', 'InventoryController@showInventory')->name('client.inventory.show');
-	Route::get('/single-inventory', 'InventoryController@showSingleInventory')->name('client.inventory.show-single');
+    Route::get('inventory', 'InventoryController@showInventory')->name('client.inventory.show');
+    Route::get('/inventory/single-inventory', 'InventoryController@showSingleInventory')->name('client.inventory.show-single');
+    Route::get('inventory/multiple-inventory', 'InventoryController@showMultipleInventory')->name('client.inventory.show-multiple');
     Route::post('/inventory/add', 'InventoryController@addInventory')->name('client.inventory.add');
     Route::get('/inventory/list', 'InventoryController@listInventory')->name('client.inventory.list');
     Route::get('/inventory/update/{inventoryId}', 'InventoryController@updateInventory')->name('client.inventory.update');
     Route::post('/inventory/delete', 'InventoryController@deleteInventory')->name('client.inventory.delete');
+
+    Route::get('/staff', 'StaffController@showStaff')->name('client.staff.show');
+    Route::get('/staff/single-staff', 'StaffController@showSingleStaff')->name('client.single-staff.add');
+    Route::get('/staff/multiple-staff', 'StaffController@showMultipleStaff')->name('client.single-staff.add');
+    Route::post('/staff/single-staff/add', 'StaffController@addSingleStaff')->name('client.single-staff.add');
+    Route::post('/staff/multiple-staff/add', 'StaffController@addMultipleStaff')->name('client.multiple-staff.add');
+
+    Route::get('/customer', 'CustomerController@index')->name('client.customer');
+    Route::get('/customer/add', 'CustomerController@showCustomer')->name('client.customer.add');
+    Route::post('/customer/add', 'CustomerController@addCustomer')->name('client.customer.add');
+
+    Route::get('/sales/{}', 'ClientDashboardController@showSalesPage');
 
 	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
 	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');

@@ -126,7 +126,7 @@ class DatabaseSeeder extends Seeder
 	    factory(Asset::class, 6)->create(['company_id' => $company->id]);
 
 	    // We're creating some customers for his company as well
-	    $customers = factory(Customer::class, 12)->create(['company_id' => $company->id]);
+	    $customers = factory(Customer::class, 12)->create(['company_id' => $company->id, 'user_id' => $clientUser->id]);
 
 	    // Here, we'll make some Customers debtors 😁
 	    $count = 0;

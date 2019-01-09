@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('client::layouts.app')
 
 @section('content')
 
 <section id="top">
     <div class="container py-3">
         <div class="row ">
-            <h2> <a href="/customers" class="text-dark">Customer</a></h2>            
+            <h2> <a href="/client/customers" class="text-dark">Customer</a></h2>
         </div>
     </div>
 </section>
@@ -24,14 +24,14 @@
                     </div>
                     <div class="col-md-8">
                         <label for="first name">First Name</label>
-                        <input type="text" class="form-control bg-grey" id="" >
+                        <input v-model="customerForm.first_name" type="text" class="form-control bg-grey" id="" >
                         <label for="last name">Last name</label>
-                        <input type="text" class="form-control bg-grey" id="" >
+                        <input v-model="customerForm.last_name" type="text" class="form-control bg-grey" id="" >
                         <label for="phone">Phone number</label>
-                        <input type="number" class="form-control bg-grey" id="" >
+                        <input v-model="customerForm.phone" type="text" class="form-control bg-grey" id="" >
                     </div>
                 </div>
-                
+
                 <hr>
 
                 <div class="form-group row py-2">
@@ -40,18 +40,11 @@
                         <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>
                     </div>
                     <div class="col-md-8">
-                        <label for="Role">Address</label>
-                        <select name="" id="" class="form-control bg-grey">
-                                <option value="" selected></option>
-                                <option value="role"></option>
-                                <option value="role"></option>
-                                <option value="role"></option>
-                        </select>
-                        <span class="float-right mt-1" onclick="" style="cursor: pointer;">Add Row <i class="fa fa-plus-square" style="font-size:32px; color:#00C259;" value="Add Row"></i>
-                        </span>
+                        <label for="Address">Address</label>
+                        <input v-model="customerForm.address" class="form-control bg-grey" />
                     </div>
                 </div>
-                
+
 
                 <div class="form-group row py-2">
                         <div class="col-md-4">
@@ -59,26 +52,20 @@
                             <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>
                         </div>
                         <div class="col-md-8">
-                            <label for="Role">Website Name</label>
-                            <select name="" id="" class="form-control bg-grey">
-                                    <option value="" selected></option>
-                                    <option value="role"></option>
-                                    <option value="role"></option>
-                                    <option value="role"></option>
-                            </select>
-                            
+                            <label for="Website">Website Name</label>
+                            <input v-model="customerForm.website" type="text" class="form-control-item"/>
                         </div>
                     </div>
                     <div class="form-row mt-3">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-                            <button type="submit" class="btn btn-addsale">Save Information</button>
+                            <button type="submit" v-on:click="createCustomer" class="btn btn-addsale">Save Information</button>
                         </div>
                     </div>
             </form>
         </div>
-    </div>    
-</section> 
+    </div>
+</section>
 
 
 
