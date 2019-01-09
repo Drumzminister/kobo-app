@@ -14,6 +14,7 @@ import {rentApp} from "./mixins/rent";
 import {inventoryApp} from "./mixins/inventory";
 import {salesListView} from "./mixins/salesListView";
 import {loadingView} from "./mixins/loadingView";
+import {appModal} from "./mixins/appModals";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,7 +31,8 @@ window.app = new Vue({
         rentApp,
         inventoryApp,
         salesListView,
-        loadingView
+        loadingView,
+        appModal
     ],
     data: {},
     methods: {}

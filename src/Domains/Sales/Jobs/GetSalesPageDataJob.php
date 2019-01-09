@@ -5,6 +5,7 @@ namespace App\Domains\Sales\Jobs;
 use App\Data\Repositories\CompanyRepository;
 use App\Data\Repositories\SaleRepository;
 use Illuminate\Support\Collection;
+use Koboaccountant\Http\Resources\SaleCollection;
 use Koboaccountant\Models\Sale;
 use Lucid\Foundation\Job;
 
@@ -55,6 +56,16 @@ class GetSalesPageDataJob extends Job
 	    }
 
     	$sales = $this->sale->getByAttributes(['company_id' => $company->id]);
+
+    	$xb = new Collection();
+
+    	$sales->each(function ($sale) use (&$xb) {
+    		$xb->put($sale->id, new SaleCollection($sale));
+	    });
+
+    	$tSales = SaleCollection::collection($sales);
+//    	return $sales;
+
 	    $items = new Collection();
 	    $sales->each(function (Sale $sale) use (&$items) {
 		    $sale->saleItems->each(function ($item) use(&$items) {
@@ -64,6 +75,7 @@ class GetSalesPageDataJob extends Job
 	    $items = $items->sortByDesc('quantity');
 	    $items = $items->chunk(5)->first();
 
-	    return ['sales' => $sales, 'topFiveItems' => $items];
+
+	    return ['sales' => $xb, 'topFiveItems' => $items];
     }
 }

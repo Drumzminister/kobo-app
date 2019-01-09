@@ -13934,6 +13934,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_salesListView__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_loadingView__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_appModals__ = __webpack_require__(52);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13950,6 +13951,7 @@ window.swal = __webpack_require__(39);
 
 
 
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -13960,7 +13962,7 @@ window.swal = __webpack_require__(39);
 
 window.app = new Vue({
   el: '#app',
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_4__mixins_loadingView__["a" /* loadingView */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_4__mixins_loadingView__["a" /* loadingView */], __WEBPACK_IMPORTED_MODULE_5__mixins_appModals__["a" /* appModal */]],
   data: {},
   methods: {}
 });
@@ -50661,15 +50663,18 @@ var inventoryApp = {
 var salesListView = {
     data: {
         saleSearchQuery: "",
-        salesList: {}
-    },
-    created: function created() {
-        this.salesList = window.salesList;
+        salesList: window.salesList,
+        saleInvoice: {}
     },
     methods: {
         searchSale: function searchSale() {
             if (this.saleSearchQuery === "") return;
             this.showAppLoading();
+        },
+
+        showSaleInvoice: function showSaleInvoice(saleId) {
+            this.saleInvoice = this.salesList[saleId];
+            this.openModal("#exampleModalCenter");
         }
     }
 };
@@ -50694,6 +50699,27 @@ var loadingView = {
         },
         hideAppLoading: function hideAppLoading() {
             this.appLoading = false;
+        }
+    }
+};
+
+/***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return appModal; });
+var appModal = {
+    data: {},
+    methods: {
+        openModal: function openModal(id) {
+            $(id).modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        },
+        closeModal: function closeModal(id) {
+            $(id).modal('hide');
         }
     }
 };
