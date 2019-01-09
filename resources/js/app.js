@@ -12,6 +12,11 @@ window.moment = require('moment');
 import {vendorApp} from "./mixins/vendors";
 import {rentApp} from "./mixins/rent";
 import {loanApp} from "./mixins/loan";
+import {inventoryApp} from "./mixins/inventory";
+import {staffApp} from "./mixins/staff";
+import {customerApp} from "./mixins/customer";
+import {salesListView} from "./mixins/salesListView";
+import {loadingView} from "./mixins/loadingView";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -21,9 +26,18 @@ import {loanApp} from "./mixins/loan";
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-const app = new Vue({
+window.app = new Vue({
     el: '#app',
-    mixins: [vendorApp, rentApp, loanApp],
+    mixins: [
+        vendorApp,
+        rentApp,
+        loanApp,
+        inventoryApp,
+        staffApp,
+        customerApp,
+        salesListView,
+        loadingView
+    ],
     data: {},
     methods: {}
 });

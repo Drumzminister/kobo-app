@@ -62,9 +62,9 @@ $factory->define(Inventory::class, function (Faker $faker) {
         'user_id' => '',
         'vendor_id' => '',
         'name' => ucfirst($faker->sentence(2)),
-        'sales_price' => $faker->randomFloat(2),
-        'purchase_price' => $faker->randomFloat(2),
-        'quantity' => $faker->numberBetween(20, 49),
+        'sales_price' => $salesPrice = random_int(50, 2000),
+        'purchase_price' => $salesPrice + random_int(50, 120),
+        'quantity' => random_int(19, 50),
         'description' => $faker->word(20),
         'delivered_date' => $faker->dateTime(),
         'attachment' => $faker->word(6),
@@ -76,11 +76,15 @@ $factory->define(\Koboaccountant\Models\Staff::class, function (Faker $faker) us
 	shuffle($roles);
     return [
         'id'            => $faker->uuid,
-        'name'          => $faker->name,
+        'first_name'    => $faker->name,
+        'last_name'     => $faker->name,
         'user_id'       => '',
         'company_id'    => '',
-        'designation'   => $roles[0],
+        'role'          => $roles[0],
         'salary'        => $faker->numberBetween(30000, 150000),
+        'email'         =>  $faker->email,
+        'phone'         =>  $faker->phoneNumber,
+        'years_of_experience' => $faker->dateTime(),
         'isActive'      => $faker->numberBetween(0, 1),
         'employed_date' => $faker->dateTime(),
         'avatar'        => $faker->imageUrl,
@@ -104,6 +108,7 @@ $factory->define(Koboaccountant\Models\Customer::class, function (Faker $faker) 
         'phone' => $faker->phoneNumber,
         'website' => $faker->url,
         'image' => $faker->imageUrl,
+        'user_id' => '',
         'isActive' => $faker->numberBetween(0, 1),
     ];
 });

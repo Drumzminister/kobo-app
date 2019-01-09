@@ -30446,6 +30446,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_vendors__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_rent__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_loan__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_inventory__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_staff__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_customer__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_salesListView__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins_loadingView__ = __webpack_require__(180);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -30461,6 +30466,11 @@ window.moment = __webpack_require__(0);
 
 
 
+
+
+
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -30469,11 +30479,11 @@ window.moment = __webpack_require__(0);
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-var app = new Vue({
-  el: '#app',
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_loan__["a" /* loanApp */]],
-  data: {},
-  methods: {}
+window.app = new Vue({
+    el: '#app',
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_vendors__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_loan__["a" /* loanApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_4__mixins_staff__["a" /* staffApp */], __WEBPACK_IMPORTED_MODULE_5__mixins_customer__["a" /* customerApp */], __WEBPACK_IMPORTED_MODULE_6__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_7__mixins_loadingView__["a" /* loadingView */]],
+    data: {},
+    methods: {}
 });
 
 /***/ }),
@@ -67609,6 +67619,173 @@ var loanApp = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return inventoryApp; });
+var inventoryApp = {
+    data: {
+        inventoryForm: {
+            name: '',
+            description: '',
+            costPrice: '',
+            salePrice: '',
+            quantity: '',
+            vendor_id: '',
+            category: '',
+            paymentMode: '',
+            attachment: ''
+        }
+    },
+
+    methods: {
+        createInventory: function createInventory(evt) {
+            var _this = this;
+
+            evt.preventDefault();
+            axios.post('/client/inventory/add', this.inventoryForm).then(function (res) {
+                swal('Success', res.data.message, "success");
+                _this.inventoryForm = '';
+            }).catch(function (err) {
+                swal("Oops", "An error occurred when creating this account", "error");
+            });
+        },
+
+        // quantity(sortKey) {
+        //         this.reverse = (this.sortKey == sortKey) ? ! this.reverse : false;
+        //         this.sortKey = sortKey;
+        // },
+        quantity: function quantity() {
+            console.log('changed');
+        },
+        amount: function amount() {
+            console.log('amount clicked');
+        }
+    }
+};
+
+/***/ }),
+/* 177 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return staffApp; });
+var staffApp = {
+    data: {
+        staffForm: {
+            first_name: '',
+            last_name: '',
+            role: '',
+            employed_date: '',
+            salary: '',
+            email: '',
+            phone: '',
+            years_of_experience: '',
+            comment: '',
+            avatar: ''
+        }
+    },
+    methods: {
+        createStaff: function createStaff(evt) {
+            var _this = this;
+
+            evt.preventDefault();
+            axios.post('/client/staff/single-staff/add', this.staffForm).then(function (res) {
+                swal('Success', res.data.message, 'success');
+                _this.staffForm = '';
+            }).catch(function (err) {
+                swal("Oops", "An error occurred when creating this staff", "error");
+            });
+        }
+    }
+};
+
+/***/ }),
+/* 178 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return customerApp; });
+var customerApp = {
+    data: {
+        customerForm: {
+            first_name: '',
+            last_name: '',
+            phone: '',
+            role: '',
+            address: '',
+            website: ''
+        }
+    },
+    methods: {
+        createCustomer: function createCustomer(evt) {
+            var _this = this;
+
+            evt.preventDefault();
+            axios.post('client/customer/add', this.customerForm).then(function (res) {
+                console.log(_this.customerForm);
+                swal('Success', res.data.message, 'success');
+                _this.customerForm = '';
+            }).catch(function (err) {
+                swal('Error', 'There was an error adding staff', 'error');
+            });
+        }
+    }
+};
+
+/***/ }),
+/* 179 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return salesListView; });
+var salesListView = {
+    data: {
+        saleSearchQuery: "",
+        salesList: {}
+    },
+    created: function created() {
+        this.salesList = window.salesList;
+    },
+    methods: {
+        searchSale: function searchSale() {
+            if (this.saleSearchQuery === "") return;
+            this.showAppLoading();
+        }
+    }
+};
+
+/***/ }),
+/* 180 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return loadingView; });
+var loadingView = {
+    data: {
+        appLoading: false,
+        appLoadingText: "Please Wait..."
+    },
+    methods: {
+        showAppLoading: function showAppLoading() {
+            this.appLoading = true;
+        },
+        setAppLoadingText: function setAppLoadingText(loadingText) {
+            this.appLoadingText = loadingText;
+        },
+        hideAppLoading: function hideAppLoading() {
+            this.appLoading = false;
+        }
+    }
+};
 
 /***/ })
 /******/ ]);

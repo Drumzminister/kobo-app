@@ -31,6 +31,7 @@ class RespondWithViewJob extends Job
 	{
 		if (Auth::check()) {
 			$this->data['user'] = Auth::user();
+			$this->data['company'] = auth()->user()->company;
 		}
 	}
 }

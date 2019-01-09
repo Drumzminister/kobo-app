@@ -5,7 +5,10 @@ namespace App\Services\Client\Http\Controllers;
 use App\Services\Client\Features\AddInventoryFeature;
 use App\Services\Client\Features\DeleteInventoryFeature;
 use App\Services\Client\Features\ListInventoryFeature;
+use App\Services\Client\Features\ShowSingleInventoryFeature;
+use App\Services\Client\Features\ShowMultipleInventoryFeature;
 use App\Services\Client\Features\UpdateInventoryFeature;
+use App\Services\Client\Features\ShowInventoryFeature;
 use Lucid\Foundation\Http\Controller;
 
 class InventoryController extends Controller
@@ -15,6 +18,18 @@ class InventoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function showInventory()
+    {
+        return $this->serve(ShowInventoryFeature::class);
+    }
+    public function showSingleInventory()
+    {
+        return $this->serve(ShowSingleInventoryFeature::class);
+    }
+    public function showMultipleInventory()
+    {
+        return $this->serve(ShowMultipleInventoryFeature::class);
+    }
     public function addInventory()
     {
         return $this->serve(AddInventoryFeature::class);

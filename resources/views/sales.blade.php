@@ -140,38 +140,26 @@ input {
                         </div>
 
                         <div class="all-scroll">
-                        <table class="table table-striped table-hover" id="table">
-                            <thead class="sale-head">
-                              <tr>
-                                <th scope="col">Products</th>
-                                <th scope="col">Number sold</th>
-                                <th scope="col">Amount</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                <td>Cars</td>
-                                <td>33</td>
-                                <td>12,000</td>
-                              </tr>
-                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                <td>Furnitures</td>
-                                <td>55</td>
-                                <td>68,000</td>
-                              </tr>
-                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                <td>Phone</td>
-                                <td>45 </td>
-                                <td>23123 </td>
-                              </tr>
-                              <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                <td> Car </td>
-                                <td>33 </td>
-                                <td> 12,000 </td>
-                                </tr>
-                            </tbody>
+                            <table class="table table-striped table-hover" id="table">
+                                <thead class="sale-head">
+                                  <tr>
+                                    <th scope="col">Products</th>
+                                    <th scope="col">Number sold</th>
+                                    <th scope="col">Amount</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {{--{{ dd($topFiveSales) }}--}}
+                                    @foreach($topFiveItems as $t5s)
+                                          <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
+                                            <td>{{ $t5s->inventory->name }}</td>
+                                            <td>{{ $t5s->quantity }}</td>
+                                            <td>{{ $t5s->quantity * $t5s->inventory->sales_price }}</td>
+                                          </tr>
+                                    @endforeach
+                                </tbody>
 
-                        </table>
+                            </table>
                         </div>
                         <div class="text-center p-1">
                                 <a href="" class="view-more">View More Analytics</a> 
@@ -194,9 +182,9 @@ input {
                 
                                     <div class="col-md-6">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                            <input type="text" @keydown.enter="searchSale()" v-model="saleSearchQuery" class="form-control" placeholder="&#xF002; Type Something to Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                             <div class="input-group-append">
-                                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2" style="height: calc(2.19rem + 2px);">Search</span>
                                             </div>
                                         </div>
                                     </div>
@@ -211,9 +199,11 @@ input {
                                                 </div>
                                         </div>
                                     </div>
-                            </div>    
-                
-                <div class="table-responsive table-responsive-sm">
+                            </div>
+
+
+                @include('client::components.loading-container')
+                <div v-show="!appLoading" class="table-responsive table-responsive-sm">
                     <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
                           <tr class="tab">
@@ -223,31 +213,28 @@ input {
                             <th scope="col">Sales Price (&#8358;)</th>
                             <th scope="col">Customer</th>
                             <th scope="col">Channel</th>
-
-                
                           </tr>
                         </thead>
                         <tbody>
                         @foreach($sales as $key => $sale)
                           <tr>
                               <td >
-                                {{$sale->sales_date}}
+                                {{ $sale->created_at->diffForHumans() }}
                               </td>
                             <td>
-
-                                <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 23{{$key+1}}</a>
+                                <a href="" data-toggle="modal" data-target="#exampleModalCenter">{{ $sale->invoice_number }}</a>
                             </td>
                             <td>
-                            {{$sale->quantity}}
+                            {{ $sale->saleItems->count() }}
                             </td>
                             <td>
-                            {{$sale->amount}}
+                            {{ $sale->total_amount }}
                             </td>
                             <td>
-                            {{$sale->customer_id}}   
+                            {{ $sale->customer->name }}
                             </td>
                             <td>
-                            {{$sale->sales_channel_id}}
+                            {{ $sale->saleChannel->name }}
                             </td>
                           </tr>
 
@@ -260,210 +247,15 @@ input {
                     <div class="text-center pb-3">
                         <a href="/view-sale" class="view-more">View More</a> 
                     </div>
-                   
-            </div> 
-           
+            </div>
         </div>
     </section>
+    @include("client::components.invoice-modal")
+    @include("client::components.top-sale-modal")
+@endsection
 
-
-
-    {{-- invoice modal --}}
-
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                        <div class="container p-3">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-
-                            <div class="row px-5 pt-3">
-                                <div class="col-md-2">
-                                    <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
-                                </div>
-                                <div class="col-md-10">
-                                    <h5 class="text-green h5">Mary Ikpe</h5>
-                                    <h6 class="text-primary h6">Invoice NO:KB &#x2d; 1234</h6>
-
-                                    <form action="" method="post">
-                                        <div class="form row pt-3 px-3">
-                                            <div class="col-md-4">
-                                                <div class="p-2" id="topp">
-                                                    <h5 class="h5">Total Amount</h5>
-                                                    <h4 class="text-orange">&#8358;18,000</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="p-2" id="topp">
-                                                    <h5 class="h5">Amount Paid</h5>
-                                                    <h4 class="text-orange">&#8358;18,000.45</h4>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="p-2" id="topp">
-                                                    <h5 class="h5 "> Balance</h5>
-                                                    <h4 class="text-orange">&#8358;18,000.53</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                       
-                            <div class="modal-body">
-                        <section id="sale-table">
-                                <div class="container">                                               
-                                    <div class="long-scroll">
-                                        <div class="table-responsive table-responsive-sm" id="topp">
-                                            <table class="table table-striped table-hover table-condensed" id="dataTable">
-                                                <thead class="p-3">
-                                                    <tr class="tab">
-                                                    <th scope="col">Payment Date</th>
-                                                    <th scope="col">Product</th>
-                                                    <th scope="col">QTY</th>
-                                                    <th scope="col">Sales Price (&#8358;)</th>
-                                                    <th scope="col">Balance</th>
-                        
-                                        
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                        
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                        Lorem ipsum dolor si
-                                                        </td> 
-                                                        <td> 23</td>
-                                                        <td> 43,000</td>
-                                                        <td>123,0000</td>
-                                                        
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>
-                                                                
-                                                        </tr>
-                        
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>        
-                                                    </tr>
-                        
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>        
-                                                    </tr>
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>
-          
-                                                    </tr>                                                    <tr>
-                                                    <tr>
-                                                            <td >21/08/2020 </td>
-                                                            <td>
-                                                                    Lorem ipsum dolor si
-                                                                    </td> 
-                                                                    <td> 23</td>
-                                                                    <td> 43,000</td>
-                                                                    <td>123,0000</td>
-                                                                    
-                                                   </tr>
-                                                   <tr>
-                                                            <td >21/08/2020 </td>
-                                                            <td>
-                                                                    Lorem ipsum dolor si
-                                                                    </td> 
-                                                                    <td> 23</td>
-                                                                    <td> 43,000</td>
-                                                                    <td>123,0000</td>            
-                                                   </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>                                   
-                                </div>
-                            </section>                                    
-                        </div>
-
-                        <div class="modal-foote mt-3">
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col">
-                                <button type="button" class="btn btn-login" data-dismiss="modal">Reverse Invoice</button>
-                                </div>
-                                <div class="col">
-                                        <button type="button" class="btn btn-started" data-dismiss="modal">Update Invoice</button>
-                                </div>
-                                <div class="col">
-                                <button type="button" class="btn btn-danger px-5" data-dismiss="modal">Close</button>
-                                </div>
-                                <div class="col-md-2"></div>
-                            </div>
-                        </div>
-                        
-                      </div>
-            </div>
-        </div>
-    </div>
-
-      {{-- end of invoice modal --}}
-
-    {{--top sales modal --}}
-    <div class="modal left fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="nav flex-sm-column flex-row">
-                        <div class="product-details">
-                            <h5>Product Name</h5>
-                            <p>Wallpaper</p>
-
-                            <h5>Description</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, aliquid cumque asperiores, eius totam m ex itaque.</p>
-                        
-                            <h5>Amount Sold</h5>
-                            <p>&#8358; 50,000</p>
-
-                            <h5>Customer</h5>
-                            <p>Mercy Ikpe</p>
-
-                            <h5>Accountant Review</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda et dolore, necessitatibus sit .</p>
-
-
-                        </div>
-
-
-                        
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+@section("other_js")
+    <script>
+        window.salesList = @json($sales);
+    </script>
 @endsection

@@ -8,17 +8,8 @@ header{
 .logoo{
     width: 120px;
     height: 40px;
-    -webkit-transition: width 2s, height 2s, -webkit-transform 2s; /* Safari */
-    transition: width 2s, height 2s, transform 2s;
-  }
+ }
   
-  /* .logoo:hover{
-    width: 140px;
-    height: 50px;
-    -webkit-transform: rotate(360deg); //
-    transform: rotate(360deg);
-  } */
-
 .navbar-toggler{
     background: #E0E0E0;
 }
@@ -117,9 +108,19 @@ header{
 
     /* nav-link */
     
-    .activ, .nav-link:hover {
+    .activ{
         color: #00C259 !important;
         border-bottom:3px solid #00C259;
+
+    }
+
+    .nav-link{
+        border-bottom:3px solid transparent;
+    }
+    .nav-link:hover {
+        color: #00C259 !important;
+        border-bottom:3px solid #00C259;
+
 
     }
     .activee, .recommend:hover, a.message:hover {

@@ -16,12 +16,13 @@ class CreateCustomersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('company_id');
+            $table->string('user_id');
             $table->string('email')->nullable();
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('website')->nullable();
             $table->boolean('isActive')->default(1);
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
