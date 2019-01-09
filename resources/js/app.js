@@ -12,6 +12,8 @@ window.swal = require('sweetalert2');
 import {vendorApp} from "./mixins/vendors";
 import {rentApp} from "./mixins/rent";
 import {inventoryApp} from "./mixins/inventory";
+import {salesListView} from "./mixins/salesListView";
+import {loadingView} from "./mixins/loadingView";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -21,9 +23,15 @@ import {inventoryApp} from "./mixins/inventory";
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-const app = new Vue({
+window.app = new Vue({
     el: '#app',
-    mixins: [vendorApp, rentApp, inventoryApp],
+    mixins: [
+        vendorApp,
+        rentApp,
+        inventoryApp,
+        salesListView,
+        loadingView
+    ],
     data: {},
     methods: {}
 });

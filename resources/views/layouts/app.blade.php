@@ -50,46 +50,47 @@
 
 {{-- javascript --}}
 
-<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+{{--<script src="http://code.jquery.com/jquery-1.8.2.js"></script>--}}
 <script src="{{asset('js/app.js')}}"></script>
-<script src="{{asset('js/particles.js')}}"></script>
-<script src="{{asset('js/main.js')}}"></script>
+{{--<script src="{{asset('js/particles.js')}}"></script>--}}
+{{--<script src="{{asset('js/main.js')}}"></script>--}}
 
  {{-- chart js --}}
- <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.js"></script>
- <script src="{{asset('js/bundle.js')}}"></script>
- <script src="{{asset('js/jquery.circliful.js')}}"></script>
-<script src="{{asset('js/chart.js')}}"></script>
-<script src="{{asset('js/appp.js')}}"></script>
-<script src="{{asset('js/sales/sales.js')}}"></script>
+ {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.js"></script>--}}
+ {{--<script src="{{asset('js/bundle.js')}}"></script>--}}
+ {{--<script src="{{asset('js/jquery.circliful.js')}}"></script>--}}
+{{--<script src="{{asset('js/chart.js')}}"></script>--}}
+{{--<script src="{{asset('js/appp.js')}}"></script>--}}
+{{--<script src="{{asset('js/sales/sales.js')}}"></script>--}}
 
      {{--Rater js--}}
-<script src="https://cdn.jsdelivr.net/npm/rater-jquery@1.0.0/rater.min.js"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/rater-jquery@1.0.0/rater.min.js"></script>--}}
 <!-- Date Picker CDN -->
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+{{--<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />--}}
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>--}}
 
-<script>
-var introguide = introJs();
-// and check for it when deciding whether to start.
-window.addEventListener('load', function () {
-    var doneTour = localStorage.getItem('EventTour') === 'Completed';
-    if (doneTour) {
-        return;
-    }
-    else {
-        introguide.start()
+{{--<script>--}}
+{{--var introguide = introJs();--}}
+{{--// and check for it when deciding whether to start.--}}
+{{--window.addEventListener('load', function () {--}}
+    {{--var doneTour = localStorage.getItem('EventTour') === 'Completed';--}}
+    {{--if (doneTour) {--}}
+        {{--return;--}}
+    {{--}--}}
+    {{--else {--}}
+        {{--introguide.start()--}}
 
-        introguide.oncomplete(function () {
-            localStorage.setItem('EventTour', 'Completed');
-        });
+        {{--introguide.oncomplete(function () {--}}
+            {{--localStorage.setItem('EventTour', 'Completed');--}}
+        {{--});--}}
 
-        introguide.onexit(function () {
-            localStorage.setItem('EventTour', 'Completed');
-        });
-    }
-});
-</script>
+        {{--introguide.onexit(function () {--}}
+            {{--localStorage.setItem('EventTour', 'Completed');--}}
+        {{--});--}}
+    {{--}--}}
+{{--});--}}
+{{--</script>--}}
 
+@yield("other_js")
 </body>
 </html>
