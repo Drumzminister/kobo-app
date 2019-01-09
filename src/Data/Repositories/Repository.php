@@ -84,18 +84,17 @@ class Repository
         return $this->model->count();
     }
 
-    /**
-     * Returns a range of records bounded by pagination parameters.
-     *
-     * @param int limit
-     * @param int $offset
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function page($limit = 10, $offset = 0, array $relations = [], $orderBy = 'updated_at', $sorting = 'desc')
-    {
-        return $this->model->with($relations)->take($limit)->skip($offset)->orderBy($orderBy, $sorting)->get();
-    }
+	/**
+	 * Returns a range of records bounded by pagination parameters.
+	 *
+	 * @param int $perPage
+	 *
+	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+	 */
+	public function page($perPage = 10)
+	{
+		return $this->model->newQuery()->paginate($perPage);
+	}
 
     /**
      * Find a record by its identifier.
