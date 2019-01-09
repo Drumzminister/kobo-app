@@ -19,7 +19,7 @@ class CreateSalesTable extends Migration
 	        $table->string('sale_channel_id');
 	        $table->unsignedInteger('tax_id');
 	        $table->string('invoice_number')->unique();
-	        $table->string('total_amount')->unique();
+	        $table->string('total_amount');
 	        $table->string('delivery_cost');
             $table->string('discount')->nullable();
             $table->timestamps();

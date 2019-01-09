@@ -13,7 +13,7 @@ class Customer extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function getFullNameAttribute()
+    public function getNameAttribute()
     {
         return ucfirst($this->first_name) .' '. ucfirst($this->last_name);
     }

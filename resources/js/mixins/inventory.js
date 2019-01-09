@@ -34,4 +34,4 @@ export const inventoryApp = {
             console.log('amount clicked');
         }
     }
-}
+};

@@ -18,8 +18,12 @@ class Sale extends Model
         'amount',
 	    'delivery_cost',
     ];
-    
-    protected $dates = ['deleted_at'];
+
+    protected $with = [
+    	'saleItems', 'customer'
+    ];
+
+    protected $dates = ['deleted_at', 'created_at'];
 
     public $incrementing = false;
 
@@ -38,13 +42,18 @@ class Sale extends Model
         return $this->belongsTo('Koboaccountant\Models\Staff');
     }
 
-    public function customers()
+    public function customer()
     {
-        return $this->belongsToMany('Koboaccountant\Models\Customer');
+        return $this->belongsTo('Koboaccountant\Models\Customer');
     }
 
     public function transaction()
     {
     	return $this->hasOne(Transaction::class);
+    }
+
+    public function saleChannel()
+    {
+	    return $this->belongsTo(SaleChannel::class);
     }
 }
