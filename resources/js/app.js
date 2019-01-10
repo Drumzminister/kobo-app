@@ -26,6 +26,9 @@ import {appModal} from "./mixins/appModals";
  */
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
+import {ServerTable, ClientTable, Event} from 'vue-tables-2';
+const koboTheme = require('./themes/koboTheme');
+Vue.use(ClientTable, {}, false, koboTheme, 'default');
 
 window.app = new Vue({
     el: '#app',
