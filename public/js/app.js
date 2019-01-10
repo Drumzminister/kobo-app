@@ -13919,8 +13919,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-__webpack_require__(48);
-module.exports = __webpack_require__(49);
+__webpack_require__(44);
+module.exports = __webpack_require__(45);
 
 
 /***/ }),
@@ -13933,10 +13933,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_rent__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_staff__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_customer__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_salesListView__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_loadingView__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins_appModals__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_customer__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_salesListView__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_loadingView__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins_appModals__ = __webpack_require__(54);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -50686,6 +50686,23 @@ var staffApp = {
 
 /***/ }),
 /* 44 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50699,26 +50716,45 @@ var customerApp = {
             address: '',
             email: '',
             website: ''
-        }
+        },
+        customers: [],
+        search: ''
     },
+
+    created: function created() {
+        var _this = this;
+
+        axios.get('/client/customer/allCustomers').then(function (res) {
+            _this.customers = res.data.all_customers.data;
+            console.log(_this.customers);
+        });
+    },
+
     methods: {
         createCustomer: function createCustomer(evt) {
-            var _this = this;
+            var _this2 = this;
 
             evt.preventDefault();
             axios.post('/client/customer/add', this.customerForm).then(function (res) {
-                console.log(_this.customerForm);
+                console.log(_this2.customerForm);
                 swal('Success', res.data.message, 'success');
-                _this.customerForm = '';
+                _this2.customerForm = '';
             }).catch(function (err) {
                 swal('Error', 'There was an error adding staff', 'error');
+            });
+        },
+        searchCustomer: function searchCustomer() {
+            var _this3 = this;
+
+            axios.get('client/customer/' + this.search).then(function (res) {
+                _this3.customers = res.data.message;
             });
         }
     }
 };
 
 /***/ }),
-/* 45 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50743,7 +50779,7 @@ var salesListView = {
 };
 
 /***/ }),
-/* 46 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50767,7 +50803,7 @@ var loadingView = {
 };
 
 /***/ }),
-/* 47 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50786,18 +50822,6 @@ var appModal = {
         }
     }
 };
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

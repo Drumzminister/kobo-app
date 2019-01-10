@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-md-6 col-6">
                     <div class="input-group mt-2">
-                        <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <input type="text" v-model="search" @keyup="searchCustomer" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
                         </div>
@@ -50,20 +50,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($all_customers as $customer)
-                                <tr>
-                                    <td >{{$customer['name']}}</td>
-                                    <td>{{$customer['address']}} </td>
-                                    <td>{{$customer['phone']}}</td>
-                                    <td> {{$customer['email']}}</td>
-                                    <td>{{$customer['website']}}</td>
+                                <tr v-for="customer in customers">
+                                    <td >@{{ customer.first_name }} @{{ customer.last_name }}</td>
+                                    <td> @{{ customer.address }}</td>
+                                    <td> @{{ customer.phone }}</td>
+                                    <td> @{{ customer.email }}</td>
+                                    <td> @{{ customer.website }} </td>
                                     <td class="flex" >
                                         <span class="dot"></span>
                                         <span class="dot"></span>
                                         <span class="dot"></span>
                                     </td>
                                 </tr>
-                            @endforeach
                             </tbody>
                     </table>
                     </div>
@@ -77,11 +75,7 @@
                 <div class="row">
                     <div class="col-md-7">
                         <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            <li class="page-item">Links</li>
                           </ul>
                     </div>
                     <div class="col-md-5">
@@ -90,6 +84,7 @@
                     </div>
                 </div>
             </div>
+
         </section>
 
 

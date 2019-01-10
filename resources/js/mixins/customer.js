@@ -7,7 +7,17 @@ export const customerApp = {
             address: '',
             email: '',
             website: ''
-        }
+        },
+        customers: [],
+        search: '',
+    },
+
+    created() {
+        axios.get('/client/customer/allCustomers')
+            .then(res => {
+                this.customers = res.data.all_customers.data;
+                console.log(this.customers);
+            });
     },
     methods:{
         createCustomer(evt) {
@@ -19,6 +29,11 @@ export const customerApp = {
             }).catch(err => {
                 swal('Error', 'There was an error adding staff', 'error');
             });
+        },
+        searchCustomer() {
+           axios.get(`client/customer/${this.search}`).then(res => {
+               this.customers = res.data.message;
+           });
         }
-    }
+    },
 }
