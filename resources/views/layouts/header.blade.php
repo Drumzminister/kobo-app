@@ -21,9 +21,11 @@
                     {{--<a class="dropdown-item " href="{{ route('company.sales', $company->slug) }}">Sales</a>--}}
                         <a class="dropdown-item " href="/sales">Sales</a>
                         <a class="dropdown-item" href="/inventory">Purchases</a>
+                    <a class="dropdown-item " href="{{ route('company.sales', auth()->user()->getUserCompany()->slug) }}">Sales</a>
+                    <a class="dropdown-item" href="/inventory">Purchases</a>
                     <a class="dropdown-item" href="/expenses">Expenses</a>
-                    <a class="dropdown-item" href="/loans">Loans</a>
-                    <a class="dropdown-item" href="/rent">Rents</a>
+                    <a class="dropdown-item" href="{{ route('client.loan.show') }}">Loans</a>
+                    <a class="dropdown-item" href="{{ route('client.rent.show') }}">Rents</a>
                     <a class="dropdown-item" href="/assets">Manage Assets</a>                   
                     </div>
                 </li>

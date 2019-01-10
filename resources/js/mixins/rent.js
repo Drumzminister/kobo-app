@@ -1,31 +1,22 @@
 export const rentApp = {
     data: {
         rents: [],
-        amount:"",
-        endDate: "",
-        startDate: "",
+        rentAmount: "",
+        rentEndDate: "",
+        rentStartDate: "",
+        editingRent: {},
+        rentLoading: false,
         paymentMethods: [],
+        rentSearchParam: "",
         other_rental_cost: "",
-        showPaymentSettings: false
+        rentShowPaymentSettings: false,
     },
-    filters: {
-        numberFormat (value) {
-            value = Number(value);
-            if (isNaN(value)) {return value;}
-            const formatter = new Intl.NumberFormat('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-            return formatter.format(value);
-        }
-    },
+
     mounted () {
-        axios.get('/banking/payment_modes').then (res => {
+        /*axios.get('/banking/payment_modes').then (res => {
             this.paymentMethods = res.data;
-        });
-        axios.get('/rent/user').then (res => {
-            this.rents = res.data.rents;
-        });
+        });*/
+        this.rents = window.rents;
     },
     methods: {
         dater (value) {
@@ -35,9 +26,8 @@ export const rentApp = {
             let year = date.getFullYear();
             return `${date.getDate()} ${month} ${year}`;
         },
-        beforeSubmit () {
-            // this.showPaymentSettings = false;
-            document.querySelector('#submitBtn').click();
+        beforeSubmit (form) {
+            document.querySelector(`#${form}`).querySelector('.submitBtn').click();
         },
 
         createRent (evt) {
@@ -46,43 +36,51 @@ export const rentApp = {
             axios.post('/client/rent/add', formData).then(res => {
                 this.rents.unshift(res.data.rent);
                 swal("Success", "Rent added successfully", "success");
+                location.reload();
                 $('#addRentModal').modal('toggle');
             });
         },
         rentUsed (rent) {
-            let start = new Date(rent.start);
-            let end = new Date(rent.end);
-            let today = new Date();
-            let diff;
-            if (end.getFullYear() - start.getFullYear() === 0) {
-                diff = (end.getMonth()) - start.getMonth();
-                if ( diff === 0 ) {
-                    if (today.getDate() < end.getDate()) {
-                        return 0;
-                    } else {
-                        return rent.amount;
-                    }
-                }
-            } else if (end.getFullYear() - start.getFullYear() === 1) {
-                diff = (end.getMonth() + 12) -  start.getMonth();
-                // return diff;
-                if (diff === 1) {
-                    if ((today.getMonth() === end.getMonth() && today.getDate() - end.getDate() > 0) || (today.getMonth() !== end.getMonth() && today.getDate() - end.getDate() > 0 ) ) {
-                        return rent.amount;
-                    } else if ((today.getMonth() === end.getMonth() && today.getDate() - end.getDate() <= 0) || (today.getMonth() !== end.getMonth() && today.getDate() - end.getDate() <= 0 )) {
-                        return 0
-                    }
-                }
-            }
-            if (typeof diff === "number") {
+            let start = moment(rent.start);
+            let end = moment(rent.end);
+            let today = moment();
+            let amortized = 0;
+            let diff = start.diff(end, 'months');
 
-                let amortized = rent.amount / diff;
-                // return diff;
-                if (today.getFullYear() - start.getFullYear() === 0) {
-                    return amortized * (today.getMonth() - start.getMonth() + 1 );
-                } else if (today.getFullYear() - start.getFullYear() === 1) {
-                    return amortized  * (10 + start.getMonth() - today.getMonth() );
-                }
+            if (diff === 0) {
+                amortized = rent.amount;
+            } else {
+                amortized = rent.amount / diff;
+            }
+
+            if (today.isAfter(end)) {
+                return rent.amount;
+            }
+            // debugger;
+            return amortized * (diff - today.diff(end, 'months') );
+
+        },
+
+        getStatus (rent) {
+            let amount = rent.amount;
+            let rentUsed = this.rentUsed(rent);
+            let status = rentUsed * 100 / amount
+            return `${100 - status.toFixed(0)}`;
+        },
+
+        searchRent () {
+            if (this.rentSearchParam.trim()) {
+                this.rentLoading = true;
+                axios.get (`/client/rent/search/${this.rentSearchParam.trim()}`)
+                    .then ( (res) => {
+                        this.rents = res.data.rents;
+                        this.rentLoading = false;
+                    } )
+                    .catch ((err) => {
+                        this.rentLoading = false;
+                        swal("Oops", "An error occurred while processing your request", "error");
+                    })
+                ;
             }
         },
 
@@ -120,7 +118,7 @@ export const rentApp = {
             amounts.forEach(amount => {
                 total += Number(amount.value);
             });
-            if (total !== this.amount+this.other_rental_cost) {
+            if (total !== this.rentAmount+this.other_rental_cost) {
                 swal("Oops", "The amount entered must be equal to the amount paid for rent plus extra costs", "warning");
                 return;
             }
@@ -132,6 +130,25 @@ export const rentApp = {
                     }
                 });
             }
+        },
+
+        editRent (evt, rent) {
+            this.editingRent = {...rent};
+            $('#editRentModal').modal('show');
+        },
+
+        updateRent(evt) {
+            evt.preventDefault();
+
+            let formData = this.editingRent;
+            axios.post(`/client/rent/update/${formData.id}`, formData).then((response) => {
+                swal("Success", "Rent updated successfully", "success");
+                this.rents.splice(this.rents.findIndex((rent) => {
+                    return rent.id === this.editingRent.id;
+                }), 1, response.data.rent);
+                // location.reload();
+                $('#editRentModal').modal('toggle');
+            });
         },
 
         setRentParams () {

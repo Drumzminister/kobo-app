@@ -26,13 +26,11 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://codepen.io/nedy/pen/oaMKLG.css">
-
-
 </head>
 <body>
 <!-- Header -->
 @include('layouts.header')
-
+@yield('other_styles')
 <!-- include main content -->
 <main id="app">
     @yield('content')
@@ -40,13 +38,12 @@
 
 <!-- //Footer -->
 @include('layouts.footer')
-@yield('other_script')
 
 
 {{-- javascript --}}
 
+@yield('other_js')
 <script src="{{asset('js/app.js')}}"></script>
-
 {{-- chart js --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.js"></script>
 <script src="{{asset('js/bundle.js')}}"></script>

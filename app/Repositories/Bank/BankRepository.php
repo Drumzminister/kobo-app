@@ -71,6 +71,6 @@ class BankRepository extends BaseRepository
 
     public function getAuthUserBanks ()
     {
-        return $this->model::where('user_id', $this->getAuthUserId())->get();
+        return $this->model::where('company_id', $this->getAuthCompanyId())->get();
     }
 }

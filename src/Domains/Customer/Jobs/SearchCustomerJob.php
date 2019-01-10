@@ -27,6 +27,6 @@ class SearchCustomerJob extends Job
      */
     public function handle()
     {
-        $this->search->
+       return $this->search->findBy('first_name', $this->data);
     }
 }

@@ -23,7 +23,8 @@ class RentRepository extends Repository
         $rent = $this->model;
         try {
             $rent->id = $this->generateUuid();
-            $rent->user_id = $data['userId'];
+            $rent->staff_id = $data['staffId'];
+            $rent->company_id = $data['companyId'];
             $data['other_costs'] = $data['other_costs'] ?? 0;
             $rent->fill($data);
             $rent->save();
@@ -33,5 +34,11 @@ class RentRepository extends Repository
             return null;
         }
 
+    }
+
+    public function update(array $data, $rent) {
+        $rent = $this->find($rent);
+        $rent->update($data);
+        return $rent;
     }
 }

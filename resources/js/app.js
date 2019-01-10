@@ -3,14 +3,15 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
-
 require('./bootstrap');
 
 window.Vue = require('vue');
 window.swal = require('sweetalert2');
+window.moment = require('moment');
+
 import {vendorApp} from "./mixins/vendors";
 import {rentApp} from "./mixins/rent";
+import {loanApp} from "./mixins/loan";
 import {inventoryApp} from "./mixins/inventory";
 import {staffApp} from "./mixins/staff";
 import {customerApp} from "./mixins/customer";
@@ -31,6 +32,7 @@ window.app = new Vue({
     mixins: [
         vendorApp,
         rentApp,
+        loanApp,
         inventoryApp,
         staffApp,
         customerApp,
@@ -38,6 +40,17 @@ window.app = new Vue({
         loadingView,
         appModal
     ],
+    filters: {
+        numberFormat (value) {
+            let number = Number(value);
+            if (isNaN(number)) {return value;}
+            const formatter = new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            return formatter.format(number);
+        }
+    },
     data: {},
     methods: {}
 });

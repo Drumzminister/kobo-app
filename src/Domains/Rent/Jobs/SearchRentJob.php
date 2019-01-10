@@ -5,22 +5,20 @@ namespace App\Domains\Rent\Jobs;
 use App\Data\Repositories\RentRepository;
 use Lucid\Foundation\Job;
 
-class AddRentJob extends Job
+class SearchRentJob extends Job
 {
-    private $rent, $data;
-
+    private $param;
+    private $rent;
+    private $companyId;
     /**
      * Create a new job instance.
      *
-     * @param $data
-     * @param $staffId
-     * @param $companyId
+     * @return void
      */
-    public function __construct($data, $staffId, $companyId)
+    public function __construct($param, $companyId = null)
     {
-        $data['staffId'] = $staffId;
-        $data['companyId'] = $companyId;
-        $this->data = $data;
+        $this->param = $param;
+        $this->companyId = $companyId;
         $this->rent = new RentRepository();
     }
 
@@ -31,10 +29,9 @@ class AddRentJob extends Job
      */
     public function handle()
     {
-        $rentId = $this->rent->create($this->data);
-
+        $results = $this->rent->searchBy('property_details', $this->param, $this->companyId);
         return response()->json([
-            'rent'  => $this->rent->findBy('id', $rentId)
+            'rents' =>  $results
         ]);
     }
 }

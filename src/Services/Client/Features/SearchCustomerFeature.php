@@ -11,6 +11,6 @@ class SearchCustomerFeature extends Feature
 {
     public function handle(Request $request)
     {
-        return $this->run(SearchCustomerJob::class, request()->all())
+        return $this->run(SearchCustomerJob::class, $request->all());
     }
 }

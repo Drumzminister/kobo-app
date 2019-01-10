@@ -2,27 +2,33 @@
 
 namespace App\Domains\Loan\Jobs;
 
+use App\Data\Repositories\LoanSourceRepository;
 use Lucid\Foundation\Job;
 
 class SearchLoanSourcesJob extends Job
 {
+    private $param, $source;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $param
      */
-    public function __construct()
+    public function __construct($param)
     {
-        //
+        $this->param = $param;
+        $this->source = new LoanSourceRepository();
     }
 
     /**
      * Execute the job.
      *
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function handle()
     {
-        //
+        return response()->json([
+            'sources'   =>  $this->source->searchByName($this->param)
+        ]);
     }
 }

@@ -9,11 +9,17 @@ use App\Services\Client\Features\ListLoanSourcesFeature;
 use App\Services\Client\Features\PayLoanFeature;
 use App\Services\Client\Features\SearchLoansFeature;
 use App\Services\Client\Features\SearchLoanSourcesFeature;
+use App\Services\Client\Features\ShowLoansPageFeature;
 use Illuminate\Http\Request;
 use Lucid\Foundation\Http\Controller;
 
 class LoanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,6 +30,11 @@ class LoanController extends Controller
         //
     }
 
+    public function show()
+    {
+        return $this->serve(ShowLoansPageFeature::class);
+    }
+
     public function addLoan()
     {
         $this->serve(AddLoanFeature::class);
@@ -31,7 +42,7 @@ class LoanController extends Controller
 
     public function listLoan()
     {
-        $this->serve(ListLoansFeature::class);
+        return $this->serve(ListLoansFeature::class);
     }
 
     public function payLoan($loanId)
@@ -39,23 +50,23 @@ class LoanController extends Controller
         $this->serve(PayLoanFeature::class, ['loanId' => $loanId]);
     }
 
-    public function searchLoan()
+    public function searchLoan($param)
     {
-        $this->serve(SearchLoansFeature::class);
+        return $this->serve(SearchLoansFeature::class, ['param' => $param]);
     }
 
     public function addSources()
     {
-        $this->serve(AddLoanSourceFeature::class);
+        return $this->serve(AddLoanSourceFeature::class);
     }
 
     public function listSources()
     {
-        $this->serve(ListLoanSourcesFeature::class);
+        return $this->serve(ListLoanSourcesFeature::class);
     }
 
-    public function searchSources()
+    public function searchSources($param)
     {
-        $this->serve(SearchLoanSourcesFeature::class);
+        return $this->serve(SearchLoanSourcesFeature::class, ['param' => $param]);
     }
 }

@@ -15,7 +15,8 @@ class CreateLoanSourcesTable extends Migration
     {
         Schema::create('loan_sources', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('user_id')->index();
+            $table->string('company_id');
+            $table->string('user_id');
             $table->string('name');
             $table->timestamps();
         });
