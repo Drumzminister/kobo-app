@@ -3,6 +3,7 @@
 namespace App\Domains\Loan\Jobs;
 
 use App\Data\Repositories\LoanRepository;
+use App\Domains\Banking\Jobs\ListPaymentMethodsJob;
 use Lucid\Foundation\Job;
 
 class GetLoanPageDataJob extends Job
@@ -32,6 +33,7 @@ class GetLoanPageDataJob extends Job
         $data['runningLoanOwing'] = $runningLoan->sum('amount') - $runningLoan->sum('amount_paid');
         $data['loans'] = $this->loan->getByCompany_id($this->companyId);
         $data['loanSources'] = (new ListLoanSourcesJob($this->companyId))->handle();
+        $data['paymentMethods'] = ( new ListPaymentMethodsJob($this->companyId))->handle();
         return $data;
     }
 }

@@ -15,16 +15,16 @@ class GetBankAccountsJob extends Job
 	/**
 	 * @var string
 	 */
-	private $userId;
+	private $companyId;
 
 	/**
 	 * Create a new job instance.
 	 *
-	 * @param $userId
+	 * @param $companyId
 	 */
-	public function __construct($userId)
+	public function __construct($companyId)
 	{
-		$this->userId = $userId;
+		$this->companyId = $companyId;
 		$this->bankDetail = app(BankDetailRepository::class);
 	}
 
@@ -33,6 +33,6 @@ class GetBankAccountsJob extends Job
 	 */
 	public function handle()
 	{
-		return $this->bankDetail->getByAttributes(['user_id' => $this->userId]);
+		return $this->bankDetail->getByAttributes(['company_id' => $this->companyId]);
 	}
 }

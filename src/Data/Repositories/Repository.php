@@ -143,6 +143,28 @@ class Repository
     }
 
     /**
+     * Find a record by an attribute.
+     *
+     * @param string $attribute
+     * @param string $value
+     * @param array  $relations
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function findOnly($attribute, $value, $relations = null)
+    {
+        $query = $this->model->where($attribute, $value);
+
+        if ($relations && is_array($relations)) {
+            foreach ($relations as $relation) {
+                $query->with($relation);
+            }
+        }
+
+        return $query->first();
+    }
+
+    /**
      * @param $attribute
      * @param $value
      * @param null $relations
