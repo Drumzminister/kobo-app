@@ -9,10 +9,12 @@
                     </div> 
 
                     <select class="customer form-control">
-                        <option selected="Pick customer Name">
-                            Ekpono Ambrose
-                        </option>
-                        <option>Joseph</option>
+                        <option value="">Select Customer ...</option>
+                        @foreach($customers as $customer)
+                            <option value="{{ $customer->id }}">
+                            {{ $customer->name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -21,10 +23,10 @@
                 
             <div class="col-md-3">
                 <div class="form-group">
-                        <select class="form-control form-control-lg form-control tax vat-input" name="tax" id="basic-addon3">
-                        <option value="VAT" >Value Added Tax (VAT) 5%</option>
-                        <option value="PAT">PAT (10%)</option>
-                        <option value="Cash ">Cashh</option>
+                    <select class="form-control form-control-lg form-control tax vat-input" name="tax" id="basic-addon3">
+                        @foreach($vats as $vat)
+                            <option value="{{ $vat->id }}" >{{ $vat->name }}</option>
+                        @endforeach
                     </select>
                 </div> 
             </div>

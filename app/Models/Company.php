@@ -3,6 +3,7 @@
 namespace Koboaccountant\Models;
 
 // use Cviebrock\EloquentSluggable\Sluggable;
+use App\Data\BankDetail;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,6 +19,8 @@ class Company extends Model
     public $incrementing = false;
 
     protected $fillable = ['id', 'name', 'user_id', 'accountant_id'];
+
+    protected $with = ['customers', 'staffs', 'inventories', 'saleChannels',];
 
     public function sluggable()
     {
@@ -43,7 +46,7 @@ class Company extends Model
         return $this->hasMany('Koboaccountant\Models\Customer');
     }
 
-    public function staff()
+    public function staffs()
     {
         return $this->hasMany('Koboaccountant\Models\Staff');
     }
@@ -61,5 +64,10 @@ class Company extends Model
     public function saleChannels()
     {
     	return $this->hasMany(SaleChannel::class);
+    }
+
+    public function banks()
+    {
+    	return $this->hasMany(BankDetail::class);
     }
 }
