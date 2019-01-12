@@ -16,7 +16,8 @@
 {{-- End VAT section --}}
 
 {{-- add sales table --}}
-    @include('sales._sales-table')
+<add-sale></add-sale>
+    {{--@include('sales._sales-table')--}}
 {{-- end of sales table --}}
 
 {{-- Invoice Modal --}}

@@ -13,7 +13,7 @@ class ClientDashboardController extends Controller
 {
 	public function __construct()
 	{
-//		$this->middleware(['auth', 'client']);
+		$this->middleware(['auth', 'client']);
 	}
 
     public function showSalesPage($slug)

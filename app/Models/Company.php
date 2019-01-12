@@ -20,7 +20,7 @@ class Company extends Model
 
     protected $fillable = ['id', 'name', 'user_id', 'accountant_id'];
 
-    protected $with = ['customers', 'staffs', 'inventories', 'saleChannels',];
+    protected $with = ['customers', 'staffs', 'inventories', 'saleChannels', 'banks',];
 
     public function sluggable()
     {

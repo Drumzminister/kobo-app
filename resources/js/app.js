@@ -27,7 +27,11 @@ import {appModal} from "./mixins/appModals";
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)));
+
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
 import {ServerTable, ClientTable, Event} from 'vue-tables-2';
 const koboTheme = require('./themes/koboTheme');
 Vue.use(ClientTable, {}, false, koboTheme, 'default');
@@ -43,7 +47,7 @@ window.app = new Vue({
         customerApp,
         salesListView,
         loadingView,
-        appModal
+        appModal,
     ],
     filters: {
         numberFormat (value) {
