@@ -3,6 +3,7 @@
 namespace App\Data;
 
 use Illuminate\Database\Eloquent\Model;
+use Koboaccountant\Models\Company;
 
 class BankDetail extends Model
 {
@@ -12,8 +13,8 @@ class BankDetail extends Model
     	'id', 'account_name', 'account_number', 'bank_name', 'user_id', 'account_balance'
     ];
 
-    public function owner()
+    public function company()
     {
-    	return $this->belongsTo('Koboaccountant\Models\User');
+    	return $this->belongsTo(Company::class);
     }
 }
