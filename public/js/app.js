@@ -72850,21 +72850,28 @@ var addSale = {
             saleTax: "",
             saleDate: "",
             salePaymentMethods: [],
-            saleItems: [] };
+            saleItems: []
+        };
     },
 
     created: function created() {
-        this.saleItems.push({
-            inventory_id: "",
-            description: "",
-            quantity: "",
-            sales_price: "",
-            total_price: "",
-            sale_channel_id: ""
-        });
+        this.addSaleItemForm();
     },
     methods: {
-        setPaymentMode: function setPaymentMode() {}
+        setPaymentMode: function setPaymentMode() {},
+        addNewSaleItemRow: function addNewSaleItemRow() {
+            this.addSaleItemForm();
+        },
+        addSaleItemForm: function addSaleItemForm() {
+            this.saleItems.push({
+                inventory_id: "",
+                description: "",
+                quantity: "",
+                sales_price: "",
+                total_price: "",
+                sale_channel_id: ""
+            });
+        }
     }
 };
 
@@ -72874,7 +72881,8 @@ var addSale = {
 
 var map = {
 	"./components/ExampleComponent.vue": 206,
-	"./components/sales/AddSale.vue": 209
+	"./components/sales/AddSale.vue": 209,
+	"./components/sales/VatComponent.vue": 387
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -73190,17 +73198,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['inventories', 'channels'],
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_addSale__["a" /* addSale */]],
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -73268,8 +73271,23 @@ var render = function() {
                             _vm._v(
                               "\n                                    Select ...\n                                "
                             )
-                          ])
-                        ]
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.inventories, function(inventory) {
+                            return _c(
+                              "option",
+                              { domProps: { value: inventory.id } },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(inventory.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          })
+                        ],
+                        2
                       )
                     ]),
                     _vm._v(" "),
@@ -73370,36 +73388,53 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      _c("select", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: item.sale_channel_id,
-                            expression: "item.sale_channel_id"
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: item.sale_channel_id,
+                              expression: "item.sale_channel_id"
+                            }
+                          ],
+                          staticClass: "form-control search sales_channel",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                item,
+                                "sale_channel_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
                           }
-                        ],
-                        staticClass: "form-control search sales_channel",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              item,
-                              "sale_channel_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      })
+                        },
+                        _vm._l(_vm.channels, function(channel) {
+                          return _c(
+                            "option",
+                            { domProps: { value: channel.id } },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(channel.name) +
+                                  "\n                                "
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
                     ]),
                     _vm._v(" "),
                     _vm._m(1, true)
@@ -82633,6 +82668,297 @@ module.exports = function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(146)
+/* script */
+var __vue_script__ = __webpack_require__(388)
+/* template */
+var __vue_template__ = __webpack_require__(389)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/sales/VatComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4e0b1e22", Component.options)
+  } else {
+    hotAPI.reload("data-v-4e0b1e22", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 388 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['customers', 'taxes'],
+    data: function data() {
+        return {
+            customer_id: "",
+            tax_id: "",
+            sale_date: ""
+        };
+    },
+    mounted: function mounted() {}
+});
+
+/***/ }),
+/* 389 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { attrs: { id: "info" } }, [
+    _c("div", { staticClass: "container mt-3" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "input-group mb-3 input-group-lg" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.customer_id,
+                    expression: "customer_id"
+                  }
+                ],
+                staticClass: "customer form-control",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.customer_id = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("Select Customer ...")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.customers, function(customer) {
+                  return _c("option", { domProps: { value: customer.id } }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(customer.first_name + " " + customer.last_name) +
+                        "\n                        "
+                    )
+                  ])
+                })
+              ],
+              2
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.tax_id,
+                    expression: "tax_id"
+                  }
+                ],
+                staticClass:
+                  "form-control form-control-lg form-control tax vat-input",
+                attrs: { name: "tax", id: "basic-addon3" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.tax_id = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [_vm._v("Select ...")]),
+                _vm._v(" "),
+                _vm._l(_vm.taxes, function(tax) {
+                  return _c("option", { domProps: { value: tax.id } }, [
+                    _vm._v(_vm._s(tax.name))
+                  ])
+                })
+              ],
+              2
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("div", { staticClass: "dates input-group mb-3 input-group-lg" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.sale_date,
+                  expression: "sale_date"
+                }
+              ],
+              staticClass: "form-control sales_date",
+              attrs: { type: "date", name: "event_date" },
+              domProps: { value: _vm.sale_date },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.sale_date = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(1)
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c(
+        "span",
+        {
+          staticClass: "input-group-text customer-input",
+          attrs: { id: "basic-addon3" }
+        },
+        [_vm._v("Customer Name")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", {
+          staticClass: "fa fa-calendar icon",
+          attrs: { name: "event_date" }
+        })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4e0b1e22", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

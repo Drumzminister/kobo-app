@@ -36,11 +36,9 @@
                                     <option value="">
                                         Select ...
                                     </option>
-                                    <!--@foreach(auth()->user()->getUserCompany()->inventories as $inventory)-->
-                                    <!--<option value="{{ $inventory->id }}">-->
-                                        <!--{{ $inventory->name }}-->
-                                    <!--</option>-->
-                                    <!--@endforeach-->
+                                    <option v-for="inventory in inventories" :value="inventory.id">
+                                        {{ inventory.name }}
+                                    </option>
                                 </select>
                             </td>
                             <td><input v-model="item.description" type="text" id="sales_description" class="form-control sales_description "></td>
@@ -49,11 +47,9 @@
                             <td><input v-model="item.total_price" type="text" class="form-control sales_total" id="sales_total"></td>
                             <td>
                                 <select v-model="item.sale_channel_id" class="form-control search sales_channel">
-                                    <!--@foreach(auth()->user()->getUserCompany()->saleChannels as $sales_channel)-->
-                                    <!--<option value="{{ $sales_channel->id }}">-->
-                                        <!--{{ $sales_channel->name }}-->
-                                    <!--</option>-->
-                                    <!--@endforeach-->
+                                    <option v-for="channel in channels" :value="channel.id">
+                                        {{ channel.name }}
+                                    </option>
                                 </select>
                             </td>
 
@@ -130,9 +126,9 @@
 <script>
     import {addSale} from "../../mixins/addSale";
     export default {
+        props: ['inventories', 'channels'],
         mixins: [addSale],
         mounted() {
-            console.log('Component mounted.')
         }
     }
 </script>
