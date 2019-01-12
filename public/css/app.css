@@ -11444,3 +11444,9 @@ a.text-dark:focus {
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
           box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
 }
+
+.VueTables__table > thead {
+  background: #00c259;
+  color: #fff;
+  padding: 50px 0px !important;
+}

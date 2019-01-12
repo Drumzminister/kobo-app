@@ -57,7 +57,9 @@
 										</thead>
 										<tbody>
 											<tr v-if="saleInvoice.saleItems" v-for="item in saleInvoice.saleItems">
-												<td>@{{ saleInvoice.created_at }}</td>
+												<td>
+													@{{ saleInvoice.created_at }}
+												</td>
 												<td>
 													@{{ item.inventory.name }}
 												</td>

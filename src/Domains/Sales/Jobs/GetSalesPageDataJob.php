@@ -36,7 +36,7 @@ class GetSalesPageDataJob extends Job
 	 * @param string $slug
 	 * @param string $userId
 	 */
-    public function __construct(string $slug, string $userId)
+    public function __construct(string $slug, ?string $userId)
     {
 	    $this->slug = $slug;
 	    $this->userId = $userId;
@@ -60,7 +60,7 @@ class GetSalesPageDataJob extends Job
     	$xb = new Collection();
 
     	$sales->each(function ($sale) use (&$xb) {
-    		$xb->put($sale->id, new SaleCollection($sale));
+    		$xb->push(new SaleCollection($sale));
 	    });
 
     	$tSales = SaleCollection::collection($sales);
