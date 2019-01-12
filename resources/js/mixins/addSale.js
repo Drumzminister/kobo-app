@@ -20,6 +20,11 @@ export const addSale = {
             });
         }
     },
+    watch: {
+        availableBankList: function (val) {
+            console.log("Changed");
+        }
+    },
     methods: {
         setPaymentMode: function (paymentMode, selectedBank) {
             paymentMode.bank_id = selectedBank.id;

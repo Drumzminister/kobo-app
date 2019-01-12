@@ -72440,37 +72440,40 @@ var rentApp = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return loanApp; });
 var loanApp = {
     data: {
-        newSource: "",
-        searchSource: "",
-        sources: {},
-        chosenSource: "",
-        loanDescription: "",
-        loanAmount: "",
-        loanInterest: "",
-        loanTerm: "",
-        loanPaymentIntervals: [1, 2, 4],
-        period: "month",
-        paymentPerYear: 1,
-        loanDate: "",
         loans: [],
-        loadingLoanDetails: false,
+        sources: {},
+        loanDate: "",
+        loanTerm: "",
+        newSource: "",
+        loanAmount: "",
         allSources: [],
         loanAmtPaid: 0,
-        loanAmtOwing: 0,
-        loanAmtRunning: 0,
         currentLoan: {},
+        loanAmtOwing: 0,
+        searchSource: "",
+        chosenSource: "",
+        loanInterest: "",
+        paymentPerYear: 1,
+        loanAmtRunning: 0,
+        loanDescription: "",
+        loanPeriod: "month",
         noSourceFound: false,
+        loanPaymentAmount: "",
         showSourcesForm: false,
         sourceSearching: false,
+        loanPaymentMethods: [],
         currentLoanPayments: [],
-        loanPaymentAmount: "",
-        loanPaymentValidationError: false,
-        loanPaymentValidationMessage: ""
+        showMoreIntervals: false,
+        loadingLoanDetails: false,
+        loanPaymentIntervals: [1, 2, 4],
+        loanPaymentValidationMessage: "",
+        loanPaymentValidationError: false
     },
     watch: {
         loans: function loans() {
             var _this = this;
 
+            if (this.loans === undefined) return;
             this.loans.forEach(function (loan) {
                 _this.sources.forEach(function (source) {
                     if (loan.loan_source_id === source.id) {
@@ -72487,10 +72490,10 @@ var loanApp = {
                 this.loanPaymentValidationError = false;
             }
         },
-        period: function period() {
-            if (this.period === "month") {
+        loanPeriod: function loanPeriod() {
+            if (this.loanPeriod === "month") {
                 this.loanPaymentIntervals = [1, 2, 4];
-            } else if (this.period === "year") {
+            } else if (this.loanPeriod === "year") {
                 this.loanPaymentIntervals = [1, 2, 3, 4, 5, 6, 12];
             } else {
                 this.loanPaymentIntervals = [1, 2, 3, 4, 5, 6, 7];
@@ -72503,6 +72506,7 @@ var loanApp = {
         this.loanAmtPaid = window.loanAmtPaid;
         this.loanAmtOwing = window.loanAmtOwing;
         this.loanAmtRunning = window.loanAmtRunning;
+        this.loanPaymentMethods = window.paymentMethods;
     },
 
     methods: {
@@ -72557,7 +72561,7 @@ var loanApp = {
         saveLoan: function saveLoan() {
             var _this4 = this;
 
-            if (this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.period.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear || this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
+            if (this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear || this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
                 swal('Oops', "Some required fields are empty", "error");
                 return;
             }
@@ -72565,7 +72569,7 @@ var loanApp = {
             formData.append('description', this.loanDescription);
             formData.append('amount', this.loanAmount);
             formData.append('interest', this.loanInterest);
-            formData.append('period', this.period);
+            formData.append('period', this.loanPeriod);
             formData.append('term', this.loanTerm);
             formData.append('payment_interval', this.paymentPerYear);
             formData.append('source_id', this.chosenSource);
@@ -72864,6 +72868,11 @@ var addSale = {
             return this.banks.filter(function (bank) {
                 return that.isBankSelected(bank);
             });
+        }
+    },
+    watch: {
+        availableBankList: function availableBankList(val) {
+            console.log("Changed");
         }
     },
     methods: {
@@ -82276,66 +82285,6 @@ module.exports = function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-<<<<<<< HEAD
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return loanApp; });
-var loanApp = {
-    data: {
-        loans: [],
-        sources: {},
-        loanDate: "",
-        loanTerm: "",
-        newSource: "",
-        loanAmount: "",
-        allSources: [],
-        loanAmtPaid: 0,
-        currentLoan: {},
-        loanAmtOwing: 0,
-        searchSource: "",
-        chosenSource: "",
-        loanInterest: "",
-        paymentPerYear: 1,
-        loanAmtRunning: 0,
-        loanDescription: "",
-        loanPeriod: "month",
-        noSourceFound: false,
-        loanPaymentAmount: "",
-        showSourcesForm: false,
-        sourceSearching: false,
-        loanPaymentMethods: [],
-        currentLoanPayments: [],
-        showMoreIntervals: false,
-        loadingLoanDetails: false,
-        loanPaymentIntervals: [1, 2, 4],
-        loanPaymentValidationMessage: "",
-        loanPaymentValidationError: false
-    },
-    watch: {
-        loans: function loans() {
-            var _this = this;
-
-            if (this.loans === undefined) return;
-            this.loans.forEach(function (loan) {
-                _this.sources.forEach(function (source) {
-                    if (loan.loan_source_id === source.id) {
-                        loan.source_name = source.name;
-                    }
-                });
-            });
-        },
-        loanPaymentAmount: function loanPaymentAmount() {
-            if (this.loanPaymentAmount > this.currentLoan.amount - this.currentLoan.amount_paid + this.currentLoan.interest * this.currentLoan.amount / 100) {
-                this.loanPaymentValidationError = true;
-                this.loanPaymentValidationMessage = "The amount entered is greater than the maximum payable amount";
-            } else {
-                this.loanPaymentValidationError = false;
-            }
-        },
-        loanPeriod: function loanPeriod() {
-            if (this.loanPeriod === "month") {
-                this.loanPaymentIntervals = [1, 2, 4];
-            } else if (this.loanPeriod === "year") {
-                this.loanPaymentIntervals = [1, 2, 3, 4, 5, 6, 12];
-=======
 
 
 module.exports = function (column, ascending) {
@@ -82361,25 +82310,12 @@ module.exports = function (column, ascending) {
             var sortData = multiSort[multiIndex + 1];
             if (typeof sortData.ascending !== 'undefined') {
                 secondaryAsc = sortData.ascending;
->>>>>>> d5e66730d0d4c9276d26c1896c63d3edad6560c7
             } else {
                 secondaryAsc = sortData.matchDir ? asc : !asc;
             }
 
             return sort(sortData.column, secondaryAsc, multiIndex + 1)(a, b);
         }
-<<<<<<< HEAD
-    },
-    mounted: function mounted() {
-        this.loans = window.loans;
-        this.allSources = window.loanSources;
-        this.loanAmtPaid = window.loanAmtPaid;
-        this.loanAmtOwing = window.loanAmtOwing;
-        this.loanAmtRunning = window.loanAmtRunning;
-        this.loanPaymentMethods = window.paymentMethods;
-    },
-=======
->>>>>>> d5e66730d0d4c9276d26c1896c63d3edad6560c7
 
         return aVal > bVal ? dir : -dir;
     };
@@ -82392,37 +82328,7 @@ module.exports = function (column, ascending) {
 "use strict";
 
 
-<<<<<<< HEAD
-            if (this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear || this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
-                swal('Oops', "Some required fields are empty", "error");
-                return;
-            }
-            var formData = new FormData();
-            formData.append('description', this.loanDescription);
-            formData.append('amount', this.loanAmount);
-            formData.append('interest', this.loanInterest);
-            formData.append('period', this.loanPeriod);
-            formData.append('term', this.loanTerm);
-            formData.append('payment_interval', this.paymentPerYear);
-            formData.append('source_id', this.chosenSource);
-            formData.append('start_date', this.loanDate);
-            // formData.append('_token', token);
-            axios.post('/loans', formData).then(function (res) {
-                swal('Successful', 'Loan added successfully', 'success');
-                document.querySelector('#cancelLoanModal').click();
-                var loan = res.data.loan;
-                loan.source_name = _this4.searchSource;
-                loan.status = "running";
-                _this4.loans.unshift(loan);
-            }).catch(function (err) {
-                swal('Oops', err.response.data.error, "error");
-            });
-        },
-        displayLoanDetails: function displayLoanDetails(loan, evt) {
-            var _this5 = this;
-=======
 module.exports = function (value) {
->>>>>>> d5e66730d0d4c9276d26c1896c63d3edad6560c7
 
     if (this.$scopedSlots && this.$scopedSlots['__group_meta']) {
         var data = this.opts.groupMeta.find(function (val) {
