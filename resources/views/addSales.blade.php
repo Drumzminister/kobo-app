@@ -17,7 +17,7 @@
 {{-- End VAT section --}}
 
 {{-- add sales table --}}
-<add-sale :inventories="{{ json_encode($inventories) }}" :channels="{{ json_encode($channels) }}"></add-sale>
+<add-sale :inventories="{{ json_encode($inventories) }}" :banks="{{ json_encode($banks) }}" :channels="{{ json_encode($channels) }}"></add-sale>
     {{--@include('sales._sales-table')--}}
 {{-- end of sales table --}}
 

@@ -10,10 +10,40 @@ export const addSale = {
     },
     created: function() {
         this.addSaleItemForm();
+        this.addSalePaymentMethod();
+    },
+    computed: {
+        availableBankList: function () {
+            let that = this;
+            return this.banks.filter(function (bank) {
+                return that.isBankSelected(bank);
+            });
+        }
     },
     methods: {
-        setPaymentMode: function () {
-
+        setPaymentMode: function (paymentMode, selectedBank) {
+            paymentMode.bank_id = selectedBank.id;
+            paymentMode.name = selectedBank.account_name;
+        },
+        isBankSelected: function (bank) {
+            console.log("Called");
+            for (let key in this.salePaymentMethods) {
+                return this.salePaymentMethods[key].bank_id !== bank.id;
+            }
+        },
+        bankIsNotAvailable: function () {
+            return this.salePaymentMethods.length === this.banks.length;
+        },
+        addSalePaymentMethod: function () {
+            if (this.bankIsNotAvailable()) return;
+            this.salePaymentMethods.push({
+                bank_id: "",
+                amount: null,
+                name: null,
+            });
+        },
+        removeSalePaymentMethod: function (index) {
+            this.salePaymentMethods.splice(index, 1);
         },
         addNewSaleItemRow: function () {
             this.addSaleItemForm();

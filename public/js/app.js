@@ -72856,9 +72856,41 @@ var addSale = {
 
     created: function created() {
         this.addSaleItemForm();
+        this.addSalePaymentMethod();
+    },
+    computed: {
+        availableBankList: function availableBankList() {
+            var that = this;
+            return this.banks.filter(function (bank) {
+                return that.isBankSelected(bank);
+            });
+        }
     },
     methods: {
-        setPaymentMode: function setPaymentMode() {},
+        setPaymentMode: function setPaymentMode(paymentMode, selectedBank) {
+            paymentMode.bank_id = selectedBank.id;
+            paymentMode.name = selectedBank.account_name;
+        },
+        isBankSelected: function isBankSelected(bank) {
+            console.log("Called");
+            for (var key in this.salePaymentMethods) {
+                return this.salePaymentMethods[key].bank_id !== bank.id;
+            }
+        },
+        bankIsNotAvailable: function bankIsNotAvailable() {
+            return this.salePaymentMethods.length === this.banks.length;
+        },
+        addSalePaymentMethod: function addSalePaymentMethod() {
+            if (this.bankIsNotAvailable()) return;
+            this.salePaymentMethods.push({
+                bank_id: "",
+                amount: null,
+                name: null
+            });
+        },
+        removeSalePaymentMethod: function removeSalePaymentMethod(index) {
+            this.salePaymentMethods.splice(index, 1);
+        },
         addNewSaleItemRow: function addNewSaleItemRow() {
             this.addSaleItemForm();
         },
@@ -73193,15 +73225,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['inventories', 'channels'],
+    props: ['inventories', 'channels', 'banks'],
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_addSale__["a" /* addSale */]],
     mounted: function mounted() {}
 });
@@ -73465,7 +73492,192 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(2)
+        _c("div", { staticClass: "row p-2 mt-2 " }, [
+          _c("div", { staticClass: "col-md-6" }, [
+            _c(
+              "div",
+              { staticClass: "bg-grey py-4 px-3", attrs: { id: "top" } },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._l(_vm.salePaymentMethods, function(paymentMethod, index) {
+                  return _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-5" }, [
+                      _c(
+                        "div",
+                        { staticClass: "dropdown show mt-3 payment_mode" },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "btn btn-lg btn-payment dropdown-toggle",
+                              attrs: {
+                                href: "#",
+                                role: "button",
+                                id: "dropdownMenuLink",
+                                "data-toggle": "dropdown",
+                                "aria-haspopup": "true",
+                                "aria-expanded": "false"
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(paymentMethod.name || "Select") +
+                                  "\n                                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "dropdown-menu payment_mode_id",
+                              attrs: { "aria-labelledby": "dropdownMenuLink" }
+                            },
+                            _vm._l(_vm.availableBankList, function(bank) {
+                              return _c(
+                                "a",
+                                {
+                                  staticClass: "dropdown-item",
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.setPaymentMode(paymentMethod, bank)
+                                    }
+                                  }
+                                },
+                                [_vm._v(_vm._s(bank.account_name))]
+                              )
+                            }),
+                            0
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-5" }, [
+                      _c(
+                        "div",
+                        { staticClass: "show input-group input-group-lg mt-3" },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: paymentMethod.amount,
+                                expression: "paymentMethod.amount"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            staticStyle: { height: "39px" },
+                            attrs: {
+                              type: "text",
+                              "aria-label": "Sizing example input",
+                              "aria-describedby": "",
+                              placeholder: "500,000"
+                            },
+                            domProps: { value: paymentMethod.amount },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  paymentMethod,
+                                  "amount",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-md-2",
+                        staticStyle: { "margin-top": "20px" }
+                      },
+                      [
+                        _c(
+                          "span",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.salePaymentMethods.length > 1,
+                                expression: "salePaymentMethods.length > 1"
+                              }
+                            ],
+                            staticStyle: {
+                              cursor: "pointer",
+                              "margin-top": "20px"
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.removeSalePaymentMethod(index)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-times",
+                              staticStyle: {
+                                "font-size": "32px",
+                                color: "#c22c29"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "row text-center mt-4 " }, [
+                  _c("div", { staticClass: "col-md-3" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3 ml-5" }, [
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.bankIsNotAvailable(),
+                            expression: "!bankIsNotAvailable()"
+                          }
+                        ],
+                        staticStyle: { cursor: "pointer" },
+                        on: {
+                          click: function($event) {
+                            _vm.addSalePaymentMethod()
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fa fa-plus-square",
+                          staticStyle: { "font-size": "32px", color: "#00C259" }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3" })
+                ])
+              ],
+              2
+            )
+          ])
+        ])
       ])
     ])
   ])
@@ -73595,183 +73807,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row p-2 mt-2 " }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "bg-grey py-4 px-3", attrs: { id: "topp" } }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-5" }, [
-              _c("h5", { staticClass: "h6 uppercase" }, [
-                _vm._v("Payment Mode")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "dropdown show mt-3 payment_mode" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-lg btn-payment dropdown-toggle",
-                    attrs: {
-                      href: "#",
-                      role: "button",
-                      id: "dropdownMenuLink",
-                      "data-toggle": "dropdown",
-                      "aria-haspopup": "true",
-                      "aria-expanded": "false"
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                                        Select\n                                    "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "dropdown-menu payment_mode_id",
-                    attrs: {
-                      name: "payment_method",
-                      "aria-labelledby": "dropdownMenuLink"
-                    }
-                  },
-                  [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "dropdown-item",
-                        attrs: { value: "gtb1", href: "#" }
-                      },
-                      [_vm._v("GTB 1")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "dropdown-item",
-                        attrs: { value: "gtb2", href: "#" }
-                      },
-                      [_vm._v("GTB 2")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "dropdown-item",
-                        attrs: { value: "skype", href: "#" }
-                      },
-                      [_vm._v("Skye Bank")]
-                    )
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-5" }, [
-              _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Amount")]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "show input-group input-group-lg mt-3" },
-                [
-                  _c("input", {
-                    staticClass: "form-control",
-                    staticStyle: { height: "39px" },
-                    attrs: {
-                      type: "text",
-                      "aria-label": "Sizing example input",
-                      "aria-describedby": "",
-                      placeholder: "500,000"
-                    }
-                  })
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-2" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-5" }, [
-              _c("div", { staticClass: "dropdown show mt-3" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-lg btn-payment dropdown-toggle ",
-                    attrs: {
-                      href: "#",
-                      role: "button",
-                      id: "dropdownMenuLink",
-                      "data-toggle": "dropdown",
-                      "aria-haspopup": "true",
-                      "aria-expanded": "false"
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                                        Cash\n                                    "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "dropdown-menu",
-                    attrs: { "aria-labelledby": "dropdownMenuLink" }
-                  },
-                  [
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [_vm._v("ATM")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [_vm._v("GTB 2")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [_vm._v("Skye Bank")]
-                    )
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-5" }, [
-              _c(
-                "div",
-                { staticClass: "show input-group input-group-lg mt-3" },
-                [
-                  _c("input", {
-                    staticClass: "form-control",
-                    staticStyle: { height: "39px" },
-                    attrs: {
-                      type: "text",
-                      "aria-label": "Sizing example input",
-                      "aria-describedby": "inputGroup-sizing-lg",
-                      placeholder: "750,000"
-                    }
-                  })
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-2 mt-4 " }, [
-              _c("span", {}, [
-                _c("i", {
-                  staticClass: "fa fa-plus-square",
-                  staticStyle: { "font-size": "32px", color: "#00C259" }
-                })
-              ])
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-5" }, [
+        _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Payment Mode")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-5" }, [
+        _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Amount")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2 mt-4 " })
     ])
   }
 ]
