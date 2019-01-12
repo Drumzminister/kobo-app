@@ -3,18 +3,20 @@
 namespace App\Domains\Sales\Jobs;
 
 use App\Data\Repositories\BankDetailRepository;
+use App\Data\Repositories\SaleChannelRepository;
 use Lucid\Foundation\Job;
 
 class GetCompanySaleChannelsJob extends Job
 {
 	/**
-	 * @var \Illuminate\Foundation\Application|BankDetailRepository
-	 */
-	private $bankDetail;
-	/**
 	 * @var string
 	 */
 	private $companyId;
+
+	/**
+	 * @var \Illuminate\Foundation\Application|SaleChannelRepository
+	 */
+	private $saleChannel;
 
 	/**
 	 * Create a new job instance.
@@ -23,7 +25,7 @@ class GetCompanySaleChannelsJob extends Job
 	 */
 	public function __construct(string $companyId)
 	{
-		$this->saleChannel = app(SaleC::class);
+		$this->saleChannel = app(SaleChannelRepository::class);
 		$this->companyId = $companyId;
 	}
 
@@ -32,7 +34,7 @@ class GetCompanySaleChannelsJob extends Job
 	 */
 	public function handle()
 	{
-		$banks = $this->bankDetail->getByAttributes(['company_id' => $this->companyId]);
-		return $banks;
+		$saleChannels = $this->saleChannel->getByAttributes(['company_id' => $this->companyId]);
+		return $saleChannels;
 	}
 }
