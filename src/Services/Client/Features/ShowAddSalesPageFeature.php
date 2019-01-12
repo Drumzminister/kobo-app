@@ -16,12 +16,12 @@ class ShowAddSalesPageFeature extends Feature
 {
     public function handle(Request $request)
     {
-    	$data['customers'] = $this->run(GetCompanyCustomersJob::class, ['companyId' => auth()->user()->getCompany()->id]);
-    	$data['banks'] = $this->run(GetCompanyBankAccountsJob::class, ['companyId' => auth()->user()->getCompany()->id]);
+    	$data['customers'] = $this->run(GetCompanyCustomersJob::class, ['companyId' => auth()->user()->getUserCompany()->id]);
+    	$data['banks'] = $this->run(GetCompanyBankAccountsJob::class, ['companyId' => auth()->user()->getUserCompany()->id]);
     	$data['vats'] = $this->run(GetVatsJob::class);
-    	$data['inventories'] = $this->run(GetCompanyInventoriesJob::class, ['companyId' => auth()->user()->getCompany()->id]);
-    	$data['channels'] = $this->run(GetCompanySaleChannelsJob::class, ['companyId' => auth()->user()->getCompany()->id]);
+    	$data['inventories'] = $this->run(GetCompanyInventoriesJob::class, ['companyId' => auth()->user()->getUserCompany()->id]);
+    	$data['channels'] = $this->run(GetCompanySaleChannelsJob::class, ['companyId' => auth()->user()->getUserCompany()->id]);
 
-    	return $this->run(new RespondWithViewJob('addSales'));
+    	return $this->run(new RespondWithViewJob('addSales', $data));
     }
 }
