@@ -4,8 +4,8 @@ export const salesListView = {
         salesList: window.salesList,
         saleInvoice: {},
         columns: [
-            'created_at',
             'invoice_number',
+            'created_at',
             'quantity',
             'total_amount',
             'customer_name',
@@ -13,11 +13,10 @@ export const salesListView = {
         ],
         options: {
             filterByColumn: true,
-            texts: {
-                filter: "Filter:",
-                filterBy: 'Filter by {column}',
-                count:' '
-            },
+            // texts: {
+            //     filterBy: 'Filter by {column}',
+            //     count:''
+            // },
             dateColumns: ['created_at'],
             datepickerOptions: {
                 showDropdowns: true,
@@ -47,6 +46,9 @@ export const salesListView = {
         showSaleInvoice: function (saleId) {
             this.saleInvoice = this.salesList[saleId];
             this.openModal("#exampleModalCenter");
+        },
+        resolveSaleDate: function (date) {
+            return date = moment(date);
         }
     }
 };

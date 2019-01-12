@@ -9,6 +9,8 @@ window.Vue = require('vue');
 window.swal = require('sweetalert2');
 window.moment = require('moment');
 
+import daterangepicker from 'daterangepicker';
+
 import {vendorApp} from "./mixins/vendors";
 import {rentApp} from "./mixins/rent";
 import {loanApp} from "./mixins/loan";

@@ -22,6 +22,7 @@ class CreateSalesTable extends Migration
 	        $table->string('total_amount');
 	        $table->string('delivery_cost');
             $table->string('discount')->nullable();
+            $table->enum('type', ['draft', 'published'])->default('draft');
             $table->timestamps();
             $table->softDeletes();
 

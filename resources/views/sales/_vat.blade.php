@@ -9,12 +9,10 @@
                     </div> 
 
                     <select class="customer form-control">
-
                         <option selected="Pick customer Name">
                             Ekpono Ambrose
                         </option>
                         <option>Joseph</option>
-                            
                     </select>
                 </div>
             </div>
