@@ -274,25 +274,28 @@
 
 <!-- <button type="submit" class="btn btn-started mr-auto" value=1 name="first_time_login" id="first_time_login" >Cancel</button> -->
 
-<script>
-    jQuery(document).ready(function() {
-    jQuery('#first_time_login').click(function(e) {
-        e.preventDefault();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        jQuery.ajax({
-            url: "{{ url('updateFirstTimeLogin') }}",
-            method: 'post',
-            data: {
-                update_first_time_visit: jQuery('#first_time_login').val(),
-            },
-            success: function(result) {
 
-            }});
+@endsection
+@section('other_js')
+    {{--<script>
+        jQuery(document).ready(function() {
+            jQuery('#first_time_login').click(function(e) {
+                e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                jQuery.ajax({
+                    url: "{{ url('updateFirstTimeLogin') }}",
+                    method: 'post',
+                    data: {
+                        update_first_time_visit: jQuery('#first_time_login').val(),
+                    },
+                    success: function(result) {
+
+                    }});
+            });
         });
-    });
-</script>
+    </script>--}}
 @endsection

@@ -15,7 +15,8 @@ class CreateRentsTable extends Migration
     {
         Schema::create('rents', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('user_id')->index();
+            $table->string('company_id');
+            $table->string('staff_id');
             $table->decimal('amount', 15, 2);
             $table->date('start');
             $table->date('end');

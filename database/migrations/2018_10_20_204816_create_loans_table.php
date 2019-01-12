@@ -14,26 +14,19 @@ class CreateLoansTable extends Migration
     public function up()
     {
         Schema::create('loans', function (Blueprint $table) {
-            $table->string('id');
-            $table->string('company_id')->index();
-            $table->string('name');
-            $table->datetime('start_date');
-            $table->datetime('end_date');
-            $table->string('duration');
-            $table->double('amount')->default(4, 7);
-            $table->string('purpose');
-            $table->enum('isActive', ['active', 'closed'])->default('active');
-            $table->timestamps();
-        });
-
-        Schema::create('loan_transactions', function (Blueprint $table) {
-            $table->string('id');
-            $table->string('loan_id')->index();
-            $table->integer('duration');
-            $table->double('amount');
-            $table->datetime('paid_date');
-            $table->string('trasaction_type');
-            $table->string('bank_name');
+            $table->string('id')->primary();
+            $table->string('user_id');
+            $table->string('company_id');
+            $table->text('description');
+            $table->string('loan_source_id');
+            $table->decimal('amount', 15, 2);
+            $table->decimal('amount_paid', 15, 2)->default(0);
+            $table->decimal('interest', 5, 2);
+            $table->enum('period', ['week', 'month', 'year']);
+            $table->integer('term');
+            $table->integer('payment_interval');
+            $table->date('start_date');
+            $table->enum('status', ['running', 'completed'])->default('running');
             $table->timestamps();
         });
     }
@@ -44,7 +37,6 @@ class CreateLoansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('loan_transactions');        
         Schema::dropIfExists('loans');
     }
 }

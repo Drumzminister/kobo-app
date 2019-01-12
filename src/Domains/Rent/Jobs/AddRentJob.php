@@ -8,14 +8,18 @@ use Lucid\Foundation\Job;
 class AddRentJob extends Job
 {
     private $rent, $data;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $data
+     * @param $staffId
+     * @param $companyId
      */
-    public function __construct($data, $userId)
+    public function __construct($data, $staffId, $companyId)
     {
-        $data['userId'] = $userId;
+        $data['staffId'] = $staffId;
+        $data['companyId'] = $companyId;
         $this->data = $data;
         $this->rent = new RentRepository();
     }

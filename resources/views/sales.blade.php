@@ -179,10 +179,9 @@
                     <div class="col-md-4">
                         <a href="{{ route("show.add.sale", auth()->user()->getUserCompany()->slug) }}" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>
                     </div>
-
                     <div class="col-md-6">
                         <div class="input-group">
-                            <input type="text" @keydown.enter="searchSale()" v-model="saleSearchQuery" class="form-control" placeholder="&#xF002; Type Something to Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <input type="text" @keydown.enter="searchSale()" v-model="saleSearchQuery" id="VueTables__search_u63sv" class="form-control" placeholder="&#xF002; Type Something to Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <span class="input-group-text vat-input px-5 py-2" id="basic-addon2" style="height: calc(2.19rem + 2px);">Search</span>
                             </div>
@@ -200,47 +199,52 @@
                         </div>
                     </div>
                 </div>
-
+                <div id="people">
+                    <v-client-table :data="salesList" :columns="columns" :options="options">
+                        <a slot="invoice_number" @click.prevent="showSaleInvoice(props.index - 1)" slot-scope="props" href="">@{{ props.row.invoice_number }}</a>
+                        {{--<span slot="created_at" slot-scope="props">@{{ resolveSaleDate(props.row.created_at) }}</span>--}}
+                    </v-client-table>
+                </div>
 
                 @include('client::components.loading-container')
-                <div v-show="!appLoading" class="table-responsive table-responsive-sm">
-                    <table class="table table-striped table-hover" id="dataTable">
-                        <thead class="p-3">
-                        <tr class="tab">
-                            <th scope="col">Date</th>
-                            <th scope="col">Invoice</th>
-                            <th scope="col">QTY sold</th>
-                            <th scope="col">Sales Price (&#8358;)</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Channel</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                {{--<div v-show="!appLoading" class="table-responsive table-responsive-sm">--}}
+                    {{--<table class="table table-striped table-hover" id="dataTable">--}}
+                        {{--<thead class="p-3">--}}
+                        {{--<tr class="tab">--}}
+                            {{--<th scope="col">Date</th>--}}
+                            {{--<th scope="col">Invoice</th>--}}
+                            {{--<th scope="col">QTY sold</th>--}}
+                            {{--<th scope="col">Sales Price (&#8358;)</th>--}}
+                            {{--<th scope="col">Customer</th>--}}
+                            {{--<th scope="col">Channel</th>--}}
+                        {{--</tr>--}}
+                        {{--</thead>--}}
+                        {{--<tbody>--}}
                         {{--                        @foreach($sales as $key => $sale)--}}
-                        <tr v-for="(sale, key) in salesList">
-                            <td>
-                                @{{ sale.created_at }}
-                            </td>
-                            <td>
-                                <a href="" @click.prevent="showSaleInvoice(key)">@{{ sale.invoice_number }}</a>
-                            </td>
-                            <td>
-                                @{{ sale.saleItems.length }}
-                            </td>
-                            <td>
-                                @{{ sale.total_amount }}
-                            </td>
-                            <td>
-                                @{{ sale.customer.name }}
-                            </td>
-                            <td>
-                                @{{ sale.saleChannel.name }}
-                            </td>
-                        </tr>
+                        {{--<tr v-for="(sale, key) in salesList">--}}
+                            {{--<td>--}}
+                                {{--@{{ sale.created_at }}--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--<a href="" @click.prevent="showSaleInvoice(key)">@{{ sale.invoice_number }}</a>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--@{{ sale.saleItems.length }}--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--@{{ sale.total_amount }}--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--@{{ sale.customer.name }}--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--@{{ sale.saleChannel.name }}--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
                         {{--@endforeach--}}
-                        </tbody>
-                    </table>
-                </div>
+                        {{--</tbody>--}}
+                    {{--</table>--}}
+                {{--</div>--}}
                 <hr class="mt-0">
                 <div class="text-center pb-3">
                     <a href="/view-sale" class="view-more">View More</a>

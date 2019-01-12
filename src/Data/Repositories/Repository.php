@@ -37,12 +37,22 @@ class Repository
 	/**
 	 * Gets Authenticated user Object
 	 *
-	 * @return \Illuminate\Contracts\Auth\Authenticatable|null
+	 * @return \Illuminate\Contracts\Auth\Authenticatable|null|\Koboaccountant\Models\User
 	 */
 	protected function getAuthUser()
 	{
 		return Auth::user();
 	}
+
+    /**
+     * Gets Authenticated user's company
+     *
+     * @return \Koboaccountant\Models\Company
+     */
+	protected function getAuthUserCompany()
+    {
+        return $this->getAuthUser()->company;
+    }
 
 	/**
 	 * Gets Authenticated user ID
@@ -133,6 +143,40 @@ class Repository
     }
 
     /**
+     * @param $attribute
+     * @param $value
+     * @param null $relations
+     * @return \Illuminate\Support\Collection
+     */
+    public function getBy($attribute, $value, $relations = null)
+    {
+        $query = $this->model->where($attribute, $value);
+        if ($relations && is_array($relations)) {
+            foreach ($relations as $relation) {
+                $query->with($relation);
+            }
+        }
+
+        return $query->get();
+    }
+
+    /**
+     * @param $attribute
+     * @param $value
+     * @param null $company_id
+     * @return \Illuminate\Support\Collection
+     */
+    public function searchBy($attribute, $value, $company_id = null)
+    {
+        $query = $this->model->where($attribute, 'like', '%' . $value . '%');
+        if (!is_null($company_id) && is_string($company_id)) {
+            $query->where('company_id', $company_id);
+        }
+
+        return $query->get();
+    }
+
+    /**
      * Get all records by an associative array of attributes.
      * Two operators values are handled: AND | OR.
      *
@@ -145,7 +189,7 @@ class Repository
     public function getByAttributes(array $attributes, $operator = 'AND', $relations = null)
     {
 
-        // In the following it doesn't matter wivh element to start with, in all cases all attributes will be appended to the
+        // In the following it doesn't matter with element to start with, in all cases all attributes will be appended to the
         // builder.
 
         // Get the last value of the associative array
@@ -246,6 +290,20 @@ class Repository
             array_unshift($arguments, $attribute);
 
             return call_user_func_array(array($this, 'findBy'), $arguments);
+        }
+
+        if (preg_match('/^getBy/', $method)) {
+            $attribute = strtolower(substr($method, 5));
+            array_unshift($arguments, $attribute);
+
+            return call_user_func_array(array($this, 'getBy'), $arguments);
+        }
+
+        if (preg_match('/^searchBy/', $method)) {
+            $attribute = strtolower(substr($method, 8));
+            array_unshift($arguments, $attribute);
+
+            return call_user_func_array(array($this, 'searchBy'), $arguments);
         }
     }
 }

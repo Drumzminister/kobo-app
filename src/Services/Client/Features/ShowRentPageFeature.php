@@ -11,7 +11,7 @@ class ShowRentPageFeature extends Feature
 {
     public function handle(Request $request)
     {
-        $data = $this->run(GetRentPageDataJob::class);
+        $data = $this->run(GetRentPageDataJob::class, ['companyId' => auth()->user()->getUserCompany()->id]);
         return $this->run(new RespondWithViewJob('client::rents.show', $data));
     }
 }

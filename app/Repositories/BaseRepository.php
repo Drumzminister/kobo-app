@@ -77,10 +77,7 @@ class BaseRepository {
 
 	public function getAuthCompanyId()
 	{
-		$user = Auth::user()->company()->pluck('user_id');
-        $result = substr($user, 2);
-        $result = rtrim($result, '"]"');
-        return $result;
+        return Auth::user()->company->id;
 	}
 
 

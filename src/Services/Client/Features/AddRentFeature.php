@@ -10,6 +10,6 @@ class AddRentFeature extends Feature
 {
     public function handle(Request $request)
     {
-        return $this->run(AddRentJob::class, ['data' => $request->all(), 'userId' => auth()->id()]);
+        return $this->run(AddRentJob::class, ['data' => $request->all(),'staffId' => auth()->id() ,'companyId' => auth()->user()->company->id]);
     }
 }

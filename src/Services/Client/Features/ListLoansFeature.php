@@ -10,6 +10,8 @@ class ListLoansFeature extends Feature
 {
     public function handle(Request $request)
     {
-        $this->run(ListLoanJob::class);
+        return response()->json([
+            'loans' =>  $this->run(ListLoanJob::class, ['companyId' => auth()->user()->company->id])
+        ]);
     }
 }

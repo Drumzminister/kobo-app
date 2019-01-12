@@ -8,15 +8,6 @@ class Loan extends Model
     public $incrementing = false;
     protected $fillable = ['description', 'amount', 'amount_paid','interest', 'period', 'term', 'payment_interval', 'start_date'];
 
-    public function loanHistory()
-    {
-        return $this->HasMany('Koboaccountant\Models\LoanTransaction')->orderBy('created_at');
-    }
-
-    public function getBalanceAttribute()
-    {
-        return $this->loanHistory->sum('amount');
-    }
 
     public function source()
     {

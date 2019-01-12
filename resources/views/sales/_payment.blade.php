@@ -2,7 +2,7 @@
                                 <div class="bg-grey py-4 px-3" id="topp">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <h5 class="h5 uppercase">Total Discount</h5>
+                                                <h5 class="h6 uppercase">Total Discount</h5>
                                                 <div class="input-group mb-3 input-group-lg">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text customer-input">&#8358;</span>
@@ -12,7 +12,7 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <h5 class="h5 uppercase">Total Delivery Amount</h5>
+                                                <h5 class="h6 uppercase">Total Delivery Amount</h5>
                                                 <div class="input-group mb-3 input-group-lg">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
@@ -25,7 +25,7 @@
                                                                                 
                                         <div class="row pt-2">
                                             <div class="col">
-                                            <h5 class="h5 uppercase">Total Amount</h5>
+                                            <h5 class="h6 uppercase">Total Amount</h5>
                                             </div>
                                             <div class="col input-group input-group-lg">
                                                 <div class="input-group-prepend cus">

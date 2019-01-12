@@ -3,14 +3,17 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
-
 require('./bootstrap');
 
 window.Vue = require('vue');
 window.swal = require('sweetalert2');
+window.moment = require('moment');
+
+import daterangepicker from 'daterangepicker';
+
 import {vendorApp} from "./mixins/vendors";
 import {rentApp} from "./mixins/rent";
+import {loanApp} from "./mixins/loan";
 import {inventoryApp} from "./mixins/inventory";
 import {staffApp} from "./mixins/staff";
 import {customerApp} from "./mixins/customer";
@@ -24,20 +27,39 @@ import {appModal} from "./mixins/appModals";
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)));
+
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+import {ServerTable, ClientTable, Event} from 'vue-tables-2';
+const koboTheme = require('./themes/koboTheme');
+Vue.use(ClientTable, {}, false, koboTheme, 'default');
 
 window.app = new Vue({
     el: '#app',
     mixins: [
         vendorApp,
         rentApp,
+        loanApp,
         inventoryApp,
         staffApp,
         customerApp,
         salesListView,
         loadingView,
-        appModal
+        appModal,
     ],
+    filters: {
+        numberFormat (value) {
+            let number = Number(value);
+            if (isNaN(number)) {return value;}
+            const formatter = new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            return formatter.format(number);
+        }
+    },
     data: {},
     methods: {}
 });

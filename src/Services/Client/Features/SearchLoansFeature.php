@@ -8,8 +8,15 @@ use Illuminate\Http\Request;
 
 class SearchLoansFeature extends Feature
 {
+    private $param;
+
+    public function __construct($param)
+    {
+        $this->param = $param;
+    }
+
     public function handle(Request $request)
     {
-        $this->run(SearchLoanJob::class, ['query' => $request->all()['param']]);
+        return $this->run(SearchLoanJob::class, ['param' => $this->param, 'companyId' => auth()->user()->company->id]);
     }
 }
