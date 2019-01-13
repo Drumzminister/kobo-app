@@ -12,11 +12,13 @@
 {{-- end of heading section --}}
 
 {{-- VAT section --}}
-    @include('sales._vat')
+{{--    @include('sales._vat')--}}
+<vat-component :customers="{{ json_encode($customers) }}" :taxes="{{ json_encode($taxes) }}"></vat-component>
 {{-- End VAT section --}}
 
 {{-- add sales table --}}
-    @include('sales._sales-table')
+<add-sale :inventories="{{ json_encode($inventories) }}" :banks="{{ json_encode($banks) }}" :channels="{{ json_encode($channels) }}"></add-sale>
+    {{--@include('sales._sales-table')--}}
 {{-- end of sales table --}}
 
 {{-- Invoice Modal --}}

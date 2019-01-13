@@ -70,7 +70,6 @@ Route::group(['prefix' => 'client'], function () {
     Route::get('/customer/all-customers', 'CustomerController@allCustomers')->name('client.customer.all');
     Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');
 
-    Route::get('/sales/{}', 'ClientDashboardController@showSalesPage');
 
 	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
 	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');
@@ -87,4 +86,6 @@ Route::group(['prefix' => 'client'], function () {
 });
 
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
+
+Route::get('/bar/{slug}', 'ClientDashboardController@testFeature');
 
