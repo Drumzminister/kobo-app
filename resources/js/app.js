@@ -3,6 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -32,12 +33,15 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-import {ServerTable, ClientTable, Event} from 'vue-tables-2';
+import { ServerTable, ClientTable, Event } from 'vue-tables-2';
 const koboTheme = require('./themes/koboTheme');
 Vue.use(ClientTable, {}, false, koboTheme, 'default');
 
+import {store} from "./state/store";
+
 window.app = new Vue({
     el: '#app',
+    store,
     mixins: [
         vendorApp,
         rentApp,

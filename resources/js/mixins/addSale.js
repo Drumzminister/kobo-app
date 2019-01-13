@@ -10,7 +10,15 @@ export const addSale = {
     created: function() {
         this.addSaleItemForm();
     },
+    computed: {
+        selectedAccounts () {
+            return this.$store.state.selectedAccounts;
+        }
+    },
     methods: {
+        x () {
+            this.$store.commit('addPaymentMethod');
+        },
         addNewSaleItemRow: function () {
             this.addSaleItemForm();
         },

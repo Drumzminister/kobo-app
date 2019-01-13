@@ -20,7 +20,7 @@
                             {{ paymentMethod.name || 'Select'}}
                         </a>
                         <div class="dropdown-menu payment_mode_id" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" v-for="bank in getAvailableBankList()" @click="setPaymentMode(paymentMethod, bank)" href="#">{{ bank.account_name}}</a>
+                            <a class="dropdown-item" v-for="account in availableAccounts" @click="setPaymentMode(paymentMethod, account)" href="#">{{ account.account_name}}</a>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="col-md-2" style="margin-top: 20px">
-                    <span class="" style="cursor: pointer; margin-top: 20px" v-show="salePaymentMethods.length > 1" @click="removeSalePaymentMethod(index)"><i class="fa fa-times" style="font-size:32px;color:#c22c29;"></i></span>
+                    <span class="" style="cursor: pointer; margin-top: 20px" v-show="salePaymentMethods.length > 1" @click="removeSalePaymentMethod(index, paymentMethod.id)"><i class="fa fa-times" style="font-size:32px;color:#c22c29;"></i></span>
                 </div>
             </div>
 
@@ -56,27 +56,34 @@
         props: ['banks'],
         data() {
             return {
-                salePaymentMethods: []
+                salePaymentMethods: [],
+                selectedPaymentMethods: []
             }
         },
         computed: {
-            availableBankList: function () {
-                let that = this;
-                return this.banks.filter(function (bank) {
-                    return that.isBankSelected(bank);
-                });
-            }
-        },
-        mounted() {
-            console.log('Component mounted.')
+            availableAccounts () {
+                return this.$store.getters.availableAccounts;
+            },
         },
         created: function() {
             this.addSalePaymentMethod();
+            this.addBanksToStore();
         },
         methods: {
+            addBanksToStore () {
+                this.$store.commit('setCompanyAccounts', this.banks);
+            },
             setPaymentMode: function (paymentMode, selectedBank) {
-                paymentMode.bank_id = selectedBank.id;
+                if (paymentMode.bank_id) {
+                    this.removeAccountFromStore(paymentMode.bank_id);
+                }
+
+                paymentMode.id = selectedBank.id;
                 paymentMode.name = selectedBank.account_name;
+                this.$store.commit('selectAccount', paymentMode)
+            },
+            removeAccountFromStore (accountId) {
+                this.$store.commit('removeAccount', accountId);
             },
             bankIsNotAvailable: function () {
                 return this.salePaymentMethods.length === this.banks.length;
@@ -84,32 +91,14 @@
             addSalePaymentMethod: function () {
                 if (this.bankIsNotAvailable()) return;
                 this.salePaymentMethods.push({
-                    bank_id: "",
+                    bank_id: null,
                     amount: null,
                     name: null,
                 });
             },
-            getAvailableBankList: function () {
-                let that = this;
-                let banks = this.banks.filter(function (bank) {
-                    return that.isBankSelected(bank);
-                });
-                return banks;
-            },
-            setAvailableBankList: function () {
-                let that = this;
-                this.availableBankList = this.banks.filter(function (bank) {
-                    return that.isBankSelected(bank);
-                });
-            },
-            isBankSelected: function (bank) {
-                for (let key in this.salePaymentMethods) {
-                    console.log(this.salePaymentMethods[key].bank_id !== bank.id);
-                    return this.salePaymentMethods[key].bank_id !== bank.id;
-                }
-            },
-            removeSalePaymentMethod: function (index) {
+            removeSalePaymentMethod: function (index, accountId) {
                 this.salePaymentMethods.splice(index, 1);
+                this.removeAccountFromStore(accountId);
             }
         }
     }
