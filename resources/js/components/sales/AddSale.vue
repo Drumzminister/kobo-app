@@ -75,7 +75,7 @@
     export default {
         props: ['inventories', 'channels', 'banks'],
         mixins: [addSale],
-        components: [PaymentMethodSelection],
+        components: {PaymentMethodSelection : PaymentMethodSelection},
         mounted() {
         }
     }

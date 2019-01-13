@@ -73155,7 +73155,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['inventories', 'channels', 'banks'],
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_addSale__["a" /* addSale */]],
-    components: [__WEBPACK_IMPORTED_MODULE_1__banks_PaymentMethodSelection___default.a],
+    components: { PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_1__banks_PaymentMethodSelection___default.a },
     mounted: function mounted() {}
 });
 
@@ -82865,6 +82865,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log('Component mounted.');
     },
 
+    created: function created() {
+        this.addSalePaymentMethod();
+    },
     methods: {
         setPaymentMode: function setPaymentMode(paymentMode, selectedBank) {
             paymentMode.bank_id = selectedBank.id;

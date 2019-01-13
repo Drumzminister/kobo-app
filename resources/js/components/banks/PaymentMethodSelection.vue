@@ -70,6 +70,9 @@
         mounted() {
             console.log('Component mounted.')
         },
+        created: function() {
+            this.addSalePaymentMethod();
+        },
         methods: {
             setPaymentMode: function (paymentMode, selectedBank) {
                 paymentMode.bank_id = selectedBank.id;
