@@ -4,6 +4,8 @@ namespace App\Services\Client\Http\Controllers;
 
 use App\Services\Client\Features\AddMultipleStaffFeature;
 use App\Services\Client\Features\AddSingleStaffFeature;
+use App\Services\Client\Features\GetAllStaffFeature;
+use App\Services\Client\Features\SearchStaffFeature;
 use App\Services\Client\Features\ShowMultipleStaffFeature;
 use App\Services\Client\Features\ShowSingleStaffFeature;
 use App\Services\Client\Features\ShowStaffFeature;
@@ -45,5 +47,13 @@ class StaffController extends Controller
     public function addMultipleStaff()
     {
         return $this->serve(addMultipleStaffFeature::class);
+    }
+    public function allStaff()
+    {
+        return $this->serve(GetAllStaffFeature::class);
+    }
+    public function searchStaff()
+    {
+        return $this->serve(SearchStaffFeature::class);
     }
 }

@@ -70,9 +70,9 @@ class DatabaseSeeder extends Seeder
 	    return $accountant;
     }
 
-    private function createVendorsForUser($nums, $company)
+    private function createVendorsForUser($nums, $company, $user)
     {
-		return factory(Vendor::class, $nums)->create(['company_id' => $company->id]);
+		return factory(Vendor::class, $nums)->create(['company_id' => $company->id, 'user_id' => $user->id]);
     }
 
 
@@ -107,7 +107,7 @@ class DatabaseSeeder extends Seeder
 	    $staffs = $this->createStaffsForCompany($company);
 
 		// Create vendor for the client
-	    $vendors = $this->createVendorsForUser(10, $company);
+	    $vendors = $this->createVendorsForUser(10, $company, $clientUser);
 
 	    // Create Inventories (things he bought) from his vendors
 	    $inventories = collect([]);

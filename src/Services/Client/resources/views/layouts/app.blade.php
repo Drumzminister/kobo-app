@@ -25,7 +25,7 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://codepen.io/nedy/pen/oaMKLG.css">
+    <link rel="stylesheet" href="{{asset('css/font-size.css')}}">
 </head>
 <body>
 <!-- Header -->

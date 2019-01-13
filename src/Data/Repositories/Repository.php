@@ -84,6 +84,11 @@ class Repository
         return $this->model->all();
     }
 
+    public function userAll()
+    {
+        return $this->model->where('user_id', auth()->id())->get();
+    }
+
     /**
      * Returns the count of all the records.
      *

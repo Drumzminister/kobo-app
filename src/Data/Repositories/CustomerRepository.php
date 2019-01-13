@@ -6,8 +6,8 @@ use Koboaccountant\Models\Customer;
 
 class CustomerRepository extends Repository
 {
-    public function __construct(Customer $model)
+    public function __construct()
     {
-        parent::__construct($model);
+        parent::__construct(new Customer());
     }
 }

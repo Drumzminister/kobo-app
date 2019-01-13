@@ -11,8 +11,8 @@ class AddSingleCustomerFeature extends Feature
     public function handle(Request $request)
     {
         $data = $request->all();
-        $data['user_id'] = 1; //auth()->id();
-        $data['company_id'] = 1; //auth()->user()->company->id;
+        $data['user_id'] = auth()->id();
+        $data['company_id'] = auth()->user()->company->id;
         $added = $this->run(AddCustomerJob::class, ['data' => $data]);
 
         if($added)
