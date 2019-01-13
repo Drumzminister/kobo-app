@@ -60,19 +60,30 @@ Route::group(['prefix' => 'client'], function () {
     Route::get('/staff/multiple-staff', 'StaffController@showMultipleStaff')->name('client.single-staff.add');
     Route::post('/staff/single-staff/add', 'StaffController@addSingleStaff')->name('client.single-staff.add');
     Route::post('/staff/multiple-staff/add', 'StaffController@addMultipleStaff')->name('client.multiple-staff.add');
+    Route::get('/staff/all-staff', 'StaffController@allStaff')->name('client.staff.all');
+    Route::get('/staff/search', 'StaffController@searchStaff')->name('client.staff.search');
 
     Route::get('/customer', 'CustomerController@index')->name('client.customer');
     Route::get('/customer/add', 'CustomerController@showCustomer')->name('client.customer.add');
     Route::post('/customer/add', 'CustomerController@addCustomer')->name('client.customer.add');
     Route::get('/customer/list', 'CustomerController@listAllCustomers')->name('client.customer.list');
-    Route::get('/customer/allCustomers', 'CustomerController@allCustomers')->name('client.customer.all');
-    Route::get('/customer/search/{param}', 'CustomerController@searchCustomers')->name('client.customer.search');
+    Route::get('/customer/all-customers', 'CustomerController@allCustomers')->name('client.customer.all');
+    Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');
 
     Route::get('/sales/{}', 'ClientDashboardController@showSalesPage');
 
 	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
 	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');
 //	Route::get('/all-sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
+
+    Route::get('/vendor', 'VendorController@showVendorPage')->name('vendor.index');
+    Route::get('/vendor/show', 'VendorController@showAllVendor')->name('vendor.show');
+    Route::get('/vendor/add', 'VendorController@addVendorPage')->name('vendor.add');
+    Route::post('/vendor/add', 'VendorController@addVendor')->name('vendor.add');
+    Route::get('/vendor/all-vendors', 'VendorController@listVendors')->name('vendor.list');
+    Route::get('/vendor/search', 'VendorController@searchVendors')->name('vendor.search');
+    Route::post('/vendor/{vendorId}/activate', 'VendorController@activateVendor')->name('vendor.activate');
+
 });
 
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');

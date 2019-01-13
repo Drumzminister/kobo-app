@@ -13,20 +13,27 @@ class SearchCustomerJob extends Job
      * @return void
      */
     private $search;
+    private $param;
 
-    public function __construct($data)
+    public function __construct($param)
     {
-        $this->data = $data;
-        $this->search = app(CustomerRepository::class);
+        $this->param = $param;
+        $this->search = new CustomerRepository();
     }
 
     /**
      * Execute the job.
      *
-     * @return void
+     * @return \Illuminate\Support\Collection
      */
     public function handle()
     {
-       return $this->search->findBy('first_name', $this->data);
+        $data = collect([]);
+        $data->push($this->search->searchByFirst_name($this->param));
+        $data->push($this->search->searchByLast_name($this->param));
+        $data->push($this->search->searchByPhone($this->param));
+        $data->push($this->search->searchByEmail($this->param));
+        $data->push($this->search->searchByWebsite($this->param));
+        return collect(array_values($data->collapse()->unique('id')->all()));
     }
 }

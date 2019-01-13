@@ -42,8 +42,8 @@ class CustomerController extends Controller
         return $this->serve(AllCustomerFeature::class);
     }
 
-    public function searchCustomers($param)
+    public function searchCustomers()
     {
-        return $this->serve(SearchCustomerFeature::class, ['search' => $param]);
+        return $this->serve(SearchCustomerFeature::class);
     }
 }

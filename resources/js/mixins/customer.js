@@ -9,21 +9,20 @@ export const customerApp = {
             website: ''
         },
         customers: [],
-        search: '',
+        customerSearch: '',
+        searchNotFound: false,
     },
 
     created() {
-        axios.get('/client/customer/allCustomers')
+        axios.get('/client/customer/all-customers')
             .then(res => {
                 this.customers = res.data.all_customers.data;
-                console.log(this.customers);
             });
     },
     methods:{
         createCustomer(evt) {
             evt.preventDefault();
             axios.post('/client/customer/add', this.customerForm).then( res => {
-                console.log(this.customerForm);
                 swal('Success', res.data.message, 'success');
                 this.customerForm = '';
             }).catch(err => {
@@ -31,9 +30,13 @@ export const customerApp = {
             });
         },
         searchCustomer() {
-           axios.get(`client/customer/${this.search}`).then(res => {
-               this.customers = res.data.message;
+           axios.get(`/client/customer/search?param=${this.customerSearch}`).then(res => {
+                   this.customers = '';
+                   let result = this.customers = res.data;
+                   if(result == '') {
+                        this.searchNotFound = true;
+                   }
            });
-        }
+        },
     },
 }

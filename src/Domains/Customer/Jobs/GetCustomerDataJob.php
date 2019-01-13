@@ -26,7 +26,7 @@ class GetCustomerDataJob extends Job
     public function handle()
     {
         $data['total_customers'] = $this->customer->count();
-        $data['customers'] = $this->customer->all()->take(5);
+        $data['customers'] = $this->customer->userAll();
         $data['all_customers'] = $this->customer->page();
         return $data;
     }

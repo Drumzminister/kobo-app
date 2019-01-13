@@ -34,18 +34,15 @@
                 </div>     
                     <div class="row py-3">
                             <div class="col-md-6 col-12">
-                            <h4 class= "h4">Customers List </h4>
+                                <h4 class= "h4">Customers List </h4>
                             </div>
-        
-                            <div class="col-md-6 col-12">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
-                                    </div>
+
+                            <div class="input-group mt-2">
+                                <input type="text" v-model="search" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span @click="searchCustomer" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
                                 </div>
                             </div>
-                            
                     </div>
                 
                 <div class="table-responsive table-responsive-sm">
@@ -61,26 +58,24 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($customers as $customer)
-                          <tr>
-                                <td >{{$customer['name']}}</td>
-                                <td>{{$customer['address']}} </td>
-                                <td>{{$customer['phone']}}</td>
-                                <td> {{$customer['email']}}</td>
-                                <td>{{$customer['website']}}</td>
+                          <tr v-for="customer in customers">
+                                <td >@{{ customer.name }}</td>
+                                <td>@{{ customer.address }}</td>
+                                <td>@{{ customer.phone }}</td>
+                                <td>@{{ customer.email }}</td>
+                                <td>@{{ customer.website }}</td>
+                              <td v-show="searchNotFound">No Data found</td>
                                 <td class="flex" > 
                                     <span class="dot"></span>
                                     <span class="dot"></span>
                                     <span class="dot"></span>
                                 </td> 
                           </tr>
-                        @endforeach
-
                         </tbody>
                 </table>
              </div>
              <div class="text-center mt-2">
-                    <a href="/view-customers" class="view-more">View More</a> 
+                    <a href="/client/customer/list" class="view-more">View More</a>
                 </div>
             </div> 
            
