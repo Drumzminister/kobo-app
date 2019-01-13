@@ -72870,21 +72870,10 @@ var addSale = {
             });
         }
     },
-    watch: {
-        availableBankList: function availableBankList(val) {
-            console.log("Changed");
-        }
-    },
     methods: {
         setPaymentMode: function setPaymentMode(paymentMode, selectedBank) {
             paymentMode.bank_id = selectedBank.id;
             paymentMode.name = selectedBank.account_name;
-        },
-        isBankSelected: function isBankSelected(bank) {
-            console.log("Called");
-            for (var key in this.salePaymentMethods) {
-                return this.salePaymentMethods[key].bank_id !== bank.id;
-            }
         },
         bankIsNotAvailable: function bankIsNotAvailable() {
             return this.salePaymentMethods.length === this.banks.length;
@@ -72896,6 +72885,25 @@ var addSale = {
                 amount: null,
                 name: null
             });
+        },
+        getAvailableBankList: function getAvailableBankList() {
+            var that = this;
+            var banks = this.banks.filter(function (bank) {
+                return that.isBankSelected(bank);
+            });
+            return banks;
+        },
+        setAvailableBankList: function setAvailableBankList() {
+            var that = this;
+            this.availableBankList = this.banks.filter(function (bank) {
+                return that.isBankSelected(bank);
+            });
+        },
+        isBankSelected: function isBankSelected(bank) {
+            for (var key in this.salePaymentMethods) {
+                console.log(this.salePaymentMethods[key].bank_id !== bank.id);
+                return this.salePaymentMethods[key].bank_id !== bank.id;
+            }
         },
         removeSalePaymentMethod: function removeSalePaymentMethod(index) {
             this.salePaymentMethods.splice(index, 1);
@@ -73545,7 +73553,7 @@ var render = function() {
                               staticClass: "dropdown-menu payment_mode_id",
                               attrs: { "aria-labelledby": "dropdownMenuLink" }
                             },
-                            _vm._l(_vm.availableBankList, function(bank) {
+                            _vm._l(_vm.getAvailableBankList(), function(bank) {
                               return _c(
                                 "a",
                                 {

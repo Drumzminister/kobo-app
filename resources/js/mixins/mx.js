@@ -6,6 +6,7 @@ export const addSale = {
             saleDate: "",
             salePaymentMethods: [],
             saleItems: [],
+            availableBankList: []
         }
     },
     created: function() {
@@ -14,17 +15,25 @@ export const addSale = {
     },
     computed: {
         availableBankList: function () {
+            // console.log("set Called");
             let that = this;
             return this.banks.filter(function (bank) {
                 return that.isBankSelected(bank);
             });
 
+            // console.log(this.availableBankList);
         }
+    },
+    watch: {
+        // availableBankList: function (val) {
+        //     console.log("Changed");
+        // }
     },
     methods: {
         setPaymentMode: function (paymentMode, selectedBank) {
             paymentMode.bank_id = selectedBank.id;
             paymentMode.name = selectedBank.account_name;
+            // this.setAvailableBankList();
         },
         bankIsNotAvailable: function () {
             return this.salePaymentMethods.length === this.banks.length;
@@ -36,23 +45,20 @@ export const addSale = {
                 amount: null,
                 name: null,
             });
-        },
-        getAvailableBankList: function () {
-            let that = this;
-            let banks = this.banks.filter(function (bank) {
-                return that.isBankSelected(bank);
-            });
-            return banks;
+            // this.setAvailableBankList();
         },
         setAvailableBankList: function () {
+            // console.log("set Called");
             let that = this;
             this.availableBankList = this.banks.filter(function (bank) {
                 return that.isBankSelected(bank);
             });
+
+            // console.log(this.availableBankList);
         },
         isBankSelected: function (bank) {
+            console.log(bank);
             for (let key in this.salePaymentMethods) {
-                console.log(this.salePaymentMethods[key].bank_id !== bank.id);
                 return this.salePaymentMethods[key].bank_id !== bank.id;
             }
         },

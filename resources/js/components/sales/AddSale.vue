@@ -82,7 +82,7 @@
                                             {{ paymentMethod.name || 'Select'}}
                                         </a>
                                         <div class="dropdown-menu payment_mode_id" aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item" v-for="bank in availableBankList" @click="setPaymentMode(paymentMethod, bank)" href="#">{{ bank.account_name}}</a>
+                                            <a class="dropdown-item" v-for="bank in getAvailableBankList()" @click="setPaymentMode(paymentMethod, bank)" href="#">{{ bank.account_name}}</a>
                                         </div>
                                     </div>
                                 </div>
