@@ -3,6 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -20,6 +21,7 @@ import {customerApp} from "./mixins/customer";
 import {salesListView} from "./mixins/salesListView";
 import {loadingView} from "./mixins/loadingView";
 import {appModal} from "./mixins/appModals";
+import {expenseApp} from "./mixins/expenses";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -48,6 +50,7 @@ window.app = new Vue({
         salesListView,
         loadingView,
         appModal,
+        expenseApp
     ],
     filters: {
         numberFormat (value) {

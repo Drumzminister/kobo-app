@@ -69,6 +69,15 @@ Route::group(['prefix' => 'client'], function () {
 	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
 	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');
 //	Route::get('/all-sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
+
+    Route::get('/expenses', "ExpensesController@showExpensePage")->name('client.expenses.show');
+    Route::get('/expenses/all', 'ExpensesController@showAllExpenses')->name('client.expenses.show-all');
+    Route::get('/expenses/add', 'ExpensesController@showAddExpensePage')->name('client.expenses.add');
+    Route::post('/expenses/add', 'ExpensesController@addExpense')->name('client.expenses.add');
+    Route::get('/expenses/list', 'ExpensesController@listExpenses')->name('client.expenses.list');
+    Route::post('/expenses/update/{expenseId}', 'ExpensesController@updateExpense')->name('client.expenses.update');
+    Route::get('/expenses/search/{param}', 'ExpensesController@searchExpense')->name('client.expenses.search');
+    Route::post('/expenses/{expenseId}/pay', 'ExpensesController@payExpense')->name('client.expenses.pay');
 });
 
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');

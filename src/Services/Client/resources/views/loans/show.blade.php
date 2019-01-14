@@ -270,9 +270,32 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="px-0" for="interval">Payment Interval</label>
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" >
-                                            @{{ loanPaymentInterval }}Dropdown
-                                        </button>
+                                        <div class="btn-group dropright">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" @click="toggleShowIntervalSelector()">
+                                                @{{ loanPaymentInterval }}
+                                            </button>
+                                            <ul class="dropdown-menu"  style="display: block; overflow: auto; max-height: 320px;" v-if="showIntervalSelector">
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Weekly</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Bi-weekly</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Monthly</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Bi-Monthly</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Quaterly</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Anually</li>
+                                                <li class="dropdown-divider" v-if="!showMoreIntervals"></li>
+                                                <li class="dropdown-item" @click="toggleShowMoreIntervals($event)" v-if="!showMoreIntervals" style="cursor: pointer;">Show More >></li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">4 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">5 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">6 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">7 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">8 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">9 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">10 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">11 Months</li>
+                                                <li class="dropdown-divider" v-if="showMoreIntervals"></li>
+                                                <li class="dropdown-item" @click="toggleShowMoreIntervals($event)" v-if="showMoreIntervals" style="cursor: pointer;">Show Less <<</li>
+                                            </ul>
+                                        </div>
+
                                         {{--<div class="dropdown">--}}
                                             {{--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
                                                 {{--@{{ loanPaymentInterval }}Dropdown--}}
@@ -316,8 +339,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="px-0" for="account">Receiving Account</label>
-                                        <select name="receivingAccount" class="form-control" id="account">
-                                            <option v-for="method in loanPaymentMethods" :value="method.mode">@{{ method.mode }}</option>
+                                        <select name="receivingAccount" class="form-control" v-model="accountReceivingLoan" id="account">
+                                            <option v-for="method in loanPaymentMethods" v-if="method.mode === 'Cash'" :value="method">@{{ method.mode }}</option>
+                                            <option v-for="method in loanPaymentMethods" v-if="method.mode !== 'Cash'" :value="method">@{{ method.mode }} (@{{ method.account_name }})</option>
                                         </select>
                                     </div>
                                 </form>
@@ -333,8 +357,9 @@
                         </div>
                         <div class="box" v-if="showSourcesForm">
                             <div class="form-group d-flex">
-                                <input type="text" class="form-control rounded-0" v-model="newSource">
+                                <input type="text" class="form-control rounded-0 loader" v-model="newSource">
                                 <button @click="addSource" style="cursor: pointer" class="fa fa-plus p-2"></button>
+
                             </div>
                             <ul class="p-0 mb-0">
                                 <li class="d-block p-1 mb-2" v-for="source in sources" @click="selectSource(source.id, $event)">@{{source.name}}</li>
@@ -358,6 +383,7 @@
         window.loanAmtPaid = @json($runningLoanPaid);
         window.loanAmtOwing = @json($runningLoanOwing);
         window.loanAmtRunning = @json($runningLoanCount);
-        window.paymentMethods = @json($paymentMethods)
+        window.paymentMethods = @json($paymentMethods);
+        window.addLoanUrl = "{{ route('client.loan.add') }}";
     </script>
 @endsection

@@ -16,12 +16,12 @@ class CreateExpensesTable extends Migration
         Schema::dropIfExists('expenses');
         Schema::create('expenses', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('user_id')->index();
+            $table->string('user_id');
+            $table->string('company_id');
             $table->date('date');
             $table->text('details');
             $table->decimal('amount', 10, 2);
-            $table->string('class_type');
-            $table->string('payment_mode');
+            $table->string('classification')->nullable();
             $table->timestamps();
         });
     }

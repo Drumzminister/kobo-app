@@ -2,14 +2,13 @@
 
 namespace App\Services\Client\Features;
 
-use App\Domains\Loan\Jobs\SearchLoanJob;
+use App\Domains\Expenses\Jobs\SearchExpensesJob;
 use Lucid\Foundation\Feature;
 use Illuminate\Http\Request;
 
-class SearchLoansFeature extends Feature
+class SearchExpensesFeature extends Feature
 {
     private $param;
-
     public function __construct($param)
     {
         $this->param = $param;
@@ -18,7 +17,7 @@ class SearchLoansFeature extends Feature
     public function handle(Request $request)
     {
         return response()->json([
-            'loans' => $this->run(SearchLoanJob::class, ['param' => $this->param, 'companyId' => auth()->user()->company->id])
+            'expenses' => $this->run(SearchExpensesJob::class, ['companyId' => auth()->user()->getUserCompany()->id, 'param' => $this->param])
         ]);
     }
 }

@@ -37,7 +37,7 @@ class LoanController extends Controller
 
     public function addLoan()
     {
-        $this->serve(AddLoanFeature::class);
+        return $this->serve(AddLoanFeature::class);
     }
 
     public function listLoan()
