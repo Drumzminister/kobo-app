@@ -74,16 +74,16 @@
                 this.$store.commit('setCompanyAccounts', this.banks);
             },
             setPaymentMode: function (paymentMode, selectedBank) {
-                if (paymentMode.bank_id) {
-                    this.removeAccountFromStore(paymentMode.bank_id);
+                if (paymentMode.id) {
+                    this.removeAccountFromStore(paymentMode.id);
                 }
 
                 paymentMode.id = selectedBank.id;
                 paymentMode.name = selectedBank.account_name;
                 this.$store.commit('selectAccount', paymentMode)
             },
-            removeAccountFromStore (accountId) {
-                this.$store.commit('removeAccount', accountId);
+            removeAccountFromStore (account) {
+                this.$store.commit('removeAccount', account);
             },
             bankIsNotAvailable: function () {
                 return this.salePaymentMethods.length === this.banks.length;

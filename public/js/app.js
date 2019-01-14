@@ -45166,8 +45166,6 @@ files.keys().map(function (key) {
     return Vue.component(key.split('/').pop().split('.')[0], files(key));
 });
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
 
 var koboTheme = __webpack_require__(386);
 Vue.use(__WEBPACK_IMPORTED_MODULE_11_vue_tables_2__["ClientTable"], {}, false, koboTheme, 'default');
@@ -73307,16 +73305,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         setPaymentMode: function setPaymentMode(paymentMode, selectedBank) {
-            if (paymentMode.bank_id) {
-                this.removeAccountFromStore(paymentMode.bank_id);
+            if (paymentMode.id) {
+                this.removeAccountFromStore(paymentMode.id);
             }
 
             paymentMode.id = selectedBank.id;
             paymentMode.name = selectedBank.account_name;
             this.$store.commit('selectAccount', paymentMode);
         },
-        removeAccountFromStore: function removeAccountFromStore(accountId) {
-            this.$store.commit('removeAccount', accountId);
+        removeAccountFromStore: function removeAccountFromStore(account) {
+            this.$store.commit('removeAccount', account);
         },
 
         bankIsNotAvailable: function bankIsNotAvailable() {
