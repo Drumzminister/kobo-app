@@ -23,7 +23,7 @@ class GetCashJob extends Job
     /**
      * Execute the job.
      *
-     * @return float
+     * @return \Illuminate\Database\Eloquent\Model
      * @throws \Exception
      */
     public function handle()
@@ -32,6 +32,6 @@ class GetCashJob extends Job
         if (is_null($cash)) {
             $cash = (new CreateCashAccountJob($this->companyId, 0))->handle();
         }
-        return $cash->amount;
+        return $cash;
     }
 }

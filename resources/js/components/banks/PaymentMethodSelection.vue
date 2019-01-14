@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-6">
+    <div class="col-12">
         <div class="bg-grey py-4 px-3" id="top">
             <div class="row">
                 <div class="col-md-5">
@@ -27,7 +27,7 @@
 
                 <div class="col-md-5">
                     <div class="show input-group input-group-lg mt-3">
-                        <input v-model="paymentMethod.amount" type="text" style="height: 39px;" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
+                        <input v-model="paymentMethod.amount" type="number" style="height: 39px;" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
                     </div>
                 </div>
 
@@ -66,8 +66,10 @@
             },
         },
         created: function() {
-            this.addSalePaymentMethod();
-            this.addBanksToStore();
+            setTimeout(() => {
+                this.addSalePaymentMethod();
+                this.addBanksToStore();
+            }, 100)
         },
         methods: {
             addBanksToStore () {
@@ -95,6 +97,7 @@
                     amount: null,
                     name: null,
                 });
+
             },
             removeSalePaymentMethod: function (index, accountId) {
                 this.salePaymentMethods.splice(index, 1);

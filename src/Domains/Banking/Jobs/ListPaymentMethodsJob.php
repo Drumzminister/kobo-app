@@ -32,7 +32,7 @@ class ListPaymentMethodsJob extends Job
             [
                 'mode'      => 'Cash',
                 'account_name'  =>  '',
-                'balance'    =>  (new GetCashJob($this->companyId))->handle()
+                'balance'    =>  (new GetCashJob($this->companyId))->handle()->amount
             ]
         ];
         $banks = (new GetBankAccountsJob($this->companyId))->handle();

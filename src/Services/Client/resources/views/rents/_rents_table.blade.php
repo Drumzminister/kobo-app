@@ -30,7 +30,10 @@
                         <div v-if="getStatus(rent) > 79 " class="progress-bar bg-success" role="progressbar" :style="`width: ${getStatus(rent)}%;`" :aria-valuenow=" `${getStatus(rent)}%` " aria-valuemin="0" aria-valuemax="100">@{{ `${getStatus(rent)}%` }}</div>
                     </div>
                 </td>
-                <td><i class="fa fa-edit pr-2" @click="editRent($event, rent)" style="font-size:24px; cursor: pointer;"></i><i class="fa fa-money" style="font-size:24px"></i></td>
+                <td>
+                    <i class="fa fa-edit pr-2" @click="editRent($event, rent)" style="font-size: 24px; cursor: pointer;"></i>
+                    <i class="fa fa-money" @click="openPaymentModal(rent)" style="font-size:24px; cursor: pointer;"></i>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -41,3 +44,4 @@
 </div>
 <!--Edit Rent Modal -->
 @include('client::rents._update_rent_modal')
+@include('client::rents._payment_modal')
