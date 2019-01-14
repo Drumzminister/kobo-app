@@ -31,15 +31,17 @@ class ListPaymentMethodsJob extends Job
         $modes = [
             [
                 'mode'      => 'Cash',
-                'amount'    =>  (new GetCashJob($this->companyId))->handle()
+                'account_name'  =>  '',
+                'balance'    =>  (new GetCashJob($this->companyId))->handle()->amount
             ]
         ];
         $banks = (new GetBankAccountsJob($this->companyId))->handle();
 
         foreach ($banks as $bank) {
             $mode = [
-                'mode'      =>  $bank->bank_name,
-                'balance'   =>  floatval($bank->account_balance),
+                'mode'          =>  $bank->bank_name,
+                'account_name'  =>  $bank->account_name,
+                'balance'       =>  floatval($bank->account_balance),
             ];
             array_push($modes, $mode);
         }

@@ -24,8 +24,10 @@ export const loanApp = {
         loanPaymentMethods: [],
         currentLoanPayments: [],
         showMoreIntervals: false,
+        accountReceivingLoan: "Select",
         loadingLoanDetails: false,
-        loanPaymentIntervals: [1,2,4],
+        showIntervalSelector: false,
+        loanPaymentInterval: "Monthly",
         loanPaymentValidationMessage: "",
         loanPaymentValidationError: false
     },
@@ -33,7 +35,7 @@ export const loanApp = {
         loans () {
             if (this.loans === undefined) return;
             this.loans.forEach(loan => {
-                this.sources.forEach(source => {
+                this.allSources.forEach(source => {
                     if (loan.loan_source_id === source.id ) {
                         loan.source_name = source.name;
                     }
@@ -46,15 +48,6 @@ export const loanApp = {
                 this.loanPaymentValidationMessage = "The amount entered is greater than the maximum payable amount";
             } else{
                 this.loanPaymentValidationError = false;
-            }
-        },
-        loanPeriod () {
-            if (this.loanPeriod === "month") {
-                this.loanPaymentIntervals = [1, 2, 4];
-            } else if(this.loanPeriod === "year") {
-                this.loanPaymentIntervals = [1, 2, 3, 4, 5, 6, 12];
-            } else {
-                this.loanPaymentIntervals = [1, 2, 3, 4, 5, 6, 7];
             }
         }
     },
@@ -119,20 +112,22 @@ export const loanApp = {
             }
             let formData = new FormData();
             formData.append('description', this.loanDescription);
-            formData.append('amount', this.loanAmount);
             formData.append('interest', this.loanInterest);
+            formData.append('loan_source_id', this.chosenSource);
+            formData.append('amount', this.loanAmount);
             formData.append('period', this.loanPeriod);
             formData.append('term', this.loanTerm);
             formData.append('payment_interval', this.paymentPerYear);
-            formData.append('source_id', this.chosenSource);
             formData.append('start_date', this.loanDate);
+            formData.append('receivingAccount', JSON.stringify(this.accountReceivingLoan) );
             // formData.append('_token', token);
-            axios.post('/loans', formData).then(res => {
+            axios.post(window.addLoanUrl, formData).then(res => {
                 swal('Successful', 'Loan added successfully', 'success');
                 document.querySelector('#cancelLoanModal').click();
                 let loan = res.data.loan;
                 loan.source_name = this.searchSource;
                 loan.status = "running";
+                loan.amount_paid = 0;
                 this.loans.unshift(loan);
             }).catch(err => {
                 swal('Oops', err.response.data.error, "error");
@@ -142,7 +137,7 @@ export const loanApp = {
             let row = evt.target;
             this.currentLoan = loan;
             this.loadingLoanDetails = true;
-            axios.get(`/loans/${loan.id}/payments`).then(res => {
+            axios.get(`/client/loan/${loan.id}/payments`).then(res => {
                 this.loadingLoanDetails = false;
                 this.currentLoanPayments = res.data.payments;
             }).catch(err => {
@@ -170,6 +165,25 @@ export const loanApp = {
                     swal('Oops', err.response.data.error, "error");
                 })
             }
+        },
+        toggleShowMoreIntervals (evt) {
+            this.showMoreIntervals = !this.showMoreIntervals;
+            if (this.showMoreIntervals) {
+                setTimeout(() => {
+                    evt.target.parentElement.scrollTo({
+                        top: 200,
+                        left: 0,
+                        behaviour: "smooth"
+                    });
+                },  10);
+            }
+        },
+        toggleShowIntervalSelector () {
+            this.showIntervalSelector = !this.showIntervalSelector;
+        },
+        selectLoanPaymentInterval (event) {
+            this.loanPaymentInterval = event.target.innerText;
+            this.toggleShowIntervalSelector();
         }
     }
 };

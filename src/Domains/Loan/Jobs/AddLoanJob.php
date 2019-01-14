@@ -2,35 +2,37 @@
 
 namespace App\Domains\Loan\Jobs;
 
-use App\Data\Repositories\UserRepository;
+use App\Data\Repositories\LoanRepository;
+use Illuminate\Database\Eloquent\Model;
 use Lucid\Foundation\Job;
 
 class AddLoanJob extends Job
 {
-    /*
-     *  @var \Illuminate\Foundation\Application|UserRepository
-     * */
-    private $user;
+    private $loan, $data;
 
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $data
+     * @param $userId
+     * @param $companyId
      */
-    public function __construct($data, $userId)
+    public function __construct($data, $userId, $companyId)
     {
         $this->data = $data;
-        $this->userId = $userId;
-        $this->user = app(UserRepository::class);
+        $this->data['user_id'] = $userId;
+        $this->data['company_id'] = $companyId;
+        $this->loan = new LoanRepository();
     }
 
     /**
      * Execute the job.
      *
-     * @return void
+     * @return Model
+     * @throws \Exception
      */
     public function handle()
     {
-        //
+        return $this->loan->fillAndSave($this->data);
     }
 }

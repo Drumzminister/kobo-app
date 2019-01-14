@@ -45117,18 +45117,21 @@ module.exports = __webpack_require__(389);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_daterangepicker__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_daterangepicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_daterangepicker__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_rent__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_loan__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_inventory__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_staff__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_vendor__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_customer__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins_salesListView__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__mixins_loadingView__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__mixins_appModals__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_vue_tables_2__ = __webpack_require__(218);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_vue_tables_2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_vue_tables_2__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__state_store__ = __webpack_require__(386);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_banks_PaymentMethodSelection__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_banks_PaymentMethodSelection__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_rent__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_loan__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_inventory__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_staff__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_vendor__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins_customer__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__mixins_salesListView__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__mixins_loadingView__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__mixins_appModals__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__mixins_expenses__ = __webpack_require__(395);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_vue_tables_2__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_vue_tables_2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_vue_tables_2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__state_store__ = __webpack_require__(386);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -45140,6 +45143,9 @@ __webpack_require__(170);
 window.Vue = __webpack_require__(6);
 window.swal = __webpack_require__(193);
 window.moment = __webpack_require__(0);
+
+
+
 
 
 
@@ -45165,14 +45171,15 @@ files.keys().map(function (key) {
 
 
 var koboTheme = __webpack_require__(385);
-Vue.use(__WEBPACK_IMPORTED_MODULE_10_vue_tables_2__["ClientTable"], {}, false, koboTheme, 'default');
+Vue.use(__WEBPACK_IMPORTED_MODULE_12_vue_tables_2__["ClientTable"], {}, false, koboTheme, 'default');
 
 
 
 window.app = new Vue({
     el: '#app',
-    store: __WEBPACK_IMPORTED_MODULE_11__state_store__["a" /* store */],
-    mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins_vendor__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_loan__["a" /* loanApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_4__mixins_staff__["a" /* staffApp */], __WEBPACK_IMPORTED_MODULE_6__mixins_customer__["a" /* customerApp */], __WEBPACK_IMPORTED_MODULE_7__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_8__mixins_loadingView__["a" /* loadingView */], __WEBPACK_IMPORTED_MODULE_9__mixins_appModals__["a" /* appModal */]],
+    store: __WEBPACK_IMPORTED_MODULE_13__state_store__["a" /* store */],
+    mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins_vendor__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_loan__["a" /* loanApp */], __WEBPACK_IMPORTED_MODULE_4__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_5__mixins_staff__["a" /* staffApp */], __WEBPACK_IMPORTED_MODULE_7__mixins_customer__["a" /* customerApp */], __WEBPACK_IMPORTED_MODULE_8__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_9__mixins_loadingView__["a" /* loadingView */], __WEBPACK_IMPORTED_MODULE_10__mixins_appModals__["a" /* appModal */], __WEBPACK_IMPORTED_MODULE_11__mixins_expenses__["a" /* expenseApp */]],
+    components: { PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_1__components_banks_PaymentMethodSelection___default.a },
     filters: {
         numberFormat: function numberFormat(value) {
             var number = Number(value);
@@ -72313,21 +72320,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var rentApp = {
     data: {
         rents: [],
+        banks: [],
         rentAmount: "",
         rentEndDate: "",
-        rentStartDate: "",
         editingRent: {},
+        selectedRent: {},
+        rentStartDate: "",
         rentLoading: false,
         paymentMethods: [],
         rentSearchParam: "",
         other_rental_cost: "",
         rentShowPaymentSettings: false
     },
-
+    computed: {
+        selectedAccounts: function selectedAccounts() {
+            return this.$store.state.selectedAccounts;
+        }
+    },
     mounted: function mounted() {
-        /*axios.get('/banking/payment_modes').then (res => {
-            this.paymentMethods = res.data;
-        });*/
+        this.banks = window.banks;
         this.rents = window.rents;
     },
 
@@ -72421,46 +72432,37 @@ var rentApp = {
             return rent.amount - this.rentUsed(rent);
         },
         payRent: function payRent() {
-            var _this3 = this;
-
-            var amounts = document.querySelectorAll('.payment_amount');
-            var paymentModes = document.querySelectorAll('.payment_mode');
-            var total = 0;
-            amounts.forEach(function (amount) {
-                total += Number(amount.value);
+            var sum = 0;
+            this.selectedAccounts.forEach(function (account) {
+                if (!isNaN(Number(account.amount))) {
+                    sum += Number(account.amount);
+                }
             });
-            if (total !== this.rentAmount + this.other_rental_cost) {
-                swal("Oops", "The amount entered must be equal to the amount paid for rent plus extra costs", "warning");
+            if (sum !== Number(this.selectedRent.amount)) {
+                swal("Error", "Total amount payable should be equal to " + this.selectedRent.amount, "error");
+                console.log(sum);
                 return;
             }
-
-            var _loop = function _loop(i) {
-                _this3.paymentMethods.forEach(function (method) {
-                    if (method.mode === paymentModes[i].value && Number(amounts[i].value > method.balance)) {
-                        swal("Oops", "The amount entered for " + method.mode + " should be lower than  available balance", "warning");
-                        return;
-                    }
-                });
-            };
-
-            for (var i = 0; i < paymentModes.length; i++) {
-                _loop(i);
-            }
+            axios.post("/client/rent/" + this.selectedRent.id + "/pay", function () {});
+        },
+        openPaymentModal: function openPaymentModal(rent) {
+            this.selectedRent = rent;
+            this.openModal('#paymentModal');
         },
         editRent: function editRent(evt, rent) {
             this.editingRent = _extends({}, rent);
-            $('#editRentModal').modal('show');
+            this.openModal('#editRentModal');
         },
         updateRent: function updateRent(evt) {
-            var _this4 = this;
+            var _this3 = this;
 
             evt.preventDefault();
 
             var formData = this.editingRent;
             axios.post("/client/rent/update/" + formData.id, formData).then(function (response) {
                 swal("Success", "Rent updated successfully", "success");
-                _this4.rents.splice(_this4.rents.findIndex(function (rent) {
-                    return rent.id === _this4.editingRent.id;
+                _this3.rents.splice(_this3.rents.findIndex(function (rent) {
+                    return rent.id === _this3.editingRent.id;
                 }), 1, response.data.rent);
                 // location.reload();
                 $('#editRentModal').modal('toggle');
@@ -72502,8 +72504,10 @@ var loanApp = {
         loanPaymentMethods: [],
         currentLoanPayments: [],
         showMoreIntervals: false,
+        accountReceivingLoan: "Select",
         loadingLoanDetails: false,
-        loanPaymentIntervals: [1, 2, 4],
+        showIntervalSelector: false,
+        loanPaymentInterval: "Monthly",
         loanPaymentValidationMessage: "",
         loanPaymentValidationError: false
     },
@@ -72513,7 +72517,7 @@ var loanApp = {
 
             if (this.loans === undefined) return;
             this.loans.forEach(function (loan) {
-                _this.sources.forEach(function (source) {
+                _this.allSources.forEach(function (source) {
                     if (loan.loan_source_id === source.id) {
                         loan.source_name = source.name;
                     }
@@ -72526,15 +72530,6 @@ var loanApp = {
                 this.loanPaymentValidationMessage = "The amount entered is greater than the maximum payable amount";
             } else {
                 this.loanPaymentValidationError = false;
-            }
-        },
-        loanPeriod: function loanPeriod() {
-            if (this.loanPeriod === "month") {
-                this.loanPaymentIntervals = [1, 2, 4];
-            } else if (this.loanPeriod === "year") {
-                this.loanPaymentIntervals = [1, 2, 3, 4, 5, 6, 12];
-            } else {
-                this.loanPaymentIntervals = [1, 2, 3, 4, 5, 6, 7];
             }
         }
     },
@@ -72605,20 +72600,22 @@ var loanApp = {
             }
             var formData = new FormData();
             formData.append('description', this.loanDescription);
-            formData.append('amount', this.loanAmount);
             formData.append('interest', this.loanInterest);
+            formData.append('loan_source_id', this.chosenSource);
+            formData.append('amount', this.loanAmount);
             formData.append('period', this.loanPeriod);
             formData.append('term', this.loanTerm);
             formData.append('payment_interval', this.paymentPerYear);
-            formData.append('source_id', this.chosenSource);
             formData.append('start_date', this.loanDate);
+            formData.append('receivingAccount', JSON.stringify(this.accountReceivingLoan));
             // formData.append('_token', token);
-            axios.post('/loans', formData).then(function (res) {
+            axios.post(window.addLoanUrl, formData).then(function (res) {
                 swal('Successful', 'Loan added successfully', 'success');
                 document.querySelector('#cancelLoanModal').click();
                 var loan = res.data.loan;
                 loan.source_name = _this4.searchSource;
                 loan.status = "running";
+                loan.amount_paid = 0;
                 _this4.loans.unshift(loan);
             }).catch(function (err) {
                 swal('Oops', err.response.data.error, "error");
@@ -72630,7 +72627,7 @@ var loanApp = {
             var row = evt.target;
             this.currentLoan = loan;
             this.loadingLoanDetails = true;
-            axios.get("/loans/" + loan.id + "/payments").then(function (res) {
+            axios.get("/client/loan/" + loan.id + "/payments").then(function (res) {
                 _this5.loadingLoanDetails = false;
                 _this5.currentLoanPayments = res.data.payments;
             }).catch(function (err) {
@@ -72660,6 +72657,25 @@ var loanApp = {
                     swal('Oops', err.response.data.error, "error");
                 });
             }
+        },
+        toggleShowMoreIntervals: function toggleShowMoreIntervals(evt) {
+            this.showMoreIntervals = !this.showMoreIntervals;
+            if (this.showMoreIntervals) {
+                setTimeout(function () {
+                    evt.target.parentElement.scrollTo({
+                        top: 200,
+                        left: 0,
+                        behaviour: "smooth"
+                    });
+                }, 10);
+            }
+        },
+        toggleShowIntervalSelector: function toggleShowIntervalSelector() {
+            this.showIntervalSelector = !this.showIntervalSelector;
+        },
+        selectLoanPaymentInterval: function selectLoanPaymentInterval(event) {
+            this.loanPaymentInterval = event.target.innerText;
+            this.toggleShowIntervalSelector();
         }
     }
 };
@@ -73226,8 +73242,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     created: function created() {
-        this.addSalePaymentMethod();
-        this.addBanksToStore();
+        var _this = this;
+
+        setTimeout(function () {
+            _this.addSalePaymentMethod();
+            _this.addBanksToStore();
+        }, 100);
     },
     methods: {
         addBanksToStore: function addBanksToStore() {
@@ -73273,7 +73293,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-6" }, [
+  return _c("div", { staticClass: "col-12" }, [
     _c(
       "div",
       { staticClass: "bg-grey py-4 px-3", attrs: { id: "top" } },
@@ -73349,7 +73369,7 @@ var render = function() {
                     staticClass: "form-control",
                     staticStyle: { height: "39px" },
                     attrs: {
-                      type: "text",
+                      type: "number",
                       "aria-label": "Sizing example input",
                       "aria-describedby": "",
                       placeholder: "500,000"
@@ -84212,6 +84232,68 @@ var index_esm = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return expenseApp; });
+var expenseApp = {
+    data: {
+        expenseAmount: 0,
+        selectedMethods: [],
+        methodToBeChanged: {},
+        expensePaymentMethods: [],
+        expenseShowPaymentMethods: false
+    },
+    mounted: function mounted() {
+        this.expensePaymentMethods = window.paymentMethods;
+        if (this.expensePaymentMethods) {
+            this.selectedMethods.push(this.expensePaymentMethods[0]);
+        }
+    },
+
+    methods: {
+        changePaymentMethod: function changePaymentMethod(method) {
+            this.methodToBeChanged = method;
+            this.toggleShowPaymentMethods();
+        },
+        toggleShowPaymentMethods: function toggleShowPaymentMethods() {
+            this.expenseShowPaymentMethods = !this.expenseShowPaymentMethods;
+        },
+        selectPaymentMethod: function selectPaymentMethod(method) {
+            var _this = this;
+
+            this.selectedMethods.splice(this.selectedMethods.findIndex(function (method) {
+                return method.mode === _this.methodToBeChanged.mode;
+            }), 1, method);
+            this.toggleShowPaymentMethods();
+        },
+        showPayExpenseModal: function showPayExpenseModal(evt) {
+            var row = evt.target.parentElement.parentElement;
+            if (!document.querySelector("#expense_date").value) {
+                swal("Oops", "No date specified", "warning");
+                return;
+            } else if (row.querySelector('.expenseDescription').value.trim() && row.querySelector('.expenseAmount').value.trim() && !isNaN(row.querySelector('.expenseAmount').value.trim()) && row.querySelector('.expenseAmount').value.trim() > 0) {
+                this.openModal("#paymentModal");
+            } else {
+                swal("Oops", "Invalid description or amount of expense", "warning");
+            }
+        },
+        expenseAmountChange: function expenseAmountChange(evt) {
+            if (true) {}
+        },
+        payExpense: function payExpense(evt) {
+            evt.preventDefault();
+        }
+    }
+};
 
 /***/ })
 /******/ ]);
