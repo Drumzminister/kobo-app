@@ -66,10 +66,8 @@
             },
         },
         created: function() {
-            setTimeout(() => {
-                this.addSalePaymentMethod();
-                this.addBanksToStore();
-            }, 100)
+            this.addSalePaymentMethod();
+            this.addBanksToStore();
         },
         methods: {
             addBanksToStore () {

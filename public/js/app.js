@@ -73242,12 +73242,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     created: function created() {
-        var _this = this;
-
-        setTimeout(function () {
-            _this.addSalePaymentMethod();
-            _this.addBanksToStore();
-        }, 100);
+        this.addSalePaymentMethod();
+        this.addBanksToStore();
     },
     methods: {
         addBanksToStore: function addBanksToStore() {
@@ -83289,6 +83285,8 @@ module.exports = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(387);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_paymentMethodSelection__ = __webpack_require__(398);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_inventoryModule__ = __webpack_require__(399);
+
 
 
 
@@ -83297,7 +83295,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     modules: {
-        paymentModule: __WEBPACK_IMPORTED_MODULE_2__modules_paymentMethodSelection__["a" /* paymentMethodSelectionModule */]
+        paymentModule: __WEBPACK_IMPORTED_MODULE_2__modules_paymentMethodSelection__["a" /* paymentMethodSelectionModule */],
+        inventoryModule: __WEBPACK_IMPORTED_MODULE_3__modules_inventoryModule__["a" /* inventoryModule */]
     }
 });
 
@@ -84452,6 +84451,43 @@ var paymentMethodSelectionModule = {
         },
         setCompanyAccounts: function setCompanyAccounts(state, accounts) {
             state.companyAccounts = accounts;
+        }
+    }
+};
+
+/***/ }),
+/* 399 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return inventoryModule; });
+var inventoryModule = {
+    state: {
+        companyInventories: [],
+        selectedInventories: []
+    },
+    getters: {
+        availableInventories: function availableInventories(state) {
+            return state.companyInventories.filter(function (inventory) {
+                return !state.selectedInventories.map(function (inventory) {
+                    return inventory.id;
+                }).includes(inventory.id);
+            });
+        }
+    },
+    mutations: {
+        selectInventory: function selectInventory(state, inventory) {
+            state.selectedAccounts.push(account);
+        },
+        removeInventory: function removeInventory(state, inventory) {
+            var pos = state.selectedInventories.map(function (inventory) {
+                return inventory.id;
+            }).indexOf(inventory.id);
+
+            state.selectedInventories.splice(pos, 1);
+        },
+        setCompanyInventories: function setCompanyInventories(state, inventories) {
+            state.companyInventories = inventories;
         }
     }
 };
