@@ -4,6 +4,7 @@ namespace App\Services\Client\Http\Controllers;
 
 use App\Services\Client\Features\AddLoanFeature;
 use App\Services\Client\Features\AddLoanSourceFeature;
+use App\Services\Client\Features\ListLoanPaymentRecordsFeature;
 use App\Services\Client\Features\ListLoansFeature;
 use App\Services\Client\Features\ListLoanSourcesFeature;
 use App\Services\Client\Features\PayLoanFeature;
@@ -48,6 +49,11 @@ class LoanController extends Controller
     public function payLoan($loanId)
     {
         $this->serve(PayLoanFeature::class, ['loanId' => $loanId]);
+    }
+
+    public function listPayments($loanId)
+    {
+        return $this->serve(ListLoanPaymentRecordsFeature::class, ['loanId' => $loanId]);
     }
 
     public function searchLoan($param)

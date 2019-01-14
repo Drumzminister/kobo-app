@@ -72572,6 +72572,7 @@ var loanApp = {
                 var loan = res.data.loan;
                 loan.source_name = _this4.searchSource;
                 loan.status = "running";
+                loan.amount_paid = 0;
                 _this4.loans.unshift(loan);
             }).catch(function (err) {
                 swal('Oops', err.response.data.error, "error");
@@ -72583,7 +72584,7 @@ var loanApp = {
             var row = evt.target;
             this.currentLoan = loan;
             this.loadingLoanDetails = true;
-            axios.get("/loans/" + loan.id + "/payments").then(function (res) {
+            axios.get("/client/loan/" + loan.id + "/payments").then(function (res) {
                 _this5.loadingLoanDetails = false;
                 _this5.currentLoanPayments = res.data.payments;
             }).catch(function (err) {

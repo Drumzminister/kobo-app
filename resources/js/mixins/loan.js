@@ -127,6 +127,7 @@ export const loanApp = {
                 let loan = res.data.loan;
                 loan.source_name = this.searchSource;
                 loan.status = "running";
+                loan.amount_paid = 0;
                 this.loans.unshift(loan);
             }).catch(err => {
                 swal('Oops', err.response.data.error, "error");
@@ -136,7 +137,7 @@ export const loanApp = {
             let row = evt.target;
             this.currentLoan = loan;
             this.loadingLoanDetails = true;
-            axios.get(`/loans/${loan.id}/payments`).then(res => {
+            axios.get(`/client/loan/${loan.id}/payments`).then(res => {
                 this.loadingLoanDetails = false;
                 this.currentLoanPayments = res.data.payments;
             }).catch(err => {

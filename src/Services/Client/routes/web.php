@@ -41,7 +41,8 @@ Route::group(['prefix' => 'client'], function () {
 	Route::get('/loans/all', 'LoanController@index')->name('client.loan.all');
 	Route::post('/loan/add', 'LoanController@addLoan')->name('client.loan.add');
 	Route::get('/loan/list', 'LoanController@listLoan')->name('client.loan.list');
-	Route::post('/loan/{loanId}/pay', 'LoanController@payLoan')->name('client.loan.list');
+	Route::post('/loan/{loanId}/pay', 'LoanController@payLoan')->name('client.loan.pay');
+	Route::get('/loan/{loanId}/payments', 'LoanController@listPayments')->name('client.loan.payments');
 	Route::get('/loan/search/{param}', 'LoanController@searchLoan')->name('client.loan.search');
 	Route::post('/loan/sources/add', 'LoanController@addSources')->name('client.loan.sources.add');
 	Route::get('/loan/sources/list', 'LoanController@listSources')->name('client.loan.sources.list');
