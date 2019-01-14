@@ -16,7 +16,7 @@
             <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid">
             <h5 class="h5">Add Photo</h5>
 
-            <form>
+            <form method="post">
                 <div class="form-group row py-2">
                     <div class="col-md-4">
                         <label for="name" class="col-md-3 col-form-label">Account</label>
@@ -29,6 +29,8 @@
                         <input v-model="customerForm.last_name" type="text" class="form-control bg-grey" id="" >
                         <label for="phone">Phone number</label>
                         <input v-model="customerForm.phone" type="text" class="form-control bg-grey" id="" >
+                        <label for="phone">Email</label>
+                        <input v-model="customerForm.email" type="text" class="form-control bg-grey" id="" >
                     </div>
                 </div>
 

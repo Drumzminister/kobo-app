@@ -253,25 +253,55 @@
                                         <label class="px-0" for="exampleFormControlInput1">Loan Amount</label>
                                         <input type="number" step="0.01" v-model="loanAmount" class="form-control" id="" placeholder="200,000">
                                     </div>
-                                    <div class="form-group d-flex row">
-                                        <div class="col-6">
-                                            <label class="px-0"  for="loanPeriod">Loan Period</label>
-                                            <select name="period" class="form-control" style="background-color: #00C259; color: #ffffff;" v-model="period" id="loanPeriod">
-                                                <option value="week">Weekly</option>
-                                                <option value="month">Monthly</option>
-                                                <option value="year">Yearly</option>
-                                            </select>
-                                        </div>
-                                        <div class="ml-auto col-6">
-                                            <label class="px-0" for="exampleFormControlInput1">Loan Duration</label>
-                                            <input type="number"  v-model="loanTerm" class="form-control" id="" placeholder="10">
+                                    <div class="form-group row">
+                                        <label class="col-12" for="exampleFormControlInput1">Loan Duration</label>
+                                        <div class="d-flex">
+                                            <div class="col-6">
+                                                <input type="number"  v-model="loanTerm" class="form-control" id="" placeholder="10">
+                                            </div>
+                                            <div class="ml-auto col-6">
+                                                <select name="period" class="form-control" style="background-color: #00C259; color: #ffffff;" v-model="loanPeriod" id="loanPeriod">
+                                                    <option value="week">Weeks</option>
+                                                    <option value="month">Months</option>
+                                                    <option value="year">Years</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="px-0" for="">Number of Payments per @{{period}}</label>
-                                        <select v-model="paymentPerYear" class="form-control">
-                                            <option v-for="interval in loanPaymentIntervals" :value="interval">@{{ interval }}</option>
-                                        </select>
+                                        <label class="px-0" for="interval">Payment Interval</label>
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" >
+                                            @{{ loanPaymentInterval }}Dropdown
+                                        </button>
+                                        {{--<div class="dropdown">--}}
+                                            {{--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                                                {{--@{{ loanPaymentInterval }}Dropdown--}}
+                                            {{--</button>--}}
+                                            {{--<div class="dropdown-menu" aria-labelledby="dropdownMenu2">--}}
+                                                {{--<button class="dropdown-item" type="button">Action</button>--}}
+                                                {{--<button class="dropdown-item" type="button">Another action</button>--}}
+                                                {{--<button class="dropdown-item" type="button">Something else here</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<select id="interval" class="form-control">
+                                            <option value="weekly">Weekly</option>
+                                            <option value="biweekly">Bi-weekly</option>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="bimonthly">Bi-Monthly</option>
+                                            <option value="quaterly">Quaterly</option>
+                                            <option value="anually">Anually</option>
+                                            <option @click="showMoreIntervals = true" v-if="!showMoreIntervals">Show more</option>
+                                            <option @click="alert('james')">Show more</option>
+                                            <option value="4months" v-if="!showMoreIntervals">4 Months</option>
+                                            <option value="5months" v-if="!showMoreIntervals">5 Months</option>
+                                            <option value="6months" v-if="showMoreIntervals">6 Months</option>
+                                            <option value="7months" v-if="showMoreIntervals">7 Months</option>
+                                            <option value="8months" v-if="showMoreIntervals">8 Months</option>
+                                            <option value="9months" v-if="showMoreIntervals">9 Months</option>
+                                            <option value="10months" v-if="showMoreIntervals">10 Months</option>
+                                            <option value="11months" v-if="showMoreIntervals">11 Months</option>
+                                            <option @click="showMoreIntervals = !showMoreIntervals" v-if="showMoreIntervals">Show less</option>
+                                        </select>--}}
                                     </div>
                                     <div class="form-group">
                                         <label class="px-0" for="">Start date of Loan</label>
@@ -283,6 +313,12 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="px-0" for="account">Receiving Account</label>
+                                        <select name="receivingAccount" class="form-control" id="account">
+                                            <option v-for="method in loanPaymentMethods" :value="method.mode">@{{ method.mode }}</option>
+                                        </select>
                                     </div>
                                 </form>
                             </div>
@@ -313,7 +349,6 @@
 
 
         @include('client::loans._loans_details')
-
     </section>
 @endsection
 @section('other_js')
@@ -323,5 +358,6 @@
         window.loanAmtPaid = @json($runningLoanPaid);
         window.loanAmtOwing = @json($runningLoanOwing);
         window.loanAmtRunning = @json($runningLoanCount);
+        window.paymentMethods = @json($paymentMethods)
     </script>
 @endsection

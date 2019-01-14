@@ -5,7 +5,7 @@
 <section id="top">
         <div class="container p-2">
             <div class="row p-1">
-                    <h2><a href="/client/customers" class="text-dark"> Customers</a></h2>
+                    <h2><a href="/client/customer" class="text-dark"> Customers</a></h2>
                     <span class="accountant ml-auto ">
                 <a href="/client/customer/add" class="btn btn-started">
                     Add Customers
@@ -26,7 +26,7 @@
                                 <h4 class="h4 text-white">Total Number of customers</h4>
                             </div>
                             <div class="col-md-4">
-                                <h1 class="h1 text-orange">32</h1>
+                                <h1 class="h1 text-orange">{{$total_customers}}</h1>
                             </div>
                         </div>
                     </div>
@@ -34,18 +34,15 @@
                 </div>     
                     <div class="row py-3">
                             <div class="col-md-6 col-12">
-                            <h4 class= "h4">Customers List </h4>
+                                <h4 class= "h4">Customers List </h4>
                             </div>
-        
-                            <div class="col-md-6 col-12">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
-                                    </div>
+
+                            <div class="input-group mt-2">
+                                <input type="text" v-model="search" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span @click="searchCustomer" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
                                 </div>
                             </div>
-                            
                     </div>
                 
                 <div class="table-responsive table-responsive-sm">
@@ -61,73 +58,24 @@
                         </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                                <td >Amaka Ekpono</td>                                       
-                                <td>8A lagos state  </td>                                   
-                                <td> 08082023909</td>
-                                <td> syfon@gmail.com</td>
-                                <td>koboaccountant.com</td>
+                          <tr v-for="customer in customers">
+                                <td >@{{ customer.name }}</td>
+                                <td>@{{ customer.address }}</td>
+                                <td>@{{ customer.phone }}</td>
+                                <td>@{{ customer.email }}</td>
+                                <td>@{{ customer.website }}</td>
+                              <td v-show="searchNotFound">No Data found</td>
                                 <td class="flex" > 
                                     <span class="dot"></span>
                                     <span class="dot"></span>
                                     <span class="dot"></span>
                                 </td> 
                           </tr>
-
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td class="flex" > 
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                    </td>  
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td class="flex" > 
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                    </td> 
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td class="flex" > 
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                    </td>                       
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td class="flex" > 
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                        <span class="dot"></span>
-                                    </td> 
-                                </tr>
-                            
                         </tbody>
                 </table>
              </div>
              <div class="text-center mt-2">
-                    <a href="/view-customers" class="view-more">View More</a> 
+                    <a href="/client/customer/list" class="view-more">View More</a>
                 </div>
             </div> 
            

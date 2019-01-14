@@ -84,6 +84,11 @@ class Repository
         return $this->model->all();
     }
 
+    public function userAll()
+    {
+        return $this->model->where('user_id', auth()->id())->get();
+    }
+
     /**
      * Returns the count of all the records.
      *
@@ -140,6 +145,28 @@ class Repository
         }
 
         return $query->firstOrFail();
+    }
+
+    /**
+     * Find a record by an attribute.
+     *
+     * @param string $attribute
+     * @param string $value
+     * @param array  $relations
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function findOnly($attribute, $value, $relations = null)
+    {
+        $query = $this->model->where($attribute, $value);
+
+        if ($relations && is_array($relations)) {
+            foreach ($relations as $relation) {
+                $query->with($relation);
+            }
+        }
+
+        return $query->first();
     }
 
     /**

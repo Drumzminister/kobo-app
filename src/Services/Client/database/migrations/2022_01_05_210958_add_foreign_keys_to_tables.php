@@ -37,6 +37,10 @@ class AddForeignKeysToTables extends Migration
             $table->foreign('user_id')->references('id')->on('users');
         });
 
+        Schema::table('cashes', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('companies');
+        });
+
 	    Schema::table('transaction_categories', function (Blueprint $table) {
 		    $table->foreign('user_id')->references('id')->on('users');
 	    });

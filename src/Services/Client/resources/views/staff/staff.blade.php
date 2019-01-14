@@ -66,15 +66,15 @@
         <div class="row">
             <div class="col-md-10 col-6">
                 <div class="input-group mt-2">
-                    <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
+                    <input type="text" v-model="staffSearchInput" class="form-control" placeholder="&#xF002;" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append" @click="searchStaff">
                         <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-2 col-6">
                 <div id="" class="mt-2 float-right" onclick="">
-                    <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
+                    <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>
                 </div>
             </div>
         </div>
@@ -94,116 +94,38 @@
                                     <th scope="col">Role</th>
                                     <th scope="col">Salary</th>
                                     <th scope="col">Date Of Employment</th>
-                                    <th scope="col">Date of Leaving</th>              
+                                    <th scope="col">Status</th>
                                     <th scope="col"></th>              
                                   
                                 </tr>
                                 </thead>
         
                                 <tbody>
-                                  <tr>
+                                  <tr v-for="worker in staff">
                                     
-                                        <td> <a href="" class="left-modal" data-toggle="modal" data-target="#exampleModal" >
+                                        <td> <a href="" class="left-modal" data-toggle="modal" data-target="#exampleModal" @click.prevent="staffModal(worker)">
                                             <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
-                                            <span class="pl-3"> James James</span>
+                                            <span class="pl-3"> @{{ worker.first_name }} @{{ worker.last_name }}</span>
                                             </a>
                                         </td>
-                                        <td>Director</td>
-                                        <td >237,000 </td>
-                                        <td >23/09/2019</td>
-                                        <td>23/10/2020 </td>  
-                                        <td class="flex" > 
+                                        <td >@{{ worker.role }} </td>
+                                        <td >@{{ worker.salary }}</td>
+                                        <td>@{{ worker.employed_date }} </td>
+
+                                        <td v-if="worker.isActive">
+                                            <span class="badge badge-success">Active</span>
+                                        </td>
+                                      <td v-else="worker.isActive">
+                                          <span class="badge badge-danger">Inactive</span>
+                                      </td>
+
+                                      <td class="flex" >
                                             <span class="dot"></span>
                                             <span class="dot"></span>
                                             <span class="dot"></span>
                                         </td>      
 
                                   </tr>
-        
-                                  <tr>
-                                    <td> <a href="" class="left-modal" data-toggle="modal" data-target="#exampleModal" >
-                                        <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
-                                        <span class="pl-3"> James James</span>
-                                        </a>
-                                    </td>    
-                                    <td>Director</td>
-                                    <td >237,000 </td>
-                                    <td >23/09/2019</td>
-                                    <td>23/10/2020 </td>  
-                                    <td class="flex" > 
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                        </td>     
-                                  </tr>
-        
-                                  <tr>
-                                    <td> <a href="" class="left-modal" data-toggle="modal" data-target="#exampleModal" >
-                                            <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
-                                            <span class="pl-3"> James James</span>
-                                            </a>
-                                    </td>     
-                                    <td>Director</td>
-                                    <td >237,000 </td>
-                                    <td >23/09/2019</td>
-                                    <td>23/10/2020 </td>  
-                                    <td class="flex" > 
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                        </td>    
-                                  </tr>
-        
-                                  <tr>
-                                        <td> <a href="" class="left-modal" data-toggle="modal" data-target="#exampleModal" >
-                                                <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
-                                                <span class="pl-3"> James James</span>
-                                                </a>
-                                            </td>
-                                    <td>Director</td>
-                                    <td >237,000 </td>
-                                    <td >23/09/2019</td>
-                                    <td>23/10/2020 </td>  
-                                    <td class="flex" > 
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                        </td>  
-                                  </tr>
-        
-                                  <tr>
-                                        <td> <a href="" class="left-modal" data-toggle="modal" data-target="#exampleModal" >
-                                                <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
-                                                <span class="pl-3"> James James</span>
-                                                </a>
-                                            </td>
-                                    <td>Director</td>
-                                    <td >237,000 </td>
-                                    <td >23/09/2019</td>
-                                    <td>23/10/2020 </td>  
-                                    <td class="flex" > 
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                        </td>  
-                                  </tr>
-                                  <tr>
-                                        <td> <a href="" class="left-modal" data-toggle="modal" data-target="#exampleModal" >
-                                                <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
-                                                <span class="pl-3"> James James</span>
-                                                </a>
-                                            </td>
-                                    <td>Director</td>
-                                    <td >237,000 </td>
-                                    <td >23/09/2019</td>
-                                    <td>23/10/2020 </td>  
-                                    <td class="flex" > 
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                        </td>  
-                                  </tr>
-        
                                 </tbody>
                             </table>
                 </div>
@@ -219,9 +141,9 @@
                 <div class="nav flex-sm-column flex-row">
                     <div class="product-details text-center">
                             <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid">
-                            <h5 class="h5">James James
+                            <h5 class="h5">@{{ StaffInformation.name }}
                             </h5>
-                            <p class="text-muted">CEO</p>
+                            <p class="text-muted">@{{ StaffInformation.role }}</p>
                         <div class="icon">
                                 <span><i class="fa fa-facebook-square" style="font-size: 32px; color:#0077B5;"></i></span>
                                 <span><i class="fa fa-facebook-square" style="font-size: 32px; color:#0077B5;"></i></span>                            
@@ -230,8 +152,8 @@
                     <p class="text-muted py-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quia ex officiis soluta excepturi assumenda distinctio deleniti omnis quaerat dolorem.</p>    
                     </div>
 
-                    <p>Experience: <span class="text-muted"> 2years</span></p>
-                    <p>Date of Employment: <span class="text-muted"> 30/05/2019</span></p>
+                    <p>Experience: <span class="text-muted"> @{{ StaffInformation.experience }}</span></p>
+                    <p>Date of Employment: <span class="text-muted"> @{{ StaffInformation.dateOfEmployment }} </span></p>
                     <p>Rating: <span class="text-muted"> </span></p>
 
                 </div>

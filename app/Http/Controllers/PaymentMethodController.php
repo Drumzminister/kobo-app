@@ -2,6 +2,7 @@
 
 namespace Koboaccountant\Http\Controllers;
 
+use App\Domains\Banking\Jobs\ListPaymentMethodsJob;
 use Illuminate\Http\Request;
 use Koboaccountant\Repositories\Bank\BankRepository;
 use Koboaccountant\Repositories\Cash\CashRepository;
@@ -20,20 +21,7 @@ class PaymentMethodController extends Controller
 
     public function get()
     {
-        $modes = [
-            [
-                'mode'  =>  "Cash",
-                'balance'   =>  $this->cash_repo->getUserCash(),
-            ],
-        ];
-        foreach ($this->bank_repo->getAuthUserBanks() as $bank) {
-            $mode = [
-                'mode'      =>  $bank->bank_name,
-                'balance'   =>  floatval($bank->account_balance),
-            ];
-            array_push($modes, $mode);
-        }
-
+        $modes = (new ListPaymentMethodsJob(auth()->user()->getUserCompany()->id))->handle();
         return response()->json($modes, 200);
     }
 }

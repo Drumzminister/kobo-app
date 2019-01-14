@@ -1,34 +1,37 @@
 export const loanApp = {
     data: {
-        newSource: "",
-        searchSource: "",
-        sources: {},
-        chosenSource: "",
-        loanDescription: "",
-        loanAmount: "",
-        loanInterest: "",
-        loanTerm: "",
-        loanPaymentIntervals: [1,2,4],
-        period: "month",
-        paymentPerYear: 1,
-        loanDate: "",
         loans: [],
-        loadingLoanDetails: false,
+        sources: {},
+        loanDate: "",
+        loanTerm: "",
+        newSource: "",
+        loanAmount: "",
         allSources: [],
         loanAmtPaid: 0,
-        loanAmtOwing: 0,
-        loanAmtRunning: 0,
         currentLoan: {},
+        loanAmtOwing: 0,
+        searchSource: "",
+        chosenSource: "",
+        loanInterest: "",
+        paymentPerYear: 1,
+        loanAmtRunning: 0,
+        loanDescription: "",
+        loanPeriod: "month",
         noSourceFound: false,
+        loanPaymentAmount: "",
         showSourcesForm: false,
         sourceSearching: false,
+        loanPaymentMethods: [],
         currentLoanPayments: [],
-        loanPaymentAmount: "",
-        loanPaymentValidationError: false,
+        showMoreIntervals: false,
+        loadingLoanDetails: false,
+        loanPaymentIntervals: [1,2,4],
         loanPaymentValidationMessage: "",
+        loanPaymentValidationError: false
     },
     watch: {
         loans () {
+            if (this.loans === undefined) return;
             this.loans.forEach(loan => {
                 this.sources.forEach(source => {
                     if (loan.loan_source_id === source.id ) {
@@ -45,10 +48,10 @@ export const loanApp = {
                 this.loanPaymentValidationError = false;
             }
         },
-        period () {
-            if (this.period === "month") {
+        loanPeriod () {
+            if (this.loanPeriod === "month") {
                 this.loanPaymentIntervals = [1, 2, 4];
-            } else if(this.period === "year") {
+            } else if(this.loanPeriod === "year") {
                 this.loanPaymentIntervals = [1, 2, 3, 4, 5, 6, 12];
             } else {
                 this.loanPaymentIntervals = [1, 2, 3, 4, 5, 6, 7];
@@ -61,6 +64,7 @@ export const loanApp = {
         this.loanAmtPaid = window.loanAmtPaid;
         this.loanAmtOwing = window.loanAmtOwing;
         this.loanAmtRunning = window.loanAmtRunning;
+        this.loanPaymentMethods = window.paymentMethods;
     },
     methods: {
         searchForSource () {
@@ -109,7 +113,7 @@ export const loanApp = {
             })
         },
         saveLoan () {
-            if (this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.period.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear ||  this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
+            if (this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear ||  this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
                 swal('Oops', "Some required fields are empty", "error");
                 return;
             }
@@ -117,7 +121,7 @@ export const loanApp = {
             formData.append('description', this.loanDescription);
             formData.append('amount', this.loanAmount);
             formData.append('interest', this.loanInterest);
-            formData.append('period', this.period);
+            formData.append('period', this.loanPeriod);
             formData.append('term', this.loanTerm);
             formData.append('payment_interval', this.paymentPerYear);
             formData.append('source_id', this.chosenSource);

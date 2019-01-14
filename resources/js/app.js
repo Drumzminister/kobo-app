@@ -3,6 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -11,16 +12,15 @@ window.moment = require('moment');
 
 import daterangepicker from 'daterangepicker';
 
-import {vendorApp} from "./mixins/vendors";
 import {rentApp} from "./mixins/rent";
 import {loanApp} from "./mixins/loan";
 import {inventoryApp} from "./mixins/inventory";
 import {staffApp} from "./mixins/staff";
+import {vendorApp} from "./mixins/vendor";
 import {customerApp} from "./mixins/customer";
 import {salesListView} from "./mixins/salesListView";
 import {loadingView} from "./mixins/loadingView";
 import {appModal} from "./mixins/appModals";
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -32,12 +32,15 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-import {ServerTable, ClientTable, Event} from 'vue-tables-2';
+import { ServerTable, ClientTable, Event } from 'vue-tables-2';
 const koboTheme = require('./themes/koboTheme');
 Vue.use(ClientTable, {}, false, koboTheme, 'default');
 
+import {store} from "./state/store";
+
 window.app = new Vue({
     el: '#app',
+    store,
     mixins: [
         vendorApp,
         rentApp,

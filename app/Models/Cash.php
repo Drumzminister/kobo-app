@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cash extends Model
 {
     public $incrementing = false;
-    protected $fillable = ['amount'];
+    protected $fillable = ['amount', 'company_id', 'opening_amount'];
 
     public function user ()
     {
