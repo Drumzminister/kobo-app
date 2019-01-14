@@ -83260,8 +83260,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         }
     },
     mutations: {
-        selectAccount: function selectAccount(state, accountId) {
-            state.selectedAccounts.push(accountId);
+        selectAccount: function selectAccount(state, account) {
+            state.selectedAccounts.push(account);
         },
         removeAccount: function removeAccount(state, account) {
             var pos = state.selectedAccounts.map(function (account) {

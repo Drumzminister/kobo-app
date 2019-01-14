@@ -14,8 +14,8 @@ export const store = new Vuex.Store({
         }
     },
     mutations: {
-        selectAccount(state, accountId) {
-            state.selectedAccounts.push(accountId);
+        selectAccount(state, account) {
+            state.selectedAccounts.push(account);
         },
         removeAccount(state, account) {
             let pos = state.selectedAccounts
