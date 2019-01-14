@@ -4,11 +4,11 @@
 <section id="top">
     <div class="container py-3">
         <div class="row">
-                <h2><a href="/vendors" class="text-dark"> Vendors</a></h2>
+                <h2><a href="/client/vendor" class="text-dark"> Vendors</a></h2>
                 <span class="accountant ml-auto btn btn-accountant">
                     <a href="" class="btn-accountant">
                         <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                    </a>              
+                    </a>
                 </span>
         </div>
     </div>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-2 col-6">
                     <div id="" class="mt-2 float-right" onclick="">
-                        <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
+                        <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>
                     </div>
                 </div>
         </div>
@@ -36,15 +36,15 @@
 
 <section id="sale-table">
         <div class="container mt-4">
-                        
-            <div class="bg-white p-4"> 
-                
+
+            <div class="bg-white p-4">
+
                 <div class="table-responsive table-responsive-sm">
                     <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
                           <tr class="tab">
                             <th scope="col">Vendor's Name</th>
-                            <th scope="col">Address</th>                                    
+                            <th scope="col">Address</th>
                             <th scope="col">Phone No</th>
                             <th scope="col">Email</th>
                             <th scope="col">Website</th>
@@ -53,8 +53,8 @@
                         </thead>
                         <tbody>
                           <tr>
-                                <td >Amaka Ekpono</td>                                       
-                                <td>8A lagos state  </td>                                   
+                                <td >Amaka Ekpono</td>
+                                <td>8A lagos state  </td>
                                 <td> 08082023909</td>
                                 <td> syfon@gmail.com</td>
                                 <td>koboaccountant.com</td>
@@ -62,12 +62,12 @@
                                         <input type="checkbox" checked>
                                         <span class="slider round"></span>
                                       </label>
-                                </td>                          
+                                </td>
                             </tr>
 
                             <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
+                                    <td >Amaka Ekpono</td>
+                                    <td>8A lagos state  </td>
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
@@ -76,10 +76,10 @@
                                             <span class="slider round"></span>
                                           </label>
                                     </td>
-                            </tr>                               
+                            </tr>
                             <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
+                                    <td >Amaka Ekpono</td>
+                                    <td>8A lagos state  </td>
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
@@ -87,11 +87,11 @@
                                             <input type="checkbox" checked>
                                             <span class="slider round"></span>
                                           </label>
-                                    </td>                         
+                                    </td>
                             </tr>
                             <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
+                                    <td >Amaka Ekpono</td>
+                                    <td>8A lagos state  </td>
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
@@ -99,11 +99,11 @@
                                             <input type="checkbox" checked>
                                             <span class="slider round"></span>
                                           </label>
-                                    </td>                            
+                                    </td>
                             </tr>
                             <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
+                                    <td >Amaka Ekpono</td>
+                                    <td>8A lagos state  </td>
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
@@ -114,8 +114,8 @@
                                     </td>
                             </tr>
                                 <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
+                                    <td >Amaka Ekpono</td>
+                                    <td>8A lagos state  </td>
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
@@ -126,8 +126,8 @@
                                     </td>
                              </tr>
                                 <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
+                                    <td >Amaka Ekpono</td>
+                                    <td>8A lagos state  </td>
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
@@ -138,8 +138,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
+                                    <td >Amaka Ekpono</td>
+                                    <td>8A lagos state  </td>
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
@@ -149,8 +149,8 @@
                                           </label>
                                     </td>                                </tr>
                                 <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
+                                    <td >Amaka Ekpono</td>
+                                    <td>8A lagos state  </td>
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
@@ -161,8 +161,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
+                                    <td >Amaka Ekpono</td>
+                                    <td>8A lagos state  </td>
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
@@ -173,8 +173,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td >Amaka Ekpono</td>                                       
-                                    <td>8A lagos state  </td>                                   
+                                    <td >Amaka Ekpono</td>
+                                    <td>8A lagos state  </td>
                                     <td> 08082023909</td>
                                     <td> syfon@gmail.com</td>
                                     <td>koboaccountant.com</td>
@@ -184,12 +184,12 @@
                                           </label>
                                     </td>
                                 </tr>
-                            
+
                         </tbody>
-                </table>              
+                </table>
                 </div>
-            </div> 
-           
+            </div>
+
         </div>
     </section>
 
@@ -207,12 +207,12 @@
                     </div>
                     <div class="col-md-5">
                         <span>Go to page:</span>
-        
+
                     </div>
                 </div>
             </div>
         </section>
-        
+
 
 
 @endsection
