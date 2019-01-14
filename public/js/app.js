@@ -73617,6 +73617,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -73633,6 +73638,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addSale; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__ = __webpack_require__(397);
+
+
 var addSale = {
     data: function data() {
         return {
@@ -73648,26 +73656,41 @@ var addSale = {
     },
     computed: {
         selectedAccounts: function selectedAccounts() {
-            return this.$store.state.selectedAccounts;
+            return this.$store.state.paymentModule.selectedAccounts;
+        },
+        availableInventories: function availableInventories() {
+            var that = this;
+            return this.inventories.filter(function (inventory) {
+                return !that.saleItems.map(function (item) {
+                    return item.inventory_id;
+                }).includes(inventory.id);
+            });
         }
     },
     methods: {
-        x: function x() {
-            this.$store.commit('addPaymentMethod');
+        fillSaleItemWithInventory: function fillSaleItemWithInventory(item) {
+            if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
+                var inventory = this.getInventory(item.inventory_id);
+                item.sales_price = inventory.sales_price;
+                item.inventory = inventory;
+            }
+        },
+        getInventory: function getInventory(inventoryId) {
+            return this.inventories.filter(function (inventory) {
+                return inventory.id === inventoryId;
+            })[0];
         },
 
         addNewSaleItemRow: function addNewSaleItemRow() {
             this.addSaleItemForm();
         },
+        deleteSaleItemRow: function deleteSaleItemRow(index) {
+            this.saleItems.splice(index, 1);
+        },
+
         addSaleItemForm: function addSaleItemForm() {
-            this.saleItems.push({
-                inventory_id: "",
-                description: "",
-                quantity: "",
-                sales_price: "",
-                total_price: "",
-                sale_channel_id: ""
-            });
+            var item = new __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__["a" /* default */]();
+            this.saleItems.push(item);
         }
     }
 };
@@ -73697,7 +73720,7 @@ var render = function() {
               _c(
                 "tbody",
                 { attrs: { id: "salesTable" } },
-                _vm._l(_vm.saleItems, function(item) {
+                _vm._l(_vm.saleItems, function(item, index) {
                   return _c("tr", [
                     _c("td", [
                       _c(
@@ -73739,7 +73762,7 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _vm._l(_vm.inventories, function(inventory) {
+                          _vm._l(_vm.availableInventories, function(inventory) {
                             return _c(
                               "option",
                               { domProps: { value: inventory.id } },
@@ -73791,8 +73814,11 @@ var render = function() {
                             expression: "item.quantity"
                           }
                         ],
-                        staticClass: "sales_quantity form-control ",
-                        attrs: { type: "number" },
+                        staticClass: "sales_quantity form-control",
+                        attrs: {
+                          disabled: item.inventory_id === "",
+                          type: "number"
+                        },
                         domProps: { value: item.quantity },
                         on: {
                           input: function($event) {
@@ -73816,7 +73842,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control sales_price",
-                        attrs: { type: "number" },
+                        attrs: { disabled: "", type: "number" },
                         domProps: { value: item.sales_price },
                         on: {
                           input: function($event) {
@@ -73835,19 +73861,23 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: item.total_price,
-                            expression: "item.total_price"
+                            value: item.totalPrice(),
+                            expression: "item.totalPrice()"
                           }
                         ],
                         staticClass: "form-control sales_total",
-                        attrs: { type: "text", id: "sales_total" },
-                        domProps: { value: item.total_price },
+                        attrs: {
+                          disabled: "",
+                          type: "text",
+                          id: "sales_total"
+                        },
+                        domProps: { value: item.totalPrice() },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(item, "total_price", $event.target.value)
+                            _vm.$set(item, "totalPrice()", $event.target.value)
                           }
                         }
                       })
@@ -73886,24 +73916,48 @@ var render = function() {
                             }
                           }
                         },
-                        _vm._l(_vm.channels, function(channel) {
-                          return _c(
-                            "option",
-                            { domProps: { value: channel.id } },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(channel.name) +
-                                  "\n                                "
-                              )
-                            ]
-                          )
-                        }),
-                        0
+                        [
+                          _c("option", { attrs: { value: "" } }, [
+                            _vm._v("Channel ...")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.channels, function(channel) {
+                            return _c(
+                              "option",
+                              { domProps: { value: channel.id } },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(channel.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          })
+                        ],
+                        2
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(1, true)
+                    _c("td", { attrs: { id: "delete" } }, [
+                      _c("i", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.saleItems.length > 1,
+                            expression: "saleItems.length > 1"
+                          }
+                        ],
+                        staticClass: "fa fa-times",
+                        staticStyle: { cursor: "pointer", color: "#da1313" },
+                        on: {
+                          click: function($event) {
+                            _vm.deleteSaleItemRow(index)
+                          }
+                        }
+                      })
+                    ])
                   ])
                 }),
                 0
@@ -73931,12 +73985,14 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "row p-2 mt-2 " },
-          [_c("payment-method-selection", { attrs: { banks: _vm.banks } })],
-          1
-        )
+        _c("div", { staticClass: "row p-2 mt-2 " }, [
+          _c(
+            "div",
+            { staticClass: "md-6" },
+            [_c("payment-method-selection", { attrs: { banks: _vm.banks } })],
+            1
+          )
+        ])
       ])
     ])
   ])
@@ -74052,14 +74108,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { id: "delete" } }, [
-      _c("i", { staticClass: "fa fa-trash", staticStyle: { color: "#da1313" } })
     ])
   }
 ]
@@ -83240,39 +83288,16 @@ module.exports = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(387);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_paymentMethodSelection__ = __webpack_require__(398);
+
 
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
 
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
-    state: {
-        companyAccounts: [],
-        selectedAccounts: []
-    },
-    getters: {
-        availableAccounts: function availableAccounts(state) {
-            return state.companyAccounts.filter(function (account) {
-                return !state.selectedAccounts.map(function (account) {
-                    return account.id;
-                }).includes(account.id);
-            });
-        }
-    },
-    mutations: {
-        selectAccount: function selectAccount(state, account) {
-            state.selectedAccounts.push(account);
-        },
-        removeAccount: function removeAccount(state, account) {
-            var pos = state.selectedAccounts.map(function (account) {
-                return account.id;
-            }).indexOf(account.id);
-
-            state.selectedAccounts.splice(pos, 1);
-        },
-        setCompanyAccounts: function setCompanyAccounts(state, accounts) {
-            state.companyAccounts = accounts;
-        }
+    modules: {
+        paymentModule: __WEBPACK_IMPORTED_MODULE_2__modules_paymentMethodSelection__["a" /* paymentMethodSelectionModule */]
     }
 });
 
@@ -84291,6 +84316,142 @@ var expenseApp = {
         },
         payExpense: function payExpense(evt) {
             evt.preventDefault();
+        }
+    }
+};
+
+/***/ }),
+/* 396 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return toast; });
+var swal = __webpack_require__(193);
+
+var toast = function toast(title, type) {
+    var position = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "top-end";
+
+    var toast = swal.mixin({
+        toast: true,
+        position: position,
+        showConfirmButton: false,
+        timer: 3000
+    });
+
+    toast({
+        type: type,
+        title: title
+    });
+};
+
+/***/ }),
+/* 397 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(396);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var SaleItem = function () {
+    function SaleItem() {
+        var inventory = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+        _classCallCheck(this, SaleItem);
+
+        this.inventory_id = "";
+        this.description = "";
+        this._quantity = null;
+        this.sales_price = 0;
+        this.total_price = "";
+        this.sale_channel_id = "";
+        this._inventory = inventory;
+        this._isValid = false;
+    }
+
+    _createClass(SaleItem, [{
+        key: "totalPrice",
+        value: function totalPrice() {
+            return this._quantity * this.sales_price;
+        }
+    }, {
+        key: "getInventoryQuantity",
+        value: function getInventoryQuantity() {
+            return this.inventory_id === "" ? 0 : this._inventory.quantity;
+        }
+    }, {
+        key: "isValid",
+        get: function get() {
+            return !this._isValid || this.inventory_id !== "" || this.description !== "" || this._quantity > 0 || this.sale_channel_id !== "" || this.total_price !== "" || this.sales_price !== "";
+        }
+    }, {
+        key: "quantity",
+        set: function set(quantity) {
+            if (this.inventory_id === "") return;
+            var inventoryQuantity = parseInt(this.getInventoryQuantity());
+            if (parseInt(quantity) < 0) {
+                this._isValid = false;
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])("Minimum number of quantity is 1", 'error');
+            }
+            if (parseInt(quantity) > inventoryQuantity) {
+                this._isValid = false;
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])("This quantity cannot be greater than the inventory quantity which is " + inventoryQuantity, 'error');
+                this._quantity = null;
+            } else {
+                this._quantity = quantity;
+            }
+        },
+        get: function get() {
+            return this._quantity;
+        }
+    }, {
+        key: "inventory",
+        set: function set(inventory) {
+            this._inventory = inventory;
+        }
+    }]);
+
+    return SaleItem;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (SaleItem);
+
+/***/ }),
+/* 398 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return paymentMethodSelectionModule; });
+var paymentMethodSelectionModule = {
+    state: {
+        companyAccounts: [],
+        selectedAccounts: []
+    },
+    getters: {
+        availableAccounts: function availableAccounts(state) {
+            return state.companyAccounts.filter(function (account) {
+                return !state.selectedAccounts.map(function (account) {
+                    return account.id;
+                }).includes(account.id);
+            });
+        }
+    },
+    mutations: {
+        selectAccount: function selectAccount(state, account) {
+            state.selectedAccounts.push(account);
+        },
+        removeAccount: function removeAccount(state, account) {
+            var pos = state.selectedAccounts.map(function (account) {
+                return account.id;
+            }).indexOf(account.id);
+
+            state.selectedAccounts.splice(pos, 1);
+        },
+        setCompanyAccounts: function setCompanyAccounts(state, accounts) {
+            state.companyAccounts = accounts;
         }
     }
 };

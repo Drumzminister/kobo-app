@@ -1,3 +1,5 @@
+import SaleItem from "../classes/SaleItem";
+
 export const addSale = {
     data() {
         return {
@@ -12,25 +14,33 @@ export const addSale = {
     },
     computed: {
         selectedAccounts () {
-            return this.$store.state.selectedAccounts;
+            return this.$store.state.paymentModule.selectedAccounts;
+        },
+        availableInventories () {
+            let that = this;
+            return this.inventories.filter(inventory => !that.saleItems.map(item => item.inventory_id).includes(inventory.id));
         }
     },
     methods: {
-        x () {
-            this.$store.commit('addPaymentMethod');
+        fillSaleItemWithInventory (item) {
+            if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
+                let inventory = this.getInventory(item.inventory_id);
+                item.sales_price = inventory.sales_price;
+                item.inventory = inventory;
+            }
+        },
+        getInventory (inventoryId) {
+            return this.inventories.filter(inventory => inventory.id === inventoryId)[0];
         },
         addNewSaleItemRow: function () {
             this.addSaleItemForm();
         },
+        deleteSaleItemRow (index) {
+            this.saleItems.splice(index, 1);
+        },
         addSaleItemForm: function () {
-            this.saleItems.push({
-                inventory_id:       "",
-                description:        "",
-                quantity:           "",
-                sales_price:        "",
-                total_price:        "",
-                sale_channel_id:    ""
-            });
+            let item = new SaleItem();
+            this.saleItems.push(item);
         }
     }
 };

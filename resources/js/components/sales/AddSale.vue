@@ -30,30 +30,33 @@
                         </tr>
                         </thead>
                         <tbody id="salesTable">
-                        <tr v-for="item in saleItems">
+                        <tr v-for="(item, index) in saleItems">
                             <td>
                                 <select v-model="item.inventory_id" class="form-control inventory">
                                     <option value="">
                                         Select ...
                                     </option>
-                                    <option v-for="inventory in inventories" :value="inventory.id">
+                                    <option v-for="inventory in availableInventories" :value="inventory.id">
                                         {{ inventory.name }}
                                     </option>
                                 </select>
                             </td>
                             <td><input v-model="item.description" type="text" id="sales_description" class="form-control sales_description "></td>
-                            <td><input v-model="item.quantity" type="number"  class="sales_quantity form-control "></td>
-                            <td><input v-model="item.sales_price" type="number" class="form-control sales_price"></td>
-                            <td><input v-model="item.total_price" type="text" class="form-control sales_total" id="sales_total"></td>
+                            <td><input :disabled="item.inventory_id === ''" v-model="item.quantity" type="number" class="sales_quantity form-control"></td>
+                            <td><input disabled v-model="item.sales_price" type="number" class="form-control sales_price"></td>
+                            <td><input disabled v-model="item.totalPrice()" type="text" class="form-control sales_total" id="sales_total"></td>
                             <td>
                                 <select v-model="item.sale_channel_id" class="form-control search sales_channel">
+                                    <option value="">Channel ...</option>
                                     <option v-for="channel in channels" :value="channel.id">
                                         {{ channel.name }}
                                     </option>
                                 </select>
                             </td>
 
-                            <td id="delete"><i style="color: #da1313;" class="fa fa-trash"></i></td>
+                            <td id="delete">
+                                <i @click="deleteSaleItemRow(index)" v-show="saleItems.length > 1" style="cursor: pointer; color: #da1313;" class="fa fa-times"></i>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -61,7 +64,9 @@
                 </div>
 
                 <div class="row p-2 mt-2 ">
-                    <payment-method-selection :banks="banks"></payment-method-selection>
+                    <div class="md-6">
+                        <payment-method-selection :banks="banks"></payment-method-selection>
+                    </div>
                     <!--@include('sales._payment')-->
                 </div>
             </div>
