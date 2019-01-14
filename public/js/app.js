@@ -45163,8 +45163,6 @@ files.keys().map(function (key) {
     return Vue.component(key.split('/').pop().split('.')[0], files(key));
 });
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
 
 var koboTheme = __webpack_require__(385);
 Vue.use(__WEBPACK_IMPORTED_MODULE_10_vue_tables_2__["ClientTable"], {}, false, koboTheme, 'default');
