@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <payment-method-selection class="col-12" :banks="banks"></payment-method-selection>
+                <payment-method-selection class="col-12" :banks="{{ $banks }}"></payment-method-selection>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-payment" @click="payRent" v-if="selectedAccounts.length > 0">Pay</button>

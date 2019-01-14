@@ -45117,21 +45117,19 @@ module.exports = __webpack_require__(390);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_daterangepicker__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_daterangepicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_daterangepicker__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_banks_PaymentMethodSelection__ = __webpack_require__(147);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_banks_PaymentMethodSelection__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_rent__ = __webpack_require__(196);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_loan__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_inventory__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_staff__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_vendor__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins_customer__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__mixins_salesListView__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__mixins_loadingView__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__mixins_appModals__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__mixins_expenses__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_vue_tables_2__ = __webpack_require__(219);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_vue_tables_2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_vue_tables_2__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__state_store__ = __webpack_require__(387);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_rent__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_loan__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_inventory__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_staff__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_vendor__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_customer__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins_salesListView__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__mixins_loadingView__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__mixins_appModals__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__mixins_expenses__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_vue_tables_2__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_vue_tables_2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_vue_tables_2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__state_store__ = __webpack_require__(387);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -45143,7 +45141,6 @@ __webpack_require__(170);
 window.Vue = __webpack_require__(6);
 window.swal = __webpack_require__(193);
 window.moment = __webpack_require__(0);
-
 
 
 
@@ -45173,15 +45170,15 @@ files.keys().map(function (key) {
 
 
 var koboTheme = __webpack_require__(386);
-Vue.use(__WEBPACK_IMPORTED_MODULE_12_vue_tables_2__["ClientTable"], {}, false, koboTheme, 'default');
+Vue.use(__WEBPACK_IMPORTED_MODULE_11_vue_tables_2__["ClientTable"], {}, false, koboTheme, 'default');
 
 
 
 window.app = new Vue({
     el: '#app',
-    store: __WEBPACK_IMPORTED_MODULE_13__state_store__["a" /* store */],
-    mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins_vendor__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_loan__["a" /* loanApp */], __WEBPACK_IMPORTED_MODULE_4__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_5__mixins_staff__["a" /* staffApp */], __WEBPACK_IMPORTED_MODULE_7__mixins_customer__["a" /* customerApp */], __WEBPACK_IMPORTED_MODULE_8__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_9__mixins_loadingView__["a" /* loadingView */], __WEBPACK_IMPORTED_MODULE_10__mixins_appModals__["a" /* appModal */], __WEBPACK_IMPORTED_MODULE_11__mixins_expenses__["a" /* expenseApp */]],
-    components: { PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_1__components_banks_PaymentMethodSelection___default.a },
+    store: __WEBPACK_IMPORTED_MODULE_12__state_store__["a" /* store */],
+    mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins_vendor__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_loan__["a" /* loanApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_4__mixins_staff__["a" /* staffApp */], __WEBPACK_IMPORTED_MODULE_6__mixins_customer__["a" /* customerApp */], __WEBPACK_IMPORTED_MODULE_7__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_8__mixins_loadingView__["a" /* loadingView */], __WEBPACK_IMPORTED_MODULE_9__mixins_appModals__["a" /* appModal */], __WEBPACK_IMPORTED_MODULE_10__mixins_expenses__["a" /* expenseApp */]],
+    // components: {PaymentMethodSelection: PaymentMethodSelection},
     filters: {
         numberFormat: function numberFormat(value) {
             var number = Number(value);
@@ -72340,7 +72337,7 @@ var rentApp = {
         }
     },
     mounted: function mounted() {
-        this.banks = window.banks;
+        // this.banks = window.banks;
         this.rents = window.rents;
     },
 
@@ -73300,13 +73297,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.getters.availableAccounts;
         }
     },
-    created: function created() {
-        var _this = this;
-
-        setTimeout(function () {
-            _this.addSalePaymentMethod();
-            _this.addBanksToStore();
-        }, 100);
+    mounted: function mounted() {
+        this.addSalePaymentMethod();
+        this.addBanksToStore();
     },
     methods: {
         addBanksToStore: function addBanksToStore() {

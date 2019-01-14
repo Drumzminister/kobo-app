@@ -11,7 +11,7 @@ class PayRentJob extends Job
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($rentId)
     {
         //
     }

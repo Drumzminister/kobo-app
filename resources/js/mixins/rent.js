@@ -19,7 +19,7 @@ export const rentApp = {
         }
     },
     mounted () {
-        this.banks = window.banks;
+        // this.banks = window.banks;
         this.rents = window.rents;
     },
     methods: {

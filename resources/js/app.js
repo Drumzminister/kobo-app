@@ -11,7 +11,6 @@ window.swal = require('sweetalert2');
 window.moment = require('moment');
 
 import daterangepicker from 'daterangepicker';
-import PaymentMethodSelection from "./components/banks/PaymentMethodSelection";
 
 import {rentApp} from "./mixins/rent";
 import {loanApp} from "./mixins/loan";
@@ -56,7 +55,7 @@ window.app = new Vue({
         appModal,
         expenseApp
     ],
-    components: {PaymentMethodSelection: PaymentMethodSelection},
+    // components: {PaymentMethodSelection: PaymentMethodSelection},
     filters: {
         numberFormat (value) {
             let number = Number(value);

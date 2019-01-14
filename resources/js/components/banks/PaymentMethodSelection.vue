@@ -65,11 +65,9 @@
                 return this.$store.getters.availableAccounts;
             },
         },
-        created: function() {
-            setTimeout(() => {
-                this.addSalePaymentMethod();
-                this.addBanksToStore();
-            }, 100)
+        mounted: function() {
+            this.addSalePaymentMethod();
+            this.addBanksToStore();
         },
         methods: {
             addBanksToStore () {
