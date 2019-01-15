@@ -8,6 +8,7 @@ export const addSale = {
             saleTax: "",
             saleDate: "",
             saleItems: [],
+            deliveryCost: 0
         }
     },
     created: function() {
@@ -60,7 +61,8 @@ export const addSale = {
                 delivery_cost: 0,
                 discount: 0,
                 sale_id: this.sale.id,
-                invoice_number: this.sale.invoice_number
+                invoice_number: this.sale.invoice_number,
+                delivery_cost: this.devliveryCost
             };
             let url = '/sale/debitis-nihil-aut-gmbh/add';
 

@@ -16,13 +16,7 @@ class ShowAddSalesPageFeature extends Feature
 {
     public function handle(Request $request)
     {
-    	$data['customers'] = $this->run(GetCompanyCustomersJob::class, ['companyId' => auth()->user()->getUserCompany()->id]);
-    	$data['banks'] = $this->run(GetCompanyBankAccountsJob::class, ['companyId' => auth()->user()->getUserCompany()->id]);
-    	$data['taxes'] = $this->run(GetVatsJob::class);
-    	$data['inventories'] = $this->run(GetCompanyInventoriesJob::class, ['companyId' => auth()->user()->getUserCompany()->id]);
-    	$data['channels'] = $this->run(GetCompanySaleChannelsJob::class, ['companyId' => auth()->user()->getUserCompany()->id]);
-    	$data['sale'] = $this->run(CreateSaleDraftJob::class, ['user' => auth()->user()]);
-
-    	return $this->run(new RespondWithViewJob('addSales', $data));
+    	$sale = $this->run(CreateSaleDraftJob::class, ['user' => auth()->user()]);
+		return redirect()->route('sale.create', $sale->id);
     }
 }

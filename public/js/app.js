@@ -73685,6 +73685,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(387);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -73694,7 +73696,8 @@ var addSale = {
             sale_customer_id: "",
             saleTax: "",
             saleDate: "",
-            saleItems: []
+            saleItems: [],
+            deliveryCost: 0
         };
     },
 
@@ -73736,7 +73739,7 @@ var addSale = {
             this.saleItems.push(item);
         },
         createSale: function createSale() {
-            var data = {
+            var data = _defineProperty({
                 items: this.saleItems,
                 sale_date: "",
                 paymentMethods: this.selectedAccounts,
@@ -73748,7 +73751,7 @@ var addSale = {
                 discount: 0,
                 sale_id: this.sale.id,
                 invoice_number: this.sale.invoice_number
-            };
+            }, "delivery_cost", this.devliveryCost);
             var url = '/sale/debitis-nihil-aut-gmbh/add';
 
             window.axios.post(url, data).then(function (response) {

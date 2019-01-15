@@ -74,6 +74,7 @@ Route::group(['prefix' => 'client'], function () {
 
 	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
 	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');
+	Route::get('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');
 //	Route::get('/all-sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
 
     Route::get('/expenses', "ExpensesController@showExpensePage")->name('client.expenses.show');
