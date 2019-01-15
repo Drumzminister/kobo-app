@@ -32,11 +32,11 @@
                         <tbody id="salesTable">
                         <tr v-for="(item, index) in saleItems">
                             <td>
-                                <select v-model="item.inventory_id" class="form-control inventory">
+                                <select v-model="item.inventory_id" @change="fillSaleItemWithInventory(item)" class="form-control inventory">
                                     <option value="">
                                         Select ...
                                     </option>
-                                    <option v-for="inventory in availableInventories" :value="inventory.id">
+                                    <option v-for="inventory in x(item)" :value="inventory.id">
                                         {{ inventory.name }}
                                     </option>
                                 </select>
@@ -78,8 +78,8 @@
     import {addSale} from "../../mixins/addSale";
     import PaymentMethodSelection from "../banks/PaymentMethodSelection";
     export default {
-        props: ['inventories', 'channels', 'banks'],
         mixins: [addSale],
+        props: ['inventories', 'channels', 'banks'],
         components: { PaymentMethodSelection : PaymentMethodSelection },
         mounted() {
         }

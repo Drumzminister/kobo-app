@@ -23,10 +23,12 @@ class SaleItem
     set quantity(quantity) {
         if (this.inventory_id === "") return;
         let inventoryQuantity = parseInt(this.getInventoryQuantity());
+
         if (parseInt(quantity) < 0) {
             this._isValid = false;
             toast(`Minimum number of quantity is 1`, 'error');
         }
+
         if (parseInt(quantity) > inventoryQuantity) {
             this._isValid = false;
             toast(`This quantity cannot be greater than the inventory quantity which is ${inventoryQuantity}`, 'error');

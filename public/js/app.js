@@ -73173,6 +73173,9 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(387);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -73226,6 +73229,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['banks'],
@@ -73236,11 +73241,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    computed: {
-        availableAccounts: function availableAccounts() {
-            return this.$store.getters.availableAccounts;
-        }
-    },
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['availableAccounts'])),
     created: function created() {
         this.addSalePaymentMethod();
         this.addBanksToStore();
@@ -73622,8 +73623,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['inventories', 'channels', 'banks'],
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_addSale__["a" /* addSale */]],
+    props: ['inventories', 'channels', 'banks'],
     components: { PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_1__banks_PaymentMethodSelection___default.a },
     mounted: function mounted() {}
 });
@@ -73635,6 +73636,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addSale; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__ = __webpack_require__(397);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(387);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
 
 
 var addSale = {
@@ -73649,32 +73654,21 @@ var addSale = {
 
     created: function created() {
         this.addSaleItemForm();
+        this.setCompanyInventories(this.inventories);
     },
-    computed: {
+    computed: _extends({
         selectedAccounts: function selectedAccounts() {
             return this.$store.state.paymentModule.selectedAccounts;
-        },
-        availableInventories: function availableInventories() {
-            var that = this;
-            return this.inventories.filter(function (inventory) {
-                return !that.saleItems.map(function (item) {
-                    return item.inventory_id;
-                }).includes(inventory.id);
-            });
         }
-    },
-    methods: {
+    }, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory'])),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(['setCompanyInventories', 'selectInventory']), {
         fillSaleItemWithInventory: function fillSaleItemWithInventory(item) {
             if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
-                var inventory = this.getInventory(item.inventory_id);
+                var inventory = this.$store.getters.getInventory(item.inventory_id);
                 item.sales_price = inventory.sales_price;
                 item.inventory = inventory;
+                this.selectInventory(inventory);
             }
-        },
-        getInventory: function getInventory(inventoryId) {
-            return this.inventories.filter(function (inventory) {
-                return inventory.id === inventoryId;
-            })[0];
         },
 
         addNewSaleItemRow: function addNewSaleItemRow() {
@@ -73688,7 +73682,7 @@ var addSale = {
             var item = new __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__["a" /* default */]();
             this.saleItems.push(item);
         }
-    }
+    })
 };
 
 /***/ }),
@@ -73732,23 +73726,28 @@ var render = function() {
                           ],
                           staticClass: "form-control inventory",
                           on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                item,
-                                "inventory_id",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  item,
+                                  "inventory_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
+                              function($event) {
+                                _vm.fillSaleItemWithInventory(item)
+                              }
+                            ]
                           }
                         },
                         [
@@ -73758,7 +73757,7 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _vm._l(_vm.availableInventories, function(inventory) {
+                          _vm._l(_vm.x(item), function(inventory) {
                             return _c(
                               "option",
                               { domProps: { value: inventory.id } },
@@ -83308,8 +83307,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 /* unused harmony export Store */
 /* unused harmony export install */
 /* unused harmony export mapState */
-/* unused harmony export mapMutations */
-/* unused harmony export mapGetters */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return mapMutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapGetters; });
 /* unused harmony export mapActions */
 /* unused harmony export createNamespacedHelpers */
 /**
@@ -84391,10 +84390,12 @@ var SaleItem = function () {
         set: function set(quantity) {
             if (this.inventory_id === "") return;
             var inventoryQuantity = parseInt(this.getInventoryQuantity());
+
             if (parseInt(quantity) < 0) {
                 this._isValid = false;
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])("Minimum number of quantity is 1", 'error');
             }
+
             if (parseInt(quantity) > inventoryQuantity) {
                 this._isValid = false;
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])("This quantity cannot be greater than the inventory quantity which is " + inventoryQuantity, 'error');
@@ -84473,11 +84474,19 @@ var inventoryModule = {
                     return inventory.id;
                 }).includes(inventory.id);
             });
+        },
+        getInventory: function getInventory(state) {
+            return function (inventoryId) {
+                console.log(inventoryId);
+                return state.companyInventories.find(function (inventory) {
+                    return inventory.id === inventoryId;
+                });
+            };
         }
     },
     mutations: {
         selectInventory: function selectInventory(state, inventory) {
-            state.selectedAccounts.push(account);
+            state.selectedInventories.push(inventory);
         },
         removeInventory: function removeInventory(state, inventory) {
             var pos = state.selectedInventories.map(function (inventory) {

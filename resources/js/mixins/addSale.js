@@ -1,4 +1,5 @@
 import SaleItem from "../classes/SaleItem";
+import {mapGetters, mapMutations, mapState} from "vuex";
 
 export const addSale = {
     data() {
@@ -11,26 +12,28 @@ export const addSale = {
     },
     created: function() {
         this.addSaleItemForm();
+        this.setCompanyInventories(this.inventories);
     },
     computed: {
         selectedAccounts () {
             return this.$store.state.paymentModule.selectedAccounts;
         },
-        availableInventories () {
-            let that = this;
-            return this.inventories.filter(inventory => !that.saleItems.map(item => item.inventory_id).includes(inventory.id));
-        }
+        ...mapGetters(['availableInventories', 'getInventory']),
+        // availableInventories () {
+        //     let that = this;
+        //     return this.inventories.filter(inventory => !that.saleItems.map(item => item.inventory_id).includes(inventory.id));
+        // }
+
     },
     methods: {
+        ...mapMutations(['setCompanyInventories', 'selectInventory']),
         fillSaleItemWithInventory (item) {
             if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
-                let inventory = this.getInventory(item.inventory_id);
+                let inventory = this.$store.getters.getInventory(item.inventory_id);
                 item.sales_price = inventory.sales_price;
                 item.inventory = inventory;
+                this.selectInventory(inventory);
             }
-        },
-        getInventory (inventoryId) {
-            return this.inventories.filter(inventory => inventory.id === inventoryId)[0];
         },
         addNewSaleItemRow: function () {
             this.addSaleItemForm();

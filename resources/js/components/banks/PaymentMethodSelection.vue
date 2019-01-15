@@ -52,6 +52,8 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
+
     export default {
         props: ['banks'],
         data() {
@@ -61,9 +63,7 @@
             }
         },
         computed: {
-            availableAccounts () {
-                return this.$store.getters.availableAccounts;
-            },
+            ...mapGetters(['availableAccounts'])
         },
         created: function() {
             this.addSalePaymentMethod();
