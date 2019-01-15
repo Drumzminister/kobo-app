@@ -24,6 +24,7 @@ export const addSale = {
             this.saleItems.forEach(function(item) {
                 sum += item.totalPrice();
             });
+            return sum;
         }
     },
     methods: {

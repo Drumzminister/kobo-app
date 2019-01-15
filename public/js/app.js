@@ -73711,6 +73711,7 @@ var addSale = {
             this.saleItems.forEach(function (item) {
                 sum += item.totalPrice();
             });
+            return sum;
         }
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(['setCompanyInventories', 'selectInventory']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['getCurrentURI']), {

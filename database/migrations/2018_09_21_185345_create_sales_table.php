@@ -17,7 +17,6 @@ class CreateSalesTable extends Migration
 	        $table->string('company_id');
 	        $table->string('invoice_number')->unique();
 	        $table->string('customer_id')->nullable();
-	        $table->string('sale_channel_id')->nullable();
 	        $table->unsignedInteger('tax_id')->nullable();
 	        $table->string('total_amount')->nullable();
 	        $table->string('delivery_cost')->nullable();

@@ -186,7 +186,6 @@ class DatabaseSeeder extends Seeder
 	    $customers->each(function (Customer $customer) use ($inventories, $taxes, $staff, $company, $channels) {
 			$thingsIWantToBuy = $inventories->random(random_int(1, $inventories->count()));
 			$tax_id = $taxes->random()->id;
-			$channel_id = $channels->random()->id;
 
 		    /**
 		     * @var $sale Sale
@@ -196,18 +195,20 @@ class DatabaseSeeder extends Seeder
 				    'customer_id'       => $customer->id,
 				    'tax_id'            => $tax_id,
 				    'staff_id'          => $staff->id,
-				    'sale_channel_id'   => $channel_id,
 				    'company_id'        => $company->id,
 			    ]);
 
 		    $totalAmount = 0;
-
-			$thingsIWantToBuy->each(function (Inventory $inventory) use ($customer, $company, $sale, &$totalAmount) {
+			$thingsIWantToBuy->each(function (Inventory $inventory) use ($customer, $company, $sale, &$totalAmount, $channels) {
 				if ($inventory->quantity > 0) {
+					$channel_id = $channels->random()->id;
 					$saleItem = factory(SaleItem::class)->make([
 						'inventory_id' => $inventory->id,
 						'sale_id' => $sale->id,
 						'quantity' => $quantity = random_int(1, $inventory->quantity),
+						'sales_price' => $sales_price = $inventory->sales_price,
+						'total_price' => $sales_price * $quantity,
+						'sale_channel_id'   => $channel_id,
 					]);
 
 					$totalAmount += $inventory->sales_price;
