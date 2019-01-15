@@ -1,9 +1,12 @@
 import {toast} from "../helpers/alert";
+window._ = require('lodash');
 
 class SaleItem
 {
-    constructor (inventory = null) {
+    constructor (saleId, inventory = null) {
         this.inventory_id = "";
+        this._id = null;
+        this._sale_id = saleId;
         this.description = "";
         this._quantity = null;
         this.sales_price =  0;
@@ -11,6 +14,8 @@ class SaleItem
         this.sale_channel_id = "";
         this._inventory = inventory;
         this._isValid = false;
+        const END_POINT = "";
+        this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 
     get isValid () {
@@ -49,6 +54,10 @@ class SaleItem
     }
     set inventory(inventory) {
         this._inventory = inventory;
+    }
+
+    saveItem () {
+        console.log(this._inventory.name);
     }
 }
 

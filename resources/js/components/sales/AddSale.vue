@@ -116,7 +116,7 @@
 
                         <div class="col">
                             <span class="float-right">
-                                <button type="submit" class="btn btn-lg btn-started">Preview Invoice</button>
+                                <button type="submit" @click="previewInvoice()" class="btn btn-lg btn-started">Preview Invoice</button>
                             </span>
                         </div>
                     </div>

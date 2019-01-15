@@ -36,6 +36,7 @@ export const addSale = {
                 item.sales_price = inventory.sales_price;
                 item.inventory = inventory;
                 this.selectInventory(inventory);
+                item.debounceItemSaving();
             }
         },
         addNewSaleItemRow: function () {
@@ -45,8 +46,18 @@ export const addSale = {
             this.saleItems.splice(index, 1);
         },
         addSaleItemForm: function () {
-            let item = new SaleItem();
-            this.saleItems.push(item);
+            let item = new SaleItem(this.sale.id);
+            let pos = this.saleItems.push(item) - 1;
+            this.createWatcherForSaleItem(this.saleItems[pos]);
+        },
+        createWatcherForSaleItem (item) {
+            this.$watch(() => item.inventory_id, this.saleItemDataChanged);
+            this.$watch(() => item.sale_channel_id, this.saleItemDataChanged);
+            this.$watch(() => item.description, this.saleItemDataChanged);
+            this.$watch(() => item.quantity, this.saleItemDataChanged);
+        },
+        saleItemDataChanged (item) {
+            console.log(item);
         },
         createSale: function () {
             let data = {

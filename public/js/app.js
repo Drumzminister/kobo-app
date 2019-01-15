@@ -73727,6 +73727,7 @@ var addSale = {
                 item.sales_price = inventory.sales_price;
                 item.inventory = inventory;
                 this.selectInventory(inventory);
+                item.debounceItemSaving();
             }
         },
 
@@ -73738,9 +73739,28 @@ var addSale = {
         },
 
         addSaleItemForm: function addSaleItemForm() {
-            var item = new __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__["a" /* default */]();
-            this.saleItems.push(item);
+            var item = new __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__["a" /* default */](this.sale.id);
+            var pos = this.saleItems.push(item) - 1;
+            this.createWatcherForSaleItem(this.saleItems[pos]);
         },
+        createWatcherForSaleItem: function createWatcherForSaleItem(item) {
+            this.$watch(function () {
+                return item.inventory_id;
+            }, this.saleItemDataChanged);
+            this.$watch(function () {
+                return item.sale_channel_id;
+            }, this.saleItemDataChanged);
+            this.$watch(function () {
+                return item.description;
+            }, this.saleItemDataChanged);
+            this.$watch(function () {
+                return item.quantity;
+            }, this.saleItemDataChanged);
+        },
+        saleItemDataChanged: function saleItemDataChanged(item) {
+            console.log(item);
+        },
+
         createSale: function createSale() {
             var data = {
                 items: this.saleItems,
@@ -74152,7 +74172,23 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(4)
+            _c("div", { staticClass: "col" }, [
+              _c("span", { staticClass: "float-right" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-lg btn-started",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        _vm.previewInvoice()
+                      }
+                    }
+                  },
+                  [_vm._v("Preview Invoice")]
+                )
+              ])
+            ])
           ])
         ])
       ])
@@ -74350,20 +74386,6 @@ var staticRenderFns = [
         },
         [_vm._v("₦")]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col" }, [
-      _c("span", { staticClass: "float-right" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-lg btn-started", attrs: { type: "submit" } },
-          [_vm._v("Preview Invoice")]
-        )
-      ])
     ])
   }
 ]
@@ -84658,14 +84680,17 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
+window._ = __webpack_require__(171);
 
 var SaleItem = function () {
-    function SaleItem() {
-        var inventory = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    function SaleItem(saleId) {
+        var inventory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
         _classCallCheck(this, SaleItem);
 
         this.inventory_id = "";
+        this._id = null;
+        this._sale_id = saleId;
         this.description = "";
         this._quantity = null;
         this.sales_price = 0;
@@ -84673,6 +84698,8 @@ var SaleItem = function () {
         this.sale_channel_id = "";
         this._inventory = inventory;
         this._isValid = false;
+        var END_POINT = "";
+        this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 
     _createClass(SaleItem, [{
@@ -84684,6 +84711,11 @@ var SaleItem = function () {
         key: "getInventoryQuantity",
         value: function getInventoryQuantity() {
             return this.inventory_id === "" ? 0 : this._inventory.quantity;
+        }
+    }, {
+        key: "saveItem",
+        value: function saveItem() {
+            console.log(this._inventory.name);
         }
     }, {
         key: "isValid",
