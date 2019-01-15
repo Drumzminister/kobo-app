@@ -55,7 +55,7 @@ class GetSalesPageDataJob extends Job
     		abort(404);
 	    }
 
-    	$sales = $this->sale->getByAttributes(['company_id' => $company->id]);
+    	$sales = $this->sale->getByAttributes(['company_id' => $company->id, 'type' => 'published']);
 
     	$xb = new Collection();
 
@@ -76,6 +76,6 @@ class GetSalesPageDataJob extends Job
 	    $items = $items->chunk(5)->first();
 
 
-	    return ['sales' => $xb, 'topFiveItems' => $items];
+	    return ['sales' => $xb, 'topFiveItems' => $items ?? collect([])];
     }
 }

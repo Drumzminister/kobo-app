@@ -8,7 +8,7 @@ use Koboaccountant\Models\Sale;
 
 class SaleItem extends Model
 {
-	protected $fillable = ['sale_id', 'inventory_id'];
+	protected $fillable = ['sale_id', 'inventory_id', 'sale_channel_id', 'quantity', 'sales_price', 'total_price', 'description'];
 
 	public function sale()
 	{
@@ -18,5 +18,10 @@ class SaleItem extends Model
 	public function inventory()
 	{
 		return $this->belongsTo(Inventory::class);
+	}
+
+	public function setTotalPriceAttribute($value)
+	{
+		$this->attributes['total_price'] = $this->attributes['quantity'] * $this->attributes['sales_price'];
 	}
 }

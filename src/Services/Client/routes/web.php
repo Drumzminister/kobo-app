@@ -24,7 +24,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('/bank-update/{detailId}', 'BankDetailController@updateBankDetail')->name('client.update-bank');
     Route::get('/bank/delete/{detailId}', 'BankDetailController@deleteBankDetail')->name('client.delete-bank');
 
-	Route::post('/sale/add', 'SaleController@addSale')->name('client.sale.add');
+	Route::post('/sale/debitis-nihil-aut-gmbh/add', 'SaleController@addSale')->name('client.sale.add');
 	Route::get('/sale/list', 'SaleController@listSales')->name('client.sale.list');
 	Route::post('/sale/update/{saleId}', 'SaleController@updateSale')->name('client.sale.update');
 	Route::post('/sale/delete/{saleId}', 'SaleController@deleteSale')->name('client.sale.delete');
@@ -41,7 +41,8 @@ Route::group(['prefix' => 'client'], function () {
 	Route::get('/loans/all', 'LoanController@index')->name('client.loan.all');
 	Route::post('/loan/add', 'LoanController@addLoan')->name('client.loan.add');
 	Route::get('/loan/list', 'LoanController@listLoan')->name('client.loan.list');
-	Route::post('/loan/{loanId}/pay', 'LoanController@payLoan')->name('client.loan.list');
+	Route::post('/loan/{loanId}/pay', 'LoanController@payLoan')->name('client.loan.pay');
+	Route::get('/loan/{loanId}/payments', 'LoanController@listPayments')->name('client.loan.payments');
 	Route::get('/loan/search/{param}', 'LoanController@searchLoan')->name('client.loan.search');
 	Route::post('/loan/sources/add', 'LoanController@addSources')->name('client.loan.sources.add');
 	Route::get('/loan/sources/list', 'LoanController@listSources')->name('client.loan.sources.list');
@@ -73,7 +74,17 @@ Route::group(['prefix' => 'client'], function () {
 
 	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
 	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');
+	Route::get('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');
 //	Route::get('/all-sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
+
+    Route::get('/expenses', "ExpensesController@showExpensePage")->name('client.expenses.show');
+    Route::get('/expenses/all', 'ExpensesController@showAllExpenses')->name('client.expenses.show-all');
+    Route::get('/expenses/add', 'ExpensesController@showAddExpensePage')->name('client.expenses.add');
+    Route::post('/expenses/add', 'ExpensesController@addExpense')->name('client.expenses.add');
+    Route::get('/expenses/list', 'ExpensesController@listExpenses')->name('client.expenses.list');
+    Route::post('/expenses/update/{expenseId}', 'ExpensesController@updateExpense')->name('client.expenses.update');
+    Route::get('/expenses/search/{param}', 'ExpensesController@searchExpense')->name('client.expenses.search');
+    Route::post('/expenses/{expenseId}/pay', 'ExpensesController@payExpense')->name('client.expenses.pay');
 
     Route::get('/vendor', 'VendorController@showVendorPage')->name('vendor.index');
     Route::get('/vendor/show', 'VendorController@showAllVendor')->name('vendor.show');

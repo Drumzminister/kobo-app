@@ -10,10 +10,10 @@ class AddSaleFeature extends Feature
 {
     public function handle(Request $request)
     {
-		$isAdded = $this->run(AddSaleJob::class, ['data' => $request->all(), 'userId' => auth()->id()]);
+		$isAdded = $this->run(AddSaleJob::class, ['data' => $request->all(), 'userId' => auth()->user()]);
 
 		if ($isAdded) {
-			return $isAdded;
+			return ['status' => 'success', 'data' => $isAdded];
 		}
     }
 }

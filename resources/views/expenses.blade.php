@@ -1,50 +1,5 @@
 @extends('layouts.app')
-<style>
-label {display: block; padding: 5px; position: relative; padding-left: 10px;}
-label input {display: none;}
-label span {border: 1px solid #ccc; width: 17px; height: 17px; position: absolute; overflow: hidden; line-height: 1; text-align: center; border-radius: 100%; font-size: 10pt; left: 0; top: 50%; margin-top: -7.5px;}
-input:checked + span {background: #ccf; border-color: #ccf;}
 
-input {
-    /* border: none; */
-    background: transparent;
-}
-
-.modal.left .modal-dialog {
-	position: fixed;
-	margin: auto;
-	width: 300px;
-	height: 100%;
-	-webkit-transform: translate3d(0%, 0, 0);
-	-ms-transform: translate3d(0%, 0, 0);
-	-o-transform: translate3d(0%, 0, 0);
-	transform: translate3d(0%, 0, 0);
-}
-
-.modal.left .modal-content {
-	height: 100%;
-	overflow-y: auto;
-}
-
-.modal.left .modal-body {
-	padding: 15px 15px 80px;
-}
-
-.modal.left.fade .modal-dialog {
-	right: -320px;
-	-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
-	-moz-transition: opacity 0.3s linear, left 0.3s ease-out;
-	-o-transition: opacity 0.3s linear, left 0.3s ease-out;
-	transition: opacity 0.3s linear, left 0.3s ease-out;
-}
-
-.modal.left.fade.show .modal-dialog {
-	right: 0;
-}
-
-
-
-</style>
 @section('content')
 
 {{-- heading section --}}

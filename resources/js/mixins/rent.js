@@ -1,21 +1,25 @@
 export const rentApp = {
     data: {
         rents: [],
+        banks: [],
         rentAmount: "",
         rentEndDate: "",
-        rentStartDate: "",
         editingRent: {},
+        selectedRent: {},
+        rentStartDate: "",
         rentLoading: false,
         paymentMethods: [],
         rentSearchParam: "",
         other_rental_cost: "",
         rentShowPaymentSettings: false,
     },
-
+    computed: {
+        selectedAccounts () {
+            return this.$store.state.selectedAccounts;
+        }
+    },
     mounted () {
-        /*axios.get('/banking/payment_modes').then (res => {
-            this.paymentMethods = res.data;
-        });*/
+        this.banks = window.banks;
         this.rents = window.rents;
     },
     methods: {
@@ -112,29 +116,29 @@ export const rentApp = {
             return rent.amount - this.rentUsed(rent);
         },
         payRent () {
-            let amounts = document.querySelectorAll('.payment_amount');
-            let paymentModes = document.querySelectorAll('.payment_mode');
-            let total = 0;
-            amounts.forEach(amount => {
-                total += Number(amount.value);
+            let sum = 0
+            this.selectedAccounts.forEach((account) => {
+                if ( !isNaN(Number(account.amount)) ) {
+                    sum += Number(account.amount);
+                } 
             });
-            if (total !== this.rentAmount+this.other_rental_cost) {
-                swal("Oops", "The amount entered must be equal to the amount paid for rent plus extra costs", "warning");
+            if (sum !== Number(this.selectedRent.amount)) {
+                swal("Error", `Total amount payable should be equal to ${this.selectedRent.amount}`, "error");
+                console.log(sum);
                 return;
             }
-            for (let i = 0; i < paymentModes.length; i++) {
-                this.paymentMethods.forEach(method => {
-                    if (method.mode === paymentModes[i].value && Number(amounts[i].value > method.balance )) {
-                        swal("Oops", `The amount entered for ${method.mode} should be lower than  available balance`, "warning");
-                        return;
-                    }
-                });
-            }
+            axios.post(`/client/rent/${this.selectedRent.id}/pay`, () => {
+
+            });
+        },
+        openPaymentModal(rent) {
+            this.selectedRent = rent;
+            this.openModal('#paymentModal');
         },
 
         editRent (evt, rent) {
             this.editingRent = {...rent};
-            $('#editRentModal').modal('show');
+            this.openModal('#editRentModal');
         },
 
         updateRent(evt) {

@@ -4,6 +4,7 @@ namespace App\Services\Client\Http\Controllers;
 
 use App\Services\Client\Features\AddRentFeature;
 use App\Services\Client\Features\ListRentFeature;
+use App\Services\Client\Features\PayRentFeature;
 use App\Services\Client\Features\SearchRentFeature;
 use App\Services\Client\Features\ShowAllRentsFeature;
 use App\Services\Client\Features\ShowRentPageFeature;
@@ -46,5 +47,10 @@ class RentController extends Controller
     public function searchRent($param)
     {
         return $this->serve(SearchRentFeature::class, ['param' => $param]);
+    }
+
+    public function payRent($rentId)
+    {
+        return $this->serve(PayRentFeature::class, ['rentId' => $rentId]);
     }
 }

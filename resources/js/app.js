@@ -11,6 +11,7 @@ window.swal = require('sweetalert2');
 window.moment = require('moment');
 
 import daterangepicker from 'daterangepicker';
+import PaymentMethodSelection from "./components/banks/PaymentMethodSelection";
 
 import {rentApp} from "./mixins/rent";
 import {loanApp} from "./mixins/loan";
@@ -21,16 +22,17 @@ import {customerApp} from "./mixins/customer";
 import {salesListView} from "./mixins/salesListView";
 import {loadingView} from "./mixins/loadingView";
 import {appModal} from "./mixins/appModals";
+import {expenseApp} from "./mixins/expenses";
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const files = require.context('./', true, /\.vue$/i)
+const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)));
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 import { ServerTable, ClientTable, Event } from 'vue-tables-2';
 const koboTheme = require('./themes/koboTheme');
@@ -51,7 +53,9 @@ window.app = new Vue({
         salesListView,
         loadingView,
         appModal,
+        expenseApp
     ],
+    components: {PaymentMethodSelection: PaymentMethodSelection},
     filters: {
         numberFormat (value) {
             let number = Number(value);

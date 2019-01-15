@@ -3,6 +3,7 @@
 namespace App\Data;
 
 use Illuminate\Database\Eloquent\Model;
+use Koboaccountant\Models\Company;
 use Koboaccountant\Models\Expense;
 use Koboaccountant\Models\Inventory;
 use Koboaccountant\Models\Sale;
@@ -12,8 +13,8 @@ class Transaction extends Model
 	public $incrementing = false;
 
 	protected $fillable = [
-		'id', 'kobo_id', 'sale', 'expense_id', 'purchase_id', 'inventory_id',
-		'transaction_category_id', 'note', 'isProcessed'
+		'id', 'kobo_id', 'sale', 'expense_id', 'purchase_id', 'inventory_id', 'amount',
+		'company_id', 'loan_id', 'transaction_category_id', 'note', 'isProcessed'
 	];
 
 	public function sale()
@@ -35,6 +36,16 @@ class Transaction extends Model
 	{
 		return $this->belongsTo(Inventory::class, 'inventory_id');
 	}
+
+	public function loan()
+    {
+        return $this->belongsTo(Loan::class, 'loan_id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
 
 	public function category()
 	{

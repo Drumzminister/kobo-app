@@ -24,7 +24,7 @@ class CreateLoansTable extends Migration
             $table->decimal('interest', 5, 2);
             $table->enum('period', ['week', 'month', 'year']);
             $table->integer('term');
-            $table->integer('payment_interval');
+            $table->string('payment_interval');
             $table->date('start_date');
             $table->enum('status', ['running', 'completed'])->default('running');
             $table->timestamps();

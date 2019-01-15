@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-6">
+    <div class="col-12">
         <div class="bg-grey py-4 px-3" id="top">
             <div class="row">
                 <div class="col-md-5">
@@ -27,7 +27,7 @@
 
                 <div class="col-md-5">
                     <div class="show input-group input-group-lg mt-3">
-                        <input v-model="paymentMethod.amount" type="text" style="height: 39px;" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
+                        <input v-model="paymentMethod.amount" type="number" style="height: 39px;" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
                     </div>
                 </div>
 
@@ -52,6 +52,8 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
+
     export default {
         props: ['banks'],
         data() {
@@ -61,9 +63,7 @@
             }
         },
         computed: {
-            availableAccounts () {
-                return this.$store.getters.availableAccounts;
-            },
+            ...mapGetters(['availableAccounts'])
         },
         created: function() {
             this.addSalePaymentMethod();
@@ -74,16 +74,16 @@
                 this.$store.commit('setCompanyAccounts', this.banks);
             },
             setPaymentMode: function (paymentMode, selectedBank) {
-                if (paymentMode.bank_id) {
-                    this.removeAccountFromStore(paymentMode.bank_id);
+                if (paymentMode.id) {
+                    this.removeAccountFromStore(paymentMode.id);
                 }
 
                 paymentMode.id = selectedBank.id;
                 paymentMode.name = selectedBank.account_name;
                 this.$store.commit('selectAccount', paymentMode)
             },
-            removeAccountFromStore (accountId) {
-                this.$store.commit('removeAccount', accountId);
+            removeAccountFromStore (account) {
+                this.$store.commit('removeAccount', account);
             },
             bankIsNotAvailable: function () {
                 return this.salePaymentMethods.length === this.banks.length;
@@ -95,6 +95,7 @@
                     amount: null,
                     name: null,
                 });
+
             },
             removeSalePaymentMethod: function (index, accountId) {
                 this.salePaymentMethods.splice(index, 1);

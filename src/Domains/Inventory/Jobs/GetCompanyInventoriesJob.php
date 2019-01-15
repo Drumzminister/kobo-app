@@ -33,6 +33,6 @@ class GetCompanyInventoriesJob extends Job
      */
     public function handle()
     {
-    	return $this->inventory->getByAttributes(['company_id' => $this->companyId]);
+    	return $this->inventory->getAvailableInventories($this->companyId);
     }
 }
