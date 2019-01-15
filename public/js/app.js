@@ -73670,7 +73670,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_addSale__["a" /* addSale */]],
-    props: ['inventories', 'channels', 'banks'],
+    props: ['inventories', 'channels', 'banks', 'sale'],
     components: { PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_1__banks_PaymentMethodSelection___default.a },
     mounted: function mounted() {}
 });
@@ -73743,10 +73743,11 @@ var addSale = {
                 tax_id: "",
                 customer_id: "",
                 sale_channel_id: "",
-                invoice_number: "",
                 total_amount: 0,
                 delivery_cost: 0,
-                discount: 0
+                discount: 0,
+                sale_id: this.sale.id,
+                invoice_number: this.sale.invoice_number
             };
             var url = '/sale/debitis-nihil-aut-gmbh/add';
 

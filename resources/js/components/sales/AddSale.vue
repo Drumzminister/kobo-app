@@ -125,7 +125,7 @@
     import PaymentMethodSelection from "../banks/PaymentMethodSelection";
     export default {
         mixins: [addSale],
-        props: ['inventories', 'channels', 'banks'],
+        props: ['inventories', 'channels', 'banks', 'sale'],
         components: { PaymentMethodSelection : PaymentMethodSelection },
         mounted() {
         }

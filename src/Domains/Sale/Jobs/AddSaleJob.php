@@ -39,11 +39,11 @@ class AddSaleJob extends Job
 	 */
     public function __construct($data, $user)
     {
-        $this->user = $user;
-	    $this->data           = $data;
-	    $this->userRepository = app(UserRepository::class);
-	    $this->items          = app(SaleItemRepository::class);
-	    $this->sale           = app(SaleRepository::class);
+        $this->user             = $user;
+	    $this->data             = $data;
+	    $this->userRepository   = app(UserRepository::class);
+	    $this->items            = app(SaleItemRepository::class);
+	    $this->sale             = app(SaleRepository::class);
     }
 
     /**
@@ -51,7 +51,12 @@ class AddSaleJob extends Job
      */
     public function handle()
     {
-        $this->data['company_id'] = $this->userRepository->comapany->id;
-        $this->data['staff_id'] = $this->userRepository->staff->id;
+    	$sale = $this->sale->findOnly('id', $this->data['sale_id']);
+	    $this->data['company_id'] = $this->userRepository->comapany->id;
+	    $this->data['staff_id'] = $this->userRepository->staff->id;
+
+	    $items = collect($this->data['items']);
+	    dd($items);
+//	    $updated = $sale->fill($this->data)->save();
     }
 }

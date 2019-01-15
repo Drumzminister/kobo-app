@@ -56,10 +56,11 @@ export const addSale = {
                 tax_id: "",
                 customer_id: "",
                 sale_channel_id: "",
-                invoice_number: "",
                 total_amount: 0,
                 delivery_cost: 0,
-                discount: 0
+                discount: 0,
+                sale_id: this.sale.id,
+                invoice_number: this.sale.invoice_number
             };
             let url = '/sale/debitis-nihil-aut-gmbh/add';
 
