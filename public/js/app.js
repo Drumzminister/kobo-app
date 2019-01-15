@@ -73619,6 +73619,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -73660,7 +73706,14 @@ var addSale = {
         selectedAccounts: function selectedAccounts() {
             return this.$store.state.paymentModule.selectedAccounts;
         }
-    }, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory'])),
+    }, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory']), {
+        totalSalesAmount: function totalSalesAmount() {
+            var sum = 0;
+            this.saleItems.forEach(function (item) {
+                sum += item.totalPrice();
+            });
+        }
+    }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(['setCompanyInventories', 'selectInventory']), {
         fillSaleItemWithInventory: function fillSaleItemWithInventory(item) {
             if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
@@ -73681,6 +73734,27 @@ var addSale = {
         addSaleItemForm: function addSaleItemForm() {
             var item = new __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__["a" /* default */]();
             this.saleItems.push(item);
+        },
+        createSale: function createSale() {
+            var data = {
+                items: this.saleItems,
+                sale_date: "",
+                paymentMethods: this.selectedAccounts,
+                tax_id: "",
+                customer_id: "",
+                sale_channel_id: "",
+                invoice_number: "",
+                total_amount: 0,
+                delivery_cost: 0,
+                discount: 0
+            };
+            var url = '/sale/debitis-nihil-aut-gmbh/add';
+
+            window.axios.post(url, data).then(function (response) {
+                if (response.data.status === "success") {
+                    swal("Sale created successfully!");
+                }
+            }).catch();
         }
     })
 };
@@ -73757,7 +73831,7 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _vm._l(_vm.x(item), function(inventory) {
+                          _vm._l(_vm.availableInventories, function(inventory) {
                             return _c(
                               "option",
                               { domProps: { value: inventory.id } },
@@ -73986,7 +74060,55 @@ var render = function() {
             { staticClass: "md-6" },
             [_c("payment-method-selection", { attrs: { banks: _vm.banks } })],
             1
-          )
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6" }, [
+            _c(
+              "div",
+              { staticClass: "bg-grey py-4 px-3", attrs: { id: "topp" } },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "row pt-2" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col input-group input-group-lg" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.totalSalesAmount,
+                          expression: "totalSalesAmount"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        disabled: true,
+                        id: "total",
+                        "aria-describedby": "basic-addon3",
+                        placeholder: "1,275,000"
+                      },
+                      domProps: { value: _vm.totalSalesAmount },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.totalSalesAmount = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(4)
         ])
       ])
     ])
@@ -74102,6 +74224,120 @@ var staticRenderFns = [
         ),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Total Discount")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-group mb-3 input-group-lg" }, [
+          _c("div", { staticClass: "input-group-prepend" }, [
+            _c("span", { staticClass: "input-group-text customer-input" }, [
+              _vm._v("₦")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control discount",
+            attrs: {
+              type: "text",
+              id: "basic-url",
+              "aria-describedby": "basic-addon3",
+              placeholder: "100,000"
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("h5", { staticClass: "h6 uppercase" }, [
+          _vm._v("Total Delivery Amount")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-group mb-3 input-group-lg" }, [
+          _c("div", { staticClass: "input-group-prepend" }, [
+            _c(
+              "span",
+              {
+                staticClass: "input-group-text customer-input",
+                attrs: { id: "basic-addon3" }
+              },
+              [_vm._v("₦")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control ",
+            attrs: {
+              type: "text",
+              id: "",
+              "aria-describedby": "basic-addon3",
+              placeholder: "100,000"
+            }
+          })
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col" }, [
+      _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Total Amount")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend cus" }, [
+      _c(
+        "span",
+        {
+          staticClass: "input-group-text customer-input",
+          attrs: { id: "basic-addon3" }
+        },
+        [_vm._v("₦")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row p-3" }, [
+      _c("div", { staticClass: "col" }, [
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-lg btn-login",
+            attrs: {
+              href: "",
+              "data-toggle": "modal",
+              "data-target": "#exampleModalCenter"
+            }
+          },
+          [_vm._v("Send Invoice")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col" }, [
+        _c("span", { staticClass: "float-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-lg btn-started",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("Save")]
+          )
+        ])
       ])
     ])
   }
@@ -84469,11 +84705,8 @@ var inventoryModule = {
     },
     getters: {
         availableInventories: function availableInventories(state) {
-            return state.companyInventories.filter(function (inventory) {
-                return !state.selectedInventories.map(function (inventory) {
-                    return inventory.id;
-                }).includes(inventory.id);
-            });
+            return state.companyInventories;
+            // return state.companyInventories.filter(inventory => !state.selectedInventories.map(inventory => inventory.id).includes(inventory.id));
         },
         getInventory: function getInventory(state) {
             return function (inventoryId) {

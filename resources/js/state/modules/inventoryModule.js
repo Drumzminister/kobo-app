@@ -5,7 +5,8 @@ export const inventoryModule = {
     },
     getters: {
         availableInventories: state => {
-            return state.companyInventories.filter(inventory => !state.selectedInventories.map(inventory => inventory.id).includes(inventory.id));
+            return state.companyInventories;
+            // return state.companyInventories.filter(inventory => !state.selectedInventories.map(inventory => inventory.id).includes(inventory.id));
         },
         getInventory: (state) => (inventoryId) => {
             console.log(inventoryId);

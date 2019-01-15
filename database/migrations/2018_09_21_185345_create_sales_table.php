@@ -13,14 +13,14 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->string('id');
-	        $table->string('staff_id');
-	        $table->string('company_id');
-	        $table->string('customer_id');
-	        $table->string('sale_channel_id');
-	        $table->unsignedInteger('tax_id');
+	        $table->string('staff_id')->nullable();
+	        $table->string('company_id')->nullable();
+	        $table->string('customer_id')->nullable();
+	        $table->string('sale_channel_id')->nullable();
+	        $table->unsignedInteger('tax_id')->nullable();
 	        $table->string('invoice_number')->unique();
-	        $table->string('total_amount');
-	        $table->string('delivery_cost');
+	        $table->string('total_amount')->nullable();
+	        $table->string('delivery_cost')->nullable();
             $table->string('discount')->nullable();
             $table->enum('type', ['draft', 'published'])->default('draft');
             $table->timestamps();
