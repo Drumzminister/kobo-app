@@ -58,7 +58,6 @@ export const addSale = {
                 customer_id: "",
                 sale_channel_id: "",
                 total_amount: 0,
-                delivery_cost: 0,
                 discount: 0,
                 sale_id: this.sale.id,
                 invoice_number: this.sale.invoice_number,
