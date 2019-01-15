@@ -33,9 +33,6 @@ export const customerApp = {
            axios.get(`/client/customer/search?param=${this.customerSearch}`).then(res => {
                    this.customers = '';
                    let result = this.customers = res.data;
-                   if(result == '') {
-                        this.searchNotFound = true;
-                   }
            });
         },
     },

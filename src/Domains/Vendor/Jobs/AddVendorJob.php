@@ -13,11 +13,13 @@ class AddVendorJob extends Job
      * @return void
      */
     private $vendor, $data;
+    private $user;
 
-    public function __construct(array $data)
+    public function __construct(array $data, $user)
     {
         $this->data = $data;
         $this->vendor = new VendorRepository();
+        $this->user = $user;
     }
 
     /**
@@ -27,10 +29,17 @@ class AddVendorJob extends Job
      */
     public function handle()
     {
-        try{
-            return $this->vendor->fillAndSave($this->data);
-        }catch (\Exception $e) {
-            return $e->getMessage();
+        $userId = $this->user->id;
+        $items = $this->data['items'];
+        $added = false;
+        foreach($items as $key => $data)
+        {
+            $data['user_id'] = $userId;
+            $data['company_id'] = $this->user->getUserCompany()->id;
+            $added  = $this->vendor->fillAndSave($data);
         }
+
+        return $added;
+
     }
 }

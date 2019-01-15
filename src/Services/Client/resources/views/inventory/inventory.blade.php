@@ -140,12 +140,12 @@ input {
                             <div class="row pb-3">
                                     <div class="col-md-3">
                                         <div class="dropdown show">
-                                            <a class="btn btn-addSale" href="/client/single-inventory" role="button">
+                                            <a class="btn btn-addSale" href="/client/inventory/single-inventory" role="button">
                                                     Add Purchase                                    
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="/client/single-inventory" class="text-green">Single Product</a>
-                                                <a class="dropdown-item" href="/multiple-inventory" class="text-green">Multi Products</a>
+                                                <a class="dropdown-item" href="/client/inventory/single-inventory" class="text-green">Single Product</a>
+                                                <a class="dropdown-item" href="/client/inventory/multiple-inventory" class="text-green">Multi Products</a>
                                             </div>
                                         </div>                                              
                                     </div>
@@ -205,44 +205,13 @@ input {
                             <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
                         </tr>
 
-                            <tr>
-                               <td >21/08/2020 </td>
-                               <td>
-                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
-                                </td> 
-                              <td> 23</td>
-                              <td> 43,000</td>
-                              <td> Mercy Ikpe</td>
-                              <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
-                            </tr>
-
-                            <tr>
-                                <td >21/08/2020 </td>
-                                <td>
-                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
-                                </td>
-                                <td> 23</td>
-                                <td> 43,000</td>
-                                <td> Mercy Ikpe</td>
-                                <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
-                            </tr>
-                            <tr>
-                                <td >21/08/2020 </td>
-                                <td>
-                                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
-                                </td>
-                                <td> 23</td>
-                                <td> 43,000</td>
-                                <td> Mercy Ikpe</td>
-                                <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
-                            </tr>
                             
                         </tbody>
                     </table>
                 </div>
                     <hr class="mt-0">
                     <div class="text-center ">
-                        <a href="/view-inventory" class="view-more">View More</a> 
+                        <a href="/client/view-inventory" class="view-more">View More</a>
                     </div>
                    
             </div> 

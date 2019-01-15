@@ -76,7 +76,7 @@ Route::group(['prefix' => 'client'], function () {
 //	Route::get('/all-sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
 
     Route::get('/vendor', 'VendorController@showVendorPage')->name('vendor.index');
-    Route::get('/vendor/show', 'VendorController@showAllVendor')->name('vendor.show');
+    Route::get('/vendor/list', 'VendorController@showAllVendor')->name('vendor.show');
     Route::get('/vendor/add', 'VendorController@addVendorPage')->name('vendor.add');
     Route::post('/vendor/add', 'VendorController@addVendor')->name('vendor.add');
     Route::get('/vendor/all-vendors', 'VendorController@listVendors')->name('vendor.list');
