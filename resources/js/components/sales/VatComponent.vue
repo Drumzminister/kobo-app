@@ -3,10 +3,17 @@
     <section id="info">
         <div class="container mt-3">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
+                    <div class="input-group mb-3 input-group-lg">
+                        <div class="">
+                            <span class="input-group-text customer-input" id="basic-addon3">INV - #23531331</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="input-group mb-3 input-group-lg">
                         <div class="input-group-prepend">
-                            <span class="input-group-text customer-input" id="basic-addon3">Customer Name</span>
+                            <span class="input-group-text customer-input" id="basic-addon3">Customer</span>
                         </div>
                         <select v-model="customer_id" class="customer form-control">
                             <option value="">Select Customer ...</option>
@@ -40,7 +47,7 @@
 </template>
 
 <script>
-    import { mapState, mapMutations, mapGetters } from 'vuex';
+    import { mapMutations } from 'vuex';
     export default {
         props: ['customers', 'taxes'],
         data() {

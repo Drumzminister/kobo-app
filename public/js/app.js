@@ -73665,6 +73665,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -74107,7 +74113,47 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(4)
+          _c("div", { staticClass: "row p-3" }, [
+            _c("div", { staticClass: "col" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-lg btn-login",
+                  attrs: {
+                    href: "",
+                    "data-toggle": "modal",
+                    "data-target": "#exampleModalCenter"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.openSendingModal()
+                    }
+                  }
+                },
+                [_vm._v("Send Invoice")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [
+              _c("span", { staticClass: "float-right" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-lg btn-started",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        _vm.saveSale()
+                      }
+                    }
+                  },
+                  [_vm._v("Save")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(4)
+          ])
         ])
       ])
     ])
@@ -74310,33 +74356,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row p-3" }, [
-      _c("div", { staticClass: "col" }, [
+    return _c("div", { staticClass: "col" }, [
+      _c("span", { staticClass: "float-right" }, [
         _c(
-          "a",
-          {
-            staticClass: "btn btn-lg btn-login",
-            attrs: {
-              href: "",
-              "data-toggle": "modal",
-              "data-target": "#exampleModalCenter"
-            }
-          },
-          [_vm._v("Send Invoice")]
+          "button",
+          { staticClass: "btn btn-lg btn-started", attrs: { type: "submit" } },
+          [_vm._v("Preview Invoice")]
         )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col" }, [
-        _c("span", { staticClass: "float-right" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-lg btn-started",
-              attrs: { type: "submit" }
-            },
-            [_vm._v("Save")]
-          )
-        ])
       ])
     ])
   }
@@ -74447,6 +74473,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -74474,9 +74507,11 @@ var render = function() {
   return _c("section", { attrs: { id: "info" } }, [
     _c("div", { staticClass: "container mt-3" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
           _c("div", { staticClass: "input-group mb-3 input-group-lg" }, [
-            _vm._m(0),
+            _vm._m(1),
             _vm._v(" "),
             _c(
               "select",
@@ -74596,7 +74631,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm._m(1)
+            _vm._m(2)
           ])
         ])
       ])
@@ -74608,6 +74643,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "input-group mb-3 input-group-lg" }, [
+        _c("div", {}, [
+          _c(
+            "span",
+            {
+              staticClass: "input-group-text customer-input",
+              attrs: { id: "basic-addon3" }
+            },
+            [_vm._v("INV - #23531331")]
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c(
         "span",
@@ -74615,7 +74669,7 @@ var staticRenderFns = [
           staticClass: "input-group-text customer-input",
           attrs: { id: "basic-addon3" }
         },
-        [_vm._v("Customer Name")]
+        [_vm._v("Customer")]
       )
     ])
   },
@@ -84726,7 +84780,6 @@ var inventoryModule = {
         },
         getInventory: function getInventory(state) {
             return function (inventoryId) {
-                console.log(inventoryId);
                 return state.companyInventories.find(function (inventory) {
                     return inventory.id === inventoryId;
                 });
