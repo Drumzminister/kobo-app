@@ -73692,8 +73692,6 @@ var addSale = {
     data: function data() {
         return {
             sale_customer_id: "",
-            saleTax: "",
-            saleDate: "",
             saleItems: [],
             deliveryCost: 0
         };
@@ -73707,7 +73705,7 @@ var addSale = {
         selectedAccounts: function selectedAccounts() {
             return this.$store.state.paymentModule.selectedAccounts;
         }
-    }, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory']), {
+    }, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['customerId', 'taxId', 'saleDate']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory']), {
         totalSalesAmount: function totalSalesAmount() {
             var sum = 0;
             this.saleItems.forEach(function (item) {
@@ -73715,7 +73713,7 @@ var addSale = {
             });
         }
     }),
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(['setCompanyInventories', 'selectInventory']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(['setCompanyInventories', 'selectInventory']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['getCurrentURI']), {
         fillSaleItemWithInventory: function fillSaleItemWithInventory(item) {
             if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
                 var inventory = this.$store.getters.getInventory(item.inventory_id);
@@ -73739,20 +73737,18 @@ var addSale = {
         createSale: function createSale() {
             var data = {
                 items: this.saleItems,
-                sale_date: "",
                 paymentMethods: this.selectedAccounts,
-                tax_id: "",
-                customer_id: "",
-                sale_channel_id: "",
+                tax_id: this.taxId,
+                sale_date: this.saleDate,
+                customer_id: this.customerId,
                 total_amount: 0,
                 discount: 0,
                 sale_id: this.sale.id,
                 invoice_number: this.sale.invoice_number,
-                delivery_cost: this.devliveryCost
+                delivery_cost: this.deliveryCost
             };
-            var url = '/sale/debitis-nihil-aut-gmbh/add';
 
-            window.axios.post(url, data).then(function (response) {
+            window.axios.post(this.getCurrentURI(), data).then(function (response) {
                 if (response.data.status === "success") {
                     swal("Sale created successfully!");
                 }
@@ -74406,6 +74402,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(387);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -74448,6 +74447,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['customers', 'taxes'],
     data: function data() {
@@ -74457,6 +74457,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             sale_date: ""
         };
     },
+
+    watch: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])({ customer_id: 'customerId', tax_id: 'taxId', sale_date: 'saleDate' })),
     mounted: function mounted() {}
 });
 
@@ -83523,6 +83525,8 @@ module.exports = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(387);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_paymentMethodSelection__ = __webpack_require__(398);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_inventoryModule__ = __webpack_require__(399);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_vatModule__ = __webpack_require__(400);
+
 
 
 
@@ -83531,9 +83535,18 @@ module.exports = function () {
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
 
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
+    state: {
+        currentUri: __webpack_require__(11)(document)[0].baseURI
+    },
+    getters: {
+        getCurrentURI: function getCurrentURI(state) {
+            return state.currentUri;
+        }
+    },
     modules: {
         paymentModule: __WEBPACK_IMPORTED_MODULE_2__modules_paymentMethodSelection__["a" /* paymentMethodSelectionModule */],
-        inventoryModule: __WEBPACK_IMPORTED_MODULE_3__modules_inventoryModule__["a" /* inventoryModule */]
+        inventoryModule: __WEBPACK_IMPORTED_MODULE_3__modules_inventoryModule__["a" /* inventoryModule */],
+        vatModule: __WEBPACK_IMPORTED_MODULE_4__modules_vatModule__["a" /* vatModule */]
     }
 });
 
@@ -84732,6 +84745,42 @@ var inventoryModule = {
         },
         setCompanyInventories: function setCompanyInventories(state, inventories) {
             state.companyInventories = inventories;
+        }
+    }
+};
+
+/***/ }),
+/* 400 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return vatModule; });
+var vatModule = {
+    state: {
+        taxId: "",
+        saleDate: "",
+        customerId: ""
+    },
+    getters: {
+        taxId: function taxId(state) {
+            return state.taxId;
+        },
+        customerId: function customerId(state) {
+            return state.customerId;
+        },
+        saleDate: function saleDate(state) {
+            return state.saleDate;
+        }
+    },
+    mutations: {
+        taxId: function taxId(state, value) {
+            state.taxId = value;
+        },
+        customerId: function customerId(state, value) {
+            state.customerId = value;
+        },
+        saleDate: function saleDate(state, value) {
+            state.saleDate = value;
         }
     }
 };

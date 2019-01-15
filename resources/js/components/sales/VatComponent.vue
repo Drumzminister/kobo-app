@@ -40,6 +40,7 @@
 </template>
 
 <script>
+    import { mapState, mapMutations, mapGetters } from 'vuex';
     export default {
         props: ['customers', 'taxes'],
         data() {
@@ -48,6 +49,9 @@
                 tax_id: "",
                 sale_date: ""
             }
+        },
+        watch: {
+            ...mapMutations({customer_id: 'customerId', tax_id: 'taxId', sale_date: 'saleDate'})
         },
         mounted() {
         }

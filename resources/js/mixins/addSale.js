@@ -5,8 +5,6 @@ export const addSale = {
     data() {
         return {
             sale_customer_id: "",
-            saleTax: "",
-            saleDate: "",
             saleItems: [],
             deliveryCost: 0
         }
@@ -19,9 +17,8 @@ export const addSale = {
         selectedAccounts () {
             return this.$store.state.paymentModule.selectedAccounts;
         },
-
+        ...mapGetters(['customerId', 'taxId', 'saleDate']),
         ...mapGetters(['availableInventories', 'getInventory']),
-
         totalSalesAmount () {
             let sum = 0;
             this.saleItems.forEach(function(item) {
@@ -31,6 +28,7 @@ export const addSale = {
     },
     methods: {
         ...mapMutations(['setCompanyInventories', 'selectInventory']),
+        ...mapGetters(['getCurrentURI']),
         fillSaleItemWithInventory (item) {
             if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
                 let inventory = this.$store.getters.getInventory(item.inventory_id);
@@ -52,20 +50,18 @@ export const addSale = {
         createSale: function () {
             let data = {
                 items: this.saleItems,
-                sale_date: "",
                 paymentMethods: this.selectedAccounts,
-                tax_id: "",
-                customer_id: "",
-                sale_channel_id: "",
+                tax_id: this.taxId,
+                sale_date: this.saleDate,
+                customer_id: this.customerId,
                 total_amount: 0,
                 discount: 0,
                 sale_id: this.sale.id,
                 invoice_number: this.sale.invoice_number,
-                delivery_cost: this.devliveryCost
+                delivery_cost: this.deliveryCost
             };
-            let url = '/sale/debitis-nihil-aut-gmbh/add';
 
-            window.axios.post(url, data)
+            window.axios.post(this.getCurrentURI(), data)
                 .then((response) =>  {
                     if (response.data.status === "success") {
                         swal("Sale created successfully!");
