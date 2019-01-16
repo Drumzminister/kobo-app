@@ -74674,6 +74674,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -74702,7 +74703,8 @@ var addSale = {
         return {
             sale_customer_id: "",
             saleItems: [],
-            deliveryCost: 0
+            deliveryCost: 0,
+            saleDiscount: 0
         };
     },
 
@@ -74710,6 +74712,7 @@ var addSale = {
         this.addSaleItemForm();
         this.setCompanyInventories(this.inventories);
         this.setSale(this.sale);
+        this.setSaleItems(this.sale);
     },
     computed: _extends({
         selectedAccounts: function selectedAccounts() {
@@ -74721,7 +74724,7 @@ var addSale = {
             this.saleItems.forEach(function (item) {
                 sum += item.totalPrice();
             });
-            return sum;
+            return sum - parseInt(this.saleDiscount || 0);
         }
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(['setCompanyInventories', 'selectInventory', 'setSale']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['getCurrentURI']), {
@@ -74740,8 +74743,20 @@ var addSale = {
         },
         deleteSaleItemRow: function deleteSaleItemRow(index) {
             var item = this.saleItems[index];
-            this.saleItems.splice(index, 1);
-            item.deleteItemOnDatabase();
+            var self = this;
+            if (!item.isNotValid) {
+                item.deleteItemOnDatabase().then(function (_ref) {
+                    var data = _ref.data;
+
+                    if (data.status === "success") {
+                        self.saleItems.splice(index, 1);
+                    }
+                }).catch(function (err) {
+                    return console.log(err);
+                });
+            } else {
+                self.saleItems.splice(index, 1);
+            }
         },
 
         addSaleItemForm: function addSaleItemForm() {
@@ -74785,6 +74800,24 @@ var addSale = {
                     swal("Sale created successfully!");
                 }
             }).catch();
+        },
+        setSaleItems: function setSaleItems(sale) {
+            if (sale.sale_items) {
+                for (var key in sale.sale_items) {
+                    var item = sale.sale_items[key];
+                    var inventory = this.$store.getters.getInventory(item.inventory_id);
+                    var saleItem = new __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__["a" /* default */](this.sale.id, inventory);
+                    saleItem.inventory_id = item.inventory_id;
+                    saleItem.id = item.id;
+                    saleItem.sale_channel_id = item.sale_channel_id;
+                    saleItem.quantity = parseInt(item.quantity);
+                    saleItem.sales_price = item.sales_price;
+                    saleItem.description = item.description;
+                    saleItem.saved = true;
+                    var pos = this.saleItems.push(saleItem) - 1;
+                    this.createWatcherForSaleItem(this.saleItems[pos]);
+                }
+            }
         }
     })
 };
@@ -74827,6 +74860,7 @@ var SaleItem = function () {
         this._inventory = inventory;
         this._isValid = false;
         this.saved = false;
+        this.processing = false;
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 
@@ -74878,7 +74912,7 @@ var SaleItem = function () {
         value: function saveItem() {
             this.saved = false;
             if (this.isNotValid) return;
-
+            this.processing = true;
             if (this._id) {
                 this.updateItemOnDatabase();
             } else {
@@ -74904,6 +74938,7 @@ var SaleItem = function () {
                 if (data.status === "success") {
                     self.saved = true;
                     self._id = data.data.id;
+                    self.processing = false;
                 }
             }).catch(function (err) {
                 return console.log(err);
@@ -74923,6 +74958,7 @@ var SaleItem = function () {
                 if (data.status === "success") {
                     self.saved = true;
                     self._id = data.data.id;
+                    self.processing = false;
                 }
             }).catch(function (err) {
                 return console.log(err);
@@ -74932,21 +74968,13 @@ var SaleItem = function () {
         key: "deleteItemOnDatabase",
         value: function deleteItemOnDatabase() {
             if (!this._id) return;
+
+            this.processing = true;
             var data = this.getItemData();
-            var self = this;
             var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/api/client' });
 
             api.createEntity({ name: 'saleItem' });
-            api.endpoints.saleItem.delete(data).then(function (_ref3) {
-                var data = _ref3.data;
-
-                if (data.status === "success") {
-                    // self.saved = true;
-                    // self._id = data.data.id;
-                }
-            }).catch(function (err) {
-                return console.log(err);
-            });
+            return api.endpoints.saleItem.delete(data);
         }
 
         /**
@@ -75014,6 +75042,11 @@ var SaleItem = function () {
         key: "inventory",
         set: function set(inventory) {
             this._inventory = inventory;
+        }
+    }, {
+        key: "id",
+        set: function set(id) {
+            this._id = id;
         }
     }]);
 
@@ -75304,21 +75337,36 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.saleItems.length > 1,
-                              expression: "saleItems.length > 1"
+                              value:
+                                _vm.saleItems.length > 1 && !item.processing,
+                              expression:
+                                "saleItems.length > 1 && !item.processing"
                             }
                           ],
                           staticClass: "fa fa-times",
                           staticStyle: {
                             cursor: "pointer",
                             color: "#da1313",
-                            "font-size": "30px"
+                            "font-size": "20px"
                           },
                           on: {
                             click: function($event) {
                               _vm.deleteSaleItemRow(index)
                             }
                           }
+                        }),
+                        _vm._v(" "),
+                        _c("i", {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: item.processing,
+                              expression: "item.processing"
+                            }
+                          ],
+                          staticClass: "fa fa-circle-notch fa-spin-fast",
+                          staticStyle: { color: "#da1313", "font-size": "30px" }
                         })
                       ])
                     ]
@@ -75364,13 +75412,56 @@ var render = function() {
               "div",
               { staticClass: "bg-grey py-4 px-3", attrs: { id: "topp" } },
               [
-                _vm._m(1),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("h5", { staticClass: "h6 uppercase" }, [
+                      _vm._v("Total Discount")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "input-group mb-3 input-group-lg" },
+                      [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.saleDiscount,
+                              expression: "saleDiscount"
+                            }
+                          ],
+                          staticClass: "form-control discount",
+                          attrs: {
+                            type: "text",
+                            id: "basic-url",
+                            "aria-describedby": "basic-addon3",
+                            placeholder: "100,000"
+                          },
+                          domProps: { value: _vm.saleDiscount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.saleDiscount = $event.target.value
+                            }
+                          }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(2)
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row pt-2" }, [
-                  _vm._m(2),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c("div", { staticClass: "col input-group input-group-lg" }, [
-                    _vm._m(3),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -75584,56 +75675,42 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Total Discount")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group mb-3 input-group-lg" }, [
-          _c("div", { staticClass: "input-group-prepend" }, [
-            _c("span", { staticClass: "input-group-text customer-input" }, [
-              _vm._v("₦")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control discount",
-            attrs: {
-              type: "text",
-              id: "basic-url",
-              "aria-describedby": "basic-addon3",
-              placeholder: "100,000"
-            }
-          })
-        ])
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text customer-input" }, [
+        _vm._v("₦")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("h5", { staticClass: "h6 uppercase" }, [
+        _vm._v("Total Delivery Amount")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("h5", { staticClass: "h6 uppercase" }, [
-          _vm._v("Total Delivery Amount")
+      _c("div", { staticClass: "input-group mb-3 input-group-lg" }, [
+        _c("div", { staticClass: "input-group-prepend" }, [
+          _c(
+            "span",
+            {
+              staticClass: "input-group-text customer-input",
+              attrs: { id: "basic-addon3" }
+            },
+            [_vm._v("₦")]
+          )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "input-group mb-3 input-group-lg" }, [
-          _c("div", { staticClass: "input-group-prepend" }, [
-            _c(
-              "span",
-              {
-                staticClass: "input-group-text customer-input",
-                attrs: { id: "basic-addon3" }
-              },
-              [_vm._v("₦")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control ",
-            attrs: {
-              type: "text",
-              id: "",
-              "aria-describedby": "basic-addon3",
-              placeholder: "100,000"
-            }
-          })
-        ])
+        _c("input", {
+          staticClass: "form-control ",
+          attrs: {
+            type: "text",
+            id: "",
+            "aria-describedby": "basic-addon3",
+            placeholder: "100,000"
+          }
+        })
       ])
     ])
   },

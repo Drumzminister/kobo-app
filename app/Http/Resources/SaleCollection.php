@@ -24,7 +24,6 @@ class SaleCollection extends JsonResource
 		        'customer' => new CustomerCollection($this->customer),
 	            'saleChannel' => new SaleChannelCollection($this->saleChannel),
 	            // Custom Fields
-	            'channel_name'  => $this->saleChannel->name,
 	            'customer_name' => $this->customer->name,
 	            'quantity'  => $this->saleItems->count(),
         ];

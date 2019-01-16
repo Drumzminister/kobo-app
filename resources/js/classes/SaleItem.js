@@ -22,6 +22,7 @@ class SaleItem
         this._inventory = inventory;
         this._isValid = false;
         this.saved = false;
+        this.processing = false;
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 
@@ -96,18 +97,22 @@ class SaleItem
         this._inventory = inventory;
     }
 
+    set id(id) {
+        this._id = id;
+    }
+
     /**
      * Saves the Item in the Database
      */
     saveItem () {
         this.saved = false;
         if(this.isNotValid) return;
-
-        if (this._id) {
-            this.updateItemOnDatabase();
-        } else {
-            this.createItemOnDatabase();
-        }
+        this.processing = true;
+            if (this._id) {
+                this.updateItemOnDatabase();
+            } else {
+                this.createItemOnDatabase();
+            }
     }
 
     /**
@@ -124,6 +129,7 @@ class SaleItem
                 if (data.status === "success") {
                     self.saved = true;
                     self._id = data.data.id;
+                    self.processing = false;
                 }
             })
             .catch((err) => console.log(err));
@@ -140,6 +146,7 @@ class SaleItem
                 if (data.status === "success") {
                     self.saved = true;
                     self._id = data.data.id;
+                    self.processing = false;
                 }
             })
             .catch((err) => console.log(err));
@@ -147,19 +154,13 @@ class SaleItem
 
     deleteItemOnDatabase () {
         if (!this._id) return;
+
+        this.processing = true;
         let data = this.getItemData();
-        let self = this;
         let api = new API({ baseUri: 'https://kobo.test/api/client'});
 
         api.createEntity({ name: 'saleItem'});
-        api.endpoints.saleItem.delete(data)
-            .then(({ data }) => {
-                if (data.status === "success") {
-                    // self.saved = true;
-                    // self._id = data.data.id;
-                }
-            })
-            .catch((err) => console.log(err));
+        return api.endpoints.saleItem.delete(data);
     }
 
     /**

@@ -24,4 +24,9 @@ class SaleItem extends Model
 	{
 		$this->attributes['total_price'] = $this->attributes['quantity'] * $this->attributes['sales_price'];
 	}
+
+	public function saleChannel()
+	{
+		return $this->belongsTo(SaleChannel::class);
+	}
 }

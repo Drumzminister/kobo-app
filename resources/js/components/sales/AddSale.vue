@@ -55,7 +55,8 @@
                             </td>
 
                             <td id="delete">
-                                <i @click="deleteSaleItemRow(index)" v-show="saleItems.length > 1" style="cursor: pointer; color: #da1313; font-size: 30px" class="fa fa-times"></i>
+                                <i @click="deleteSaleItemRow(index)" v-show="saleItems.length > 1 && !item.processing" style="cursor: pointer; color: #da1313; font-size: 20px" class="fa fa-times"></i>
+                                <i v-show="item.processing" style="color: #da1313; font-size: 30px" class="fa fa-circle-notch fa-spin-fast"></i>
                             </td>
                         </tr>
                         </tbody>
@@ -78,7 +79,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text customer-input">&#8358;</span>
                                         </div>
-                                        <input type="text" class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="100,000">
+                                        <input type="text" v-model="saleDiscount" class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="100,000">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
