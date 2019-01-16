@@ -74827,7 +74827,6 @@ var SaleItem = function () {
         this._inventory = inventory;
         this._isValid = false;
         this.saved = false;
-        this._END_POINT = __webpack_require__(6)(document).baseURI;
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 

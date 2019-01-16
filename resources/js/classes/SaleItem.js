@@ -22,7 +22,6 @@ class SaleItem
         this._inventory = inventory;
         this._isValid = false;
         this.saved = false;
-        this._END_POINT = require('jquery')(document).baseURI;
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 
