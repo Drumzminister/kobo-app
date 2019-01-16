@@ -14,6 +14,7 @@
 // Prefix: /api/client
 Route::group(['prefix' => 'client'], function() {
 
+	Route::post('/saleItem', 'SaleItemController@addSaleItem')->name('sale.add.item');
     // The controllers live in src/Services/Client/Http/Controllers
     // Route::get('/', 'UserController@index');
 

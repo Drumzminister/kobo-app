@@ -1,4 +1,5 @@
 import {toast} from "../helpers/alert";
+import API from "./API";
 window._ = require('lodash');
 
 class SaleItem
@@ -14,15 +15,16 @@ class SaleItem
         this.sale_channel_id = "";
         this._inventory = inventory;
         this._isValid = false;
+        this.saved = false;
         this._END_POINT = require('jquery')(document).baseURI;
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 
-    get isValid () {
-        return !this._isValid || this.inventory_id !== ""
-            || this.description !== "" || this._quantity > 0
-            || this.sale_channel_id !== "" || this.total_price !== ""
-            || this.sales_price !== "";
+    get isNotValid () {
+        return this.inventory_id === ""
+            || this.description === "" || parseInt(this._quantity) <= 0
+            || this.sale_channel_id === "" || this.totalPrice() <= 0
+            || this.sales_price === "";
     }
 
     set quantity(quantity) {
@@ -57,20 +59,26 @@ class SaleItem
     }
 
     saveItem () {
-        console.log(this.isValid);
-        return;
+        if(this.isNotValid) return;
+
+        console.log("Saving ...");
+
         let data = this.getItemData();
         let self = this;
-        window.axios.post(this._END_POINT, data)
-            .then((response) => {
-                if (response.data.status === "success") {
-                    self._id = response.data.data.id;
+        let api = new API({ baseUri: 'https://kobo.test/client/api'});
+        api.createEntity({ name: 'saleItem'});
+        api.endpoints.saleItem.create(data)
+            .then(({ data }) => {
+                if (data.status === "success") {
+                    self.saved = true;
+                    self._id = data.data.id;
                 }
             })
-            .catch();
+            .catch((err) => console.log(err));
     }
     getItemData () {
         return {
+            id: this._id,
             sale_id: this._sale_id,
             inventory_id: this.inventory_id,
             sale_channel_id: this.sale_channel_id,
