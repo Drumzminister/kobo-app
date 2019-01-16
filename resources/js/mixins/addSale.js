@@ -44,7 +44,9 @@ export const addSale = {
             this.addSaleItemForm();
         },
         deleteSaleItemRow (index) {
+            let item = this.saleItems[index];
             this.saleItems.splice(index, 1);
+            item.deleteItemOnDatabase();
         },
         addSaleItemForm: function () {
             let item = new SaleItem(this.sale.id);
@@ -62,7 +64,6 @@ export const addSale = {
         },
         createSale: function () {
             let data = {
-                items: this.saleItems,
                 paymentMethods: this.selectedAccounts,
                 tax_id: this.taxId,
                 sale_date: this.saleDate,

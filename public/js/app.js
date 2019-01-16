@@ -74673,6 +74673,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -74738,7 +74739,9 @@ var addSale = {
             this.addSaleItemForm();
         },
         deleteSaleItemRow: function deleteSaleItemRow(index) {
+            var item = this.saleItems[index];
             this.saleItems.splice(index, 1);
+            item.deleteItemOnDatabase();
         },
 
         addSaleItemForm: function addSaleItemForm() {
@@ -74766,7 +74769,6 @@ var addSale = {
 
         createSale: function createSale() {
             var data = {
-                items: this.saleItems,
                 paymentMethods: this.selectedAccounts,
                 tax_id: this.taxId,
                 sale_date: this.saleDate,
@@ -74803,6 +74805,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 window._ = __webpack_require__(172);
 
 var SaleItem = function () {
+    /**
+     * Constructor
+     *
+     * @param saleId
+     * @param inventory
+     */
     function SaleItem(saleId) {
         var inventory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
@@ -74823,26 +74831,73 @@ var SaleItem = function () {
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 
+    /**
+     * Evaluates the Item if its valid
+     *
+     * @returns {boolean}
+     */
+
+
     _createClass(SaleItem, [{
         key: "totalPrice",
+
+
+        /**
+         * Computes Total Item Price
+         *
+         * @returns {number}
+         */
         value: function totalPrice() {
             return this._quantity * this.sales_price;
         }
+
+        /**
+         * Get Inventory Quantity of which this Item is linked to
+         *
+         * @returns {*}
+         */
+
     }, {
         key: "getInventoryQuantity",
         value: function getInventoryQuantity() {
             return this.inventory_id === "" ? 0 : this._inventory.quantity;
         }
+
+        /**
+         * Links the Item to inventory
+         *
+         * @param inventory
+         */
+
     }, {
         key: "saveItem",
+
+
+        /**
+         * Saves the Item in the Database
+         */
         value: function saveItem() {
+            this.saved = false;
             if (this.isNotValid) return;
 
-            console.log("Saving ...");
+            if (this._id) {
+                this.updateItemOnDatabase();
+            } else {
+                this.createItemOnDatabase();
+            }
+        }
 
+        /**
+         * Creates the Item in the Database
+         */
+
+    }, {
+        key: "createItemOnDatabase",
+        value: function createItemOnDatabase() {
             var data = this.getItemData();
             var self = this;
-            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/client/api' });
+            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/api/client' });
+
             api.createEntity({ name: 'saleItem' });
             api.endpoints.saleItem.create(data).then(function (_ref) {
                 var data = _ref.data;
@@ -74855,6 +74910,52 @@ var SaleItem = function () {
                 return console.log(err);
             });
         }
+    }, {
+        key: "updateItemOnDatabase",
+        value: function updateItemOnDatabase() {
+            var data = this.getItemData();
+            var self = this;
+            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/api/client' });
+
+            api.createEntity({ name: 'saleItem' });
+            api.endpoints.saleItem.update(data).then(function (_ref2) {
+                var data = _ref2.data;
+
+                if (data.status === "success") {
+                    self.saved = true;
+                    self._id = data.data.id;
+                }
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        }
+    }, {
+        key: "deleteItemOnDatabase",
+        value: function deleteItemOnDatabase() {
+            if (!this._id) return;
+            var data = this.getItemData();
+            var self = this;
+            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/api/client' });
+
+            api.createEntity({ name: 'saleItem' });
+            api.endpoints.saleItem.delete(data).then(function (_ref3) {
+                var data = _ref3.data;
+
+                if (data.status === "success") {
+                    // self.saved = true;
+                    // self._id = data.data.id;
+                }
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        }
+
+        /**
+         * Gets the Item Data in (what we need)
+         *
+         * @returns {{sale_id: *, sale_channel_id: string, quantity: *, total_price: number, inventory_id: string, sales_price: number, description: string, id: (null|*)}}
+         */
+
     }, {
         key: "getItemData",
         value: function getItemData() {
@@ -74874,6 +74975,13 @@ var SaleItem = function () {
         get: function get() {
             return this.inventory_id === "" || this.description === "" || parseInt(this._quantity) <= 0 || this.sale_channel_id === "" || this.totalPrice() <= 0 || this.sales_price === "";
         }
+
+        /**
+         * Mutates the Quantity of this Item
+         *
+         * @param quantity
+         */
+
     }, {
         key: "quantity",
         set: function set(quantity) {
@@ -74892,7 +75000,14 @@ var SaleItem = function () {
             } else {
                 this._quantity = quantity;
             }
-        },
+        }
+
+        /**
+         * Gets Item Quantity
+         *
+         * @returns {null}
+         */
+        ,
         get: function get() {
             return this._quantity;
         }
@@ -74934,255 +75049,289 @@ var render = function() {
                 "tbody",
                 { attrs: { id: "salesTable" } },
                 _vm._l(_vm.saleItems, function(item, index) {
-                  return _c("tr", [
-                    _c("td", [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: item.inventory_id,
-                              expression: "item.inventory_id"
-                            }
-                          ],
-                          staticClass: "form-control inventory",
-                          on: {
-                            change: [
-                              function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  item,
-                                  "inventory_id",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              },
-                              function($event) {
-                                _vm.fillSaleItemWithInventory(item)
+                  return _c(
+                    "tr",
+                    {
+                      class: {
+                        "border-right-green": item.saved,
+                        "border-right-red": !item.saved
+                      }
+                    },
+                    [
+                      _c("td", [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: item.inventory_id,
+                                expression: "item.inventory_id"
                               }
-                            ]
-                          }
-                        },
-                        [
-                          _c("option", { attrs: { value: "" } }, [
-                            _vm._v(
-                              "\n                                    Select ...\n                                "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(_vm.availableInventories, function(inventory) {
-                            return _c(
-                              "option",
-                              { domProps: { value: inventory.id } },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(inventory.name) +
-                                    "\n                                "
-                                )
+                            ],
+                            staticClass: "form-control inventory",
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    item,
+                                    "inventory_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                                function($event) {
+                                  _vm.fillSaleItemWithInventory(item)
+                                }
                               ]
-                            )
-                          })
-                        ],
-                        2
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: item.description,
-                            expression: "item.description"
-                          }
-                        ],
-                        staticClass: "form-control sales_description ",
-                        attrs: { type: "text", id: "sales_description" },
-                        domProps: { value: item.description },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
                             }
-                            _vm.$set(item, "description", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: item.quantity,
-                            expression: "item.quantity"
-                          }
-                        ],
-                        staticClass: "sales_quantity form-control",
-                        attrs: {
-                          disabled: item.inventory_id === "",
-                          type: "number"
-                        },
-                        domProps: { value: item.quantity },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(item, "quantity", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: item.sales_price,
-                            expression: "item.sales_price"
-                          }
-                        ],
-                        staticClass: "form-control sales_price",
-                        attrs: { disabled: "", type: "number" },
-                        domProps: { value: item.sales_price },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(item, "sales_price", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: item.totalPrice(),
-                            expression: "item.totalPrice()"
-                          }
-                        ],
-                        staticClass: "form-control sales_total",
-                        attrs: {
-                          disabled: "",
-                          type: "text",
-                          id: "sales_total"
-                        },
-                        domProps: { value: item.totalPrice() },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(item, "totalPrice()", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "select",
-                        {
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v(
+                                "\n                                    Select ...\n                                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.availableInventories, function(
+                              inventory
+                            ) {
+                              return _c(
+                                "option",
+                                { domProps: { value: inventory.id } },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(inventory.name) +
+                                      "\n                                "
+                                  )
+                                ]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: item.sale_channel_id,
-                              expression: "item.sale_channel_id"
+                              value: item.description,
+                              expression: "item.description"
                             }
                           ],
-                          staticClass: "form-control search sales_channel",
+                          staticClass: "form-control sales_description ",
+                          attrs: { type: "text", id: "sales_description" },
+                          domProps: { value: item.description },
                           on: {
                             change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
+                              item.debounceItemSaving()
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(item, "description", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: item.quantity,
+                              expression: "item.quantity"
+                            }
+                          ],
+                          staticClass: "sales_quantity form-control",
+                          attrs: {
+                            disabled: item.inventory_id === "",
+                            type: "number"
+                          },
+                          domProps: { value: item.quantity },
+                          on: {
+                            change: function($event) {
+                              item.debounceItemSaving()
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(item, "quantity", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: item.sales_price,
+                              expression: "item.sales_price"
+                            }
+                          ],
+                          staticClass: "form-control sales_price",
+                          attrs: { disabled: "", type: "number" },
+                          domProps: { value: item.sales_price },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(item, "sales_price", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: item.totalPrice(),
+                              expression: "item.totalPrice()"
+                            }
+                          ],
+                          staticClass: "form-control sales_total",
+                          attrs: {
+                            disabled: "",
+                            type: "text",
+                            id: "sales_total"
+                          },
+                          domProps: { value: item.totalPrice() },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
                               _vm.$set(
                                 item,
-                                "sale_channel_id",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
+                                "totalPrice()",
+                                $event.target.value
                               )
                             }
                           }
-                        },
-                        [
-                          _c("option", { attrs: { value: "" } }, [
-                            _vm._v("Channel ...")
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(_vm.channels, function(channel) {
-                            return _c(
-                              "option",
-                              { domProps: { value: channel.id } },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(channel.name) +
-                                    "\n                                "
-                                )
-                              ]
-                            )
-                          })
-                        ],
-                        2
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { attrs: { id: "delete" } }, [
-                      _c("i", {
-                        directives: [
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "select",
                           {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.saleItems.length > 1,
-                            expression: "saleItems.length > 1"
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: item.sale_channel_id,
+                                expression: "item.sale_channel_id"
+                              }
+                            ],
+                            staticClass: "form-control search sales_channel",
+                            on: {
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    item,
+                                    "sale_channel_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                                function($event) {
+                                  item.debounceItemSaving()
+                                }
+                              ]
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Channel ...")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.channels, function(channel) {
+                              return _c(
+                                "option",
+                                { domProps: { value: channel.id } },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(channel.name) +
+                                      "\n                                "
+                                  )
+                                ]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { attrs: { id: "delete" } }, [
+                        _c("i", {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.saleItems.length > 1,
+                              expression: "saleItems.length > 1"
+                            }
+                          ],
+                          staticClass: "fa fa-times",
+                          staticStyle: {
+                            cursor: "pointer",
+                            color: "#da1313",
+                            "font-size": "30px"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.deleteSaleItemRow(index)
+                            }
                           }
-                        ],
-                        staticClass: "fa fa-times",
-                        staticStyle: { cursor: "pointer", color: "#da1313" },
-                        on: {
-                          click: function($event) {
-                            _vm.deleteSaleItemRow(index)
-                          }
-                        }
-                      })
-                    ])
-                  ])
+                        })
+                      ])
+                    ]
+                  )
                 }),
                 0
               )
             ]
-          ),
-          _vm._v(" "),
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
           _c(
             "span",
             {
@@ -75206,12 +75355,12 @@ var render = function() {
         _c("div", { staticClass: "row p-2 mt-2 " }, [
           _c(
             "div",
-            { staticClass: "md-6" },
+            { staticClass: "md-8" },
             [_c("payment-method-selection", { attrs: { banks: _vm.banks } })],
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "col-md-4" }, [
             _c(
               "div",
               { staticClass: "bg-grey py-4 px-3", attrs: { id: "topp" } },
