@@ -3,6 +3,7 @@ import Vuex from  'vuex';
 import {paymentMethodSelectionModule} from './modules/paymentMethodSelection';
 import {inventoryModule} from './modules/inventoryModule';
 import {vatModule} from './modules/vatModule';
+import {saleModule} from './modules/saleModule';
 
 Vue.use(Vuex);
 
@@ -18,6 +19,7 @@ export const store = new Vuex.Store({
     modules: {
         paymentModule: paymentMethodSelectionModule,
         inventoryModule: inventoryModule,
-        vatModule: vatModule
+        vatModule: vatModule,
+        saleModule: saleModule
     }
 });

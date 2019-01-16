@@ -12,6 +12,7 @@ export const addSale = {
     created: function() {
         this.addSaleItemForm();
         this.setCompanyInventories(this.inventories);
+        this.setSale(this.sale);
     },
     computed: {
         selectedAccounts () {
@@ -28,7 +29,7 @@ export const addSale = {
         }
     },
     methods: {
-        ...mapMutations(['setCompanyInventories', 'selectInventory']),
+        ...mapMutations(['setCompanyInventories', 'selectInventory', 'setSale']),
         ...mapGetters(['getCurrentURI']),
         fillSaleItemWithInventory (item) {
             if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
@@ -57,7 +58,7 @@ export const addSale = {
             this.$watch(() => item.quantity, this.saleItemDataChanged);
         },
         saleItemDataChanged (item) {
-            console.log(item);
+            // ToDo: Implement this Watcher
         },
         createSale: function () {
             let data = {

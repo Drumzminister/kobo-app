@@ -14,7 +14,7 @@ class SaleItem
         this.sale_channel_id = "";
         this._inventory = inventory;
         this._isValid = false;
-        const END_POINT = "";
+        this._END_POINT = require('jquery')(document).baseURI;
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 
@@ -57,7 +57,28 @@ class SaleItem
     }
 
     saveItem () {
-        console.log(this._inventory.name);
+        console.log(this.isValid);
+        return;
+        let data = this.getItemData();
+        let self = this;
+        window.axios.post(this._END_POINT, data)
+            .then((response) => {
+                if (response.data.status === "success") {
+                    self._id = response.data.data.id;
+                }
+            })
+            .catch();
+    }
+    getItemData () {
+        return {
+            sale_id: this._sale_id,
+            inventory_id: this.inventory_id,
+            sale_channel_id: this.sale_channel_id,
+            quantity: this.quantity,
+            sales_price: this.sales_price,
+            total_price: this.totalPrice(),
+            description: this.description
+        }
     }
 }
 
