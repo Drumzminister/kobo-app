@@ -53,11 +53,16 @@ export const loanApp = {
     },
     mounted () {
         this.loans = window.loans;
+        this.banks = window.banks;
         this.allSources = window.loanSources;
         this.loanAmtPaid = window.loanAmtPaid;
         this.loanAmtOwing = window.loanAmtOwing;
         this.loanAmtRunning = window.loanAmtRunning;
-        this.loanPaymentMethods = window.paymentMethods;
+    },
+    computed: {
+        selectedAccounts () {
+            return this.$store.state.selectedAccounts;
+        }
     },
     methods: {
         searchForSource () {
@@ -148,23 +153,25 @@ export const loanApp = {
         },
         payLoan (evt) {
             evt.preventDefault();
-            if (this.loanPaymentValidationError) {
-                swal ("Oops", this.loanPaymentValidationMessage, "warning");
-            }else {
-                let formData = new FormData(evt.target);
-                // formData.append('_token', token);
-                formData.append('loan_id', this.currentLoan.id);
+            let sum = 0;
+            this.selectedAccounts.forEach((account) => {
+                if ( !isNaN(Number(account.amount)) ) {
+                    sum += Number(account.amount);
+                }
+            });
 
-                axios.post('/loans/payment', formData).then(res => {
-                    this.currentLoanPayments.unshift(res.data.payment);
-                    swal('Successful', 'Payments Made Successfully', 'success');
-                    this.currentLoan.amount_paid = Number(this.currentLoan.amount_paid);
-                    this.currentLoan.amount_paid += Number(res.data.payment.amount);
-                    $('#pay-loan').modal('hide');
-                }).catch(err => {
-                    swal('Oops', err.response.data.error, "error");
-                })
+            if (sum > (Number(this.currentLoan.amount - this.currentLoan.amount_paid) + Number(this.currentLoan.interest * this.currentLoan.amount / 100)) ) {
+                swal("Error", `Total amount payable should be less than ${(this.currentLoan.amount - this.currentLoan.amount_paid) + (this.currentLoan.interest * this.currentLoan.amount / 100)}`, "error");
+                return;
             }
+            let formData = new FormData();
+            formData.append('amount', sum.toString());
+            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            axios.post(`/client/loan/${this.currentLoan.id}/pay`, formData).then(response => {
+                swal('Success', `${response.data.message}`, 'success');
+            }).catch(err => {
+                swal('Oops', `${err.response.data.message}`, 'error');
+            });
         },
         toggleShowMoreIntervals (evt) {
             this.showMoreIntervals = !this.showMoreIntervals;

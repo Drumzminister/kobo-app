@@ -19,7 +19,7 @@ export const rentApp = {
         }
     },
     mounted () {
-        // this.banks = window.banks;
+        this.banks = window.banks;
         this.rents = window.rents;
     },
     methods: {
@@ -116,19 +116,24 @@ export const rentApp = {
             return rent.amount - this.rentUsed(rent);
         },
         payRent () {
-            let sum = 0
+            let sum = 0;
             this.selectedAccounts.forEach((account) => {
                 if ( !isNaN(Number(account.amount)) ) {
                     sum += Number(account.amount);
-                } 
+                }
             });
+
             if (sum !== Number(this.selectedRent.amount)) {
                 swal("Error", `Total amount payable should be equal to ${this.selectedRent.amount}`, "error");
-                console.log(sum);
                 return;
             }
-            axios.post(`/client/rent/${this.selectedRent.id}/pay`, () => {
-
+            let formData = new FormData();
+            formData.append('amount', sum.toString());
+            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            axios.post(`/client/rent/${this.selectedRent.id}/pay`, formData).then(response => {
+                swal('Success', `${response.data.message}`, 'success');
+            }).catch(err => {
+                swal('Oops', `${err.response.data.message}`, 'error');
             });
         },
         openPaymentModal(rent) {

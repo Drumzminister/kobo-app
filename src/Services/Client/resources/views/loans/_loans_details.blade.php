@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="modal-footer text-center justify-content-between">
-                    <button class="btn btn-started" v-if="(currentLoan.amount - currentLoan.amount_paid) + (currentLoan.interest * currentLoan.amount / 100) !== 0 " data-toggle="modal" data-target="#pay-loan">Pay Loan</button>
+                    <button class="btn btn-started" v-if="(currentLoan.amount - currentLoan.amount_paid) + (currentLoan.interest * currentLoan.amount / 100) !== 0 " @click="openModal('#paymentModal')">Pay Loan</button>
                     <button class="btn btn-success" v-if="(currentLoan.amount - currentLoan.amount_paid) + (currentLoan.interest * currentLoan.amount / 100) === 0 " >Payment Completed</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
@@ -92,41 +92,21 @@
 </div>
 
 {{-- Pay loan modal --}}
-<div class="modal fade" id="pay-loan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="container p-3">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Select Payment Mode</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="h5 uppercase" id="">Pay @{{currentLoan.source_name}}</h5>
-
-                <div class="modal-body">
-                    <form action="" method="post" @submit="payLoan($event)">
-                        <div class="form-group row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="Amount">Enter Amount</label>
-                                    <input type="number" step="0.01" v-model="loanPaymentAmount" name="amount" class="form-control" id="" placeholder="10,000.00" required>
-                                    <small v-if="loanPaymentValidationError" class="text-danger">@{{ loanPaymentValidationMessage }}</small>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="payment mode">Select Payment Mode</label>
-                                    <select class="form-control" id="" name="payment_method" required>
-                                        <option value="cash" selected>Cash</option>
-                                        <option value="bank">Bank Transfer</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="justify-content-around text-center">
-                            <button type="submit" class="btn btn-started">Pay</button>
-                        </div>
-                    </form>
-                </div>
-
+            </div>
+            <div class="modal-body">
+                <payment-method-selection class="col-12" :banks="{{ $banks }}"></payment-method-selection>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-payment" @click="payLoan" v-if="selectedAccounts.length > 0">Pay</button>
+                <button class="btn btn-sm px-3 btn-info" style="cursor: not-allowed;" v-if="selectedAccounts.length < 1" disabled>Pay</button>
             </div>
         </div>
     </div>

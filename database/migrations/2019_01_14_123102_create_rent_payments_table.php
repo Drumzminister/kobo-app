@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLoanPaymentsTable extends Migration
+class CreateRentPaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateLoanPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('loan_payments', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('loan_id')->index();
+        Schema::create('rent_payments', function (Blueprint $table) {
+            $table->string('id');
+            $table->string('rent_id');
             $table->decimal('amount', 15, 2);
-            $table->decimal('balance', 15, 2);
-
+            $table->integer('current_period');
             $table->timestamps();
+
+            $table->primary('id');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateLoanPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('loan_payments');
+        Schema::dropIfExists('rent_payments');
     }
 }

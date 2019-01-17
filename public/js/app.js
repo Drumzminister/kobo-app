@@ -72335,7 +72335,7 @@ var rentApp = {
         }
     },
     mounted: function mounted() {
-        // this.banks = window.banks;
+        this.banks = window.banks;
         this.rents = window.rents;
     },
 
@@ -72435,12 +72435,19 @@ var rentApp = {
                     sum += Number(account.amount);
                 }
             });
+
             if (sum !== Number(this.selectedRent.amount)) {
                 swal("Error", "Total amount payable should be equal to " + this.selectedRent.amount, "error");
-                console.log(sum);
                 return;
             }
-            axios.post("/client/rent/" + this.selectedRent.id + "/pay", function () {});
+            var formData = new FormData();
+            formData.append('amount', sum.toString());
+            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            axios.post("/client/rent/" + this.selectedRent.id + "/pay", formData).then(function (response) {
+                swal('Success', "" + response.data.message, 'success');
+            }).catch(function (err) {
+                swal('Oops', "" + err.response.data.message, 'error');
+            });
         },
         openPaymentModal: function openPaymentModal(rent) {
             this.selectedRent = rent;
@@ -72532,13 +72539,18 @@ var loanApp = {
     },
     mounted: function mounted() {
         this.loans = window.loans;
+        this.banks = window.banks;
         this.allSources = window.loanSources;
         this.loanAmtPaid = window.loanAmtPaid;
         this.loanAmtOwing = window.loanAmtOwing;
         this.loanAmtRunning = window.loanAmtRunning;
-        this.loanPaymentMethods = window.paymentMethods;
     },
 
+    computed: {
+        selectedAccounts: function selectedAccounts() {
+            return this.$store.state.selectedAccounts;
+        }
+    },
     methods: {
         searchForSource: function searchForSource() {
             var _this2 = this;
@@ -72634,26 +72646,26 @@ var loanApp = {
             $('#loanDetailsModal').modal('show');
         },
         payLoan: function payLoan(evt) {
-            var _this6 = this;
-
             evt.preventDefault();
-            if (this.loanPaymentValidationError) {
-                swal("Oops", this.loanPaymentValidationMessage, "warning");
-            } else {
-                var formData = new FormData(evt.target);
-                // formData.append('_token', token);
-                formData.append('loan_id', this.currentLoan.id);
+            var sum = 0;
+            this.selectedAccounts.forEach(function (account) {
+                if (!isNaN(Number(account.amount))) {
+                    sum += Number(account.amount);
+                }
+            });
 
-                axios.post('/loans/payment', formData).then(function (res) {
-                    _this6.currentLoanPayments.unshift(res.data.payment);
-                    swal('Successful', 'Payments Made Successfully', 'success');
-                    _this6.currentLoan.amount_paid = Number(_this6.currentLoan.amount_paid);
-                    _this6.currentLoan.amount_paid += Number(res.data.payment.amount);
-                    $('#pay-loan').modal('hide');
-                }).catch(function (err) {
-                    swal('Oops', err.response.data.error, "error");
-                });
+            if (sum > Number(this.currentLoan.amount - this.currentLoan.amount_paid) + Number(this.currentLoan.interest * this.currentLoan.amount / 100)) {
+                swal("Error", "Total amount payable should be less than " + (this.currentLoan.amount - this.currentLoan.amount_paid + this.currentLoan.interest * this.currentLoan.amount / 100), "error");
+                return;
             }
+            var formData = new FormData();
+            formData.append('amount', sum.toString());
+            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            axios.post("/client/loan/" + this.currentLoan.id + "/pay", formData).then(function (response) {
+                swal('Success', "" + response.data.message, 'success');
+            }).catch(function (err) {
+                swal('Oops', "" + err.response.data.message, 'error');
+            });
         },
         toggleShowMoreIntervals: function toggleShowMoreIntervals(evt) {
             this.showMoreIntervals = !this.showMoreIntervals;

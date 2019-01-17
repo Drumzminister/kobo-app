@@ -340,8 +340,8 @@
                                     <div class="form-group">
                                         <label class="px-0" for="account">Receiving Account</label>
                                         <select name="receivingAccount" class="form-control" v-model="accountReceivingLoan" id="account">
-                                            <option v-for="method in loanPaymentMethods" v-if="method.mode === 'Cash'" :value="method">@{{ method.mode }}</option>
-                                            <option v-for="method in loanPaymentMethods" v-if="method.mode !== 'Cash'" :value="method">@{{ method.mode }} (@{{ method.account_name }})</option>
+                                            <option v-for="bank in banks" :value="bank" >@{{ bank.account_name }}</option>
+
                                         </select>
                                     </div>
                                 </form>
@@ -383,7 +383,7 @@
         window.loanAmtPaid = @json($runningLoanPaid);
         window.loanAmtOwing = @json($runningLoanOwing);
         window.loanAmtRunning = @json($runningLoanCount);
-        window.paymentMethods = @json($paymentMethods);
+        window.banks = @json($banks);
         window.addLoanUrl = "{{ route('client.loan.add') }}";
     </script>
 @endsection
