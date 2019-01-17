@@ -59,13 +59,17 @@
             ...mapGetters(['saleInvoice']),
         },
         watch: {
-            ...mapMutations({ tax_id: 'taxId', sale_date: 'saleDate' }),
+            ...mapMutations({ sale_date: 'saleDate' }),
             customer_id: function(val) {
                 this.customer(this.customers.filter((customer) => val === customer.id)[0]);
+            },
+            tax_id: function(val) {
+                this.selectedTax(this.taxes.filter((tax) => val === tax.id)[0]);
+                this.taxId(val);
             }
         },
         methods : {
-            ...mapMutations(['customer'])
+            ...mapMutations(['customer', 'selectedTax', "taxId"])
         }
     }
 </script>

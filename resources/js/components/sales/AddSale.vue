@@ -88,19 +88,28 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                         </div>
-                                        <input type="text" class="form-control " id="" aria-describedby="basic-addon3" placeholder="100,000">
+                                        <input type="text" v-model="deliveryCost" class="form-control " id="" aria-describedby="basic-addon3" placeholder="100,000">
                                     </div>
                                 </div>
                             </div>
                             <div class="row pt-2">
-                                <div class="col">
+                                <div class="col-md-6">
                                     <h5 class="h6 uppercase">Total Amount</h5>
-                                </div>
-                                <div class="col input-group input-group-lg">
-                                    <div class="input-group-prepend cus">
-                                        <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend cus">
+                                            <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
+                                        </div>
+                                        <input type="text" :disabled="true" v-model="computedSalesAmount" class="form-control" id="total" aria-describedby="basic-addon3" placeholder="1,275,000">
                                     </div>
-                                    <input type="text" :disabled="true" v-model="totalSalesAmount" class="form-control" id="total" aria-describedby="basic-addon3" placeholder="1,275,000">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="h6 uppercase">TAX Amount</h5>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend cus">
+                                            <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
+                                        </div>
+                                        <input type="text" :disabled="true" v-model="taxAmount" class="form-control" aria-describedby="basic-addon3" placeholder="1,275,000">
+                                    </div>
                                 </div>
                             </div>
                         </div>

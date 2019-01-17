@@ -24,7 +24,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('/bank-update/{detailId}', 'BankDetailController@updateBankDetail')->name('client.update-bank');
     Route::get('/bank/delete/{detailId}', 'BankDetailController@deleteBankDetail')->name('client.delete-bank');
 
-	Route::post('/sale/debitis-nihil-aut-gmbh/add', 'SaleController@addSale')->name('client.sale.add');
+	Route::post('/sale', 'SaleController@addSale')->name('client.sale.add');
 	Route::get('/sale/list', 'SaleController@listSales')->name('client.sale.list');
 	Route::post('/sale/update/{saleId}', 'SaleController@updateSale')->name('client.sale.update');
 	Route::post('/sale/delete/{saleId}', 'SaleController@deleteSale')->name('client.sale.delete');

@@ -79,7 +79,7 @@
                 }
 
                 if (this.selectedAccounts.length === 0) {
-                    paymentMode.amount = this.$parent.totalSalesAmount;
+                    paymentMode.amount = this.$parent.computedSalesAmount;
                 }
 
                 paymentMode.id = selectedBank.id;

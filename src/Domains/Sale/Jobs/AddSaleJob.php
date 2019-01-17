@@ -52,11 +52,13 @@ class AddSaleJob extends Job
     public function handle()
     {
     	$sale = $this->sale->findOnly('id', $this->data['sale_id']);
-	    $this->data['company_id'] = $this->userRepository->comapany->id;
-	    $this->data['staff_id'] = $this->userRepository->staff->id;
+	    $this->data['company_id'] = $this->user->company->id;
+	    $this->data['staff_id'] = $this->user->staff->id;
 
-	    $items = collect($this->data['items']);
-	    dd($items);
-//	    $updated = $sale->fill($this->data)->save();
+	    $paymentMethods = $this->data['paymentMethods'];
+
+	    $updated = $sale->fill($this->data)->save();
+
+
     }
 }

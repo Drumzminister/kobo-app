@@ -1,6 +1,7 @@
 import SaleItem from "../classes/SaleItem";
 import {mapGetters, mapMutations, mapState} from "vuex";
 import {toast} from "../helpers/alert";
+import API from "../classes/API";
 
 export const addSale = {
     data() {
@@ -21,17 +22,31 @@ export const addSale = {
         saleIsNotValid () {
             return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "";
         },
+        taxAmount () {
+            return (parseInt(this.selectedTax ? this.selectedTax.percentage : 0) / 100) * this.totalSalesAmount;
+        },
         selectedAccounts () {
             return this.$store.state.paymentModule.selectedAccounts;
         },
-        ...mapGetters(['taxId', 'saleDate', "customer"]),
+        ...mapGetters(['taxId', 'saleDate', "customer", "selectedTax"]),
         ...mapGetters(['availableInventories', 'getInventory']),
         totalSalesAmount () {
             let sum = 0;
             this.saleItems.forEach(function(item) {
                 sum += item.totalPrice();
             });
-            return sum - parseInt(this.saleDiscount || 0);
+
+            return sum;
+        },
+
+        computedSalesAmount () {
+            let sum = this.totalSalesAmount;
+
+            sum -= parseInt(this.saleDiscount || 0);
+            sum += parseInt(this.deliveryCost || 0);
+            sum += parseInt(this.taxAmount);
+
+            return sum;
         }
     },
     methods: {
@@ -80,10 +95,16 @@ export const addSale = {
         },
         saveSale () {
             if (this.saleIsNotValid) {
-                toast('Please make sure customer', 'error', 'center');
+                toast('Please fill all required fields before saving.', 'error', 'center');
+
+                return;
             }
+
+            this.createSale();
         },
         createSale: function () {
+            let api = new API({ baseUri: 'https://kobo.test/client'});
+            api.createEntity({ name: 'sale'});
             let data = {
                 tax_id: this.taxId,
                 sale_id: this.sale.id,
@@ -96,13 +117,12 @@ export const addSale = {
                 invoice_number: this.sale.invoice_number
             };
 
-            window.axios.post(this.getCurrentURI(), data)
-                .then((response) =>  {
-                    if (response.data.status === "success") {
-                        swal("Sale created successfully!");
+            api.endpoints.sale.create(data)
+                .then(function ({ data }) {
+                    if (data.status === "success") {
+                        alert('Done');
                     }
-                })
-                .catch();
+                });
         },
         previewInvoice () {
             if(!this.customer) {
