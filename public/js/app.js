@@ -74733,7 +74733,7 @@ var addSale = {
     },
     computed: _extends({
         saleIsNotValid: function saleIsNotValid() {
-            return this.customer === null || this.saleDate === "" || this.taxId === "";
+            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "";
         },
         selectedAccounts: function selectedAccounts() {
             return this.$store.state.paymentModule.selectedAccounts;
@@ -74809,15 +74809,15 @@ var addSale = {
 
         createSale: function createSale() {
             var data = {
-                paymentMethods: this.selectedAccounts,
                 tax_id: this.taxId,
-                sale_date: this.saleDate,
-                customer_id: this.customerId,
-                total_amount: 0,
-                discount: 0,
                 sale_id: this.sale.id,
-                invoice_number: this.sale.invoice_number,
-                delivery_cost: this.deliveryCost
+                sale_date: this.saleDate,
+                discount: this.saleDiscount,
+                customer_id: this.customer.id,
+                delivery_cost: this.deliveryCost,
+                total_amount: this.totalSalesAmount,
+                paymentMethods: this.selectedAccounts,
+                invoice_number: this.sale.invoice_number
             };
 
             window.axios.post(this.getCurrentURI(), data).then(function (response) {
