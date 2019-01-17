@@ -74725,7 +74725,7 @@ var addSale = {
         selectedAccounts: function selectedAccounts() {
             return this.$store.state.paymentModule.selectedAccounts;
         }
-    }, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['customerId', 'taxId', 'saleDate']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory']), {
+    }, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['customerId', 'taxId', 'saleDate', "customer"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory']), {
         totalSalesAmount: function totalSalesAmount() {
             var sum = 0;
             this.saleItems.forEach(function (item) {
@@ -75894,7 +75894,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['saleInvoice'])),
-    watch: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])({ customer_id: 'customerId', tax_id: 'taxId', sale_date: 'saleDate' }))
+    watch: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])({ tax_id: 'taxId', sale_date: 'saleDate' }), {
+        customer_id: function customer_id(val) {
+            this.customer(this.customers.filter(function (customer) {
+                return val === customer.id;
+            })[0]);
+        }
+    }),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['customer']))
 });
 
 /***/ }),
@@ -85091,14 +85098,14 @@ var vatModule = {
     state: {
         taxId: "",
         saleDate: "",
-        customerId: ""
+        customer: null
     },
     getters: {
         taxId: function taxId(state) {
             return state.taxId;
         },
-        customerId: function customerId(state) {
-            return state.customerId;
+        customer: function customer(state) {
+            return state.customer;
         },
         saleDate: function saleDate(state) {
             return state.saleDate;
@@ -85108,8 +85115,8 @@ var vatModule = {
         taxId: function taxId(state, value) {
             state.taxId = value;
         },
-        customerId: function customerId(state, value) {
-            state.customerId = value;
+        customer: function customer(state, _customer) {
+            state.customer = _customer;
         },
         saleDate: function saleDate(state, value) {
             state.saleDate = value;
@@ -85333,6 +85340,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(9);
 //
 //
 //
@@ -85431,6 +85439,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     // props: ['sale', 'saleItems'],
@@ -85454,7 +85463,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$parent.customer;
         }
     },
-    watch: {}
+    methods: {}
 });
 
 /***/ }),
@@ -85494,7 +85503,15 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-10" }, [
                   _c("h5", { staticClass: "text-green h5" }, [
-                    _vm._v(_vm._s("sfasasfasf"))
+                    _vm._v(
+                      _vm._s(
+                        _vm.customer
+                          ? _vm.customer.first_name +
+                              "  " +
+                              _vm.customer.last_name
+                          : "Customer Not Selected"
+                      )
+                    )
                   ]),
                   _vm._v(" "),
                   _c("h6", { staticClass: "text-primary h6" }, [

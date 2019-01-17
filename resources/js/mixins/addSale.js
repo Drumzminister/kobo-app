@@ -20,7 +20,7 @@ export const addSale = {
         selectedAccounts () {
             return this.$store.state.paymentModule.selectedAccounts;
         },
-        ...mapGetters(['customerId', 'taxId', 'saleDate']),
+        ...mapGetters(['customerId', 'taxId', 'saleDate', "customer"]),
         ...mapGetters(['availableInventories', 'getInventory']),
         totalSalesAmount () {
             let sum = 0;

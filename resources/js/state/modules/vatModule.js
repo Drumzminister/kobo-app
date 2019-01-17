@@ -2,14 +2,14 @@ export const vatModule = {
     state: {
         taxId: "",
         saleDate: "",
-        customerId: "",
+        customer: null,
     },
     getters: {
         taxId(state) {
             return state.taxId;
         },
-        customerId(state) {
-            return state.customerId;
+        customer(state) {
+            return state.customer;
         },
         saleDate(state) {
             return state.saleDate;
@@ -19,8 +19,8 @@ export const vatModule = {
         taxId(state, value) {
             state.taxId = value;
         },
-        customerId(state, value) {
-            state.customerId = value;
+        customer(state, customer) {
+            state.customer = customer;
         },
         saleDate(state, value) {
             state.saleDate = value;

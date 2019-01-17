@@ -52,14 +52,20 @@
             return {
                 tax_id: "",
                 sale_date: "",
-                customer_id: ""
+                customer_id: "",
             }
         },
         computed: {
-            ...mapGetters(['saleInvoice'])
+            ...mapGetters(['saleInvoice']),
         },
         watch: {
-            ...mapMutations({ customer_id: 'customerId', tax_id: 'taxId', sale_date: 'saleDate' })
+            ...mapMutations({ tax_id: 'taxId', sale_date: 'saleDate' }),
+            customer_id: function(val) {
+                this.customer(this.customers.filter((customer) => val === customer.id)[0]);
+            }
+        },
+        methods : {
+            ...mapMutations(['customer'])
         }
     }
 </script>

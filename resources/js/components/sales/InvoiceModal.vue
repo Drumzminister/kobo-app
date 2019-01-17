@@ -12,7 +12,7 @@
                             <img src="img/account-client.png" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                         </div>
                         <div class="col-md-10">
-                            <h5 class="text-green h5">{{ "sfasasfasf" }}</h5>
+                            <h5 class="text-green h5">{{ customer ? `${customer.first_name}  ${ customer.last_name}` : "Customer Not Selected" }}</h5>
                             <h6 class="text-primary h6">Invoice NO: KB &#x2d; {{ sale.invoice_number || "" }}</h6>
 
                             <form action="" method="post">
@@ -97,6 +97,7 @@
     </div>
 </template>
 <script>
+    import { mapGetters } from "vuex";
     export default {
         // props: ['sale', 'saleItems'],
         data() {
@@ -117,7 +118,7 @@
                 return this.$parent.customer;
             }
         },
-        watch: {
+        methods: {
         }
     }
 </script>
