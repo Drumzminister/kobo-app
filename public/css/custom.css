@@ -56,3 +56,15 @@ p{
 .w-90{
   width: 90%;
 }
+
+.border-right-green {
+  border-right: 5px solid #00C259;
+}
+
+.border-right-red {
+  border-right: 5px solid #c23331;
+}
+
+.fa-spin-fast {
+  animation: fa-spin 2s infinite linear !important;
+}

@@ -61,9 +61,4 @@ class Sale extends Model
     {
     	return $this->hasOne(Transaction::class);
     }
-
-    public function saleChannel()
-    {
-	    return $this->belongsTo(SaleChannel::class);
-    }
 }

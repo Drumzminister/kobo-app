@@ -6,7 +6,7 @@
                 <div class="col-md-3">
                     <div class="input-group mb-3 input-group-lg">
                         <div class="">
-                            <span class="input-group-text customer-input" id="basic-addon3">INV - #23531331</span>
+                            <span class="input-group-text customer-input" id="basic-addon3">INV - #{{ saleInvoice || '###' }}</span>
                         </div>
                     </div>
                 </div>
@@ -44,22 +44,28 @@
         </div>
     </section>
 </template>
-
 <script>
-    import { mapMutations } from 'vuex';
+    import { mapMutations, mapGetters } from 'vuex';
     export default {
         props: ['customers', 'taxes'],
         data() {
             return {
-                customer_id: "",
                 tax_id: "",
-                sale_date: ""
+                sale_date: "",
+                customer_id: "",
             }
         },
-        watch: {
-            ...mapMutations({customer_id: 'customerId', tax_id: 'taxId', sale_date: 'saleDate'})
+        computed: {
+            ...mapGetters(['saleInvoice']),
         },
-        mounted() {
+        watch: {
+            ...mapMutations({ tax_id: 'taxId', sale_date: 'saleDate' }),
+            customer_id: function(val) {
+                this.customer(this.customers.filter((customer) => val === customer.id)[0]);
+            }
+        },
+        methods : {
+            ...mapMutations(['customer'])
         }
     }
 </script>

@@ -6,7 +6,6 @@ use App\Services\Client\Features\AddSaleFeature;
 use App\Services\Client\Features\DeleteSaleFeature;
 use App\Services\Client\Features\ListSalesFeature;
 use App\Services\Client\Features\UpdateSaleFeature;
-use Illuminate\Http\Request;
 use Lucid\Foundation\Http\Controller;
 
 class SaleController extends Controller

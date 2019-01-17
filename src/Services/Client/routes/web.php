@@ -72,10 +72,15 @@ Route::group(['prefix' => 'client'], function () {
     Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');
 
 
+    // Sale Routes
 	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
 	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');
 	Route::get('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');
+	Route::post('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');
+//	Route::post('/sale/{saleId}/add-item', 'ClientDashboardController@addSaleItem')->name('sale.add.item');
 //	Route::get('/all-sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
+
+	Route::get('/saleItem/delete/{itemId}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
 
     Route::get('/expenses', "ExpensesController@showExpensePage")->name('client.expenses.show');
     Route::get('/expenses/all', 'ExpensesController@showAllExpenses')->name('client.expenses.show-all');
