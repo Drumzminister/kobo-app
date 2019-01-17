@@ -95,6 +95,9 @@ export const addSale = {
                 })
                 .catch();
         },
+        previewInvoice () {
+            this.openModal("#previewInvoiceModal");
+        },
         setSaleItems (sale) {
             if (sale.sale_items) {
                 for (let key in sale.sale_items) {

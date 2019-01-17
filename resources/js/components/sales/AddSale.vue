@@ -125,16 +125,19 @@
                 </div>
             </div>
         </div>
+        <invoice-modal></invoice-modal>
     </section>
 </template>
 
 <script>
     import {addSale} from "../../mixins/addSale";
+    import {appModal} from "../../mixins/appModals";
     import PaymentMethodSelection from "../banks/PaymentMethodSelection";
+    import InvoiceModal from "./InvoiceModal";
     export default {
-        mixins: [addSale],
+        mixins: [addSale, appModal],
         props: ['inventories', 'channels', 'banks', 'sale'],
-        components: { PaymentMethodSelection : PaymentMethodSelection },
+        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal },
         mounted() {
         }
     }

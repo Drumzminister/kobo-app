@@ -13,7 +13,7 @@ export const vatModule = {
         },
         saleDate(state) {
             return state.saleDate;
-        },
+        }
     },
     mutations: {
         taxId(state, value) {
@@ -24,6 +24,6 @@ export const vatModule = {
         },
         saleDate(state, value) {
             state.saleDate = value;
-        },
+        }
     }
 };

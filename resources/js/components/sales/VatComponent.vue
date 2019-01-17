@@ -44,23 +44,22 @@
         </div>
     </section>
 </template>
-
 <script>
     import { mapMutations, mapGetters } from 'vuex';
     export default {
         props: ['customers', 'taxes'],
         data() {
             return {
-                customer_id: "",
                 tax_id: "",
-                sale_date: ""
+                sale_date: "",
+                customer_id: ""
             }
         },
         computed: {
             ...mapGetters(['saleInvoice'])
         },
         watch: {
-            ...mapMutations({customer_id: 'customerId', tax_id: 'taxId', sale_date: 'saleDate'})
+            ...mapMutations({ customer_id: 'customerId', tax_id: 'taxId', sale_date: 'saleDate' })
         }
     }
 </script>
