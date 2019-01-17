@@ -45,8 +45,8 @@ class InventoryController extends Controller
         return $this->serve(UpdateInventoryFeature::class);
     }
 
-    public function deleteInventory()
+    public function deleteInventory($inventoryId)
     {
-        return $this->serve(DeleteInventoryFeature::class);
+        return $this->serve(DeleteInventoryFeature::class, ['inventoryId' => $inventoryId]);
     }
 }

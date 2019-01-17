@@ -18,7 +18,7 @@ input {
     <section id="top">
         <div class="container p-2">
             <div class="row py-2">
-                <h2><a href="/inventory" class="text-dark">Purchase</a></h2>
+                <h2><a href="/client/inventory" class="text-dark">Purchase</a></h2>
                 <span class="accountant ml-auto btn btn-accountant">
                 <a href="" class="btn-accountant">
                     <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
@@ -90,12 +90,11 @@ input {
                     <div class="bg-white p-2 " id="topp">
                         <div class="row my-1">
                             <div class="col mt-1">
-                                <h5 class="h5">Top Purchases</h5>
+                                <h5 class="h5">Top 10 Purchases</h5>
                             </div>
                             <div class="col">
-                                <select id="" class="form-control btn-filter pull-right">
-                                        <option selected>Filter <i class="fa fa-filter"></i></option>
-                                        <option   class="text-small">By Quantity</option>
+                                <select id="" @change="highestPurchase" class="form-control btn-filter pull-right">
+                                        <option selected>Quantity <i class="fa fa-filter"></i></option>
                                         <option  class="text-small">By Amount</option>
                                 </select>           
                             </div>
@@ -105,20 +104,16 @@ input {
                             <thead class="sale-head">
                               <tr>
                                 <th scope="col">Products</th>
-                                <th scope="col">Number Bought</th>
+                                <th scope="col">Quantity</th>
                                 <th scope="col">Amount</th>
                               </tr>
                             </thead>
                             <tbody class="tbody">
-                            @forelse($purchase_price as $top_sales)
-                              <tr>
-                                <td>{{$top_sales['name']}}</td>
-                                <td>{{$top_sales['quantity']}}</td>
-                                <td>{{$top_sales['purchase_price']}}</td>
+                              <tr v-for="purchase in top_purchase">
+                                <td>@{{  purchase.name }}</td>
+                                <td>@{{ purchase.quantity }}</td>
+                                <td>@{{ purchase.purchase_price }}</td>
                               </tr>
-                            @empty
-                                <td>No Inventory added yet</td>
-                            @endforelse
                             </tbody>
 
                         </table>
@@ -175,8 +170,9 @@ input {
                     <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
                           <tr class="tab">
+                              <th>ID</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Product ID</th>
+                            <th scope="col">SKU</th>
                             <th scope="col">QTY Bought</th>
                             <th scope="col">Sales Price (&#8358;)</th>
                             <th scope="col">Vendors</th>
@@ -186,23 +182,26 @@ input {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                              <td >
-                                  21/08/2020
+                          <tr v-for="(purchase, index) in all_purchases" :key="index">
+                              <td>@{{ index + 1 }}</td>
+                              <td>
+                                  @{{purchase.delivered_date | dateTime }}
                               </td>
                             <td>
-                                <a href="" data-toggle="modal" data-target="#exampleModalCenter">invoice 1234</a>
+                                <a href="" data-toggle="modal" data-target="#exampleModalCenter">
+                                   INV-@{{ trimIdToInvoice(purchase.id) }}
+                                </a>
                             </td>
                             <td>
-                                23
+                                @{{ purchase.quantity }}
                             </td>
                             <td>
-                                43,000
+                                @{{ purchase.sales_price }}
                             </td>
                             <td>
-                                Mercy Ikpe
+                                @{{ purchase.vendor.name }}
                             </td>
-                            <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash" style="font-size:24px"></i></td>
+                            <td><i @click="deleteInventoryButton(inventory.id)" class="fa fa-trash" style="font-size:24px"></i></td>
                         </tr>
 
                             
@@ -370,7 +369,12 @@ input {
         </div>
     </div>
 
-      {{-- end of invoice modal --}}
 
-    
+@endsection
+@section('other_js')
+    <script>
+        window.all_purchases = @json($inventories);
+        window.highest_purchase = @json($highest_purchase);
+        window.highest_quantity = @json($highest_quantity);
+    </script>
 @endsection

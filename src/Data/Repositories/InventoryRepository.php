@@ -6,8 +6,8 @@ use Koboaccountant\Models\Inventory;
 
 class InventoryRepository extends Repository
 {
-    public function __construct(Inventory $model)
+    public function __construct()
     {
-        parent::__construct($model);
+        parent::__construct(new Inventory);
     }
 }

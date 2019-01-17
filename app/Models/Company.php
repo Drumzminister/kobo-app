@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
-    use Sluggable;
+//    use Sluggable;
 
     use SoftDeletes;
 
@@ -22,14 +22,14 @@ class Company extends Model
 
     protected $with = ['customers', 'staffs', 'inventories', 'saleChannels', 'banks',];
 
-    public function sluggable()
-    {
-        return [
-            'slug' => [
-                'source' => 'name',
-            ],
-        ];
-    }
+//    public function sluggable()
+//    {
+//        return [
+//            'slug' => [
+//                'source' => 'name',
+//            ],
+//        ];
+//    }
 
     public function sales()
     {

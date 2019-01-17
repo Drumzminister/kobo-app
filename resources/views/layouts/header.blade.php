@@ -18,8 +18,9 @@
                     Transaction
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {{--<a class="dropdown-item " href="{{ route('company.sales', $company->slug) }}">Sales</a>--}}
-                        <a class="dropdown-item " href="/sales">Sales</a>
+                        {{--{{ dd($company) }}--}}
+                    <a class="dropdown-item " href="{{ route('company.sales', $company->slug) }}">Sales</a>
+                        {{--<a class="dropdown-item " href="/sales">Sales</a>--}}
                         <a class="dropdown-item" href="/client/inventory">Purchases</a>
 {{--                    <a class="dropdown-item " href="{{ route('company.sales', auth()->user()->getUserCompany()->slug) }}">Sales</a>--}}
                     <a class="dropdown-item" href="/client/inventory">Purchases</a>

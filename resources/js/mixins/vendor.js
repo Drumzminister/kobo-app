@@ -1,6 +1,6 @@
 export const vendorApp = {
     data:{
-        tableRows:[],
+        vendorTableRows:[],
         vendors: [],
         search: '',
         vendorCount: ''
@@ -15,13 +15,13 @@ export const vendorApp = {
     methods: {
         saveVendor() {
             let data = {
-                items: this.tableRows,
+                items: this.vendorTableRows,
             };
-                axios.post('/client/vendor/add', data).then(res => {
-                swal('Success', res.data.message, 'success');
-                    console.log(data.items);
-                }).catch(error => {
-                swal('Error', error.data.error, 'error');
+            axios.post('/client/vendor/add', data).then(res => {
+            swal('Success', res.data.message, 'success');
+                console.log(data.items);
+            }).catch(error => {
+            swal('Error', error.data.error, 'error');
             });
         },
 
@@ -31,7 +31,7 @@ export const vendorApp = {
              });
         },
         addNewRow() {
-            this.tableRows.push(
+            this.vendorTableRows.push(
                 {
                     name: '',
                     address: '',

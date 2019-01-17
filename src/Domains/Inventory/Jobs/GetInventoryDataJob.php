@@ -16,7 +16,7 @@ class GetInventoryDataJob extends Job
      */
     public function __construct()
     {
-        $this->inventory = app(InventoryRepository::class);
+        $this->inventory = new InventoryRepository();
     }
 
     /**
@@ -26,8 +26,9 @@ class GetInventoryDataJob extends Job
      */
     public function handle()
     {
-        $data = $this->inventory->all();
-        $data['purchase_price'] = $data->sortByDesc('purchase_price')->take(4);
+        $data['inventories'] = $inventories = $this->inventory->getBy('user_id', auth()->id(), ['vendor']);
+        $data['highest_purchase'] = $inventories->sortByDesc('purchase_price')->take(10);
+        $data['highest_quantity'] = $inventories->sortByDesc('quantity')->take(10);
         return $data;
     }
 }

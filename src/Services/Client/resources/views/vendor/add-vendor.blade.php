@@ -33,7 +33,7 @@
                           </tr>
                         </thead>
                         <tbody id="vendor">
-                            <tr v-for="(content, index) in tableRows" :id="'row-' + index">
+                            <tr v-for="(content, index) in vendorTableRows" :id="'row-' + index">
                                 <td><input v-model="content.name" id="name" type="text" class="form-control name"></td>
                                 <td><input  v-model="content.address" id="address" type="text" class="form-control address"></td>
                                 <td><input   v-model="content.phone" id="phone" type="number" class="form-control number"></td>
