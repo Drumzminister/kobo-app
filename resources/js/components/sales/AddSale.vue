@@ -108,7 +108,7 @@
 
                     <div class="row p-3">
                         <div class="col">
-                            <a href="" class="btn btn-lg btn-login" @click="openSendingModal()" data-toggle="modal" data-target="#exampleModalCenter">Send Invoice</a>
+                            <a href="" class="btn btn-lg btn-login" @click="openSendingModal()" data-toggle="modal" data-target="#exampleModalCenter">Send</a>
                         </div>
                         <div class="col">
                             <span class="float-right">
@@ -118,7 +118,7 @@
 
                         <div class="col">
                             <span class="float-right">
-                                <button type="submit" @click="previewInvoice()" class="btn btn-lg btn-started">Preview Invoice</button>
+                                <button type="submit" @click="previewInvoice()" class="btn btn-lg btn-started">Preview</button>
                             </span>
                         </div>
                     </div>

@@ -110,6 +110,7 @@ export const addSale = {
                     saleItem.quantity = parseInt(item.quantity);
                     saleItem.sales_price = item.sales_price;
                     saleItem.description = item.description;
+                    saleItem.created_at = item.created_at;
                     saleItem.saved = true;
                     let pos = this.saleItems.push(saleItem) - 1;
                     this.createWatcherForSaleItem(this.saleItems[pos]);

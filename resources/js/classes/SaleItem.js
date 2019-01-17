@@ -23,6 +23,7 @@ class SaleItem
         this._isValid = false;
         this.saved = false;
         this.processing = false;
+        this.created_at = "";
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 
@@ -97,6 +98,13 @@ class SaleItem
         this._inventory = inventory;
     }
 
+    /**
+     * Get the Inventory the SaleItem is linked to
+     */
+    get inventory () {
+        return this._inventory;
+    }
+
     set id(id) {
         this._id = id;
     }
@@ -130,6 +138,7 @@ class SaleItem
                     self.saved = true;
                     self._id = data.data.id;
                     self.processing = false;
+                    self.created_at = data.data.created_at;
                 }
             })
             .catch((err) => console.log(err));

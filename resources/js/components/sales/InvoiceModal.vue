@@ -9,7 +9,7 @@
 
                     <div class="row px-5 pt-3">
                         <div class="col-md-2">
-                            <img src="img/account-client.png" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                            <img :src="customer ? customer.image: ''" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                         </div>
                         <div class="col-md-10">
                             <h5 class="text-green h5">{{ customer ? `${customer.first_name}  ${ customer.last_name}` : "Customer Not Selected" }}</h5>
@@ -56,17 +56,17 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <!--<tr v-if="saleItems.length > 0" v-for="item in saleItems">-->
-                                                <!--<td>-->
-                                                    <!--@{{ saleInvoice.created_at }}-->
-                                                <!--</td>-->
-                                                <!--<td>-->
-                                                    <!--@{{ item.inventory.name }}-->
-                                                <!--</td>-->
-                                                <!--<td> @{{ item.quantity }}</td>-->
-                                                <!--<td> @{{ item.inventory.sales_price }}</td>-->
-                                                <!--<td> @{{ item.quantity * item.inventory.sales_price }}</td>-->
-                                            <!--</tr>-->
+                                            <tr v-if="saleItems.length > 0 && item.saved" v-for="item in saleItems">
+                                                <td>
+                                                    {{ item.created_at }}
+                                                </td>
+                                                <td>
+                                                    {{ item.inventory.name }}
+                                                </td>
+                                                <td> {{ item.quantity }}</td>
+                                                <td> {{ item.inventory.sales_price }}</td>
+                                                <td> {{ item.totalPrice() }}</td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -78,12 +78,12 @@
                     <div class="modal-foote mt-3">
                         <div class="row">
                             <div class="col-md-2"></div>
-                            <div class="col">
-                                <button type="button" class="btn btn-login" data-dismiss="modal">Reverse</button>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-started" data-dismiss="modal">Update</button>
-                            </div>
+                            <!--<div class="col">-->
+                                <!--<button type="button" class="btn btn-login" data-dismiss="modal">Reverse</button>-->
+                            <!--</div>-->
+                            <!--<div class="col">-->
+                                <!--<button type="button" class="btn btn-started" data-dismiss="modal">Update</button>-->
+                            <!--</div>-->
                             <div class="col">
                                 <button type="button" class="btn btn-danger px-5" data-dismiss="modal">Close</button>
                             </div>
@@ -97,19 +97,13 @@
     </div>
 </template>
 <script>
-    import { mapGetters } from "vuex";
     export default {
-        // props: ['sale', 'saleItems'],
-        data() {
-            return {
-            }
-        },
         computed: {
             sale () {
                 return this.$parent.sale;
             },
             saleItems () {
-                return this.$parent.saleItems.filter((item) => item.id !== "");
+                return this.$parent.saleItems.filter((item) => item.saved);
             },
             totalAmount () {
                 return this.$parent.totalSalesAmount;
@@ -117,8 +111,6 @@
             customer () {
                 return this.$parent.customer;
             }
-        },
-        methods: {
         }
     }
 </script>

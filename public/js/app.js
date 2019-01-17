@@ -74823,6 +74823,7 @@ var addSale = {
                     saleItem.quantity = parseInt(item.quantity);
                     saleItem.sales_price = item.sales_price;
                     saleItem.description = item.description;
+                    saleItem.created_at = item.created_at;
                     saleItem.saved = true;
                     var pos = this.saleItems.push(saleItem) - 1;
                     this.createWatcherForSaleItem(this.saleItems[pos]);
@@ -74871,6 +74872,7 @@ var SaleItem = function () {
         this._isValid = false;
         this.saved = false;
         this.processing = false;
+        this.created_at = "";
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 
@@ -74949,6 +74951,7 @@ var SaleItem = function () {
                     self.saved = true;
                     self._id = data.data.id;
                     self.processing = false;
+                    self.created_at = data.data.created_at;
                 }
             }).catch(function (err) {
                 return console.log(err);
@@ -75052,6 +75055,14 @@ var SaleItem = function () {
         key: "inventory",
         set: function set(inventory) {
             this._inventory = inventory;
+        }
+
+        /**
+         * Get the Inventory the SaleItem is linked to
+         */
+        ,
+        get: function get() {
+            return this._inventory;
         }
     }, {
         key: "id",
@@ -75541,7 +75552,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Send Invoice")]
+                  [_vm._v("Send")]
                 )
               ]),
               _vm._v(" "),
@@ -75576,7 +75587,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Preview Invoice")]
+                    [_vm._v("Preview")]
                   )
                 ])
               ])
@@ -85340,7 +85351,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(9);
 //
 //
 //
@@ -85439,21 +85449,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    // props: ['sale', 'saleItems'],
-    data: function data() {
-        return {};
-    },
-
     computed: {
         sale: function sale() {
             return this.$parent.sale;
         },
         saleItems: function saleItems() {
             return this.$parent.saleItems.filter(function (item) {
-                return item.id !== "";
+                return item.saved;
             });
         },
         totalAmount: function totalAmount() {
@@ -85462,8 +85466,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         customer: function customer() {
             return this.$parent.customer;
         }
-    },
-    methods: {}
+    }
 });
 
 /***/ }),
@@ -85499,7 +85502,16 @@ var render = function() {
               _vm._m(0),
               _vm._v(" "),
               _c("div", { staticClass: "row px-5 pt-3" }, [
-                _vm._m(1),
+                _c("div", { staticClass: "col-md-2" }, [
+                  _c("img", {
+                    staticClass: "rounded-circle img-fluid service-img",
+                    attrs: {
+                      src: _vm.customer ? _vm.customer.image : "",
+                      alt: "client logo",
+                      srcset: ""
+                    }
+                  })
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-10" }, [
                   _c("h5", { staticClass: "text-green h5" }, [
@@ -85575,9 +85587,79 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(2),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("section", { attrs: { id: "sale-table" } }, [
+                  _c("div", { staticClass: "container" }, [
+                    _c("div", { staticClass: "long-scroll" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "table-responsive table-responsive-sm",
+                          attrs: { id: "topp" }
+                        },
+                        [
+                          _c(
+                            "table",
+                            {
+                              staticClass:
+                                "table table-striped table-hover table-condensed",
+                              attrs: { id: "dataTable" }
+                            },
+                            [
+                              _vm._m(1),
+                              _vm._v(" "),
+                              _c(
+                                "tbody",
+                                _vm._l(_vm.saleItems, function(item) {
+                                  return _vm.saleItems.length > 0 && item.saved
+                                    ? _c("tr", [
+                                        _c("td", [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(item.created_at) +
+                                              "\n                                            "
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(item.inventory.name) +
+                                              "\n                                            "
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(" " + _vm._s(item.quantity))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            " " +
+                                              _vm._s(item.inventory.sales_price)
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            " " + _vm._s(item.totalPrice())
+                                          )
+                                        ])
+                                      ])
+                                    : _vm._e()
+                                }),
+                                0
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ]),
               _vm._v(" "),
-              _vm._m(3)
+              _vm._m(2)
             ])
           ])
         ]
@@ -85607,65 +85689,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2" }, [
-      _c("img", {
-        staticClass: "rounded-circle img-fluid service-img",
-        attrs: { src: "img/account-client.png", alt: "client logo", srcset: "" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-body" }, [
-      _c("section", { attrs: { id: "sale-table" } }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "long-scroll" }, [
-            _c(
-              "div",
-              {
-                staticClass: "table-responsive table-responsive-sm",
-                attrs: { id: "topp" }
-              },
-              [
-                _c(
-                  "table",
-                  {
-                    staticClass:
-                      "table table-striped table-hover table-condensed",
-                    attrs: { id: "dataTable" }
-                  },
-                  [
-                    _c("thead", { staticClass: "p-3" }, [
-                      _c("tr", { staticClass: "tab" }, [
-                        _c("th", { attrs: { scope: "col" } }, [
-                          _vm._v("Payment Date")
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { attrs: { scope: "col" } }, [
-                          _vm._v("Product")
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { attrs: { scope: "col" } }, [_vm._v("QTY")]),
-                        _vm._v(" "),
-                        _c("th", { attrs: { scope: "col" } }, [
-                          _vm._v("Sales Price (₦)")
-                        ]),
-                        _vm._v(" "),
-                        _c("th", { attrs: { scope: "col" } }, [
-                          _vm._v("Balance")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tbody")
-                  ]
-                )
-              ]
-            )
-          ])
-        ])
+    return _c("thead", { staticClass: "p-3" }, [
+      _c("tr", { staticClass: "tab" }, [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Payment Date")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Product")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("QTY")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Sales Price (₦)")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Balance")])
       ])
     ])
   },
@@ -85676,28 +85710,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "modal-foote mt-3" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-2" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-login",
-              attrs: { type: "button", "data-dismiss": "modal" }
-            },
-            [_vm._v("Reverse")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-started",
-              attrs: { type: "button", "data-dismiss": "modal" }
-            },
-            [_vm._v("Update")]
-          )
-        ]),
         _vm._v(" "),
         _c("div", { staticClass: "col" }, [
           _c(
