@@ -1,5 +1,6 @@
 import SaleItem from "../classes/SaleItem";
 import {mapGetters, mapMutations, mapState} from "vuex";
+import {toast} from "../helpers/alert";
 
 export const addSale = {
     data() {
@@ -17,10 +18,13 @@ export const addSale = {
         this.setSaleItems(this.sale);
     },
     computed: {
+        saleIsNotValid () {
+            return this.customer === null || this.saleDate === "" || this.taxId === "";
+        },
         selectedAccounts () {
             return this.$store.state.paymentModule.selectedAccounts;
         },
-        ...mapGetters(['customerId', 'taxId', 'saleDate', "customer"]),
+        ...mapGetters(['taxId', 'saleDate', "customer"]),
         ...mapGetters(['availableInventories', 'getInventory']),
         totalSalesAmount () {
             let sum = 0;
@@ -74,6 +78,11 @@ export const addSale = {
         saleItemDataChanged (item) {
             // ToDo: Implement this Watcher
         },
+        saveSale () {
+            if (this.saleIsNotValid) {
+                toast('Please make sure customer', 'error', 'center');
+            }
+        },
         createSale: function () {
             let data = {
                 paymentMethods: this.selectedAccounts,
@@ -96,7 +105,18 @@ export const addSale = {
                 .catch();
         },
         previewInvoice () {
+            if(!this.customer) {
+                toast('You must select a customer to preview Invoice', 'error', 'center');
+                return;
+            }
             this.openModal("#previewInvoiceModal");
+        },
+        openSendingModal () {
+            if(!this.customer) {
+                toast('You must select a customer to send', 'error', 'center');
+                return;
+            }
+            this.openModal("#invoiceSender");
         },
         setSaleItems (sale) {
             if (sale.sale_items) {

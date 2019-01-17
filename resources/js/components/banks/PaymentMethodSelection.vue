@@ -16,11 +16,11 @@
             <div v-for="(paymentMethod, index) in salePaymentMethods" class="row" >
                 <div class="col-md-5">
                     <div class="dropdown show mt-3 payment_mode">
-                        <a class="btn btn-lg btn-payment dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-lg btn-payment dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ paymentMethod.name || 'Select'}}
-                        </a>
+                        </button>
                         <div class="dropdown-menu payment_mode_id" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" v-for="account in availableAccounts" @click="setPaymentMode(paymentMethod, account)" href="#">{{ account.account_name}}</a>
+                            <button class="dropdown-item" v-for="account in availableAccounts" @click="setPaymentMode(paymentMethod, account)">{{ account.account_name.split(' ')[0]}}</button>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
             }
         },
         computed: {
-            ...mapGetters(['availableAccounts'])
+            ...mapGetters(['availableAccounts', 'selectedAccounts'])
         },
         created: function() {
             this.addSalePaymentMethod();
@@ -76,6 +76,10 @@
             setPaymentMode: function (paymentMode, selectedBank) {
                 if (paymentMode.id) {
                     this.removeAccountFromStore(paymentMode.id);
+                }
+
+                if (this.selectedAccounts.length === 0) {
+                    paymentMode.amount = this.$parent.totalSalesAmount;
                 }
 
                 paymentMode.id = selectedBank.id;

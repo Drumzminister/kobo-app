@@ -6,6 +6,9 @@ export const paymentMethodSelectionModule = {
     getters: {
         availableAccounts: state => {
             return state.companyAccounts.filter(account => !state.selectedAccounts.map(account => account.id).includes(account.id));
+        },
+        selectedAccounts: state => {
+            return state.selectedAccounts;
         }
     },
     mutations: {

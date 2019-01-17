@@ -108,12 +108,7 @@
 
                     <div class="row p-3">
                         <div class="col">
-                            <a href="" class="btn btn-lg btn-login" @click="openSendingModal()" data-toggle="modal" data-target="#exampleModalCenter">Send</a>
-                        </div>
-                        <div class="col">
-                            <span class="float-right">
-                                <button type="submit" @click="saveSale()" class="btn btn-lg btn-started">Save</button>
-                            </span>
+                            <button class="btn btn-lg btn-login" @click="openSendingModal()">Send</button>
                         </div>
 
                         <div class="col">
@@ -121,11 +116,18 @@
                                 <button type="submit" @click="previewInvoice()" class="btn btn-lg btn-started">Preview</button>
                             </span>
                         </div>
+
+                        <div class="col">
+                            <span class="float-right">
+                                <button type="submit" @click="saveSale()" class="btn btn-lg btn-started">Save</button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <invoice-modal></invoice-modal>
+        <invoice-sender></invoice-sender>
     </section>
 </template>
 
@@ -134,10 +136,11 @@
     import {appModal} from "../../mixins/appModals";
     import PaymentMethodSelection from "../banks/PaymentMethodSelection";
     import InvoiceModal from "./InvoiceModal";
+    import InvoiceSender from "./InvoiceSender";
     export default {
         mixins: [addSale, appModal],
         props: ['inventories', 'channels', 'banks', 'sale'],
-        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal },
+        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal, InvoiceSender },
         mounted() {
         }
     }
