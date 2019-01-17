@@ -70,6 +70,7 @@
                 <div class="col-md-8">
                     <div class="bg-white px-3 py-4 introduction" id="topp">
                         <a href='http://example.com/' data-intro='Hello step one! View your History'></a>
+                        @if($sales->count() > 0)
                         <div class="row">
                             <div class="col-md-3">
                                 <h5 class="h5">Monthly sales</h5>
@@ -115,6 +116,13 @@
                                 </div>
                             </div>
                         </div>
+                        @else
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="h5">No Sale Record</h5>
+                                </div>
+                            </div>
+                        @endif
                         <canvas id="canvasSale"  height="100"></canvas>
                     </div>
                 </div>
@@ -122,48 +130,54 @@
                 {{-- top sales --}}
                 <div class="col-md-4">
                     <div class="bg-white p-2 " id="topp"  data-step="2" data-intro="Here is your performance" data-position='right' data-scrollTo='tooltip'>
-                        <div class="row my-1">
-                            <div class="col mt-1">
-                                <h5 class="h5">Top Sales</h5>
-                            </div>
-                            <div class="col">
-                                <div class="dropdown show">
-                                    <a class="btn btn-filter pull-right" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Filter <i class="fa fa-filter"></i>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
-                                        <a class="dropdown-item" href="#" class="text-green">By Amount</a>
+                        @if($topFiveItems->count() > 0)
+                            <div class="row my-1">
+                                <div class="col mt-1">
+                                    <h5 class="h5">Top Sales</h5>
+                                </div>
+                                <div class="col">
+                                    <div class="dropdown show">
+                                        <a class="btn btn-filter pull-right" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Filter <i class="fa fa-filter"></i>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
+                                            <a class="dropdown-item" href="#" class="text-green">By Amount</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="all-scroll">
-                            <table class="table table-striped table-hover" id="table">
-                                <thead class="sale-head">
-                                <tr>
-                                    <th scope="col">Products</th>
-                                    <th scope="col">Number sold</th>
-                                    <th scope="col">Amount</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {{--{{ dd($topFiveSales) }}--}}
-                                @foreach($topFiveItems as $t5s)
-                                    <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                        <td>{{ $t5s->inventory->name }}</td>
-                                        <td>{{ $t5s->quantity }}</td>
-                                        <td>{{ $t5s->quantity * $t5s->inventory->sales_price }}</td>
+                            <div class="all-scroll">
+                                <table class="table table-striped table-hover" id="table">
+                                    <thead class="sale-head">
+                                    <tr>
+                                        <th scope="col">Products</th>
+                                        <th scope="col">Number sold</th>
+                                        <th scope="col">Amount</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
+                                    </thead>
+                                    <tbody>
+                                    {{--{{ dd($topFiveSales) }}--}}
+                                    @foreach($topFiveItems as $t5s)
+                                        <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
+                                            <td>{{ $t5s->inventory->name }}</td>
+                                            <td>{{ $t5s->quantity }}</td>
+                                            <td>{{ $t5s->quantity * $t5s->inventory->sales_price }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
 
-                            </table>
-                        </div>
-                        <div class="text-center p-1">
-                            <a href="" class="view-more">View More Analytics</a>
-                        </div>
+                                </table>
+                            </div>
+                            <div class="text-center p-1">
+                                <a href="" class="view-more">View More Analytics</a>
+                            </div>
+                        @else
+                            <h5 class="text-center">
+                                Your Top five sale items will appear here
+                            </h5>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -175,36 +189,46 @@
         <div class="container mt-4">
 
             <div class="bg-white p-4">
+                @if($sales->count() > 0)
                 <div class="row py-3">
                     <div class="col-md-4">
                         <a href="{{ route("show.add.sale", auth()->user()->getUserCompany()->slug) }}" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>
                     </div>
                     <div class="col-md-6">
-                        <div class="input-group">
-                            <input type="text" @keydown.enter="searchSale()" v-model="saleSearchQuery" id="VueTables__search_u63sv" class="form-control" placeholder="&#xF002; Type Something to Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2" style="height: calc(2.19rem + 2px);">Search</span>
+
+                            <div class="input-group">
+                                <input type="text" @keydown.enter="searchSale()" v-model="saleSearchQuery" id="VueTables__search_u63sv" class="form-control" placeholder="&#xF002; Type Something to Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text vat-input px-5 py-2" id="basic-addon2" style="height: calc(2.19rem + 2px);">Search</span>
+                                </div>
                             </div>
-                        </div>
                     </div>
                     <div class="col-md-2 float-right">
-                        <div class="dropdown show float-right">
-                            <a class="btn btn-filter" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Filter <i class="fa fa-filter"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
-                                <a class="dropdown-item" href="#" class="text-green">By Amount</a>
+                            <div class="dropdown show float-right">
+                                <a class="btn btn-filter" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Filter <i class="fa fa-filter"></i>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
+                                    <a class="dropdown-item" href="#" class="text-green">By Amount</a>
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
-                <div id="people">
-                    <v-client-table :data="salesList" :columns="columns" :options="options">
-                        <a slot="invoice_number" @click.prevent="showSaleInvoice(props.index - 1)" slot-scope="props" href="">@{{ props.row.invoice_number }}</a>
-                        {{--<span slot="created_at" slot-scope="props">@{{ resolveSaleDate(props.row.created_at) }}</span>--}}
-                    </v-client-table>
-                </div>
+                @endif
+                @if($sales->count() > 0)
+                    <div id="people">
+                        <v-client-table :data="salesList" :columns="columns" :options="options">
+                            <a slot="invoice_number" @click.prevent="showSaleInvoice(props.index - 1)" slot-scope="props" href="">@{{ props.row.invoice_number }}</a>
+                            {{--<span slot="created_at" slot-scope="props">@{{ resolveSaleDate(props.row.created_at) }}</span>--}}
+                        </v-client-table>
+                    </div>
+                @else
+                    <div id="people" class="text-center">
+                        <h1> You've not recorded any Sale!</h1>
+                        <a href="{{ route("show.add.sale", auth()->user()->getUserCompany()->slug) }}" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>
+                    </div>
+                @endif
 
                 @include('client::components.loading-container')
                 {{--<div v-show="!appLoading" class="table-responsive table-responsive-sm">--}}
@@ -245,11 +269,14 @@
                         {{--</tbody>--}}
                     {{--</table>--}}
                 {{--</div>--}}
-                <hr class="mt-0">
-                <div class="text-center pb-3">
-                    <a href="/view-sale" class="view-more">View More</a>
-                </div>
+                @if($sales->count() > 0)
+                    <hr class="mt-0">
+                    <div class="text-center pb-3">
+                        <a href="/view-sale" class="view-more">View More</a>
+                    </div>
+                @endif
             </div>
+
         </div>
     </section>
     @include("client::components.invoice-modal")

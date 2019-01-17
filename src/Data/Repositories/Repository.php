@@ -29,7 +29,7 @@ class Repository
 	 * @return UuidInterface
 	 * @throws \Exception
 	 */
-	protected function generateUuid(): UuidInterface
+	public function generateUuid(): UuidInterface
 	{
 		return Uuid::uuid1();
 	}

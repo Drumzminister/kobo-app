@@ -1,31 +1,25 @@
 import Vue from "vue";
 import Vuex from  'vuex';
+import {paymentMethodSelectionModule} from './modules/paymentMethodSelection';
+import {inventoryModule} from './modules/inventoryModule';
+import {vatModule} from './modules/vatModule';
+import {saleModule} from './modules/saleModule';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        companyAccounts: [],
-        selectedAccounts: [],
+        currentUri: require('jquery')(document)[0].baseURI,
     },
     getters: {
-        availableAccounts: state => {
-            return state.companyAccounts.filter(account => !state.selectedAccounts.map(account => account.id).includes(account.id));
+        getCurrentURI: state => {
+            return state.currentUri;
         }
     },
-    mutations: {
-        selectAccount(state, account) {
-            state.selectedAccounts.push(account);
-        },
-        removeAccount(state, account) {
-            let pos = state.selectedAccounts
-                .map(account => account.id)
-                .indexOf(account.id);
-
-            state.selectedAccounts.splice(pos, 1);
-        },
-        setCompanyAccounts(state, accounts) {
-            state.companyAccounts = accounts;
-        }
+    modules: {
+        paymentModule: paymentMethodSelectionModule,
+        inventoryModule: inventoryModule,
+        vatModule: vatModule,
+        saleModule: saleModule
     }
 });

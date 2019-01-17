@@ -63,6 +63,8 @@ export const inventoryApp = {
         },
         deleteInventoryRow(row) {
             $("#row-" + row).remove();
+            //reevaluate total after deletion
+            // this.calculateTotalInventoryCost();
         },
         calculateTotalInventoryCost() {
             let total = 0;

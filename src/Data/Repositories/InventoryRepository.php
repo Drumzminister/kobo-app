@@ -10,4 +10,9 @@ class InventoryRepository extends Repository
     {
         parent::__construct(new Inventory);
     }
+
+    public function getAvailableInventories($companyId)
+    {
+    	return $this->model->newQuery()->where('company_id', '=', $companyId)->available()->get();
+    }
 }

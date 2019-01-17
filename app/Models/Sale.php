@@ -12,11 +12,21 @@ class Sale extends Model
     use SoftDeletes;
 
     protected $fillable = [
+    	'id',
         'sales_date',
         'name',
         'quantity',
         'amount',
 	    'delivery_cost',
+	    'invoice_number',
+	    'staff_id',
+	    'company_id',
+	    'total_amount',
+	    'customer_id',
+	    'sale_channel_id',
+	    'tex_id',
+	    'discount',
+	    'type',
     ];
 
     protected $with = [
@@ -50,10 +60,5 @@ class Sale extends Model
     public function transaction()
     {
     	return $this->hasOne(Transaction::class);
-    }
-
-    public function saleChannel()
-    {
-	    return $this->belongsTo(SaleChannel::class);
     }
 }

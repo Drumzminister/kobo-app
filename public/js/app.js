@@ -72319,6 +72319,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(388);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -72372,6 +72375,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['banks'],
@@ -72382,18 +72387,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    computed: {
-        availableAccounts: function availableAccounts() {
-            return this.$store.getters.availableAccounts;
-        }
-    },
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['availableAccounts', 'selectedAccounts'])),
     created: function created() {
-        var _this = this;
-
-        setTimeout(function () {
-            _this.addSalePaymentMethod();
-            _this.addBanksToStore();
-        }, 100);
+        this.addSalePaymentMethod();
+        this.addBanksToStore();
     },
     methods: {
         addBanksToStore: function addBanksToStore() {
@@ -72403,6 +72400,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         setPaymentMode: function setPaymentMode(paymentMode, selectedBank) {
             if (paymentMode.id) {
                 this.removeAccountFromStore(paymentMode.id);
+            }
+
+            if (this.selectedAccounts.length === 0) {
+                paymentMode.amount = this.$parent.totalSalesAmount;
             }
 
             paymentMode.id = selectedBank.id;
@@ -72451,11 +72452,10 @@ var render = function() {
             _c("div", { staticClass: "col-md-5" }, [
               _c("div", { staticClass: "dropdown show mt-3 payment_mode" }, [
                 _c(
-                  "a",
+                  "button",
                   {
                     staticClass: "btn btn-lg btn-payment dropdown-toggle",
                     attrs: {
-                      href: "#",
                       role: "button",
                       id: "dropdownMenuLink",
                       "data-toggle": "dropdown",
@@ -72480,17 +72480,16 @@ var render = function() {
                   },
                   _vm._l(_vm.availableAccounts, function(account) {
                     return _c(
-                      "a",
+                      "button",
                       {
                         staticClass: "dropdown-item",
-                        attrs: { href: "#" },
                         on: {
                           click: function($event) {
                             _vm.setPaymentMode(paymentMethod, account)
                           }
                         }
                       },
-                      [_vm._v(_vm._s(account.account_name))]
+                      [_vm._v(_vm._s(account.account_name.split(" ")[0]))]
                     )
                   }),
                   0
@@ -73083,6 +73082,8 @@ var inventoryApp = {
         },
         deleteInventoryRow: function deleteInventoryRow(row) {
             $("#row-" + row).remove();
+            //reevaluate total after deletion
+            // this.calculateTotalInventoryCost();
         },
         calculateTotalInventoryCost: function calculateTotalInventoryCost() {
             var total = 0;
@@ -73473,6 +73474,8 @@ var map = {
 	"./components/ExampleComponent.vue": 209,
 	"./components/banks/PaymentMethodSelection.vue": 13,
 	"./components/sales/AddSale.vue": 212,
+	"./components/sales/InvoiceModal.vue": 397,
+	"./components/sales/InvoiceSender.vue": 398,
 	"./components/sales/VatComponent.vue": 216
 };
 function webpackContext(req) {
@@ -73664,8 +73667,13 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_addSale__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__banks_PaymentMethodSelection__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__banks_PaymentMethodSelection__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_appModals__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InvoiceModal__ = __webpack_require__(397);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InvoiceModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__InvoiceModal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InvoiceSender__ = __webpack_require__(398);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InvoiceSender___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__InvoiceSender__);
 //
 //
 //
@@ -73737,13 +73745,78 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['inventories', 'channels', 'banks'],
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_addSale__["a" /* addSale */]],
-    components: { PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_1__banks_PaymentMethodSelection___default.a },
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_addSale__["a" /* addSale */], __WEBPACK_IMPORTED_MODULE_1__mixins_appModals__["a" /* appModal */]],
+    props: ['inventories', 'channels', 'banks', 'sale'],
+    components: { PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection___default.a, InvoiceModal: __WEBPACK_IMPORTED_MODULE_3__InvoiceModal___default.a, InvoiceSender: __WEBPACK_IMPORTED_MODULE_4__InvoiceSender___default.a },
     mounted: function mounted() {}
 });
 
@@ -73753,43 +73826,160 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addSale; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__ = __webpack_require__(399);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(388);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(396);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+
+
 var addSale = {
     data: function data() {
         return {
             sale_customer_id: "",
-            saleTax: "",
-            saleDate: "",
-            saleItems: []
+            saleItems: [],
+            deliveryCost: 0,
+            saleDiscount: 0
         };
     },
 
     created: function created() {
         this.addSaleItemForm();
+        this.setCompanyInventories(this.inventories);
+        this.setSale(this.sale);
+        this.setSaleItems(this.sale);
     },
-    computed: {
+    computed: _extends({
+        saleIsNotValid: function saleIsNotValid() {
+            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "";
+        },
         selectedAccounts: function selectedAccounts() {
-            return this.$store.state.selectedAccounts;
+            return this.$store.state.paymentModule.selectedAccounts;
         }
-    },
-    methods: {
-        x: function x() {
-            this.$store.commit('addPaymentMethod');
+    }, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['taxId', 'saleDate', "customer"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory']), {
+        totalSalesAmount: function totalSalesAmount() {
+            var sum = 0;
+            this.saleItems.forEach(function (item) {
+                sum += item.totalPrice();
+            });
+            return sum - parseInt(this.saleDiscount || 0);
+        }
+    }),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(['setCompanyInventories', 'selectInventory', 'setSale']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['getCurrentURI']), {
+        fillSaleItemWithInventory: function fillSaleItemWithInventory(item) {
+            if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
+                var inventory = this.$store.getters.getInventory(item.inventory_id);
+                item.sales_price = inventory.sales_price;
+                item.inventory = inventory;
+                this.selectInventory(inventory);
+                item.debounceItemSaving();
+            }
         },
 
         addNewSaleItemRow: function addNewSaleItemRow() {
             this.addSaleItemForm();
         },
+        deleteSaleItemRow: function deleteSaleItemRow(index) {
+            var item = this.saleItems[index];
+            var self = this;
+            if (!item.isNotValid) {
+                item.deleteItemOnDatabase().then(function (_ref) {
+                    var data = _ref.data;
+
+                    if (data.status === "success") {
+                        self.saleItems.splice(index, 1);
+                    }
+                }).catch(function (err) {
+                    return console.log(err);
+                });
+            } else {
+                self.saleItems.splice(index, 1);
+            }
+        },
+
         addSaleItemForm: function addSaleItemForm() {
-            this.saleItems.push({
-                inventory_id: "",
-                description: "",
-                quantity: "",
-                sales_price: "",
-                total_price: "",
-                sale_channel_id: ""
-            });
+            var item = new __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__["a" /* default */](this.sale.id);
+            var pos = this.saleItems.push(item) - 1;
+            this.createWatcherForSaleItem(this.saleItems[pos]);
+        },
+        createWatcherForSaleItem: function createWatcherForSaleItem(item) {
+            this.$watch(function () {
+                return item.inventory_id;
+            }, this.saleItemDataChanged);
+            this.$watch(function () {
+                return item.sale_channel_id;
+            }, this.saleItemDataChanged);
+            this.$watch(function () {
+                return item.description;
+            }, this.saleItemDataChanged);
+            this.$watch(function () {
+                return item.quantity;
+            }, this.saleItemDataChanged);
+        },
+        saleItemDataChanged: function saleItemDataChanged(item) {
+            // ToDo: Implement this Watcher
+        },
+        saveSale: function saveSale() {
+            if (this.saleIsNotValid) {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('Please make sure customer', 'error', 'center');
+            }
+        },
+
+        createSale: function createSale() {
+            var data = {
+                tax_id: this.taxId,
+                sale_id: this.sale.id,
+                sale_date: this.saleDate,
+                discount: this.saleDiscount,
+                customer_id: this.customer.id,
+                delivery_cost: this.deliveryCost,
+                total_amount: this.totalSalesAmount,
+                paymentMethods: this.selectedAccounts,
+                invoice_number: this.sale.invoice_number
+            };
+
+            window.axios.post(this.getCurrentURI(), data).then(function (response) {
+                if (response.data.status === "success") {
+                    swal("Sale created successfully!");
+                }
+            }).catch();
+        },
+        previewInvoice: function previewInvoice() {
+            if (!this.customer) {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('You must select a customer to preview Invoice', 'error', 'center');
+                return;
+            }
+            this.openModal("#previewInvoiceModal");
+        },
+        openSendingModal: function openSendingModal() {
+            if (!this.customer) {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('You must select a customer to send', 'error', 'center');
+                return;
+            }
+            this.openModal("#invoiceSender");
+        },
+        setSaleItems: function setSaleItems(sale) {
+            if (sale.sale_items) {
+                for (var key in sale.sale_items) {
+                    var item = sale.sale_items[key];
+                    var inventory = this.$store.getters.getInventory(item.inventory_id);
+                    var saleItem = new __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__["a" /* default */](this.sale.id, inventory);
+                    saleItem.inventory_id = item.inventory_id;
+                    saleItem.id = item.id;
+                    saleItem.sale_channel_id = item.sale_channel_id;
+                    saleItem.quantity = parseInt(item.quantity);
+                    saleItem.sales_price = item.sales_price;
+                    saleItem.description = item.description;
+                    saleItem.created_at = item.created_at;
+                    saleItem.saved = true;
+                    var pos = this.saleItems.push(saleItem) - 1;
+                    this.createWatcherForSaleItem(this.saleItems[pos]);
+                }
+            }
         }
-    }
+    })
 };
 
 /***/ }),
@@ -73800,266 +73990,519 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { attrs: { id: "sale-table" } }, [
-    _c("div", { staticClass: "container mt-4" }, [
-      _c("div", { staticClass: "bg-white" }, [
-        _c("div", { staticClass: "table-editableWTF" }, [
-          _c(
-            "table",
-            {
-              staticClass:
-                "table table-bordered table-responsive-md table-striped text-center",
-              attrs: { id: "tableRow" }
-            },
-            [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                { attrs: { id: "salesTable" } },
-                _vm._l(_vm.saleItems, function(item) {
-                  return _c("tr", [
-                    _c("td", [
-                      _c(
-                        "select",
-                        {
-                          directives: [
+  return _c(
+    "section",
+    { attrs: { id: "sale-table" } },
+    [
+      _c("div", { staticClass: "container mt-4" }, [
+        _c("div", { staticClass: "bg-white" }, [
+          _c("div", { staticClass: "table-editableWTF" }, [
+            _c(
+              "table",
+              {
+                staticClass:
+                  "table table-bordered table-responsive-md table-striped text-center",
+                attrs: { id: "tableRow" }
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  { attrs: { id: "salesTable" } },
+                  _vm._l(_vm.saleItems, function(item, index) {
+                    return _c(
+                      "tr",
+                      {
+                        class: {
+                          "border-right-green": item.saved,
+                          "border-right-red": !item.saved
+                        }
+                      },
+                      [
+                        _c("td", [
+                          _c(
+                            "select",
                             {
-                              name: "model",
-                              rawName: "v-model",
-                              value: item.inventory_id,
-                              expression: "item.inventory_id"
-                            }
-                          ],
-                          staticClass: "form-control inventory",
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                item,
-                                "inventory_id",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("option", { attrs: { value: "" } }, [
-                            _vm._v(
-                              "\n                                    Select ...\n                                "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(_vm.inventories, function(inventory) {
-                            return _c(
-                              "option",
-                              { domProps: { value: inventory.id } },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(inventory.name) +
-                                    "\n                                "
-                                )
-                              ]
-                            )
-                          })
-                        ],
-                        2
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: item.description,
-                            expression: "item.description"
-                          }
-                        ],
-                        staticClass: "form-control sales_description ",
-                        attrs: { type: "text", id: "sales_description" },
-                        domProps: { value: item.description },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(item, "description", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: item.quantity,
-                            expression: "item.quantity"
-                          }
-                        ],
-                        staticClass: "sales_quantity form-control ",
-                        attrs: { type: "number" },
-                        domProps: { value: item.quantity },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(item, "quantity", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: item.sales_price,
-                            expression: "item.sales_price"
-                          }
-                        ],
-                        staticClass: "form-control sales_price",
-                        attrs: { type: "number" },
-                        domProps: { value: item.sales_price },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(item, "sales_price", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: item.total_price,
-                            expression: "item.total_price"
-                          }
-                        ],
-                        staticClass: "form-control sales_total",
-                        attrs: { type: "text", id: "sales_total" },
-                        domProps: { value: item.total_price },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(item, "total_price", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: item.sale_channel_id,
-                              expression: "item.sale_channel_id"
-                            }
-                          ],
-                          staticClass: "form-control search sales_channel",
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                item,
-                                "sale_channel_id",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        _vm._l(_vm.channels, function(channel) {
-                          return _c(
-                            "option",
-                            { domProps: { value: channel.id } },
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: item.inventory_id,
+                                  expression: "item.inventory_id"
+                                }
+                              ],
+                              staticClass: "form-control inventory",
+                              on: {
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      item,
+                                      "inventory_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  },
+                                  function($event) {
+                                    _vm.fillSaleItemWithInventory(item)
+                                  }
+                                ]
+                              }
+                            },
                             [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(channel.name) +
-                                  "\n                                "
-                              )
-                            ]
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v(
+                                  "\n                                    Select ...\n                                "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.availableInventories, function(
+                                inventory
+                              ) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: inventory.id } },
+                                  [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(inventory.name) +
+                                        "\n                                "
+                                    )
+                                  ]
+                                )
+                              })
+                            ],
+                            2
                           )
-                        }),
-                        0
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: item.description,
+                                expression: "item.description"
+                              }
+                            ],
+                            staticClass: "form-control sales_description ",
+                            attrs: { type: "text", id: "sales_description" },
+                            domProps: { value: item.description },
+                            on: {
+                              change: function($event) {
+                                item.debounceItemSaving()
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  item,
+                                  "description",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: item.quantity,
+                                expression: "item.quantity"
+                              }
+                            ],
+                            staticClass: "sales_quantity form-control",
+                            attrs: {
+                              disabled: item.inventory_id === "",
+                              type: "number"
+                            },
+                            domProps: { value: item.quantity },
+                            on: {
+                              change: function($event) {
+                                item.debounceItemSaving()
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(item, "quantity", $event.target.value)
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: item.sales_price,
+                                expression: "item.sales_price"
+                              }
+                            ],
+                            staticClass: "form-control sales_price",
+                            attrs: { disabled: "", type: "number" },
+                            domProps: { value: item.sales_price },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  item,
+                                  "sales_price",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: item.totalPrice(),
+                                expression: "item.totalPrice()"
+                              }
+                            ],
+                            staticClass: "form-control sales_total",
+                            attrs: {
+                              disabled: "",
+                              type: "text",
+                              id: "sales_total"
+                            },
+                            domProps: { value: item.totalPrice() },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  item,
+                                  "totalPrice()",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: item.sale_channel_id,
+                                  expression: "item.sale_channel_id"
+                                }
+                              ],
+                              staticClass: "form-control search sales_channel",
+                              on: {
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      item,
+                                      "sale_channel_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  },
+                                  function($event) {
+                                    item.debounceItemSaving()
+                                  }
+                                ]
+                              }
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Channel ...")
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.channels, function(channel) {
+                                return _c(
+                                  "option",
+                                  { domProps: { value: channel.id } },
+                                  [
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(channel.name) +
+                                        "\n                                "
+                                    )
+                                  ]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { id: "delete" } }, [
+                          _c("i", {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value:
+                                  _vm.saleItems.length > 1 && !item.processing,
+                                expression:
+                                  "saleItems.length > 1 && !item.processing"
+                              }
+                            ],
+                            staticClass: "fa fa-times",
+                            staticStyle: {
+                              cursor: "pointer",
+                              color: "#da1313",
+                              "font-size": "20px"
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.deleteSaleItemRow(index)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("i", {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: item.processing,
+                                expression: "item.processing"
+                              }
+                            ],
+                            staticClass: "fa fa-circle-notch fa-spin-fast",
+                            staticStyle: {
+                              color: "#da1313",
+                              "font-size": "30px"
+                            }
+                          })
+                        ])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "span",
+              {
+                staticClass: "float-right",
+                on: {
+                  click: function($event) {
+                    _vm.addNewSaleItemRow()
+                  }
+                }
+              },
+              [
+                _vm._v("Add Row "),
+                _c("i", {
+                  staticClass: "fa fa-plus-square",
+                  staticStyle: { "font-size": "24px", color: "#00C259" }
+                })
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row p-2 mt-2 " }, [
+            _c(
+              "div",
+              { staticClass: "md-8" },
+              [_c("payment-method-selection", { attrs: { banks: _vm.banks } })],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4" }, [
+              _c(
+                "div",
+                { staticClass: "bg-grey py-4 px-3", attrs: { id: "topp" } },
+                [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("h5", { staticClass: "h6 uppercase" }, [
+                        _vm._v("Total Discount")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "input-group mb-3 input-group-lg" },
+                        [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.saleDiscount,
+                                expression: "saleDiscount"
+                              }
+                            ],
+                            staticClass: "form-control discount",
+                            attrs: {
+                              type: "text",
+                              id: "basic-url",
+                              "aria-describedby": "basic-addon3",
+                              placeholder: "100,000"
+                            },
+                            domProps: { value: _vm.saleDiscount },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.saleDiscount = $event.target.value
+                              }
+                            }
+                          })
+                        ]
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(1, true)
+                    _vm._m(2)
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row pt-2" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col input-group input-group-lg" },
+                      [
+                        _vm._m(4),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.totalSalesAmount,
+                              expression: "totalSalesAmount"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            disabled: true,
+                            id: "total",
+                            "aria-describedby": "basic-addon3",
+                            placeholder: "1,275,000"
+                          },
+                          domProps: { value: _vm.totalSalesAmount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.totalSalesAmount = $event.target.value
+                            }
+                          }
+                        })
+                      ]
+                    )
                   ])
-                }),
-                0
+                ]
               )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "float-right",
-              on: {
-                click: function($event) {
-                  _vm.addNewSaleItemRow()
-                }
-              }
-            },
-            [
-              _vm._v("Add Row "),
-              _c("i", {
-                staticClass: "fa fa-plus-square",
-                staticStyle: { "font-size": "24px", color: "#00C259" }
-              })
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "row p-2 mt-2 " },
-          [_c("payment-method-selection", { attrs: { banks: _vm.banks } })],
-          1
-        )
-      ])
-    ])
-  ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row p-3" }, [
+              _c("div", { staticClass: "col" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-lg btn-login",
+                    on: {
+                      click: function($event) {
+                        _vm.openSendingModal()
+                      }
+                    }
+                  },
+                  [_vm._v("Send")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col" }, [
+                _c("span", { staticClass: "float-right" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-lg btn-started",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function($event) {
+                          _vm.previewInvoice()
+                        }
+                      }
+                    },
+                    [_vm._v("Preview")]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col" }, [
+                _c("span", { staticClass: "float-right" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-lg btn-started",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function($event) {
+                          _vm.saveSale()
+                        }
+                      }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("invoice-modal"),
+      _vm._v(" "),
+      _c("invoice-sender")
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -74178,8 +74621,66 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { attrs: { id: "delete" } }, [
-      _c("i", { staticClass: "fa fa-trash", staticStyle: { color: "#da1313" } })
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text customer-input" }, [
+        _vm._v("₦")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("h5", { staticClass: "h6 uppercase" }, [
+        _vm._v("Total Delivery Amount")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-group mb-3 input-group-lg" }, [
+        _c("div", { staticClass: "input-group-prepend" }, [
+          _c(
+            "span",
+            {
+              staticClass: "input-group-text customer-input",
+              attrs: { id: "basic-addon3" }
+            },
+            [_vm._v("₦")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control ",
+          attrs: {
+            type: "text",
+            id: "",
+            "aria-describedby": "basic-addon3",
+            placeholder: "100,000"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col" }, [
+      _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Total Amount")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend cus" }, [
+      _c(
+        "span",
+        {
+          staticClass: "input-group-text customer-input",
+          attrs: { id: "basic-addon3" }
+        },
+        [_vm._v("₦")]
+      )
     ])
   }
 ]
@@ -74245,6 +74746,14 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(388);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
 //
 //
 //
@@ -74287,16 +74796,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['customers', 'taxes'],
     data: function data() {
         return {
-            customer_id: "",
             tax_id: "",
-            sale_date: ""
+            sale_date: "",
+            customer_id: ""
         };
     },
-    mounted: function mounted() {}
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['saleInvoice'])),
+    watch: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])({ tax_id: 'taxId', sale_date: 'saleDate' }), {
+        customer_id: function customer_id(val) {
+            this.customer(this.customers.filter(function (customer) {
+                return val === customer.id;
+            })[0]);
+        }
+    }),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['customer']))
 });
 
 /***/ }),
@@ -74310,7 +74829,22 @@ var render = function() {
   return _c("section", { attrs: { id: "info" } }, [
     _c("div", { staticClass: "container mt-3" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("div", { staticClass: "input-group mb-3 input-group-lg" }, [
+            _c("div", {}, [
+              _c(
+                "span",
+                {
+                  staticClass: "input-group-text customer-input",
+                  attrs: { id: "basic-addon3" }
+                },
+                [_vm._v("INV - #" + _vm._s(_vm.saleInvoice || "###"))]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
           _c("div", { staticClass: "input-group mb-3 input-group-lg" }, [
             _vm._m(0),
             _vm._v(" "),
@@ -74451,7 +74985,7 @@ var staticRenderFns = [
           staticClass: "input-group-text customer-input",
           attrs: { id: "basic-addon3" }
         },
-        [_vm._v("Customer Name")]
+        [_vm._v("Customer")]
       )
     ])
   },
@@ -83360,6 +83894,14 @@ module.exports = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(388);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_paymentMethodSelection__ = __webpack_require__(405);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_inventoryModule__ = __webpack_require__(406);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_vatModule__ = __webpack_require__(407);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_saleModule__ = __webpack_require__(408);
+
+
+
+
 
 
 
@@ -83367,32 +83909,18 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
-        companyAccounts: [],
-        selectedAccounts: []
+        currentUri: __webpack_require__(11)(document)[0].baseURI
     },
     getters: {
-        availableAccounts: function availableAccounts(state) {
-            return state.companyAccounts.filter(function (account) {
-                return !state.selectedAccounts.map(function (account) {
-                    return account.id;
-                }).includes(account.id);
-            });
+        getCurrentURI: function getCurrentURI(state) {
+            return state.currentUri;
         }
     },
-    mutations: {
-        selectAccount: function selectAccount(state, account) {
-            state.selectedAccounts.push(account);
-        },
-        removeAccount: function removeAccount(state, account) {
-            var pos = state.selectedAccounts.map(function (account) {
-                return account.id;
-            }).indexOf(account.id);
-
-            state.selectedAccounts.splice(pos, 1);
-        },
-        setCompanyAccounts: function setCompanyAccounts(state, accounts) {
-            state.companyAccounts = accounts;
-        }
+    modules: {
+        paymentModule: __WEBPACK_IMPORTED_MODULE_2__modules_paymentMethodSelection__["a" /* paymentMethodSelectionModule */],
+        inventoryModule: __WEBPACK_IMPORTED_MODULE_3__modules_inventoryModule__["a" /* inventoryModule */],
+        vatModule: __WEBPACK_IMPORTED_MODULE_4__modules_vatModule__["a" /* vatModule */],
+        saleModule: __WEBPACK_IMPORTED_MODULE_5__modules_saleModule__["a" /* saleModule */]
     }
 });
 
@@ -83404,8 +83932,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 /* unused harmony export Store */
 /* unused harmony export install */
 /* unused harmony export mapState */
-/* unused harmony export mapMutations */
-/* unused harmony export mapGetters */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return mapMutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapGetters; });
 /* unused harmony export mapActions */
 /* unused harmony export createNamespacedHelpers */
 /**
@@ -84352,6 +84880,1238 @@ var index_esm = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return toast; });
+var swal = __webpack_require__(193);
+
+var toast = function toast(title, type) {
+    var position = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "top-end";
+
+    var toast = swal.mixin({
+        toast: true,
+        position: position,
+        showConfirmButton: false,
+        timer: 3000
+    });
+
+    toast({
+        type: type,
+        title: title
+    });
+};
+
+/***/ }),
+/* 397 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(7)
+/* script */
+var __vue_script__ = __webpack_require__(401)
+/* template */
+var __vue_template__ = __webpack_require__(402)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/sales/InvoiceModal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-190bafce", Component.options)
+  } else {
+    hotAPI.reload("data-v-190bafce", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 398 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(7)
+/* script */
+var __vue_script__ = __webpack_require__(403)
+/* template */
+var __vue_template__ = __webpack_require__(404)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/sales/InvoiceSender.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c6beab38", Component.options)
+  } else {
+    hotAPI.reload("data-v-c6beab38", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 399 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(396);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__API__ = __webpack_require__(400);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+window._ = __webpack_require__(171);
+
+var SaleItem = function () {
+    /**
+     * Constructor
+     *
+     * @param saleId
+     * @param inventory
+     */
+    function SaleItem(saleId) {
+        var inventory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+        _classCallCheck(this, SaleItem);
+
+        this.inventory_id = "";
+        this._id = null;
+        this._sale_id = saleId;
+        this.description = "";
+        this._quantity = null;
+        this.sales_price = 0;
+        this.total_price = "";
+        this.sale_channel_id = "";
+        this._inventory = inventory;
+        this._isValid = false;
+        this.saved = false;
+        this.processing = false;
+        this.created_at = "";
+        this.debounceItemSaving = window._.debounce(this.saveItem, 500);
+    }
+
+    /**
+     * Evaluates the Item if its valid
+     *
+     * @returns {boolean}
+     */
+
+
+    _createClass(SaleItem, [{
+        key: "totalPrice",
+
+
+        /**
+         * Computes Total Item Price
+         *
+         * @returns {number}
+         */
+        value: function totalPrice() {
+            return this._quantity * this.sales_price;
+        }
+
+        /**
+         * Get Inventory Quantity of which this Item is linked to
+         *
+         * @returns {*}
+         */
+
+    }, {
+        key: "getInventoryQuantity",
+        value: function getInventoryQuantity() {
+            return this.inventory_id === "" ? 0 : this._inventory.quantity;
+        }
+
+        /**
+         * Links the Item to inventory
+         *
+         * @param inventory
+         */
+
+    }, {
+        key: "saveItem",
+
+
+        /**
+         * Saves the Item in the Database
+         */
+        value: function saveItem() {
+            this.saved = false;
+            if (this.isNotValid) return;
+            this.processing = true;
+            if (this._id) {
+                this.updateItemOnDatabase();
+            } else {
+                this.createItemOnDatabase();
+            }
+        }
+
+        /**
+         * Creates the Item in the Database
+         */
+
+    }, {
+        key: "createItemOnDatabase",
+        value: function createItemOnDatabase() {
+            var data = this.getItemData();
+            var self = this;
+            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/api/client' });
+
+            api.createEntity({ name: 'saleItem' });
+            api.endpoints.saleItem.create(data).then(function (_ref) {
+                var data = _ref.data;
+
+                if (data.status === "success") {
+                    self.saved = true;
+                    self._id = data.data.id;
+                    self.processing = false;
+                    self.created_at = data.data.created_at;
+                }
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        }
+    }, {
+        key: "updateItemOnDatabase",
+        value: function updateItemOnDatabase() {
+            var data = this.getItemData();
+            var self = this;
+            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/api/client' });
+
+            api.createEntity({ name: 'saleItem' });
+            api.endpoints.saleItem.update(data).then(function (_ref2) {
+                var data = _ref2.data;
+
+                if (data.status === "success") {
+                    self.saved = true;
+                    self._id = data.data.id;
+                    self.processing = false;
+                }
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        }
+    }, {
+        key: "deleteItemOnDatabase",
+        value: function deleteItemOnDatabase() {
+            if (!this._id) return;
+
+            this.processing = true;
+            var data = this.getItemData();
+            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/api/client' });
+
+            api.createEntity({ name: 'saleItem' });
+            return api.endpoints.saleItem.delete(data);
+        }
+
+        /**
+         * Gets the Item Data in (what we need)
+         *
+         * @returns {{sale_id: *, sale_channel_id: string, quantity: *, total_price: number, inventory_id: string, sales_price: number, description: string, id: (null|*)}}
+         */
+
+    }, {
+        key: "getItemData",
+        value: function getItemData() {
+            return {
+                id: this._id,
+                sale_id: this._sale_id,
+                inventory_id: this.inventory_id,
+                sale_channel_id: this.sale_channel_id,
+                quantity: this.quantity,
+                sales_price: this.sales_price,
+                total_price: this.totalPrice(),
+                description: this.description
+            };
+        }
+    }, {
+        key: "isNotValid",
+        get: function get() {
+            return this.inventory_id === "" || this.description === "" || parseInt(this._quantity) <= 0 || this.sale_channel_id === "" || this.totalPrice() <= 0 || this.sales_price === "";
+        }
+
+        /**
+         * Mutates the Quantity of this Item
+         *
+         * @param quantity
+         */
+
+    }, {
+        key: "quantity",
+        set: function set(quantity) {
+            if (this.inventory_id === "") return;
+            var inventoryQuantity = parseInt(this.getInventoryQuantity());
+
+            if (parseInt(quantity) < 0) {
+                this._isValid = false;
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])("Minimum number of quantity is 1", 'error');
+            }
+
+            if (parseInt(quantity) > inventoryQuantity) {
+                this._isValid = false;
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])("This quantity cannot be greater than the inventory quantity which is " + inventoryQuantity, 'error');
+                this._quantity = null;
+            } else {
+                this._quantity = quantity;
+            }
+        }
+
+        /**
+         * Gets Item Quantity
+         *
+         * @returns {null}
+         */
+        ,
+        get: function get() {
+            return this._quantity;
+        }
+    }, {
+        key: "inventory",
+        set: function set(inventory) {
+            this._inventory = inventory;
+        }
+
+        /**
+         * Get the Inventory the SaleItem is linked to
+         */
+        ,
+        get: function get() {
+            return this._inventory;
+        }
+    }, {
+        key: "id",
+        set: function set(id) {
+            this._id = id;
+        }
+    }]);
+
+    return SaleItem;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (SaleItem);
+
+/***/ }),
+/* 400 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var axios = __webpack_require__(173);
+
+var API = function () {
+    function API(_ref) {
+        var baseUri = _ref.baseUri;
+
+        _classCallCheck(this, API);
+
+        this.baseUri = baseUri;
+        this.endpoints = {};
+    }
+    /**
+     * Create and store a single entity's endpoints
+     * @param {A entity Object} entity
+     */
+
+
+    _createClass(API, [{
+        key: 'createEntity',
+        value: function createEntity(entity) {
+            this.endpoints[entity.name] = this.createBasicCRUDEndpoints(entity);
+        }
+    }, {
+        key: 'createEntities',
+        value: function createEntities(arrayOfEntity) {
+            arrayOfEntity.forEach(this.createEntity.bind(this));
+        }
+        /**
+         * Create the basic endpoints handlers for CRUD operations
+         * @param {A entity Object} entity
+         */
+
+    }, {
+        key: 'createBasicCRUDEndpoints',
+        value: function createBasicCRUDEndpoints(_ref2) {
+            var name = _ref2.name;
+
+            var endpoints = {};
+
+            var resourceURL = this.baseUri + '/' + name;
+
+            endpoints.getAll = function (_ref3) {
+                var _ref3$query = _ref3.query,
+                    query = _ref3$query === undefined ? {} : _ref3$query;
+                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                return axios.get(resourceURL, Object.assign({ params: { query: query }, config: config }));
+            };
+
+            endpoints.getOne = function (_ref4) {
+                var id = _ref4.id;
+                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                return axios.get(resourceURL + '/' + id, config);
+            };
+
+            endpoints.create = function (toCreate) {
+                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                return axios.post(resourceURL, toCreate, config);
+            };
+
+            endpoints.update = function (toUpdate) {
+                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                return axios.put(resourceURL + '/' + toUpdate.id, toUpdate, config);
+            };
+
+            endpoints.patch = function (_ref5, toPatch) {
+                var id = _ref5.id;
+                var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+                return axios.patch(resourceURL + '/' + id, toPatch, config);
+            };
+
+            endpoints.delete = function (_ref6) {
+                var id = _ref6.id;
+                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                return axios.delete(resourceURL + '/' + id, config);
+            };
+
+            return endpoints;
+        }
+    }]);
+
+    return API;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (API);
+
+/***/ }),
+/* 401 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    computed: {
+        sale: function sale() {
+            return this.$parent.sale;
+        },
+        saleItems: function saleItems() {
+            return this.$parent.saleItems.filter(function (item) {
+                return item.saved;
+            });
+        },
+        totalAmount: function totalAmount() {
+            return this.$parent.totalSalesAmount;
+        },
+        customer: function customer() {
+            return this.$parent.customer;
+        }
+    }
+});
+
+/***/ }),
+/* 402 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "previewInvoiceModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalCenterTitle",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered modal-lg",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "container p-3" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "row px-5 pt-3" }, [
+                _c("div", { staticClass: "col-md-2" }, [
+                  _c("img", {
+                    staticClass: "rounded-circle img-fluid service-img",
+                    attrs: {
+                      src: _vm.customer ? _vm.customer.image : "",
+                      alt: "client logo",
+                      srcset: ""
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-10" }, [
+                  _c("h5", { staticClass: "text-green h5" }, [
+                    _vm._v(
+                      _vm._s(
+                        _vm.customer
+                          ? _vm.customer.first_name +
+                              "  " +
+                              _vm.customer.last_name
+                          : "Customer Not Selected"
+                      )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h6", { staticClass: "text-primary h6" }, [
+                    _vm._v(
+                      "Invoice NO: KB - " +
+                        _vm._s(_vm.sale.invoice_number || "")
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("form", { attrs: { action: "", method: "post" } }, [
+                    _c("div", { staticClass: "form row pt-3 px-3" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "div",
+                          { staticClass: "p-2", attrs: { id: "topp" } },
+                          [
+                            _c("h5", { staticClass: "h5" }, [
+                              _vm._v("Total Amount")
+                            ]),
+                            _vm._v(" "),
+                            _c("h4", { staticClass: "text-orange" }, [
+                              _vm._v("₦ " + _vm._s(_vm.totalAmount || ""))
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "div",
+                          { staticClass: "p-2", attrs: { id: "topp" } },
+                          [
+                            _c("h5", { staticClass: "h5" }, [
+                              _vm._v("Amount Paid")
+                            ]),
+                            _vm._v(" "),
+                            _c("h4", { staticClass: "text-orange" }, [
+                              _vm._v("₦ " + _vm._s(_vm.totalAmount || ""))
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "div",
+                          { staticClass: "p-2", attrs: { id: "topp" } },
+                          [
+                            _c("h5", { staticClass: "h5 " }, [
+                              _vm._v(" Balance")
+                            ]),
+                            _vm._v(" "),
+                            _c("h4", { staticClass: "text-orange" }, [
+                              _vm._v("₦ " + _vm._s(_vm.totalAmount || ""))
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("section", { attrs: { id: "sale-table" } }, [
+                  _c("div", { staticClass: "container" }, [
+                    _c("div", { staticClass: "long-scroll" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "table-responsive table-responsive-sm",
+                          attrs: { id: "topp" }
+                        },
+                        [
+                          _c(
+                            "table",
+                            {
+                              staticClass:
+                                "table table-striped table-hover table-condensed",
+                              attrs: { id: "dataTable" }
+                            },
+                            [
+                              _vm._m(1),
+                              _vm._v(" "),
+                              _c(
+                                "tbody",
+                                _vm._l(_vm.saleItems, function(item) {
+                                  return _vm.saleItems.length > 0 && item.saved
+                                    ? _c("tr", [
+                                        _c("td", [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(item.created_at) +
+                                              "\n                                            "
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(item.inventory.name) +
+                                              "\n                                            "
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(" " + _vm._s(item.quantity))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            " " +
+                                              _vm._s(item.inventory.sales_price)
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(
+                                            " " + _vm._s(item.totalPrice())
+                                          )
+                                        ])
+                                      ])
+                                    : _vm._e()
+                                }),
+                                0
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(2)
+            ])
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "p-3" }, [
+      _c("tr", { staticClass: "tab" }, [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Payment Date")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Product")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("QTY")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Sales Price (₦)")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Balance")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-foote mt-3" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-2" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger px-5",
+              attrs: { type: "button", "data-dismiss": "modal" }
+            },
+            [_vm._v("Close")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-2" })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-190bafce", module.exports)
+  }
+}
+
+/***/ }),
+/* 403 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            subject: "Invoice for Sale"
+        };
+    },
+
+    computed: {
+        customer: function customer() {
+            return this.$parent.customer || { email: "" };
+        }
+    }
+});
+
+/***/ }),
+/* 404 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "invoiceSender",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalCenterTitle",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "container p-3" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("h5", { staticClass: "h5 uppercase", attrs: { id: "" } }, [
+                _vm._v("Send")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-sm-3 col-form-label",
+                      attrs: { for: "" }
+                    },
+                    [_vm._v("To")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-9" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.email,
+                          expression: "customer.email"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { disabled: true, type: "email" },
+                      domProps: { value: _vm.customer.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.customer, "email", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-sm-3 col-form-label",
+                      attrs: { for: "" }
+                    },
+                    [_vm._v("Subject")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-9" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.subject,
+                          expression: "subject"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "" },
+                      domProps: { value: _vm.subject },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.subject = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2)
+              ])
+            ])
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group shadow-textarea" }, [
+      _c("textarea", {
+        staticClass: "form-control",
+        attrs: {
+          id: "exampleFormControlTextarea1",
+          rows: "3",
+          placeholder: "Compose Message"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "justify-content-around text-center pt-2" },
+      [
+        _c("a", { attrs: { href: "" } }, [
+          _c("i", {
+            staticClass: "fa fa-plan ",
+            staticStyle: { "font-size": "48px", color: "#00C259" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("h5", { staticClass: "h5 text-green" }, [_vm._v("Save & Send")])
+      ]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c6beab38", module.exports)
+  }
+}
+
+/***/ }),
+/* 405 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return paymentMethodSelectionModule; });
+var paymentMethodSelectionModule = {
+    state: {
+        companyAccounts: [],
+        selectedAccounts: []
+    },
+    getters: {
+        availableAccounts: function availableAccounts(state) {
+            return state.companyAccounts.filter(function (account) {
+                return !state.selectedAccounts.map(function (account) {
+                    return account.id;
+                }).includes(account.id);
+            });
+        },
+        selectedAccounts: function selectedAccounts(state) {
+            return state.selectedAccounts;
+        }
+    },
+    mutations: {
+        selectAccount: function selectAccount(state, account) {
+            state.selectedAccounts.push(account);
+        },
+        removeAccount: function removeAccount(state, account) {
+            var pos = state.selectedAccounts.map(function (account) {
+                return account.id;
+            }).indexOf(account.id);
+
+            state.selectedAccounts.splice(pos, 1);
+        },
+        setCompanyAccounts: function setCompanyAccounts(state, accounts) {
+            state.companyAccounts = accounts;
+        }
+    }
+};
+
+/***/ }),
+/* 406 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return inventoryModule; });
+var inventoryModule = {
+    state: {
+        companyInventories: [],
+        selectedInventories: []
+    },
+    getters: {
+        availableInventories: function availableInventories(state) {
+            return state.companyInventories;
+            // return state.companyInventories.filter(inventory => !state.selectedInventories.map(inventory => inventory.id).includes(inventory.id));
+        },
+        getInventory: function getInventory(state) {
+            return function (inventoryId) {
+                return state.companyInventories.find(function (inventory) {
+                    return inventory.id === inventoryId;
+                });
+            };
+        }
+    },
+    mutations: {
+        selectInventory: function selectInventory(state, inventory) {
+            state.selectedInventories.push(inventory);
+        },
+        removeInventory: function removeInventory(state, inventory) {
+            var pos = state.selectedInventories.map(function (inventory) {
+                return inventory.id;
+            }).indexOf(inventory.id);
+
+            state.selectedInventories.splice(pos, 1);
+        },
+        setCompanyInventories: function setCompanyInventories(state, inventories) {
+            state.companyInventories = inventories;
+        }
+    }
+};
+
+/***/ }),
+/* 407 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return vatModule; });
+var vatModule = {
+    state: {
+        taxId: "",
+        saleDate: "",
+        customer: null
+    },
+    getters: {
+        taxId: function taxId(state) {
+            return state.taxId;
+        },
+        customer: function customer(state) {
+            return state.customer;
+        },
+        saleDate: function saleDate(state) {
+            return state.saleDate;
+        }
+    },
+    mutations: {
+        taxId: function taxId(state, value) {
+            state.taxId = value;
+        },
+        customer: function customer(state, _customer) {
+            state.customer = _customer;
+        },
+        saleDate: function saleDate(state, value) {
+            state.saleDate = value;
+        }
+    }
+};
+
+/***/ }),
+/* 408 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return saleModule; });
+var saleModule = {
+    state: {
+        sale: {}
+    },
+    getters: {
+        saleId: function saleId(state) {
+            return state.sale.id;
+        },
+        saleInvoice: function saleInvoice(state) {
+            return state.sale.invoice_number;
+        }
+    },
+    mutations: {
+        setSale: function setSale(state, sale) {
+            state.sale = sale;
+        }
+    }
+};
 
 /***/ })
 /******/ ]);

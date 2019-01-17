@@ -34,4 +34,9 @@ class Inventory extends Model
 	{
 		return $this->hasOne(Transaction::class);
 	}
+
+	public function scopeAvailable($query)
+	{
+		return $query->where('quantity', '>', 0);
+	}
 }
