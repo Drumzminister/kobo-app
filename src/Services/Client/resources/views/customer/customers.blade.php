@@ -59,7 +59,7 @@
                         </thead>
                         <tbody>
                           <tr v-for="customer in customers">
-                                <td >@{{ customer.name }}</td>
+                                <td >@{{ customer.first_name }} @{{ customer.last_name }}</td>
                                 <td>@{{ customer.address }}</td>
                                 <td>@{{ customer.phone }}</td>
                                 <td>@{{ customer.email }}</td>

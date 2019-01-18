@@ -10,9 +10,8 @@ class AddVendorFeature extends Feature
 {
     public function handle(Request $request)
     {
-        $data = $request->all();
-        $data['company_id'] = auth()->user()->company->id;
-        $added = $this->run(AddVendorJob::class, ['data' => $data]);
+        $added = $this->run(AddVendorJob::class, ['data' => $request->all(), 'user' => auth()->user()]);
+
         if($added)
             return response()->json(['message' => 'Vendor Added successfully']);
 

@@ -18,7 +18,7 @@ class GetCustomerDataJob extends Job
         $this->customer = app(CustomerRepository::class);
     }
 
-    /**
+    /**1
      * Execute the job.
      *
      * @return void

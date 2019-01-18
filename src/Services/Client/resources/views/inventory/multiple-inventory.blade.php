@@ -30,12 +30,12 @@
                     <div class="col-md-6">
                         <div class="input-group mb-3 input-group-lg">
                             <div class="input-group-prepend">
-                                <span class="input-group-text customer-input" id="basic-addon3">Customer Name</span>
+                                <span class="input-group-text customer-input" id="basic-addon3">Vendor Name</span>
                             </div> 
         
-                            <select class="customer" name="customer" class="form-control" onClick="this.form.submit">
-                                    <option selected="Pick customer Name" style="width:200">
-                                     Select Name
+                            <select class="customer" name="customer" class="form-control" >
+                                    <option selected="Pick customer Name" style="width:200" v-for="vendor in vendors" value="vendor.id">
+                                        @{{ vendor.name }}
                                     </option>
                             </select>
                         </div>
@@ -55,7 +55,7 @@
                     
                     <div class="col-md-3">
                             <div class="dates input-group mb-3 input-group-lg">
-                                <input type="text"  class="form-control" id="datepicker" value="{{Date('m/d/Y')}}" name="event_date">
+                                <input type="date"  class="form-control" id="datepicker" name="event_date">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-calendar icon" id="datepicker" name="event_date" ></i></span>
                                 </div> 
@@ -87,52 +87,17 @@
                           </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td >shoes</td>
-                                <td>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, distinctio.
-                                    </td> 
-                                <td> 23</td>
-                                <td> 43,000</td>
-                                <td> 43,000</td>
-                                <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                            <tr v-for="(content, index) in inventoryTableRow" :id="'row-' + index">
+                                <td><input v-model="content.name" type="text" class="form-control "></td>
+                                <td><input v-model="content.description" id="" type="text" class="form-control "></td>
+                                <td><input v-model="content.quantity" type="text" class="form-control "></td>
+                                <td><input v-model="content.cost_price" @keyup="calculateTotalInventoryCost()" id="" type="text" class="form-control cost_price"></td>
+                                <td><input v-model="content.sales_price"  id="" type="text" class="form-control "></td>
+                                <td><i class="fa fa-trash-o" @click="deleteInventoryRow(index)" style="font-size:24px"></i></td>
                             </tr>
-
-                            <tr>
-                               <td >shoes</td>
-                               <td>
-                                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, distinctio.
-                                </td> 
-                              <td> 23</td>
-                              <td> 43,000</td>
-                              <td> 43,000</td>
-                              <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
-                            </tr>
-
-                            <tr>
-                                <td >shoes</td>
-                                <td>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, distinctio.
-                                    </td> 
-                                <td> 23</td>
-                                <td> 43,000</td>
-                                <td> 43,000</td>
-                                <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
-                            </tr>
-                            <tr>
-                                <td >shoes</td>
-                                <td>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, distinctio.
-                                    </td> 
-                                <td> 23</td>
-                                <td> 43,000</td>
-                                <td> 43,000</td>
-                                <td><i class="fa fa-edit pr-2" style="font-size:24px"></i><i class="fa fa-trash-o" style="font-size:24px"></i></td>
-                            </tr>
-                            
                         </tbody>
                     </table>
-                    <span class="float-right" onclick="addRow()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
+                    <span class="float-right" @click="addInventoryRow()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                     </span>
             </div>
 
@@ -205,7 +170,7 @@
                                             {{-- <div class="input-group-prepend">
                                                 <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                             </div> --}}
-                                            <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 100,000">                        
+                                            <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 100,000">
                                         </div>
                                     </div>
 
@@ -215,22 +180,22 @@
                                             {{-- <div class="input-group-prepend">
                                                 <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                             </div> --}}
-                                            <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 100,000">                        
+                                            <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 100,000">
                                         </div>
-                    
+
                                     </div>
                                 </div>
                                                                         
                                 <div class="row pt-2">
                                     <div class="col-md-2"></div>
-                                    <div class="col-md-4 col-12">
-                                    <h5 class="h5 uppercase">Total Amount</h5>
+                                    <div class="col-md-5 col-12">
+                                    <h5 class="h5 uppercase">Total Cost Price</h5>
                                     </div>
                                     <div class="col input-group input-group-lg">
                                         {{-- <div class="input-group-prepend cus">
                                             <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                         </div>  --}}
-                                        <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 1,275,000">                        
+                                        <input v-model="totalCostPrice" type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 1,275,000">
                                     </div>            
                                 </div>
                             </div>
@@ -255,4 +220,10 @@
 
 </section>
 
+@endsection
+
+@section('other_js')
+    <script>
+        window.vendors = @json($vendors);
+    </script>
 @endsection

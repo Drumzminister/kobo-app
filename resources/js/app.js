@@ -64,7 +64,13 @@ window.app = new Vue({
                 maximumFractionDigits: 2
             });
             return formatter.format(number);
-        }
+        },
+
+        dateTime(value) {
+            if (!value) return '';
+            return moment(value).fromNow(); // here u modify data
+        },
+
     },
     data: {},
     methods: {}

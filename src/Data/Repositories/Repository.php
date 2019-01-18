@@ -29,7 +29,7 @@ class Repository
 	 * @return UuidInterface
 	 * @throws \Exception
 	 */
-	protected function generateUuid(): UuidInterface
+	public function generateUuid(): UuidInterface
 	{
 		return Uuid::uuid1();
 	}
@@ -172,7 +172,7 @@ class Repository
     /**
      * @param $attribute
      * @param $value
-     * @param null $relations
+     * @param null $relations @return array
      * @return \Illuminate\Support\Collection
      */
     public function getBy($attribute, $value, $relations = null)

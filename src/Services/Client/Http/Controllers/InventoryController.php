@@ -13,6 +13,10 @@ use Lucid\Foundation\Http\Controller;
 
 class InventoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -45,8 +49,8 @@ class InventoryController extends Controller
         return $this->serve(UpdateInventoryFeature::class);
     }
 
-    public function deleteInventory()
+    public function deleteInventory($inventoryId)
     {
-        return $this->serve(DeleteInventoryFeature::class);
+        return $this->serve(DeleteInventoryFeature::class, ['inventoryId' => $inventoryId]);
     }
 }

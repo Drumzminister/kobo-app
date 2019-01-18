@@ -24,7 +24,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('/bank-update/{detailId}', 'BankDetailController@updateBankDetail')->name('client.update-bank');
     Route::get('/bank/delete/{detailId}', 'BankDetailController@deleteBankDetail')->name('client.delete-bank');
 
-	Route::post('/sale/add', 'SaleController@addSale')->name('client.sale.add');
+	Route::post('/sale', 'SaleController@addSale')->name('client.sale.add');
 	Route::get('/sale/list', 'SaleController@listSales')->name('client.sale.list');
 	Route::post('/sale/update/{saleId}', 'SaleController@updateSale')->name('client.sale.update');
 	Route::post('/sale/delete/{saleId}', 'SaleController@deleteSale')->name('client.sale.delete');
@@ -54,7 +54,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('/inventory/add', 'InventoryController@addInventory')->name('client.inventory.add');
     Route::get('/inventory/list', 'InventoryController@listInventory')->name('client.inventory.list');
     Route::get('/inventory/update/{inventoryId}', 'InventoryController@updateInventory')->name('client.inventory.update');
-    Route::post('/inventory/delete', 'InventoryController@deleteInventory')->name('client.inventory.delete');
+    Route::post('/inventory/{invendoryId}/delete', 'InventoryController@deleteInventory')->name('client.inventory.delete');
 
     Route::get('/staff', 'StaffController@showStaff')->name('client.staff.show');
     Route::get('/staff/single-staff', 'StaffController@showSingleStaff')->name('client.single-staff.add');
@@ -72,9 +72,15 @@ Route::group(['prefix' => 'client'], function () {
     Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');
 
 
+    // Sale Routes
 	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
 	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');
+	Route::get('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');
+	Route::post('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');
+//	Route::post('/sale/{saleId}/add-item', 'ClientDashboardController@addSaleItem')->name('sale.add.item');
 //	Route::get('/all-sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
+
+	Route::get('/saleItem/delete/{itemId}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
 
     Route::get('/expenses', "ExpensesController@showExpensePage")->name('client.expenses.show');
     Route::get('/expenses/all', 'ExpensesController@showAllExpenses')->name('client.expenses.show-all');
@@ -86,7 +92,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('/expenses/{expenseId}/pay', 'ExpensesController@payExpense')->name('client.expenses.pay');
 
     Route::get('/vendor', 'VendorController@showVendorPage')->name('vendor.index');
-    Route::get('/vendor/show', 'VendorController@showAllVendor')->name('vendor.show');
+    Route::get('/vendor/list', 'VendorController@showAllVendor')->name('vendor.show');
     Route::get('/vendor/add', 'VendorController@addVendorPage')->name('vendor.add');
     Route::post('/vendor/add', 'VendorController@addVendor')->name('vendor.add');
     Route::get('/vendor/all-vendors', 'VendorController@listVendors')->name('vendor.list');

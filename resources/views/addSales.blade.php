@@ -16,7 +16,7 @@
     {{-- End VAT section --}}
 
     {{-- add sales table --}}
-    <add-sale :inventories="{{ $inventories }}" :banks="{{ $banks }}" :channels="{{ $channels }}"></add-sale>
+    <add-sale :inventories="{{ $inventories }}" :banks="{{ $banks }}" :channels="{{ $channels }}" :sale="{{ $sale }}"></add-sale>
     {{-- end of sales table --}}
 
     {{-- Invoice Modal --}}

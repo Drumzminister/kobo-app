@@ -18031,7 +18031,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 		if ( jsonProp ) {
 			s[ jsonProp ] = s[ jsonProp ].replace( rjsonp, "$1" + callbackName );
 		} else if ( s.jsonp !== false ) {
-			s.url += ( rquery.test( s.url ) ? "&" : "?" ) + s.jsonp + "=" + callbackName;
+			s.baseUri += ( rquery.test( s.url ) ? "&" : "?" ) + s.jsonp + "=" + callbackName;
 		}
 
 		// Use data converter to retrieve json after script execution
@@ -39948,7 +39948,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     // format date using native date object
     function formatMoment(m, format) {
-        if (!m.isValid()) {
+        if (!m.isNotValid()) {
             return m.localeData().invalidDate();
         }
 
@@ -40145,12 +40145,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function get (mom, unit) {
-        return mom.isValid() ?
+        return mom.isNotValid() ?
             mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
     }
 
     function set$1 (mom, unit, value) {
-        if (mom.isValid() && !isNaN(value)) {
+        if (mom.isNotValid() && !isNaN(value)) {
             if (unit === 'FullYear' && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
                 mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value, mom.month(), daysInMonth(value, mom.month()));
             }
@@ -40371,7 +40371,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     function setMonth (mom, value) {
         var dayOfMonth;
 
-        if (!mom.isValid()) {
+        if (!mom.isNotValid()) {
             // No op
             return mom;
         }
@@ -40838,7 +40838,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // MOMENTS
 
     function getSetDayOfWeek (input) {
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return input != null ? this : NaN;
         }
         var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
@@ -40851,7 +40851,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function getSetLocaleDayOfWeek (input) {
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return input != null ? this : NaN;
         }
         var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
@@ -40859,7 +40859,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function getSetISODayOfWeek (input) {
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return input != null ? this : NaN;
         }
 
@@ -41981,7 +41981,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
         function () {
             var other = createLocal.apply(null, arguments);
-            if (this.isValid() && other.isValid()) {
+            if (this.isNotValid() && other.isValid()) {
                 return other < this ? this : other;
             } else {
                 return createInvalid();
@@ -41993,7 +41993,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         'moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/',
         function () {
             var other = createLocal.apply(null, arguments);
-            if (this.isValid() && other.isValid()) {
+            if (this.isNotValid() && other.isValid()) {
                 return other > this ? this : other;
             } else {
                 return createInvalid();
@@ -42016,7 +42016,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
         res = moments[0];
         for (i = 1; i < moments.length; ++i) {
-            if (!moments[i].isValid() || moments[i][fn](res)) {
+            if (!moments[i].isNotValid() || moments[i][fn](res)) {
                 res = moments[i];
             }
         }
@@ -42212,7 +42212,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     function getSetOffset (input, keepLocalTime, keepMinutes) {
         var offset = this._offset || 0,
             localAdjust;
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return input != null ? this : NaN;
         }
         if (input != null) {
@@ -42293,7 +42293,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function hasAlignedHourOffset (input) {
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return false;
         }
         input = input ? createLocal(input).utcOffset() : 0;
@@ -42320,7 +42320,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
         if (c._a) {
             var other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
-            this._isDSTShifted = this.isValid() &&
+            this._isDSTShifted = this.isNotValid() &&
                 compareArrays(c._a, other.toArray()) > 0;
         } else {
             this._isDSTShifted = false;
@@ -42330,15 +42330,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function isLocal () {
-        return this.isValid() ? !this._isUTC : false;
+        return this.isNotValid() ? !this._isUTC : false;
     }
 
     function isUtcOffset () {
-        return this.isValid() ? this._isUTC : false;
+        return this.isNotValid() ? this._isUTC : false;
     }
 
     function isUtc () {
-        return this.isValid() ? this._isUTC && this._offset === 0 : false;
+        return this.isNotValid() ? this._isUTC && this._offset === 0 : false;
     }
 
     // ASP.NET json date format regex
@@ -42438,7 +42438,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     function momentsDifference(base, other) {
         var res;
-        if (!(base.isValid() && other.isValid())) {
+        if (!(base.isNotValid() && other.isNotValid())) {
             return {milliseconds: 0, months: 0};
         }
 
@@ -42477,7 +42477,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             days = absRound(duration._days),
             months = absRound(duration._months);
 
-        if (!mom.isValid()) {
+        if (!mom.isNotValid()) {
             // No op
             return;
         }
@@ -42529,7 +42529,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     function isAfter (input, units) {
         var localInput = isMoment(input) ? input : createLocal(input);
-        if (!(this.isValid() && localInput.isValid())) {
+        if (!(this.isNotValid() && localInput.isValid())) {
             return false;
         }
         units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
@@ -42542,7 +42542,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     function isBefore (input, units) {
         var localInput = isMoment(input) ? input : createLocal(input);
-        if (!(this.isValid() && localInput.isValid())) {
+        if (!(this.isNotValid() && localInput.isValid())) {
             return false;
         }
         units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
@@ -42562,7 +42562,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     function isSame (input, units) {
         var localInput = isMoment(input) ? input : createLocal(input),
             inputMs;
-        if (!(this.isValid() && localInput.isValid())) {
+        if (!(this.isNotValid() && localInput.isValid())) {
             return false;
         }
         units = normalizeUnits(units || 'millisecond');
@@ -42587,7 +42587,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             zoneDelta,
             output;
 
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return NaN;
         }
 
@@ -42645,7 +42645,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function toISOString(keepOffset) {
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return null;
         }
         var utc = keepOffset !== true;
@@ -42671,7 +42671,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * @link https://nodejs.org/dist/latest/docs/api/util.html#util_custom_inspect_function_on_objects
      */
     function inspect () {
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return 'moment.invalid(/* ' + this._i + ' */)';
         }
         var func = 'moment';
@@ -42697,8 +42697,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function from (time, withoutSuffix) {
-        if (this.isValid() &&
-                ((isMoment(time) && time.isValid()) ||
+        if (this.isNotValid() &&
+                ((isMoment(time) && time.isNotValid()) ||
                  createLocal(time).isValid())) {
             return createDuration({to: this, from: time}).locale(this.locale()).humanize(!withoutSuffix);
         } else {
@@ -42711,8 +42711,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function to (time, withoutSuffix) {
-        if (this.isValid() &&
-                ((isMoment(time) && time.isValid()) ||
+        if (this.isNotValid() &&
+                ((isMoment(time) && time.isNotValid()) ||
                  createLocal(time).isValid())) {
             return createDuration({from: this, to: time}).locale(this.locale()).humanize(!withoutSuffix);
         } else {
@@ -42846,7 +42846,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     function toJSON () {
         // new Date(NaN).toJSON() === null
-        return this.isValid() ? this.toISOString() : null;
+        return this.isNotValid() ? this.toISOString() : null;
     }
 
     function isValid$2 () {
@@ -43192,7 +43192,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     proto.isSame            = isSame;
     proto.isSameOrAfter     = isSameOrAfter;
     proto.isSameOrBefore    = isSameOrBefore;
-    proto.isValid           = isValid$2;
+    proto.isNotValid           = isValid$2;
     proto.lang              = lang;
     proto.locale            = locale;
     proto.localeData        = localeData;
@@ -43508,7 +43508,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function as (units) {
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return NaN;
         }
         var days;
@@ -43539,7 +43539,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     // TODO: Use this.as('ms')?
     function valueOf$1 () {
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return NaN;
         }
         return (
@@ -43571,12 +43571,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     function get$2 (units) {
         units = normalizeUnits(units);
-        return this.isValid() ? this[units + 's']() : NaN;
+        return this.isNotValid() ? this[units + 's']() : NaN;
     }
 
     function makeGetter(name) {
         return function () {
-            return this.isValid() ? this._data[name] : NaN;
+            return this.isNotValid() ? this._data[name] : NaN;
         };
     }
 
@@ -43662,7 +43662,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     function humanize (withSuffix) {
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return this.localeData().invalidDate();
         }
 
@@ -43690,7 +43690,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // This is because there is no context-free conversion between hours and days
         // (think of clock changes)
         // and also not between days and months (28-31 days per month)
-        if (!this.isValid()) {
+        if (!this.isNotValid()) {
             return this.localeData().invalidDate();
         }
 
@@ -43742,7 +43742,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     var proto$2 = Duration.prototype;
 
-    proto$2.isValid        = isValid$1;
+    proto$2.isNotValid        = isValid$1;
     proto$2.abs            = abs;
     proto$2.add            = add$1;
     proto$2.subtract       = subtract$1;

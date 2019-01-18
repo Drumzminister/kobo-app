@@ -90,19 +90,20 @@
                         <table class="table table-hover" id="dataTable">
                                 <thead class="p-3">
                                   <tr class="ta">
+                                    <th scope="col">Id</th>
                                     <th scope="col">Staff</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">Salary</th>
                                     <th scope="col">Date Of Employment</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col"></th>              
+                                    <th scope="col" @click="staffStatusFilter">Status</th>
+                                    <th scope="col"></th>
                                   
                                 </tr>
                                 </thead>
         
                                 <tbody>
-                                  <tr v-for="worker in staff">
-                                    
+                                  <tr v-for="(worker, index) in staff" :key="index">
+                                        <td>@{{ ++index }}</td>
                                         <td> <a href="" class="left-modal" data-toggle="modal" data-target="#exampleModal" @click.prevent="staffModal(worker)">
                                             <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                                             <span class="pl-3"> @{{ worker.first_name }} @{{ worker.last_name }}</span>
@@ -123,8 +124,10 @@
                                             <span class="dot"></span>
                                             <span class="dot"></span>
                                             <span class="dot"></span>
-                                        </td>      
-
+                                        </td>
+                                  </tr>
+                                  <tr v-if="staff.length === 0">
+                                      <td colspan="7" style="text-align: center">No search result found</td>
                                   </tr>
                                 </tbody>
                             </table>
@@ -149,7 +152,7 @@
                                 <span><i class="fa fa-facebook-square" style="font-size: 32px; color:#0077B5;"></i></span>                            
                             <span><i class="fa fa-facebook-square" style="font-size: 32px; color:#0077B5;"></i></span>
                         </div>
-                    <p class="text-muted py-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quia ex officiis soluta excepturi assumenda distinctio deleniti omnis quaerat dolorem.</p>    
+                    <p class="text-muted py-2">@{{ StaffInformation.comment }}</p>
                     </div>
 
                     <p>Experience: <span class="text-muted"> @{{ StaffInformation.experience }}</span></p>

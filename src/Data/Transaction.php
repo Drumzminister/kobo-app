@@ -51,4 +51,9 @@ class Transaction extends Model
 	{
 		return $this->belongsTo(TransactionCategory::class, 'transaction_category_id');
 	}
+
+	public function paymentMode()
+	{
+		return $this->belongsTo(BankDetail::class, 'bank_detail_id');
+	}
 }

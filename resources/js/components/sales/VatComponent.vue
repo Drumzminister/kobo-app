@@ -3,10 +3,17 @@
     <section id="info">
         <div class="container mt-3">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
+                    <div class="input-group mb-3 input-group-lg">
+                        <div class="">
+                            <span class="input-group-text customer-input" id="basic-addon3">INV - #{{ saleInvoice || '###' }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="input-group mb-3 input-group-lg">
                         <div class="input-group-prepend">
-                            <span class="input-group-text customer-input" id="basic-addon3">Customer Name</span>
+                            <span class="input-group-text customer-input" id="basic-addon3">Customer</span>
                         </div>
                         <select v-model="customer_id" class="customer form-control">
                             <option value="">Select Customer ...</option>
@@ -19,7 +26,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <select v-model="tax_id" class="form-control form-control-lg form-control tax vat-input" name="tax" id="basic-addon3">
-                            <option value="">Select ...</option>
+                            <option value="">Select Tax ...</option>
                             <option v-for="tax in taxes" :value="tax.id" >{{ tax.name }}</option>
                         </select>
                     </div>
@@ -36,20 +43,33 @@
             </div>
         </div>
     </section>
-
 </template>
-
 <script>
+    import { mapMutations, mapGetters } from 'vuex';
     export default {
         props: ['customers', 'taxes'],
         data() {
             return {
-                customer_id: "",
                 tax_id: "",
-                sale_date: ""
+                sale_date: "",
+                customer_id: "",
             }
         },
-        mounted() {
+        computed: {
+            ...mapGetters(['saleInvoice']),
+        },
+        watch: {
+            ...mapMutations({ sale_date: 'saleDate' }),
+            customer_id: function(val) {
+                this.customer(this.customers.filter((customer) => val === customer.id)[0]);
+            },
+            tax_id: function(val) {
+                this.selectedTax(this.taxes.filter((tax) => val === tax.id)[0]);
+                this.taxId(val);
+            }
+        },
+        methods : {
+            ...mapMutations(['customer', 'selectedTax', "taxId"])
         }
     }
 </script>

@@ -14,6 +14,13 @@
 // Prefix: /api/client
 Route::group(['prefix' => 'client'], function() {
 
+	Route::post('/saleItem', 'SaleItemController@addSaleItem')->name('sale.item.add');
+	Route::put('/saleItem/{itemId}', 'SaleItemController@updateSaleItem')->name('sale.item.update');
+	Route::delete('/saleItem/{itemId}', 'SaleItemController@deleteSaleItem')->name('sale.item.delete');
+
+
+	Route::post('/sale', 'SaleController@addSale')->name('client.sale.add');
+
     // The controllers live in src/Services/Client/Http/Controllers
     // Route::get('/', 'UserController@index');
 

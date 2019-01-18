@@ -33,12 +33,12 @@
                           </tr>
                         </thead>
                         <tbody id="vendor">
-                            <tr v-for="(content, index) in tableRows" :id="'row-' + index">
-                                <td><input id="name" type="text" class="form-control name"></td>
-                                <td><input  id="address" type="text" class="form-control address"></td>
-                                <td><input   id="phone" type="number" class="form-control number"></td>
-                                <td><input   id="email" type="text" class="form-control email"></td>
-                                <td><input   id="website" type="text" class="form-control website"></td>
+                            <tr v-for="(content, index) in vendorTableRows" :id="'row-' + index">
+                                <td><input v-model="content.name" id="name" type="text" class="form-control name"></td>
+                                <td><input  v-model="content.address" id="address" type="text" class="form-control address"></td>
+                                <td><input   v-model="content.phone" id="phone" type="number" class="form-control number"></td>
+                                <td><input   v-model="content.email" id="email" type="text" class="form-control email"></td>
+                                <td><input   v-model="content.website" id="website" type="text" class="form-control website"></td>
                                 <td id="delete" @click='deleteVendorRow(index)'><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
                             
