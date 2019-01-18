@@ -20,19 +20,19 @@
                                     <div class="col-md-4">
                                         <div class="p-2" id="topp">
                                             <h5 class="h5">Total Amount</h5>
-                                            <h4 class="text-orange">&#8358; {{ totalAmount || "" }}</h4>
+                                            <h4 class="text-orange">&#8358; {{ totalAmount || 0 }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="p-2" id="topp">
                                             <h5 class="h5">Amount Paid</h5>
-                                            <h4 class="text-orange">&#8358; {{ totalAmount || "" }}</h4>
+                                            <h4 class="text-orange">&#8358; {{ amountPaid || 0 }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="p-2" id="topp">
                                             <h5 class="h5 "> Balance</h5>
-                                            <h4 class="text-orange">&#8358; {{ totalAmount || "" }}</h4>
+                                            <h4 class="text-orange">&#8358; {{ totalAmount - amountPaid || 0 }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +106,10 @@
                 return this.$parent.saleItems.filter((item) => item.saved);
             },
             totalAmount () {
-                return this.$parent.totalSalesAmount;
+                return this.$parent.computedSalesAmount;
+            },
+            amountPaid () {
+                return this.$parent.totalPaid;
             },
             customer () {
                 return this.$parent.customer;

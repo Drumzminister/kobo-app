@@ -73618,19 +73618,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }, this.debouncePaidAmountChanged);
 
             this.$store.commit('selectAccount', paymentMode);
+            this.$store.commit('totalPaid', this.totalAmountPaid);
         },
         paidAmountChanged: function paidAmountChanged(val) {
             if (this.totalAmountPaid > this.totalSpread) {
                 Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["a" /* toast */])('Amount paid cannot be greater than total sales amount', 'error', 'center');
                 this.invalidPaymentsSum(true);
-
+                this.$store.commit('totalPaid', this.totalAmountPaid);
                 return null;
             }
 
+            this.$store.commit('totalPaid', this.totalAmountPaid);
             this.invalidPaymentsSum(false);
         },
         removeAccountFromStore: function removeAccountFromStore(account) {
             this.$store.commit('removeAccount', account);
+            this.$store.commit('totalPaid', this.totalAmountPaid);
         },
 
         bankIsNotAvailable: function bankIsNotAvailable() {
@@ -73669,7 +73672,7 @@ var render = function() {
           _vm._v(" "),
           _vm._m(1),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-5" }, [
+          _c("div", { staticClass: "col-md-3" }, [
             _vm._v(
               "\n                PAID: " +
                 _vm._s(_vm.totalAmountPaid) +
@@ -73728,7 +73731,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-5" }, [
+            _c("div", { staticClass: "col-md-4" }, [
               _c(
                 "div",
                 { staticClass: "show input-group input-group-lg mt-3" },
@@ -73767,7 +73770,7 @@ var render = function() {
             _c(
               "div",
               {
-                staticClass: "col-md-2",
+                staticClass: "col-md-3",
                 staticStyle: { "margin-top": "20px" }
               },
               [
@@ -73844,7 +73847,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
+    return _c("div", { staticClass: "col-md-5" }, [
       _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Payment Mode")])
     ])
   },
@@ -73852,7 +73855,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
+    return _c("div", { staticClass: "col-md-4" }, [
       _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Amount")])
     ])
   }
@@ -75026,6 +75029,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -75062,7 +75067,9 @@ var addSale = {
             sale_customer_id: "",
             saleItems: [],
             deliveryCost: 0,
-            saleDiscount: 0
+            saleDiscount: 0,
+            savingSale: false,
+            saleSaved: false
         };
     },
 
@@ -75072,9 +75079,9 @@ var addSale = {
         this.setSale(this.sale);
         this.setSaleItems(this.sale);
     },
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['taxId', 'saleDate', "customer", "selectedTax"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory']), {
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['taxId', 'saleDate', "customer", "selectedTax"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory', 'totalPaid']), {
         invalidPaymentsSum: function invalidPaymentsSum() {
-            return this.totalAmountPaid !== this.spreadAmount;
+            return parseInt(this.totalPaid) !== parseInt(this.spreadAmount);
         },
         spreadAmount: function spreadAmount() {
             return this.computedSalesAmount; // Payment Component require this
@@ -75166,6 +75173,12 @@ var addSale = {
                 return;
             }
 
+            this.savingSale = true;
+            var that = this;
+            window.setTimeout(function () {
+                that.savingSale = false;
+                that.saleSaved = true;
+            }, 3000);
             this.createSale();
         },
 
@@ -75604,7 +75617,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         totalAmount: function totalAmount() {
-            return this.$parent.totalSalesAmount;
+            return this.$parent.computedSalesAmount;
+        },
+        amountPaid: function amountPaid() {
+            return this.$parent.totalPaid;
         },
         customer: function customer() {
             return this.$parent.customer;
@@ -75688,7 +75704,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("h4", { staticClass: "text-orange" }, [
-                              _vm._v("₦ " + _vm._s(_vm.totalAmount || ""))
+                              _vm._v("₦ " + _vm._s(_vm.totalAmount || 0))
                             ])
                           ]
                         )
@@ -75704,7 +75720,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("h4", { staticClass: "text-orange" }, [
-                              _vm._v("₦ " + _vm._s(_vm.totalAmount || ""))
+                              _vm._v("₦ " + _vm._s(_vm.amountPaid || 0))
                             ])
                           ]
                         )
@@ -75720,7 +75736,10 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("h4", { staticClass: "text-orange" }, [
-                              _vm._v("₦ " + _vm._s(_vm.totalAmount || ""))
+                              _vm._v(
+                                "₦ " +
+                                  _vm._s(_vm.totalAmount - _vm.amountPaid || 0)
+                              )
                             ])
                           ]
                         )
@@ -76479,7 +76498,7 @@ var render = function() {
           _c("div", { staticClass: "row p-2 mt-2 " }, [
             _c(
               "div",
-              { staticClass: "md-8" },
+              { staticClass: "col-md-8" },
               [_c("payment-method-selection", { attrs: { banks: _vm.banks } })],
               1
             ),
@@ -76576,11 +76595,48 @@ var render = function() {
                   _c("div", { staticClass: "row pt-2" }, [
                     _c("div", { staticClass: "col-md-6" }, [
                       _c("h5", { staticClass: "h6 uppercase" }, [
-                        _vm._v("Total Amount")
+                        _vm._v("TAX Amount")
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "input-group input-group-lg" }, [
                         _vm._m(3),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.taxAmount,
+                              expression: "taxAmount"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            disabled: true,
+                            "aria-describedby": "basic-addon3",
+                            placeholder: "1,275,000"
+                          },
+                          domProps: { value: _vm.taxAmount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.taxAmount = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("h5", { staticClass: "h6 uppercase" }, [
+                        _vm._v("Total Amount")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group input-group-lg" }, [
+                        _vm._m(4),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -76610,99 +76666,84 @@ var render = function() {
                           }
                         })
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("h5", { staticClass: "h6 uppercase" }, [
-                        _vm._v("TAX Amount")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-group input-group-lg" }, [
-                        _vm._m(4),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.taxAmount,
-                              expression: "taxAmount"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            disabled: true,
-                            "aria-describedby": "basic-addon3",
-                            placeholder: "1,275,000"
-                          },
-                          domProps: { value: _vm.taxAmount },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.taxAmount = $event.target.value
-                            }
-                          }
-                        })
-                      ])
                     ])
                   ])
                 ]
               )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row p-3" }, [
+            _c("div", { staticClass: "col" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-lg btn-login",
+                  on: {
+                    click: function($event) {
+                      _vm.openSendingModal()
+                    }
+                  }
+                },
+                [_vm._v("Send")]
+              )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "row p-3" }, [
-              _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "col" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [
+              _c("span", { staticClass: "float-right mr-2" }, [
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-lg btn-login",
+                    staticClass: "btn btn-lg btn-started",
+                    attrs: { type: "submit", disabled: _vm.savingSale },
                     on: {
                       click: function($event) {
-                        _vm.openSendingModal()
+                        _vm.saveSale()
                       }
                     }
                   },
-                  [_vm._v("Send")]
+                  [
+                    _c("i", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.savingSale,
+                          expression: "savingSale"
+                        }
+                      ],
+                      staticClass: "fa fa-circle-notch fa-spin"
+                    }),
+                    _vm._v(
+                      " " +
+                        _vm._s(
+                          _vm.savingSale
+                            ? "Saving"
+                            : _vm.saleSaved
+                            ? "Saved!"
+                            : "Save"
+                        )
+                    )
+                  ]
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col" }, [
-                _c("span", { staticClass: "float-right" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-lg btn-started",
-                      attrs: { type: "submit" },
-                      on: {
-                        click: function($event) {
-                          _vm.previewInvoice()
-                        }
+              _c("span", { staticClass: "float-right mr-2" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-lg btn-started",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        _vm.previewInvoice()
                       }
-                    },
-                    [_vm._v("Preview")]
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col" }, [
-                _c("span", { staticClass: "float-right" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-lg btn-started",
-                      attrs: { type: "submit" },
-                      on: {
-                        click: function($event) {
-                          _vm.saveSale()
-                        }
-                      }
-                    },
-                    [_vm._v("Save")]
-                  )
-                ])
+                    }
+                  },
+                  [_vm._v("Preview")]
+                )
               ])
             ])
           ])

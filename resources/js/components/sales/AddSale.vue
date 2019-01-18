@@ -66,7 +66,7 @@
                     <span @click="addNewSaleItemRow()" class="float-right">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i></span>
                 </div>
                 <div class="row p-2 mt-2 ">
-                    <div class="md-8">
+                    <div class="col-md-8">
                         <payment-method-selection :banks="banks"></payment-method-selection>
                     </div>
 
@@ -94,15 +94,6 @@
                             </div>
                             <div class="row pt-2">
                                 <div class="col-md-6">
-                                    <h5 class="h6 uppercase">Total Amount</h5>
-                                    <div class="input-group input-group-lg">
-                                        <div class="input-group-prepend cus">
-                                            <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
-                                        </div>
-                                        <input type="text" :disabled="true" v-model="computedSalesAmount" class="form-control" id="total" aria-describedby="basic-addon3" placeholder="1,275,000">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
                                     <h5 class="h6 uppercase">TAX Amount</h5>
                                     <div class="input-group input-group-lg">
                                         <div class="input-group-prepend cus">
@@ -111,26 +102,37 @@
                                         <input type="text" :disabled="true" v-model="taxAmount" class="form-control" aria-describedby="basic-addon3" placeholder="1,275,000">
                                     </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <h5 class="h6 uppercase">Total Amount</h5>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend cus">
+                                            <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
+                                        </div>
+                                        <input type="text" :disabled="true" v-model="computedSalesAmount" class="form-control" id="total" aria-describedby="basic-addon3" placeholder="1,275,000">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row p-3">
+                    <div class="col">
+                        <button class="btn btn-lg btn-login" @click="openSendingModal()">Send</button>
+                    </div>
 
-                    <div class="row p-3">
-                        <div class="col">
-                            <button class="btn btn-lg btn-login" @click="openSendingModal()">Send</button>
-                        </div>
+                    <div class="col">
 
-                        <div class="col">
-                            <span class="float-right">
+                    </div>
+
+                    <div class="col">
+                            <span class="float-right mr-2">
+                                <button type="submit" :disabled="savingSale" @click="saveSale()" class="btn btn-lg btn-started"><i v-show="savingSale" class="fa fa-circle-notch fa-spin"></i> {{ savingSale ? 'Saving' : saleSaved ? 'Saved!' : 'Save' }}</button>
+                            </span>
+
+                            <span class="float-right mr-2">
                                 <button type="submit" @click="previewInvoice()" class="btn btn-lg btn-started">Preview</button>
                             </span>
-                        </div>
-
-                        <div class="col">
-                            <span class="float-right">
-                                <button type="submit" @click="saveSale()" class="btn btn-lg btn-started">Save</button>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>

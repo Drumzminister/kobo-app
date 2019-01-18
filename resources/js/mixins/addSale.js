@@ -9,7 +9,9 @@ export const addSale = {
             sale_customer_id: "",
             saleItems: [],
             deliveryCost: 0,
-            saleDiscount: 0
+            saleDiscount: 0,
+            savingSale: false,
+            saleSaved: false,
         }
     },
     created: function() {
@@ -20,9 +22,9 @@ export const addSale = {
     },
     computed: {
         ...mapGetters(['taxId', 'saleDate', "customer", "selectedTax"]),
-        ...mapGetters(['availableInventories', 'getInventory']),
+        ...mapGetters(['availableInventories', 'getInventory', 'totalPaid']),
         invalidPaymentsSum () {
-            return this.totalAmountPaid !== this.spreadAmount;
+            return parseInt(this.totalPaid) !== parseInt(this.spreadAmount);
         },
         spreadAmount () {
             return this.computedSalesAmount // Payment Component require this
@@ -105,6 +107,12 @@ export const addSale = {
                 return;
             }
 
+            this.savingSale = true;
+            let that = this;
+            window.setTimeout(function () {
+                that.savingSale = false;
+                that.saleSaved = true;
+            }, 3000);
             this.createSale();
         },
         createSale: function () {

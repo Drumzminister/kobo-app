@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="bg-grey py-4 px-3" id="top">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <h5 class="h6 uppercase">Payment Mode</h5>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <h5 class="h6 uppercase">Amount</h5>
                 </div>
 
-                <div class="col-md-5">
+                <div class="col-md-3">
                     PAID: {{ totalAmountPaid }}
                 </div>
             </div>
@@ -26,13 +26,13 @@
                     </div>
                 </div>
 
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="show input-group input-group-lg mt-3">
                         <input v-model="paymentMethod.amount" type="number" style="height: 39px;" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
                     </div>
                 </div>
 
-                <div class="col-md-2" style="margin-top: 20px">
+                <div class="col-md-3" style="margin-top: 20px">
                     <span class="" style="cursor: pointer; margin-top: 20px" v-show="salePaymentMethods.length > 1" @click="removeSalePaymentMethod(index, paymentMethod.id)"><i class="fa fa-times" style="font-size:32px;color:#c22c29;"></i></span>
                 </div>
             </div>
@@ -106,20 +106,23 @@
                 this.$watch(() => paymentMode.amount, this.debouncePaidAmountChanged);
                 this.$watch(() => paymentMode.id, this.debouncePaidAmountChanged);
 
-                this.$store.commit('selectAccount', paymentMode)
+                this.$store.commit('selectAccount', paymentMode);
+                this.$store.commit('totalPaid', this.totalAmountPaid);
             },
             paidAmountChanged(val) {
                 if (this.totalAmountPaid > this.totalSpread) {
                     toast('Amount paid cannot be greater than total sales amount', 'error', 'center');
                     this.invalidPaymentsSum(true);
-
+                    this.$store.commit('totalPaid', this.totalAmountPaid);
                     return null;
                 }
 
+                this.$store.commit('totalPaid', this.totalAmountPaid);
                 this.invalidPaymentsSum(false);
             },
             removeAccountFromStore (account) {
                 this.$store.commit('removeAccount', account);
+                this.$store.commit('totalPaid', this.totalAmountPaid);
             },
             bankIsNotAvailable: function () {
                 return this.salePaymentMethods.length === this.banks.length;
