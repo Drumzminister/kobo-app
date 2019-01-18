@@ -43,40 +43,18 @@
                             <label for="" class="d-block"><small>Any other comment on renting this property</small></label>
                             <textarea name="comment" style="resize: none" id="" class="form-control" cols="30" rows="3"></textarea>
                         </div>
-                        <div class="justify-content-around text-center pt-2">
+
+                        <div class="justify-content-around text-center pt-2" v-if="isRequesting">
+                                <span style="cursor: pointer" class="submit" >
+                                    <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px; color:#00C259;"></i>
+                                </span>
+                            <h5 class="h5 text-green">Loading...</h5>
+                        </div>
+                        <div class="justify-content-around text-center pt-2" v-else>
                                 <span style="cursor: pointer" class="submit" @click="beforeSubmit('addRentModal')">
                                     <i class="fa fa-telegram " style="font-size:48px; color:#00C259;"></i>
                                 </span>
                             <h5 class="h5 text-green">Add Rent</h5>
-                        </div>
-                        <div v-if="rentShowPaymentSettings" class="col-12 mybox">
-                            <div class="bg-grey py-4 px-3">
-                                <div class="row" id="paymentParent">
-                                    <div class="col-md-5">
-                                        <label for="paymentMode" class="h5 uppercase">Payment Mode</label>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h5 class="h5 uppercase">Amount</h5>
-                                    </div>
-                                    <div class="d-flex col-12">
-                                        <select name="payment_mode" id="paymentMode" class="payment_mode custom-select col-md-5">
-                                            <option v-for="mode in paymentMethods" :value="mode.mode">@{{ mode.mode}}</option>
-                                            <option v-if="paymentMethods.length === 0" disabled title="Go to the banking page to add your bank details">No Payment mode available.</option>
-                                        </select>
-                                        <div class="show input-group col-md-5">
-                                            <input type="number" class="form-control payment_amount" step="0.01" :value="rentAmount" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-2" >
-                                        <span class="" style="cursor: pointer;" @click="addPaymentMode" title="Add multiple payment modes">
-                                            <i class="fa fa-plus-square" style="font-size:32px;color:#00C259;"></i>
-                                        </span>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <button class="btn btn-started" @click="beforeSubmit('addRentModal')">Pay</button>
-                                </div>
-                            </div>
                         </div>
                         <button style="display: none" type="submit" class="submitBtn"></button>
                     </form>

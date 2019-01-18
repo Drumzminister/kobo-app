@@ -186,7 +186,7 @@
             <div class="container mt-4">
                 <div class="row py-3">
                     <div class="col">
-                        <a href="" class="btn btn-addsale left-modal" data-toggle="modal" data-target="#addLoanModal">Add Loan</a>
+                        <button  class="btn btn-addsale left-modal" @click="openModal('#addLoanModal')" >Add Loan</button>
                     </div>
                     {{--<div class="col">
                         <div class="float-right">
@@ -238,7 +238,7 @@
                                     <h5 class="h5 uppercase">New Loan</h5>
                                     <div class="form-group">
                                         <label class="px-0" for="exampleFormControlInput1">Source</label>
-                                        <input type="text" v-model="searchSource" @keyup="searchForSource" class="form-control" id="" placeholder="E.g Microfinance Banks">
+                                        <input type="text" v-model="searchSource" @keyup="debouncedSearch" class="form-control" id="" placeholder="E.g Microfinance Banks">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>
@@ -295,36 +295,6 @@
                                                 <li class="dropdown-item" @click="toggleShowMoreIntervals($event)" v-if="showMoreIntervals" style="cursor: pointer;">Show Less <<</li>
                                             </ul>
                                         </div>
-
-                                        {{--<div class="dropdown">--}}
-                                            {{--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-                                                {{--@{{ loanPaymentInterval }}Dropdown--}}
-                                            {{--</button>--}}
-                                            {{--<div class="dropdown-menu" aria-labelledby="dropdownMenu2">--}}
-                                                {{--<button class="dropdown-item" type="button">Action</button>--}}
-                                                {{--<button class="dropdown-item" type="button">Another action</button>--}}
-                                                {{--<button class="dropdown-item" type="button">Something else here</button>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
-                                        {{--<select id="interval" class="form-control">
-                                            <option value="weekly">Weekly</option>
-                                            <option value="biweekly">Bi-weekly</option>
-                                            <option value="monthly">Monthly</option>
-                                            <option value="bimonthly">Bi-Monthly</option>
-                                            <option value="quaterly">Quaterly</option>
-                                            <option value="anually">Anually</option>
-                                            <option @click="showMoreIntervals = true" v-if="!showMoreIntervals">Show more</option>
-                                            <option @click="alert('james')">Show more</option>
-                                            <option value="4months" v-if="!showMoreIntervals">4 Months</option>
-                                            <option value="5months" v-if="!showMoreIntervals">5 Months</option>
-                                            <option value="6months" v-if="showMoreIntervals">6 Months</option>
-                                            <option value="7months" v-if="showMoreIntervals">7 Months</option>
-                                            <option value="8months" v-if="showMoreIntervals">8 Months</option>
-                                            <option value="9months" v-if="showMoreIntervals">9 Months</option>
-                                            <option value="10months" v-if="showMoreIntervals">10 Months</option>
-                                            <option value="11months" v-if="showMoreIntervals">11 Months</option>
-                                            <option @click="showMoreIntervals = !showMoreIntervals" v-if="showMoreIntervals">Show less</option>
-                                        </select>--}}
                                     </div>
                                     <div class="form-group">
                                         <label class="px-0" for="">Start date of Loan</label>
@@ -348,17 +318,19 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <button type="button" id="cancelLoanModal" class="btn btn-secondary py-2 px-4" data-dismiss="modal">Cancel</button>
+                            <div class="col-4">
+                                <button type="button" id="cancelLoanModal" class="btn btn-secondary py-2 px-4" @click="closeLoanModal()" data-dismiss="modal">Cancel</button>
                             </div>
-                            <div class="col">
-                                <button type="button" @click="saveLoan" class="btn btn-started pull-right ">Add</button>
+                            <div class="col-8">
+                                <button type="button" v-if="isRequestingLoan" class="btn btn-started pull-right ">Loading...<i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
+                                <button type="button" v-else @click="saveLoan" class="btn btn-started pull-right ">Add</button>
                             </div>
                         </div>
                         <div class="box" v-if="showSourcesForm">
                             <div class="form-group d-flex">
                                 <input type="text" class="form-control rounded-0 loader" v-model="newSource">
-                                <button @click="addSource" style="cursor: pointer" class="fa fa-plus p-2"></button>
+                                <button v-if="isRequestingLoan"  style="cursor: default"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
+                                <button  v-else @click="addSource" style="cursor: pointer" class="fa fa-plus p-2"></button>
 
                             </div>
                             <ul class="p-0 mb-0">

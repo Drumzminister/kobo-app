@@ -6,9 +6,8 @@ use App\Domains\Bank\Jobs\GetBankAccountsJob;
 use App\Domains\Banking\Jobs\GetCashJob;
 use Lucid\Foundation\Job;
 
-class GetExpensesPageDataJob extends Job
+class GetAddExpensePageDataJob extends Job
 {
-    private $companyId;
     /**
      * Create a new job instance.
      *
@@ -27,10 +26,12 @@ class GetExpensesPageDataJob extends Job
      */
     public function handle()
     {
-        $data['expenses'] = (new ListAllCompaniesExpensesJob($this->companyId))->handle();
+        $data = [];
         $banks = (new GetBankAccountsJob($this->companyId))->handle();
         $banks->push( (new GetCashJob($this->companyId))->handle() );
         $banks[$banks->count() -1]->account_name = "Cash";
+        $data['banks'] = $banks;
+
         return $data;
     }
 }

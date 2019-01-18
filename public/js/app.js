@@ -72325,6 +72325,7 @@ var rentApp = {
         rentStartDate: "",
         rentLoading: false,
         paymentMethods: [],
+        isRequesting: false,
         rentSearchParam: "",
         other_rental_cost: "",
         rentShowPaymentSettings: false
@@ -72354,10 +72355,12 @@ var rentApp = {
             var _this = this;
 
             evt.preventDefault();
+            this.isRequesting = true;
             var formData = new FormData(evt.target);
             axios.post('/client/rent/add', formData).then(function (res) {
                 _this.rents.unshift(res.data.rent);
                 swal("Success", "Rent added successfully", "success");
+                _this.isRequesting = false;
                 location.reload();
                 $('#addRentModal').modal('toggle');
             });
@@ -72401,34 +72404,12 @@ var rentApp = {
                 });
             }
         },
-        addPaymentMode: function addPaymentMode() {
-            var parent = document.createElement('div');
-            parent.classList = "d-flex col-12 mt-3";
-            var select = document.createElement('select');
-            select.classList = "payment_mode custom-select col-md-5";
-            this.paymentMethods.forEach(function (mode) {
-                var option = document.createElement('option');
-                option.value = mode.mode;
-                option.innerText = mode.mode;
-                select.appendChild(option);
-            });
-            var inputParent = document.createElement('div');
-            inputParent.classList = "show input-group col-md-5";
-            var input = document.createElement('input');
-            input.classList = "form-control payment_amount";
-            input.type = "number";
-            input.step = "0.01";
-            inputParent.appendChild(input);
-
-            parent.appendChild(select);
-            parent.appendChild(inputParent);
-
-            document.querySelector('#paymentParent').appendChild(parent);
-        },
         balance: function balance(rent) {
             return rent.amount - this.rentUsed(rent);
         },
         payRent: function payRent() {
+            var _this3 = this;
+
             var sum = 0;
             this.selectedAccounts.forEach(function (account) {
                 if (!isNaN(Number(account.amount))) {
@@ -72443,9 +72424,14 @@ var rentApp = {
             var formData = new FormData();
             formData.append('amount', sum.toString());
             formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            this.isRequesting = true;
             axios.post("/client/rent/" + this.selectedRent.id + "/pay", formData).then(function (response) {
+                _this3.isRequesting = false;
+                _this3.closeModal('#paymentModal');
                 swal('Success', "" + response.data.message, 'success');
             }).catch(function (err) {
+                _this3.isRequesting = false;
+                _this3.closeModal('#paymentModal');
                 swal('Oops', "" + err.response.data.message, 'error');
             });
         },
@@ -72458,21 +72444,25 @@ var rentApp = {
             this.openModal('#editRentModal');
         },
         updateRent: function updateRent(evt) {
-            var _this3 = this;
+            var _this4 = this;
 
             evt.preventDefault();
 
             var formData = this.editingRent;
+            this.isRequesting = true;
             axios.post("/client/rent/update/" + formData.id, formData).then(function (response) {
+                _this4.isRequesting = false;
                 swal("Success", "Rent updated successfully", "success");
-                _this3.rents.splice(_this3.rents.findIndex(function (rent) {
-                    return rent.id === _this3.editingRent.id;
+                _this4.rents.splice(_this4.rents.findIndex(function (rent) {
+                    return rent.id === _this4.editingRent.id;
                 }), 1, response.data.rent);
                 // location.reload();
                 $('#editRentModal').modal('toggle');
             });
         },
-        setRentParams: function setRentParams() {}
+        setRentParams: function setRentParams() {
+            this.openModal('#addRentModal');
+        }
     }
 };
 
@@ -72486,19 +72476,19 @@ var loanApp = {
     data: {
         loans: [],
         sources: {},
+        newSource: "",
+        allSources: [],
+        searchSource: "",
+        chosenSource: "",
         loanDate: "",
         loanTerm: "",
-        newSource: "",
         loanAmount: "",
-        allSources: [],
         loanAmtPaid: 0,
         currentLoan: {},
         loanAmtOwing: 0,
-        searchSource: "",
-        chosenSource: "",
         loanInterest: "",
-        paymentPerYear: 1,
         loanAmtRunning: 0,
+        paymentPerYear: 1,
         loanDescription: "",
         loanPeriod: "month",
         noSourceFound: false,
@@ -72507,8 +72497,9 @@ var loanApp = {
         sourceSearching: false,
         loanPaymentMethods: [],
         currentLoanPayments: [],
+        isRequestingLoan: false,
         showMoreIntervals: false,
-        accountReceivingLoan: "Select",
+        accountReceivingLoan: null,
         loadingLoanDetails: false,
         showIntervalSelector: false,
         loanPaymentInterval: "Monthly",
@@ -72544,6 +72535,7 @@ var loanApp = {
         this.loanAmtPaid = window.loanAmtPaid;
         this.loanAmtOwing = window.loanAmtOwing;
         this.loanAmtRunning = window.loanAmtRunning;
+        this.runDebouncedSearch = _.debounce(this.searchForSource, 500);
     },
 
     computed: {
@@ -72552,6 +72544,9 @@ var loanApp = {
         }
     },
     methods: {
+        debouncedSearch: function debouncedSearch() {
+            this.runDebouncedSearch();
+        },
         searchForSource: function searchForSource() {
             var _this2 = this;
 
@@ -72589,21 +72584,23 @@ var loanApp = {
             var _this3 = this;
 
             var formData = new FormData();
-            // formData.append('_token', token);
+            this.isRequestingLoan = true;
             formData.append('name', this.newSource);
             axios.post('/client/loan/sources/add', formData).then(function (res) {
                 swal('Successful', "New loan source added successfully", "success");
                 _this3.showSourcesForm = false;
+                _this3.isRequestingLoan = false;
                 _this3.searchSource = res.data.source.name;
                 _this3.chosenSource = res.data.source.id;
             }).catch(function (err) {
+                _this3.isRequestingLoan = false;
                 console.error(err);
             });
         },
         saveLoan: function saveLoan() {
             var _this4 = this;
 
-            if (this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear || this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
+            if (this.accountReceivingLoan === null || this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear || this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
                 swal('Oops', "Some required fields are empty", "error");
                 return;
             }
@@ -72617,9 +72614,10 @@ var loanApp = {
             formData.append('payment_interval', this.paymentPerYear);
             formData.append('start_date', this.loanDate);
             formData.append('receivingAccount', JSON.stringify(this.accountReceivingLoan));
-            // formData.append('_token', token);
+            this.isRequestingLoan = true;
             axios.post(window.addLoanUrl, formData).then(function (res) {
                 swal('Successful', 'Loan added successfully', 'success');
+                _this4.isRequestingLoan = false;
                 document.querySelector('#cancelLoanModal').click();
                 var loan = res.data.loan;
                 loan.source_name = _this4.searchSource;
@@ -72627,6 +72625,7 @@ var loanApp = {
                 loan.amount_paid = 0;
                 _this4.loans.unshift(loan);
             }).catch(function (err) {
+                _this4.isRequestingLoan = false;
                 swal('Oops', err.response.data.error, "error");
             });
         },
@@ -72643,9 +72642,11 @@ var loanApp = {
                 _this5.loadingLoanDetails = false;
                 console.error(err);
             });
-            $('#loanDetailsModal').modal('show');
+            this.openModal('#loanDetailsModal');
         },
         payLoan: function payLoan(evt) {
+            var _this6 = this;
+
             evt.preventDefault();
             var sum = 0;
             this.selectedAccounts.forEach(function (account) {
@@ -72661,9 +72662,14 @@ var loanApp = {
             var formData = new FormData();
             formData.append('amount', sum.toString());
             formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            this.isRequestingLoan = true;
             axios.post("/client/loan/" + this.currentLoan.id + "/pay", formData).then(function (response) {
-                swal('Success', "" + response.data.message, 'success');
+                _this6.isRequestingLoan = false;
+                _this6.closeModal('#paymentModal');
+                _this6.closeModal('#loanDetailsModal');
+                swal('Success', "Payment made successfully", 'success');
             }).catch(function (err) {
+                _this6.isRequestingLoan = false;
                 swal('Oops', "" + err.response.data.message, 'error');
             });
         },
@@ -72685,6 +72691,17 @@ var loanApp = {
         selectLoanPaymentInterval: function selectLoanPaymentInterval(event) {
             this.loanPaymentInterval = event.target.innerText;
             this.toggleShowIntervalSelector();
+        },
+        closeLoanModal: function closeLoanModal() {
+            document.querySelector('.loan-form').reset();
+            this.loanDate = "";
+            this.loanTerm = "";
+            this.loanAmount = "";
+            this.loanDescription = "";
+            this.loanPeriod = "";
+            this.loanInterest = "";
+            this.paymentPerYear = 1;
+            this.closeModal('#addLoanModal');
         }
     }
 };
@@ -73040,8 +73057,12 @@ var appModal = {
 var expenseApp = {
     data: {
         expenseAmount: 0,
+        currentExpense: "",
         selectedMethods: [],
+        expenseRecords: ['0'],
         methodToBeChanged: {},
+        isPayingExpense: false,
+        isSavingExpense: false,
         expensePaymentMethods: [],
         expenseShowPaymentMethods: false
     },
@@ -73053,37 +73074,168 @@ var expenseApp = {
     },
 
     methods: {
-        changePaymentMethod: function changePaymentMethod(method) {
-            this.methodToBeChanged = method;
-            this.toggleShowPaymentMethods();
-        },
-        toggleShowPaymentMethods: function toggleShowPaymentMethods() {
-            this.expenseShowPaymentMethods = !this.expenseShowPaymentMethods;
-        },
-        selectPaymentMethod: function selectPaymentMethod(method) {
-            var _this = this;
-
-            this.selectedMethods.splice(this.selectedMethods.findIndex(function (method) {
-                return method.mode === _this.methodToBeChanged.mode;
-            }), 1, method);
-            this.toggleShowPaymentMethods();
-        },
         showPayExpenseModal: function showPayExpenseModal(evt) {
             var row = evt.target.parentElement.parentElement;
+
             if (!document.querySelector("#expense_date").value) {
                 swal("Oops", "No date specified", "warning");
-                return;
             } else if (row.querySelector('.expenseDescription').value.trim() && row.querySelector('.expenseAmount').value.trim() && !isNaN(row.querySelector('.expenseAmount').value.trim()) && row.querySelector('.expenseAmount').value.trim() > 0) {
+                this.currentExpense = row;
                 this.openModal("#paymentModal");
             } else {
                 swal("Oops", "Invalid description or amount of expense", "warning");
             }
         },
-        expenseAmountChange: function expenseAmountChange(evt) {
-            if (true) {}
-        },
         payExpense: function payExpense(evt) {
+            var _this = this;
+
             evt.preventDefault();
+            var sum = 0;
+            this.selectedAccounts.forEach(function (account) {
+                if (!isNaN(Number(account.amount))) {
+                    sum += Number(account.amount);
+                }
+            });
+            var expenseAmount = Number(this.currentExpense.querySelector('.expenseAmount').value);
+            var details = this.currentExpense.querySelector('.expenseDescription').value.trim();
+            var date = document.querySelector("#expense_date").value;
+            var payBtn = this.currentExpense.querySelector('.payBtn');
+            var paidBtn = this.currentExpense.querySelector('.paid');
+            if (sum !== expenseAmount) {
+                swal({
+                    timer: 3000,
+                    toast: true,
+                    type: 'error',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    title: "Amount payable must be equal to expense amount:" + expenseAmount
+                });
+                return;
+            }
+            var formData = new FormData();
+            formData.append('date', date);
+            formData.append('details', details);
+            formData.append('amount', expenseAmount);
+            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            this.isPayingExpense = true;
+            axios.post('/client/expenses/add', formData).then(function (res) {
+                swal({
+                    timer: 2500,
+                    toast: true,
+                    type: 'success',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    title: "Payment Made successfully"
+                });
+                _this.isPayingExpense = false;
+                _this.currentExpense.querySelector('.expenseAmount').readOnly = true;
+                payBtn.style.display = "none";
+                paidBtn.style.display = "block";
+                _this.closeModal('#paymentModal');
+            }).catch(function (err) {
+                swal({
+                    timer: 3000,
+                    toast: true,
+                    type: 'error',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    title: "Unable to complete payment: " + err.response.data.message
+                });
+                _this.isPayingExpense = false;
+            });
+        },
+        addExpenseRecord: function addExpenseRecord() {
+            this.expenseRecords.push("record");
+        },
+        beforeSavingExpenses: function beforeSavingExpenses() {
+            var _this2 = this;
+
+            var rows = document.querySelectorAll('.records');
+            var details = [];
+            var hasUnpaid = false;
+            if (!document.querySelector("#expense_date").value) {
+                swal("Oops", "No date specified", "warning");
+                return;
+            }
+            swal({
+                timer: 2000,
+                toast: true,
+                type: 'info',
+                position: 'top-end',
+                showConfirmButton: false,
+                text: "All unfilled records will be ignored"
+            });
+            for (var i = 0; i < rows.length; i++) {
+                if (rows[i].querySelector('.expenseDescription').value.trim()) {
+                    details.push(rows[i]);
+                    if (!rows[i].querySelector('.expenseAmount').readOnly) {
+                        hasUnpaid = true;
+                    }
+                }
+            }
+            if (hasUnpaid) {
+                swal({
+                    title: 'Are you sure?',
+                    text: "Some unpaid expenses has been found. Will you like to go back and pay for these expenses?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#4f4',
+                    cancelButtonText: 'Yes, Go back!',
+                    confirmButtonText: 'No, Proceed!'
+                }).then(function (result) {
+                    if (result.value) {
+                        _this2.saveExpenses(details);
+                    }
+                });
+            } else {
+                this.saveExpenses(details);
+            }
+        },
+        saveExpenses: function saveExpenses(details) {
+            var _this3 = this;
+
+            var saved = 0;
+            var date = document.querySelector("#expense_date").value;
+            details.forEach(function (expense) {
+                if (!expense.querySelector('.expenseAmount').value) {
+                    swal({
+                        timer: 2000,
+                        toast: true,
+                        type: 'error',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        text: "Some records have no amount entered"
+                    });
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append('date', date);
+                formData.append('details', expense.querySelector('.expenseDescription').value.trim());
+                formData.append('amount', expense.querySelector('.expenseAmount').value.trim());
+
+                _this3.isSavingExpense = true;
+                axios.post('/client/expenses/add', formData).then(function (res) {
+                    saved += 1;
+                }).catch(function (err) {
+                    swal({
+                        timer: 3000,
+                        toast: true,
+                        type: 'error',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        title: "Unable to save: " + err.response.data.message
+                    });
+                });
+            });
+            var checkSaved = setInterval(function () {
+                if (saved === details.length) {
+                    location.href = "/client/expenses";
+                    clearInterval(checkSaved);
+                    this.isSavingExpense = false;
+                }
+            }, 50);
         }
     }
 };

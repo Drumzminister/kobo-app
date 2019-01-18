@@ -105,7 +105,8 @@
                 <payment-method-selection class="col-12" :banks="{{ $banks }}"></payment-method-selection>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-sm btn-payment" @click="payLoan" v-if="selectedAccounts.length > 0">Pay</button>
+                <button class="btn btn-sm btn-payment" v-if="isRequestingLoan">Paying...<i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
+                <button class="btn btn-sm btn-payment" @click="payLoan" v-if="selectedAccounts.length > 0 && !isRequestingLoan">Pay</button>
                 <button class="btn btn-sm px-3 btn-info" style="cursor: not-allowed;" v-if="selectedAccounts.length < 1" disabled>Pay</button>
             </div>
         </div>
