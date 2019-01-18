@@ -73498,6 +73498,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_alert__ = __webpack_require__(153);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -73553,6 +73554,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+
 
 
 
@@ -73565,12 +73568,30 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['availableAccounts', 'selectedAccounts'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['availableAccounts', 'selectedAccounts']), {
+        totalAmountPaid: function totalAmountPaid() {
+            var sum = 0;
+            this.selectedAccounts.forEach(function (method) {
+                sum += parseInt(method.amount) || 0;
+            });
+
+            return sum;
+        },
+        totalSpread: function totalSpread() {
+            return this.$parent.spreadAmount || 0;
+        }
+    }),
     created: function created() {
+        var _this = this;
+
         this.addSalePaymentMethod();
         this.addBanksToStore();
+        this.debouncePaidAmountChanged = _.debounce(this.paidAmountChanged, 500);
+        this.$watch(function () {
+            return _this.totalSpread;
+        }, this.debouncePaidAmountChanged);
     },
-    methods: {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['totalPaid', 'invalidPaymentsSum']), {
         addBanksToStore: function addBanksToStore() {
             this.$store.commit('setCompanyAccounts', this.banks);
         },
@@ -73581,12 +73602,32 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }
 
             if (this.selectedAccounts.length === 0) {
-                paymentMode.amount = this.$parent.computedSalesAmount;
+                paymentMode.amount = this.totalSpread;
+                this.invalidPaymentsSum(false);
             }
 
             paymentMode.id = selectedBank.id;
             paymentMode.name = selectedBank.account_name;
+
+            // Creating watcher for the Amount inputted and source
+            this.$watch(function () {
+                return paymentMode.amount;
+            }, this.debouncePaidAmountChanged);
+            this.$watch(function () {
+                return paymentMode.id;
+            }, this.debouncePaidAmountChanged);
+
             this.$store.commit('selectAccount', paymentMode);
+        },
+        paidAmountChanged: function paidAmountChanged(val) {
+            if (this.totalAmountPaid > this.totalSpread) {
+                Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["a" /* toast */])('Amount paid cannot be greater than total sales amount', 'error', 'center');
+                this.invalidPaymentsSum(true);
+
+                return null;
+            }
+
+            this.invalidPaymentsSum(false);
         },
         removeAccountFromStore: function removeAccountFromStore(account) {
             this.$store.commit('removeAccount', account);
@@ -73607,7 +73648,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.salePaymentMethods.splice(index, 1);
             this.removeAccountFromStore(accountId);
         }
-    }
+    })
 });
 
 /***/ }),
@@ -73623,7 +73664,19 @@ var render = function() {
       "div",
       { staticClass: "bg-grey py-4 px-3", attrs: { id: "top" } },
       [
-        _vm._m(0),
+        _c("div", { staticClass: "row" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-5" }, [
+            _vm._v(
+              "\n                PAID: " +
+                _vm._s(_vm.totalAmountPaid) +
+                "\n            "
+            )
+          ])
+        ]),
         _vm._v(" "),
         _vm._l(_vm.salePaymentMethods, function(paymentMethod, index) {
           return _c("div", { staticClass: "row" }, [
@@ -73791,16 +73844,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-5" }, [
-        _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Payment Mode")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-5" }, [
-        _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Amount")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-2 mt-4 " })
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Payment Mode")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3" }, [
+      _c("h5", { staticClass: "h6 uppercase" }, [_vm._v("Amount")])
     ])
   }
 ]
@@ -75019,17 +75072,22 @@ var addSale = {
         this.setSale(this.sale);
         this.setSaleItems(this.sale);
     },
-    computed: _extends({
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['taxId', 'saleDate', "customer", "selectedTax"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory']), {
+        invalidPaymentsSum: function invalidPaymentsSum() {
+            return this.totalAmountPaid !== this.spreadAmount;
+        },
+        spreadAmount: function spreadAmount() {
+            return this.computedSalesAmount; // Payment Component require this
+        },
         saleIsNotValid: function saleIsNotValid() {
-            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "";
+            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "" || this.invalidPaymentsSum;
         },
         taxAmount: function taxAmount() {
             return parseInt(this.selectedTax ? this.selectedTax.percentage : 0) / 100 * this.totalSalesAmount;
         },
         selectedAccounts: function selectedAccounts() {
             return this.$store.state.paymentModule.selectedAccounts;
-        }
-    }, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['taxId', 'saleDate', "customer", "selectedTax"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory']), {
+        },
         totalSalesAmount: function totalSalesAmount() {
             var sum = 0;
             this.saleItems.forEach(function (item) {
@@ -75104,8 +75162,7 @@ var addSale = {
         },
         saveSale: function saveSale() {
             if (this.saleIsNotValid) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('Please fill all required fields before saving.', 'error', 'center');
-
+                this.validateSalesData();
                 return;
             }
 
@@ -75141,6 +75198,23 @@ var addSale = {
                 return;
             }
             this.openModal("#previewInvoiceModal");
+        },
+        validateSalesData: function validateSalesData() {
+            if (this.customer === null || typeof this.customer === "undefined") {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('You must select a customer before Saving', 'error', 'center');
+            }
+
+            if (this.saleDate === "") {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('You must select a date.', 'error', 'center');
+            }
+
+            if (this.taxId === "") {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('You must select a TAX', 'error', 'center');
+            }
+
+            if (this.invalidPaymentsSum) {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('Amount paid and Sales total didn\'t tally', 'error', 'center');
+            }
         },
         openSendingModal: function openSendingModal() {
             if (!this.customer) {
@@ -77062,7 +77136,9 @@ var render = function() {
                 }
               },
               [
-                _c("option", { attrs: { value: "" } }, [_vm._v("Select ...")]),
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("Select Tax ...")
+                ]),
                 _vm._v(" "),
                 _vm._l(_vm.taxes, function(tax) {
                   return _c("option", { domProps: { value: tax.id } }, [
@@ -86066,7 +86142,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 var paymentMethodSelectionModule = {
     state: {
         companyAccounts: [],
-        selectedAccounts: []
+        selectedAccounts: [],
+        totalPaid: 0,
+        invalidPaymentsSum: true
     },
     getters: {
         availableAccounts: function availableAccounts(state) {
@@ -86078,11 +86156,23 @@ var paymentMethodSelectionModule = {
         },
         selectedAccounts: function selectedAccounts(state) {
             return state.selectedAccounts;
+        },
+        invalidPaymentsSum: function invalidPaymentsSum(state) {
+            return state.invalidPaymentsSum;
+        },
+        totalPaid: function totalPaid(state) {
+            return state.totalPaid;
         }
     },
     mutations: {
         selectAccount: function selectAccount(state, account) {
             state.selectedAccounts.push(account);
+        },
+        invalidPaymentsSum: function invalidPaymentsSum(state, sum) {
+            state.invalidPaymentsSum = sum;
+        },
+        totalPaid: function totalPaid(state, total) {
+            state.totalPaid = total;
         },
         removeAccount: function removeAccount(state, account) {
             var pos = state.selectedAccounts.map(function (account) {

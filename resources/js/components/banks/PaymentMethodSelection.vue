@@ -2,15 +2,16 @@
     <div class="col-12">
         <div class="bg-grey py-4 px-3" id="top">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <h5 class="h6 uppercase">Payment Mode</h5>
                 </div>
 
-                <div class="col-md-5">
+                <div class="col-md-3">
                     <h5 class="h6 uppercase">Amount</h5>
                 </div>
 
-                <div class="col-md-2 mt-4 ">
+                <div class="col-md-5">
+                    PAID: {{ totalAmountPaid }}
                 </div>
             </div>
             <div v-for="(paymentMethod, index) in salePaymentMethods" class="row" >
@@ -52,7 +53,8 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapMutations } from 'vuex';
+    import {toast} from "../../helpers/alert";
 
     export default {
         props: ['banks'],
@@ -63,13 +65,27 @@
             }
         },
         computed: {
-            ...mapGetters(['availableAccounts', 'selectedAccounts'])
+            ...mapGetters(['availableAccounts', 'selectedAccounts']),
+            totalAmountPaid () {
+                let sum = 0;
+                this.selectedAccounts.forEach(function (method) {
+                    sum += parseInt(method.amount) || 0;
+                });
+
+                return sum;
+            },
+            totalSpread () {
+                return this.$parent.spreadAmount || 0;
+            }
         },
         created: function() {
             this.addSalePaymentMethod();
             this.addBanksToStore();
+            this.debouncePaidAmountChanged = _.debounce(this.paidAmountChanged, 500);
+            this.$watch(() => this.totalSpread, this.debouncePaidAmountChanged);
         },
         methods: {
+            ...mapMutations(['totalPaid', 'invalidPaymentsSum']),
             addBanksToStore () {
                 this.$store.commit('setCompanyAccounts', this.banks);
             },
@@ -79,12 +95,28 @@
                 }
 
                 if (this.selectedAccounts.length === 0) {
-                    paymentMode.amount = this.$parent.computedSalesAmount;
+                    paymentMode.amount = this.totalSpread;
+                    this.invalidPaymentsSum(false);
                 }
 
                 paymentMode.id = selectedBank.id;
                 paymentMode.name = selectedBank.account_name;
+
+                // Creating watcher for the Amount inputted and source
+                this.$watch(() => paymentMode.amount, this.debouncePaidAmountChanged);
+                this.$watch(() => paymentMode.id, this.debouncePaidAmountChanged);
+
                 this.$store.commit('selectAccount', paymentMode)
+            },
+            paidAmountChanged(val) {
+                if (this.totalAmountPaid > this.totalSpread) {
+                    toast('Amount paid cannot be greater than total sales amount', 'error', 'center');
+                    this.invalidPaymentsSum(true);
+
+                    return null;
+                }
+
+                this.invalidPaymentsSum(false);
             },
             removeAccountFromStore (account) {
                 this.$store.commit('removeAccount', account);

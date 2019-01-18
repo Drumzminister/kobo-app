@@ -26,7 +26,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <select v-model="tax_id" class="form-control form-control-lg form-control tax vat-input" name="tax" id="basic-addon3">
-                            <option value="">Select ...</option>
+                            <option value="">Select Tax ...</option>
                             <option v-for="tax in taxes" :value="tax.id" >{{ tax.name }}</option>
                         </select>
                     </div>

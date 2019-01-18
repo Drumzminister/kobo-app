@@ -19,8 +19,16 @@ export const addSale = {
         this.setSaleItems(this.sale);
     },
     computed: {
+        ...mapGetters(['taxId', 'saleDate', "customer", "selectedTax"]),
+        ...mapGetters(['availableInventories', 'getInventory']),
+        invalidPaymentsSum () {
+            return this.totalAmountPaid !== this.spreadAmount;
+        },
+        spreadAmount () {
+            return this.computedSalesAmount // Payment Component require this
+        },
         saleIsNotValid () {
-            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "";
+            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "" || this.invalidPaymentsSum;
         },
         taxAmount () {
             return (parseInt(this.selectedTax ? this.selectedTax.percentage : 0) / 100) * this.totalSalesAmount;
@@ -28,8 +36,6 @@ export const addSale = {
         selectedAccounts () {
             return this.$store.state.paymentModule.selectedAccounts;
         },
-        ...mapGetters(['taxId', 'saleDate', "customer", "selectedTax"]),
-        ...mapGetters(['availableInventories', 'getInventory']),
         totalSalesAmount () {
             let sum = 0;
             this.saleItems.forEach(function(item) {
@@ -95,8 +101,7 @@ export const addSale = {
         },
         saveSale () {
             if (this.saleIsNotValid) {
-                toast('Please fill all required fields before saving.', 'error', 'center');
-
+                this.validateSalesData();
                 return;
             }
 
@@ -130,6 +135,23 @@ export const addSale = {
                 return;
             }
             this.openModal("#previewInvoiceModal");
+        },
+        validateSalesData () {
+            if (this.customer === null || typeof this.customer === "undefined") {
+                toast('You must select a customer before Saving', 'error', 'center');
+            }
+
+            if (this.saleDate === "") {
+                toast('You must select a date.', 'error', 'center');
+            }
+
+            if (this.taxId === "") {
+                toast('You must select a TAX', 'error', 'center');
+            }
+
+            if (this.invalidPaymentsSum) {
+                toast('Amount paid and Sales total didn\'t tally', 'error', 'center');
+            }
         },
         openSendingModal () {
             if(!this.customer) {
