@@ -13,7 +13,7 @@ const tailwindcss = require('tailwindcss');
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    // .sass('resources/sass/kobo.sass', 'public/css')
-   .sass('resources/sass/opening-pages.scss', 'public/css/nedy.css')
+   // .sass('resources/sass/opening-pages.scss', 'public/css/nedy.css')
    .options({
         processCssUrls: false,
         postCss: [ tailwindcss('./tailwind.js') ],

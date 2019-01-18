@@ -47,10 +47,27 @@ export const inventoryApp = {
             return value.slice(0, 5);
         },
         deleteInventoryButton(index) {
-            axios.post(`/client/inventory/${index}/delete`).then(res => {
-                swal('Success', res.data.message, 'success');
-                this.purchase.splice(index, 1);
-            });
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((index) => {
+                if (index) {
+                    axios.post(`/client/inventory/${index}/delete`).then(res => {
+                        swal('Success', res.data.message, 'success');
+                        this.purchase.splice(index, 1);
+                    });
+                    swal(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
         },
         addInventoryRow() {
             this.inventoryTableRow.push({
@@ -63,8 +80,8 @@ export const inventoryApp = {
         },
         deleteInventoryRow(row) {
             $("#row-" + row).remove();
-            //reevaluate total after deletion
-            // this.calculateTotalInventoryCost();
+            // reevaluate total after deletion
+            this.calculateTotalInventoryCost();
         },
         calculateTotalInventoryCost() {
             let total = 0;

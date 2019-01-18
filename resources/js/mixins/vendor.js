@@ -3,7 +3,7 @@ export const vendorApp = {
         vendorTableRows:[],
         vendors: [],
         search: '',
-        vendorCount: ''
+        vendorCount: '',
     },
     created() {
             axios.get('/client/vendor/all-vendors').then(res => {
@@ -17,18 +17,25 @@ export const vendorApp = {
             let data = {
                 items: this.vendorTableRows,
             };
-            axios.post('/client/vendor/add', data).then(res => {
-            swal('Success', res.data.message, 'success');
-                console.log(data.items);
-            }).catch(error => {
-            swal('Error', error.data.error, 'error');
+            axios.post('/client/vendor/add', data)
+            .then(res => {
+                this.vendorTableRows = [],
+                this.addNewRow();
+                swal('Vendor added!',res.data.message,'success');
+            })
+            .catch(error => {
+                swal({
+                    type: 'error',
+                    title: error.response.data.message,
+                    timer: 1500
+                });
+                // console.log(error);
+                // swal('Error', error.response.data.message, 'error')
             });
         },
 
         searchVendor() {
-             axios.get(`/client/vendor/search?param=${this.search}`).then(res => {
-                let result = this.vendors = res.data;
-             });
+             axios.get(`/client/vendor/search?param=${this.search}`).then(res => {this.vendors = res.data;});
         },
         addNewRow() {
             this.vendorTableRows.push(

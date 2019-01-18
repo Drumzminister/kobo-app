@@ -10,7 +10,9 @@ input {
     border: none;
     background: transparent;
 }
-
+.fa fa-trash {
+    cursor: pointer;
+}
 </style>
 @section('content')
 
@@ -201,7 +203,7 @@ input {
                             <td>
                                 @{{ purchase.vendor.name }}
                             </td>
-                            <td><i @click="deleteInventoryButton(inventory.id)" class="fa fa-trash" style="font-size:24px"></i></td>
+                              <td><i @click.prevent="deleteInventoryButton(purchase.id)" class="fa fa-trash" style="font-size:24px; cursor: pointer"></i></td>
                         </tr>
 
                             

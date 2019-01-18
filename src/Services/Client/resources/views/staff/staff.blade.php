@@ -67,8 +67,8 @@
             <div class="col-md-10 col-6">
                 <div class="input-group mt-2">
                     <input type="text" v-model="staffSearchInput" class="form-control" placeholder="&#xF002;" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append" @click="searchStaff">
-                        <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                    <div class="input-group-append" @click.prevent="searchStaff">
+                        <a href="#"> <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span></a>
                     </div>
                 </div>
             </div>
