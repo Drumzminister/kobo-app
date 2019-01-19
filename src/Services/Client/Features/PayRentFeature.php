@@ -15,6 +15,15 @@ class PayRentFeature extends Feature
 
     public function handle(Request $request)
     {
-        return $this->run(PayRentJob::class, ['rentId' => $this->rentId]);
+        try {
+            $this->run(PayRentJob::class, ['rentId' => $this->rentId,'companyId' => auth()->user()->getUserCompany()->id, 'data' => $request->all()]);
+            return response()->json([
+                'message'   => "Payment made successfully"
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message'   =>  $e->getMessage()
+            ], 400);
+        }
     }
 }

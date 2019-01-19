@@ -26,7 +26,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <select v-model="tax_id" class="form-control form-control-lg form-control tax vat-input" name="tax" id="basic-addon3">
-                            <option value="">Select ...</option>
+                            <option value="">Select Tax ...</option>
                             <option v-for="tax in taxes" :value="tax.id" >{{ tax.name }}</option>
                         </select>
                     </div>
@@ -59,13 +59,17 @@
             ...mapGetters(['saleInvoice']),
         },
         watch: {
-            ...mapMutations({ tax_id: 'taxId', sale_date: 'saleDate' }),
+            ...mapMutations({ sale_date: 'saleDate' }),
             customer_id: function(val) {
                 this.customer(this.customers.filter((customer) => val === customer.id)[0]);
+            },
+            tax_id: function(val) {
+                this.selectedTax(this.taxes.filter((tax) => val === tax.id)[0]);
+                this.taxId(val);
             }
         },
         methods : {
-            ...mapMutations(['customer'])
+            ...mapMutations(['customer', 'selectedTax', "taxId"])
         }
     }
 </script>

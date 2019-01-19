@@ -9,7 +9,7 @@ class Vendor extends Model
 {
     use SoftDeletes;
     protected $casts = ['isActive' => 'boolean'];
-    protected $fillable = ['id', 'company_id', 'name', 'address', 'phone', 'email', 'website', 'isActive'];
+    protected $fillable = ['id', 'company_id', 'user_id', 'name', 'address', 'phone', 'email', 'website', 'isActive'];
 
     protected $dates = ['deleted_at'];
 

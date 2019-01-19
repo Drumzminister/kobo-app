@@ -158,7 +158,7 @@
                             <th scope="col">Transaction details</th>
                             <th scope="col">Amount (&#8358;)</th>
                             <th scope="col">Category</th>
-                            <th scope="col">Payment Mode</th>
+                            <th scope="col">Payment Status</th>
                         </tr>
                         </thead>
 
@@ -169,7 +169,7 @@
                                 <td>{{$expense->details}}</td>
                                 <td>{{number_format($expense->amount, 2)}}</td>
                                 <td>{{$expense->class_type}}</td>
-                                <td> {{strtoupper($expense->payment_mode)}}</td>
+                                <td> {{ $expense->hasPaid ? 'Paid' : 'Not Paid' }}</td>
                             </tr>
                         @empty
                             <tr id="noExpense">

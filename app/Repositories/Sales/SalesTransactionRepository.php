@@ -31,7 +31,6 @@ class SalesTransactionRepository extends BaseRepository
         $sales->amount = $data['sales_total'];
         $sales->payment_mode_id = $data['payment_mode'];
         $sales->customer_id = $data['customer_id'];
-
         $sales->sales_channel_id = $data['sales_channel'];
         $sales->discount = $data['discount'];
 

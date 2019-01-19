@@ -15,7 +15,6 @@ class AddForeignKeysToTables extends Migration
     {
         Schema::table('transactions', function (Blueprint $table) {
             $table->foreign('expense_id')->references('id')->on('expenses');
-            $table->foreign('purchase_id')->references('id')->on('purchases');
             $table->foreign('inventory_id')->references('id')->on('inventories');
             $table->foreign('sale_id')->references('id')->on('sales');
             $table->foreign('loan_id')->references('id')->on('loans');
@@ -26,6 +25,10 @@ class AddForeignKeysToTables extends Migration
         Schema::table('rents', function (Blueprint $table) {
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('staff_id')->references('id')->on('users');
+        });
+
+        Schema::table('rent_payments', function (Blueprint $table) {
+            $table->foreign('rent_id')->references('id')->on('rents');
         });
 
         Schema::table('loans', function (Blueprint $table) {
@@ -91,7 +94,6 @@ class AddForeignKeysToTables extends Migration
     {
         Schema::table('transactions', function (Blueprint $table) {
             $table->dropForeign('transactions_expense_id_foreign');
-            $table->dropForeign('transactions_purchase_id_foreign');
             $table->dropForeign('transactions_inventory_id_foreign');
             $table->dropForeign('transactions_sale_id_foreign');
             $table->dropForeign('transactions_loan_id_foreign');

@@ -8,10 +8,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <payment-method-selection class="col-12" :banks="banks"></payment-method-selection>
+                <payment-method-selection class="col-12" :banks="{{ $banks }}"></payment-method-selection>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-sm btn-payment" @click="payRent" v-if="selectedAccounts.length > 0">Pay</button>
+                <button class="btn btn-sm btn-payment" disabled v-if="isRequesting">Paying... <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
+                <button class="btn btn-sm btn-payment" @click="payRent" v-if="selectedAccounts.length > 0 && !isRequesting">Pay</button>
                 <button class="btn btn-sm px-3 btn-info" style="cursor: not-allowed;" v-if="selectedAccounts.length < 1" disabled>Pay</button>
             </div>
         </div>

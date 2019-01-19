@@ -12,7 +12,7 @@ class AddLoanFeature extends Feature
 {
     public function handle(Request $request)
     {
-//        return json_decode(json_encode($request->all()['receivingAccount']));
+//        return var_dump(json_decode($request->receivingAccount, true));
         $loan = $this->run(AddLoanJob::class, ['data' => $request->all(), 'userId' => auth()->id(), 'companyId' => auth()->user()->getUserCompany()->id]);
         $creditAccount = $this->run(CreditAccountJob::class, ['companyId' => auth()->user()->getUserCompany()->id, 'bank' => $request->receivingAccount, 'amount'=> $request->amount]);
         $saveTransaction = $this->run(SaveLoanTransactionJob::class, ['data' => $request->all(),'loanId' => $loan->id, 'companyId' => auth()->user()->getUserCompany()->id]);

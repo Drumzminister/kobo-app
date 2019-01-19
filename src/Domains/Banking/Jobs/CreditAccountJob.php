@@ -14,10 +14,13 @@ class CreditAccountJob extends Job
     private $bankRepo;
 
     private $cash;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $companyId
+     * @param $bank
+     * @param $amount
      */
     public function __construct($companyId, $bank, $amount)
     {
@@ -35,17 +38,13 @@ class CreditAccountJob extends Job
      */
     public function handle()
     {
-        if ($this->bank['mode'] === 'Cash') {
-            $cash = $this->cash->findBy('company_id', $this->companyId);
+        if (strtolower($this->bank['account_name']) === 'cash') {
+            $cash = $this->cash->find($this->bank['id']);
             $cash->amount += floatval($this->amount);
             $cash->save();
             return true;
         } else {
-            $bank = $this->bankRepo->getByAttributes([
-                'company_id' => $this->companyId,
-                'bank_name'  => $this->bank['mode'],
-                'account_name' => $this->bank['account_name'],
-            ])[0];
+            $bank = $this->bankRepo->find($this->bank['id']);
             $bank->account_balance += $this->amount;
             $bank->save();
             return true;

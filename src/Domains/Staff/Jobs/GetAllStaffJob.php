@@ -15,16 +15,17 @@ class GetAllStaffJob extends Job
     private $staff;
     public function __construct()
     {
-        $this->staff = app(StaffRepository::class);
+        $this->staff = new StaffRepository();
     }
 
     /**
      * Execute the job.
      *
-     * @return void
+     * @return array;
      */
     public function handle()
     {
+
         return $this->staff->all();
     }
 }

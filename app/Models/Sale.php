@@ -24,7 +24,7 @@ class Sale extends Model
 	    'total_amount',
 	    'customer_id',
 	    'sale_channel_id',
-	    'tex_id',
+	    'tax_id',
 	    'discount',
 	    'type',
     ];

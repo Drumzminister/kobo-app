@@ -1,4 +1,4 @@
-@extends("layouts.app-acct")
+@extends("client::layouts.app")
 
 @section("content")
 <section id="top">
@@ -19,9 +19,9 @@
         <div class="row">
                 <div class="col-md-10 col-6">
                     <div class="input-group mt-2">
-                        <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <input v-model="search" type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                            <a href="#"><span @click.prevent="searchVendor" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span></a>
                         </div>
                     </div>
                 </div>
@@ -43,6 +43,7 @@
                     <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
                           <tr class="tab">
+                            <th scope="col">Id</th>
                             <th scope="col">Vendor's Name</th>
                             <th scope="col">Address</th>
                             <th scope="col">Phone No</th>
@@ -52,141 +53,25 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                                <td >Amaka Ekpono</td>
-                                <td>8A lagos state  </td>
-                                <td> 08082023909</td>
-                                <td> syfon@gmail.com</td>
-                                <td>koboaccountant.com</td>
+                        <tr v-for="(vendor, index) in vendors">
+                                <td>@{{ ++index }}</td>
+                                <td >@{{ vendor.name }}</td>
+                                <td>@{{ vendor.address }}  </td>
+                                <td> @{{ vendor.phone }}</td>
+                                <td> @{{ vendor.email }}</td>
+                                <td>@{{ vendor.website }}</td>
                                 <td><label class="switch">
-                                        <input type="checkbox" checked>
+                                        <input type="checkbox" @click="activateVendor(vendor.id)" type="checkbox" v-bind:checked="vendor.isActive">
                                         <span class="slider round"></span>
                                       </label>
                                 </td>
-                            </tr>
-
-                            <tr>
-                                    <td >Amaka Ekpono</td>
-                                    <td>8A lagos state  </td>
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td><label class="switch">
-                                            <input type="checkbox">
-                                            <span class="slider round"></span>
-                                          </label>
-                                    </td>
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>
-                                    <td>8A lagos state  </td>
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td><label class="switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider round"></span>
-                                          </label>
-                                    </td>
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>
-                                    <td>8A lagos state  </td>
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td><label class="switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider round"></span>
-                                          </label>
-                                    </td>
-                            </tr>
-                            <tr>
-                                    <td >Amaka Ekpono</td>
-                                    <td>8A lagos state  </td>
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td><label class="switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider round"></span>
-                                          </label>
-                                    </td>
-                            </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>
-                                    <td>8A lagos state  </td>
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td><label class="switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider round"></span>
-                                          </label>
-                                    </td>
-                             </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>
-                                    <td>8A lagos state  </td>
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td><label class="switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider round"></span>
-                                          </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>
-                                    <td>8A lagos state  </td>
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td><label class="switch">
-                                            <input type="checkbox">
-                                            <span class="slider round"></span>
-                                          </label>
-                                    </td>                                </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>
-                                    <td>8A lagos state  </td>
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td><label class="switch">
-                                            <input type="checkbox">
-                                            <span class="slider round"></span>
-                                          </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>
-                                    <td>8A lagos state  </td>
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td><label class="switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider round"></span>
-                                          </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td >Amaka Ekpono</td>
-                                    <td>8A lagos state  </td>
-                                    <td> 08082023909</td>
-                                    <td> syfon@gmail.com</td>
-                                    <td>koboaccountant.com</td>
-                                    <td><label class="switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider round"></span>
-                                          </label>
-                                    </td>
-                                </tr>
-
+                          </tr>
+                        <tr v-if="vendors.length === 0">
+                            <td colspan="7" style="text-align: center">No search result found</td>
+                        </tr>
                         </tbody>
-                </table>
+
+                    </table>
                 </div>
             </div>
 

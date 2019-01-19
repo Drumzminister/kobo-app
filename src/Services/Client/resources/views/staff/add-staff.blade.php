@@ -5,7 +5,7 @@
 <section id="top">
     <div class="container py-3">
         <div class="row ">
-            <h2> <a href="/client/staffs" class="text-dark">Staff</a></h2>
+            <h2> <a href="/client/staff" class="text-dark">Staff</a></h2>
         </div>
     </div>
 </section>

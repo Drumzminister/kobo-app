@@ -1,5 +1,7 @@
 import SaleItem from "../classes/SaleItem";
 import {mapGetters, mapMutations, mapState} from "vuex";
+import {toast} from "../helpers/alert";
+import API from "../classes/API";
 
 export const addSale = {
     data() {
@@ -17,17 +19,40 @@ export const addSale = {
         this.setSaleItems(this.sale);
     },
     computed: {
+        ...mapGetters(['taxId', 'saleDate', "customer", "selectedTax"]),
+        ...mapGetters(['availableInventories', 'getInventory']),
+        invalidPaymentsSum () {
+            return this.totalAmountPaid !== this.spreadAmount;
+        },
+        spreadAmount () {
+            return this.computedSalesAmount // Payment Component require this
+        },
+        saleIsNotValid () {
+            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "" || this.invalidPaymentsSum;
+        },
+        taxAmount () {
+            return (parseInt(this.selectedTax ? this.selectedTax.percentage : 0) / 100) * this.totalSalesAmount;
+        },
         selectedAccounts () {
             return this.$store.state.paymentModule.selectedAccounts;
         },
-        ...mapGetters(['customerId', 'taxId', 'saleDate', "customer"]),
-        ...mapGetters(['availableInventories', 'getInventory']),
         totalSalesAmount () {
             let sum = 0;
             this.saleItems.forEach(function(item) {
                 sum += item.totalPrice();
             });
-            return sum - parseInt(this.saleDiscount || 0);
+
+            return sum;
+        },
+
+        computedSalesAmount () {
+            let sum = this.totalSalesAmount;
+
+            sum -= parseInt(this.saleDiscount || 0);
+            sum += parseInt(this.deliveryCost || 0);
+            sum += parseInt(this.taxAmount);
+
+            return sum;
         }
     },
     methods: {
@@ -74,29 +99,66 @@ export const addSale = {
         saleItemDataChanged (item) {
             // ToDo: Implement this Watcher
         },
+        saveSale () {
+            if (this.saleIsNotValid) {
+                this.validateSalesData();
+                return;
+            }
+
+            this.createSale();
+        },
         createSale: function () {
+            let api = new API({ baseUri: 'https://kobo.test/client'});
+            api.createEntity({ name: 'sale'});
             let data = {
-                paymentMethods: this.selectedAccounts,
                 tax_id: this.taxId,
-                sale_date: this.saleDate,
-                customer_id: this.customerId,
-                total_amount: 0,
-                discount: 0,
                 sale_id: this.sale.id,
-                invoice_number: this.sale.invoice_number,
-                delivery_cost: this.deliveryCost
+                sale_date: this.saleDate,
+                discount: this.saleDiscount,
+                customer_id: this.customer.id,
+                delivery_cost: this.deliveryCost,
+                total_amount: this.totalSalesAmount,
+                paymentMethods: this.selectedAccounts,
+                invoice_number: this.sale.invoice_number
             };
 
-            window.axios.post(this.getCurrentURI(), data)
-                .then((response) =>  {
-                    if (response.data.status === "success") {
-                        swal("Sale created successfully!");
+            api.endpoints.sale.create(data)
+                .then(function ({ data }) {
+                    if (data.status === "success") {
+                        alert('Done');
                     }
-                })
-                .catch();
+                });
         },
         previewInvoice () {
+            if(!this.customer) {
+                toast('You must select a customer to preview Invoice', 'error', 'center');
+                return;
+            }
             this.openModal("#previewInvoiceModal");
+        },
+        validateSalesData () {
+            if (this.customer === null || typeof this.customer === "undefined") {
+                toast('You must select a customer before Saving', 'error', 'center');
+            }
+
+            if (this.saleDate === "") {
+                toast('You must select a date.', 'error', 'center');
+            }
+
+            if (this.taxId === "") {
+                toast('You must select a TAX', 'error', 'center');
+            }
+
+            if (this.invalidPaymentsSum) {
+                toast('Amount paid and Sales total didn\'t tally', 'error', 'center');
+            }
+        },
+        openSendingModal () {
+            if(!this.customer) {
+                toast('You must select a customer to send', 'error', 'center');
+                return;
+            }
+            this.openModal("#invoiceSender");
         },
         setSaleItems (sale) {
             if (sale.sale_items) {

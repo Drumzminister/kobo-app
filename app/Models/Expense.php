@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Expense extends Model
 {
     public $incrementing = false;
+    protected $fillable = [
+        'id', 'user_id', 'company_id', 'date', 'details', 'amount', 'classification'
+    ];
 
 	public function transaction()
 	{

@@ -40,7 +40,7 @@
                             <div class="input-group mt-2">
                                 <input type="text" v-model="search" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <span @click="searchCustomer" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                                   <a href="#"> <span @click.prevent="searchCustomer" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span></a>
                                 </div>
                             </div>
                     </div>
@@ -59,7 +59,7 @@
                         </thead>
                         <tbody>
                           <tr v-for="customer in customers">
-                                <td >@{{ customer.name }}</td>
+                                <td >@{{ customer.first_name }} @{{ customer.last_name }}</td>
                                 <td>@{{ customer.address }}</td>
                                 <td>@{{ customer.phone }}</td>
                                 <td>@{{ customer.email }}</td>

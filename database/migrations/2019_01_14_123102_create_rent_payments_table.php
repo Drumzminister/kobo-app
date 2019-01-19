@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePurchasesTable extends Migration
+class CreateRentPaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreatePurchasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchases', function (Blueprint $table) {
-            $table->string('id', 36);
+        Schema::create('rent_payments', function (Blueprint $table) {
+            $table->string('id');
+            $table->string('rent_id');
+            $table->decimal('amount', 15, 2);
+            $table->integer('current_period');
             $table->timestamps();
 
             $table->primary('id');
@@ -28,6 +31,6 @@ class CreatePurchasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchases');
+        Schema::dropIfExists('rent_payments');
     }
 }

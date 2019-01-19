@@ -88,19 +88,28 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                         </div>
-                                        <input type="text" class="form-control " id="" aria-describedby="basic-addon3" placeholder="100,000">
+                                        <input type="text" v-model="deliveryCost" class="form-control " id="" aria-describedby="basic-addon3" placeholder="100,000">
                                     </div>
                                 </div>
                             </div>
                             <div class="row pt-2">
-                                <div class="col">
+                                <div class="col-md-6">
                                     <h5 class="h6 uppercase">Total Amount</h5>
-                                </div>
-                                <div class="col input-group input-group-lg">
-                                    <div class="input-group-prepend cus">
-                                        <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend cus">
+                                            <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
+                                        </div>
+                                        <input type="text" :disabled="true" v-model="computedSalesAmount" class="form-control" id="total" aria-describedby="basic-addon3" placeholder="1,275,000">
                                     </div>
-                                    <input type="text" :disabled="true" v-model="totalSalesAmount" class="form-control" id="total" aria-describedby="basic-addon3" placeholder="1,275,000">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="h6 uppercase">TAX Amount</h5>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend cus">
+                                            <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
+                                        </div>
+                                        <input type="text" :disabled="true" v-model="taxAmount" class="form-control" aria-describedby="basic-addon3" placeholder="1,275,000">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -108,12 +117,7 @@
 
                     <div class="row p-3">
                         <div class="col">
-                            <a href="" class="btn btn-lg btn-login" @click="openSendingModal()" data-toggle="modal" data-target="#exampleModalCenter">Send</a>
-                        </div>
-                        <div class="col">
-                            <span class="float-right">
-                                <button type="submit" @click="saveSale()" class="btn btn-lg btn-started">Save</button>
-                            </span>
+                            <button class="btn btn-lg btn-login" @click="openSendingModal()">Send</button>
                         </div>
 
                         <div class="col">
@@ -121,11 +125,18 @@
                                 <button type="submit" @click="previewInvoice()" class="btn btn-lg btn-started">Preview</button>
                             </span>
                         </div>
+
+                        <div class="col">
+                            <span class="float-right">
+                                <button type="submit" @click="saveSale()" class="btn btn-lg btn-started">Save</button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <invoice-modal></invoice-modal>
+        <invoice-sender></invoice-sender>
     </section>
 </template>
 
@@ -134,10 +145,11 @@
     import {appModal} from "../../mixins/appModals";
     import PaymentMethodSelection from "../banks/PaymentMethodSelection";
     import InvoiceModal from "./InvoiceModal";
+    import InvoiceSender from "./InvoiceSender";
     export default {
         mixins: [addSale, appModal],
         props: ['inventories', 'channels', 'banks', 'sale'],
-        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal },
+        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal, InvoiceSender },
         mounted() {
         }
     }

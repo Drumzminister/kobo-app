@@ -2,15 +2,32 @@ export const paymentMethodSelectionModule = {
     state: {
         companyAccounts: [],
         selectedAccounts: [],
+        totalPaid: 0,
+        invalidPaymentsSum: true
     },
     getters: {
         availableAccounts: state => {
             return state.companyAccounts.filter(account => !state.selectedAccounts.map(account => account.id).includes(account.id));
+        },
+        selectedAccounts: state => {
+            return state.selectedAccounts;
+        },
+        invalidPaymentsSum: state => {
+            return state.invalidPaymentsSum;
+        },
+        totalPaid: state => {
+            return state.totalPaid;
         }
     },
     mutations: {
         selectAccount(state, account) {
             state.selectedAccounts.push(account);
+        },
+        invalidPaymentsSum(state, sum) {
+            state.invalidPaymentsSum = sum;
+        },
+        totalPaid(state, total) {
+            state.totalPaid = total;
         },
         removeAccount(state, account) {
             let pos = state.selectedAccounts

@@ -14,6 +14,10 @@ use Lucid\Foundation\Http\Controller;
 
 class VendorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
     public function showVendorPage()
     {
         return $this->serve(ShowVendorPageFeature::class);
