@@ -121,11 +121,6 @@ export const addSale = {
         },
         sendSaleCreationRequest () {
             this.savingSale = true;
-            let that = this;
-            window.setTimeout(function () {
-                that.savingSale = false;
-                that.saleSaved = true;
-            }, 3000);
             this.createSale();
         },
         createSale: function () {
@@ -144,14 +139,19 @@ export const addSale = {
             };
 
             api.endpoints.sale.create(data)
-                .then(function ({ data }) {
+                .then( ({ data }) => {
                     if (data.status === "success") {
+                        this.savingSale = false;
+                        this.saleSaved = true;
                         toast('Sale record added successfully.', 'success', 'center');
                         setTimeout(function () {
                             window.location.href = "/client/sales";
                         }, 1000);
                     } else {
+                        this.savingSale = false;
+                        this.saleSaved = false;
 
+                        toast(data.message, 'error', 'center');
                     }
                 });
         },

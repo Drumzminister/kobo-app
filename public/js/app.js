@@ -94503,15 +94503,12 @@ var addSale = {
         },
         sendSaleCreationRequest: function sendSaleCreationRequest() {
             this.savingSale = true;
-            var that = this;
-            window.setTimeout(function () {
-                that.savingSale = false;
-                that.saleSaved = true;
-            }, 3000);
             this.createSale();
         },
 
         createSale: function createSale() {
+            var _this2 = this;
+
             var api = new __WEBPACK_IMPORTED_MODULE_3__classes_API__["a" /* default */]({ baseUri: 'https://kobo.test/client' });
             api.createEntity({ name: 'sale' });
             var data = {
@@ -94530,11 +94527,18 @@ var addSale = {
                 var data = _ref2.data;
 
                 if (data.status === "success") {
+                    _this2.savingSale = false;
+                    _this2.saleSaved = true;
                     Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('Sale record added successfully.', 'success', 'center');
                     setTimeout(function () {
                         window.location.href = "/client/sales";
                     }, 1000);
-                } else {}
+                } else {
+                    _this2.savingSale = false;
+                    _this2.saleSaved = false;
+
+                    Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])(data.message, 'error', 'center');
+                }
             });
         },
         previewInvoice: function previewInvoice() {
