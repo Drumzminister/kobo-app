@@ -20,19 +20,19 @@
                                     <div class="col-md-4">
                                         <div class="p-2" id="topp">
                                             <h5 class="h5">Total Amount</h5>
-                                            <h4 class="text-orange">&#8358; {{ totalAmount || 0 }}</h4>
+                                            <h4 class="text-orange">&#8358; {{ $currency.format(totalAmount) || 0.00 }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="p-2" id="topp">
                                             <h5 class="h5">Amount Paid</h5>
-                                            <h4 class="text-orange">&#8358; {{ amountPaid || 0 }}</h4>
+                                            <h4 class="text-orange">&#8358; {{ $currency.format(amountPaid) || 0.00 }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="p-2" id="topp">
                                             <h5 class="h5 "> Balance</h5>
-                                            <h4 class="text-orange">&#8358; {{ totalAmount - amountPaid || 0 }}</h4>
+                                            <h4 class="text-orange">&#8358; {{ $currency.format(balance) || 0.00 }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -76,8 +76,8 @@
                     </div>
 
                     <div class="modal-foote mt-3">
-                        <div class="row">
-                            <div class="col-md-2"></div>
+                        <div class="row text-center">
+                            <div class="col-md-2 "></div>
                             <!--<div class="col">-->
                                 <!--<button type="button" class="btn btn-login" data-dismiss="modal">Reverse</button>-->
                             <!--</div>-->
@@ -113,6 +113,12 @@
             },
             customer () {
                 return this.$parent.customer;
+            },
+            balance () {
+                return this.totalAmount - this.amountPaid;
+            },
+            currency () {
+                return this.$currency;
             }
         }
     }
