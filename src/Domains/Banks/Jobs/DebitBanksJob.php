@@ -4,6 +4,7 @@ namespace App\Domains\Banks\Jobs;
 
 use App\Contracts\TransactionInterface;
 use App\Data\Repositories\BankDetailRepository;
+use App\Domains\Bank\Jobs\CheckIfBanksHaveEnoughBalance;
 use Koboaccountant\Traits\HelpsResponse;
 use Lucid\Foundation\Job;
 
@@ -50,6 +51,11 @@ class DebitBanksJob extends Job
 		if (!class_exists($this->getModelClass())) {
 			return $this->createJobResponse('error', 'Transaction data cannot be created for ' . ucfirst(get_class($this->model)), $this->model);
 		}
+		$response = $this->checkIfBanksHaveEnoughBalance();
+
+		if ($response->status !== "success") {
+			return $this->createJobResponse('error', $response->message, $this->model);
+		}
 
 		foreach ($this->paymentModes as $paymentMode) {
 			$this->updateBankAccount($paymentMode);
@@ -87,5 +93,10 @@ class DebitBanksJob extends Job
 	protected function getModelClass()
 	{
 		return $class = self::TRANSACTION_NAMESPACE . ucfirst(str_plural(get_class($this->model))) . self::CLASS_SUFFIX;
+	}
+
+	protected function checkIfBanksHaveEnoughBalance()
+	{
+		return (new CheckIfBanksHaveEnoughBalance($this->paymentModes))->handle();
 	}
 }
