@@ -63,7 +63,7 @@ export const loanApp = {
     },
     computed: {
         selectedAccounts () {
-            return this.$store.state.selectedAccounts;
+            return this.$store.getters.selectedAccounts;
         }
     },
     methods: {

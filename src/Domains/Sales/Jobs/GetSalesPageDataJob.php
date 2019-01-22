@@ -16,9 +16,9 @@ class GetSalesPageDataJob extends Job
 	 */
 	private $slug;
 	/**
-	 * @var string
+	 * @var
 	 */
-	private $userId;
+	private $user;
 
 	/**
 	 * @var \Illuminate\Foundation\Application|SaleRepository
@@ -33,13 +33,11 @@ class GetSalesPageDataJob extends Job
 	/**
 	 * Create a new job instance.
 	 *
-	 * @param string $slug
-	 * @param string $userId
+	 * @param string $user
 	 */
-    public function __construct(string $slug, ?string $userId)
+    public function __construct($user)
     {
-	    $this->slug = $slug;
-	    $this->userId = $userId;
+	    $this->user = $user;
 	    $this->sale = app(SaleRepository::class);
 	    $this->company = app(CompanyRepository::class);
     }
@@ -49,7 +47,7 @@ class GetSalesPageDataJob extends Job
      */
     public function handle()
     {
-    	$company = $this->company->getByAttributes(['slug' => $this->slug])->first();
+    	$company = $this->user->getUserCompany();
 
     	if (!$company) {
     		abort(404);

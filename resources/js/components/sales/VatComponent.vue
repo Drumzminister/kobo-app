@@ -3,24 +3,19 @@
     <section id="info">
         <div class="container mt-3">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2 pr-0 customer-invoice">
                     <div class="input-group mb-3 input-group-lg">
-                        <div class="">
-                            <span class="input-group-text customer-input" id="basic-addon3">INV - #{{ saleInvoice || '###' }}</span>
+                        <div class="w-100 h-100 d-flex justify-content-center" >
+                            <span class="input-group-text customer-input h-100 text-center w-100 pl-4" id="basic-addon3">INV - #{{ saleInvoice || '###' }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="input-group mb-3 input-group-lg">
+                <div class="col-md-4 pr-0">
+                    <div class="input-group mb-3 input-group-lg customer-select2">
                         <div class="input-group-prepend">
                             <span class="input-group-text customer-input" id="basic-addon3">Customer</span>
                         </div>
-                        <select v-model="customer_id" class="customer form-control">
-                            <option value="">Select Customer ...</option>
-                            <option v-for="customer in customers" :value="customer.id">
-                                {{ customer.first_name + ' ' + customer.last_name }}
-                            </option>
-                        </select>
+                        <Select2 :settings="{placeholder: 'Select Customer'}" v-model="customer_id" :options="customers.map((customer) => {return {id: customer.id, text: customer.first_name + ' ' + customer.last_name } })"/>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -46,12 +41,14 @@
 </template>
 <script>
     import { mapMutations, mapGetters } from 'vuex';
+    import Select2 from "v-select2-component";
     export default {
         props: ['customers', 'taxes'],
+        components: {Select2},
         data() {
             return {
                 tax_id: "",
-                sale_date: "",
+                sale_date: null,
                 customer_id: "",
             }
         },
@@ -70,6 +67,9 @@
         },
         methods : {
             ...mapMutations(['customer', 'selectedTax', "taxId"])
+        },
+        mounted () {
+            this.sale_date = moment().format('YYYY-MM-DD');
         }
     }
 </script>
