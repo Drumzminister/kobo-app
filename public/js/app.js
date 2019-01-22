@@ -94400,7 +94400,7 @@ var addSale = {
             return this.computedSalesAmount;
         },
         saleIsNotValid: function saleIsNotValid() {
-            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "" || this.invalidPaymentsSum;
+            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.invalidPaymentsSum;
         },
         taxAmount: function taxAmount() {
             return parseInt(this.selectedTax ? this.selectedTax.percentage : 0) / 100 * this.totalSalesAmount;
@@ -94532,7 +94532,7 @@ var addSale = {
                 if (data.status === "success") {
                     Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('Sale record added successfully.', 'success', 'center');
                     setTimeout(function () {
-                        window.location.href = "/client/sales";
+                        // window.location.href = "/client/sales";
                     }, 1000);
                 }
             });
@@ -94551,10 +94551,6 @@ var addSale = {
 
             if (this.saleDate === "") {
                 Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('You must select a date.', 'error', 'center');
-            }
-
-            if (this.taxId === "") {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('You must select a TAX', 'error', 'center');
             }
 
             if (this.invalidPaymentsSum) {
