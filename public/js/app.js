@@ -94532,9 +94532,9 @@ var addSale = {
                 if (data.status === "success") {
                     Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('Sale record added successfully.', 'success', 'center');
                     setTimeout(function () {
-                        // window.location.href = "/client/sales";
+                        window.location.href = "/client/sales";
                     }, 1000);
-                }
+                } else {}
             });
         },
         previewInvoice: function previewInvoice() {

@@ -12,11 +12,11 @@ class AddSaleFeature extends Feature
     {
 		$response = $this->run(AddSaleJob::class, ['data' => $request->all(), 'user' => auth()->user()]);
 
-		if ($response->status) {
+		if ($response->status === "success") {
 			return ['status' => 'success', 'message' => $response->message, 'data' => $response->data];
 		}
 
-	    return ['status' => 'success', 'message' => $response->message, 'data' => $response->data];
+	    return ['status' => 'error', 'message' => $response->message, 'data' => $response->data];
 
     }
 }

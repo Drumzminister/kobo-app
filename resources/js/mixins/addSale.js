@@ -148,8 +148,10 @@ export const addSale = {
                     if (data.status === "success") {
                         toast('Sale record added successfully.', 'success', 'center');
                         setTimeout(function () {
-                            // window.location.href = "/client/sales";
+                            window.location.href = "/client/sales";
                         }, 1000);
+                    } else {
+
                     }
                 });
         },

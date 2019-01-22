@@ -70,6 +70,11 @@ class AddSaleJob extends Job
     public function handle()
     {
     	$sale = $this->sale->findOnly('id', $this->data['sale_id']);
+
+    	if ($sale->type === "published") {
+		    return $this->createJobResponse('error', 'Sale has already been published and cannot be updated', $sale);
+	    }
+
 	    $this->data['company_id'] = $this->user->company->id;
 	    $this->data['staff_id'] = $this->user->staff->id;
 	    $this->data['type'] = 'published';
@@ -85,10 +90,11 @@ class AddSaleJob extends Job
 			                : $this->createJobResponse('error', 'Sale could not be completed', $sale);
 	    }
 
+	    return $this->createJobResponse('error', $response->message, $sale);
     }
 
     protected function creditPaymentMethodsForSale($paymentMethods, $sale)
     {
-    	return (new CreditBanksJob($paymentMethods, $sale))->handle();
+    	return (new CreditBanksJob($paymentMethods, $sale, $this->user->company->id))->handle();
     }
 }
