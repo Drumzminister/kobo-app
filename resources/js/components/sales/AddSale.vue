@@ -7,7 +7,7 @@
                         <thead class="p-3">
                         <tr class="tab">
                             <th scope="col" class="tool" data-tip="Add all your inventory here." tabindex="1">
-                                Inventory Items
+                                Items
                             </th>
                             <th scope="col" class="tool" data-tip="Provide description of item" tabindex="1">
                                 Description
@@ -32,19 +32,12 @@
                         <tbody id="salesTable">
                         <tr v-for="(item, index) in saleItems" :class="{'border-right-green' : item.saved, 'border-right-red' : !item.saved }">
                             <td>
-                                <select v-model="item.inventory_id" @change="fillSaleItemWithInventory(item)" class="form-control inventory">
-                                    <option value="">
-                                        Select ...
-                                    </option>
-                                    <option v-for="inventory in availableInventories" :value="inventory.id">
-                                        {{ inventory.name }}
-                                    </option>
-                                </select>
+                                <Select2 :settings="{placeholder: 'Inventory'}" v-model="item.inventory_id" :options="availableInventories.map((inventory) => {return {id: inventory.id, text: inventory.name} })" @change="fillSaleItemWithInventory(item)"/>
                             </td>
                             <td><input v-model="item.description" @change="item.debounceItemSaving()" type="text" id="sales_description" class="form-control sales_description "></td>
-                            <td><input :disabled="item.inventory_id === ''" @change="item.debounceItemSaving()" v-model="item.quantity" type="number" class="sales_quantity form-control"></td>
-                            <td><input disabled v-model="item.sales_price" type="number" class="form-control sales_price"></td>
-                            <td><input disabled v-model="item.totalPrice()" type="text" class="form-control sales_total" id="sales_total"></td>
+                            <td><input :disabled="item.inventory_id === ''" @change="item.debounceItemSaving()" v-model="item.quantity" type="number" class="sales_quantity form-control" :placeholder="item.inventory ? 'Available: ' + item.inventory.quantity : 0"></td>
+                            <td><input disabled v-model="item.sales_price" type="number" class="form-control sales_price" placeholder="0.00"></td>
+                            <td><input disabled v-model="item.totalPrice()" type="text" class="form-control sales_total" id="sales_total" placeholder="0.00"></td>
                             <td>
                                 <select v-model="item.sale_channel_id" @change="item.debounceItemSaving()" class="form-control search sales_channel">
                                     <option value="">Channel ...</option>
@@ -55,7 +48,7 @@
                             </td>
 
                             <td id="delete">
-                                <i @click="deleteSaleItemRow(index)" v-show="saleItems.length > 1 && !item.processing" style="cursor: pointer; color: #da1313; font-size: 20px" class="fa fa-times"></i>
+                                <i @click="deleteSaleItemRow(index)" v-show="saleItems.length > 1 && !item.processing" style="cursor: pointer; color: #da1313;" class="fa fa-times"></i>
                                 <i v-show="item.processing" style="color: #da1313; font-size: 30px" class="fa fa-circle-notch fa-spin-fast"></i>
                             </td>
                         </tr>
@@ -66,11 +59,11 @@
                     <span @click="addNewSaleItemRow()" class="float-right">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i></span>
                 </div>
                 <div class="row p-2 mt-2 ">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <payment-method-selection :banks="banks"></payment-method-selection>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="bg-grey py-4 px-3" id="topp">
                             <div class="row">
                                 <div class="col-md-6">
@@ -79,7 +72,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text customer-input">&#8358;</span>
                                         </div>
-                                        <input type="text" v-model="saleDiscount" class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="100,000">
+                                        <input type="text" v-model="saleDiscount" class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="0.00">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -88,7 +81,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                         </div>
-                                        <input type="text" v-model="deliveryCost" class="form-control " id="" aria-describedby="basic-addon3" placeholder="100,000">
+                                        <input type="text" v-model="deliveryCost" class="form-control " id="" aria-describedby="basic-addon3" placeholder="0.00">
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +92,7 @@
                                         <div class="input-group-prepend cus">
                                             <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                         </div>
-                                        <input type="text" :disabled="true" v-model="taxAmount" class="form-control" aria-describedby="basic-addon3" placeholder="1,275,000">
+                                        <input type="text" :disabled="true" v-model="taxAmount" class="form-control" aria-describedby="basic-addon3" placeholder="0.00">
                                     </div>
                                 </div>
 
@@ -109,7 +102,7 @@
                                         <div class="input-group-prepend cus">
                                             <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                         </div>
-                                        <input type="text" :disabled="true" v-model="computedSalesAmount" class="form-control" id="total" aria-describedby="basic-addon3" placeholder="1,275,000">
+                                        <input type="text" :disabled="true" v-model="currency.format(computedSalesAmount)" class="form-control" id="total" aria-describedby="basic-addon3" placeholder="0.00">
                                     </div>
                                 </div>
                             </div>
@@ -148,11 +141,19 @@
     import PaymentMethodSelection from "../banks/PaymentMethodSelection";
     import InvoiceModal from "./InvoiceModal";
     import InvoiceSender from "./InvoiceSender";
+    import Select2 from 'v-select2-component';
+    import currency from "../../helpers/formatter"
+
     export default {
         mixins: [addSale, appModal],
         props: ['inventories', 'channels', 'banks', 'sale'],
-        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal, InvoiceSender },
-        mounted() {
+        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal, InvoiceSender, Select2 },
+        data() {
+            return {
+                currency: new Intl.NumberFormat('en-US', {
+                    minimumFractionDigits: 2
+                })
+            }
         }
     }
 </script>

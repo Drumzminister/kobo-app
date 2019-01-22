@@ -73,7 +73,7 @@ Route::group(['prefix' => 'client'], function () {
 
 
     // Sale Routes
-	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
+	Route::get('/sales', 'ClientDashboardController@showSalesPage')->name('company.sales');
 	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');
 	Route::get('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');
 	Route::post('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');

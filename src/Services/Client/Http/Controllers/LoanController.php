@@ -48,7 +48,7 @@ class LoanController extends Controller
 
     public function payLoan($loanId)
     {
-        $this->serve(PayLoanFeature::class, ['loanId' => $loanId]);
+        return $this->serve(PayLoanFeature::class, ['loanId' => $loanId]);
     }
 
     public function listPayments($loanId)

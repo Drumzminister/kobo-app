@@ -68,3 +68,25 @@ p{
 .fa-spin-fast {
   animation: fa-spin 2s infinite linear !important;
 }
+
+.customer-select2 .select2-container--default .select2-selection--single,
+.customer-select2 .select2-container--default .select2-selection__arrow {
+  height: 45px!important;
+  display: flex!important;
+  align-items: center;
+}
+.customer-select2 .select2-container--default .select2-selection--single{
+  height: 45px!important;
+  display: flex!important;
+  align-items: center;
+  border-top-left-radius: 0px!important;
+  border-bottom-left-radius: 0px!important;
+  border: 1px solid #ced4da;
+  width:250px;
+}
+.customer-select2 .select2-container{
+  width: 250px;
+}
+.customer-invoice .input-group {
+  height: 45px;
+}

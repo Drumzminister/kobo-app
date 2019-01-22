@@ -12,8 +12,6 @@ class AddSaleFeature extends Feature
     {
 		$isAdded = $this->run(AddSaleJob::class, ['data' => $request->all(), 'user' => auth()->user()]);
 
-		if ($isAdded) {
-			return ['status' => 'success', 'data' => $isAdded];
-		}
+		return ['status' => 'success', 'data' => $isAdded];
     }
 }

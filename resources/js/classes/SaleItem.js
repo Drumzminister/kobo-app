@@ -11,19 +11,19 @@ class SaleItem
      * @param inventory
      */
     constructor (saleId, inventory = null) {
-        this.inventory_id = "";
         this._id = null;
-        this._sale_id = saleId;
+        this.saved = false;
+        this.created_at = "";
         this.description = "";
         this._quantity = null;
         this.sales_price =  0;
         this.total_price = "";
+        this._isValid = false;
+        this.inventory_id = "";
+        this._sale_id = saleId;
+        this.processing = false;
         this.sale_channel_id = "";
         this._inventory = inventory;
-        this._isValid = false;
-        this.saved = false;
-        this.processing = false;
-        this.created_at = "";
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
     }
 

@@ -2,14 +2,15 @@ import SaleItem from "../classes/SaleItem";
 import {mapGetters, mapMutations, mapState} from "vuex";
 import {toast} from "../helpers/alert";
 import API from "../classes/API";
+import select2 from "select2";
 
 export const addSale = {
     data() {
         return {
             sale_customer_id: "",
             saleItems: [],
-            deliveryCost: 0,
-            saleDiscount: 0,
+            deliveryCost: null,
+            saleDiscount: null,
             savingSale: false,
             saleSaved: false,
         }
@@ -133,7 +134,8 @@ export const addSale = {
             api.endpoints.sale.create(data)
                 .then(function ({ data }) {
                     if (data.status === "success") {
-                        alert('Done');
+                        toast('Sale record added successfully.', 'success', 'center');
+                        window.location.href = "/client/sales";
                     }
                 });
         },

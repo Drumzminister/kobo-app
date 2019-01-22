@@ -57,7 +57,7 @@ class AddSaleJob extends Job
 	    $this->items            = app(SaleItemRepository::class);
 	    $this->sale             = app(SaleRepository::class);
 	    $this->bank             = app(BankDetailRepository::class);
-	    $this->saleTransaction  = app( SalesTransactionRepository::class);
+//	    $this->saleTransaction  = app( SalesTransactionRepository::class);
     }
 
     /**
@@ -68,6 +68,7 @@ class AddSaleJob extends Job
     	$sale = $this->sale->findOnly('id', $this->data['sale_id']);
 	    $this->data['company_id'] = $this->user->company->id;
 	    $this->data['staff_id'] = $this->user->staff->id;
+	    $this->data['type'] = 'published';
 
 	    $paymentMethods = $this->data['paymentMethods'];
 
@@ -79,12 +80,8 @@ class AddSaleJob extends Job
 	    	$bank->fill($data)->save();
 	    }
 
-	    dd($paymentMethods);
-
 	    // ToDo: Record transaction
 
 	    $updated = $sale->fill($this->data)->save();
-
-
     }
 }

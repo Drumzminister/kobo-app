@@ -52,20 +52,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="pt-3-half">
-                                <input type="text" name="description" class="form-control expenseDescription">
-                            </td>
-                            <td class="pt-3-half">
-                                <input type="number" name="amount" v-model="expenseAmount" class="form-control expenseAmount">
-                            </td>
-                            <td>
-                                <button class="btn btn-primary px-4" type="button" @click="showPayExpenseModal($event)">Pay</button>
-                            </td>
-                        </tr>
+                            <tr v-for="record in expenseRecords" class="records">
+                                <td class="pt-3-half">
+                                    <input type="text" name="description" class="form-control expenseDescription">
+                                </td>
+                                <td class="pt-3-half">
+                                    <input type="number" name="amount" class="form-control expenseAmount">
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary px-4 payBtn" type="button" @click="showPayExpenseModal($event)">Pay</button>
+                                    <button class="btn btn-success px-4 paid" style="display: none" type="button" disabled>Paid</button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
-
+                    <div class="d-flex justify-content-end">
+                        <span class="" style="cursor: pointer;" @click="addExpenseRecord()"><i class="fa fa-plus-square" style="font-size:32px;color:#00C259;"></i></span>
+                    </div>
                 </div>
 
                 <!-- Modal -->
@@ -78,37 +81,14 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="" @submit="payExpense($event)">
-                                <div class="modal-body ">
-                                    <div class="d-flex pb-3">
-                                        <h5 class="h5 uppercase col-5">Payment Mode</h5>
-                                        <h5 class="h5 uppercase ml-auto col-6">Amount</h5>
-                                    </div>
-                                    <div class="d-flex" v-for="selectedMethod in selectedMethods">
-                                        <div class="col-6">
-                                            <button class="btn btn-payment w-100 px-2 paymentMethods dropdown-toggle" type="button" @click="changePaymentMethod(selectedMethod)" >@{{ selectedMethod.mode }}</button>
-                                        </div>
-                                        <div class="col-5 ml-auto d-flex flex-column">
-                                            <input type="number" :placeholder="expenseAmount" @change="expenseAmountChange($event)" :max="expenseAmount" class="form-control selectedAmount">
-                                            <span class="text-danger invalid-feedback" v-if="expenseAmount > selectedMethod.balance || hasExpensePaymentError" style="display: block" role="alert"><strong>Amount inserted is greater than available amount in @{{ selectedMethod.mode }}</strong></span>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu" style="top:60%; display: block" aria-labelledby="paymentListDropDown" v-if="expenseShowPaymentMethods">
-                                        <ul class="px-0">
-                                            <li class="dropdown-item" style="cursor:pointer" v-for="method in expensePaymentMethods" @click="selectPaymentMethod(method)" >@{{ method.mode }}</li>
-                                        </ul>
-                                    </div>
-                                    <section class="d-flex col-12 justify-content-end mt-3">
-                                        <span style="cursor: pointer;">
-                                            <i class="fa fa-plus-square" style="font-size:32px; color:#00C259;"></i>
-                                        </span>
-                                    </section>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-payment" >Pay</button>
-                                </div>
-                            </form>
-
+                            <div class="modal-body">
+                                <payment-method-selection class="col-12" :banks="{{ $banks }}"></payment-method-selection>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-sm btn-payment" @click="payExpense" v-if="selectedAccounts.length > 0 && !isPayingExpense">Pay</button>
+                                <button class="btn btn-sm px-3 btn-info" style="cursor: not-allowed;" v-if="selectedAccounts.length < 1" disabled>Pay</button>
+                                <button class="btn btn-sm btn-payment" disabled v-if="isPayingExpense">Paying... <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,7 +98,8 @@
                 <div class="row p-3">
                     <div class="col">
                         <span class="float-right">
-                            <a href="" class="btn btn-lg btn-started">Save</a>
+                            <button v-if="isSavingExpense" class="btn btn-lg btn-light" disabled>Saving...<i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
+                            <button  v-else @click="beforeSavingExpenses" class="btn btn-lg btn-started">Save</button>
                         </span>
                     </div>
                 </div>
@@ -126,10 +107,4 @@
 
         </div>
     </section>
-@endsection
-
-@section('other_js')
-    <script>
-        window.paymentMethods = @json($paymentMethods);
-    </script>
 @endsection

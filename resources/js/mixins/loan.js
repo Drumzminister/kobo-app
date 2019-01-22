@@ -2,19 +2,19 @@ export const loanApp = {
     data: {
         loans: [],
         sources: {},
+        newSource: "",
+        allSources: [],
+        searchSource: "",
+        chosenSource: "",
         loanDate: "",
         loanTerm: "",
-        newSource: "",
         loanAmount: "",
-        allSources: [],
         loanAmtPaid: 0,
         currentLoan: {},
         loanAmtOwing: 0,
-        searchSource: "",
-        chosenSource: "",
         loanInterest: "",
-        paymentPerYear: 1,
         loanAmtRunning: 0,
+        paymentPerYear: 1,
         loanDescription: "",
         loanPeriod: "month",
         noSourceFound: false,
@@ -23,8 +23,9 @@ export const loanApp = {
         sourceSearching: false,
         loanPaymentMethods: [],
         currentLoanPayments: [],
+        isRequestingLoan: false,
         showMoreIntervals: false,
-        accountReceivingLoan: "Select",
+        accountReceivingLoan: null,
         loadingLoanDetails: false,
         showIntervalSelector: false,
         loanPaymentInterval: "Monthly",
@@ -53,13 +54,22 @@ export const loanApp = {
     },
     mounted () {
         this.loans = window.loans;
+        this.banks = window.banks;
         this.allSources = window.loanSources;
         this.loanAmtPaid = window.loanAmtPaid;
         this.loanAmtOwing = window.loanAmtOwing;
         this.loanAmtRunning = window.loanAmtRunning;
-        this.loanPaymentMethods = window.paymentMethods;
+        this.runDebouncedSearch = _.debounce(this.searchForSource, 500);
+    },
+    computed: {
+        selectedAccounts () {
+            return this.$store.getters.selectedAccounts;
+        }
     },
     methods: {
+        debouncedSearch () {
+            this.runDebouncedSearch();
+        },
         searchForSource () {
             if (this.searchSource.trim() === "") {
                 this.noSourceFound = false;
@@ -94,19 +104,21 @@ export const loanApp = {
         },
         addSource () {
             let formData = new FormData();
-            // formData.append('_token', token);
+            this.isRequestingLoan = true;
             formData.append('name', this.newSource);
             axios.post('/client/loan/sources/add', formData).then(res => {
                 swal('Successful', "New loan source added successfully", "success");
                 this.showSourcesForm = false;
+                this.isRequestingLoan = false;
                 this.searchSource = res.data.source.name;
                 this.chosenSource= res.data.source.id;
             }).catch(err => {
+                this.isRequestingLoan = false;
                 console.error(err);
             })
         },
         saveLoan () {
-            if (this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear ||  this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
+            if (this.accountReceivingLoan === null || this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear ||  this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
                 swal('Oops', "Some required fields are empty", "error");
                 return;
             }
@@ -120,9 +132,10 @@ export const loanApp = {
             formData.append('payment_interval', this.paymentPerYear);
             formData.append('start_date', this.loanDate);
             formData.append('receivingAccount', JSON.stringify(this.accountReceivingLoan) );
-            // formData.append('_token', token);
+            this.isRequestingLoan = true;
             axios.post(window.addLoanUrl, formData).then(res => {
                 swal('Successful', 'Loan added successfully', 'success');
+                this.isRequestingLoan = false;
                 document.querySelector('#cancelLoanModal').click();
                 let loan = res.data.loan;
                 loan.source_name = this.searchSource;
@@ -130,6 +143,7 @@ export const loanApp = {
                 loan.amount_paid = 0;
                 this.loans.unshift(loan);
             }).catch(err => {
+                this.isRequestingLoan = false;
                 swal('Oops', err.response.data.error, "error");
             });
         },
@@ -144,27 +158,34 @@ export const loanApp = {
                 this.loadingLoanDetails = false;
                 console.error(err)
             });
-            $('#loanDetailsModal').modal('show');
+            this.openModal('#loanDetailsModal');
         },
         payLoan (evt) {
             evt.preventDefault();
-            if (this.loanPaymentValidationError) {
-                swal ("Oops", this.loanPaymentValidationMessage, "warning");
-            }else {
-                let formData = new FormData(evt.target);
-                // formData.append('_token', token);
-                formData.append('loan_id', this.currentLoan.id);
+            let sum = 0;
+            this.selectedAccounts.forEach((account) => {
+                if ( !isNaN(Number(account.amount)) ) {
+                    sum += Number(account.amount);
+                }
+            });
 
-                axios.post('/loans/payment', formData).then(res => {
-                    this.currentLoanPayments.unshift(res.data.payment);
-                    swal('Successful', 'Payments Made Successfully', 'success');
-                    this.currentLoan.amount_paid = Number(this.currentLoan.amount_paid);
-                    this.currentLoan.amount_paid += Number(res.data.payment.amount);
-                    $('#pay-loan').modal('hide');
-                }).catch(err => {
-                    swal('Oops', err.response.data.error, "error");
-                })
+            if (sum > (Number(this.currentLoan.amount - this.currentLoan.amount_paid) + Number(this.currentLoan.interest * this.currentLoan.amount / 100)) ) {
+                swal("Error", `Total amount payable should be less than ${(this.currentLoan.amount - this.currentLoan.amount_paid) + (this.currentLoan.interest * this.currentLoan.amount / 100)}`, "error");
+                return;
             }
+            let formData = new FormData();
+            formData.append('amount', sum.toString());
+            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            this.isRequestingLoan = true;
+            axios.post(`/client/loan/${this.currentLoan.id}/pay`, formData).then(response => {
+                this.isRequestingLoan = false;
+                this.closeModal('#paymentModal');
+                this.closeModal('#loanDetailsModal');
+                swal('Success', `Payment made successfully`, 'success');
+            }).catch(err => {
+                this.isRequestingLoan = false;
+                swal('Oops', `${err.response.data.message}`, 'error');
+            });
         },
         toggleShowMoreIntervals (evt) {
             this.showMoreIntervals = !this.showMoreIntervals;
@@ -184,6 +205,17 @@ export const loanApp = {
         selectLoanPaymentInterval (event) {
             this.loanPaymentInterval = event.target.innerText;
             this.toggleShowIntervalSelector();
+        },
+        closeLoanModal () {
+            document.querySelector('.loan-form').reset();
+            this.loanDate= "";
+            this.loanTerm= "";
+            this.loanAmount= "";
+            this.loanDescription = "";
+            this.loanPeriod = "";
+            this.loanInterest = "";
+            this.paymentPerYear = 1;
+            this.closeModal('#addLoanModal');
         }
     }
 };

@@ -2,6 +2,7 @@
 
 namespace App\Services\Client\Http\Controllers;
 
+use App\Services\Client\Features\AddExpenseFeature;
 use App\Services\Client\Features\SearchExpensesFeature;
 use App\Services\Client\Features\ShowAddExpensesPageFeature;
 use App\Services\Client\Features\ShowExpensePageFeature;
@@ -23,6 +24,11 @@ class ExpensesController extends Controller
     function showAddExpensePage()
     {
         return $this->serve(ShowAddExpensesPageFeature::class);
+    }
+
+    function addExpense()
+    {
+        return $this->serve(AddExpenseFeature::class);
     }
 
     function searchExpenses($param)
