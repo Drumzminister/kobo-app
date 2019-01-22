@@ -1,6 +1,6 @@
 import SaleItem from "../classes/SaleItem";
 import {mapGetters, mapMutations, mapState} from "vuex";
-import {toast} from "../helpers/alert";
+import { toast, confirmSomethingWithAlert } from "../helpers/alert";
 import API from "../classes/API";
 import select2 from "select2";
 
@@ -25,7 +25,7 @@ export const addSale = {
         ...mapGetters(['taxId', 'saleDate', "customer", "selectedTax"]),
         ...mapGetters(['availableInventories', 'getInventory', 'totalPaid']),
         invalidPaymentsSum () {
-            return parseInt(this.totalPaid) !== parseInt(this.spreadAmount);
+            return parseInt(this.totalPaid) > parseInt(this.spreadAmount);
         },
         spreadAmount () {
             return this.computedSalesAmount // Payment Component require this
@@ -47,7 +47,9 @@ export const addSale = {
 
             return sum;
         },
-
+        balanceLeft () {
+            return this.computedSalesAmount - this.totalPaid;
+        },
         computedSalesAmount () {
             let sum = this.totalSalesAmount;
 
@@ -102,12 +104,23 @@ export const addSale = {
         saleItemDataChanged (item) {
             // ToDo: Implement this Watcher
         },
-        saveSale () {
+        saveSale ()  {
             if (this.saleIsNotValid) {
                 this.validateSalesData();
                 return;
             }
 
+            if (this.balanceLeft === 0) {
+                this.sendSaleCreationRequest();
+            } else {
+                confirmSomethingWithAlert(`You have a balance of ${this.balanceLeft}`).then((result) => {
+                    if (result.value) {
+                        this.sendSaleCreationRequest();
+                    }
+                });
+            }
+        },
+        sendSaleCreationRequest () {
             this.savingSale = true;
             let that = this;
             window.setTimeout(function () {
@@ -135,7 +148,9 @@ export const addSale = {
                 .then(function ({ data }) {
                     if (data.status === "success") {
                         toast('Sale record added successfully.', 'success', 'center');
-                        window.location.href = "/client/sales";
+                        setTimeout(function () {
+                            window.location.href = "/client/sales";
+                        }, 1000);
                     }
                 });
         },
@@ -160,7 +175,8 @@ export const addSale = {
             }
 
             if (this.invalidPaymentsSum) {
-                toast('Amount paid and Sales total didn\'t tally', 'error', 'center');
+                let totalSalesAmount = this.$currency.format(this.computedSalesAmount);
+                toast(`You cannot pay above the Total sales amount of NGN ${totalSalesAmount}`, 'error', 'center');
             }
         },
         openSendingModal () {

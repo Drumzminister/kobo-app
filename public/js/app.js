@@ -30021,7 +30021,8 @@ module.exports = defaults;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return toast; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return toast; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return confirmSomethingWithAlert; });
 var swal = __webpack_require__(36);
 
 var toast = function toast(title, type) {
@@ -30037,6 +30038,20 @@ var toast = function toast(title, type) {
     toast({
         type: type,
         title: title
+    });
+};
+
+var confirmSomethingWithAlert = function confirmSomethingWithAlert(message) {
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Are you sure?';
+
+    return swal.fire({
+        title: title,
+        text: message,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
     });
 };
 
@@ -82890,11 +82905,11 @@ var staffApp = {
         },
         validateInput: function validateInput() {
             if (Number(this.staffForm.years_of_experience) > 50) {
-                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])('Years of experience cannot be above 50', 'error');
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Years of experience cannot be above 50', 'error');
                 this.staffForm.years_of_experience = 50;
             }
             if (Number(this.staffForm.phone > 11)) {
-                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])('Phone number cannot be greater than 11', 'error');
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Phone number cannot be greater than 11', 'error');
                 this.staffForm.phone = this.staffForm.phone.slice(0, this.staffForm.phone.length - 1);
             }
         }
@@ -93863,7 +93878,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         paidAmountChanged: function paidAmountChanged(val) {
             if (this.totalAmountPaid > this.totalSpread) {
-                Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["a" /* toast */])('Amount paid cannot be greater than total sales amount', 'error', 'center');
+                Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])('Amount paid cannot be greater than total sales amount', 'error', 'center');
                 this.invalidPaymentsSum(true);
                 this.$store.commit('totalPaid', this.totalAmountPaid);
                 return null;
@@ -94382,7 +94397,7 @@ var addSale = {
     },
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['taxId', 'saleDate', "customer", "selectedTax"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['availableInventories', 'getInventory', 'totalPaid']), {
         invalidPaymentsSum: function invalidPaymentsSum() {
-            return parseInt(this.totalPaid) !== parseInt(this.spreadAmount);
+            return parseInt(this.totalPaid) > parseInt(this.spreadAmount);
         },
         spreadAmount: function spreadAmount() {
             return this.computedSalesAmount; // Payment Component require this
@@ -94403,6 +94418,9 @@ var addSale = {
             });
 
             return sum;
+        },
+        balanceLeft: function balanceLeft() {
+            return this.computedSalesAmount - this.totalPaid;
         },
         computedSalesAmount: function computedSalesAmount() {
             var sum = this.totalSalesAmount;
@@ -94469,11 +94487,24 @@ var addSale = {
             // ToDo: Implement this Watcher
         },
         saveSale: function saveSale() {
+            var _this = this;
+
             if (this.saleIsNotValid) {
                 this.validateSalesData();
                 return;
             }
 
+            if (this.balanceLeft === 0) {
+                this.sendSaleCreationRequest();
+            } else {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* confirmSomethingWithAlert */])("You have a balance of " + this.balanceLeft).then(function (result) {
+                    if (result.value) {
+                        _this.sendSaleCreationRequest();
+                    }
+                });
+            }
+        },
+        sendSaleCreationRequest: function sendSaleCreationRequest() {
             this.savingSale = true;
             var that = this;
             window.setTimeout(function () {
@@ -94502,38 +94533,41 @@ var addSale = {
                 var data = _ref2.data;
 
                 if (data.status === "success") {
-                    Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('Sale record added successfully.', 'success', 'center');
-                    window.location.href = "/client/sales";
+                    Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('Sale record added successfully.', 'success', 'center');
+                    setTimeout(function () {
+                        window.location.href = "/client/sales";
+                    }, 1000);
                 }
             });
         },
         previewInvoice: function previewInvoice() {
             if (!this.customer) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('You must select a customer to preview Invoice', 'error', 'center');
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('You must select a customer to preview Invoice', 'error', 'center');
                 return;
             }
             this.openModal("#previewInvoiceModal");
         },
         validateSalesData: function validateSalesData() {
             if (this.customer === null || typeof this.customer === "undefined") {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('You must select a customer before Saving', 'error', 'center');
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('You must select a customer before Saving', 'error', 'center');
             }
 
             if (this.saleDate === "") {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('You must select a date.', 'error', 'center');
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('You must select a date.', 'error', 'center');
             }
 
             if (this.taxId === "") {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('You must select a TAX', 'error', 'center');
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('You must select a TAX', 'error', 'center');
             }
 
             if (this.invalidPaymentsSum) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('Amount paid and Sales total didn\'t tally', 'error', 'center');
+                var totalSalesAmount = this.$currency.format(this.computedSalesAmount);
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("You cannot pay above the Total sales amount of NGN " + totalSalesAmount, 'error', 'center');
             }
         },
         openSendingModal: function openSendingModal() {
             if (!this.customer) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* toast */])('You must select a customer to send', 'error', 'center');
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('You must select a customer to send', 'error', 'center');
                 return;
             }
             this.openModal("#invoiceSender");
@@ -94757,12 +94791,12 @@ var SaleItem = function () {
 
             if (parseInt(quantity) < 0) {
                 this._isValid = false;
-                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])("Minimum number of quantity is 1", 'error');
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])("Minimum number of quantity is 1", 'error');
             }
 
             if (parseInt(quantity) > inventoryQuantity) {
                 this._isValid = false;
-                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])("This quantity cannot be greater than the inventory quantity which is " + inventoryQuantity, 'error');
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])("This quantity cannot be greater than the inventory quantity which is " + inventoryQuantity, 'error');
                 this._quantity = null;
             } else {
                 this._quantity = quantity;
@@ -97118,7 +97152,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data: function data() {
         return {
             tax_id: "",
-            sale_date: moment().format('YYYY-MM-DD'),
+            sale_date: null,
             customer_id: ""
         };
     },
@@ -97137,7 +97171,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.taxId(val);
         }
     }),
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['customer', 'selectedTax', "taxId"]))
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['customer', 'selectedTax', "taxId"])),
+    mounted: function mounted() {
+        this.sale_date = moment().format('YYYY-MM-DD');
+    }
 });
 
 /***/ }),

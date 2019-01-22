@@ -54,7 +54,7 @@
         data() {
             return {
                 tax_id: "",
-                sale_date: moment().format('YYYY-MM-DD'),
+                sale_date: null,
                 customer_id: "",
             }
         },
@@ -73,6 +73,9 @@
         },
         methods : {
             ...mapMutations(['customer', 'selectedTax', "taxId"])
+        },
+        mounted () {
+            this.sale_date = moment().format('YYYY-MM-DD');
         }
     }
 </script>
