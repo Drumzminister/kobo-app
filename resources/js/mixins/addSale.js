@@ -30,7 +30,7 @@ export const addSale = {
             return this.computedSalesAmount;
         },
         saleIsNotValid () {
-            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "" || this.invalidPaymentsSum;
+            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.invalidPaymentsSum;
         },
         taxAmount () {
             return (parseInt(this.selectedTax ? this.selectedTax.percentage : 0) / 100) * this.totalSalesAmount;
@@ -148,7 +148,7 @@ export const addSale = {
                     if (data.status === "success") {
                         toast('Sale record added successfully.', 'success', 'center');
                         setTimeout(function () {
-                            window.location.href = "/client/sales";
+                            // window.location.href = "/client/sales";
                         }, 1000);
                     }
                 });
@@ -167,10 +167,6 @@ export const addSale = {
 
             if (this.saleDate === "") {
                 toast('You must select a date.', 'error', 'center');
-            }
-
-            if (this.taxId === "") {
-                toast('You must select a TAX', 'error', 'center');
             }
 
             if (this.invalidPaymentsSum) {
