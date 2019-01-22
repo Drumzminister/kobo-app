@@ -94693,6 +94693,8 @@ var SaleItem = function () {
     }, {
         key: "createItemOnDatabase",
         value: function createItemOnDatabase() {
+            var _this = this;
+
             var data = this.getItemData();
             var self = this;
             var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/api/client' });
@@ -94706,6 +94708,9 @@ var SaleItem = function () {
                     self._id = data.data.id;
                     self.processing = false;
                     self.created_at = data.data.created_at;
+                } else {
+                    _this.processing = false;
+                    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(data.message, 'error');
                 }
             }).catch(function (err) {
                 return console.log(err);

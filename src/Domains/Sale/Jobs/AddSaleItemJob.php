@@ -42,6 +42,7 @@ class AddSaleItemJob extends Job
     public function handle()
     {
     	$sale = $this->sale->findOnly('id', $this->data['sale_id']);
+
     	if ($sale && $sale->type === "published") {
     		return $this->createJobResponse('error', 'You cannot add Items to this sale because it\'s already published', $sale);
 	    }

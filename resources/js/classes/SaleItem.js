@@ -139,6 +139,9 @@ class SaleItem
                     self._id = data.data.id;
                     self.processing = false;
                     self.created_at = data.data.created_at;
+                } else {
+                    this.processing = false;
+                    toast(data.message, 'error');
                 }
             })
             .catch((err) => console.log(err));
