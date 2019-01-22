@@ -1,8 +1,7 @@
 import SaleItem from "../classes/SaleItem";
-import {mapGetters, mapMutations, mapState} from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 import { toast, confirmSomethingWithAlert } from "../helpers/alert";
 import API from "../classes/API";
-import select2 from "select2";
 
 export const addSale = {
     data() {
@@ -28,7 +27,7 @@ export const addSale = {
             return parseInt(this.totalPaid) > parseInt(this.spreadAmount);
         },
         spreadAmount () {
-            return this.computedSalesAmount // Payment Component require this
+            return this.computedSalesAmount;
         },
         saleIsNotValid () {
             return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "" || this.invalidPaymentsSum;
