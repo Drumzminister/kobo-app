@@ -11,8 +11,9 @@ class CreditBanksJob extends Job
 {
 	use HelpsResponse;
 
-	const V_OBJECTS_NAMESPACE = '\\App\\Data\\VObject\\';
 	const TRANSACTION_NAMESPACE = '\\App\\Data\\Repositories\\';
+
+	const CLASS_SUFFIX = 'Transaction';
 	/**
 	 * @var array
 	 */
@@ -85,6 +86,6 @@ class CreditBanksJob extends Job
 
     protected function getModelClass()
     {
-	    return $class = self::TRANSACTION_NAMESPACE . ucfirst(str_plural(get_class($this->model))) . 'Transaction';
+	    return $class = self::TRANSACTION_NAMESPACE . ucfirst(str_plural(get_class($this->model))) . self::CLASS_SUFFIX;
     }
 }
