@@ -11,7 +11,7 @@ export const staffApp = {
             phone: '',
             years_of_experience: '',
             comment: '',
-            avatar: ''
+            image: ''
         },
         staff: [],
         staffSearchInput: '',
@@ -34,6 +34,7 @@ export const staffApp = {
         createStaff(evt) {
             evt.preventDefault();
             axios.post('/client/staff/single-staff/add', this.staffForm).then(res => {
+                console.log(this.staffForm.image);
               swal('Success', res.data.message, 'success');
               this.staffForm = '';
             }).catch(err => {

@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::group(['prefix' => 'client'], function () {
     // The controllers live in src/Services/Client/Http/Controllers
     // Route::get('/', 'UserController@index');
@@ -104,4 +105,13 @@ Route::group(['prefix' => 'client'], function () {
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
 
 Route::get('/bar/{slug}', 'ClientDashboardController@testFeature');
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+
+Route::post('filesystem', function(Request $request){
+        $file = $request->file('avatar');
+        $store = Storage::disk('s3')->put('customer', $file);
+        return $store;
+});
 

@@ -178,6 +178,13 @@
         </div>
     </div>
 </div>
+<form method="post" action="/filesystem" enctype="multipart/form-data">
+    @csrf
+    <input type="file" name="avatar" class="form-control"/>
+    <button type="submit">Send</button>
+</form>
+
+
 @endsection
 @section('other_js')
 <script>

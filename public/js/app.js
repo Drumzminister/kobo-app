@@ -74015,7 +74015,7 @@ var staffApp = {
             phone: '',
             years_of_experience: '',
             comment: '',
-            avatar: ''
+            image: ''
         },
         staff: [],
         staffSearchInput: '',
@@ -74041,6 +74041,7 @@ var staffApp = {
 
             evt.preventDefault();
             axios.post('/client/staff/single-staff/add', this.staffForm).then(function (res) {
+                console.log(_this.staffForm.image);
                 swal('Success', res.data.message, 'success');
                 _this.staffForm = '';
             }).catch(function (err) {
@@ -74089,16 +74090,13 @@ var staffApp = {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])('Years of experience cannot be above 50', 'error');
                 this.staffForm.years_of_experience = 50;
             }
-            if (Number(this.staffForm.phone.length > 11)) {
+            if (Number(this.staffForm.phone > 11)) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])('Phone number cannot be greater than 11', 'error');
                 this.staffForm.phone = this.staffForm.phone.slice(0, this.staffForm.phone.length - 1);
             }
-            if (this.staffForm.comment.length > 300) {
-                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["a" /* toast */])('Cannot add above 300 characters', 'error');
-                this.staffForm.comment.slice(0, this.staffForm.comment.length - 1);
-            }
         }
     }
+
 };
 
 /***/ }),

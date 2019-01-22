@@ -85,7 +85,7 @@ $factory->define(\Koboaccountant\Models\Staff::class, function (Faker $faker) us
         'salary'        => $faker->numberBetween(30000, 150000),
         'email'         =>  $faker->email,
         'phone'         =>  $faker->phoneNumber,
-        'years_of_experience' => $faker->dateTime(),
+        'years_of_experience' => $faker->numberBetween(5, 20),
         'isActive'      => $faker->numberBetween(0, 1),
         'employed_date' => $faker->dateTime(),
         'avatar'        => $faker->imageUrl,
