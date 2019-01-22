@@ -13,7 +13,6 @@
 
   {{--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>--}}
   {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.js"></script>--}}
-    {{--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />--}}
   <!-- Favicons -->
   <link href="https://res.cloudinary.com/syfon/image/upload/v1536857508/favicon.png" rel="icon">
 
@@ -48,6 +47,7 @@
 
 @yield("other_js")
 <script src="{{asset('js/app.js')}}"></script>
+
      {{--<script src="{{asset('js/particles.js')}}"></script>--}}
 {{--<script src="{{asset('js/main.js')}}"></script>--}}
 

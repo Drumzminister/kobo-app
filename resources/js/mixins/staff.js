@@ -1,3 +1,4 @@
+import {toast} from "../helpers/alert";
 export const staffApp = {
     data: {
         staffForm: {
@@ -21,13 +22,14 @@ export const staffApp = {
             experience: '',
             dateOfEmployment: '',
             comment: '',
+            phone: ''
         },
+        messageText: ''
     },
     created() {
-        axios.get('/client/staff/all-staff').then(res => {
-            this.staff = res.data;
-        })
+            this.staff = window.all_staff;
     },
+
     methods: {
         createStaff(evt) {
             evt.preventDefault();
@@ -52,6 +54,7 @@ export const staffApp = {
             this.StaffInformation.experience = staff.years_of_experience;
             this.StaffInformation.dateOfEmployment = staff.employed_date;
             this.StaffInformation.comment = staff.comment;
+            this.StaffInformation.salary = staff.salary;
         },
 
         staffStatusFilter(){
@@ -69,13 +72,17 @@ export const staffApp = {
             } else {
                 this.staff = this.allStaff.filter(staff => staff.isActive === 0)
             }
+        },
+        validateInput () {
+            if (Number(this.staffForm.years_of_experience) > 50){
+                toast('Years of experience cannot be above 50', 'error');
+                this.staffForm.years_of_experience = 50;
+            }
+            if(Number(this.staffForm.phone > 11)) {
+                toast('Phone number cannot be greater than 11', 'error');
+                this.staffForm.phone = this.staffForm.phone.slice(0, this.staffForm.phone.length -1)
+            }
+        },
+    },
 
-            // let inactiveStaff = this.staff.filter(staff => staff.isActive === 0);
-            // this.activeStaff = ! this.activeStaff;
-            // let activeStaff = this.staff.filter(staff => staff.isActive === 1);
-        }
-
-// }
-
-    }
 };

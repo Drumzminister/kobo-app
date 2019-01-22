@@ -41,7 +41,7 @@
                                 <div class="input-group">
                                     <input v-model="search" type="text"class="form-control search" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                        <span @click="searchVendor" class="input-group-text vat-input px-5 py-2"  id="basic-addon2">Search</span>
+                                        <a href="#"> <span @click.prevent="searchVendor" class="input-group-text vat-input px-5 py-2"  id="basic-addon2">Search</a></span>
                                     </div>
                                 </div>
                             </div>

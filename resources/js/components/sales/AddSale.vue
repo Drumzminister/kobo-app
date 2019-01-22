@@ -35,7 +35,7 @@
                                 <Select2 :settings="{placeholder: 'Inventory'}" v-model="item.inventory_id" :options="availableInventories.map((inventory) => {return {id: inventory.id, text: inventory.name} })" @change="fillSaleItemWithInventory(item)"/>
                             </td>
                             <td><input v-model="item.description" @change="item.debounceItemSaving()" type="text" id="sales_description" class="form-control sales_description "></td>
-                            <td><input :disabled="item.inventory_id === ''" @change="item.debounceItemSaving()" v-model="item.quantity" type="number" class="sales_quantity form-control" :placeholder="item.inventory ? 'Available: ' + item.inventory.quantity : 0"></td>
+                            <td><input :disabled="item.inventory_id === ''" @change="item.debounceItemSaving()" v-model="item.quantity" type="number" class="sales_quantity form-control" :placeholder="item.inventory ? item.inventory.quantity + ' In Stock' : null"></td>
                             <td><input disabled v-model="item.sales_price" type="number" class="form-control sales_price" placeholder="0.00"></td>
                             <td><input disabled v-model="item.totalPrice()" type="text" class="form-control sales_total" id="sales_total" placeholder="0.00"></td>
                             <td>
@@ -55,8 +55,11 @@
                         </tbody>
                     </table>
                 </div>
+
                 <div class="row">
-                    <span @click="addNewSaleItemRow()" class="float-right">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i></span>
+                    <div class="col-md-12 pr-5">
+                        <span @click="addNewSaleItemRow()" class="float-right">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259; cursor: pointer;"></i></span>
+                    </div>
                 </div>
                 <div class="row p-2 mt-2 ">
                     <div class="col-md-6">
@@ -89,7 +92,7 @@
                                 <div class="col-md-6">
                                     <h5 class="h6 uppercase">TAX Amount</h5>
                                     <div class="input-group input-group-lg">
-                                        <div class="input-group-prepend cus">
+                                        <div class="input-group-prepend">
                                             <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                         </div>
                                         <input type="text" :disabled="true" v-model="taxAmount" class="form-control" aria-describedby="basic-addon3" placeholder="0.00">
@@ -99,7 +102,7 @@
                                 <div class="col-md-6">
                                     <h5 class="h6 uppercase">Total Amount</h5>
                                     <div class="input-group input-group-lg">
-                                        <div class="input-group-prepend cus">
+                                        <div class="input-group-prepend">
                                             <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                         </div>
                                         <input type="text" :disabled="true" v-model="currency.format(computedSalesAmount)" class="form-control" id="total" aria-describedby="basic-addon3" placeholder="0.00">

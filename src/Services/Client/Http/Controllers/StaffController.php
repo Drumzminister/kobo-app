@@ -54,10 +54,10 @@ class StaffController extends Controller
     {
         return $this->serve(addMultipleStaffFeature::class);
     }
-    public function allStaff()
-    {
-        return $this->serve(GetAllStaffFeature::class);
-    }
+//    public function allStaff()
+//    {
+//        return $this->serve(GetAllStaffFeature::class);
+//    }
     public function searchStaff()
     {
         return $this->serve(SearchStaffFeature::class);
