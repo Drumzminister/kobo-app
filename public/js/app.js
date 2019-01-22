@@ -94497,7 +94497,7 @@ var addSale = {
             if (this.balanceLeft === 0) {
                 this.sendSaleCreationRequest();
             } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* confirmSomethingWithAlert */])("You have a balance of " + this.balanceLeft).then(function (result) {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* confirmSomethingWithAlert */])("You have a balance of NGN " + this.$currency.format(this.balanceLeft)).then(function (result) {
                     if (result.value) {
                         _this.sendSaleCreationRequest();
                     }
@@ -97096,12 +97096,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_select2_component__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
-//
-//
-//
-//
-//
 //
 //
 //

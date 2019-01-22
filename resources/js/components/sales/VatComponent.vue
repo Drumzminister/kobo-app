@@ -16,12 +16,6 @@
                             <span class="input-group-text customer-input" id="basic-addon3">Customer</span>
                         </div>
                         <Select2 :settings="{placeholder: 'Select Customer'}" v-model="customer_id" :options="customers.map((customer) => {return {id: customer.id, text: customer.first_name + ' ' + customer.last_name } })"/>
-                        <!--<select v-model="customer_id" class="customer form-control">-->
-                            <!--<option value="">Select Customer ...</option>-->
-                            <!--<option v-for="customer in customers" :value="customer.id">-->
-                                <!--{{ customer.first_name + ' ' + customer.last_name }}-->
-                            <!--</option>-->
-                        <!--</select>-->
                     </div>
                 </div>
                 <div class="col-md-3">

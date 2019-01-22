@@ -113,7 +113,7 @@ export const addSale = {
             if (this.balanceLeft === 0) {
                 this.sendSaleCreationRequest();
             } else {
-                confirmSomethingWithAlert(`You have a balance of ${this.balanceLeft}`).then((result) => {
+                confirmSomethingWithAlert(`You have a balance of NGN ${this.$currency.format(this.balanceLeft)}`).then((result) => {
                     if (result.value) {
                         this.sendSaleCreationRequest();
                     }
