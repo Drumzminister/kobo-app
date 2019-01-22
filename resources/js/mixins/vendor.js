@@ -13,6 +13,10 @@ export const vendorApp = {
         this.addNewRow();
     },
     methods: {
+        CheckForm() {
+            this.errors = [];
+
+        },
         saveVendor() {
             let data = {
                 items: this.vendorTableRows,
@@ -29,8 +33,6 @@ export const vendorApp = {
                     title: error.response.data.message,
                     timer: 1500
                 });
-                // console.log(error);
-                // swal('Error', error.response.data.message, 'error')
             });
         },
 
