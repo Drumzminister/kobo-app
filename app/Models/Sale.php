@@ -31,7 +31,7 @@ class Sale extends Model
     ];
 
     protected $with = [
-    	'saleItems', 'customer', 'tax'
+    	'saleItems', 'customer', 'tax', 'transactions'
     ];
 
     protected $dates = ['deleted_at', 'created_at'];

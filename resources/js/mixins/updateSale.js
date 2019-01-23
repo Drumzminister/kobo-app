@@ -8,8 +8,8 @@ export const updateSale = {
         return {
             sale_customer_id: "",
             saleItems: [],
-            deliveryCost: null,
-            saleDiscount: null,
+            deliveryCost: this.sale.delivery_cost || null,
+            saleDiscount: this.sale.discount || null,
             savingSale: false,
             saleSaved: false,
         }

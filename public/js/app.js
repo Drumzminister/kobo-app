@@ -93824,20 +93824,50 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['banks'],
+    props: ['banks', 'options', 'transactions'],
     data: function data() {
         return {
             salePaymentMethods: [],
             selectedPaymentMethods: []
         };
     },
+    mounted: function mounted() {
+        this.addTransactionsRecordIfAvailable();
+    },
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['availableAccounts', 'selectedAccounts']), {
+        readOnly: function readOnly() {
+            return this.options ? this.options.readOnly || false : false;
+        },
         totalAmountPaid: function totalAmountPaid() {
             var sum = 0;
             this.selectedAccounts.forEach(function (method) {
@@ -93864,6 +93894,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }, this.debouncePaidAmountChanged);
     },
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['totalPaid', 'invalidPaymentsSum']), {
+        addTransactionsRecordIfAvailable: function addTransactionsRecordIfAvailable() {
+            var _this2 = this;
+
+            if (this.transactions) {
+                this.transactions.forEach(function (transaction) {
+                    return _this2.salePaymentMethods.push({ amount: transaction.amount, id: transaction.bank_detail_id, name: transaction.bank.bank_name });
+                });
+            }
+        },
         addBanksToStore: function addBanksToStore() {
             this.$store.commit('setCompanyAccounts', this.banks);
         },
@@ -93912,7 +93951,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.salePaymentMethods.length === this.banks.length;
         },
         addSalePaymentMethod: function addSalePaymentMethod() {
-            if (this.bankIsNotAvailable()) return;
+            if (this.bankIsNotAvailable() || this.readOnly) return;
             this.salePaymentMethods.push({
                 bank_id: null,
                 amount: null,
@@ -93934,7 +93973,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-12" }, [
+  return _c("div", { staticClass: "bg-grey" }, [
     _c(
       "div",
       { staticClass: "bg-grey py-4 px-3", attrs: { id: "top" } },
@@ -93962,127 +94001,258 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _vm._l(_vm.salePaymentMethods, function(paymentMethod, index) {
-          return _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-5" }, [
-              _c("div", { staticClass: "dropdown show mt-3 payment_mode" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-lg btn-payment dropdown-toggle",
-                    attrs: {
-                      role: "button",
-                      id: "dropdownMenuLink",
-                      "data-toggle": "dropdown",
-                      "aria-haspopup": "true",
-                      "aria-expanded": "false"
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(paymentMethod.name || "Select") +
-                        "\n                    "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
+          return _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.readOnly && _vm.transactions.length > 0,
+                  expression: "readOnly && transactions.length > 0"
+                }
+              ],
+              staticClass: "row"
+            },
+            [
+              _c("div", { staticClass: "col-md-5" }, [
+                _c("div", { staticClass: "dropdown show mt-3 payment_mode" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-lg btn-payment dropdown-toggle",
+                      attrs: {
+                        role: "button",
+                        id: "dropdownMenuLink",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(paymentMethod.name || "Select") +
+                          "\n                    "
+                      )
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4" }, [
                 _c(
                   "div",
-                  {
-                    staticClass: "dropdown-menu payment_mode_id",
-                    attrs: { "aria-labelledby": "dropdownMenuLink" }
-                  },
-                  _vm._l(_vm.availableAccounts, function(account) {
-                    return _c(
-                      "button",
-                      {
-                        staticClass: "dropdown-item",
-                        on: {
-                          click: function($event) {
-                            _vm.setPaymentMode(paymentMethod, account)
-                          }
-                        }
-                      },
-                      [_vm._v(_vm._s(account.account_name.split(" ")[0]))]
-                    )
-                  }),
-                  0
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
-              _c(
-                "div",
-                { staticClass: "show input-group input-group-lg mt-3" },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: paymentMethod.amount,
-                        expression: "paymentMethod.amount"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    staticStyle: { height: "39px" },
-                    attrs: {
-                      type: "number",
-                      min: "1",
-                      "aria-label": "Sizing example input",
-                      "aria-describedby": "",
-                      placeholder: "0.00"
-                    },
-                    domProps: { value: paymentMethod.amount },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(paymentMethod, "amount", $event.target.value)
-                      }
-                    }
-                  })
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "col-md-3",
-                staticStyle: { "margin-top": "20px" }
-              },
-              [
-                _c(
-                  "span",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.salePaymentMethods.length > 1,
-                        expression: "salePaymentMethods.length > 1"
-                      }
-                    ],
-                    staticStyle: { cursor: "pointer", "margin-top": "20px" },
-                    on: {
-                      click: function($event) {
-                        _vm.removeSalePaymentMethod(index, paymentMethod.id)
-                      }
-                    }
-                  },
+                  { staticClass: "show input-group input-group-lg mt-3" },
                   [
-                    _c("i", {
-                      staticClass: "fa fa-times",
-                      staticStyle: { "font-size": "32px", color: "#c22c29" }
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: paymentMethod.amount,
+                          expression: "paymentMethod.amount"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      staticStyle: { height: "39px" },
+                      attrs: {
+                        disabled: _vm.readOnly,
+                        type: "number",
+                        min: "1",
+                        "aria-label": "Sizing example input",
+                        "aria-describedby": "",
+                        placeholder: "0.00"
+                      },
+                      domProps: { value: paymentMethod.amount },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(paymentMethod, "amount", $event.target.value)
+                        }
+                      }
                     })
                   ]
                 )
-              ]
-            )
-          ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "col-md-3",
+                  staticStyle: { "margin-top": "20px" }
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.salePaymentMethods.length > 1,
+                          expression: "salePaymentMethods.length > 1"
+                        }
+                      ],
+                      staticStyle: { cursor: "pointer", "margin-top": "20px" },
+                      on: {
+                        click: function($event) {
+                          _vm.removeSalePaymentMethod(index, paymentMethod.id)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-times",
+                        staticStyle: { "font-size": "32px", color: "#c22c29" }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.salePaymentMethods, function(paymentMethod, index) {
+          return _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.readOnly,
+                  expression: "!readOnly"
+                }
+              ],
+              staticClass: "row"
+            },
+            [
+              _c("div", { staticClass: "col-md-5" }, [
+                _c("div", { staticClass: "dropdown show mt-3 payment_mode" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-lg btn-payment dropdown-toggle",
+                      attrs: {
+                        role: "button",
+                        id: "dropdownMenuLink",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(paymentMethod.name || "Select") +
+                          "\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "dropdown-menu payment_mode_id",
+                      attrs: { "aria-labelledby": "dropdownMenuLink" }
+                    },
+                    _vm._l(_vm.availableAccounts, function(account) {
+                      return _c(
+                        "button",
+                        {
+                          staticClass: "dropdown-item",
+                          on: {
+                            click: function($event) {
+                              _vm.setPaymentMode(paymentMethod, account)
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(account.account_name.split(" ")[0]))]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4" }, [
+                _c(
+                  "div",
+                  { staticClass: "show input-group input-group-lg mt-3" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: paymentMethod.amount,
+                          expression: "paymentMethod.amount"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      staticStyle: { height: "39px" },
+                      attrs: {
+                        disabled: _vm.readOnly,
+                        type: "number",
+                        min: "1",
+                        "aria-label": "Sizing example input",
+                        "aria-describedby": "",
+                        placeholder: "0.00"
+                      },
+                      domProps: { value: paymentMethod.amount },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(paymentMethod, "amount", $event.target.value)
+                        }
+                      }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "col-md-3",
+                  staticStyle: { "margin-top": "20px" }
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.salePaymentMethods.length > 1,
+                          expression: "salePaymentMethods.length > 1"
+                        }
+                      ],
+                      staticStyle: { cursor: "pointer", "margin-top": "20px" },
+                      on: {
+                        click: function($event) {
+                          _vm.removeSalePaymentMethod(index, paymentMethod.id)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-times",
+                        staticStyle: { "font-size": "32px", color: "#c22c29" }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
         }),
         _vm._v(" "),
         _c("div", { staticClass: "row text-center mt-4 " }, [
@@ -94212,6 +94382,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_v_select2_component__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_v_select2_component__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_formatter__ = __webpack_require__(473);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -96633,7 +96811,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "row p-2 mt-2 " }, [
+          _c("div", { staticClass: "row py-4 px-3 mt-2 " }, [
             _c(
               "div",
               { staticClass: "col-md-6" },
@@ -96641,106 +96819,94 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-6 " }, [
               _c(
                 "div",
-                { staticClass: "bg-grey py-4 px-3", attrs: { id: "topp" } },
+                { staticClass: "bg-grey py-3 px-4", attrs: { id: "topp" } },
                 [
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("h5", { staticClass: "h6 uppercase" }, [
-                        _vm._v("Total Discount")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "input-group mb-3 input-group-lg" },
-                        [
-                          _vm._m(1),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.saleDiscount,
-                                expression: "saleDiscount"
-                              }
-                            ],
-                            staticClass: "form-control discount",
-                            attrs: {
-                              type: "number",
-                              min: "1",
-                              id: "basic-url",
-                              "aria-describedby": "basic-addon3",
-                              placeholder: "0.00"
-                            },
-                            domProps: { value: _vm.saleDiscount },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.saleDiscount = $event.target.value
-                              }
-                            }
-                          })
-                        ]
-                      )
-                    ]),
+                    _vm._m(1),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("h5", { staticClass: "h6 uppercase" }, [
-                        _vm._v("Total Delivery Amount")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "input-group mb-3 input-group-lg" },
-                        [
-                          _vm._m(2),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.deliveryCost,
-                                expression: "deliveryCost"
-                              }
-                            ],
-                            staticClass: "form-control ",
-                            attrs: {
-                              type: "number",
-                              min: "1",
-                              id: "",
-                              "aria-describedby": "basic-addon3",
-                              placeholder: "0.00"
-                            },
-                            domProps: { value: _vm.deliveryCost },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.deliveryCost = $event.target.value
-                              }
+                    _c(
+                      "div",
+                      { staticClass: "col input-group mb-2 input-group-lg" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.saleDiscount,
+                              expression: "saleDiscount"
                             }
-                          })
-                        ]
-                      )
-                    ])
+                          ],
+                          staticClass: "form-control discount",
+                          attrs: {
+                            type: "number",
+                            min: "1",
+                            id: "basic-url",
+                            "aria-describedby": "basic-addon3",
+                            placeholder: "0.00"
+                          },
+                          domProps: { value: _vm.saleDiscount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.saleDiscount = $event.target.value
+                            }
+                          }
+                        })
+                      ]
+                    )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "row pt-2" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("h5", { staticClass: "h6 uppercase" }, [
-                        _vm._v("TAX Amount")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-group input-group-lg" }, [
-                        _vm._m(3),
-                        _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col input-group mb-2 input-group-lg" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.deliveryCost,
+                              expression: "deliveryCost"
+                            }
+                          ],
+                          staticClass: "form-control ",
+                          attrs: {
+                            type: "number",
+                            min: "1",
+                            id: "",
+                            "aria-describedby": "basic-addon3",
+                            placeholder: "0.00"
+                          },
+                          domProps: { value: _vm.deliveryCost },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.deliveryCost = $event.target.value
+                            }
+                          }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col input-group input-group-lg" },
+                      [
                         _c("input", {
                           directives: [
                             {
@@ -96767,17 +96933,19 @@ var render = function() {
                             }
                           }
                         })
-                      ])
-                    ]),
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row px-5 mt-0" }, [
+                    _vm._m(4),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("h5", { staticClass: "h6 uppercase" }, [
-                        _vm._v("Total Amount")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-group input-group-lg" }, [
-                        _vm._m(4),
-                        _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col input-group input-group-lg" },
+                      [
                         _c("input", {
                           directives: [
                             {
@@ -96813,8 +96981,8 @@ var render = function() {
                             }
                           }
                         })
-                      ])
-                    ])
+                      ]
+                    )
                   ])
                 ]
               )
@@ -97022,9 +97190,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("span", { staticClass: "input-group-text customer-input" }, [
-        _vm._v("₦")
+    return _c("div", { staticClass: "col" }, [
+      _c("h5", { staticClass: "h6 mt-2 uppercase text-muted" }, [
+        _vm._v("Total Discount")
       ])
     ])
   },
@@ -97032,45 +97200,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        {
-          staticClass: "input-group-text customer-input",
-          attrs: { id: "basic-addon3" }
-        },
-        [_vm._v("₦")]
-      )
+    return _c("div", { staticClass: "col" }, [
+      _c("h5", { staticClass: "h6 mt-2 uppercase text-muted" }, [
+        _vm._v("Total Delivery Amount")
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        {
-          staticClass: "input-group-text customer-input",
-          attrs: { id: "basic-addon3" }
-        },
-        [_vm._v("₦")]
-      )
+    return _c("div", { staticClass: "col" }, [
+      _c("h5", { staticClass: "h6 mt-2 uppercase text-muted" }, [
+        _vm._v("TAX Amount")
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        {
-          staticClass: "input-group-text customer-input",
-          attrs: { id: "basic-addon3" }
-        },
-        [_vm._v("₦")]
-      )
+    return _c("div", { staticClass: "col-md-5" }, [
+      _c("h5", { staticClass: "h5 mt-2 uppercase text-muted" }, [
+        _vm._v("Total Amount")
+      ])
     ])
   }
 ]
@@ -115581,7 +115734,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             currency: new Intl.NumberFormat('en-US', {
                 minimumFractionDigits: 2
-            })
+            }),
+            paymentModeOptions: {
+                readOnly: true
+            }
         };
     }
 });
@@ -115693,13 +115849,13 @@ var render = function() {
                                         name: "show",
                                         rawName: "v-show",
                                         value:
-                                          _vm.saleItems.length > 1 &&
+                                          item.reversedItem === null &&
                                           !item.processing,
                                         expression:
-                                          "saleItems.length > 1 && !item.processing"
+                                          "item.reversedItem === null && !item.processing"
                                       }
                                     ],
-                                    staticClass: "fa fa-jedi",
+                                    staticClass: "fa fa-undo",
                                     staticStyle: {
                                       cursor: "pointer",
                                       color: "#da1313"
@@ -115816,30 +115972,6 @@ var render = function() {
                                       {
                                         name: "show",
                                         rawName: "v-show",
-                                        value:
-                                          _vm.saleItems.length > 1 &&
-                                          !item.processing,
-                                        expression:
-                                          "saleItems.length > 1 && !item.processing"
-                                      }
-                                    ],
-                                    staticClass: "fa fa-jedi",
-                                    staticStyle: {
-                                      cursor: "pointer",
-                                      color: "#da1313"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.reverseSaleItemRow(index)
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("i", {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
                                         value: item.processing,
                                         expression: "item.processing"
                                       }
@@ -115868,7 +116000,15 @@ var render = function() {
             _c(
               "div",
               { staticClass: "col-md-6" },
-              [_c("payment-method-selection", { attrs: { banks: _vm.banks } })],
+              [
+                _c("payment-method-selection", {
+                  attrs: {
+                    options: _vm.paymentModeOptions,
+                    transactions: _vm.sale.transactions,
+                    banks: _vm.banks
+                  }
+                })
+              ],
               1
             ),
             _vm._v(" "),
@@ -115902,6 +116042,7 @@ var render = function() {
                             attrs: {
                               type: "number",
                               min: "1",
+                              disabled: true,
                               id: "basic-url",
                               "aria-describedby": "basic-addon3",
                               placeholder: "0.00"
@@ -115944,6 +116085,7 @@ var render = function() {
                             attrs: {
                               type: "number",
                               min: "1",
+                              disabled: true,
                               id: "",
                               "aria-describedby": "basic-addon3",
                               placeholder: "0.00"
@@ -116245,7 +116387,7 @@ var staticRenderFns = [
           ]
         ),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+        _c("th", { staticClass: "text-center" })
       ])
     ])
   },
@@ -116336,8 +116478,8 @@ var updateSale = {
         return {
             sale_customer_id: "",
             saleItems: [],
-            deliveryCost: null,
-            saleDiscount: null,
+            deliveryCost: this.sale.delivery_cost || null,
+            saleDiscount: this.sale.discount || null,
             savingSale: false,
             saleSaved: false
         };

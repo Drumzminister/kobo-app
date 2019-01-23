@@ -1,5 +1,6 @@
- <template>
-    <div class="col-12">
+
+<template>
+    <div class="bg-grey">
         <div class="bg-grey py-4 px-3" id="top">
             <div class="row">
                 <div class="col-md-6">
@@ -19,7 +20,30 @@
                     <h5 class="h6 uppercase">Amount</h5>
                 </div>
             </div>
-            <div v-for="(paymentMethod, index) in salePaymentMethods" class="row" >
+            <div v-show="readOnly && transactions.length > 0" v-for="(paymentMethod, index) in salePaymentMethods" class="row" >
+                <div class="col-md-5">
+                    <div class="dropdown show mt-3 payment_mode">
+                        <button class="btn btn-lg btn-payment dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ paymentMethod.name || 'Select'}}
+                        </button>
+                        <!--<div class="dropdown-menu payment_mode_id" aria-labelledby="dropdownMenuLink">-->
+                            <!--<button :disabled="readOnly" class="dropdown-item" v-for="account in selectedPaymentMethods">{{ account.bank.bank_name }}</button>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="show input-group input-group-lg mt-3">
+                        <input v-model="paymentMethod.amount" :disabled="readOnly" type="number" min="1" style="height: 39px;" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="0.00">
+                    </div>
+                </div>
+
+                <div class="col-md-3" style="margin-top: 20px">
+                    <span class="" style="cursor: pointer; margin-top: 20px" v-show="salePaymentMethods.length > 1" @click="removeSalePaymentMethod(index, paymentMethod.id)"><i class="fa fa-times" style="font-size:32px;color:#c22c29;"></i></span>
+                </div>
+            </div>
+
+            <div v-show="!readOnly" v-for="(paymentMethod, index) in salePaymentMethods" class="row" >
                 <div class="col-md-5">
                     <div class="dropdown show mt-3 payment_mode">
                         <button class="btn btn-lg btn-payment dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -33,7 +57,7 @@
 
                 <div class="col-md-4">
                     <div class="show input-group input-group-lg mt-3">
-                        <input v-model="paymentMethod.amount" type="number" min="1" style="height: 39px;" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="0.00">
+                        <input v-model="paymentMethod.amount" :disabled="readOnly" type="number" min="1" style="height: 39px;" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="0.00">
                     </div>
                 </div>
 
@@ -62,15 +86,21 @@
     import {toast} from "../../helpers/alert";
 
     export default {
-        props: ['banks'],
+        props: ['banks', 'options', 'transactions'],
         data() {
             return {
                 salePaymentMethods: [],
                 selectedPaymentMethods: []
             }
         },
+        mounted () {
+            this.addTransactionsRecordIfAvailable();
+        },
         computed: {
             ...mapGetters(['availableAccounts', 'selectedAccounts']),
+            readOnly () {
+                return this.options ? this.options.readOnly || false : false;
+            },
             totalAmountPaid () {
                 let sum = 0;
                 this.selectedAccounts.forEach(function (method) {
@@ -94,6 +124,11 @@
         },
         methods: {
             ...mapMutations(['totalPaid', 'invalidPaymentsSum']),
+            addTransactionsRecordIfAvailable () {
+                if (this.transactions) {
+                    this.transactions.forEach((transaction) => this.salePaymentMethods.push({ amount: transaction.amount, id: transaction.bank_detail_id, name: transaction.bank.bank_name}));
+                }
+            },
             addBanksToStore () {
                 this.$store.commit('setCompanyAccounts', this.banks);
             },
@@ -136,7 +171,7 @@
                 return this.salePaymentMethods.length === this.banks.length;
             },
             addSalePaymentMethod: function () {
-                if (this.bankIsNotAvailable()) return;
+                if (this.bankIsNotAvailable() || this.readOnly) return;
                 this.salePaymentMethods.push({
                     bank_id: null,
                     amount: null,

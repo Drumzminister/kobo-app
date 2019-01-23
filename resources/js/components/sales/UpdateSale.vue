@@ -25,7 +25,7 @@
                             <th scope="col" class="tool" data-tip="Channel of sale" tabindex="1">
                                 Channel
                             </th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center"></th>
                         </tr>
                         </thead>
                         <tbody id="salesTable">
@@ -51,7 +51,7 @@
                                     </td>
 
                                     <td id="delete">
-                                        <i @click="reverseSaleItemRow(index)" v-show="saleItems.length > 1 && !item.processing" style="cursor: pointer; color: #da1313;" class="fa fa-jedi"></i>
+                                        <i @click="reverseSaleItemRow(index)" v-show="item.reversedItem === null && !item.processing" style="cursor: pointer; color: #da1313;" class="fa fa-undo"></i>
                                         <i v-show="item.processing" style="color: #da1313; font-size: 30px" class="fa fa-circle-notch fa-spin-fast"></i>
                                     </td>
                                 </tr>
@@ -77,7 +77,7 @@
                                     </td>
 
                                     <td id="delete">
-                                        <i @click="reverseSaleItemRow(index)" v-show="saleItems.length > 1 && !item.processing" style="cursor: pointer; color: #da1313;" class="fa fa-jedi"></i>
+                                        <!--<i @click="reverseSaleItemRow(index)" v-show="saleItems.length > 1 && !item.processing" style="cursor: pointer; color: #da1313;" class="fa fa-jedi"></i>-->
                                         <i v-show="item.processing" style="color: #da1313; font-size: 30px" class="fa fa-circle-notch fa-spin-fast"></i>
                                     </td>
                                 </tr>
@@ -93,7 +93,7 @@
                 <!--</div>-->
                 <div class="row p-2 mt-2 ">
                     <div class="col-md-6">
-                        <payment-method-selection :banks="banks"></payment-method-selection>
+                        <payment-method-selection :options="paymentModeOptions" :transactions="sale.transactions" :banks="banks"></payment-method-selection>
                     </div>
 
                     <div class="col-md-6">
@@ -105,7 +105,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text customer-input">&#8358;</span>
                                         </div>
-                                        <input type="number" min="1" v-model="saleDiscount" class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="0.00">
+                                        <input type="number" min="1" :disabled="true" v-model="saleDiscount" class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="0.00">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -114,7 +114,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
                                         </div>
-                                        <input type="number" min="1" v-model="deliveryCost" class="form-control " id="" aria-describedby="basic-addon3" placeholder="0.00">
+                                        <input type="number" min="1" :disabled="true" v-model="deliveryCost" class="form-control " id="" aria-describedby="basic-addon3" placeholder="0.00">
                                     </div>
                                 </div>
                             </div>
@@ -184,7 +184,10 @@
             return {
                 currency: new Intl.NumberFormat('en-US', {
                     minimumFractionDigits: 2
-                })
+                }),
+                paymentModeOptions: {
+                    readOnly: true,
+                }
             }
         }
     }
