@@ -24,7 +24,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('/bank-update/{detailId}', 'BankDetailController@updateBankDetail')->name('client.update-bank');
     Route::get('/bank/delete/{detailId}', 'BankDetailController@deleteBankDetail')->name('client.delete-bank');
 
-	Route::post('/sale/add', 'SaleController@addSale')->name('client.sale.add');
+	Route::post('/sale', 'SaleController@addSale')->name('client.sale.add');
 	Route::get('/sale/list', 'SaleController@listSales')->name('client.sale.list');
 	Route::post('/sale/update/{saleId}', 'SaleController@updateSale')->name('client.sale.update');
 	Route::post('/sale/delete/{saleId}', 'SaleController@deleteSale')->name('client.sale.delete');
@@ -41,7 +41,8 @@ Route::group(['prefix' => 'client'], function () {
 	Route::get('/loans/all', 'LoanController@index')->name('client.loan.all');
 	Route::post('/loan/add', 'LoanController@addLoan')->name('client.loan.add');
 	Route::get('/loan/list', 'LoanController@listLoan')->name('client.loan.list');
-	Route::post('/loan/{loanId}/pay', 'LoanController@payLoan')->name('client.loan.list');
+	Route::post('/loan/{loanId}/pay', 'LoanController@payLoan')->name('client.loan.pay');
+	Route::get('/loan/{loanId}/payments', 'LoanController@listPayments')->name('client.loan.payments');
 	Route::get('/loan/search/{param}', 'LoanController@searchLoan')->name('client.loan.search');
 	Route::post('/loan/sources/add', 'LoanController@addSources')->name('client.loan.sources.add');
 	Route::get('/loan/sources/list', 'LoanController@listSources')->name('client.loan.sources.list');
@@ -53,24 +54,54 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('/inventory/add', 'InventoryController@addInventory')->name('client.inventory.add');
     Route::get('/inventory/list', 'InventoryController@listInventory')->name('client.inventory.list');
     Route::get('/inventory/update/{inventoryId}', 'InventoryController@updateInventory')->name('client.inventory.update');
-    Route::post('/inventory/delete', 'InventoryController@deleteInventory')->name('client.inventory.delete');
+    Route::post('/inventory/{invendoryId}/delete', 'InventoryController@deleteInventory')->name('client.inventory.delete');
 
     Route::get('/staff', 'StaffController@showStaff')->name('client.staff.show');
     Route::get('/staff/single-staff', 'StaffController@showSingleStaff')->name('client.single-staff.add');
     Route::get('/staff/multiple-staff', 'StaffController@showMultipleStaff')->name('client.single-staff.add');
     Route::post('/staff/single-staff/add', 'StaffController@addSingleStaff')->name('client.single-staff.add');
     Route::post('/staff/multiple-staff/add', 'StaffController@addMultipleStaff')->name('client.multiple-staff.add');
+//    Route::get('/staff/all-staff', 'StaffController@allStaff')->name('client.staff.all');
+    Route::get('/staff/search', 'StaffController@searchStaff')->name('client.staff.search');
 
     Route::get('/customer', 'CustomerController@index')->name('client.customer');
     Route::get('/customer/add', 'CustomerController@showCustomer')->name('client.customer.add');
     Route::post('/customer/add', 'CustomerController@addCustomer')->name('client.customer.add');
+    Route::get('/customer/list', 'CustomerController@listAllCustomers')->name('client.customer.list');
+    Route::get('/customer/all-customers', 'CustomerController@allCustomers')->name('client.customer.all');
+    Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');
 
-    Route::get('/sales/{}', 'ClientDashboardController@showSalesPage');
 
-	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
+    // Sale Routes
+	Route::get('/sales', 'ClientDashboardController@showSalesPage')->name('company.sales');
 	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');
+	Route::get('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');
+	Route::post('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');
+//	Route::post('/sale/{saleId}/add-item', 'ClientDashboardController@addSaleItem')->name('sale.add.item');
 //	Route::get('/all-sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
+
+	Route::get('/saleItem/delete/{itemId}', 'ClientDashboardController@showSalesPage')->name('company.all-sales');
+
+    Route::get('/expenses', "ExpensesController@showExpensePage")->name('client.expenses.show');
+    Route::get('/expenses/all', 'ExpensesController@showAllExpenses')->name('client.expenses.show-all');
+    Route::get('/expenses/add', 'ExpensesController@showAddExpensePage')->name('client.expenses.add');
+    Route::post('/expenses/add', 'ExpensesController@addExpense')->name('client.expenses.add');
+    Route::get('/expenses/list', 'ExpensesController@listExpenses')->name('client.expenses.list');
+    Route::post('/expenses/update/{expenseId}', 'ExpensesController@updateExpense')->name('client.expenses.update');
+    Route::get('/expenses/search/{param}', 'ExpensesController@searchExpense')->name('client.expenses.search');
+    Route::post('/expenses/{expenseId}/pay', 'ExpensesController@payExpense')->name('client.expenses.pay');
+
+    Route::get('/vendor', 'VendorController@showVendorPage')->name('vendor.index');
+    Route::get('/vendor/list', 'VendorController@showAllVendor')->name('vendor.show');
+    Route::get('/vendor/add', 'VendorController@addVendorPage')->name('vendor.add');
+    Route::post('/vendor/add', 'VendorController@addVendor')->name('vendor.add');
+    Route::get('/vendor/all-vendors', 'VendorController@listVendors')->name('vendor.list');
+    Route::get('/vendor/search', 'VendorController@searchVendors')->name('vendor.search');
+    Route::post('/vendor/{vendorId}/activate', 'VendorController@activateVendor')->name('vendor.activate');
+
 });
 
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
+
+Route::get('/bar/{slug}', 'ClientDashboardController@testFeature');
 

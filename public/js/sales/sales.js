@@ -1,5 +1,4 @@
 //Drop down of items
-// $('.search').select2();
 
 function calculateSum (row)
 {

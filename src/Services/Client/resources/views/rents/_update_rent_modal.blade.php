@@ -43,7 +43,13 @@
                             <label for="" class="d-block"><small>Any other comment on renting this property</small></label>
                             <textarea name="comment" v-model="editingRent.comment" style="resize: none" id="" class="form-control" cols="30" rows="3"></textarea>
                         </div>
-                        <div class="justify-content-around text-center pt-2">
+                        <div class="justify-content-around text-center pt-2" v-if="isRequesting">
+                                <span style="cursor: pointer" class="submit">
+                                    <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px; color:#00C259;"></i>
+                                </span>
+                            <h5 class="h5 text-green">Updating Rent...</h5>
+                        </div>
+                        <div class="justify-content-around text-center pt-2" v-else>
                                 <span style="cursor: pointer" class="submit" @click="beforeSubmit('editRentModal')">
                                     <i class="fa fa-telegram " style="font-size:48px; color:#00C259;"></i>
                                 </span>

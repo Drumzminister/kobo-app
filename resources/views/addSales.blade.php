@@ -7,22 +7,19 @@
 </style>
 
 @section('content')
-{{-- heading section --}}
+    {{-- heading section --}}
     @include('sales._heading')
-{{-- end of heading section --}}
+    {{-- end of heading section --}}
 
-{{-- VAT section --}}
-    @include('sales._vat')
-{{-- End VAT section --}}
+    {{-- VAT section --}}
+    <vat-component :customers="{{ $customers }}" :taxes="{{ $taxes }}"></vat-component>
+    {{-- End VAT section --}}
 
-{{-- add sales table --}}
-    @include('sales._sales-table')
-{{-- end of sales table --}}
+    {{-- add sales table --}}
+    <add-sale :inventories="{{ $inventories }}" :banks="{{ $banks }}" :channels="{{ $channels }}" :sale="{{ $sale }}"></add-sale>
+    {{-- end of sales table --}}
 
-{{-- Invoice Modal --}}
-      @include('sales._modal')
-{{--End of modal --}}
-
-{{--<script src="/js/sales/sales.js"></script>--}}
-
+    {{-- Invoice Modal --}}
+    @include('sales._modal')
+    {{--End of modal --}}
 @endsection

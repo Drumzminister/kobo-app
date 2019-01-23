@@ -42,7 +42,7 @@
 
                     <div class="row py-3">
                         <div class="col-md-3">
-                            <button class="btn btn-addsale px-3" @click="setRentParams" data-toggle="modal" data-target="#addRentModal">Add Rent</button>
+                            <button class="btn btn-addsale px-3" @click="setRentParams">Add Rent</button>
                         </div>
                     </div>
                 </div>
@@ -71,5 +71,6 @@
 @section('other_js')
     <script>
         window.rents = @json($rents);
+        window.banks = @json($banks);
     </script>
 @endsection

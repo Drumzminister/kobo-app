@@ -29,7 +29,7 @@ class Repository
 	 * @return UuidInterface
 	 * @throws \Exception
 	 */
-	protected function generateUuid(): UuidInterface
+	public function generateUuid(): UuidInterface
 	{
 		return Uuid::uuid1();
 	}
@@ -82,6 +82,11 @@ class Repository
     public function all()
     {
         return $this->model->all();
+    }
+
+    public function userAll()
+    {
+        return $this->model->where('user_id', auth()->id())->get();
     }
 
     /**
@@ -143,9 +148,31 @@ class Repository
     }
 
     /**
+     * Find a record by an attribute.
+     *
+     * @param string $attribute
+     * @param string $value
+     * @param array  $relations
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function findOnly($attribute, $value, $relations = null)
+    {
+        $query = $this->model->where($attribute, $value);
+
+        if ($relations && is_array($relations)) {
+            foreach ($relations as $relation) {
+                $query->with($relation);
+            }
+        }
+
+        return $query->first();
+    }
+
+    /**
      * @param $attribute
      * @param $value
-     * @param null $relations
+     * @param null $relations @return array
      * @return \Illuminate\Support\Collection
      */
     public function getBy($attribute, $value, $relations = null)

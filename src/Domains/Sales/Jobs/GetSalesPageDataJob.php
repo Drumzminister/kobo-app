@@ -16,9 +16,9 @@ class GetSalesPageDataJob extends Job
 	 */
 	private $slug;
 	/**
-	 * @var string
+	 * @var
 	 */
-	private $userId;
+	private $user;
 
 	/**
 	 * @var \Illuminate\Foundation\Application|SaleRepository
@@ -33,13 +33,11 @@ class GetSalesPageDataJob extends Job
 	/**
 	 * Create a new job instance.
 	 *
-	 * @param string $slug
-	 * @param string $userId
+	 * @param string $user
 	 */
-    public function __construct(string $slug, string $userId)
+    public function __construct($user)
     {
-	    $this->slug = $slug;
-	    $this->userId = $userId;
+	    $this->user = $user;
 	    $this->sale = app(SaleRepository::class);
 	    $this->company = app(CompanyRepository::class);
     }
@@ -49,18 +47,18 @@ class GetSalesPageDataJob extends Job
      */
     public function handle()
     {
-    	$company = $this->company->getByAttributes(['slug' => $this->slug])->first();
+    	$company = $this->user->getUserCompany();
 
     	if (!$company) {
     		abort(404);
 	    }
 
-    	$sales = $this->sale->getByAttributes(['company_id' => $company->id]);
+    	$sales = $this->sale->getByAttributes(['company_id' => $company->id, 'type' => 'published']);
 
     	$xb = new Collection();
 
     	$sales->each(function ($sale) use (&$xb) {
-    		$xb->put($sale->id, new SaleCollection($sale));
+    		$xb->push(new SaleCollection($sale));
 	    });
 
     	$tSales = SaleCollection::collection($sales);
@@ -76,6 +74,6 @@ class GetSalesPageDataJob extends Job
 	    $items = $items->chunk(5)->first();
 
 
-	    return ['sales' => $xb, 'topFiveItems' => $items];
+	    return ['sales' => $xb, 'topFiveItems' => $items ?? collect([])];
     }
 }

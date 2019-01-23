@@ -17,7 +17,11 @@ class CreateSaleItemsTable extends Migration
             $table->increments('id');
             $table->string('sale_id', 36);
             $table->string('inventory_id', 36);
-            $table->unsignedInteger('quantity');
+	        $table->string('sale_channel_id')->nullable();
+	        $table->unsignedInteger('quantity');
+	        $table->double('sales_price', 2);
+	        $table->double('total_price', 2);
+	        $table->text('description')->nullable();
             $table->timestamps();
         });
     }

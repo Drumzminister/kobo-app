@@ -186,7 +186,7 @@
             <div class="container mt-4">
                 <div class="row py-3">
                     <div class="col">
-                        <a href="" class="btn btn-addsale left-modal" data-toggle="modal" data-target="#addLoanModal">Add Loan</a>
+                        <button  class="btn btn-addsale left-modal" @click="openModal('#addLoanModal')" >Add Loan</button>
                     </div>
                     {{--<div class="col">
                         <div class="float-right">
@@ -238,7 +238,7 @@
                                     <h5 class="h5 uppercase">New Loan</h5>
                                     <div class="form-group">
                                         <label class="px-0" for="exampleFormControlInput1">Source</label>
-                                        <input type="text" v-model="searchSource" @keyup="searchForSource" class="form-control" id="" placeholder="E.g Microfinance Banks">
+                                        <input type="text" v-model="searchSource" @keyup="debouncedSearch" class="form-control" id="" placeholder="E.g Microfinance Banks">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>
@@ -253,25 +253,48 @@
                                         <label class="px-0" for="exampleFormControlInput1">Loan Amount</label>
                                         <input type="number" step="0.01" v-model="loanAmount" class="form-control" id="" placeholder="200,000">
                                     </div>
-                                    <div class="form-group d-flex row">
-                                        <div class="col-6">
-                                            <label class="px-0"  for="loanPeriod">Loan Period</label>
-                                            <select name="period" class="form-control" style="background-color: #00C259; color: #ffffff;" v-model="period" id="loanPeriod">
-                                                <option value="week">Weekly</option>
-                                                <option value="month">Monthly</option>
-                                                <option value="year">Yearly</option>
-                                            </select>
-                                        </div>
-                                        <div class="ml-auto col-6">
-                                            <label class="px-0" for="exampleFormControlInput1">Loan Duration</label>
-                                            <input type="number"  v-model="loanTerm" class="form-control" id="" placeholder="10">
+                                    <div class="form-group row">
+                                        <label class="col-12" for="exampleFormControlInput1">Loan Duration</label>
+                                        <div class="d-flex">
+                                            <div class="col-6">
+                                                <input type="number"  v-model="loanTerm" class="form-control" id="" placeholder="10">
+                                            </div>
+                                            <div class="ml-auto col-6">
+                                                <select name="period" class="form-control" style="background-color: #00C259; color: #ffffff;" v-model="loanPeriod" id="loanPeriod">
+                                                    <option value="week">Weeks</option>
+                                                    <option value="month">Months</option>
+                                                    <option value="year">Years</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="px-0" for="">Number of Payments per @{{period}}</label>
-                                        <select v-model="paymentPerYear" class="form-control">
-                                            <option v-for="interval in loanPaymentIntervals" :value="interval">@{{ interval }}</option>
-                                        </select>
+                                        <label class="px-0" for="interval">Payment Interval</label>
+                                        <div class="btn-group dropright">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" @click="toggleShowIntervalSelector()">
+                                                @{{ loanPaymentInterval }}
+                                            </button>
+                                            <ul class="dropdown-menu"  style="display: block; overflow: auto; max-height: 320px;" v-if="showIntervalSelector">
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Weekly</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Bi-weekly</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Monthly</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Bi-Monthly</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Quaterly</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer">Anually</li>
+                                                <li class="dropdown-divider" v-if="!showMoreIntervals"></li>
+                                                <li class="dropdown-item" @click="toggleShowMoreIntervals($event)" v-if="!showMoreIntervals" style="cursor: pointer;">Show More >></li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">4 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">5 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">6 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">7 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">8 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">9 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">10 Months</li>
+                                                <li class="dropdown-item" @click="selectLoanPaymentInterval($event)" style="cursor: pointer" v-if="showMoreIntervals">11 Months</li>
+                                                <li class="dropdown-divider" v-if="showMoreIntervals"></li>
+                                                <li class="dropdown-item" @click="toggleShowMoreIntervals($event)" v-if="showMoreIntervals" style="cursor: pointer;">Show Less <<</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="px-0" for="">Start date of Loan</label>
@@ -284,21 +307,31 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="px-0" for="account">Receiving Account</label>
+                                        <select name="receivingAccount" class="form-control" v-model="accountReceivingLoan" id="account">
+                                            <option v-for="bank in banks" :value="bank" >@{{ bank.account_name }}</option>
+
+                                        </select>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <button type="button" id="cancelLoanModal" class="btn btn-secondary py-2 px-4" data-dismiss="modal">Cancel</button>
+                            <div class="col-4">
+                                <button type="button" id="cancelLoanModal" class="btn btn-secondary py-2 px-4" @click="closeLoanModal()" data-dismiss="modal">Cancel</button>
                             </div>
-                            <div class="col">
-                                <button type="button" @click="saveLoan" class="btn btn-started pull-right ">Add</button>
+                            <div class="col-8">
+                                <button type="button" v-if="isRequestingLoan" class="btn btn-started pull-right ">Loading...<i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
+                                <button type="button" v-else @click="saveLoan" class="btn btn-started pull-right ">Add</button>
                             </div>
                         </div>
                         <div class="box" v-if="showSourcesForm">
                             <div class="form-group d-flex">
-                                <input type="text" class="form-control rounded-0" v-model="newSource">
-                                <button @click="addSource" style="cursor: pointer" class="fa fa-plus p-2"></button>
+                                <input type="text" class="form-control rounded-0 loader" v-model="newSource">
+                                <button v-if="isRequestingLoan"  style="cursor: default"><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
+                                <button  v-else @click="addSource" style="cursor: pointer" class="fa fa-plus p-2"></button>
+
                             </div>
                             <ul class="p-0 mb-0">
                                 <li class="d-block p-1 mb-2" v-for="source in sources" @click="selectSource(source.id, $event)">@{{source.name}}</li>
@@ -313,7 +346,6 @@
 
 
         @include('client::loans._loans_details')
-
     </section>
 @endsection
 @section('other_js')
@@ -323,5 +355,7 @@
         window.loanAmtPaid = @json($runningLoanPaid);
         window.loanAmtOwing = @json($runningLoanOwing);
         window.loanAmtRunning = @json($runningLoanCount);
+        window.banks = @json($banks);
+        window.addLoanUrl = "{{ route('client.loan.add') }}";
     </script>
 @endsection

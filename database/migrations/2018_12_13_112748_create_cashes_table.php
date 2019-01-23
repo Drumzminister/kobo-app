@@ -15,7 +15,7 @@ class CreateCashesTable extends Migration
     {
         Schema::create('cashes', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('user_id')->index();
+            $table->string('company_id');
             $table->decimal('opening_amount', 15, 2);
             $table->decimal('amount', 15, 2)->default(0);
             $table->timestamps();

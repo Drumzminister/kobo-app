@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Vendor extends Model
 {
     use SoftDeletes;
-
-    protected $fillable = ['name', 'address', 'phone', 'email', 'website'];
+    protected $casts = ['isActive' => 'boolean'];
+    protected $fillable = ['id', 'company_id', 'user_id', 'name', 'address', 'phone', 'email', 'website', 'isActive'];
 
     protected $dates = ['deleted_at'];
 

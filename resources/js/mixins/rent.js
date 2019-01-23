@@ -1,21 +1,26 @@
 export const rentApp = {
     data: {
         rents: [],
+        banks: [],
         rentAmount: "",
         rentEndDate: "",
-        rentStartDate: "",
         editingRent: {},
+        selectedRent: {},
+        rentStartDate: "",
         rentLoading: false,
         paymentMethods: [],
+        isRequesting: false,
         rentSearchParam: "",
         other_rental_cost: "",
         rentShowPaymentSettings: false,
     },
-
+    computed: {
+        selectedAccounts () {
+            return this.$store.state.selectedAccounts;
+        }
+    },
     mounted () {
-        /*axios.get('/banking/payment_modes').then (res => {
-            this.paymentMethods = res.data;
-        });*/
+        this.banks = window.banks;
         this.rents = window.rents;
     },
     methods: {
@@ -32,10 +37,12 @@ export const rentApp = {
 
         createRent (evt) {
             evt.preventDefault();
+            this.isRequesting = true;
             let formData = new FormData(evt.target);
             axios.post('/client/rent/add', formData).then(res => {
                 this.rents.unshift(res.data.rent);
                 swal("Success", "Rent added successfully", "success");
+                this.isRequesting = false;
                 location.reload();
                 $('#addRentModal').modal('toggle');
             });
@@ -84,64 +91,52 @@ export const rentApp = {
             }
         },
 
-        addPaymentMode () {
-            let parent = document.createElement('div');
-            parent.classList = "d-flex col-12 mt-3";
-            let select = document.createElement('select');
-            select.classList = "payment_mode custom-select col-md-5";
-            this.paymentMethods.forEach(mode  => {
-                let option = document.createElement('option');
-                option.value = mode.mode;
-                option.innerText = mode.mode;
-                select.appendChild(option);
-            });
-            let inputParent = document.createElement('div');
-            inputParent.classList = "show input-group col-md-5";
-            let input = document.createElement('input');
-            input.classList = "form-control payment_amount";
-            input.type = "number";
-            input.step = "0.01";
-            inputParent.appendChild(input);
-
-            parent.appendChild(select);
-            parent.appendChild(inputParent);
-
-            document.querySelector('#paymentParent').appendChild(parent);
-        },
         balance (rent) {
             return rent.amount - this.rentUsed(rent);
         },
         payRent () {
-            let amounts = document.querySelectorAll('.payment_amount');
-            let paymentModes = document.querySelectorAll('.payment_mode');
-            let total = 0;
-            amounts.forEach(amount => {
-                total += Number(amount.value);
+            let sum = 0;
+            this.selectedAccounts.forEach((account) => {
+                if ( !isNaN(Number(account.amount)) ) {
+                    sum += Number(account.amount);
+                }
             });
-            if (total !== this.rentAmount+this.other_rental_cost) {
-                swal("Oops", "The amount entered must be equal to the amount paid for rent plus extra costs", "warning");
+
+            if (sum !== Number(this.selectedRent.amount)) {
+                swal("Error", `Total amount payable should be equal to ${this.selectedRent.amount}`, "error");
                 return;
             }
-            for (let i = 0; i < paymentModes.length; i++) {
-                this.paymentMethods.forEach(method => {
-                    if (method.mode === paymentModes[i].value && Number(amounts[i].value > method.balance )) {
-                        swal("Oops", `The amount entered for ${method.mode} should be lower than  available balance`, "warning");
-                        return;
-                    }
-                });
-            }
+            let formData = new FormData();
+            formData.append('amount', sum.toString());
+            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            this.isRequesting = true;
+            axios.post(`/client/rent/${this.selectedRent.id}/pay`, formData).then(response => {
+                this.isRequesting = false;
+                this.closeModal('#paymentModal');
+                swal('Success', `${response.data.message}`, 'success');
+            }).catch(err => {
+                this.isRequesting = false;
+                this.closeModal('#paymentModal');
+                swal('Oops', `${err.response.data.message}`, 'error');
+            });
+        },
+        openPaymentModal(rent) {
+            this.selectedRent = rent;
+            this.openModal('#paymentModal');
         },
 
         editRent (evt, rent) {
             this.editingRent = {...rent};
-            $('#editRentModal').modal('show');
+            this.openModal('#editRentModal');
         },
 
         updateRent(evt) {
             evt.preventDefault();
 
             let formData = this.editingRent;
+            this.isRequesting = true;
             axios.post(`/client/rent/update/${formData.id}`, formData).then((response) => {
+                this.isRequesting = false;
                 swal("Success", "Rent updated successfully", "success");
                 this.rents.splice(this.rents.findIndex((rent) => {
                     return rent.id === this.editingRent.id;
@@ -152,7 +147,7 @@ export const rentApp = {
         },
 
         setRentParams () {
-
+            this.openModal('#addRentModal');
         }
     }
 };

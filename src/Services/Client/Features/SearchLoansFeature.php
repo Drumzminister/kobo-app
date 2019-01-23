@@ -17,6 +17,8 @@ class SearchLoansFeature extends Feature
 
     public function handle(Request $request)
     {
-        return $this->run(SearchLoanJob::class, ['param' => $this->param, 'companyId' => auth()->user()->company->id]);
+        return response()->json([
+            'loans' => $this->run(SearchLoanJob::class, ['param' => $this->param, 'companyId' => auth()->user()->company->id])
+        ]);
     }
 }

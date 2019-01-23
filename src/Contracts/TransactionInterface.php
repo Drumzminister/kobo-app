@@ -5,5 +5,5 @@ namespace App\Contracts;
 
 interface TransactionInterface
 {
-	public function saveTransaction();
+	public function saveTransaction(array $data, $model);
 }

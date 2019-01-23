@@ -18,8 +18,7 @@ class CreateLoanPaymentsTable extends Migration
             $table->string('loan_id')->index();
             $table->decimal('amount', 15, 2);
             $table->decimal('balance', 15, 2);
-            $table->enum('payment_method', ['cash', 'bank']);
-            $table->date('schedule_payment');
+
             $table->timestamps();
         });
     }

@@ -20,19 +20,19 @@
 								<div class="col-md-4">
 									<div class="p-2" id="topp">
 										<h5 class="h5">Total Amount</h5>
-										<h4 class="text-orange">&#8358; @{{ saleInvoice.total_amount || "" }}</h4>
+										<h4 class="text-orange">&#8358; @{{ saleInvoice.total_amount || 0 }}</h4>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="p-2" id="topp">
 										<h5 class="h5">Amount Paid</h5>
-										<h4 class="text-orange">&#8358; @{{ saleInvoice.total_amount || "" }}</h4>
+										<h4 class="text-orange">&#8358; @{{ saleInvoice.total_amount || 0 }}</h4>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="p-2" id="topp">
 										<h5 class="h5 "> Balance</h5>
-										<h4 class="text-orange">&#8358; @{{ saleInvoice.total_amount || "" }}</h4>
+										<h4 class="text-orange">&#8358; @{{ 0 }}</h4>
 									</div>
 								</div>
 							</div>
@@ -57,7 +57,9 @@
 										</thead>
 										<tbody>
 											<tr v-if="saleInvoice.saleItems" v-for="item in saleInvoice.saleItems">
-												<td>@{{ saleInvoice.created_at }}</td>
+												<td>
+													@{{ saleInvoice.created_at }}
+												</td>
 												<td>
 													@{{ item.inventory.name }}
 												</td>
@@ -76,11 +78,11 @@
 				<div class="modal-foote mt-3">
 					<div class="row">
 						<div class="col-md-2"></div>
+						{{--<div class="col">--}}
+							{{--<button type="button" class="btn btn-login" data-dismiss="modal">Reverse</button>--}}
+						{{--</div>--}}
 						<div class="col">
-							<button type="button" class="btn btn-login" data-dismiss="modal">Reverse</button>
-						</div>
-						<div class="col">
-							<button type="button" class="btn btn-started" data-dismiss="modal">Update</button>
+							<a :href="'/sale/'+saleInvoice.id" class="btn btn-started" data-dismiss="modal">Update</a>
 						</div>
 						<div class="col">
 							<button type="button" class="btn btn-danger px-5" data-dismiss="modal">Close</button>

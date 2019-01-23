@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
 
     private function seedBankDetails($nums, $companyId)
     {
+	    factory(BankDetail::class)->create(['company_id' => $companyId, 'bank_name' => 'Cash', 'account_name' => 'Cash']);
 	    return factory(BankDetail::class, $nums)->create(['company_id' => $companyId]);
     }
 
@@ -70,9 +71,9 @@ class DatabaseSeeder extends Seeder
 	    return $accountant;
     }
 
-    private function createVendorsForUser($nums, $company)
+    private function createVendorsForUser($nums, $company, $user)
     {
-		return factory(Vendor::class, $nums)->create(['company_id' => $company->id]);
+		return factory(Vendor::class, $nums)->create(['company_id' => $company->id, 'user_id' => $user->id]);
     }
 
 
@@ -107,7 +108,7 @@ class DatabaseSeeder extends Seeder
 	    $staffs = $this->createStaffsForCompany($company);
 
 		// Create vendor for the client
-	    $vendors = $this->createVendorsForUser(10, $company);
+	    $vendors = $this->createVendorsForUser(10, $company, $clientUser);
 
 	    // Create Inventories (things he bought) from his vendors
 	    $inventories = collect([]);
@@ -186,7 +187,6 @@ class DatabaseSeeder extends Seeder
 	    $customers->each(function (Customer $customer) use ($inventories, $taxes, $staff, $company, $channels) {
 			$thingsIWantToBuy = $inventories->random(random_int(1, $inventories->count()));
 			$tax_id = $taxes->random()->id;
-			$channel_id = $channels->random()->id;
 
 		    /**
 		     * @var $sale Sale
@@ -196,18 +196,20 @@ class DatabaseSeeder extends Seeder
 				    'customer_id'       => $customer->id,
 				    'tax_id'            => $tax_id,
 				    'staff_id'          => $staff->id,
-				    'sale_channel_id'   => $channel_id,
 				    'company_id'        => $company->id,
 			    ]);
 
 		    $totalAmount = 0;
-
-			$thingsIWantToBuy->each(function (Inventory $inventory) use ($customer, $company, $sale, &$totalAmount) {
+			$thingsIWantToBuy->each(function (Inventory $inventory) use ($customer, $company, $sale, &$totalAmount, $channels) {
 				if ($inventory->quantity > 0) {
+					$channel_id = $channels->random()->id;
 					$saleItem = factory(SaleItem::class)->make([
 						'inventory_id' => $inventory->id,
 						'sale_id' => $sale->id,
 						'quantity' => $quantity = random_int(1, $inventory->quantity),
+						'sales_price' => $sales_price = $inventory->sales_price,
+						'total_price' => $sales_price * $quantity,
+						'sale_channel_id'   => $channel_id,
 					]);
 
 					$totalAmount += $inventory->sales_price;
