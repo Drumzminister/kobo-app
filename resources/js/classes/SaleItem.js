@@ -12,6 +12,7 @@ class SaleItem
      */
     constructor (saleId, inventory = null) {
         this._id = null;
+        this.type = 'normal';
         this.saved = false;
         this.created_at = "";
         this.description = "";
@@ -33,6 +34,7 @@ class SaleItem
      * @returns {boolean}
      */
     get isNotValid () {
+        if (this.type === 'reversed') return false;
         return this.inventory_id === ""
             || this.description === "" || parseInt(this._quantity) <= 0
             || this.sale_channel_id === "" || this.totalPrice() <= 0
@@ -45,20 +47,24 @@ class SaleItem
      * @param quantity
      */
     set quantity(quantity) {
-        if (this.inventory_id === "") return;
-        let inventoryQuantity = parseInt(this.getInventoryQuantity());
-
-        if (parseInt(quantity) < 0) {
-            this._isValid = false;
-            toast(`Minimum number of quantity is 1`, 'error');
-        }
-
-        if (parseInt(quantity) > inventoryQuantity) {
-            this._isValid = false;
-            toast(`This quantity cannot be greater than the inventory quantity which is ${inventoryQuantity}`, 'error');
-            this._quantity = null;
-        } else {
+        if (this.type === 'reversed') {
             this._quantity = quantity;
+        } else {
+            if (this.inventory_id === "") return;
+            let inventoryQuantity = parseInt(this.getInventoryQuantity());
+
+            if (parseInt(quantity) < 0) {
+                this._isValid = false;
+                toast(`Minimum number of quantity is 1`, 'error');
+            }
+
+            if (parseInt(quantity) > inventoryQuantity) {
+                this._isValid = false;
+                toast(`This quantity cannot be greater than the inventory quantity which is ${inventoryQuantity}`, 'error');
+                this._quantity = null;
+            } else {
+                this._quantity = quantity;
+            }
         }
     }
 
@@ -123,6 +129,10 @@ class SaleItem
             }
     }
 
+    get isReversed () {
+        return this.type === 'reversed';
+    }
+
     /**
      * Creates the Item in the Database
      */
@@ -183,6 +193,7 @@ class SaleItem
     getItemData () {
         return {
             id: this._id,
+            type: this.type,
             sale_id: this._sale_id,
             inventory_id: this.inventory_id,
             sale_channel_id: this.sale_channel_id,

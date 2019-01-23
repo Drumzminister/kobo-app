@@ -31,6 +31,18 @@ export const staffApp = {
     },
 
     methods: {
+        getAndProcessImage(event) {
+            toast('Image is uploading ...', 'info');
+            let file = event.target.files[0];
+            let formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/staff/imageUpload', formData).then(res => {
+                    toast('Image has successfully uploaded', 'success');
+                    this.staffForm.avatar = res.data.data;
+            }).catch(res => {
+                toast('Staff upload unsuccessful', 'error');
+            });
+        },
         createStaff(evt) {
             evt.preventDefault();
             axios.post('/client/staff/single-staff/add', this.staffForm).then(res => {
@@ -46,6 +58,7 @@ export const staffApp = {
                 this.staff = res.data;
             });
         },
+
         staffModal(staff) {
             this.StaffInformation.id = staff.id;
             this.StaffInformation.name = staff.first_name + ' ';
@@ -55,6 +68,7 @@ export const staffApp = {
             this.StaffInformation.dateOfEmployment = staff.employed_date;
             this.StaffInformation.comment = staff.comment;
             this.StaffInformation.salary = staff.salary;
+            this.StaffInformation.avatar = "https://s3.us-east-2.amazonaws.com/koboapp/"+staff.avatar;
         },
 
         staffStatusFilter(){
@@ -78,11 +92,12 @@ export const staffApp = {
                 toast('Years of experience cannot be above 50', 'error');
                 this.staffForm.years_of_experience = 50;
             }
-            if(Number(this.staffForm.phone > 11)) {
+            if(Number(this.staffForm.phone.length > 11)) {
                 toast('Phone number cannot be greater than 11', 'error');
                 this.staffForm.phone = this.staffForm.phone.slice(0, this.staffForm.phone.length -1)
             }
         },
     },
+
 
 };

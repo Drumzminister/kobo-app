@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::group(['prefix' => 'client'], function () {
     // The controllers live in src/Services/Client/Http/Controllers
     // Route::get('/', 'UserController@index');
@@ -63,6 +64,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('/staff/multiple-staff/add', 'StaffController@addMultipleStaff')->name('client.multiple-staff.add');
 //    Route::get('/staff/all-staff', 'StaffController@allStaff')->name('client.staff.all');
     Route::get('/staff/search', 'StaffController@searchStaff')->name('client.staff.search');
+    Route::post('staff/imageUpload', 'StaffController@imageUpload')->name('client.staffImageUpload');
 
     Route::get('/customer', 'CustomerController@index')->name('client.customer');
     Route::get('/customer/add', 'CustomerController@showCustomer')->name('client.customer.add');
@@ -104,4 +106,3 @@ Route::group(['prefix' => 'client'], function () {
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
 
 Route::get('/bar/{slug}', 'ClientDashboardController@testFeature');
-

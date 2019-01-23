@@ -14,13 +14,16 @@
     <div class="container my-4">
         <div class="bg-white p-5">
             <div class="row">
-            <div class="col-md-4 img-in">
-                <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid">
-                <div class="overlay">
-                    <div class="text"><input type="file" name="image" id=""></div>
-                </div>           
-            <h5 class="h5">Add Photo</h5>
-            </div>
+                <div class="col-md-4 img-in">
+                    <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle">
+                    <div class="overlay">
+                        <div class="text form-group">
+                            <input type="file" @change="getAndProcessImage($event)" class="form-control-file" id="staffPhoto">
+                        </div>
+                    </div>           
+                
+                <h5 class="h5 px-4 py-2 ">Add Photo</h5>
+                </div>
             </div>
             <form>
                 <div class="form-group row py-2">

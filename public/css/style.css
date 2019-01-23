@@ -361,8 +361,8 @@ p{
     bottom: 0;
     left: 15px;
     right: 0;
-    width: 155px;
-    height: 155px;
+    width: 158px;
+    height: 158px;
     border-radius: 50%;
     opacity: 0;
     transition: .5s ease;
@@ -383,12 +383,16 @@ p{
 }
 .text {
     color: white;
-    font-size: 10px;
+    font-size: 13px;
     position: absolute;
     top: 50%;
-    left: 60%;
-    transform: translate(-40%, -40%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     /* -ms-transform: translate(-50%, -50%); */
     text-align: center;
 }
 
+.img-circle{
+  width: 160px;
+  height: 160px;
+}

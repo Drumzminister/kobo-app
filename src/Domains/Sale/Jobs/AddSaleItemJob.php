@@ -43,7 +43,7 @@ class AddSaleItemJob extends Job
     {
     	$sale = $this->sale->findOnly('id', $this->data['sale_id']);
 
-    	if ($sale && $sale->type === "published") {
+    	if ($sale && $sale->type === "published" && $this->data['type'] !== "reversed") {
     		return $this->createJobResponse('error', 'You cannot add Items to this sale because it\'s already published', $sale);
 	    }
 
