@@ -3,6 +3,7 @@
 use Faker\Generator as Faker;
 use Koboaccountant\Models\Inventory;
 use Koboaccountant\Models\SaleChannel;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------

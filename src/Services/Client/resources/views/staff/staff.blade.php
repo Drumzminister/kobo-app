@@ -151,7 +151,7 @@
             <div class="modal-body">
                 <div class="nav flex-sm-column flex-row">
                     <div class="product-details text-center">
-                            <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid">
+                            <img :src="StaffInformation.avatar" alt="Staff Logo" srcset="" class="rounded-circle img-fluid">
                             <h5 class="h5">@{{ StaffInformation.name }}
                             </h5>
                             <p class="text-muted">@{{ StaffInformation.role }}</p>
@@ -178,11 +178,6 @@
         </div>
     </div>
 </div>
-<form method="post" action="/filesystem" enctype="multipart/form-data">
-    @csrf
-    <input type="file" name="avatar" class="form-control"/>
-    <button type="submit">Send</button>
-</form>
 
 
 @endsection

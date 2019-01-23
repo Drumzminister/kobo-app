@@ -64,6 +64,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('/staff/multiple-staff/add', 'StaffController@addMultipleStaff')->name('client.multiple-staff.add');
 //    Route::get('/staff/all-staff', 'StaffController@allStaff')->name('client.staff.all');
     Route::get('/staff/search', 'StaffController@searchStaff')->name('client.staff.search');
+    Route::post('staff/imageUpload', 'StaffController@imageUpload')->name('client.staffImageUpload');
 
     Route::get('/customer', 'CustomerController@index')->name('client.customer');
     Route::get('/customer/add', 'CustomerController@showCustomer')->name('client.customer.add');
@@ -105,13 +106,3 @@ Route::group(['prefix' => 'client'], function () {
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
 
 Route::get('/bar/{slug}', 'ClientDashboardController@testFeature');
-
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
-
-Route::post('filesystem', function(Request $request){
-        $file = $request->file('avatar');
-        $store = Storage::disk('s3')->put('customer', $file);
-        return $store;
-});
-

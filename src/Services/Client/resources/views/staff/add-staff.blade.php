@@ -15,7 +15,7 @@
         <div class="bg-white p-5">
             <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid">
             <div class="form-group">
-                <input type="file" @change="staffForm.image" class="form-control-file" id="exampleFormControlFile1">
+                <input type="file" @change="getAndProcessImage($event)" class="form-control-file" id="staffPhoto">
             </div>
             <h5 class="h5">Add Photo</h5>
 
