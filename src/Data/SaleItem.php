@@ -8,7 +8,7 @@ use Koboaccountant\Models\Sale;
 
 class SaleItem extends Model
 {
-	protected $fillable = ['sale_id', 'inventory_id', 'sale_channel_id', 'quantity', 'sales_price', 'total_price', 'description'];
+	protected $fillable = ['sale_id', 'inventory_id', 'sale_channel_id', 'quantity', 'sales_price', 'total_price', 'description', 'type'];
 
 	public function sale()
 	{

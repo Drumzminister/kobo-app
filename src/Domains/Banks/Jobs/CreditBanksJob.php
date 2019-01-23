@@ -55,7 +55,6 @@ class CreditBanksJob extends Job
     public function handle()
     {
 
-//	    dd(app($this->getTransactionClass()));
 	    if (!class_exists($this->getTransactionClass())) {
 		    return $this->createJobResponse('error', 'Transaction data cannot be created for ' . ucfirst(get_class($this->model)), $this->model);
 	    }
