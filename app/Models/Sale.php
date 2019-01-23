@@ -63,8 +63,8 @@ class Sale extends Model
     	return $this->belongsTo(Tax::class);
     }
 
-    public function transaction()
+    public function transactions()
     {
-    	return $this->hasOne(Transaction::class);
+    	return $this->hasMany(Transaction::class);
     }
 }

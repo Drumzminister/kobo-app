@@ -45,7 +45,7 @@
                             <div class="container">
                                 <div class="long-scroll">
                                     <div class="table-responsive table-responsive-sm" id="topp">
-                                        <table class="table table-striped table-hover table-condensed" id="dataTable">
+                                        <table class="table table-hover table-condensed" id="dataTable">
                                             <thead class="p-3">
                                             <tr class="tab">
                                                 <th scope="col">Payment Date</th>
@@ -56,7 +56,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr v-if="saleItems.length > 0 && item.saved" v-for="item in saleItems">
+                                            <tr v-if="saleItems.length > 0 && item.saved" v-for="item in saleItems" :class="{'itemReversed' : item.isReversed}">
                                                 <td>
                                                     {{ item.created_at }}
                                                 </td>

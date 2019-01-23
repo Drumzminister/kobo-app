@@ -86,6 +86,11 @@ export const updateSale = {
             newItem.quantity = item.quantity;
             newItem.description = item.description;
             newItem.sale_channel_id = item.sale_channel_id;
+            newItem.reversedItem = item;
+            // -----------------------------
+            newItem.reversedItem = item;
+            item.reversedItem = newItem;
+            //------------------------------
             newItem.saveItem();
 
             if(!item.isNotValid) {
@@ -136,6 +141,9 @@ export const updateSale = {
         sendSaleCreationRequest () {
             this.savingSale = true;
             this.createSale();
+        },
+        getChannelName (channelId) {
+            return this.channels.filter(({ id }) => id === channelId)[0].name;
         },
         createSale: function () {
             let api = new API({ baseUri: 'https://kobo.test/client'});
@@ -198,9 +206,9 @@ export const updateSale = {
             this.openModal("#invoiceSender");
         },
         setSaleItems (sale) {
-            if (sale.sale_items) {
-                for (let key in sale.sale_items) {
-                    let item = sale.sale_items[key];
+            if (sale.saleItems) {
+                for (let key in sale.saleItems) {
+                    let item = sale.saleItems[key];
                     let inventory = this.$store.getters.getInventory(item.inventory_id);
                     let saleItem = new SaleItem(this.sale.id, inventory);
                     saleItem.inventory_id = item.inventory_id;

@@ -43,11 +43,19 @@ class AddSaleItemJob extends Job
     {
     	$sale = $this->sale->findOnly('id', $this->data['sale_id']);
 
+    	if ($this->data['reversed_item_id']) {
+    		$reversedItem = $this->saleItem->findOnly('id', $this->data['reversed_item_id']);
+	    }
+
     	if ($sale && $sale->type === "published" && $this->data['type'] !== "reversed") {
     		return $this->createJobResponse('error', 'You cannot add Items to this sale because it\'s already published', $sale);
 	    }
 
     	$item = $this->saleItem->fillAndSave($this->data);
+
+    	if (isset($reversedItem)) {
+    		$reversedItem->fill(['reversed_item_id' => $item->id])->save();
+	    }
 
 	    return $item ?
 		    $this->createJobResponse('success', 'Item Created', $item)

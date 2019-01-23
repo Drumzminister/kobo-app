@@ -32,31 +32,21 @@
                         <tr v-for="(item, index) in saleItems" :class="{'border-right-green' : item.saved, 'border-right-red' : !item.saved, 'itemReversed' : item.isReversed }">
                             <td>
                                 {{ item.inventory ? item.inventory.name : "" }}
-                                <!--<Select2 :settings="{placeholder: 'Inventory'}" v-model="item.inventory_id" :options="availableInventories.map((inventory) => {return {id: inventory.id, text: inventory.name} })" @change="fillSaleItemWithInventory(item)"/>-->
                             </td>
                             <td>
                                 {{ item.description }}
-                                <!--<input v-model="item.description" @change="item.debounceItemSaving()" type="text" id="sales_description" class="form-control sales_description ">-->
                             </td>
                             <td>
                                 {{ item.quantity }}
-                                <!--<input style="width: 200px" :disabled="item.inventoryid === ''" @change="item.debounceItemSaving()" min="1" :max="item.inventory ? item.inventory.quantity : 0" v-model="item.quantity" type="number" class="sales_quantity form-control" :placeholder="item.inventory ? item.inventory.quantity + ' In Stock' : null">-->
                             </td>
                             <td>
                                 {{ $currency.format(item.sales_price) }}
-                                <!--<input disabled v-model="item.sales_price" type="number" min="1" class="form-control sales_price" placeholder="0.00">-->
                             </td>
                             <td>
                                 {{ $currency.format(item.totalPrice()) }}
-                                <!--<input disabled v-model="item.totalPrice()" type="text" class="form-control sales_total" id="sales_total" placeholder="0.00">-->
                             </td>
                             <td>
-                                <select v-model="item.sale_channel_id" @change="item.debounceItemSaving()" class="form-control search sales_channel">
-                                    <option value="">Channel ...</option>
-                                    <option v-for="channel in channels" :value="channel.id">
-                                        {{ channel.name }}
-                                    </option>
-                                </select>
+                                {{ getChannelName(item.sale_channel_id) }}
                             </td>
 
                             <td id="delete">

@@ -94635,14 +94635,8 @@ var SaleItem = function () {
         this.sale_channel_id = "";
         this._inventory = inventory;
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
+        this.reversedItem = null;
     }
-
-    /**
-     * Evaluates the Item if its valid
-     *
-     * @returns {boolean}
-     */
-
 
     _createClass(SaleItem, [{
         key: "totalPrice",
@@ -94768,6 +94762,7 @@ var SaleItem = function () {
             return {
                 id: this._id,
                 type: this.type,
+                reversed_item_id: this.reversedItem ? this.reversedItem.id : null,
                 sale_id: this._sale_id,
                 inventory_id: this.inventory_id,
                 sale_channel_id: this.sale_channel_id,
@@ -94776,6 +94771,21 @@ var SaleItem = function () {
                 total_price: this.totalPrice(),
                 description: this.description
             };
+        }
+    }, {
+        key: "id",
+        get: function get() {
+            return this._id;
+        }
+
+        /**
+         * Evaluates the Item if its valid
+         *
+         * @returns {boolean}
+         */
+        ,
+        set: function set(id) {
+            this._id = id;
         }
     }, {
         key: "isNotValid",
@@ -94835,11 +94845,6 @@ var SaleItem = function () {
         ,
         get: function get() {
             return this._inventory;
-        }
-    }, {
-        key: "id",
-        set: function set(id) {
-            this._id = id;
         }
     }, {
         key: "isReversed",
@@ -95133,8 +95138,7 @@ var render = function() {
                           _c(
                             "table",
                             {
-                              staticClass:
-                                "table table-striped table-hover table-condensed",
+                              staticClass: "table table-hover table-condensed",
                               attrs: { id: "dataTable" }
                             },
                             [
@@ -95144,40 +95148,50 @@ var render = function() {
                                 "tbody",
                                 _vm._l(_vm.saleItems, function(item) {
                                   return _vm.saleItems.length > 0 && item.saved
-                                    ? _c("tr", [
-                                        _c("td", [
-                                          _vm._v(
-                                            "\n                                                " +
-                                              _vm._s(item.created_at) +
-                                              "\n                                            "
-                                          )
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("td", [
-                                          _vm._v(
-                                            "\n                                                " +
-                                              _vm._s(item.inventory.name) +
-                                              "\n                                            "
-                                          )
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("td", [
-                                          _vm._v(" " + _vm._s(item.quantity))
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("td", [
-                                          _vm._v(
-                                            " " +
-                                              _vm._s(item.inventory.sales_price)
-                                          )
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("td", [
-                                          _vm._v(
-                                            " " + _vm._s(item.totalPrice())
-                                          )
-                                        ])
-                                      ])
+                                    ? _c(
+                                        "tr",
+                                        {
+                                          class: {
+                                            itemReversed: item.isReversed
+                                          }
+                                        },
+                                        [
+                                          _c("td", [
+                                            _vm._v(
+                                              "\n                                                " +
+                                                _vm._s(item.created_at) +
+                                                "\n                                            "
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(
+                                              "\n                                                " +
+                                                _vm._s(item.inventory.name) +
+                                                "\n                                            "
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(" " + _vm._s(item.quantity))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(
+                                              " " +
+                                                _vm._s(
+                                                  item.inventory.sales_price
+                                                )
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(
+                                              " " + _vm._s(item.totalPrice())
+                                            )
+                                          ])
+                                        ]
+                                      )
                                     : _vm._e()
                                 }),
                                 0
@@ -115508,16 +115522,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -115584,7 +115588,7 @@ var render = function() {
                               _vm._s(
                                 item.inventory ? item.inventory.name : ""
                               ) +
-                              "\n                            "
+                              "\n                        "
                           )
                         ]),
                         _vm._v(" "),
@@ -115592,7 +115596,7 @@ var render = function() {
                           _vm._v(
                             "\n                            " +
                               _vm._s(item.description) +
-                              "\n                            "
+                              "\n                        "
                           )
                         ]),
                         _vm._v(" "),
@@ -115600,7 +115604,7 @@ var render = function() {
                           _vm._v(
                             "\n                            " +
                               _vm._s(item.quantity) +
-                              "\n                            "
+                              "\n                        "
                           )
                         ]),
                         _vm._v(" "),
@@ -115608,7 +115612,7 @@ var render = function() {
                           _vm._v(
                             "\n                            " +
                               _vm._s(_vm.$currency.format(item.sales_price)) +
-                              "\n                            "
+                              "\n                        "
                           )
                         ]),
                         _vm._v(" "),
@@ -115616,69 +115620,15 @@ var render = function() {
                           _vm._v(
                             "\n                            " +
                               _vm._s(_vm.$currency.format(item.totalPrice())) +
-                              "\n                            "
+                              "\n                        "
                           )
                         ]),
                         _vm._v(" "),
                         _c("td", [
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: item.sale_channel_id,
-                                  expression: "item.sale_channel_id"
-                                }
-                              ],
-                              staticClass: "form-control search sales_channel",
-                              on: {
-                                change: [
-                                  function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.$set(
-                                      item,
-                                      "sale_channel_id",
-                                      $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    )
-                                  },
-                                  function($event) {
-                                    item.debounceItemSaving()
-                                  }
-                                ]
-                              }
-                            },
-                            [
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("Channel ...")
-                              ]),
-                              _vm._v(" "),
-                              _vm._l(_vm.channels, function(channel) {
-                                return _c(
-                                  "option",
-                                  { domProps: { value: channel.id } },
-                                  [
-                                    _vm._v(
-                                      "\n                                    " +
-                                        _vm._s(channel.name) +
-                                        "\n                                "
-                                    )
-                                  ]
-                                )
-                              })
-                            ],
-                            2
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.getChannelName(item.sale_channel_id)) +
+                              "\n                        "
                           )
                         ]),
                         _vm._v(" "),
@@ -116279,6 +116229,11 @@ var updateSale = {
             newItem.quantity = item.quantity;
             newItem.description = item.description;
             newItem.sale_channel_id = item.sale_channel_id;
+            newItem.reversedItem = item;
+            // -----------------------------
+            newItem.reversedItem = item;
+            item.reversedItem = newItem;
+            //------------------------------
             newItem.saveItem();
 
             if (!item.isNotValid) {
@@ -116341,6 +116296,12 @@ var updateSale = {
             this.savingSale = true;
             this.createSale();
         },
+        getChannelName: function getChannelName(channelId) {
+            return this.channels.filter(function (_ref) {
+                var id = _ref.id;
+                return id === channelId;
+            })[0].name;
+        },
 
         createSale: function createSale() {
             var _this2 = this;
@@ -116359,8 +116320,8 @@ var updateSale = {
                 invoice_number: this.sale.invoice_number
             };
 
-            api.endpoints.sale.create(data).then(function (_ref) {
-                var data = _ref.data;
+            api.endpoints.sale.create(data).then(function (_ref2) {
+                var data = _ref2.data;
 
                 if (data.status === "success") {
                     _this2.savingSale = false;
@@ -116406,9 +116367,9 @@ var updateSale = {
             this.openModal("#invoiceSender");
         },
         setSaleItems: function setSaleItems(sale) {
-            if (sale.sale_items) {
-                for (var key in sale.sale_items) {
-                    var item = sale.sale_items[key];
+            if (sale.saleItems) {
+                for (var key in sale.saleItems) {
+                    var item = sale.saleItems[key];
                     var inventory = this.$store.getters.getInventory(item.inventory_id);
                     var saleItem = new __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__["a" /* default */](this.sale.id, inventory);
                     saleItem.inventory_id = item.inventory_id;
