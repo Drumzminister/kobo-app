@@ -29,31 +29,59 @@
                         </tr>
                         </thead>
                         <tbody id="salesTable">
-                        <tr v-for="(item, index) in saleItems" :class="{'border-right-green' : item.saved, 'border-right-red' : !item.saved, 'itemReversed' : item.isReversed }">
-                            <td>
-                                {{ item.inventory ? item.inventory.name : "" }}
-                            </td>
-                            <td>
-                                {{ item.description }}
-                            </td>
-                            <td>
-                                {{ item.quantity }}
-                            </td>
-                            <td>
-                                {{ $currency.format(item.sales_price) }}
-                            </td>
-                            <td>
-                                {{ $currency.format(item.totalPrice()) }}
-                            </td>
-                            <td>
-                                {{ getChannelName(item.sale_channel_id) }}
-                            </td>
+                            <template v-for="(item, index) in saleItems">
+                                <tr v-if="item.type !== 'reversed'" :class="{'border-right-green' : item.saved, 'border-right-red' : !item.saved, 'itemReversed' : item.isReversed }">
+                                    <td>
+                                        {{ item.inventory ? item.inventory.name : "" }}
+                                    </td>
+                                    <td>
+                                        {{ item.description }}
+                                    </td>
+                                    <td>
+                                        {{ item.quantity }}
+                                    </td>
+                                    <td>
+                                        {{ $currency.format(item.sales_price) }}
+                                    </td>
+                                    <td>
+                                        {{ $currency.format(item.totalPrice()) }}
+                                    </td>
+                                    <td>
+                                        {{ getChannelName(item.sale_channel_id) }}
+                                    </td>
 
-                            <td id="delete">
-                                <i @click="reverseSaleItemRow(index)" v-show="saleItems.length > 1 && !item.processing" style="cursor: pointer; color: #da1313;" class="fa fa-jedi"></i>
-                                <i v-show="item.processing" style="color: #da1313; font-size: 30px" class="fa fa-circle-notch fa-spin-fast"></i>
-                            </td>
-                        </tr>
+                                    <td id="delete">
+                                        <i @click="reverseSaleItemRow(index)" v-show="saleItems.length > 1 && !item.processing" style="cursor: pointer; color: #da1313;" class="fa fa-jedi"></i>
+                                        <i v-show="item.processing" style="color: #da1313; font-size: 30px" class="fa fa-circle-notch fa-spin-fast"></i>
+                                    </td>
+                                </tr>
+
+                                <tr v-if=" item.type !== 'reversed' && item.reversedItem !== null" style="border-left: 6px solid #FD9A97;" :class="{'border-right-green' : item.saved, 'border-right-red' : !item.saved, 'itemReversed' : item.reversedItem.isReversed }">
+                                    <td>
+                                        {{ item.reversedItem.inventory ? item.inventory.name : "" }}
+                                    </td>
+                                    <td>
+                                        {{ item.reversedItem.description }}
+                                    </td>
+                                    <td>
+                                        {{ item.reversedItem.quantity }}
+                                    </td>
+                                    <td>
+                                        {{ $currency.format(item.reversedItem.sales_price) }}
+                                    </td>
+                                    <td>
+                                        {{ $currency.format(item.reversedItem.totalPrice()) }}
+                                    </td>
+                                    <td>
+                                        {{ getChannelName(item.reversedItem.sale_channel_id) }}
+                                    </td>
+
+                                    <td id="delete">
+                                        <i @click="reverseSaleItemRow(index)" v-show="saleItems.length > 1 && !item.processing" style="cursor: pointer; color: #da1313;" class="fa fa-jedi"></i>
+                                        <i v-show="item.processing" style="color: #da1313; font-size: 30px" class="fa fa-circle-notch fa-spin-fast"></i>
+                                    </td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>

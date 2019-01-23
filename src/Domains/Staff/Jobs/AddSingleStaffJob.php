@@ -17,7 +17,7 @@ class AddSingleStaffJob extends Job
     public function __construct(array $data)
     {
         $this->data = $data;
-        $this->staff = app(StaffRepository::class);
+        $this->staff = new StaffRepository();
     }
 
     /**

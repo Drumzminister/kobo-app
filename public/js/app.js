@@ -82855,22 +82855,36 @@ var staffApp = {
 
 
     methods: {
-        createStaff: function createStaff(evt) {
+        getAndProcessImage: function getAndProcessImage(event) {
             var _this = this;
+
+            Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image is uploading ...', 'info');
+            var file = event.target.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/staff/imageUpload', formData).then(function (res) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image has successfully uploaded', 'success');
+                _this.staffForm.avatar = res.data.data;
+            }).catch(function (res) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Staff upload unsuccessful', 'error');
+            });
+        },
+        createStaff: function createStaff(evt) {
+            var _this2 = this;
 
             evt.preventDefault();
             axios.post('/client/staff/single-staff/add', this.staffForm).then(function (res) {
                 swal('Success', res.data.message, 'success');
-                _this.staffForm = '';
+                _this2.staffForm = '';
             }).catch(function (err) {
                 swal("Oops", "An error occurred when creating this staff", "error");
             });
         },
         searchStaff: function searchStaff() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/client/staff/search?param=' + this.staffSearchInput).then(function (res) {
-                _this2.staff = res.data;
+                _this3.staff = res.data;
             });
         },
         staffModal: function staffModal(staff) {
@@ -82882,6 +82896,7 @@ var staffApp = {
             this.StaffInformation.dateOfEmployment = staff.employed_date;
             this.StaffInformation.comment = staff.comment;
             this.StaffInformation.salary = staff.salary;
+            this.StaffInformation.avatar = "https://s3.us-east-2.amazonaws.com/koboapp/" + staff.avatar;
         },
         staffStatusFilter: function staffStatusFilter() {
             if (!this.staffActive) {
@@ -82908,7 +82923,7 @@ var staffApp = {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Years of experience cannot be above 50', 'error');
                 this.staffForm.years_of_experience = 50;
             }
-            if (Number(this.staffForm.phone > 11)) {
+            if (Number(this.staffForm.phone.length > 11)) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Phone number cannot be greater than 11', 'error');
                 this.staffForm.phone = this.staffForm.phone.slice(0, this.staffForm.phone.length - 1);
             }
@@ -115522,6 +115537,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -115571,111 +115614,251 @@ var render = function() {
                 _c(
                   "tbody",
                   { attrs: { id: "salesTable" } },
-                  _vm._l(_vm.saleItems, function(item, index) {
-                    return _c(
-                      "tr",
-                      {
-                        class: {
-                          "border-right-green": item.saved,
-                          "border-right-red": !item.saved,
-                          itemReversed: item.isReversed
-                        }
-                      },
-                      [
-                        _c("td", [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(
-                                item.inventory ? item.inventory.name : ""
-                              ) +
-                              "\n                        "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(item.description) +
-                              "\n                        "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(item.quantity) +
-                              "\n                        "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.$currency.format(item.sales_price)) +
-                              "\n                        "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.$currency.format(item.totalPrice())) +
-                              "\n                        "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.getChannelName(item.sale_channel_id)) +
-                              "\n                        "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { id: "delete" } }, [
-                          _c("i", {
-                            directives: [
+                  [
+                    _vm._l(_vm.saleItems, function(item, index) {
+                      return [
+                        item.type !== "reversed"
+                          ? _c(
+                              "tr",
                               {
-                                name: "show",
-                                rawName: "v-show",
-                                value:
-                                  _vm.saleItems.length > 1 && !item.processing,
-                                expression:
-                                  "saleItems.length > 1 && !item.processing"
-                              }
-                            ],
-                            staticClass: "fa fa-jedi",
-                            staticStyle: {
-                              cursor: "pointer",
-                              color: "#da1313"
-                            },
-                            on: {
-                              click: function($event) {
-                                _vm.reverseSaleItemRow(index)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("i", {
-                            directives: [
+                                class: {
+                                  "border-right-green": item.saved,
+                                  "border-right-red": !item.saved,
+                                  itemReversed: item.isReversed
+                                }
+                              },
+                              [
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        item.inventory
+                                          ? item.inventory.name
+                                          : ""
+                                      ) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(item.description) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(item.quantity) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        _vm.$currency.format(item.sales_price)
+                                      ) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        _vm.$currency.format(item.totalPrice())
+                                      ) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        _vm.getChannelName(item.sale_channel_id)
+                                      ) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { attrs: { id: "delete" } }, [
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value:
+                                          _vm.saleItems.length > 1 &&
+                                          !item.processing,
+                                        expression:
+                                          "saleItems.length > 1 && !item.processing"
+                                      }
+                                    ],
+                                    staticClass: "fa fa-jedi",
+                                    staticStyle: {
+                                      cursor: "pointer",
+                                      color: "#da1313"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.reverseSaleItemRow(index)
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: item.processing,
+                                        expression: "item.processing"
+                                      }
+                                    ],
+                                    staticClass:
+                                      "fa fa-circle-notch fa-spin-fast",
+                                    staticStyle: {
+                                      color: "#da1313",
+                                      "font-size": "30px"
+                                    }
+                                  })
+                                ])
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.type !== "reversed" && item.reversedItem !== null
+                          ? _c(
+                              "tr",
                               {
-                                name: "show",
-                                rawName: "v-show",
-                                value: item.processing,
-                                expression: "item.processing"
-                              }
-                            ],
-                            staticClass: "fa fa-circle-notch fa-spin-fast",
-                            staticStyle: {
-                              color: "#da1313",
-                              "font-size": "30px"
-                            }
-                          })
-                        ])
+                                class: {
+                                  "border-right-green": item.saved,
+                                  "border-right-red": !item.saved,
+                                  itemReversed: item.reversedItem.isReversed
+                                },
+                                staticStyle: {
+                                  "border-left": "6px solid #FD9A97"
+                                }
+                              },
+                              [
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        item.reversedItem.inventory
+                                          ? item.inventory.name
+                                          : ""
+                                      ) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(item.reversedItem.description) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(item.reversedItem.quantity) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        _vm.$currency.format(
+                                          item.reversedItem.sales_price
+                                        )
+                                      ) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        _vm.$currency.format(
+                                          item.reversedItem.totalPrice()
+                                        )
+                                      ) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        _vm.getChannelName(
+                                          item.reversedItem.sale_channel_id
+                                        )
+                                      ) +
+                                      "\n                                "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { attrs: { id: "delete" } }, [
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value:
+                                          _vm.saleItems.length > 1 &&
+                                          !item.processing,
+                                        expression:
+                                          "saleItems.length > 1 && !item.processing"
+                                      }
+                                    ],
+                                    staticClass: "fa fa-jedi",
+                                    staticStyle: {
+                                      cursor: "pointer",
+                                      color: "#da1313"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.reverseSaleItemRow(index)
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("i", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: item.processing,
+                                        expression: "item.processing"
+                                      }
+                                    ],
+                                    staticClass:
+                                      "fa fa-circle-notch fa-spin-fast",
+                                    staticStyle: {
+                                      color: "#da1313",
+                                      "font-size": "30px"
+                                    }
+                                  })
+                                ])
+                              ]
+                            )
+                          : _vm._e()
                       ]
-                    )
-                  }),
-                  0
+                    })
+                  ],
+                  2
                 )
               ]
             )
@@ -116369,22 +116552,30 @@ var updateSale = {
         setSaleItems: function setSaleItems(sale) {
             if (sale.saleItems) {
                 for (var key in sale.saleItems) {
-                    var item = sale.saleItems[key];
-                    var inventory = this.$store.getters.getInventory(item.inventory_id);
-                    var saleItem = new __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__["a" /* default */](this.sale.id, inventory);
-                    saleItem.inventory_id = item.inventory_id;
-                    saleItem.id = item.id;
-                    saleItem.sale_channel_id = item.sale_channel_id;
-                    saleItem.quantity = parseInt(item.quantity);
-                    saleItem.sales_price = item.sales_price;
-                    saleItem.description = item.description;
-                    saleItem.created_at = item.created_at;
-                    saleItem.saved = true;
-                    saleItem.type = item.type;
+                    var saleItem = this.createNewSaleItemFromSaleItem(sale.saleItems[key]);
+                    if (saleItem.reversedItem) {
+                        saleItem.reversedItem = this.createNewSaleItemFromSaleItem(saleItem.reversedItem);
+                    }
                     var pos = this.saleItems.push(saleItem) - 1;
                     this.createWatcherForSaleItem(this.saleItems[pos]);
                 }
             }
+        },
+        createNewSaleItemFromSaleItem: function createNewSaleItemFromSaleItem(item) {
+            var inventory = this.$store.getters.getInventory(item.inventory_id);
+            var saleItem = new __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__["a" /* default */](this.sale.id, inventory);
+            saleItem.inventory_id = item.inventory_id;
+            saleItem.id = item.id;
+            saleItem.sale_channel_id = item.sale_channel_id;
+            saleItem.quantity = parseInt(item.quantity);
+            saleItem.sales_price = item.sales_price;
+            saleItem.description = item.description;
+            saleItem.created_at = item.created_at;
+            saleItem.reversedItem = item.reversedItem;
+            saleItem.saved = true;
+            saleItem.type = item.type;
+
+            return saleItem;
         }
     })
 };

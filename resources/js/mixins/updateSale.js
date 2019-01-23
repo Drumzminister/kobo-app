@@ -208,22 +208,30 @@ export const updateSale = {
         setSaleItems (sale) {
             if (sale.saleItems) {
                 for (let key in sale.saleItems) {
-                    let item = sale.saleItems[key];
-                    let inventory = this.$store.getters.getInventory(item.inventory_id);
-                    let saleItem = new SaleItem(this.sale.id, inventory);
-                    saleItem.inventory_id = item.inventory_id;
-                    saleItem.id = item.id;
-                    saleItem.sale_channel_id = item.sale_channel_id;
-                    saleItem.quantity = parseInt(item.quantity);
-                    saleItem.sales_price = item.sales_price;
-                    saleItem.description = item.description;
-                    saleItem.created_at = item.created_at;
-                    saleItem.saved = true;
-                    saleItem.type = item.type;
+                    let saleItem = this.createNewSaleItemFromSaleItem(sale.saleItems[key]);
+                    if (saleItem.reversedItem) {
+                        saleItem.reversedItem = this.createNewSaleItemFromSaleItem(saleItem.reversedItem);
+                    }
                     let pos = this.saleItems.push(saleItem) - 1;
                     this.createWatcherForSaleItem(this.saleItems[pos]);
                 }
             }
+        },
+        createNewSaleItemFromSaleItem (item) {
+            let inventory = this.$store.getters.getInventory(item.inventory_id);
+            let saleItem = new SaleItem(this.sale.id, inventory);
+            saleItem.inventory_id = item.inventory_id;
+            saleItem.id = item.id;
+            saleItem.sale_channel_id = item.sale_channel_id;
+            saleItem.quantity = parseInt(item.quantity);
+            saleItem.sales_price = item.sales_price;
+            saleItem.description = item.description;
+            saleItem.created_at = item.created_at;
+            saleItem.reversedItem = item.reversedItem;
+            saleItem.saved = true;
+            saleItem.type = item.type;
+
+            return saleItem;
         }
     }
 };

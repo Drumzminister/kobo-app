@@ -6,6 +6,7 @@ use App\Services\Client\Features\AddMultipleStaffFeature;
 use App\Services\Client\Features\AddSingleStaffFeature;
 use App\Services\Client\Features\AllActiveStaffFeature;
 use App\Services\Client\Features\GetAllStaffFeature;
+use App\Services\Client\Features\ImageUploadFeature;
 use App\Services\Client\Features\SearchStaffFeature;
 use App\Services\Client\Features\ShowMultipleStaffFeature;
 use App\Services\Client\Features\ShowSingleStaffFeature;
@@ -65,5 +66,9 @@ class StaffController extends Controller
     public function allActiveStaff()
     {
         return $this->serve(AllActiveStaffFeature::class);
+    }
+    public function imageUpload()
+    {
+        return $this->serve(ImageUploadFeature::class);
     }
 }
