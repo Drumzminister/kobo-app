@@ -30,7 +30,7 @@
                         <input v-model="staffForm.last_name" type="text" class="form-control bg-grey" id="" >
 
                         <label for="phone">Phone number</label>
-                        <input v-model="staffForm.phone" type="text" class="form-control bg-grey" id="" >
+                        <input v-model="staffForm.phone"  @keyup="validateInput"   type="text" class="form-control bg-grey" id="" >
 
                         <label for="email">Email</label>
                         <input v-model="staffForm.email" type="text" class="form-control bg-grey" id="" >
@@ -64,10 +64,10 @@
                         </div>
                         <div class="col-md-8">
                             <label for="first name">Years of Experience</label>
-                            <input v-model="staffForm.years_of_experience" type="text" class="form-control bg-grey" id="" value="">
-
+                            <input v-model="staffForm.years_of_experience" @keyup="validateInput"  placeholder="Not less than 50" type="number" class="form-control bg-grey">
+                            <br>
                             <label for="Role">Date  Of Employment</label>
-                            <input v-model="staffForm.employed_date" type="date" />
+                            <input class="form-control" v-model="staffForm.employed_date" type="date" />
 
                         </div>
                     </div>
@@ -81,16 +81,10 @@
                         </div>
                         <div class="col-md-8">
                             <label for="Role">Amount</label>
-                            <select v-model="staffForm.salary" name="" id="" class="form-control bg-grey">
-                                 <option selected></option>
-                                <option>50000</option>
-                                    <option>100000</option>
-                                    <option>150000</option>
-                            </select>
+                            <input type="number" @keyup="validateInput" v-model="staffForm.salary" id="number" class="number form-control bg-grey">
                         </div>
                     </div>
-
-                    <hr>
+                <hr>
                     <div class="form-group row py-2">
                             <div class="col-md-4">
                                 <label for="decription" class="col-form-label">Comment</label>
@@ -98,14 +92,14 @@
                             </div>
                             <div class="col-md-8">
                                 <label for="Role">Brief Comment</label>
-                                <textarea v-model="staffForm.comment" name="" id="" rows="10" class="form-control bg-grey"></textarea>
+                                <textarea @click="validateInput" v-model="staffForm.comment" rows="10" class="form-control bg-grey"></textarea>
                             </div>
                         </div>
 
                     <div class="form-row mt-3">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-                            <button type="submit" @click="createStaff" class="btn btn-addsale">Save Information</button>
+                            <button type="submit"  @click="createStaff" class="btn btn-addsale">Save Information</button>
                         </div>
                     </div>
               </form>

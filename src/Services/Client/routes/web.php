@@ -61,7 +61,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::get('/staff/multiple-staff', 'StaffController@showMultipleStaff')->name('client.single-staff.add');
     Route::post('/staff/single-staff/add', 'StaffController@addSingleStaff')->name('client.single-staff.add');
     Route::post('/staff/multiple-staff/add', 'StaffController@addMultipleStaff')->name('client.multiple-staff.add');
-    Route::get('/staff/all-staff', 'StaffController@allStaff')->name('client.staff.all');
+//    Route::get('/staff/all-staff', 'StaffController@allStaff')->name('client.staff.all');
     Route::get('/staff/search', 'StaffController@searchStaff')->name('client.staff.search');
 
     Route::get('/customer', 'CustomerController@index')->name('client.customer');
@@ -73,7 +73,7 @@ Route::group(['prefix' => 'client'], function () {
 
 
     // Sale Routes
-	Route::get('/sales/{slug}', 'ClientDashboardController@showSalesPage')->name('company.sales');
+	Route::get('/sales', 'ClientDashboardController@showSalesPage')->name('company.sales');
 	Route::get('/{slug}/add-sale', 'ClientDashboardController@showAddSalesPage')->name('show.add.sale');
 	Route::get('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');
 	Route::post('/sale/{saleId}', 'ClientDashboardController@showSaleCreationPage')->name('sale.create');

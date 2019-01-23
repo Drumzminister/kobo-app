@@ -6,11 +6,14 @@ use App\Data\Repositories\BankDetailRepository;
 use App\Data\Repositories\SaleItemRepository;
 use App\Data\Repositories\SaleRepository;
 use App\Data\Repositories\UserRepository;
+use App\Domains\Banks\Jobs\CreditBanksJob;
+use Koboaccountant\Traits\HelpsResponse;
 use Lucid\Foundation\Job;
 use SalesTransactionRepository;
 
 class AddSaleJob extends Job
 {
+	use HelpsResponse;
 
 	/**
 	 * @var \Illuminate\Foundation\Application|UserRepository
@@ -21,6 +24,8 @@ class AddSaleJob extends Job
 	 * @var \Illuminate\Foundation\Application|SaleItemRepository
 	 */
 	private $items;
+
+
 	private $data;
 
 	/**
@@ -57,7 +62,6 @@ class AddSaleJob extends Job
 	    $this->items            = app(SaleItemRepository::class);
 	    $this->sale             = app(SaleRepository::class);
 	    $this->bank             = app(BankDetailRepository::class);
-	    $this->saleTransaction  = app( SalesTransactionRepository::class);
     }
 
     /**
@@ -66,25 +70,31 @@ class AddSaleJob extends Job
     public function handle()
     {
     	$sale = $this->sale->findOnly('id', $this->data['sale_id']);
+
+    	if ($sale->type === "published") {
+		    return $this->createJobResponse('error', 'Sale has already been published and cannot be updated', $sale);
+	    }
+
 	    $this->data['company_id'] = $this->user->company->id;
 	    $this->data['staff_id'] = $this->user->staff->id;
+	    $this->data['type'] = 'published';
 
 	    $paymentMethods = $this->data['paymentMethods'];
 
-	    foreach ($paymentMethods as $method) {
-	    	$bank = $this->bank->findOnly('id', $method['id']);
-	    	$newBalance = $bank->account_balance + $method['amount'];
-	    	$data['account_balance'] = $newBalance;
+	    $response = $this->creditPaymentMethodsForSale($paymentMethods, $sale);
 
-	    	$bank->fill($data)->save();
+	    if ($response->status === "success") {
+		    $updated = $sale->fill($this->data)->save();
+
+		    return $updated ? $this->createJobResponse('success', 'Sale Completed', $sale)
+			                : $this->createJobResponse('error', 'Sale could not be completed', $sale);
 	    }
 
-	    dd($paymentMethods);
+	    return $this->createJobResponse('error', $response->message, $sale);
+    }
 
-	    // ToDo: Record transaction
-
-	    $updated = $sale->fill($this->data)->save();
-
-
+    protected function creditPaymentMethodsForSale($paymentMethods, $sale)
+    {
+    	return (new CreditBanksJob($paymentMethods, $sale, $this->user->company->id))->handle();
     }
 }

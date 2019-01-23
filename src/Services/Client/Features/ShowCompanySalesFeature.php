@@ -22,14 +22,14 @@ class ShowCompanySalesFeature extends Feature
 	 *
 	 * @param string $slug
 	 */
-	public function __construct(string $slug)
+	public function __construct(string $slug = null)
 	{
 		$this->slug = $slug;
 	}
 
 	public function handle(Request $request)
     {
-    	$data = $this->run(GetSalesPageDataJob::class, ['slug' => $this->slug, 'userId' => auth()->id()]);
+    	$data = $this->run(GetSalesPageDataJob::class, ['user' => auth()->user()]);
 
     	return $this->run(new RespondWithViewJob('sales', $data));
     }

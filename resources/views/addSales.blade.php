@@ -14,11 +14,13 @@
     {{-- VAT section --}}
     <vat-component :customers="{{ $customers }}" :taxes="{{ $taxes }}"></vat-component>
     {{-- End VAT section --}}
-
-    {{-- add sales table --}}
-    <add-sale :inventories="{{ $inventories }}" :banks="{{ $banks }}" :channels="{{ $channels }}" :sale="{{ $sale }}"></add-sale>
-    {{-- end of sales table --}}
-
+    @if($sale->type === "published")
+        <update-sale :inventories="{{ $inventories }}" :banks="{{ $banks }}" :channels="{{ $channels }}" :sale="{{ $sale }}"></update-sale>
+    @else
+        {{-- add sales table --}}
+        <add-sale :inventories="{{ $inventories }}" :banks="{{ $banks }}" :channels="{{ $channels }}" :sale="{{ $sale }}"></add-sale>
+        {{-- end of sales table --}}
+    @endif
     {{-- Invoice Modal --}}
     @include('sales._modal')
     {{--End of modal --}}

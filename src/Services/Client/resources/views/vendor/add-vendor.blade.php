@@ -54,6 +54,8 @@
                 <span class="float-right" @click="addNewRow" >Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                 </span> 
              </div>
+                <input v-validate="'required|email'" name="email" type="text">
+                <span>@{{ errors.first('email') }}</span>
              <div class="text-center pb-3">
                     <a @click="saveVendor" class="btn btn-started">Save &amp; Continue</a>
                 </div>

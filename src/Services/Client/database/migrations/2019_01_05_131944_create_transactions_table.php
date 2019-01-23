@@ -15,6 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->string('id', 36);
+            $table->string('bank_detail_id', 36);
             $table->string('kobo_id', 36)->unique();
             $table->string('company_id', 36);
             $table->string('sale_id', 36)->nullable();
