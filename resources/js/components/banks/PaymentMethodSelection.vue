@@ -126,7 +126,12 @@
             ...mapMutations(['totalPaid', 'invalidPaymentsSum']),
             addTransactionsRecordIfAvailable () {
                 if (this.transactions) {
-                    this.transactions.forEach((transaction) => this.salePaymentMethods.push({ amount: transaction.amount, id: transaction.bank_detail_id, name: transaction.bank.bank_name}));
+                    this.transactions.forEach((transaction) => {
+                        let bank = { amount: transaction.amount, id: transaction.bank_detail_id, name: transaction.bank.bank_name};
+                        let pos = this.salePaymentMethods.push(bank) - 1;
+                        this.setPaymentMode(this.salePaymentMethods[pos], transaction.bank);
+                        this.selectedPaymentMethods.push(bank);
+                    });
                 }
             },
             addBanksToStore () {

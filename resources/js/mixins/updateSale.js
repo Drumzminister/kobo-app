@@ -15,7 +15,6 @@ export const updateSale = {
         }
     },
     created: function() {
-        // this.addSaleItemForm();
         this.setCompanyInventories(this.inventories);
         this.setSale(this.sale);
         this.setSaleItems(this.sale);
@@ -91,7 +90,7 @@ export const updateSale = {
             newItem.reversedItem = item;
             item.reversedItem = newItem;
             //------------------------------
-            newItem.saveItem();
+            // newItem.saveItem();
 
             if(!item.isNotValid) {
                 // item.sales_price = -1 * item.sales_price;

@@ -93899,7 +93899,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
             if (this.transactions) {
                 this.transactions.forEach(function (transaction) {
-                    return _this2.salePaymentMethods.push({ amount: transaction.amount, id: transaction.bank_detail_id, name: transaction.bank.bank_name });
+                    var bank = { amount: transaction.amount, id: transaction.bank_detail_id, name: transaction.bank.bank_name };
+                    var pos = _this2.salePaymentMethods.push(bank) - 1;
+                    _this2.setPaymentMode(_this2.salePaymentMethods[pos], transaction.bank);
+                    _this2.selectedPaymentMethods.push(bank);
                 });
             }
         },
@@ -116451,7 +116454,6 @@ var updateSale = {
     },
 
     created: function created() {
-        // this.addSaleItemForm();
         this.setCompanyInventories(this.inventories);
         this.setSale(this.sale);
         this.setSaleItems(this.sale);
@@ -116524,7 +116526,7 @@ var updateSale = {
             newItem.reversedItem = item;
             item.reversedItem = newItem;
             //------------------------------
-            newItem.saveItem();
+            // newItem.saveItem();
 
             if (!item.isNotValid) {
                 // item.sales_price = -1 * item.sales_price;
