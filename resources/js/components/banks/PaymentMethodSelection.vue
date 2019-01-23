@@ -38,9 +38,9 @@
                     </div>
                 </div>
 
-                <div class="col-md-3" style="margin-top: 20px">
-                    <span class="" style="cursor: pointer; margin-top: 20px" v-show="salePaymentMethods.length > 1" @click="removeSalePaymentMethod(index, paymentMethod.id)"><i class="fa fa-times" style="font-size:32px;color:#c22c29;"></i></span>
-                </div>
+                <!--<div class="col-md-3" style="margin-top: 20px">-->
+                    <!--<span class="" style="cursor: pointer; margin-top: 20px" v-show="salePaymentMethods.length > 1" @click="removeSalePaymentMethod(index, paymentMethod.id)"><i class="fa fa-times" style="font-size:32px;color:#c22c29;"></i></span>-->
+                <!--</div>-->
             </div>
 
             <div v-show="!readOnly" v-for="(paymentMethod, index) in salePaymentMethods" class="row" >
@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="col-md-3 ml-5">
-                    <span class="" style="cursor: pointer;" v-show="!bankIsNotAvailable()" @click="addSalePaymentMethod()"><i class="fa fa-plus-square" style="font-size:32px;color:#00C259;"></i></span>
+                    <span class="" style="cursor: pointer;" v-show="!bankIsNotAvailable() && !readOnly" @click="addSalePaymentMethod()"><i class="fa fa-plus-square" style="font-size:32px;color:#00C259;"></i></span>
                 </div>
 
                 <div class="col-md-3">

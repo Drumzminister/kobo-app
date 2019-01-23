@@ -94076,42 +94076,7 @@ var render = function() {
                     })
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "col-md-3",
-                  staticStyle: { "margin-top": "20px" }
-                },
-                [
-                  _c(
-                    "span",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.salePaymentMethods.length > 1,
-                          expression: "salePaymentMethods.length > 1"
-                        }
-                      ],
-                      staticStyle: { cursor: "pointer", "margin-top": "20px" },
-                      on: {
-                        click: function($event) {
-                          _vm.removeSalePaymentMethod(index, paymentMethod.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fa fa-times",
-                        staticStyle: { "font-size": "32px", color: "#c22c29" }
-                      })
-                    ]
-                  )
-                ]
-              )
+              ])
             ]
           )
         }),
@@ -94266,8 +94231,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: !_vm.bankIsNotAvailable(),
-                    expression: "!bankIsNotAvailable()"
+                    value: !_vm.bankIsNotAvailable() && !_vm.readOnly,
+                    expression: "!bankIsNotAvailable() && !readOnly"
                   }
                 ],
                 staticStyle: { cursor: "pointer" },

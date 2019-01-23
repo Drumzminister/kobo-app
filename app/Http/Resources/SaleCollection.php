@@ -15,7 +15,6 @@ class SaleCollection extends JsonResource
      */
     public function toArray($request)
     {
-//    	dd(ClientTransactionCollection::collection($this->transactions));
         return [
 	        'id' => $this->id,
 	        'tax' => $this->tax,
@@ -28,7 +27,6 @@ class SaleCollection extends JsonResource
 	        'saleChannel' => new SaleChannelCollection($this->saleChannel),
 	        'discount' => $this->discount,
 	        'delivery_cost' => $this->delivery_cost,
-//	            'transactions' => $this->transactions,
 
 	        // Custom Fields
 	        'transactions' => ClientTransactionCollection::collection($this->transactions),
