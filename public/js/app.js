@@ -94693,17 +94693,12 @@ var SaleItem = function () {
             }
         }
     }, {
-        key: "isReversed",
-        value: function isReversed() {
-            return this.type === 'reversed';
-        }
+        key: "createItemOnDatabase",
+
 
         /**
          * Creates the Item in the Database
          */
-
-    }, {
-        key: "createItemOnDatabase",
         value: function createItemOnDatabase() {
             var _this = this;
 
@@ -94845,6 +94840,11 @@ var SaleItem = function () {
         key: "id",
         set: function set(id) {
             this._id = id;
+        }
+    }, {
+        key: "isReversed",
+        get: function get() {
+            return this.type === 'reversed';
         }
     }]);
 
@@ -97157,7 +97157,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['customers', 'taxes'],
+    props: ['customers', 'taxes', 'sale'],
     components: { Select2: __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default.a },
     data: function data() {
         return {
@@ -97167,7 +97167,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['saleInvoice'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['saleInvoice']), {
+        updateMode: function updateMode() {
+            return this.sale.type === 'published';
+        }
+    }),
     watch: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])({ sale_date: 'saleDate' }), {
         customer_id: function customer_id(val) {
             this.customer(this.customers.filter(function (customer) {
@@ -97183,7 +97187,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['customer', 'selectedTax', "taxId"])),
     mounted: function mounted() {
-        this.sale_date = moment().format('YYYY-MM-DD');
+        this.sale_date = this.updateMode ? moment(this.sale.updated_at).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
+        this.customer_id = this.sale.customer ? this.sale.customer.id : "";
+        this.tax_id = this.sale.tax ? this.sale.tax.id : "";
     }
 });
 
@@ -97227,7 +97233,10 @@ var render = function() {
               _vm._v(" "),
               _c("Select2", {
                 attrs: {
-                  settings: { placeholder: "Select Customer" },
+                  settings: {
+                    placeholder: "Select Customer",
+                    disabled: _vm.updateMode
+                  },
                   options: _vm.customers.map(function(customer) {
                     return {
                       id: customer.id,
@@ -97263,7 +97272,11 @@ var render = function() {
                 ],
                 staticClass:
                   "form-control form-control-lg form-control tax vat-input",
-                attrs: { name: "tax", id: "basic-addon3" },
+                attrs: {
+                  disabled: _vm.updateMode,
+                  name: "tax",
+                  id: "basic-addon3"
+                },
                 on: {
                   change: function($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -97308,7 +97321,11 @@ var render = function() {
                 }
               ],
               staticClass: "form-control sales_date",
-              attrs: { type: "date", name: "event_date" },
+              attrs: {
+                type: "date",
+                disabled: _vm.updateMode,
+                name: "event_date"
+              },
               domProps: { value: _vm.sale_date },
               on: {
                 input: function($event) {
@@ -115541,7 +115558,7 @@ var render = function() {
               "table",
               {
                 staticClass:
-                  "table table-bordered table-responsive-md table-striped text-center",
+                  "table table-bordered table-responsive-md text-center",
                 attrs: { id: "tableRow" }
               },
               [
@@ -115557,7 +115574,7 @@ var render = function() {
                         class: {
                           "border-right-green": item.saved,
                           "border-right-red": !item.saved,
-                          itemReversed: item.isReversed()
+                          itemReversed: item.isReversed
                         }
                       },
                       [
@@ -116402,6 +116419,7 @@ var updateSale = {
                     saleItem.description = item.description;
                     saleItem.created_at = item.created_at;
                     saleItem.saved = true;
+                    saleItem.type = item.type;
                     var pos = this.saleItems.push(saleItem) - 1;
                     this.createWatcherForSaleItem(this.saleItems[pos]);
                 }

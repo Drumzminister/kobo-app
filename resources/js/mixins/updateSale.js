@@ -211,6 +211,7 @@ export const updateSale = {
                     saleItem.description = item.description;
                     saleItem.created_at = item.created_at;
                     saleItem.saved = true;
+                    saleItem.type = item.type;
                     let pos = this.saleItems.push(saleItem) - 1;
                     this.createWatcherForSaleItem(this.saleItems[pos]);
                 }

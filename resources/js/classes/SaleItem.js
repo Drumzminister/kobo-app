@@ -129,7 +129,7 @@ class SaleItem
             }
     }
 
-    isReversed () {
+    get isReversed () {
         return this.type === 'reversed';
     }
 

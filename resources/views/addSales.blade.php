@@ -12,8 +12,9 @@
     {{-- end of heading section --}}
 
     {{-- VAT section --}}
-    <vat-component :customers="{{ $customers }}" :taxes="{{ $taxes }}"></vat-component>
+    <vat-component :customers="{{ $customers }}" :taxes="{{ $taxes }}" :sale="{{ $sale }}"></vat-component>
     {{-- End VAT section --}}
+
     @if($sale->type === "published")
         <update-sale :inventories="{{ $inventories }}" :banks="{{ $banks }}" :channels="{{ $channels }}" :sale="{{ $sale }}"></update-sale>
     @else

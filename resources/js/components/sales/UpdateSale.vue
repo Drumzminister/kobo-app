@@ -3,7 +3,7 @@
         <div class="container mt-4">
             <div class="bg-white">
                 <div class="table-editableWTF">
-                    <table id="tableRow" class="table table-bordered table-responsive-md table-striped text-center">
+                    <table id="tableRow" class="table table-bordered table-responsive-md text-center">
                         <thead class="p-3">
                         <tr class="tab">
                             <th scope="col" class="tool" data-tip="Add all your inventory here." tabindex="1">
@@ -29,7 +29,7 @@
                         </tr>
                         </thead>
                         <tbody id="salesTable">
-                        <tr v-for="(item, index) in saleItems" :class="{'border-right-green' : item.saved, 'border-right-red' : !item.saved, itemReversed : item.isReversed() }">
+                        <tr v-for="(item, index) in saleItems" :class="{'border-right-green' : item.saved, 'border-right-red' : !item.saved, 'itemReversed' : item.isReversed }">
                             <td>
                                 {{ item.inventory ? item.inventory.name : "" }}
                                 <!--<Select2 :settings="{placeholder: 'Inventory'}" v-model="item.inventory_id" :options="availableInventories.map((inventory) => {return {id: inventory.id, text: inventory.name} })" @change="fillSaleItemWithInventory(item)"/>-->

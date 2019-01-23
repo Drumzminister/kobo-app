@@ -23,6 +23,7 @@ class SaleCollection extends JsonResource
 		        'invoice_number' => $this->invoice_number,
 		        'customer' => new CustomerCollection($this->customer),
 	            'saleChannel' => new SaleChannelCollection($this->saleChannel),
+	            'tax' => $this->tax,
 	            // Custom Fields
 	            'customer_name' => $this->customer->name,
 	            'quantity'  => $this->saleItems->count(),
