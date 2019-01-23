@@ -13,9 +13,15 @@
 <section>
     <div class="container my-4">
         <div class="bg-white p-5">
-            <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid">
+            <div class="row">
+            <div class="col-md-4 img-in">
+                <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid">
+                <div class="overlay">
+                    <div class="text"><input type="file" name="image" id=""></div>
+                </div>           
             <h5 class="h5">Add Photo</h5>
-
+            </div>
+            </div>
             <form>
                 <div class="form-group row py-2">
                     <div class="col-md-4">

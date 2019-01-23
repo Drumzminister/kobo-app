@@ -354,3 +354,41 @@ p{
   height: 90px;
   border-bottom: 3px solid #f3f3f3;
 }
+
+.overlay {
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    left: 15px;
+    right: 0;
+    width: 155px;
+    height: 155px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: rgba(50, 221, 129, 0.7);
+}
+
+.img-in:hover .overlay {
+    opacity: 1;
+}
+.img-in {
+
+    position: relative;
+}
+
+.image {
+    display: block;
+
+}
+.text {
+    color: white;
+    font-size: 10px;
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-40%, -40%);
+    /* -ms-transform: translate(-50%, -50%); */
+    text-align: center;
+}
+
