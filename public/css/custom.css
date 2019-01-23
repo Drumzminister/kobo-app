@@ -90,3 +90,7 @@ p{
 .customer-invoice .input-group {
   height: 45px;
 }
+
+.itemReversed {
+  background: #FBE5E5;
+}

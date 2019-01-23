@@ -1,6 +1,6 @@
 <?php
 
-use App\Data\Repositories\TransactionRepository;
+namespace App\Data\Repositories;
 
 class SalesTransactionRepository extends TransactionRepository
 {

@@ -13,7 +13,7 @@ class Transaction extends Model
 	public $incrementing = false;
 
 	protected $fillable = [
-		'id', 'bank_detail_id', 'kobo_id', 'sale', 'expense_id', 'purchase_id', 'inventory_id', 'amount',
+		'id', 'bank_detail_id', 'kobo_id', 'sale_id', 'expense_id', 'purchase_id', 'inventory_id', 'amount',
 		'company_id', 'loan_id', 'transaction_category_id', 'note', 'isProcessed'
 	];
 

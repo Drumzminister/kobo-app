@@ -3,7 +3,7 @@ import { mapGetters, mapMutations, mapState } from "vuex";
 import { toast, confirmSomethingWithAlert } from "../helpers/alert";
 import API from "../classes/API";
 
-export const addSale = {
+export const updateSale = {
     data() {
         return {
             sale_customer_id: "",
@@ -15,7 +15,7 @@ export const addSale = {
         }
     },
     created: function() {
-        this.addSaleItemForm();
+        // this.addSaleItemForm();
         this.setCompanyInventories(this.inventories);
         this.setSale(this.sale);
         this.setSaleItems(this.sale);
@@ -74,25 +74,39 @@ export const addSale = {
         addNewSaleItemRow: function () {
             this.addSaleItemForm();
         },
-        deleteSaleItemRow (index) {
+        reverseSaleItemRow (index) {
             let item = this.saleItems[index];
             let self = this;
+
+            let newItem = this.addSaleItemForm();
+            newItem.inventory = item.inventory;
+            newItem.inventory_id = item.inventory_id;
+            newItem.sales_price = -1 * item.sales_price;
+            newItem.type = 'reversed';
+            newItem.quantity = item.quantity;
+            newItem.description = item.description;
+            newItem.sale_channel_id = item.sale_channel_id;
+            newItem.saveItem();
+
             if(!item.isNotValid) {
-                item.deleteItemOnDatabase()
-                    .then(({ data }) => {
-                        if (data.status === "success") {
-                            self.saleItems.splice(index, 1);
-                        }
-                    })
-                    .catch((err) => console.log(err));
+                // item.sales_price = -1 * item.sales_price;
+                // console.log(item.sales_price);sales_price
+                // item.deleteItemOnDatabase()
+                //     .then(({ data }) => {
+                //         if (data.status === "success") {
+                //             self.saleItems.splice(index, 1);
+                //         }
+                //     })
+                //     .catch((err) => console.log(err));
             } else {
-                self.saleItems.splice(index, 1);
+                // self.saleItems.splice(index, 1);
             }
         },
         addSaleItemForm: function () {
             let item = new SaleItem(this.sale.id);
             let pos = this.saleItems.push(item) - 1;
             this.createWatcherForSaleItem(this.saleItems[pos]);
+            return item;
         },
         createWatcherForSaleItem (item) {
             this.$watch(() => item.inventory_id, this.saleItemDataChanged);
@@ -197,6 +211,7 @@ export const addSale = {
                     saleItem.description = item.description;
                     saleItem.created_at = item.created_at;
                     saleItem.saved = true;
+                    saleItem.type = item.type;
                     let pos = this.saleItems.push(saleItem) - 1;
                     this.createWatcherForSaleItem(this.saleItems[pos]);
                 }

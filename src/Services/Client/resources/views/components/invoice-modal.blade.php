@@ -78,19 +78,18 @@
 				<div class="modal-foote mt-3">
 					<div class="row">
 						<div class="col-md-2"></div>
-						{{--<div class="col">--}}
-							{{--<button type="button" class="btn btn-login" data-dismiss="modal">Reverse</button>--}}
-						{{--</div>--}}
 						<div class="col">
-							<a :href="'/sale/'+saleInvoice.id" class="btn btn-started" data-dismiss="modal">Update</a>
+							<a :href="'/client/sale/'+saleInvoice.id" class="btn btn-login">Reverse</a>
 						</div>
+						{{--<div class="col">--}}
+							{{--<a :href="'/sale/'+saleInvoice.id" class="btn btn-started" data-dismiss="modal">Update</a>--}}
+						{{--</div>--}}
 						<div class="col">
 							<button type="button" class="btn btn-danger px-5" data-dismiss="modal">Close</button>
 						</div>
 						<div class="col-md-2"></div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
