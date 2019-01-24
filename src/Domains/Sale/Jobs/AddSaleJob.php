@@ -115,8 +115,11 @@ class AddSaleJob extends Job
 
     	$balance = $this->data['total_amount'] - $paidAmount;
     	$this->data['balance'] = $balance;
-
-    	$updated = $sale->fill($this->data)->save();
+		if ($sale->balance !== $balance) {
+			$updated = $sale->fill($this->data)->save();
+		} else {
+			$updated = true;
+		}
 
 
 	    if ($balance < 0) {

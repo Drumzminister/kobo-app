@@ -65,8 +65,8 @@
                                                         {{ item.inventory.name }}
                                                     </td>
                                                     <td> {{ item.quantity }}</td>
-                                                    <td> {{ item.sales_price }}</td>
-                                                    <td> {{ item.totalPrice() }}</td>
+                                                    <td> {{ $currency.format(item.sales_price) }}</td>
+                                                    <td> {{ $currency.format(item.totalPrice()) }}</td>
                                                 </tr>
 
                                                 <tr v-if=" item.type !== 'reversed' && item.reversedItem !== null" style="border-left: 6px solid #FD9A97;" :class="{'itemReversed' : item.isReversed, 'itemReversed' : item.reversedItem.isReversed }">
@@ -77,8 +77,8 @@
                                                         {{ item.inventory.name }}
                                                     </td>
                                                     <td> {{ item.quantity }}</td>
-                                                    <td> {{ item.sales_price }}</td>
-                                                    <td> {{ item.totalPrice() }}</td>
+                                                    <td> {{ $currency.format(-1*item.sales_price) }}</td>
+                                                    <td> {{ $currency.format(-1*item.totalPrice()) }}</td>
                                                 </tr>
 
                                             </template>

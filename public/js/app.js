@@ -95355,7 +95355,11 @@ var render = function() {
                                                   _c("td", [
                                                     _vm._v(
                                                       " " +
-                                                        _vm._s(item.sales_price)
+                                                        _vm._s(
+                                                          _vm.$currency.format(
+                                                            item.sales_price
+                                                          )
+                                                        )
                                                     )
                                                   ]),
                                                   _vm._v(" "),
@@ -95363,7 +95367,9 @@ var render = function() {
                                                     _vm._v(
                                                       " " +
                                                         _vm._s(
-                                                          item.totalPrice()
+                                                          _vm.$currency.format(
+                                                            item.totalPrice()
+                                                          )
                                                         )
                                                     )
                                                   ])
@@ -95419,7 +95425,12 @@ var render = function() {
                                                   _c("td", [
                                                     _vm._v(
                                                       " " +
-                                                        _vm._s(item.sales_price)
+                                                        _vm._s(
+                                                          _vm.$currency.format(
+                                                            -1 *
+                                                              item.sales_price
+                                                          )
+                                                        )
                                                     )
                                                   ]),
                                                   _vm._v(" "),
@@ -95427,7 +95438,10 @@ var render = function() {
                                                     _vm._v(
                                                       " " +
                                                         _vm._s(
-                                                          item.totalPrice()
+                                                          _vm.$currency.format(
+                                                            -1 *
+                                                              item.totalPrice()
+                                                          )
                                                         )
                                                     )
                                                   ])
