@@ -116496,15 +116496,6 @@ var updateSale = {
         }
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(['setCompanyInventories', 'selectInventory', 'setSale']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['getCurrentURI']), {
-        // fillSaleItemWithInventory (item) {
-        //     if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
-        //         let inventory = this.$store.getters.getInventory(item.inventory_id);
-        //         item.sales_price = inventory.sales_price;
-        //         item.inventory = inventory;
-        //         this.selectInventory(inventory);
-        //         item.debounceItemSaving();
-        //     }
-        // },
         addNewSaleItemRow: function addNewSaleItemRow() {
             this.addSaleItemForm();
         },
@@ -116557,7 +116548,9 @@ var updateSale = {
             if (this.balanceLeft === 0) {
                 this.sendSaleCreationRequest();
             } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* confirmSomethingWithAlert */])("You have a balance of NGN " + this.$currency.format(this.balanceLeft) + ", once saved, you cannot revert!").then(function (result) {
+                var meaning = this.balanceLeft < 0 ? "You will be owning this customer NGN " + this.$currency.format(-1 * this.balanceLeft) : "This Customer will be owning you NGN " + this.$currency.format(this.balanceLeft);
+
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* confirmSomethingWithAlert */])(meaning + ", once saved, you cannot revert!").then(function (result) {
                     if (result.value) {
                         if (_this.saveAllItems()) {
                             _this.sendSaleCreationRequest();
@@ -116608,7 +116601,7 @@ var updateSale = {
                 if (data.status === "success") {
                     _this2.savingSale = false;
                     _this2.saleSaved = true;
-                    Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('Sale record added successfully.', 'success', 'center');
+                    Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('Sale record updated successfully!', 'success', 'center');
                     setTimeout(function () {
                         window.location.href = "/client/sales";
                     }, 1000);

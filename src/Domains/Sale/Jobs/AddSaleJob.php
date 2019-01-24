@@ -114,9 +114,17 @@ class AddSaleJob extends Job
     	$paidAmount = $this->retrieveAmountPaid($paymentMethods);
 
     	$balance = $this->data['total_amount'] - $paidAmount;
+    	$this->data['balance'] = $balance;
+
     	$updated = $sale->fill($this->data)->save();
 
-	    // Todo: I think we'll add A creditor here if there's balance;
+
+	    if ($balance < 0) {
+		    // Todo: I think we'll add A creditor here if balance is -ve i.e company owe customer;
+	    } else {
+		    // Todo: I think we'll add A debtor here if balance is +ve i.e customer owe company;
+	    }
+
 	    return $updated ? $this->createJobResponse('success', 'Sale Completed', $sale)
 		    : $this->createJobResponse('error', 'Sale could not be completed', $sale);
 

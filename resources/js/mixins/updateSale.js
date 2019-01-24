@@ -61,15 +61,6 @@ export const updateSale = {
     methods: {
         ...mapMutations(['setCompanyInventories', 'selectInventory', 'setSale']),
         ...mapGetters(['getCurrentURI']),
-        // fillSaleItemWithInventory (item) {
-        //     if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
-        //         let inventory = this.$store.getters.getInventory(item.inventory_id);
-        //         item.sales_price = inventory.sales_price;
-        //         item.inventory = inventory;
-        //         this.selectInventory(inventory);
-        //         item.debounceItemSaving();
-        //     }
-        // },
         addNewSaleItemRow: function () {
             this.addSaleItemForm();
         },
@@ -111,7 +102,10 @@ export const updateSale = {
             if (this.balanceLeft === 0) {
                 this.sendSaleCreationRequest();
             } else {
-                confirmSomethingWithAlert(`You have a balance of NGN ${ this.$currency.format(this.balanceLeft) }, once saved, you cannot revert!`).then((result) => {
+                let meaning = this.balanceLeft < 0 ? `You will be owning this customer NGN ${this.$currency.format(-1 * this.balanceLeft)}`
+                                                    : `This Customer will be owning you NGN ${this.$currency.format(this.balanceLeft)}`;
+
+                confirmSomethingWithAlert(`${ meaning }, once saved, you cannot revert!`).then((result) => {
                     if (result.value) {
                         if (this.saveAllItems()) {
                             this.sendSaleCreationRequest();
@@ -153,7 +147,7 @@ export const updateSale = {
                     if (data.status === "success") {
                         this.savingSale = false;
                         this.saleSaved = true;
-                        toast('Sale record added successfully.', 'success', 'center');
+                        toast('Sale record updated successfully!', 'success', 'center');
                         setTimeout(function () {
                             window.location.href = "/client/sales";
                         }, 1000);
