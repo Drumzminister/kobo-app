@@ -122,20 +122,27 @@ export const updateSale = {
             // ToDo: Implement this Watcher
         },
         saveSale ()  {
-            if (this.saleIsNotValid) {
-                this.validateSalesData();
-                return;
-            }
+            // if (this.saleIsNotValid) {
+            //     this.validateSalesData();
+            //     return;
+            // }
 
             if (this.balanceLeft === 0) {
                 this.sendSaleCreationRequest();
             } else {
-                confirmSomethingWithAlert(`You have a balance of NGN ${this.$currency.format(this.balanceLeft)}`).then((result) => {
+                confirmSomethingWithAlert(`You have a balance of NGN ${ this.$currency.format(this.balanceLeft) }, once saved, you cannot revert!`).then((result) => {
                     if (result.value) {
-                        this.sendSaleCreationRequest();
+                        if (this.saveAllItems()) {
+                            this.sendSaleCreationRequest();
+                        }
                     }
                 });
             }
+        },
+        saveAllItems () {
+            this.saleItems.forEach((item) => item.saveItem());
+            // Return Promise at this spot
+            return true;
         },
         sendSaleCreationRequest () {
             this.savingSale = true;
@@ -156,7 +163,8 @@ export const updateSale = {
                 delivery_cost: this.deliveryCost,
                 total_amount: this.totalSalesAmount,
                 paymentMethods: this.selectedAccounts,
-                invoice_number: this.sale.invoice_number
+                invoice_number: this.sale.invoice_number,
+                updateType: "reversal"
             };
 
             api.endpoints.sale.create(data)
@@ -177,25 +185,9 @@ export const updateSale = {
                 });
         },
         previewInvoice () {
-            if(!this.customer) {
-                toast('You must select a customer to preview Invoice', 'error', 'center');
-                return;
-            }
             this.openModal("#previewInvoiceModal");
         },
         validateSalesData () {
-            if (this.customer === null || typeof this.customer === "undefined") {
-                toast('You must select a customer before Saving', 'error', 'center');
-            }
-
-            if (this.saleDate === "") {
-                toast('You must select a date.', 'error', 'center');
-            }
-
-            if (this.invalidPaymentsSum) {
-                let totalSalesAmount = this.$currency.format(this.computedSalesAmount);
-                toast(`You cannot pay above the Total sales amount of NGN ${totalSalesAmount}`, 'error', 'center');
-            }
         },
         openSendingModal () {
             if(!this.customer) {

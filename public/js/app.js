@@ -93915,7 +93915,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 this.removeAccountFromStore(paymentMode.id);
             }
 
-            if (this.selectedAccounts.length === 0) {
+            if (this.selectedAccounts.length === 0 && !this.readOnly) {
                 paymentMode.amount = this.totalSpread;
                 this.invalidPaymentsSum(false);
             }
@@ -116569,20 +116569,29 @@ var updateSale = {
         saveSale: function saveSale() {
             var _this = this;
 
-            if (this.saleIsNotValid) {
-                this.validateSalesData();
-                return;
-            }
+            // if (this.saleIsNotValid) {
+            //     this.validateSalesData();
+            //     return;
+            // }
 
             if (this.balanceLeft === 0) {
                 this.sendSaleCreationRequest();
             } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* confirmSomethingWithAlert */])("You have a balance of NGN " + this.$currency.format(this.balanceLeft)).then(function (result) {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* confirmSomethingWithAlert */])("You have a balance of NGN " + this.$currency.format(this.balanceLeft) + ", once saved, you cannot revert!").then(function (result) {
                     if (result.value) {
-                        _this.sendSaleCreationRequest();
+                        if (_this.saveAllItems()) {
+                            _this.sendSaleCreationRequest();
+                        }
                     }
                 });
             }
+        },
+        saveAllItems: function saveAllItems() {
+            this.saleItems.forEach(function (item) {
+                return item.saveItem();
+            });
+            // Return Promise at this spot
+            return true;
         },
         sendSaleCreationRequest: function sendSaleCreationRequest() {
             this.savingSale = true;
@@ -116609,7 +116618,8 @@ var updateSale = {
                 delivery_cost: this.deliveryCost,
                 total_amount: this.totalSalesAmount,
                 paymentMethods: this.selectedAccounts,
-                invoice_number: this.sale.invoice_number
+                invoice_number: this.sale.invoice_number,
+                updateType: "reversal"
             };
 
             api.endpoints.sale.create(data).then(function (_ref2) {
@@ -116631,26 +116641,9 @@ var updateSale = {
             });
         },
         previewInvoice: function previewInvoice() {
-            if (!this.customer) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('You must select a customer to preview Invoice', 'error', 'center');
-                return;
-            }
             this.openModal("#previewInvoiceModal");
         },
-        validateSalesData: function validateSalesData() {
-            if (this.customer === null || typeof this.customer === "undefined") {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('You must select a customer before Saving', 'error', 'center');
-            }
-
-            if (this.saleDate === "") {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('You must select a date.', 'error', 'center');
-            }
-
-            if (this.invalidPaymentsSum) {
-                var totalSalesAmount = this.$currency.format(this.computedSalesAmount);
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("You cannot pay above the Total sales amount of NGN " + totalSalesAmount, 'error', 'center');
-            }
-        },
+        validateSalesData: function validateSalesData() {},
         openSendingModal: function openSendingModal() {
             if (!this.customer) {
                 Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])('You must select a customer to send', 'error', 'center');

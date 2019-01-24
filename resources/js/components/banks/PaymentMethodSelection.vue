@@ -142,7 +142,7 @@
                     this.removeAccountFromStore(paymentMode.id);
                 }
 
-                if (this.selectedAccounts.length === 0) {
+                if (this.selectedAccounts.length === 0 && !this.readOnly) {
                     paymentMode.amount = this.totalSpread;
                     this.invalidPaymentsSum(false);
                 }
