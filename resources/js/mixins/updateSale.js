@@ -61,21 +61,20 @@ export const updateSale = {
     methods: {
         ...mapMutations(['setCompanyInventories', 'selectInventory', 'setSale']),
         ...mapGetters(['getCurrentURI']),
-        fillSaleItemWithInventory (item) {
-            if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
-                let inventory = this.$store.getters.getInventory(item.inventory_id);
-                item.sales_price = inventory.sales_price;
-                item.inventory = inventory;
-                this.selectInventory(inventory);
-                item.debounceItemSaving();
-            }
-        },
+        // fillSaleItemWithInventory (item) {
+        //     if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
+        //         let inventory = this.$store.getters.getInventory(item.inventory_id);
+        //         item.sales_price = inventory.sales_price;
+        //         item.inventory = inventory;
+        //         this.selectInventory(inventory);
+        //         item.debounceItemSaving();
+        //     }
+        // },
         addNewSaleItemRow: function () {
             this.addSaleItemForm();
         },
         reverseSaleItemRow (index) {
             let item = this.saleItems[index];
-            let self = this;
 
             let newItem = this.addSaleItemForm();
             newItem.inventory = item.inventory;
@@ -90,21 +89,8 @@ export const updateSale = {
             newItem.reversedItem = item;
             item.reversedItem = newItem;
             //------------------------------
-            // newItem.saveItem();
 
-            if(!item.isNotValid) {
-                // item.sales_price = -1 * item.sales_price;
-                // console.log(item.sales_price);sales_price
-                // item.deleteItemOnDatabase()
-                //     .then(({ data }) => {
-                //         if (data.status === "success") {
-                //             self.saleItems.splice(index, 1);
-                //         }
-                //     })
-                //     .catch((err) => console.log(err));
-            } else {
-                // self.saleItems.splice(index, 1);
-            }
+            // newItem.saveItem(); // This will Save the reversal Immediately
         },
         addSaleItemForm: function () {
             let item = new SaleItem(this.sale.id);
@@ -122,11 +108,6 @@ export const updateSale = {
             // ToDo: Implement this Watcher
         },
         saveSale ()  {
-            // if (this.saleIsNotValid) {
-            //     this.validateSalesData();
-            //     return;
-            // }
-
             if (this.balanceLeft === 0) {
                 this.sendSaleCreationRequest();
             } else {

@@ -28,6 +28,7 @@ class Sale extends Model
 	    'tax_id',
 	    'discount',
 	    'type',
+	    'balance',
     ];
 
     protected $with = [

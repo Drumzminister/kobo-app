@@ -15,6 +15,8 @@ class AddSaleJob extends Job
 {
 	use HelpsResponse;
 
+	const UPDATE_REVERSAL = 'reversal';
+
 	/**
 	 * @var \Illuminate\Foundation\Application|UserRepository
 	 */
@@ -71,7 +73,7 @@ class AddSaleJob extends Job
     {
     	$sale = $this->sale->findOnly('id', $this->data['sale_id']);
 
-    	if ($sale->type === "published") {
+    	if ($sale->type === "published" && !isset($this->data['updateType'])) {
 		    return $this->createJobResponse('error', 'Sale has already been published and cannot be updated', $sale);
 	    }
 
@@ -81,20 +83,47 @@ class AddSaleJob extends Job
 
 	    $paymentMethods = $this->data['paymentMethods'];
 
+	    if (!isset($this->data['updateType'])) {
+		    return $this->performNonReversalUpdate($paymentMethods, $sale);
+	    } elseif ($this->data['updateType'] === self::UPDATE_REVERSAL) {
+	    	return $this->performReversalUpdate($paymentMethods, $sale);
+	    }
+    }
+
+    protected function creditPaymentMethodsForSale($paymentMethods, $sale)
+    {
+    	return (new CreditBanksJob($paymentMethods, $sale, $this->user->company->id))->handle();
+    }
+
+    protected function performNonReversalUpdate($paymentMethods, $sale)
+    {
 	    $response = $this->creditPaymentMethodsForSale($paymentMethods, $sale);
 
 	    if ($response->status === "success") {
 		    $updated = $sale->fill($this->data)->save();
 
 		    return $updated ? $this->createJobResponse('success', 'Sale Completed', $sale)
-			                : $this->createJobResponse('error', 'Sale could not be completed', $sale);
+			    : $this->createJobResponse('error', 'Sale could not be completed', $sale);
 	    }
 
 	    return $this->createJobResponse('error', $response->message, $sale);
     }
 
-    protected function creditPaymentMethodsForSale($paymentMethods, $sale)
+    protected function performReversalUpdate($paymentMethods, $sale)
     {
-    	return (new CreditBanksJob($paymentMethods, $sale, $this->user->company->id))->handle();
+    	$paidAmount = $this->retrieveAmountPaid($paymentMethods);
+
+    	$balance = $this->data['total_amount'] - $paidAmount;
+    	$updated = $sale->fill($this->data)->save();
+
+	    // Todo: I think we'll add A creditor here if there's balance;
+	    return $updated ? $this->createJobResponse('success', 'Sale Completed', $sale)
+		    : $this->createJobResponse('error', 'Sale could not be completed', $sale);
+
+    }
+
+    protected function retrieveAmountPaid($paymentMethods)
+    {
+    	return array_sum(collect($paymentMethods)->pluck('amount')->toArray());
     }
 }
