@@ -57,8 +57,7 @@ class AddSaleItemJob extends Job
     		$reversedItem->fill(['reversed_item_id' => $item->id])->save();
 	    }
 
-	    return $item ?
-		    $this->createJobResponse('success', 'Item Created', $item)
-		    : $this->createJobResponse('error', 'Item Not Created', null);
+	    return $item ? $this->createJobResponse('success', 'Item Created', $item)
+				    : $this->createJobResponse('error', 'Item Not Created', null);
     }
 }
