@@ -56,7 +56,7 @@ class CreditBanksJob extends Job
     {
 
 	    if (!class_exists($this->getTransactionClass())) {
-		    return $this->createJobResponse('error', 'Transaction data cannot be created for ' . ucfirst(get_class($this->model)), $this->model);
+		    return $this->createJobResponse('error', 'Transaction data cannot be created for ' . ucfirst($this->getModelClassName()), $this->model);
 	    }
 
 	    foreach ($this->paymentModes as $paymentMode) {
