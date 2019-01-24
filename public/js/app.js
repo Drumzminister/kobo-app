@@ -95111,6 +95111,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     computed: {
@@ -95295,55 +95310,135 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "tbody",
-                                _vm._l(_vm.saleItems, function(item) {
-                                  return _vm.saleItems.length > 0 && item.saved
-                                    ? _c(
-                                        "tr",
-                                        {
-                                          class: {
-                                            itemReversed: item.isReversed
-                                          }
-                                        },
-                                        [
-                                          _c("td", [
-                                            _vm._v(
-                                              "\n                                                " +
-                                                _vm._s(item.created_at) +
-                                                "\n                                            "
-                                            )
-                                          ]),
+                                [
+                                  _vm._l(_vm.saleItems, function(item, index) {
+                                    return _vm.saleItems.length > 0 &&
+                                      item.saved
+                                      ? [
+                                          item.type !== "reversed"
+                                            ? _c(
+                                                "tr",
+                                                {
+                                                  class: {
+                                                    itemReversed:
+                                                      item.isReversed
+                                                  }
+                                                },
+                                                [
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      "\n                                                    " +
+                                                        _vm._s(
+                                                          item.created_at
+                                                        ) +
+                                                        "\n                                                "
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      "\n                                                    " +
+                                                        _vm._s(
+                                                          item.inventory.name
+                                                        ) +
+                                                        "\n                                                "
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      " " +
+                                                        _vm._s(item.quantity)
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      " " +
+                                                        _vm._s(item.sales_price)
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      " " +
+                                                        _vm._s(
+                                                          item.totalPrice()
+                                                        )
+                                                    )
+                                                  ])
+                                                ]
+                                              )
+                                            : _vm._e(),
                                           _vm._v(" "),
-                                          _c("td", [
-                                            _vm._v(
-                                              "\n                                                " +
-                                                _vm._s(item.inventory.name) +
-                                                "\n                                            "
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("td", [
-                                            _vm._v(" " + _vm._s(item.quantity))
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("td", [
-                                            _vm._v(
-                                              " " +
-                                                _vm._s(
-                                                  item.inventory.sales_price
-                                                )
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("td", [
-                                            _vm._v(
-                                              " " + _vm._s(item.totalPrice())
-                                            )
-                                          ])
+                                          item.type !== "reversed" &&
+                                          item.reversedItem !== null
+                                            ? _c(
+                                                "tr",
+                                                {
+                                                  class: {
+                                                    itemReversed:
+                                                      item.isReversed,
+                                                    itemReversed:
+                                                      item.reversedItem
+                                                        .isReversed
+                                                  },
+                                                  staticStyle: {
+                                                    "border-left":
+                                                      "6px solid #FD9A97"
+                                                  }
+                                                },
+                                                [
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      "\n                                                    " +
+                                                        _vm._s(
+                                                          item.created_at
+                                                        ) +
+                                                        "\n                                                "
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      "\n                                                    " +
+                                                        _vm._s(
+                                                          item.inventory.name
+                                                        ) +
+                                                        "\n                                                "
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      " " +
+                                                        _vm._s(item.quantity)
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      " " +
+                                                        _vm._s(item.sales_price)
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("td", [
+                                                    _vm._v(
+                                                      " " +
+                                                        _vm._s(
+                                                          item.totalPrice()
+                                                        )
+                                                    )
+                                                  ])
+                                                ]
+                                              )
+                                            : _vm._e()
                                         ]
-                                      )
-                                    : _vm._e()
-                                }),
-                                0
+                                      : _vm._e()
+                                  })
+                                ],
+                                2
                               )
                             ]
                           )
@@ -95394,7 +95489,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Sales Price (₦)")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Balance")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Total")])
       ])
     ])
   },
@@ -97325,7 +97420,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['customer', 'selectedTax', "taxId"])),
     mounted: function mounted() {
-        this.sale_date = this.updateMode ? moment(this.sale.updated_at).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
+        this.sale_date = this.updateMode ? moment(this.sale.created_at).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
         this.customer_id = this.sale.customer ? this.sale.customer.id : "";
         this.tax_id = this.sale.tax ? this.sale.tax.id : "";
     }
