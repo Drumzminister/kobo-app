@@ -7,6 +7,7 @@ use App\Data\Repositories\SaleItemRepository;
 use App\Data\Repositories\SaleRepository;
 use App\Data\Repositories\UserRepository;
 use App\Domains\Banks\Jobs\CreditBanksJob;
+use App\Domains\Inventory\Jobs\DecrementItemInInventoryJob;
 use Koboaccountant\Traits\HelpsResponse;
 use Lucid\Foundation\Job;
 use SalesTransactionRepository;
@@ -102,6 +103,9 @@ class AddSaleJob extends Job
 	    if ($response->status === "success") {
 		    $updated = $sale->fill($this->data)->save();
 
+			// Decrease Inventory Items based on Sales Items bought
+		    $this->removeItemsBoughtFromInventory($sale );
+
 		    return $updated ? $this->createJobResponse('success', 'Sale Completed', $sale)
 			    : $this->createJobResponse('error', 'Sale could not be completed', $sale);
 	    }
@@ -121,6 +125,7 @@ class AddSaleJob extends Job
 			$updated = true;
 		}
 
+		// ToDO: Update Inventory - Add Items reversed back to the inventory
 
 	    if ($balance < 0) {
 		    // Todo: I think we'll add A creditor here if balance is -ve i.e company owe customer;
@@ -136,5 +141,10 @@ class AddSaleJob extends Job
     protected function retrieveAmountPaid($paymentMethods)
     {
     	return array_sum(collect($paymentMethods)->pluck('amount')->toArray());
+    }
+
+    protected function removeItemsBoughtFromInventory($sale)
+    {
+    	return (new DecrementItemInInventoryJob($sale))->handle();
     }
 }
