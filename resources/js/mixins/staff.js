@@ -39,8 +39,10 @@ export const staffApp = {
             axios.post('/client/staff/imageUpload', formData).then(res => {
                     toast('Image has successfully uploaded', 'success');
                     this.staffForm.avatar = res.data.data;
+                    this.staffForm.avatar = ""
             }).catch(res => {
                 toast('Staff upload unsuccessful', 'error');
+                this.staffForm.avatar = ""
             });
         },
         createStaff(evt) {
