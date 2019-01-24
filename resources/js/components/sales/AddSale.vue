@@ -73,9 +73,6 @@
                                     <h5 class="h6 mt-2 uppercase text-muted">Total Discount</h5>
                                 </div>
                                     <div class="col input-group mb-2 input-group-lg">
-                                        <!--<div class="input-group-prepend">-->
-                                            <!--<span class="input-group-text ">&#8358;</span>-->
-                                        <!--</div>-->
                                         <input type="number" min="1" v-model="saleDiscount" class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="0.00">
                                     </div>
                                 </div>
@@ -85,9 +82,6 @@
                                         <h5 class="h6 mt-2 uppercase text-muted">Total Delivery Amount</h5>
                                     </div>
                                     <div class="col input-group mb-2 input-group-lg">
-                                        <!--<div class="input-group-prepend">-->
-                                            <!--<span class="input-group-text" id="basic-addon3">&#8358;</span>-->
-                                        <!--</div>-->
                                         <input type="number" min="1" v-model="deliveryCost" class="form-control " id="" aria-describedby="basic-addon3" placeholder="0.00">
                                     </div>
                                 </div>
@@ -97,9 +91,6 @@
                                     <h5 class="h6 mt-2 uppercase text-muted">TAX Amount</h5>
                                 </div>    
                                     <div class="col input-group input-group-lg">
-                                        <!--<div class="input-group-prepend">-->
-                                            <!--<span class="input-group-text" id="basic-addon3">&#8358;</span>-->
-                                        <!--</div>-->
                                         <input type="text" :disabled="true" v-model="taxAmount" class="form-control" aria-describedby="basic-addon3" placeholder="0.00">
                                     </div>
                                 </div>
@@ -109,9 +100,6 @@
                                         <h5 class="h5 mt-2 uppercase text-muted">Total Amount</h5>
                                     </div>
                                     <div class="col input-group input-group-lg">
-                                        <!--<div class="input-group-prepend">-->
-                                            <!--<span class="input-group-text" id="basic-addon3">&#8358;</span>-->
-                                        <!--</div>-->
                                         <input type="text" :disabled="true" v-model="currency.format(computedSalesAmount)" class="form-control" id="total" aria-describedby="basic-addon3" placeholder="0.00">
                                     </div>
                                 </div>

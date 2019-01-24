@@ -94486,18 +94486,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -115674,18 +115662,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -115754,59 +115730,59 @@ var render = function() {
                               [
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(
                                         item.inventory
                                           ? item.inventory.name
                                           : ""
                                       ) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(item.description) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(item.quantity) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(
                                         _vm.$currency.format(item.sales_price)
                                       ) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(
                                         _vm.$currency.format(item.totalPrice())
                                       ) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(
                                         _vm.getChannelName(item.sale_channel_id)
                                       ) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
@@ -115872,65 +115848,65 @@ var render = function() {
                               [
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(
                                         item.reversedItem.inventory
                                           ? item.inventory.name
                                           : ""
                                       ) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(item.reversedItem.description) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(item.reversedItem.quantity) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(
                                         _vm.$currency.format(
                                           item.reversedItem.sales_price
                                         )
                                       ) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(
                                         _vm.$currency.format(
                                           item.reversedItem.totalPrice()
                                         )
                                       ) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(
                                         _vm.getChannelName(
                                           item.reversedItem.sale_channel_id
                                         )
                                       ) +
-                                      "\n                                "
+                                      "\n                            "
                                   )
                                 ]),
                                 _vm._v(" "),
@@ -115980,108 +115956,96 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-6 " }, [
               _c(
                 "div",
-                { staticClass: "bg-grey py-4 px-3", attrs: { id: "topp" } },
+                { staticClass: "bg-grey py-3 px-4", attrs: { id: "topp" } },
                 [
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("h5", { staticClass: "h6 uppercase" }, [
-                        _vm._v("Total Discount")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "input-group mb-3 input-group-lg" },
-                        [
-                          _vm._m(1),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.saleDiscount,
-                                expression: "saleDiscount"
-                              }
-                            ],
-                            staticClass: "form-control discount",
-                            attrs: {
-                              type: "number",
-                              min: "1",
-                              disabled: true,
-                              id: "basic-url",
-                              "aria-describedby": "basic-addon3",
-                              placeholder: "0.00"
-                            },
-                            domProps: { value: _vm.saleDiscount },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.saleDiscount = $event.target.value
-                              }
-                            }
-                          })
-                        ]
-                      )
-                    ]),
+                    _vm._m(1),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("h5", { staticClass: "h6 uppercase" }, [
-                        _vm._v("Total Delivery Amount")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "input-group mb-3 input-group-lg" },
-                        [
-                          _vm._m(2),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.deliveryCost,
-                                expression: "deliveryCost"
-                              }
-                            ],
-                            staticClass: "form-control ",
-                            attrs: {
-                              type: "number",
-                              min: "1",
-                              disabled: true,
-                              id: "",
-                              "aria-describedby": "basic-addon3",
-                              placeholder: "0.00"
-                            },
-                            domProps: { value: _vm.deliveryCost },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.deliveryCost = $event.target.value
-                              }
+                    _c(
+                      "div",
+                      { staticClass: "col input-group mb-2 input-group-lg" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.saleDiscount,
+                              expression: "saleDiscount"
                             }
-                          })
-                        ]
-                      )
-                    ])
+                          ],
+                          staticClass: "form-control discount",
+                          attrs: {
+                            type: "number",
+                            min: "1",
+                            disabled: true,
+                            id: "basic-url",
+                            "aria-describedby": "basic-addon3",
+                            placeholder: "0.00"
+                          },
+                          domProps: { value: _vm.saleDiscount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.saleDiscount = $event.target.value
+                            }
+                          }
+                        })
+                      ]
+                    )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "row pt-2" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("h5", { staticClass: "h6 uppercase" }, [
-                        _vm._v("TAX Amount")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-group input-group-lg" }, [
-                        _vm._m(3),
-                        _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col input-group mb-2 input-group-lg" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.deliveryCost,
+                              expression: "deliveryCost"
+                            }
+                          ],
+                          staticClass: "form-control ",
+                          attrs: {
+                            type: "number",
+                            min: "1",
+                            disabled: true,
+                            id: "",
+                            "aria-describedby": "basic-addon3",
+                            placeholder: "0.00"
+                          },
+                          domProps: { value: _vm.deliveryCost },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.deliveryCost = $event.target.value
+                            }
+                          }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col input-group input-group-lg" },
+                      [
                         _c("input", {
                           directives: [
                             {
@@ -116108,17 +116072,19 @@ var render = function() {
                             }
                           }
                         })
-                      ])
-                    ]),
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row px-5 mt-0" }, [
+                    _vm._m(4),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("h5", { staticClass: "h6 uppercase" }, [
-                        _vm._v("Total Amount")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-group input-group-lg" }, [
-                        _vm._m(4),
-                        _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col input-group input-group-lg" },
+                      [
                         _c("input", {
                           directives: [
                             {
@@ -116154,86 +116120,86 @@ var render = function() {
                             }
                           }
                         })
-                      ])
-                    ])
+                      ]
+                    )
                   ])
                 ]
               )
             ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row p-3" }, [
+          _c("div", { staticClass: "col" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-lg btn-login",
+                on: {
+                  click: function($event) {
+                    _vm.openSendingModal()
+                  }
+                }
+              },
+              [_vm._v("Send")]
+            )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "row p-3" }, [
-            _c("div", { staticClass: "col" }, [
+          _c("div", { staticClass: "col" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "col" }, [
+            _c("span", { staticClass: "float-right mr-2" }, [
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-lg btn-login",
+                  staticClass: "btn btn-lg btn-started",
+                  attrs: { type: "submit", disabled: _vm.savingSale },
                   on: {
                     click: function($event) {
-                      _vm.openSendingModal()
+                      _vm.saveSale()
                     }
                   }
                 },
-                [_vm._v("Send")]
+                [
+                  _c("i", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.savingSale,
+                        expression: "savingSale"
+                      }
+                    ],
+                    staticClass: "fa fa-circle-notch fa-spin"
+                  }),
+                  _vm._v(
+                    " " +
+                      _vm._s(
+                        _vm.savingSale
+                          ? "Saving"
+                          : _vm.saleSaved
+                          ? "Saved!"
+                          : "Save"
+                      )
+                  )
+                ]
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "col" }, [
-              _c("span", { staticClass: "float-right mr-2" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-lg btn-started",
-                    attrs: { type: "submit", disabled: _vm.savingSale },
-                    on: {
-                      click: function($event) {
-                        _vm.saveSale()
-                      }
+            _c("span", { staticClass: "float-right mr-2" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-lg btn-started",
+                  attrs: { type: "submit" },
+                  on: {
+                    click: function($event) {
+                      _vm.previewInvoice()
                     }
-                  },
-                  [
-                    _c("i", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.savingSale,
-                          expression: "savingSale"
-                        }
-                      ],
-                      staticClass: "fa fa-circle-notch fa-spin"
-                    }),
-                    _vm._v(
-                      " " +
-                        _vm._s(
-                          _vm.savingSale
-                            ? "Saving"
-                            : _vm.saleSaved
-                            ? "Saved!"
-                            : "Save"
-                        )
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "float-right mr-2" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-lg btn-started",
-                    attrs: { type: "submit" },
-                    on: {
-                      click: function($event) {
-                        _vm.previewInvoice()
-                      }
-                    }
-                  },
-                  [_vm._v("Preview")]
-                )
-              ])
+                  }
+                },
+                [_vm._v("Preview")]
+              )
             ])
           ])
         ])
@@ -116363,9 +116329,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("span", { staticClass: "input-group-text customer-input" }, [
-        _vm._v("₦")
+    return _c("div", { staticClass: "col" }, [
+      _c("h5", { staticClass: "h6 mt-2 uppercase text-muted" }, [
+        _vm._v("Total Discount")
       ])
     ])
   },
@@ -116373,45 +116339,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        {
-          staticClass: "input-group-text customer-input",
-          attrs: { id: "basic-addon3" }
-        },
-        [_vm._v("₦")]
-      )
+    return _c("div", { staticClass: "col" }, [
+      _c("h5", { staticClass: "h6 mt-2 uppercase text-muted" }, [
+        _vm._v("Total Delivery Amount")
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        {
-          staticClass: "input-group-text customer-input",
-          attrs: { id: "basic-addon3" }
-        },
-        [_vm._v("₦")]
-      )
+    return _c("div", { staticClass: "col" }, [
+      _c("h5", { staticClass: "h6 mt-2 uppercase text-muted" }, [
+        _vm._v("TAX Amount")
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        {
-          staticClass: "input-group-text customer-input",
-          attrs: { id: "basic-addon3" }
-        },
-        [_vm._v("₦")]
-      )
+    return _c("div", { staticClass: "col-md-5" }, [
+      _c("h5", { staticClass: "h5 mt-2 uppercase text-muted" }, [
+        _vm._v("Total Amount")
+      ])
     ])
   }
 ]
