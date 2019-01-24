@@ -5,7 +5,7 @@ namespace Koboaccountant\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class SaleItemCollection extends JsonResource
+class ClientTransactionCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -15,6 +15,10 @@ class SaleItemCollection extends JsonResource
      */
     public function toArray($request)
     {
-        return array_merge(parent::toArray($request), ['inventory' => $this->inventory, 'reversedItem' => $this->reversedItem]);
+        return array_merge(parent::toArray($request), [
+        	'bank_id'   => $this->bank_detail_id,
+	        'bank'      => $this->paymentMode,
+	        'amount'    => $this->amount,
+        ]);
     }
 }

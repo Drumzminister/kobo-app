@@ -72,7 +72,7 @@
             ...mapMutations(['customer', 'selectedTax', "taxId"])
         },
         mounted () {
-            this.sale_date = this.updateMode ? moment(this.sale.updated_at).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
+            this.sale_date = this.updateMode ? moment(this.sale.created_at).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
             this.customer_id = this.sale.customer ? this.sale.customer.id : "";
             this.tax_id = this.sale.tax ? this.sale.tax.id : "";
         }
