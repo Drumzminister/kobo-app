@@ -15,12 +15,12 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text customer-input" id="basic-addon3">Customer</span>
                         </div>
-                        <Select2 :settings="{placeholder: 'Select Customer'}" v-model="customer_id" :options="customers.map((customer) => {return {id: customer.id, text: customer.first_name + ' ' + customer.last_name } })"/>
+                        <Select2 :settings="{placeholder: 'Select Customer', disabled: updateMode }" v-model="customer_id" :options="customers.map((customer) => {return {id: customer.id, text: customer.first_name + ' ' + customer.last_name } })"/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <select v-model="tax_id" class="form-control form-control-lg form-control tax vat-input" name="tax" id="basic-addon3">
+                        <select :disabled="updateMode" v-model="tax_id" class="form-control form-control-lg form-control tax vat-input" name="tax" id="basic-addon3">
                             <option value="">Select Tax ...</option>
                             <option v-for="tax in taxes" :value="tax.id" >{{ tax.name }}</option>
                         </select>
@@ -29,7 +29,7 @@
 
                 <div class="col-md-3">
                     <div class="dates input-group mb-3 input-group-lg">
-                        <input v-model="sale_date" type="date"  class="form-control sales_date" name="event_date">
+                        <input v-model="sale_date" type="date" :disabled="updateMode" class="form-control sales_date" name="event_date">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-calendar icon" name="event_date" ></i></span>
                         </div>
@@ -43,7 +43,7 @@
     import { mapMutations, mapGetters } from 'vuex';
     import Select2 from "v-select2-component";
     export default {
-        props: ['customers', 'taxes'],
+        props: ['customers', 'taxes', 'sale'],
         components: {Select2},
         data() {
             return {
@@ -54,6 +54,9 @@
         },
         computed: {
             ...mapGetters(['saleInvoice']),
+            updateMode () {
+                return this.sale.type === 'published';
+            }
         },
         watch: {
             ...mapMutations({ sale_date: 'saleDate' }),
@@ -69,7 +72,9 @@
             ...mapMutations(['customer', 'selectedTax', "taxId"])
         },
         mounted () {
-            this.sale_date = moment().format('YYYY-MM-DD');
+            this.sale_date = this.updateMode ? moment(this.sale.created_at).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
+            this.customer_id = this.sale.customer ? this.sale.customer.id : "";
+            this.tax_id = this.sale.tax ? this.sale.tax.id : "";
         }
     }
 </script>

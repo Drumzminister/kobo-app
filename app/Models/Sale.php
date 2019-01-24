@@ -3,6 +3,7 @@
 namespace Koboaccountant\Models;
 
 use App\Data\SaleItem;
+use App\Data\Tax;
 use App\Data\Transaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -27,10 +28,11 @@ class Sale extends Model
 	    'tax_id',
 	    'discount',
 	    'type',
+	    'balance',
     ];
 
     protected $with = [
-    	'saleItems', 'customer'
+    	'saleItems', 'customer', 'tax', 'transactions'
     ];
 
     protected $dates = ['deleted_at', 'created_at'];
@@ -57,8 +59,13 @@ class Sale extends Model
         return $this->belongsTo('Koboaccountant\Models\Customer');
     }
 
-    public function transaction()
+    public function tax()
     {
-    	return $this->hasOne(Transaction::class);
+    	return $this->belongsTo(Tax::class);
+    }
+
+    public function transactions()
+    {
+    	return $this->hasMany(Transaction::class);
     }
 }
