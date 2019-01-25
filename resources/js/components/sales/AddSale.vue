@@ -32,7 +32,9 @@
                         <tbody id="salesTable">
                         <tr v-for="(item, index) in saleItems" :class="{'border-right-green' : item.saved, 'border-right-red' : !item.saved }">
                             <td>
-                                <Select2 :settings="{placeholder: 'Inventory'}" v-model="item.inventory_id" :options="availableInventories.map((inventory) => {return {id: inventory.id, text: inventory.name} })" @change="fillSaleItemWithInventory(item)"/>
+                                <Select2 :settings="{placeholder: 'Inventory'}" v-model="item.inventory_id"
+                                         :options="availableInventories.map((inventory) => { return { id: inventory.id, text: inventory.name, disabled: selectedInventories.map(inventory => inventory.id).includes(inventory.id) } })"
+                                         @change="fillSaleItemWithInventory(item)"/>
                             </td>
                             <td><input v-model="item.description" @change="item.debounceItemSaving()" type="text" id="sales_description" class="form-control sales_description "></td>
                             <td><input style="width: 200px" :disabled="item.inventoryid === ''" @change="item.debounceItemSaving()" min="1" :max="item.inventory ? item.inventory.quantity : 0" v-model="item.quantity" type="number" class="sales_quantity form-control" :placeholder="item.inventory ? item.inventory.quantity + ' In Stock' : null"></td>

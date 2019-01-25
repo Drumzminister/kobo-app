@@ -39,7 +39,9 @@ Vue.use(VeeValidate);
 import {store} from "./state/store";
 
 import Currency from './plugins/Currency';
+import ModalHelper from './plugins/ModalHelper';
 Vue.use(Currency);
+Vue.use(ModalHelper);
 
 window.app = new Vue({
     el: '#app',

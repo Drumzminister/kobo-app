@@ -12,12 +12,20 @@
 */
 
 
-Route::group(['prefix' => 'client'], function () {
+//use PDF;
+
+Route::group([ 'prefix' => 'client'], function () {
     // The controllers live in src/Services/Client/Http/Controllers
     // Route::get('/', 'UserController@index');
 
     Route::get('/', function () {
-        return view('client::welcome');
+
+	    $html = view('client::pdf.invoice')->render();
+	    $pdf = \Illuminate\Support\Facades\App::make('snappy.pdf.wrapper');
+//	    $pdf->loadHTML($html);
+//	    return $pdf->inline();
+	    $pdf = PDF::loadHTML($html)->setPaper('a4')->setOrientation('portrait')->setOption('margin-bottom', 0);
+	    return $pdf->inline();
     });
 
     Route::get('{userId}/banks', 'BankDetailController@listBanks')->name('client.banks');

@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "chart.js": "^2.7.3",
+        "collect.js": "^4.6.0",
         "daterangepicker": "^3.0.3",
         "moment": "^2.23.0",
         "select2": "^4.0.6-rc.1",

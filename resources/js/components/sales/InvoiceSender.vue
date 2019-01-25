@@ -25,7 +25,7 @@
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Compose Message"></textarea>
                         </div>
                         <div class="justify-content-around text-center pt-2">
-                            <a href="">  <i class="fa fa-plan " style="font-size:48px; color:#00C259;"></i></a>
+                            <a style="cursor:pointer;" @click="sendInvoiceToCustomer()">  <i class="fa fa-paper-plane" style="font-size:48px; color:#00C259;"></i></a>
                             <h5 class="h5 text-green">Save &amp; Send</h5>
                         </div>
                     </div>
@@ -46,6 +46,15 @@
         computed: {
             customer () {
                 return this.$parent.customer || { email: "" }
+            }
+        },
+        methods: {
+            sendInvoiceToCustomer () {
+                if (this.customer.email !== "") {
+
+                }
+
+                this.$modal.close('#invoiceSender');
             }
         }
     }
