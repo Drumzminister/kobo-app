@@ -22,7 +22,10 @@ export const addSale = {
     },
     computed: {
         ...mapGetters(['taxId', 'saleDate', "customer", "selectedTax"]),
-        ...mapGetters(['availableInventories', 'getInventory', 'totalPaid']),
+        ...mapGetters(['availableInventories', 'getInventory', 'totalPaid', "selectedInventories"]),
+        inventorySelected (inventoryId) {
+            return this.selectedInventories.map(inventory => inventory.id).includes(inventoryId);
+        },
         invalidPaymentsSum () {
             return parseInt(this.totalPaid) > parseInt(this.spreadAmount);
         },
@@ -60,16 +63,23 @@ export const addSale = {
         }
     },
     methods: {
-        ...mapMutations(['setCompanyInventories', 'selectInventory', 'setSale']),
+        ...mapMutations(['setCompanyInventories', 'selectInventory', "removeInventory", 'setSale']),
         ...mapGetters(['getCurrentURI']),
         fillSaleItemWithInventory (item) {
             if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
                 let inventory = this.$store.getters.getInventory(item.inventory_id);
                 item.sales_price = inventory.sales_price;
+
+                // Free the inventory that was selected for this item before
+                if (item.inventory) this.removeInventory(item.inventory);
+
                 item.inventory = inventory;
                 this.selectInventory(inventory);
                 item.debounceItemSaving();
             }
+        },
+        selectingItem () {
+            console.log(item);
         },
         addNewSaleItemRow: function () {
             this.addSaleItemForm();
@@ -184,10 +194,13 @@ export const addSale = {
             this.openModal("#invoiceSender");
         },
         setSaleItems (sale) {
-            if (sale.sale_items) {
-                for (let key in sale.sale_items) {
-                    let item = sale.sale_items[key];
+            if (sale.saleItems) {
+                for (let key in sale.saleItems) {
+                    let item = sale.saleItems[key];
                     let inventory = this.$store.getters.getInventory(item.inventory_id);
+
+                    this.selectInventory(inventory);
+
                     let saleItem = new SaleItem(this.sale.id, inventory);
                     saleItem.inventory_id = item.inventory_id;
                     saleItem.id = item.id;

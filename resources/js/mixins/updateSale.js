@@ -149,7 +149,7 @@ export const updateSale = {
                         this.saleSaved = true;
                         toast('Sale record updated successfully!', 'success', 'center');
                         setTimeout(function () {
-                            window.location.href = "/client/sales";
+                            // window.location.href = "/client/sales";
                         }, 1000);
                     } else {
                         this.savingSale = false;
@@ -169,7 +169,7 @@ export const updateSale = {
                 toast('You must select a customer to send', 'error', 'center');
                 return;
             }
-            this.openModal("#invoiceSender");
+            this.$modal.open("#invoiceSender");
         },
         setSaleItems (sale) {
             if (sale.saleItems) {
