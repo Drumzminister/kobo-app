@@ -13,7 +13,7 @@
                 </span>
             </div>
         </div>
-    </section>
+</section>
 {{-- end of heading section --}}
 
 <section id="sale-table">

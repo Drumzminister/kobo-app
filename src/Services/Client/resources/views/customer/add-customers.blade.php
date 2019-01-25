@@ -5,7 +5,7 @@
 <section id="top">
     <div class="container py-3">
         <div class="row ">
-            <h2> <a href="/client/customers" class="text-dark">Customer</a></h2>
+            <h2> <a href="/client/customer" class="text-dark">Customer</a></h2>
         </div>
     </div>
 </section>
@@ -20,11 +20,20 @@
                         <div class="text form-group">
                             <input type="file" @change="getAndProcessImage($event)" class="form-control-file" id="staffPhoto">
                         </div>
-                    </div>           
-                
+                    </div>
                 <h5 class="h5 px-4 py-2 ">Add Photo</h5>
                 </div>
+                <div class="col-md-8">
+                    <form method="post" action="uploadCsv" enctype="multipart/form-data">
+                        @csrf
+
+                        <div>Upload CSV Client</div>
+                        <input class="mt-2" type="file" name="file"><br>
+                        <button class="mt-4 btn btn-primary" type="submit">Submit</button>
+                    </form>
+                </div>
             </div>
+
             <form method="post">
                 <div class="form-group row py-2">
                     <div class="col-md-4">
@@ -64,7 +73,7 @@
                         </div>
                         <div class="col-md-8">
                             <label for="Website">Website Name</label>
-                            <input v-model="customerForm.website" type="text" class="form-control-item"/>
+                            <input v-model="customerForm.website" type="text" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-row mt-3">
