@@ -194,10 +194,13 @@ export const addSale = {
             this.openModal("#invoiceSender");
         },
         setSaleItems (sale) {
-            if (sale.sale_items) {
-                for (let key in sale.sale_items) {
-                    let item = sale.sale_items[key];
+            if (sale.saleItems) {
+                for (let key in sale.saleItems) {
+                    let item = sale.saleItems[key];
                     let inventory = this.$store.getters.getInventory(item.inventory_id);
+
+                    this.selectInventory(inventory);
+
                     let saleItem = new SaleItem(this.sale.id, inventory);
                     saleItem.inventory_id = item.inventory_id;
                     saleItem.id = item.id;

@@ -15,7 +15,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text customer-input" id="basic-addon3">Customer</span>
                         </div>
-                        <Select2 :settings="{placeholder: 'Select Customer', disabled: updateMode }" v-model="customer_id" :options="customers.map((customer) => {return {id: customer.id, text: customer.first_name + ' ' + customer.last_name } })"/>
+                        <Select2 :settings="customerSelectSettings" v-model="customer_id" :options="customers.map((customer) => {return {id: customer.id, text: customer.first_name + ' ' + customer.last_name } })"/>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -50,6 +50,18 @@
                 tax_id: "",
                 sale_date: null,
                 customer_id: "",
+                customerSelectSettings: {
+                    placeholder: 'Customers',
+                    disabled: this.updateMode,
+                    language: {
+                        noResults: function () {
+                            return `<a href="#" onclick="$('#newCustomerModal').modal({backdrop: 'static',keyboard: false})"><span class="fa fa-plus"></span> Add Customer</button>`;
+                        }
+                    },
+                    escapeMarkup: function (markup) {
+                        return markup;
+                    }
+                }
             }
         },
         computed: {
@@ -69,7 +81,10 @@
             }
         },
         methods : {
-            ...mapMutations(['customer', 'selectedTax', "taxId"])
+            ...mapMutations(['customer', 'selectedTax', "taxId"]),
+            createNewCustomer () {
+                console.log("New Customer");
+            }
         },
         mounted () {
             this.sale_date = this.updateMode ? moment(this.sale.created_at).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
