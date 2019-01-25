@@ -34,30 +34,34 @@
                         </thead>
                         <tbody id="vendor">
                             <tr v-for="(content, index) in vendorTableRows" :id="'row-' + index">
-                                <td><input v-model="content.name" id="name" type="text" class="form-control name">
+                                <td><input name="name" v-validate="'required'" v-model="content.name" @keyup="" id="name" type="text" class="form-control name">
                                     <span class="text-danger"></span>
                                 </td>
-                                <td><input  v-model="content.address" id="address" type="text" class="form-control address"></td>
-                                <td><input v-validate="'required|email'" v-model="content.phone" id="phone" type="number" class="form-control number">
-                                    <span class="text-danger"></span>
+                                <td><input v-model="content.address" id="address" type="text" class="form-control address"></td>
+                                <td><input name="phone" v-validate="'digits:11'" v-model="content.phone" id="phone" type="number" class="form-control number">
                                 </td>
-                                <td><input   v-model="content.email" id="email" type="text" class="form-control email">
-                                    <span class="text-danger"></span>
+                                <td><input name="email" v-validate="'required|email'"  v-model="content.email" id="email" type="text" class="form-control email">
                                 </td>
                                 <td><input   v-model="content.website" id="website" type="text" class="form-control website">
                                 </td>
                                 <td id="delete" @click='deleteVendorRow(index)'><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
-                            
+                            <ul>
+                                <li class="text-danger" v-for="error in errors.all()">@{{ error }}</li>
+                                <li class="text-danger" v-if="vendorFormErrors" v-for="error in vendorFormErrors">@{{ error[0] }}</li>
+                            </ul>
                         </tbody>
                 </table>
                 <span class="float-right" @click="addNewRow" >Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                 </span> 
              </div>
-                <input v-validate="'required|email'" name="email" type="text">
-                <span>@{{ errors.first('email') }}</span>
+
              <div class="text-center pb-3">
-                    <a @click="saveVendor" class="btn btn-started">Save &amp; Continue</a>
+                 <a v-if="! isLoading" @click="saveVendor" class="btn btn-started" v-bind:class="{ active: isLoading }">Save &amp; Continue</a>
+                 <a v-else="isLoading" class="btn btn-started">
+                     <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                     Loading...
+                 </a>
                 </div>
             </div> 
            

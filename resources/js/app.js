@@ -37,13 +37,14 @@ const koboTheme = require('./themes/koboTheme');
 Vue.use(ClientTable, {}, false, koboTheme, 'default');
 Vue.use(VeeValidate);
 import {store} from "./state/store";
-
+import Select2 from "v-select2-component";
 import Currency from './plugins/Currency';
 Vue.use(Currency);
 
 window.app = new Vue({
     el: '#app',
     store,
+    components: {Select2},
     mixins: [
         vendorApp,
         rentApp,

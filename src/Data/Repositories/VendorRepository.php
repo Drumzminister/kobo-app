@@ -11,21 +11,19 @@ class VendorRepository extends Repository
     {
         parent::__construct(new Vendor());
     }
-
-//    public function activate($id)
-//    {
-//        $vendor = $this->model::find($id);
-//        if($vendor->isActive == 1){
-//            $vendor->isActive = 0;
-//            $vendor->save();
-//            return true;
-//        }elseif ($vendor->isActive == 0)
-//        {
-//            $vendor->isActive = 1;
-//            $vendor->save();
-//            return true;
-//        }else {
-//            return false;
-//        }
-//    }
+    public function latest($companyId)
+    {
+       $result = $this->model->where('company_id', $companyId)->latest()->get();
+       return $result;
+    }
+    public function searchRecord($value, $companyId)
+    {
+        return $this->model->where('company_id', $companyId)
+                            ->where('name', 'like', '%' . $value . '%')
+                            ->orWhere('address', 'like', '%' . $value . '%')
+//                            ->orWhere('phone', 'like', '%' . $value . '%')
+//                            ->orWhere('email', 'like', '%' . $value . '%')
+//                            ->orWhere('website', 'like', '%' . $value . '%')
+                            ->get();
+    }
 }

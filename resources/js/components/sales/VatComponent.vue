@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <select :disabled="updateMode" v-model="tax_id" class="form-control form-control-lg form-control tax vat-input" name="tax" id="basic-addon3">
+                        <select :disabled="updateMode" v-model="tax_id" class="form-control form-control-lg form-control tax vat-input" name="tax">
                             <option value="">Select Tax ...</option>
                             <option v-for="tax in taxes" :value="tax.id" >{{ tax.name }}</option>
                         </select>

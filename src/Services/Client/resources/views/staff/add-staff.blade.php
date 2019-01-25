@@ -56,12 +56,11 @@
                     </div>
                     <div class="col-md-8">
                         <label for="Role">Role</label>
-                        <select v-model="staffForm.role" name="" id="" class="form-control bg-grey">
-                                <option value="" selected></option>
-                                <option value="role">CEO</option>
-                                <option value="role">Director</option>
-                                <option value="role">Manager</option>
-                        </select>
+                        <Select2 v-model="staffForm.role":settings="{placeholder: 'Select Role' }" :options="[
+                            'Manager', 'Secretary', 'Office Assistant', 'Human Resource', 'Personal Assistant',
+                            'Cleaner', 'Developer', 'Accountant', 'Data Entry', 'Reception', 'HR', 'Sales',
+                            'Driver', 'Typist', 'Executive/Personal Assistant',
+                        ]"></Select2>
                     </div>
                 </div>
 
