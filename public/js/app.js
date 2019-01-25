@@ -70987,8 +70987,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_vue_tables_2__ = __webpack_require__(301);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_vue_tables_2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_vue_tables_2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__state_store__ = __webpack_require__(469);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__plugins_Currency__ = __webpack_require__(474);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__plugins_ModalHelper__ = __webpack_require__(475);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_v_select2_component__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_v_select2_component__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__plugins_Currency__ = __webpack_require__(474);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__plugins_ModalHelper__ = __webpack_require__(475);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -71033,12 +71035,13 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_10_vee_validate__["a" /* default */]);
 
 
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_13__plugins_Currency__["a" /* default */]);
-Vue.use(__WEBPACK_IMPORTED_MODULE_14__plugins_ModalHelper__["a" /* default */]);
+Vue.use(__WEBPACK_IMPORTED_MODULE_14__plugins_Currency__["a" /* default */]);
+Vue.use(__WEBPACK_IMPORTED_MODULE_15__plugins_ModalHelper__["a" /* default */]);
 
 window.app = new Vue({
     el: '#app',
     store: __WEBPACK_IMPORTED_MODULE_12__state_store__["a" /* store */],
+    components: { Select2: __WEBPACK_IMPORTED_MODULE_13_v_select2_component___default.a },
     mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins_vendor__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_0__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_loan__["a" /* loanApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_staff__["a" /* staffApp */], __WEBPACK_IMPORTED_MODULE_5__mixins_customer__["a" /* customerApp */], __WEBPACK_IMPORTED_MODULE_6__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_7__mixins_loadingView__["a" /* loadingView */], __WEBPACK_IMPORTED_MODULE_8__mixins_appModals__["a" /* appModal */], __WEBPACK_IMPORTED_MODULE_9__mixins_expenses__["a" /* expenseApp */]],
     // components: {PaymentMethodSelection: PaymentMethodSelection},
     filters: {
@@ -77322,8 +77325,10 @@ var staffApp = {
             axios.post('/client/staff/imageUpload', formData).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image has successfully uploaded', 'success');
                 _this.staffForm.avatar = res.data.data;
+                _this.staffForm.avatar = "";
             }).catch(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Staff upload unsuccessful', 'error');
+                _this.staffForm.avatar = "";
             });
         },
         createStaff: function createStaff(evt) {
@@ -77398,46 +77403,47 @@ var staffApp = {
 var vendorApp = {
     data: {
         vendorTableRows: [],
-        vendors: [],
+        vendors: '',
         search: '',
-        vendorCount: ''
+        vendorCount: '',
+        vendorFormErrors: [],
+        isLoading: false
     },
-    created: function created() {
-        var _this = this;
 
-        axios.get('/client/vendor/all-vendors').then(function (res) {
-            _this.vendors = res.data;
-            _this.vendorCount = res.data.length;
-        });
+    created: function created() {
+        this.vendors = window.all_vendors;
         this.addNewRow();
     },
 
     methods: {
-        CheckForm: function CheckForm() {
-            this.errors = [];
-        },
         saveVendor: function saveVendor() {
-            var _this2 = this;
+            var _this = this;
 
+            this.isLoading = true;
             var data = {
                 items: this.vendorTableRows
             };
             axios.post('/client/vendor/add', data).then(function (res) {
-                _this2.vendorTableRows = [], _this2.addNewRow();
-                swal('Vendor added!', res.data.message, 'success');
-            }).catch(function (error) {
+                _this.vendorTableRows = [], _this.addNewRow();
                 swal({
-                    type: 'error',
-                    title: error.response.data.message,
+                    title: 'Vendor added!',
+                    text: res.data.message,
+                    type: 'success',
                     timer: 1500
                 });
+                _this.isLoading = false;
+                _this.vendorFormErrors = "";
+            }).catch(function (error) {
+                _this.vendorFormErrors = error.response.data.errors;
+                _this.isLoading = false;
+                console.log(_this.vendorFormErrors);
             });
         },
         searchVendor: function searchVendor() {
-            var _this3 = this;
+            var _this2 = this;
 
             axios.get('/client/vendor/search?param=' + this.search).then(function (res) {
-                _this3.vendors = res.data;
+                _this2.vendors = res.data;
             });
         },
         addNewRow: function addNewRow() {
@@ -77455,7 +77461,6 @@ var vendorApp = {
         activateVendor: function activateVendor(id) {
             axios.post('/client/vendor/' + id + '/activate').then(function (res) {
                 swal("Success", res.data.message, "success");
-                console.log(res.data);
             });
         }
     }
@@ -98648,7 +98653,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 disabled: this.updateMode,
                 language: {
                     noResults: function noResults() {
-                        return '<a href="#" onclick="$(\'#newCustomerModal\').modal({backdrop: \'static\',keyboard: false})"><span class="fa fa-plus"></span> Add Customer</button>';
+                        return '<a href="#" onclick="$(\'#newCustomerModal\').modal({ backdrop: \'static\',keyboard: false })"><span class="fa fa-plus"></span> Add Customer</button>';
                     }
                 },
                 escapeMarkup: function escapeMarkup(markup) {
@@ -98661,6 +98666,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['saleInvoice']), {
         updateMode: function updateMode() {
             return this.sale.type === 'published';
+        },
+        sS: function sS() {
+            return this.$store.getters.storedCustomers;
         }
     }),
     watch: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])({ sale_date: 'saleDate' }), {
@@ -98676,7 +98684,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.taxId(val);
         }
     }),
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['customer', 'selectedTax', "taxId"]), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['customer', 'selectedTax', "taxId", "storedCustomers"]), {
         createNewCustomer: function createNewCustomer() {
             console.log("New Customer");
         }
@@ -98685,6 +98693,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.sale_date = this.updateMode ? moment(this.sale.created_at).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
         this.customer_id = this.sale.customer ? this.sale.customer.id : "";
         this.tax_id = this.sale.tax ? this.sale.tax.id : "";
+    },
+    created: function created() {
+        this.storedCustomers(this.customers);
     }
 });
 
@@ -98729,7 +98740,7 @@ var render = function() {
               _c("Select2", {
                 attrs: {
                   settings: _vm.customerSelectSettings,
-                  options: _vm.customers.map(function(customer) {
+                  options: _vm.sS.map(function(customer) {
                     return {
                       id: customer.id,
                       text: customer.first_name + " " + customer.last_name
@@ -98764,11 +98775,7 @@ var render = function() {
                 ],
                 staticClass:
                   "form-control form-control-lg form-control tax vat-input",
-                attrs: {
-                  disabled: _vm.updateMode,
-                  name: "tax",
-                  id: "basic-addon3"
-                },
+                attrs: { disabled: _vm.updateMode, name: "tax" },
                 on: {
                   change: function($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -98858,10 +98865,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-prepend" }, [
       _c("span", { staticClass: "input-group-text" }, [
-        _c("i", {
-          staticClass: "fa fa-calendar icon",
-          attrs: { name: "event_date" }
-        })
+        _c("i", { staticClass: "fa fa-calendar icon" })
       ])
     ])
   }
@@ -116694,7 +116698,8 @@ var vatModule = {
         taxId: "",
         saleDate: "",
         customer: null,
-        selectedTax: null
+        selectedTax: null,
+        storedCustomers: null
     },
     getters: {
         taxId: function taxId(state) {
@@ -116702,6 +116707,9 @@ var vatModule = {
         },
         customer: function customer(state) {
             return state.customer;
+        },
+        storedCustomers: function storedCustomers(state) {
+            return state.storedCustomers;
         },
         selectedTax: function selectedTax(state) {
             return state.selectedTax;
@@ -116716,6 +116724,9 @@ var vatModule = {
         },
         customer: function customer(state, _customer) {
             state.customer = _customer;
+        },
+        storedCustomers: function storedCustomers(state, customers) {
+            state.storedCustomers = customers;
         },
         selectedTax: function selectedTax(state, tax) {
             state.selectedTax = tax;
@@ -116858,6 +116869,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(16);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -116896,26 +116910,69 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            subject: "Invoice for Sale"
+            subject: "Invoice for Sale",
+            customer: {
+                first_name: "",
+                last_name: "",
+                email: "",
+                website: "",
+                address: ""
+            }
         };
     },
 
     computed: {
-        customer: function customer() {
-            return this.$parent.customer || { email: "" };
-        }
+        // customer () {
+        //     return this.$parent.customer || { email: "" }
+        // }
     },
-    methods: {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(["storedCustomers"]), {
         sendInvoiceToCustomer: function sendInvoiceToCustomer() {
             if (this.customer.email !== "") {}
 
             this.$modal.close('#invoiceSender');
+        },
+        createCustomer: function createCustomer() {
+            var _this = this;
+
+            // evt.preventDefault();
+            axios.post('/client/customer/add', this.customer).then(function (res) {
+                _this.$modal.close('#newCustomerModal');
+                // this.$parent.customer = res.data.data;
+                _this.$store.commit('customer', res.data.data);
+                _this.$store.getters.storedCustomers.push(res.data.data);
+                swal('Success', res.data.message, 'success');
+                _this.customer = {};
+            }).catch(function (err) {
+                swal('Error', 'There was an error adding staff', 'error');
+            });
         }
-    }
+    })
 });
 
 /***/ }),
@@ -116930,6 +116987,7 @@ var render = function() {
     "div",
     {
       staticClass: "modal fade",
+      staticStyle: { "z-index": "2147483647" },
       attrs: {
         id: "newCustomerModal",
         tabindex: "-1",
@@ -116947,25 +117005,100 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "container p-3" }, [
+            _c("div", { staticClass: "container p-3 text-center" }, [
               _vm._m(0),
               _vm._v(" "),
               _c("h5", { staticClass: "h5 uppercase", attrs: { id: "" } }, [
-                _vm._v("Send")
+                _vm._v("Create New Customer")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "form-group row" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-sm-3 col-form-label",
-                      attrs: { for: "" }
-                    },
-                    [_vm._v("To")]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9" }, [
+                  _c("div", { staticClass: "col-sm-12" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.last_name,
+                          expression: "customer.last_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "Last Name" },
+                      domProps: { value: _vm.customer.last_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.customer,
+                            "last_name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "col-sm-12" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.first_name,
+                          expression: "customer.first_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "First Name" },
+                      domProps: { value: _vm.customer.first_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.customer,
+                            "first_name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "col-sm-12" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.phone,
+                          expression: "customer.phone"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "Phone Number" },
+                      domProps: { value: _vm.customer.phone },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.customer, "phone", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "col-sm-12" }, [
                     _c("input", {
                       directives: [
                         {
@@ -116976,7 +117109,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { disabled: true, type: "email" },
+                      attrs: { type: "email", placeholder: "Email" },
                       domProps: { value: _vm.customer.email },
                       on: {
                         input: function($event) {
@@ -116989,43 +117122,56 @@ var render = function() {
                     })
                   ])
                 ]),
-                _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-sm-3 col-form-label",
-                      attrs: { for: "" }
-                    },
-                    [_vm._v("Subject")]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9" }, [
+                  _c("div", { staticClass: "col-sm-12" }, [
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.subject,
-                          expression: "subject"
+                          value: _vm.customer.address,
+                          expression: "customer.address"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "" },
-                      domProps: { value: _vm.subject },
+                      attrs: { type: "text", placeholder: "Address" },
+                      domProps: { value: _vm.customer.address },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.subject = $event.target.value
+                          _vm.$set(_vm.customer, "address", $event.target.value)
                         }
                       }
                     })
                   ])
                 ]),
-                _vm._v(" "),
-                _vm._m(1),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "col-sm-12" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.customer.website,
+                          expression: "customer.website"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "Website" },
+                      domProps: { value: _vm.customer.website },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.customer, "website", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -117037,20 +117183,20 @@ var render = function() {
                         staticStyle: { cursor: "pointer" },
                         on: {
                           click: function($event) {
-                            _vm.sendInvoiceToCustomer()
+                            _vm.createCustomer()
                           }
                         }
                       },
                       [
                         _c("i", {
-                          staticClass: "fa fa-paper-plane",
+                          staticClass: "fa fa-plus",
                           staticStyle: { "font-size": "48px", color: "#00C259" }
                         })
                       ]
                     ),
                     _vm._v(" "),
                     _c("h5", { staticClass: "h5 text-green" }, [
-                      _vm._v("Save & Send")
+                      _vm._v("Create & Select Customer")
                     ])
                   ]
                 )
@@ -117079,21 +117225,6 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group shadow-textarea" }, [
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: {
-          id: "exampleFormControlTextarea1",
-          rows: "3",
-          placeholder: "Compose Message"
-        }
-      })
-    ])
   }
 ]
 render._withStripped = true

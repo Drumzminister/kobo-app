@@ -13,10 +13,10 @@ class AddSingleCustomerFeature extends Feature
         $data = $request->all();
         $data['user_id'] = auth()->id();
         $data['company_id'] = auth()->user()->company->id;
-        $added = $this->run(AddCustomerJob::class, ['data' => $data]);
+        $customer = $this->run(AddCustomerJob::class, ['data' => $data]);
 
-        if($added)
-            return response()->json(['message' => 'Customer added successfully.']);
+        if($customer)
+            return response()->json(['message' => 'Customer added successfully.', 'data' => $customer]);
 
         return response()->json(['error', 'Unable to add customer']);
     }

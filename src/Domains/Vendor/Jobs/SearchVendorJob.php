@@ -28,11 +28,11 @@ class SearchVendorJob extends Job
     public function handle()
     {
         $data = collect([]);
+//        $result = $data->push($this->vendor->searchRecord($this->data, auth()->user()->company->id));
         $data->push($this->vendor->searchByName($this->data));
         $data->push($this->vendor->searchByAddress($this->data));
         $data->push($this->vendor->searchByPhone($this->data));
         $data->push($this->vendor->searchByEmail($this->data));
-        $data->push($this->vendor->searchByWebsite($this->data));
         return collect(array_values($data->collapse()->unique('id')->all()));
     }
 }
