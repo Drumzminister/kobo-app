@@ -94,6 +94,7 @@
                     this.$store.getters.storedCustomers.push(res.data.data);
                     swal('Success', res.data.message, 'success');
                     this.customer = {};
+                    window.location.reload();
                 }).catch(err => {
                     swal('Error', 'There was an error adding staff', 'error');
                 });

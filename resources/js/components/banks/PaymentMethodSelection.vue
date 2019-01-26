@@ -4,10 +4,10 @@
         <div class="bg-grey py-4 px-3" id="top">
             <div class="row">
                 <div class="col-md-6">
-                    PAID: {{ $parent.currency.format(totalAmountPaid) }}
+                    PAID: {{ $currency.format(totalAmountPaid) }}
                 </div>
                 <div class="col-md-6">
-                    BAL: {{ $parent.currency.format(balanceLeft) }}
+                    BAL: {{ $currency.format(balanceLeft) }}
                 </div>
             </div>
             <hr>

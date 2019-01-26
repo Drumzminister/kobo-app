@@ -30,7 +30,7 @@ class DecrementItemInInventoryJob extends Job
      */
     public function handle()
     {
-        $items = $this->sale->items;
+        $items = $this->sale->saleItems;
 
         if ($this->sale->type !== 'published') {
         	return $this->createJobResponse('error', 'Drafted Sale cannot update Inventory', null);
