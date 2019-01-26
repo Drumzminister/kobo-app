@@ -6,7 +6,7 @@ use App\Contracts\CsvToArrayInterface;
 use App\Data\Repositories\CustomerRepository;
 use Lucid\Foundation\Job;
 
-class HandleCsvUploadJob extends Job //implements CsvToArrayInterface
+class HandleCsvUploadJob extends Job implements CsvToArrayInterface
 {
     /**
      * Create a new job instance.

@@ -10,6 +10,7 @@ export const customerApp = {
         },
         customers: [],
         customerSearch: '',
+        customerFormSubmitted: false,
         searchNotFound: false,
     },
 
@@ -19,14 +20,19 @@ export const customerApp = {
                 this.customers = res.data.all_customers.data;
             });
     },
-    methods:{
-        createCustomer(evt) {
-            evt.preventDefault();
-            axios.post('/client/customer/add', this.customerForm).then( res => {
-                swal('Success', res.data.message, 'success');
-                this.customerForm = '';
-            }).catch(err => {
-                swal('Error', 'There was an error adding staff', 'error');
+    methods: {
+        createCustomer(e) {
+            e.preventDefault();
+            this.customerFormSubmitted = true;
+            this.$validator.validate().then(valid => {
+                if (valid) {
+                    axios.post('/client/customer/add', this.customerForm).then(res => {
+                        swal('Success', res.data.message, 'success');
+                        this.customerForm = '';
+                    }).catch(err => {
+                        swal('Error', 'There was an error adding staff', 'error');
+                    });
+                }
             });
         },
         searchCustomer() {
@@ -35,5 +41,22 @@ export const customerApp = {
                    let result = this.customers = res.data;
            });
         },
+        getAndProcessCustomerImage () {
+
+        },
+        deleteCustomer(customerId) {
+            axios.post(`/client/customer/delete/${customerId}`).then(res => {
+                swal({
+                    type: 'success',
+                    title: res.response.data.message,
+                    timer: 3000,
+                    showConfirmButton: false,
+                }).then(() =>{
+                    location.reload(true);
+                });
+            }).catch(error => {
+                swal('error', error.response.data, 'error')
+            })
+        }
     },
 }

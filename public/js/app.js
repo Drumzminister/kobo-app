@@ -77481,6 +77481,7 @@ var customerApp = {
         },
         customers: [],
         customerSearch: '',
+        customerFormSubmitted: false,
         searchNotFound: false
     },
 
@@ -77493,15 +77494,20 @@ var customerApp = {
     },
 
     methods: {
-        createCustomer: function createCustomer(evt) {
+        createCustomer: function createCustomer(e) {
             var _this2 = this;
 
-            evt.preventDefault();
-            axios.post('/client/customer/add', this.customerForm).then(function (res) {
-                swal('Success', res.data.message, 'success');
-                _this2.customerForm = '';
-            }).catch(function (err) {
-                swal('Error', 'There was an error adding staff', 'error');
+            e.preventDefault();
+            this.customerFormSubmitted = true;
+            this.$validator.validate().then(function (valid) {
+                if (valid) {
+                    axios.post('/client/customer/add', _this2.customerForm).then(function (res) {
+                        swal('Success', res.data.message, 'success');
+                        _this2.customerForm = '';
+                    }).catch(function (err) {
+                        swal('Error', 'There was an error adding staff', 'error');
+                    });
+                }
             });
         },
         searchCustomer: function searchCustomer() {
@@ -77510,6 +77516,21 @@ var customerApp = {
             axios.get('/client/customer/search?param=' + this.customerSearch).then(function (res) {
                 _this3.customers = '';
                 var result = _this3.customers = res.data;
+            });
+        },
+        getAndProcessCustomerImage: function getAndProcessCustomerImage() {},
+        deleteCustomer: function deleteCustomer(customerId) {
+            axios.post('/client/customer/delete/' + customerId).then(function (res) {
+                swal({
+                    type: 'success',
+                    title: res.response.data.message,
+                    timer: 3000,
+                    showConfirmButton: false
+                }).then(function () {
+                    location.reload(true);
+                });
+            }).catch(function (error) {
+                swal('error', error.response.data, 'error');
             });
         }
     }

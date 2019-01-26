@@ -73,6 +73,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::get('/customer/all-customers', 'CustomerController@allCustomers')->name('client.customer.all');
     Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');
     Route::post('/customer/uploadCsv', 'CustomerController@handleCsvUpload')->name('upload-multiple-customer');
+    Route::post('/customer/delete/{customerId}', 'CustomerController@deleteCustomer')->name('delete.customer');
 
 
 
