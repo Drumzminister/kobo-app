@@ -159,7 +159,7 @@
             },
             paidAmountChanged(val) {
                 if (this.totalAmountPaid > this.totalSpread) {
-                    toast('Amount paid cannot be greater than total sales amount', 'error', 'center');
+                    // toast('Amount paid cannot be greater than total sales amount', 'error', 'center');
                     this.invalidPaymentsSum(true);
                     this.$store.commit('totalPaid', this.totalAmountPaid);
                     return null;

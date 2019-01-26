@@ -88446,7 +88446,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         paidAmountChanged: function paidAmountChanged(val) {
             if (this.totalAmountPaid > this.totalSpread) {
-                Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])('Amount paid cannot be greater than total sales amount', 'error', 'center');
+                // toast('Amount paid cannot be greater than total sales amount', 'error', 'center');
                 this.invalidPaymentsSum(true);
                 this.$store.commit('totalPaid', this.totalAmountPaid);
                 return null;
