@@ -6,32 +6,19 @@ use App\Data\Repositories\SaleRepository;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Lucid\Foundation\QueueableJob;
 
-class SendSaleInvoiceJob extends QueueableJob
+class CreateSaleInvoicePdfJob extends QueueableJob
 {
 	use Dispatchable;
-	/**
-	 * @var string
-	 */
-	private $saleId;
-
-	/**
-	 * @var \Illuminate\Foundation\Application|SaleRepository
-	 */
 	private $sale;
-
-	/**
-	 * @var array
-	 */
-	private $data;
 
 	/**
 	 * Create a new job instance.
 	 *
-	 * @param string $saleId
+	 * @param $sale
 	 */
-    public function __construct(string $saleId)
+    public function __construct($sale)
     {
-	    $this->saleId = $saleId;
+	    $this->sale = $sale;
 	    $this->sale = app(SaleRepository::class);
     }
 
@@ -42,6 +29,5 @@ class SendSaleInvoiceJob extends QueueableJob
      */
     public function handle()
     {
-    	$sale = $this->sale->items;
     }
 }

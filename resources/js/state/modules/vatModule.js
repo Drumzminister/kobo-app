@@ -3,7 +3,8 @@ export const vatModule = {
         taxId: "",
         saleDate: "",
         customer: null,
-        selectedTax: null
+        selectedTax: null,
+        storedCustomers: null
     },
     getters: {
         taxId(state) {
@@ -11,6 +12,9 @@ export const vatModule = {
         },
         customer(state) {
             return state.customer;
+        },
+        storedCustomers(state) {
+            return state.storedCustomers;
         },
         selectedTax(state) {
             return state.selectedTax;
@@ -25,6 +29,9 @@ export const vatModule = {
         },
         customer(state, customer) {
             state.customer = customer;
+        },
+        storedCustomers(state, customers) {
+            state.storedCustomers = customers;
         },
         selectedTax(state, tax) {
             state.selectedTax = tax;

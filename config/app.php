@@ -216,6 +216,8 @@ return [
         'Uuid' => Webpatser\Uuid\Uuid::class,
         'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
         'Chat' => Musonza\Chat\Facades\ChatFacade::class,
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
     ],
 
 ];

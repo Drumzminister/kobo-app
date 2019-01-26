@@ -32,7 +32,9 @@
                         <tbody id="salesTable">
                         <tr v-for="(item, index) in saleItems" :class="{'border-right-green' : item.saved, 'border-right-red' : !item.saved }">
                             <td>
-                                <Select2 :settings="{placeholder: 'Inventory'}" v-model="item.inventory_id" :options="availableInventories.map((inventory) => {return {id: inventory.id, text: inventory.name} })" @change="fillSaleItemWithInventory(item)"/>
+                                <Select2 :settings="inventorySelectSettings" v-model="item.inventory_id"
+                                         :options="availableInventories.map((inventory) => { return { id: inventory.id, text: inventory.name, disabled: selectedInventories.map(inventory => inventory.id).includes(inventory.id) } })"
+                                         @change="fillSaleItemWithInventory(item)"/>
                             </td>
                             <td><input v-model="item.description" @change="item.debounceItemSaving()" type="text" id="sales_description" class="form-control sales_description "></td>
                             <td><input style="width: 200px" :disabled="item.inventoryid === ''" @change="item.debounceItemSaving()" min="1" :max="item.inventory ? item.inventory.quantity : 0" v-model="item.quantity" type="number" class="sales_quantity form-control" :placeholder="item.inventory ? item.inventory.quantity + ' In Stock' : null"></td>
@@ -131,6 +133,7 @@
         </div>
         <invoice-modal></invoice-modal>
         <invoice-sender></invoice-sender>
+        <new-customer></new-customer>
     </section>
 </template>
 
@@ -140,18 +143,30 @@
     import PaymentMethodSelection from "../banks/PaymentMethodSelection";
     import InvoiceModal from "./InvoiceModal";
     import InvoiceSender from "./InvoiceSender";
+    import NewCustomer from "./NewCustomer";
     import Select2 from 'v-select2-component';
     import currency from "../../helpers/formatter"
 
     export default {
         mixins: [addSale, appModal],
         props: ['inventories', 'channels', 'banks', 'sale'],
-        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal, InvoiceSender, Select2 },
+        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal, InvoiceSender, Select2, NewCustomer },
         data() {
             return {
                 currency: new Intl.NumberFormat('en-US', {
                     minimumFractionDigits: 2
-                })
+                }),
+                inventorySelectSettings: {
+                    placeholder: 'Inventory',
+                    language: {
+                        noResults: function () {
+                            return `<a href="#">Add New</a>`;
+                        }
+                    },
+                    escapeMarkup: function (markup) {
+                        return markup;
+                    }
+                }
             }
         }
     }

@@ -184,9 +184,9 @@ class SaleItem
 
         this.processing = true;
         let data = this.getItemData();
-        let api = new API({ baseUri: 'https://kobo.test/api/client'});
+        let api = new API({ baseUri: 'https://kobo.test/api/client' });
 
-        api.createEntity({ name: 'saleItem'});
+        api.createEntity({ name: 'saleItem' });
         return api.endpoints.saleItem.delete(data);
     }
 
