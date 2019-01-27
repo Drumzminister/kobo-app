@@ -30,10 +30,7 @@ class ImageUploadJob extends Job
     public function handle()
     {
         $ext = $this->data->getClientOriginalExtension();
-        $store = $this->data->storeAs('staff', auth()->id() . time() . ".{$ext}", 's3');
-        return response()->json([
-            'message' => 'success',
-            'data' => $store
-        ]);
+        $store = $this->data->storeAs('staff', auth()->id() . time() . ".{$ext}", 's3', 'public');
+        return response()->json(['data' => $store]);
     }
 }

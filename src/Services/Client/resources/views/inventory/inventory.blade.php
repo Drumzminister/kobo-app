@@ -120,8 +120,11 @@ input {
 
                         </table>
                         </div>
+                            <h3 v-if="top_purchase.length === 0"class="text-center">
+                                Top purchases will appear here
+                            </h3>
                         <div class="text-center p-1">
-                                <a href="" class="view-more">View More Analytics</a> 
+                                <a href="" class="view-more">View More Analytics</a>
                             </div>
                     </div>
                 </div>
@@ -179,8 +182,6 @@ input {
                             <th scope="col">Sales Price (&#8358;)</th>
                             <th scope="col">Vendors</th>
                             <th scope="col"></th>
-
-                
                           </tr>
                         </thead>
                         <tbody>
@@ -205,13 +206,16 @@ input {
                             </td>
                               <td><i @click.prevent="deleteInventoryButton(purchase.id)" class="fa fa-trash" style="font-size:24px; cursor: pointer"></i></td>
                         </tr>
-
+                        <tr v-if="purchase.length === 0">
+                            <td colspan="7" class="text-center"><h3>All purchases will appear here</h3></td>
+                        </tr>
                             
                         </tbody>
+
                     </table>
                 </div>
                     <hr class="mt-0">
-                    <div class="text-center ">
+                    <div class="text-center mt-3" v-if="purchase.length > 0">
                         <a href="/client/view-inventory" class="view-more">View More</a>
                     </div>
                    

@@ -38,17 +38,18 @@ export const staffApp = {
             formData.append('file', file);
             axios.post('/client/staff/imageUpload', formData).then(res => {
                     toast('Image has successfully uploaded', 'success');
+                    console.log(res.data.data);
                     this.staffForm.avatar = res.data.data;
-                    this.staffForm.avatar = ""
-            }).catch(res => {
+            }).catch(error => {
                 toast('Staff upload unsuccessful', 'error');
-                this.staffForm.avatar = ""
+                // this.staffForm.avatar = ""
             });
         },
         createStaff(evt) {
             evt.preventDefault();
             axios.post('/client/staff/single-staff/add', this.staffForm).then(res => {
-              swal('Success', res.data.message, 'success');
+                console.log(res.data.message);
+                swal('Success', res.data.message, 'success');
               this.staffForm = '';
             }).catch(err => {
                 swal("Oops", "An error occurred when creating this staff", "error");
