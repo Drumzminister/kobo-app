@@ -27,8 +27,9 @@ export const customerApp = {
             this.$validator.validate().then(valid => {
                 if (valid) {
                     axios.post('/client/customer/add', this.customerForm).then(res => {
-                        swal('Success', res.data.message, 'success');
-                        this.customerForm = '';
+                        swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false}).then(() => {
+                            location.reload(true);
+                        })
                     }).catch(err => {
                         swal('Error', 'There was an error adding staff', 'error');
                     });
@@ -48,7 +49,8 @@ export const customerApp = {
             axios.post(`/client/customer/delete/${customerId}`).then(res => {
                 swal({
                     type: 'success',
-                    title: res.response.data.message,
+                    title: 'Success',
+                    text: res.data.message,
                     timer: 3000,
                     showConfirmButton: false,
                 }).then(() =>{

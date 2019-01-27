@@ -27,8 +27,8 @@ class DeleteInventoryJob extends Job
      */
     public function handle()
     {
-        $inventory = $this->inventory->findOnly('id', $this->inventoryId);
-        $inventory->delete();
+        $this->inventory->find($this->inventoryId);
+        $this->inventory->remove($this->inventoryId);
         return true;
     }
 }

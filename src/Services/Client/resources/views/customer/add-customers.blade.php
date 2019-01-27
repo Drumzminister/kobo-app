@@ -88,7 +88,7 @@
                         <div class="col-md-8">
                             {{--<button type="submit" v-on:click="createCustomer" class="btn btn-addsale">Save Information</button>--}}
                             {{--<button type="submit" v-if="errors.any()" disabled="disabled" class="btn btn-primary" v-on:click="createCustomer" data-dismiss="modal" type="submit">Save Information</button>--}}
-                            <button type="submit" class="btn btn-primary" v-on:click="createCustomer"  data-dismiss="modal" type="submit">Save Information</button>
+                            <button type="submit" class="btn btn-addsale" @click="createCustomer"  data-dismiss="modal" type="submit">Save Information</button>
                         </div>
                     </div>
             </form>

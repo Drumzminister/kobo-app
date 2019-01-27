@@ -77273,26 +77273,19 @@ var inventoryApp = {
         trimIdToInvoice: function trimIdToInvoice(value) {
             return value.slice(0, 5);
         },
-        deleteInventoryButton: function deleteInventoryButton(index) {
-            var _this2 = this;
-
-            swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (index) {
-                if (index) {
-                    axios.post('/client/inventory/' + index + '/delete').then(function (res) {
-                        swal('Success', res.data.message, 'success');
-                        _this2.purchase.splice(index, 1);
-                    });
-                    swal('Deleted!', 'Your file has been deleted.', 'success');
-                }
-            });
+        deleteInventory: function deleteInventory(inventoryId) {
+            axios.post('/client/inventory/' + inventoryId + '/delete').then(function (res) {
+                console.log(res.data.message);
+                swal({
+                    type: 'success',
+                    title: 'Success',
+                    text: res.data.message,
+                    timer: 3000,
+                    showConfirmButton: false
+                }).then(function () {
+                    location.reload(true);
+                });
+            }).catch(function (error) {});
         },
         addInventoryRow: function addInventoryRow() {
             this.inventoryTableRow.push({
@@ -77375,26 +77368,23 @@ var staffApp = {
                 _this.staffForm.avatar = res.data.data;
             }).catch(function (error) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Staff upload unsuccessful', 'error');
-                // this.staffForm.avatar = ""
             });
         },
         createStaff: function createStaff(evt) {
-            var _this2 = this;
-
             evt.preventDefault();
             axios.post('/client/staff/single-staff/add', this.staffForm).then(function (res) {
-                console.log(res.data.message);
-                swal('Success', res.data.message, 'success');
-                _this2.staffForm = '';
+                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
+                    location.reload(true);
+                });
             }).catch(function (err) {
                 swal("Oops", "An error occurred when creating this staff", "error");
             });
         },
         searchStaff: function searchStaff() {
-            var _this3 = this;
+            var _this2 = this;
 
             axios.get('/client/staff/search?param=' + this.staffSearchInput).then(function (res) {
-                _this3.staff = res.data;
+                _this2.staff = res.data;
             });
         },
         staffModal: function staffModal(staff) {
@@ -77508,7 +77498,7 @@ var vendorApp = {
         },
         activateVendor: function activateVendor(id) {
             axios.post('/client/vendor/' + id + '/activate').then(function (res) {
-                swal("Success", res.data.message, "success");
+                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false });
             });
         }
     }
@@ -77553,8 +77543,9 @@ var customerApp = {
             this.$validator.validate().then(function (valid) {
                 if (valid) {
                     axios.post('/client/customer/add', _this2.customerForm).then(function (res) {
-                        swal('Success', res.data.message, 'success');
-                        _this2.customerForm = '';
+                        swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
+                            location.reload(true);
+                        });
                     }).catch(function (err) {
                         swal('Error', 'There was an error adding staff', 'error');
                     });
@@ -77574,7 +77565,8 @@ var customerApp = {
             axios.post('/client/customer/delete/' + customerId).then(function (res) {
                 swal({
                     type: 'success',
-                    title: res.response.data.message,
+                    title: 'Success',
+                    text: res.data.message,
                     timer: 3000,
                     showConfirmButton: false
                 }).then(function () {

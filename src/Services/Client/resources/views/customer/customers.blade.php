@@ -72,7 +72,7 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:30px; font-size: 30px" aria-labelledby="dropdownMenuButton1">
                                             <a class="dropdown-item text-primary"><i class="fa fa-edit"></i></a>
-                                            <a @click="deleteCustomer(customer.id)" class="dropdown-item text-danger" href="#"><i class="fa fa-trash"></i></a>
+                                            <a @click.prevent="deleteCustomer(customer.id)" class="dropdown-item text-danger" href="#"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </td>

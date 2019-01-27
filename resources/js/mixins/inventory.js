@@ -46,28 +46,21 @@ export const inventoryApp = {
         trimIdToInvoice(value) {
             return value.slice(0, 5);
         },
-        deleteInventoryButton(index) {
-            swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((index) => {
-                if (index) {
-                    axios.post(`/client/inventory/${index}/delete`).then(res => {
-                        swal('Success', res.data.message, 'success');
-                        this.purchase.splice(index, 1);
+        deleteInventory(inventoryId) {
+                axios.post(`/client/inventory/${inventoryId}/delete`).then(res => {
+                    console.log(res.data.message);
+                    swal({
+                        type: 'success',
+                        title: 'Success',
+                        text: res.data.message,
+                        timer: 3000,
+                        showConfirmButton: false,
+                    }).then(() =>{
+                        location.reload(true);
                     });
-                    swal(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            })
+                }).catch(error => {
+
+                });
         },
         addInventoryRow() {
             this.inventoryTableRow.push({

@@ -42,15 +42,14 @@ export const staffApp = {
                     this.staffForm.avatar = res.data.data;
             }).catch(error => {
                 toast('Staff upload unsuccessful', 'error');
-                // this.staffForm.avatar = ""
             });
         },
         createStaff(evt) {
             evt.preventDefault();
             axios.post('/client/staff/single-staff/add', this.staffForm).then(res => {
-                console.log(res.data.message);
-                swal('Success', res.data.message, 'success');
-              this.staffForm = '';
+                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false}).then(() => {
+                    location.reload(true);
+                })
             }).catch(err => {
                 swal("Oops", "An error occurred when creating this staff", "error");
             })

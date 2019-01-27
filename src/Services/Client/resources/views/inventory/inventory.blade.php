@@ -204,7 +204,7 @@ input {
                             <td>
                                 @{{ purchase.vendor.name }}
                             </td>
-                              <td><i @click.prevent="deleteInventoryButton(purchase.id)" class="fa fa-trash" style="font-size:24px; cursor: pointer"></i></td>
+                              <td><i @click.prevent="deleteInventory(purchase.id)" class="fa fa-trash" style="font-size:24px; cursor: pointer"></i></td>
                         </tr>
                         <tr v-if="purchase.length === 0">
                             <td colspan="7" class="text-center"><h3>All purchases will appear here</h3></td>
@@ -216,7 +216,7 @@ input {
                 </div>
                     <hr class="mt-0">
                     <div class="text-center mt-3" v-if="purchase.length > 0">
-                        <a href="/client/view-inventory" class="view-more">View More</a>
+                        <a href="/client/inventory/list" class="view-more">View More</a>
                     </div>
                    
             </div> 
