@@ -77222,6 +77222,9 @@ var loanApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return inventoryApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection_vue__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection_vue__);
+
 var inventoryApp = {
     data: {
         inventoryForm: {
@@ -77244,7 +77247,9 @@ var inventoryApp = {
         inventoryTableRow: [],
         totalCostPrice: []
     },
-
+    components: {
+        PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection_vue___default.a
+    },
     mounted: function mounted() {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
@@ -87946,6 +87951,9 @@ var loadingView = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return expenseApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection__);
+
 var expenseApp = {
     data: {
         expenseAmount: 0,
@@ -88000,7 +88008,7 @@ var expenseApp = {
                     type: 'error',
                     position: 'top-end',
                     showConfirmButton: false,
-                    title: "Amount payable must be equal to expense amount:" + expenseAmount
+                    title: 'Amount payable must be equal to expense amount:' + expenseAmount
                 });
                 return;
             }
@@ -88017,7 +88025,7 @@ var expenseApp = {
                     type: 'success',
                     position: 'top-end',
                     showConfirmButton: false,
-                    title: "Payment Made successfully"
+                    title: 'Payment Made successfully'
                 });
                 _this.isPayingExpense = false;
                 _this.currentExpense.querySelector('.expenseAmount').readOnly = true;
@@ -88031,13 +88039,13 @@ var expenseApp = {
                     type: 'error',
                     position: 'top-end',
                     showConfirmButton: false,
-                    title: "Unable to complete payment: " + err.response.data.message
+                    title: 'Unable to complete payment: ' + err.response.data.message
                 });
                 _this.isPayingExpense = false;
             });
         },
         addExpenseRecord: function addExpenseRecord() {
-            this.expenseRecords.push("record");
+            this.expenseRecords.push('record');
         },
         beforeSavingExpenses: function beforeSavingExpenses() {
             var _this2 = this;
@@ -88055,7 +88063,7 @@ var expenseApp = {
                 type: 'info',
                 position: 'top-end',
                 showConfirmButton: false,
-                text: "All unfilled records will be ignored"
+                text: 'All unfilled records will be ignored'
             });
             for (var i = 0; i < rows.length; i++) {
                 if (rows[i].querySelector('.expenseDescription').value.trim()) {
@@ -88097,7 +88105,7 @@ var expenseApp = {
                         type: 'error',
                         position: 'top-end',
                         showConfirmButton: false,
-                        text: "Some records have no amount entered"
+                        text: 'Some records have no amount entered'
                     });
                     return;
                 }
@@ -88117,7 +88125,7 @@ var expenseApp = {
                         type: 'error',
                         position: 'top-end',
                         showConfirmButton: false,
-                        title: "Unable to save: " + err.response.data.message
+                        title: 'Unable to save: ' + err.response.data.message
                     });
                 });
             });
@@ -88291,7 +88299,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_alert__ = __webpack_require__(13);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
 //
 //
 //

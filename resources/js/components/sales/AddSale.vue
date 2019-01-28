@@ -148,9 +148,7 @@
     import currency from "../../helpers/formatter"
 
     export default {
-        mixins: [addSale, appModal],
-        props: ['inventories', 'channels', 'banks', 'sale'],
-        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal, InvoiceSender, Select2, NewCustomer },
+
         data() {
             return {
                 currency: new Intl.NumberFormat('en-US', {

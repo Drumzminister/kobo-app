@@ -11,7 +11,6 @@ class AddSaleFeature extends Feature
     public function handle(Request $request)
     {
 		$response = $this->run(AddSaleJob::class, ['data' => $request->all(), 'user' => auth()->user()]);
-
 		if ($response->status === "success") {
 			return ['status' => 'success', 'message' => $response->message, 'data' => $response->data];
 		}

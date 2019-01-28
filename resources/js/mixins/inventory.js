@@ -1,3 +1,7 @@
+import PaymentMethodSelection from '../components/banks/PaymentMethodSelection.vue';
+import { mapGetters, mapMutations } from 'vuex';
+import {toast} from "../../helpers/alert";
+
 export const inventoryApp = {
     data: {
         inventoryForm: {
@@ -20,7 +24,10 @@ export const inventoryApp = {
         inventoryTableRow: [],
         totalCostPrice: [],
     },
-
+    components: {
+        PaymentMethodSelection
+    },
+    props: ['banks', 'options', 'transactions'],
     mounted () {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;

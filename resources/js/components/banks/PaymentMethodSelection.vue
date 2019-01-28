@@ -1,4 +1,3 @@
-
 <template>
     <div class="bg-grey">
         <div class="bg-grey py-4 px-3" id="top">
