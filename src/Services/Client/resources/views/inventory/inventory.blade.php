@@ -188,18 +188,18 @@ input {
                           <tr v-for="(purchase, index) in all_purchases" :key="index">
                               <td>@{{ index + 1 }}</td>
                               <td>
-                                  @{{purchase.delivered_date | dateTime }}
+                                  @{{purchase.delivered_date | dateTime  }}
                               </td>
                             <td>
-                                <a href="" data-toggle="modal" data-target="#exampleModalCenter">
-                                   INV-@{{ trimIdToInvoice(purchase.id) }}
+                                <a href="" @click.prevent="getInventoryItem(purchase.id)" data-toggle="modal" data-target="#exampleModalCenter">
+                                   INV-@{{ purchase.invoice_number }}
                                 </a>
                             </td>
                             <td>
-                                @{{ purchase.quantity }}
+                                @{{ getPurchaseQuantityInventoryItem(purchase) }}
                             </td>
                             <td>
-                                @{{ purchase.sales_price }}
+                                @{{ getPurchaseSalesPriceInventoryItem(purchase) | numberFormat }}
                             </td>
                             <td>
                                 @{{ purchase.vendor.name }}
@@ -241,10 +241,9 @@ input {
                                     <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                                 </div>
                                 <div class="col-md-10">
-                                    <h5 class="text-green h5">Mary Ikpe</h5>
+                                    <h5 class="text-green h5">Mercy Ikpa</h5>
                                     <h6 class="text-primary h6">Invoice NO:KB &#x2d; 1234</h6>
 
-                                    <form action="" method="post">
                                         <div class="form row pt-3 px-3">
                                             <div class="col-md-4">
                                                 <div class="p-2" id="topp">
@@ -265,7 +264,6 @@ input {
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
                                 </div>
                             </div>
                        
@@ -287,7 +285,6 @@ input {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                        
                                                     <tr>
                                                         <td >21/08/2020 </td>
                                                         <td>
@@ -296,68 +293,8 @@ input {
                                                         <td> 23</td>
                                                         <td> 43,000</td>
                                                         <td>123,0000</td>
-                                                        
                                                     </tr>
 
-                                                    <tr>
-                                                        <td>21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>
-                                                                
-                                                        </tr>
-                        
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>        
-                                                    </tr>
-                        
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>        
-                                                    </tr>
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>
-          
-                                                    </tr>                                                    <tr>
-                                                    <tr>
-                                                            <td >21/08/2020 </td>
-                                                            <td>
-                                                                    Lorem ipsum dolor si
-                                                                    </td> 
-                                                                    <td> 23</td>
-                                                                    <td> 43,000</td>
-                                                                    <td>123,0000</td>
-                                                                    
-                                                   </tr>
-                                                   <tr>
-                                                            <td >21/08/2020 </td>
-                                                            <td>
-                                                                    Lorem ipsum dolor si
-                                                                    </td> 
-                                                                    <td> 23</td>
-                                                                    <td> 43,000</td>
-                                                                    <td>123,0000</td>            
-                                                   </tr>
                                                 </tbody>
                                             </table>
                                         </div>

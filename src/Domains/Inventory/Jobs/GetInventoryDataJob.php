@@ -2,13 +2,14 @@
 
 namespace App\Domains\Inventory\Jobs;
 
+use App\Data\Repositories\InventoryItemRepository;
 use App\Data\Repositories\InventoryRepository;
 use Koboaccountant\Models\Inventory;
 use Lucid\Foundation\Job;
 
 class GetInventoryDataJob extends Job
 {
-    private $inventory;
+    private $inventory, $inventoryItem;
     /**
      * Create a new job instance.
      *
@@ -17,6 +18,7 @@ class GetInventoryDataJob extends Job
     public function __construct()
     {
         $this->inventory = new InventoryRepository();
+        $this->inventoryItem = new InventoryItemRepository();
     }
 
     /**
@@ -26,9 +28,10 @@ class GetInventoryDataJob extends Job
      */
     public function handle()
     {
-        $data['inventories'] = $inventories = $this->inventory->getBy('user_id', auth()->id(), ['vendor']);
+        $data['inventories'] = $inventories = $this->inventory->getBy('user_id', auth()->id(), ['vendor','inventoryItem']);
         $data['highest_purchase'] = $inventories->sortByDesc('purchase_price')->take(10);
         $data['highest_quantity'] = $inventories->sortByDesc('quantity')->take(10);
         return $data;
     }
+
 }

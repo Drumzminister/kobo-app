@@ -1,6 +1,3 @@
-import PaymentMethodSelection from '../components/banks/PaymentMethodSelection.vue';
-import { mapGetters, mapMutations } from 'vuex';
-import {toast} from "../../helpers/alert";
 
 export const inventoryApp = {
     data: {
@@ -15,6 +12,15 @@ export const inventoryApp = {
             paymentMode: '',
             attachment: ''
         },
+        inventoryItem: {
+            delivered_date: '',
+            name: '',
+            quantity: '',
+            sales_price: '',
+            balance: '',
+            invoice: '',
+            vendor: ''
+        },
         top_purchase: {},
         highest_purchase: window.highest_purchase,
         highest_quantity: window.highest_quantity,
@@ -24,10 +30,7 @@ export const inventoryApp = {
         inventoryTableRow: [],
         totalCostPrice: [],
     },
-    components: {
-        PaymentMethodSelection
-    },
-    props: ['banks', 'options', 'transactions'],
+
     mounted () {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
@@ -35,6 +38,20 @@ export const inventoryApp = {
         this.addInventoryRow();
     },
     methods: {
+        getPurchaseSalesPriceInventoryItem(_purchase) {
+            let inventoryItemSum = 0;
+            _purchase['inventory_item'].map(purchase => {
+                inventoryItemSum += Number(purchase.purchase_price)
+            });
+            return inventoryItemSum;
+        },
+        getPurchaseQuantityInventoryItem(_purchase) {
+            let inventoryQuantitySum = 0;
+            _purchase['inventory_item'].map(purchase => {
+                inventoryQuantitySum += Number(purchase.quantity)
+            });
+            return inventoryQuantitySum;
+        },
         createInventory(evt) {
             evt.preventDefault();
             axios.post('/client/inventory/add', this.inventoryForm).then(res => {
@@ -91,6 +108,6 @@ export const inventoryApp = {
                 total += Number(input.value);
             });
             return this.totalCostPrice = total;
-        }
+        },
     }
 };

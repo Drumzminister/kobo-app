@@ -93,17 +93,17 @@
                                 <td><input v-model="content.quantity" type="text" class="form-control "></td>
                                 <td><input v-model="content.cost_price" @keyup="calculateTotalInventoryCost()" id="" type="text" class="form-control cost_price"></td>
                                 <td><input v-model="content.sales_price"  id="" type="text" class="form-control "></td>
-                                <td><i class="fa fa-trash-o" @click="deleteInventoryRow(index)" style="font-size:24px"></i></td>
+                                <td style="cursor: pointer"><i class="fa fa-trash-o" @click="deleteInventoryRow(index)" style="font-size:24px"></i></td>
                             </tr>
                         </tbody>
                     </table>
-                    <span class="float-right" @click="addInventoryRow()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
+                    <span class="float-right" @click="addInventoryRow()" style="cursor: pointer">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                     </span>
             </div>
 
         <div class="row p-2 mt-2 ">
                 <div class="col-md-6">
-                    <payment-method-selection></payment-method-selection>
+                    {{--<payment-method-selection></payment-method-selection>--}}
                 </div>
             {{-- end of current payment --}}
 

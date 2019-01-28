@@ -113,7 +113,7 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::post('/vendor/{vendorId}/activate', 'VendorController@activateVendor')->name('vendor.activate');
 
 });
-
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
 
 Route::get('/bar/{slug}', 'ClientDashboardController@testFeature');
+
