@@ -21,13 +21,8 @@
                     <div class="input-group mt-2">
                         <input v-model="search" type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <span @click="searchVendor" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                            <a href="#"><span @click.prevent="searchVendor" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span></a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-6">
-                    <div id="" class="mt-2 float-right" onclick="">
-                        <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>
                     </div>
                 </div>
         </div>
@@ -43,8 +38,7 @@
                     <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
                           <tr class="tab">
-                            <th scope="col">Id</th>
-                            <th scope="col">Vendor's Name</th>
+                            <th scope="col">Vendor Name</th>
                             <th scope="col">Address</th>
                             <th scope="col">Phone No</th>
                             <th scope="col">Email</th>
@@ -52,19 +46,18 @@
                             <th scope="col"></th>
                           </tr>
                         </thead>
-                        <tbody>
-                        <tr v-for="(vendor, index) in vendors">
-                                <td>@{{ ++index }}</td>
-                                <td >@{{ vendor.name }}</td>
-                                <td>@{{ vendor.address }}  </td>
-                                <td> @{{ vendor.phone }}</td>
-                                <td> @{{ vendor.email }}</td>
-                                <td>@{{ vendor.website }}</td>
-                                <td><label class="switch">
-                                        <input type="checkbox" @click="activateVendor(vendor.id)" type="checkbox" v-bind:checked="vendor.isActive">
-                                        <span class="slider round"></span>
-                                      </label>
-                                </td>
+                        <tbody v-for="vendor in vendors">
+                        <tr>
+                            <td >@{{ vendor.name }}</td>
+                            <td>@{{ vendor.address }}  </td>
+                            <td> @{{ vendor.phone }}</td>
+                            <td> @{{ vendor.email }}</td>
+                            <td>@{{ vendor.website }}</td>
+                            <td><label class="switch">
+                                    <input type="checkbox" @click="activateVendor(vendor.id)" type="checkbox" v-bind:checked="vendor.isActive">
+                                    <span class="slider round"></span>
+                                  </label>
+                            </td>
                           </tr>
                         <tr v-if="vendors.length === 0">
                             <td colspan="7" style="text-align: center">No search result found</td>
@@ -78,26 +71,32 @@
         </div>
     </section>
 
-    <section id="pagination">
-            <div class="container py-3">
-                <div class="row">
-                    <div class="col-md-7">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                          </ul>
-                    </div>
-                    <div class="col-md-5">
-                        <span>Go to page:</span>
+    {{--<section id="pagination">--}}
+            {{--<div class="container py-3">--}}
+                {{--<div class="row">--}}
+                    {{--<div class="col-md-7">--}}
+                        {{--<ul class="pagination">--}}
+                            {{--<li class="page-item"><a class="page-link" href="#">Previous</a></li>--}}
+                            {{--<li class="page-item"><a class="page-link" href="#">1</a></li>--}}
+                            {{--<li class="page-item active"><a class="page-link" href="#">2</a></li>--}}
+                            {{--<li class="page-item"><a class="page-link" href="#">3</a></li>--}}
+                            {{--<li class="page-item"><a class="page-link" href="#">Next</a></li>--}}
+                          {{--</ul>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-md-5">--}}
+                        {{--<span>Go to page:</span>--}}
 
-                    </div>
-                </div>
-            </div>
-        </section>
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</section>--}}
 
 
 
+@endsection
+@section('other_js')
+    <script>
+        window.all_vendors = @json($all_vendors);
+        window.count_vendor = @json($count_vendor);
+    </script>
 @endsection

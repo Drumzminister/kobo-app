@@ -6,11 +6,17 @@ use App\Data\Repositories\BankDetailRepository;
 use App\Data\Repositories\SaleItemRepository;
 use App\Data\Repositories\SaleRepository;
 use App\Data\Repositories\UserRepository;
+use App\Domains\Banks\Jobs\CreditBanksJob;
+use App\Domains\Inventory\Jobs\DecrementItemInInventoryJob;
+use Koboaccountant\Traits\HelpsResponse;
 use Lucid\Foundation\Job;
 use SalesTransactionRepository;
 
 class AddSaleJob extends Job
 {
+	use HelpsResponse;
+
+	const UPDATE_REVERSAL = 'reversal';
 
 	/**
 	 * @var \Illuminate\Foundation\Application|UserRepository
@@ -21,6 +27,8 @@ class AddSaleJob extends Job
 	 * @var \Illuminate\Foundation\Application|SaleItemRepository
 	 */
 	private $items;
+
+
 	private $data;
 
 	/**
@@ -57,7 +65,6 @@ class AddSaleJob extends Job
 	    $this->items            = app(SaleItemRepository::class);
 	    $this->sale             = app(SaleRepository::class);
 	    $this->bank             = app(BankDetailRepository::class);
-	    $this->saleTransaction  = app( SalesTransactionRepository::class);
     }
 
     /**
@@ -66,25 +73,78 @@ class AddSaleJob extends Job
     public function handle()
     {
     	$sale = $this->sale->findOnly('id', $this->data['sale_id']);
+
+    	if ($sale->type === "published" && !isset($this->data['updateType'])) {
+		    return $this->createJobResponse('error', 'Sale has already been published and cannot be updated', $sale);
+	    }
+
 	    $this->data['company_id'] = $this->user->company->id;
 	    $this->data['staff_id'] = $this->user->staff->id;
+	    $this->data['type'] = 'published';
 
 	    $paymentMethods = $this->data['paymentMethods'];
 
-	    foreach ($paymentMethods as $method) {
-	    	$bank = $this->bank->findOnly('id', $method['id']);
-	    	$newBalance = $bank->account_balance + $method['amount'];
-	    	$data['account_balance'] = $newBalance;
+	    if (!isset($this->data['updateType'])) {
+		    return $this->performNonReversalUpdate($paymentMethods, $sale);
+	    } elseif ($this->data['updateType'] === self::UPDATE_REVERSAL) {
+	    	return $this->performReversalUpdate($paymentMethods, $sale);
+	    }
+    }
 
-	    	$bank->fill($data)->save();
+    protected function creditPaymentMethodsForSale($paymentMethods, $sale)
+    {
+    	return (new CreditBanksJob($paymentMethods, $sale, $this->user->company->id))->handle();
+    }
+
+    protected function performNonReversalUpdate($paymentMethods, $sale)
+    {
+	    $response = $this->creditPaymentMethodsForSale($paymentMethods, $sale);
+
+	    if ($response->status === "success") {
+		    $updated = $sale->fill($this->data)->save();
+
+			// Decrease Inventory Items based on Sales Items bought
+		    $this->removeItemsBoughtFromInventory($sale );
+
+		    return $updated ? $this->createJobResponse('success', 'Sale Completed', $sale)
+			    : $this->createJobResponse('error', 'Sale could not be completed', $sale);
 	    }
 
-	    dd($paymentMethods);
+	    return $this->createJobResponse('error', $response->message, $sale);
+    }
 
-	    // ToDo: Record transaction
+    protected function performReversalUpdate($paymentMethods, $sale)
+    {
+    	$paidAmount = $this->retrieveAmountPaid($paymentMethods);
 
-	    $updated = $sale->fill($this->data)->save();
+    	$balance = $this->data['total_amount'] - $paidAmount;
+    	$this->data['balance'] = $balance;
+		if ($sale->balance !== $balance) {
+			$updated = $sale->fill($this->data)->save();
+		} else {
+			$updated = true;
+		}
 
+		// ToDO: Update Inventory - Add Items reversed back to the inventory
 
+	    if ($balance < 0) {
+		    // Todo: I think we'll add A creditor here if balance is -ve i.e company owe customer;
+	    } else {
+		    // Todo: I think we'll add A debtor here if balance is +ve i.e customer owe company;
+	    }
+
+	    return $updated ? $this->createJobResponse('success', 'Sale Completed', $sale)
+		    : $this->createJobResponse('error', 'Sale could not be completed', $sale);
+
+    }
+
+    protected function retrieveAmountPaid($paymentMethods)
+    {
+    	return array_sum(collect($paymentMethods)->pluck('amount')->toArray());
+    }
+
+    protected function removeItemsBoughtFromInventory($sale)
+    {
+    	return (new DecrementItemInInventoryJob($sale))->handle();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -333,4 +334,13 @@ class Repository
             return call_user_func_array(array($this, 'searchBy'), $arguments);
         }
     }
+
+    /**
+     * Implement a convenience call to storeImage
+     * to s3 bucket
+     * @param string $fileName
+     * @param string  path
+     *
+     * @return mixed
+     */
 }

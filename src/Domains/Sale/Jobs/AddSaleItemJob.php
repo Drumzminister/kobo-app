@@ -3,6 +3,7 @@
 namespace App\Domains\Sale\Jobs;
 
 use App\Data\Repositories\SaleItemRepository;
+use App\Data\Repositories\SaleRepository;
 use Koboaccountant\Traits\HelpsResponse;
 use Lucid\Foundation\Job;
 
@@ -19,6 +20,11 @@ class AddSaleItemJob extends Job
 	private $data;
 
 	/**
+	 * @var \Illuminate\Foundation\Application|SaleRepository
+	 */
+	private $sale;
+
+	/**
 	 * Create a new job instance.
 	 *
 	 * @param array $data
@@ -27,6 +33,7 @@ class AddSaleItemJob extends Job
     {
         $this->saleItem = app(SaleItemRepository::class);
 	    $this->data = $data;
+	    $this->sale = app(SaleRepository::class);
     }
 
     /**
@@ -34,10 +41,23 @@ class AddSaleItemJob extends Job
      */
     public function handle()
     {
+    	$sale = $this->sale->findOnly('id', $this->data['sale_id']);
+
+    	if ($this->data['reversed_item_id']) {
+    		$reversedItem = $this->saleItem->findOnly('id', $this->data['reversed_item_id']);
+	    }
+
+    	if ($sale && $sale->type === "published" && $this->data['type'] !== "reversed") {
+    		return $this->createJobResponse('error', 'You cannot add Items to this sale because it\'s already published', $sale);
+	    }
+
     	$item = $this->saleItem->fillAndSave($this->data);
 
-	    return $item ?
-		    $this->createJobResponse('success', 'Item Created', $item)
-		    : $this->createJobResponse('error', 'Item Not Created', null);
+    	if (isset($reversedItem)) {
+    		$reversedItem->fill(['reversed_item_id' => $item->id])->save();
+	    }
+
+	    return $item ? $this->createJobResponse('success', 'Item Created', $item)
+				    : $this->createJobResponse('error', 'Item Not Created', null);
     }
 }

@@ -24,13 +24,14 @@ export const inventoryApp = {
     mounted () {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
+        this.vendors = window.vendors;
         this.addInventoryRow();
     },
     methods: {
         createInventory(evt) {
             evt.preventDefault();
             axios.post('/client/inventory/add', this.inventoryForm).then(res => {
-                swal('Success', res.data.message, "success");
+                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false,}).then(() =>{location.reload(true)});
                 this.inventoryForm = '';
             }).catch(err => {
                 swal("Oops", "An error occurred when creating this account", "error");
@@ -46,11 +47,21 @@ export const inventoryApp = {
         trimIdToInvoice(value) {
             return value.slice(0, 5);
         },
-        deleteInventoryButton(index) {
-            axios.post(`/client/inventory/${index}/delete`).then(res => {
-                swal('Success', res.data.message, 'success');
-                this.purchase.splice(index, 1);
-            });
+        deleteInventory(inventoryId) {
+                axios.post(`/client/inventory/${inventoryId}/delete`).then(res => {
+                    console.log(res.data.message);
+                    swal({
+                        type: 'success',
+                        title: 'Success',
+                        text: res.data.message,
+                        timer: 3000,
+                        showConfirmButton: false,
+                    }).then(() =>{
+                        location.reload(true);
+                    });
+                }).catch(error => {
+
+                });
         },
         addInventoryRow() {
             this.inventoryTableRow.push({
@@ -63,8 +74,8 @@ export const inventoryApp = {
         },
         deleteInventoryRow(row) {
             $("#row-" + row).remove();
-            //reevaluate total after deletion
-            // this.calculateTotalInventoryCost();
+            // reevaluate total after deletion
+            this.calculateTotalInventoryCost();
         },
         calculateTotalInventoryCost() {
             let total = 0;

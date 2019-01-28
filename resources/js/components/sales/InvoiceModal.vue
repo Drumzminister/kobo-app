@@ -20,19 +20,19 @@
                                     <div class="col-md-4">
                                         <div class="p-2" id="topp">
                                             <h5 class="h5">Total Amount</h5>
-                                            <h4 class="text-orange">&#8358; {{ totalAmount || "" }}</h4>
+                                            <h4 class="text-orange">&#8358; {{ $currency.format(totalAmount) || 0.00 }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="p-2" id="topp">
                                             <h5 class="h5">Amount Paid</h5>
-                                            <h4 class="text-orange">&#8358; {{ totalAmount || "" }}</h4>
+                                            <h4 class="text-orange">&#8358; {{ $currency.format(amountPaid) || 0.00 }}</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="p-2" id="topp">
                                             <h5 class="h5 "> Balance</h5>
-                                            <h4 class="text-orange">&#8358; {{ totalAmount || "" }}</h4>
+                                            <h4 class="text-orange">&#8358; {{ $currency.format(balance) || 0.00 }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -45,28 +45,43 @@
                             <div class="container">
                                 <div class="long-scroll">
                                     <div class="table-responsive table-responsive-sm" id="topp">
-                                        <table class="table table-striped table-hover table-condensed" id="dataTable">
+                                        <table class="table table-hover table-condensed" id="dataTable">
                                             <thead class="p-3">
                                             <tr class="tab">
                                                 <th scope="col">Payment Date</th>
                                                 <th scope="col">Product</th>
                                                 <th scope="col">QTY</th>
                                                 <th scope="col">Sales Price (&#8358;)</th>
-                                                <th scope="col">Balance</th>
+                                                <th scope="col">Total</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr v-if="saleItems.length > 0 && item.saved" v-for="item in saleItems">
-                                                <td>
-                                                    {{ item.created_at }}
-                                                </td>
-                                                <td>
-                                                    {{ item.inventory.name }}
-                                                </td>
-                                                <td> {{ item.quantity }}</td>
-                                                <td> {{ item.inventory.sales_price }}</td>
-                                                <td> {{ item.totalPrice() }}</td>
-                                            </tr>
+                                            <template  v-if="saleItems.length > 0 && item.saved" v-for="(item, index) in saleItems">
+                                                <tr v-if="item.type !== 'reversed'" :class="{'itemReversed' : item.isReversed }">
+                                                    <td>
+                                                        {{ item.created_at }}
+                                                    </td>
+                                                    <td>
+                                                        {{ item.inventory.name }}
+                                                    </td>
+                                                    <td> {{ item.quantity }}</td>
+                                                    <td> {{ $currency.format(item.sales_price) }}</td>
+                                                    <td> {{ $currency.format(item.totalPrice()) }}</td>
+                                                </tr>
+
+                                                <tr v-if=" item.type !== 'reversed' && item.reversedItem !== null" style="border-left: 6px solid #FD9A97;" :class="{'itemReversed' : item.isReversed, 'itemReversed' : item.reversedItem.isReversed }">
+                                                    <td>
+                                                        {{ item.created_at }}
+                                                    </td>
+                                                    <td>
+                                                        {{ item.inventory.name }}
+                                                    </td>
+                                                    <td> {{ item.quantity }}</td>
+                                                    <td> {{ $currency.format(-1*item.sales_price) }}</td>
+                                                    <td> {{ $currency.format(-1*item.totalPrice()) }}</td>
+                                                </tr>
+
+                                            </template>
                                             </tbody>
                                         </table>
                                     </div>
@@ -76,8 +91,8 @@
                     </div>
 
                     <div class="modal-foote mt-3">
-                        <div class="row">
-                            <div class="col-md-2"></div>
+                        <div class="row text-center">
+                            <div class="col-md-2 "></div>
                             <!--<div class="col">-->
                                 <!--<button type="button" class="btn btn-login" data-dismiss="modal">Reverse</button>-->
                             <!--</div>-->
@@ -106,10 +121,19 @@
                 return this.$parent.saleItems.filter((item) => item.saved);
             },
             totalAmount () {
-                return this.$parent.totalSalesAmount;
+                return this.$parent.computedSalesAmount;
+            },
+            amountPaid () {
+                return this.$parent.totalPaid;
             },
             customer () {
                 return this.$parent.customer;
+            },
+            balance () {
+                return this.totalAmount - this.amountPaid;
+            },
+            currency () {
+                return this.$currency;
             }
         }
     }

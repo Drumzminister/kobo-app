@@ -1,3 +1,4 @@
+import {toast} from "../helpers/alert";
 export const staffApp = {
     data: {
         staffForm: {
@@ -21,19 +22,34 @@ export const staffApp = {
             experience: '',
             dateOfEmployment: '',
             comment: '',
+            phone: ''
         },
+        messageText: ''
     },
     created() {
-        axios.get('/client/staff/all-staff').then(res => {
-            this.staff = res.data;
-        })
+            this.staff = window.all_staff;
     },
+
     methods: {
+        getAndProcessImage(event) {
+            toast('Image is uploading ...', 'info');
+            let file = event.target.files[0];
+            let formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/staff/imageUpload', formData).then(res => {
+                    toast('Image has successfully uploaded', 'success');
+                    console.log(res.data.data);
+                    this.staffForm.avatar = res.data.data;
+            }).catch(error => {
+                toast('Staff upload unsuccessful', 'error');
+            });
+        },
         createStaff(evt) {
             evt.preventDefault();
             axios.post('/client/staff/single-staff/add', this.staffForm).then(res => {
-              swal('Success', res.data.message, 'success');
-              this.staffForm = '';
+                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false}).then(() => {
+                    location.reload(true);
+                })
             }).catch(err => {
                 swal("Oops", "An error occurred when creating this staff", "error");
             })
@@ -44,6 +60,7 @@ export const staffApp = {
                 this.staff = res.data;
             });
         },
+
         staffModal(staff) {
             this.StaffInformation.id = staff.id;
             this.StaffInformation.name = staff.first_name + ' ';
@@ -52,6 +69,8 @@ export const staffApp = {
             this.StaffInformation.experience = staff.years_of_experience;
             this.StaffInformation.dateOfEmployment = staff.employed_date;
             this.StaffInformation.comment = staff.comment;
+            this.StaffInformation.salary = staff.salary;
+            this.StaffInformation.avatar = "https://s3.us-east-2.amazonaws.com/koboapp/"+staff.avatar;
         },
 
         staffStatusFilter(){
@@ -69,13 +88,18 @@ export const staffApp = {
             } else {
                 this.staff = this.allStaff.filter(staff => staff.isActive === 0)
             }
+        },
+        validateInput () {
+            if (Number(this.staffForm.years_of_experience) > 50){
+                toast('Years of experience cannot be above 50', 'error');
+                this.staffForm.years_of_experience = 50;
+            }
+            if(Number(this.staffForm.phone.length > 11)) {
+                toast('Phone number cannot be greater than 11', 'error');
+                this.staffForm.phone = this.staffForm.phone.slice(0, this.staffForm.phone.length -1)
+            }
+        },
+    },
 
-            // let inactiveStaff = this.staff.filter(staff => staff.isActive === 0);
-            // this.activeStaff = ! this.activeStaff;
-            // let activeStaff = this.staff.filter(staff => staff.isActive === 1);
-        }
 
-// }
-
-    }
 };

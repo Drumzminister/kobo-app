@@ -16,9 +16,9 @@ class ClientDashboardController extends Controller
 		$this->middleware(['auth', 'client']);
 	}
 
-    public function showSalesPage($slug)
+    public function showSalesPage()
     {
-		return $this->serve(ShowCompanySalesFeature::class, ['slug' => $slug]);
+		return $this->serve(ShowCompanySalesFeature::class);
     }
 
 	public function index()

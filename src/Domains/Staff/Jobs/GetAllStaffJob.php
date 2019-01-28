@@ -12,10 +12,11 @@ class GetAllStaffJob extends Job
      *
      * @return void
      */
-    private $staff;
+    private $staff, $companyId;
     public function __construct()
     {
         $this->staff = new StaffRepository();
+        $this->companyId = auth()->user()->company->id;
     }
 
     /**
@@ -25,7 +26,8 @@ class GetAllStaffJob extends Job
      */
     public function handle()
     {
-
-        return $this->staff->all();
+        $data['all_staff'] = $this->staff->latest($this->companyId);
+        $data['count_staff'] = $this->staff->latest($this->companyId)->count();
+        return $data;
     }
 }

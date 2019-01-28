@@ -1,6 +1,6 @@
 import SaleItem from "../classes/SaleItem";
-import {mapGetters, mapMutations, mapState} from "vuex";
-import {toast} from "../helpers/alert";
+import { mapGetters, mapMutations, mapState } from "vuex";
+import { toast, confirmSomethingWithAlert } from "../helpers/alert";
 import API from "../classes/API";
 
 export const addSale = {
@@ -8,8 +8,10 @@ export const addSale = {
         return {
             sale_customer_id: "",
             saleItems: [],
-            deliveryCost: 0,
-            saleDiscount: 0
+            deliveryCost: null,
+            saleDiscount: null,
+            savingSale: false,
+            saleSaved: false,
         }
     },
     created: function() {
@@ -20,15 +22,18 @@ export const addSale = {
     },
     computed: {
         ...mapGetters(['taxId', 'saleDate', "customer", "selectedTax"]),
-        ...mapGetters(['availableInventories', 'getInventory']),
+        ...mapGetters(['availableInventories', 'getInventory', 'totalPaid', "selectedInventories"]),
+        inventorySelected (inventoryId) {
+            return this.selectedInventories.map(inventory => inventory.id).includes(inventoryId);
+        },
         invalidPaymentsSum () {
-            return this.totalAmountPaid !== this.spreadAmount;
+            return parseInt(this.totalPaid) > parseInt(this.spreadAmount);
         },
         spreadAmount () {
-            return this.computedSalesAmount // Payment Component require this
+            return this.computedSalesAmount;
         },
         saleIsNotValid () {
-            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.taxId === "" || this.invalidPaymentsSum;
+            return this.customer === null || typeof this.customer === "undefined" || this.saleDate === "" || this.invalidPaymentsSum;
         },
         taxAmount () {
             return (parseInt(this.selectedTax ? this.selectedTax.percentage : 0) / 100) * this.totalSalesAmount;
@@ -44,7 +49,9 @@ export const addSale = {
 
             return sum;
         },
-
+        balanceLeft () {
+            return this.computedSalesAmount - this.totalPaid;
+        },
         computedSalesAmount () {
             let sum = this.totalSalesAmount;
 
@@ -56,16 +63,23 @@ export const addSale = {
         }
     },
     methods: {
-        ...mapMutations(['setCompanyInventories', 'selectInventory', 'setSale']),
+        ...mapMutations(['setCompanyInventories', 'selectInventory', "removeInventory", 'setSale']),
         ...mapGetters(['getCurrentURI']),
         fillSaleItemWithInventory (item) {
             if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
                 let inventory = this.$store.getters.getInventory(item.inventory_id);
                 item.sales_price = inventory.sales_price;
+
+                // Free the inventory that was selected for this item before
+                if (item.inventory) this.removeInventory(item.inventory);
+
                 item.inventory = inventory;
                 this.selectInventory(inventory);
                 item.debounceItemSaving();
             }
+        },
+        selectingItem () {
+            console.log(item);
         },
         addNewSaleItemRow: function () {
             this.addSaleItemForm();
@@ -99,12 +113,24 @@ export const addSale = {
         saleItemDataChanged (item) {
             // ToDo: Implement this Watcher
         },
-        saveSale () {
+        saveSale ()  {
             if (this.saleIsNotValid) {
                 this.validateSalesData();
                 return;
             }
 
+            if (this.balanceLeft === 0) {
+                this.sendSaleCreationRequest();
+            } else {
+                confirmSomethingWithAlert(`You have a balance of NGN ${this.$currency.format(this.balanceLeft)}`).then((result) => {
+                    if (result.value) {
+                        this.sendSaleCreationRequest();
+                    }
+                });
+            }
+        },
+        sendSaleCreationRequest () {
+            this.savingSale = true;
             this.createSale();
         },
         createSale: function () {
@@ -123,9 +149,19 @@ export const addSale = {
             };
 
             api.endpoints.sale.create(data)
-                .then(function ({ data }) {
+                .then( ({ data }) => {
                     if (data.status === "success") {
-                        alert('Done');
+                        this.savingSale = false;
+                        this.saleSaved = true;
+                        toast('Sale record added successfully.', 'success', 'center');
+                        setTimeout(function () {
+                            window.location.href = "/client/sales";
+                        }, 1000);
+                    } else {
+                        this.savingSale = false;
+                        this.saleSaved = false;
+
+                        toast(data.message, 'error', 'center');
                     }
                 });
         },
@@ -145,12 +181,9 @@ export const addSale = {
                 toast('You must select a date.', 'error', 'center');
             }
 
-            if (this.taxId === "") {
-                toast('You must select a TAX', 'error', 'center');
-            }
-
             if (this.invalidPaymentsSum) {
-                toast('Amount paid and Sales total didn\'t tally', 'error', 'center');
+                let totalSalesAmount = this.$currency.format(this.computedSalesAmount);
+                toast(`You cannot pay above the Total sales amount of NGN ${totalSalesAmount}`, 'error', 'center');
             }
         },
         openSendingModal () {
@@ -161,10 +194,13 @@ export const addSale = {
             this.openModal("#invoiceSender");
         },
         setSaleItems (sale) {
-            if (sale.sale_items) {
-                for (let key in sale.sale_items) {
-                    let item = sale.sale_items[key];
+            if (sale.saleItems) {
+                for (let key in sale.saleItems) {
+                    let item = sale.saleItems[key];
                     let inventory = this.$store.getters.getInventory(item.inventory_id);
+
+                    this.selectInventory(inventory);
+
                     let saleItem = new SaleItem(this.sale.id, inventory);
                     saleItem.inventory_id = item.inventory_id;
                     saleItem.id = item.id;

@@ -10,8 +10,6 @@ window.Vue = require('vue');
 window.swal = require('sweetalert2');
 window.moment = require('moment');
 
-import daterangepicker from 'daterangepicker';
-
 import {rentApp} from "./mixins/rent";
 import {loanApp} from "./mixins/loan";
 import {inventoryApp} from "./mixins/inventory";
@@ -32,16 +30,23 @@ import {expenseApp} from "./mixins/expenses";
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)));
 
+import VeeValidate from 'vee-validate';
 
 import { ServerTable, ClientTable, Event } from 'vue-tables-2';
 const koboTheme = require('./themes/koboTheme');
 Vue.use(ClientTable, {}, false, koboTheme, 'default');
-
+Vue.use(VeeValidate);
 import {store} from "./state/store";
+import Select2 from "v-select2-component";
+import Currency from './plugins/Currency';
+import ModalHelper from './plugins/ModalHelper';
+Vue.use(Currency);
+Vue.use(ModalHelper);
 
 window.app = new Vue({
     el: '#app',
     store,
+    components: {Select2},
     mixins: [
         vendorApp,
         rentApp,
@@ -70,7 +75,6 @@ window.app = new Vue({
             if (!value) return '';
             return moment(value).fromNow(); // here u modify data
         },
-
     },
     data: {},
     methods: {}

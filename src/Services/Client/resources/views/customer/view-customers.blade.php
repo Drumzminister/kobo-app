@@ -4,7 +4,7 @@
 <section id="top">
     <div class="container py-3">
         <div class="row">
-                <h2><a href="/customers" class="text-dark"> Customers</a></h2>
+                <h2><a href="/client/customer" class="text-dark"> Customers</a></h2>
                 <span class="accountant ml-auto btn btn-accountant">
                     <a href="" class="btn-accountant">
                         <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
@@ -21,19 +21,23 @@
                     <h3 class="h3">Customer's List</h3>
                     <p class="text-muted">List Of Clients Customer</p>
                 </div>
-                <div class="col-md-6 col-6">
+                {{--<div class="col-6">--}}
+
+                {{--</div>--}}
+            <div class="col-md-2"></div>
+                <div class="col-md-6 col-7">
                     <div class="input-group mt-2">
-                        <input type="text" v-model="search" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <input type="text" @keyup="searchCustomer" v-model="search" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <span @click="searchCustomer" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                           <a href="#"> <span @click="searchCustomer" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-6">
-                    <div id="" class="mt-2 float-right" onclick="">
-                        <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>
-                    </div>
-                </div>
+                {{--<div class="col-md-2 col-6">--}}
+                    {{--<div id="" class="mt-2 float-right" onclick="">--}}
+                        {{--<button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
         </div>
         <section id="sale-table">
             <div class="container">

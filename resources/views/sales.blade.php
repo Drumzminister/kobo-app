@@ -123,7 +123,7 @@
                                 </div>
                             </div>
                         @endif
-                        <canvas id="canvasSale"  height="100"></canvas>
+                        <canvas id="myChart" width="400"></canvas>
                     </div>
                 </div>
 
@@ -136,15 +136,15 @@
                                     <h5 class="h5">Top Sales</h5>
                                 </div>
                                 <div class="col">
-                                    <div class="dropdown show">
-                                        <a class="btn btn-filter pull-right" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Filter <i class="fa fa-filter"></i>
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
-                                            <a class="dropdown-item" href="#" class="text-green">By Amount</a>
-                                        </div>
-                                    </div>
+                                    {{--<div class="dropdown show">--}}
+                                        {{--<a class="btn btn-filter pull-right" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                                            {{--Filter <i class="fa fa-filter"></i>--}}
+                                        {{--</a>--}}
+                                        {{--<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">--}}
+                                            {{--<a class="dropdown-item" href="#" class="text-green">By Quantity</a>--}}
+                                            {{--<a class="dropdown-item" href="#" class="text-green">By Amount</a>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
                                 </div>
                             </div>
 
@@ -170,9 +170,9 @@
 
                                 </table>
                             </div>
-                            <div class="text-center p-1">
-                                <a href="" class="view-more">View More Analytics</a>
-                            </div>
+                            {{--<div class="text-center p-1">--}}
+                                {{--<a href="" class="view-more">View More Analytics</a>--}}
+                            {{--</div>--}}
                         @else
                             <h5 class="text-center">
                                 Your Top five sale items will appear here
@@ -194,26 +194,26 @@
                     <div class="col-md-4">
                         <a href="{{ route("show.add.sale", auth()->user()->getUserCompany()->slug) }}" class="btn btn-addSale"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Sales</a>
                     </div>
-                    <div class="col-md-6">
+                    {{--<div class="col-md-6">--}}
 
-                            <div class="input-group">
-                                <input type="text" @keydown.enter="searchSale()" v-model="saleSearchQuery" id="VueTables__search_u63sv" class="form-control" placeholder="&#xF002; Type Something to Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <span class="input-group-text vat-input px-5 py-2" id="basic-addon2" style="height: calc(2.19rem + 2px);">Search</span>
-                                </div>
-                            </div>
-                    </div>
-                    <div class="col-md-2 float-right">
-                            <div class="dropdown show float-right">
-                                <a class="btn btn-filter" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Filter <i class="fa fa-filter"></i>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
-                                    <a class="dropdown-item" href="#" class="text-green">By Amount</a>
-                                </div>
-                            </div>
-                    </div>
+                            {{--<div class="input-group">--}}
+                                {{--<input type="text" @keydown.enter="searchSale()" v-model="saleSearchQuery" id="VueTables__search_u63sv" class="form-control" placeholder="&#xF002; Type Something to Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">--}}
+                                {{--<div class="input-group-append">--}}
+                                    {{--<span class="input-group-text vat-input px-5 py-2" id="basic-addon2" style="height: calc(2.19rem + 2px);">Search</span>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-md-2 float-right">--}}
+                            {{--<div class="dropdown show float-right">--}}
+                                {{--<a class="btn btn-filter" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                                    {{--Filter <i class="fa fa-filter"></i>--}}
+                                {{--</a>--}}
+                                {{--<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">--}}
+                                    {{--<a class="dropdown-item" href="#" class="text-green">By Quantity</a>--}}
+                                    {{--<a class="dropdown-item" href="#" class="text-green">By Amount</a>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                    {{--</div>--}}
                 </div>
                 @endif
                 @if($sales->count() > 0)
@@ -269,12 +269,12 @@
                         {{--</tbody>--}}
                     {{--</table>--}}
                 {{--</div>--}}
-                @if($sales->count() > 0)
-                    <hr class="mt-0">
-                    <div class="text-center pb-3">
-                        <a href="/view-sale" class="view-more">View More</a>
-                    </div>
-                @endif
+                {{--@if($sales->count() > 0)--}}
+                    {{--<hr class="mt-0">--}}
+                    {{--<div class="text-center pb-3">--}}
+                        {{--<a href="/view-sale" class="view-more">View More</a>--}}
+                    {{--</div>--}}
+                {{--@endif--}}
             </div>
 
         </div>

@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
 
     private function seedBankDetails($nums, $companyId)
     {
+	    factory(BankDetail::class)->create(['company_id' => $companyId, 'bank_name' => 'Cash', 'account_name' => 'Cash']);
 	    return factory(BankDetail::class, $nums)->create(['company_id' => $companyId]);
     }
 

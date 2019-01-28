@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class DeleteInventoryFeature extends Feature
 {
-    private $inventoryId, $inventory;
+    private $inventoryId;
 
     public function __construct($inventoryId)
     {

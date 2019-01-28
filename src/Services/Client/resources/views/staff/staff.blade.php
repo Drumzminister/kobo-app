@@ -63,20 +63,30 @@
     
 <section>
     <div class="container py-3">
+        <div class="col-md-3 p-3 bg-green mb-4">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="h4 text-white">Total Number of Staff</h4>
+                </div>
+                <div class="col-md-4">
+                    <h1 class="h1 text-orange">{{$count_staff}}</h1>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-10 col-6">
                 <div class="input-group mt-2">
-                    <input type="text" v-model="staffSearchInput" class="form-control" placeholder="&#xF002;" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append" @click="searchStaff">
-                        <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                    <input type="text" v-model="staffSearchInput" @keyup.prevent="searchStaff" class="form-control" placeholder="&#xF002;" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append" @click.prevent.enter="searchStaff">
+                        <a href="#"> <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-6">
-                <div id="" class="mt-2 float-right" onclick="">
-                    <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>
-                </div>
-            </div>
+            {{--<div class="col-md-2 col-6">--}}
+                {{--<div id="" class="mt-2 float-right" onclick="">--}}
+                    {{--<button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
     </div>
 </section>
@@ -90,12 +100,10 @@
                         <table class="table table-hover" id="dataTable">
                                 <thead class="p-3">
                                   <tr class="ta">
-                                    <th scope="col">Id</th>
                                     <th scope="col">Staff</th>
                                     <th scope="col">Role</th>
-                                    <th scope="col">Salary</th>
-                                    <th scope="col">Date Of Employment</th>
-                                    <th scope="col" @click="staffStatusFilter">Status</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col" @click.prevent="staffStatusFilter" style="cursor: ns-resize">Status</th>
                                     <th scope="col"></th>
                                   
                                 </tr>
@@ -103,15 +111,13 @@
         
                                 <tbody>
                                   <tr v-for="(worker, index) in staff" :key="index">
-                                        <td>@{{ ++index }}</td>
                                         <td> <a href="" class="left-modal" data-toggle="modal" data-target="#exampleModal" @click.prevent="staffModal(worker)">
                                             <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                                             <span class="pl-3"> @{{ worker.first_name }} @{{ worker.last_name }}</span>
                                             </a>
                                         </td>
                                         <td >@{{ worker.role }} </td>
-                                        <td >@{{ worker.salary }}</td>
-                                        <td>@{{ worker.employed_date }} </td>
+                                        <td >@{{ worker.phone }}</td>
 
                                         <td v-if="worker.isActive">
                                             <span class="badge badge-success">Active</span>
@@ -143,20 +149,17 @@
             <div class="modal-body">
                 <div class="nav flex-sm-column flex-row">
                     <div class="product-details text-center">
-                            <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid">
+                            <img :src="StaffInformation.avatar" alt="Staff Logo" srcset="" class="rounded-circle img-fluid">
                             <h5 class="h5">@{{ StaffInformation.name }}
                             </h5>
                             <p class="text-muted">@{{ StaffInformation.role }}</p>
-                        <div class="icon">
-                                <span><i class="fa fa-facebook-square" style="font-size: 32px; color:#0077B5;"></i></span>
-                                <span><i class="fa fa-facebook-square" style="font-size: 32px; color:#0077B5;"></i></span>                            
-                            <span><i class="fa fa-facebook-square" style="font-size: 32px; color:#0077B5;"></i></span>
-                        </div>
+
                     <p class="text-muted py-2">@{{ StaffInformation.comment }}</p>
                     </div>
 
-                    <p>Experience: <span class="text-muted"> @{{ StaffInformation.experience }}</span></p>
+                    <p>Experience: <span class="text-muted"> @{{ StaffInformation.experience }} year(s)</span></p>
                     <p>Date of Employment: <span class="text-muted"> @{{ StaffInformation.dateOfEmployment }} </span></p>
+                    <p>Salary: <span class="text-muted"> N@{{ StaffInformation.salary | numberFormat }} </span></p>
                     <p>Rating: <span class="text-muted"> </span></p>
 
                 </div>
@@ -175,4 +178,10 @@
 </div>
 
 
+@endsection
+@section('other_js')
+<script>
+    window.all_staff = @json($all_staff);
+    window.count = @json($count_staff);
+</script>
 @endsection

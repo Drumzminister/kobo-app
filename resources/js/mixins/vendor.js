@@ -1,34 +1,44 @@
 export const vendorApp = {
     data:{
         vendorTableRows:[],
-        vendors: [],
+        vendors: '',
         search: '',
-        vendorCount: ''
+        vendorFormErrors: [],
+        isLoading: false
     },
+
     created() {
-            axios.get('/client/vendor/all-vendors').then(res => {
-                this.vendors = res.data;
-                this.vendorCount = res.data.length;
-            });
+        this.vendors = window.all_vendors;
         this.addNewRow();
     },
     methods: {
         saveVendor() {
+            this.isLoading = true;
             let data = {
                 items: this.vendorTableRows,
             };
-            axios.post('/client/vendor/add', data).then(res => {
-            swal('Success', res.data.message, 'success');
-                console.log(data.items);
-            }).catch(error => {
-            swal('Error', error.data.error, 'error');
+            axios.post('/client/vendor/add', data)
+            .then(res => {
+                this.vendorTableRows = [],
+                this.addNewRow();
+                swal({
+                    title: 'Vendor added!',
+                    text: res.data.message,
+                    type: 'success',
+                    timer: 1500
+                });
+                this.isLoading = false;
+                this.vendorFormErrors = "";
+            })
+            .catch(error => {
+                this.vendorFormErrors = error.response.data.errors;
+                this.isLoading = false;
+                console.log(this.vendorFormErrors);
             });
         },
 
         searchVendor() {
-             axios.get(`/client/vendor/search?param=${this.search}`).then(res => {
-                let result = this.vendors = res.data;
-             });
+             axios.get(`/client/vendor/search?param=${this.search}`).then(res => {this.vendors = res.data;});
         },
         addNewRow() {
             this.vendorTableRows.push(
@@ -47,8 +57,7 @@ export const vendorApp = {
 
         activateVendor(id) {
             axios.post(`/client/vendor/${id}/activate`).then(res => {
-                swal("Success", res.data.message, "success");
-                console.log(res.data);
+                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false});
             });
         }
     }
