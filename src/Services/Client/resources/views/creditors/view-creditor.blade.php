@@ -1,15 +1,11 @@
-@extends("layouts.app-acct")
+@extends("layouts.app")
 
 @section("content")
 <section id="top">
     <div class="container py-3">
             <div class="row">
                     <h3 class="h3">Creditors</h3>
-                    <span class="accountant ml-auto btn btn-accountant">
-                        <a href="" class="btn-accountant">
-                            <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                        </a>              
-                    </span>
+                    @include('client::accountant-button')
             </div>
     </div>
 </section>

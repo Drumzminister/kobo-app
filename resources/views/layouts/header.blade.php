@@ -35,15 +35,22 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item " href="/client/vendor">Vendors</a>
                         <a class="dropdown-item" href="/client/customer">Customers</a>
-                        <a class="dropdown-item" href="/client/staff">Staffs</a>
+                        <a class="dropdown-item" href="/client/staff">Staff</a>
                     </div>
                 </li>
 
 
-                <li class="nav-item pr-4 pl-4">
-                    <a class="nav-link pr-3 pl-3 " href="/">Other Informations</a>
+                <li class="nav-item dropdown pr-4 pl-4">                   
+                    <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Other Informations
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item " href="/client/bank">Banking</a>
+                        <a class="dropdown-item" href="/client/opening-pages">Opening Pages</a>
+                        <a class="dropdown-item" href="/client/creditors">Creditors</a>
+                        <a class="dropdown-item" href="/client/debtors">Debtors</a>
+                    </div>
                 </li>
-
                 
             </ul>
 

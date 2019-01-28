@@ -16,12 +16,8 @@
     <section id="top">
         <div class="container p-2">
             <div class="row p-3">
-                <h2>Creditors</h2>
-                <span class="accountant ml-auto btn btn-accountant">
-                <a href="" class="btn-accountant">
-                    <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>                
-                </span>
+                <h2>Debtors</h2>
+                @include('client::accountant-button')
             </div>
         </div>
     </section>
@@ -31,54 +27,6 @@
     <section>
         <div class="container">
             <div class="row mt-4">
-                    <div class="col-md-4">
-                            <div class="bg-white p-3" id="topp">
-                                {{-- <h4 class="sale-h4">Most Expenses Transaction</h4> --}}
-                                <div class="dropdown show text-orange">
-                                        <a class="text-orange dropdown-toggle bg-white" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Most Recent Creditors                                    
-                                        </a>                                   
-                                        <div class="dropdown-menu text-green" aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item" href="#" class="text-orange">Highest Creditors</a>
-                                            <a class="dropdown-item" href="#" class="text-orange">Fastest Paying Creditors</a>
-                                        </div>
-                                </div>
-                                <div class="all-scroll">
-                                        <table class="table table-striped table-hover" id="table">
-                                                <thead class="sale-head">
-                                                  <tr>
-                                                    <th scope="col">Company Name</th>
-                                                    <th scope="col">Amount</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                  <tr>
-                                                    <td>Broomstick Ltd</td>
-                                                    <td>12,000</td>
-                                                  </tr>
-                                                  <tr>
-                                                        <td>Broomstick Ltd</td>
-                                                        <td>12,000</td>
-                                                    <tr>
-                                                    <tr>
-                                                        <td>Broomstick Ltd</td>
-                                                        <td>12,000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Broomstick Ltd</td>
-                                                        <td>12,000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Broomstick Ltd</td>
-                                                        <td>12,000</td>
-                                                    </tr>
-                                                </tbody>
-                    
-                                        </table>
-                                </div>
-                            </div>
-                    </div>
-
                 <div class="col-md-8">
                     <div class="bg-white px-3 py-2" id="topp"> 
                             <div class="dropdown show ">
@@ -86,8 +34,8 @@
                                             Switch Graph                                    
                                     </a>                                   
                                     <div class="dropdown-menu text-green" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#" class="text-orange">Credit Profile</a>
-                                        <a class="dropdown-item" href="#" class="text-orange">Payment Profile</a>
+                                        <a class="dropdown-item" href="#" class="text-orange">Debt Profile</a>
+                                        <a class="dropdown-item" href="#" class="text-orange">Collection Profile</a>
                                     </div>
                             </div>
                         <div class="row">
@@ -138,11 +86,57 @@
 
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="bg-white p-3" id="topp">
+                        {{-- <h4 class="sale-h4">Most Expenses Transaction</h4> --}}
+                        <div class="dropdown show text-orange">
+                                <a class="text-orange dropdown-toggle bg-white" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Most Recent Debtors                                    
+                                </a>                                   
+                                <div class="dropdown-menu text-green" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="#" class="text-orange">Highest Debtors</a>
+                                    <a class="dropdown-item" href="#" class="text-orange">Fastest Paying Debtors</a>
+                                </div>
+                        </div>
+                        <div class="all-scroll">
+                                <table class="table table-striped table-hover" id="table">
+                                        <thead class="sale-head">
+                                          <tr>
+                                            <th scope="col">Company Name</th>
+                                            <th scope="col">Amount</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td>Broomstick Ltd</td>
+                                            <td>12,000</td>
+                                          </tr>
+                                          <tr>
+                                                <td>Broomstick Ltd</td>
+                                                <td>12,000</td>
+                                            <tr>
+                                            <tr>
+                                                <td>Broomstick Ltd</td>
+                                                <td>12,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Broomstick Ltd</td>
+                                                <td>12,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Broomstick Ltd</td>
+                                                <td>12,000</td>
+                                            </tr>
+                                        </tbody>
+            
+                                </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
-                
 {{-- end of sales chart --}}
         </div>
-
     </section>
 
     <section id="sale-table">
@@ -151,7 +145,7 @@
             <div class="bg-white p-4">
                     <div class="row pb-2">
                             <div class="col-md-6 col-12">
-                            <h4 class= "h4">Creditors List </h4>
+                            <h4 class= "h4">Debtors List </h4>
                             </div>
         
                             <div class="col-md-6 col-12">
@@ -169,8 +163,8 @@
                         <table class="table table-striped table-hover" id="dataTable">
                                 <thead class="p-3">
                                   <tr class="tab">
-                                    <th scope="col">Purchase Date</th>
-                                    <th scope="col">Vendor</th>                                    
+                                    <th scope="col">Sales Date</th>
+                                    <th scope="col">Customer</th>                                    
                                     <th scope="col">Total Invoices Owed (&#8358;)</th>
                                     <th scope="col">Total Payment (&#8358;)</th>
                                     <th scope="col">Amount Receivables</th>
@@ -181,7 +175,7 @@
                                 <tbody>
                                   <tr>
                                         <td >21/08/2020 </td>                                       
-                                        <td><a href="/credit">Mercy Ikpe</a> </td>                                        
+                                        <td><a href="/debt">Mercy Ikpe</a> </td>                                        
                                         <td> 23,000</td>
                                         <td> 43,000</td>
                                         <td>50,000</td>
@@ -189,43 +183,55 @@
         
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/debt">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>                                    </tr>
         
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit"> Mercy Ikpe</a></td>                                        
+                                            <td><a href="/debt"> Mercy Ikpe</a></td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit"> Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/debt"> Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit"> Mercy Ikpe</a></td>                                        
+                                            <td><a href="/debt"> Mercy Ikpe</a></td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
-                                    
+                                    <tr class="d-none">
+                                        <td>
+                                            <div class="dates">
+                                                <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
+                                            </div>
+                                        </td>
+                                          <td> <input type="text" placeholder=""></td>
+                                          <td> <input type="number" placeholder=""> </td>
+                                          <td><input class="number" onKeyup="AddComma()"placeholder=""></td>
+                                          <td><input type="text" placeholder=""></td>
+                                        <td> IG</td>
+        
+                                    </tr>
                                 </tbody>
                         </table>
                 </div>
                     <hr class="mt-0">
                     <div class="text-center pb-3">
-                        <a href="/view-creditor" class="view-more">View More</a> 
+                        <a href="/view-debtor" class="view-more">View More</a> 
                     </div>
             </div> 
            
         </div>
     </section>
-
+    
 @endsection

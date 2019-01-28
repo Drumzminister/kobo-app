@@ -1,11 +1,16 @@
-@extends("layouts.app-acct")
+@extends("layouts.app")
 
 @section("content")
-<section id="top">
-    <div class="container py-3">
-       <a href="/creditor"><h3 class="h3">Creditor</h3></a> 
-    </div>
-</section>
+{{-- heading section --}}
+    <section id="top">
+        <div class="container p-2">
+            <div class="row p-3">
+                <h2>Debtors</h2>
+                @include('client::accountant-button')
+            </div>
+        </div>
+    </section>
+{{-- end of heading section --}}
 
 
 <section id="sale-table">
@@ -42,7 +47,7 @@
                     </div> 
                     <div class="row py-3">
                             <div class="col-md-6 col-12">
-                            <h4 class= "h4">Creditor's Overview </h4>
+                            <h4 class= "h4">Debtors Debt </h4>
                             </div>
         
                             <div class="col-md-6 col-12">
@@ -60,8 +65,8 @@
                     <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
                           <tr class="tab">
-                            <th scope="col">Purchase Date</th>
-                            <th scope="col">Details</th>                                    
+                            <th scope="col">Sales Date</th>
+                            <th scope="col">Customer</th>                                    
                             <th scope="col">Total Invoices Owed (&#8358;)</th>
                             <th scope="col">Total Payment (&#8358;)</th>
                             <th scope="col">Amount Receivables</th>
