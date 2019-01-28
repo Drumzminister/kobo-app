@@ -88469,7 +88469,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         paidAmountChanged: function paidAmountChanged(val) {
             if (this.totalAmountPaid > this.totalSpread) {
-                Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])('Amount paid cannot be greater than total sales amount', 'error', 'center');
+                // toast('Amount paid cannot be greater than total sales amount', 'error', 'center');
                 this.invalidPaymentsSum(true);
                 this.$store.commit('totalPaid', this.totalAmountPaid);
                 return null;
@@ -88488,6 +88488,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         addSalePaymentMethod: function addSalePaymentMethod() {
             if (this.bankIsNotAvailable() || this.readOnly) return;
+
             this.salePaymentMethods.push({
                 bank_id: null,
                 amount: null,
@@ -88518,7 +88519,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-6" }, [
             _vm._v(
               "\n                PAID: " +
-                _vm._s(_vm.$parent.currency.format(_vm.totalAmountPaid)) +
+                _vm._s(_vm.$currency.format(_vm.totalAmountPaid)) +
                 "\n            "
             )
           ]),
@@ -88526,7 +88527,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-6" }, [
             _vm._v(
               "\n                BAL: " +
-                _vm._s(_vm.$parent.currency.format(_vm.balanceLeft)) +
+                _vm._s(_vm.$currency.format(_vm.balanceLeft)) +
                 "\n            "
             )
           ])
@@ -90198,6 +90199,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 _this.$store.getters.storedCustomers.push(res.data.data);
                 swal('Success', res.data.message, 'success');
                 _this.customer = {};
+                window.location.reload();
             }).catch(function (err) {
                 swal('Error', 'There was an error adding staff', 'error');
             });
@@ -98036,7 +98038,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -99079,7 +99080,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -99093,7 +99093,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             customer_id: "",
             customerSelectSettings: {
                 placeholder: 'Customers',
-                disabled: this.updateMode,
                 language: {
                     noResults: function noResults() {
                         return '<a href="#" onclick="$(\'#newCustomerModal\').modal({ backdrop: \'static\',keyboard: false })"><span class="fa fa-plus"></span> Add Customer</button>';
@@ -99110,7 +99109,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         updateMode: function updateMode() {
             return this.sale.type === 'published';
         },
-        sS: function sS() {
+        companyCustomers: function companyCustomers() {
             return this.$store.getters.storedCustomers;
         }
     }),
@@ -99128,8 +99127,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['customer', 'selectedTax', "taxId", "storedCustomers"]), {
-        createNewCustomer: function createNewCustomer() {
-            console.log("New Customer");
+        createNewCustomer: function createNewCustomer() {},
+        formattedCustomers: function formattedCustomers() {
+            return this.companyCustomers.map(function (customer) {
+                return { id: customer.id, text: customer.first_name + ' ' + customer.last_name, selected: true };
+            });
         }
     }),
     mounted: function mounted() {
@@ -99182,13 +99184,10 @@ var render = function() {
               _vm._v(" "),
               _c("Select2", {
                 attrs: {
-                  settings: _vm.customerSelectSettings,
-                  options: _vm.sS.map(function(customer) {
-                    return {
-                      id: customer.id,
-                      text: customer.first_name + " " + customer.last_name
-                    }
-                  })
+                  settings: Object.assign(_vm.customerSelectSettings, {
+                    disabled: this.updateMode
+                  }),
+                  options: _vm.formattedCustomers()
                 },
                 model: {
                   value: _vm.customer_id,
@@ -117210,7 +117209,6 @@ var saleModule = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
 /* harmony default export */ __webpack_exports__["a"] = (function (Vue) {
     Vue.currency = new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 2

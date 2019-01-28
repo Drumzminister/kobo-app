@@ -150,7 +150,6 @@
                 </div>
             </div>
         </div>
-        </div>
         <invoice-modal></invoice-modal>
         <invoice-sender></invoice-sender>
     </section>

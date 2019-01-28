@@ -1,5 +1,4 @@
 <template>
-
     <section id="info">
         <div class="container mt-3">
             <div class="row">
@@ -15,7 +14,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text customer-input" id="basic-addon3">Customer</span>
                         </div>
-                        <Select2 :settings="customerSelectSettings" v-model="customer_id" :options="sS.map((customer) => { return {id: customer.id, text: customer.first_name + ' ' + customer.last_name } })"/>
+                        <Select2 :settings="Object.assign(customerSelectSettings, { disabled: this.updateMode })" v-model="customer_id" :options="formattedCustomers()"/>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -52,7 +51,6 @@
                 customer_id: "",
                 customerSelectSettings: {
                     placeholder: 'Customers',
-                    disabled: this.updateMode,
                     language: {
                         noResults: function () {
                             return `<a href="#" onclick="$('#newCustomerModal').modal({ backdrop: 'static',keyboard: false })"><span class="fa fa-plus"></span> Add Customer</button>`;
@@ -69,7 +67,7 @@
             updateMode () {
                 return this.sale.type === 'published';
             },
-            sS () {
+            companyCustomers () {
                 return this.$store.getters.storedCustomers;
             }
         },
@@ -86,7 +84,9 @@
         methods : {
             ...mapMutations(['customer', 'selectedTax', "taxId", "storedCustomers"]),
             createNewCustomer () {
-                console.log("New Customer");
+            },
+            formattedCustomers () {
+                return this.companyCustomers.map((customer) => { return {id: customer.id, text: customer.first_name + ' ' + customer.last_name, selected: true } });
             }
         },
         mounted () {
