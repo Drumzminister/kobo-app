@@ -117,3 +117,5 @@ Route::group([ 'prefix' => 'client'], function () {
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
 
 Route::get('/bar/{slug}', 'ClientDashboardController@testFeature');
+
+Route::get('/view/accountant', 'ClientDashboardController@viewAccountant');
