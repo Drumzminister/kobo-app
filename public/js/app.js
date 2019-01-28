@@ -77248,6 +77248,7 @@ var inventoryApp = {
     mounted: function mounted() {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
+        this.vendors = window.vendors;
         this.addInventoryRow();
     },
 
@@ -77257,7 +77258,9 @@ var inventoryApp = {
 
             evt.preventDefault();
             axios.post('/client/inventory/add', this.inventoryForm).then(function (res) {
-                swal('Success', res.data.message, "success");
+                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
+                    location.reload(true);
+                });
                 _this.inventoryForm = '';
             }).catch(function (err) {
                 swal("Oops", "An error occurred when creating this account", "error");
@@ -77273,26 +77276,19 @@ var inventoryApp = {
         trimIdToInvoice: function trimIdToInvoice(value) {
             return value.slice(0, 5);
         },
-        deleteInventoryButton: function deleteInventoryButton(index) {
-            var _this2 = this;
-
-            swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then(function (index) {
-                if (index) {
-                    axios.post('/client/inventory/' + index + '/delete').then(function (res) {
-                        swal('Success', res.data.message, 'success');
-                        _this2.purchase.splice(index, 1);
-                    });
-                    swal('Deleted!', 'Your file has been deleted.', 'success');
-                }
-            });
+        deleteInventory: function deleteInventory(inventoryId) {
+            axios.post('/client/inventory/' + inventoryId + '/delete').then(function (res) {
+                console.log(res.data.message);
+                swal({
+                    type: 'success',
+                    title: 'Success',
+                    text: res.data.message,
+                    timer: 3000,
+                    showConfirmButton: false
+                }).then(function () {
+                    location.reload(true);
+                });
+            }).catch(function (error) {});
         },
         addInventoryRow: function addInventoryRow() {
             this.inventoryTableRow.push({
@@ -77371,29 +77367,27 @@ var staffApp = {
             formData.append('file', file);
             axios.post('/client/staff/imageUpload', formData).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image has successfully uploaded', 'success');
+                console.log(res.data.data);
                 _this.staffForm.avatar = res.data.data;
-                _this.staffForm.avatar = "";
-            }).catch(function (res) {
+            }).catch(function (error) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Staff upload unsuccessful', 'error');
-                _this.staffForm.avatar = "";
             });
         },
         createStaff: function createStaff(evt) {
-            var _this2 = this;
-
             evt.preventDefault();
             axios.post('/client/staff/single-staff/add', this.staffForm).then(function (res) {
-                swal('Success', res.data.message, 'success');
-                _this2.staffForm = '';
+                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
+                    location.reload(true);
+                });
             }).catch(function (err) {
                 swal("Oops", "An error occurred when creating this staff", "error");
             });
         },
         searchStaff: function searchStaff() {
-            var _this3 = this;
+            var _this2 = this;
 
             axios.get('/client/staff/search?param=' + this.staffSearchInput).then(function (res) {
-                _this3.staff = res.data;
+                _this2.staff = res.data;
             });
         },
         staffModal: function staffModal(staff) {
@@ -77452,7 +77446,6 @@ var vendorApp = {
         vendorTableRows: [],
         vendors: '',
         search: '',
-        vendorCount: '',
         vendorFormErrors: [],
         isLoading: false
     },
@@ -77507,7 +77500,7 @@ var vendorApp = {
         },
         activateVendor: function activateVendor(id) {
             axios.post('/client/vendor/' + id + '/activate').then(function (res) {
-                swal("Success", res.data.message, "success");
+                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false });
             });
         }
     }
@@ -77531,6 +77524,7 @@ var customerApp = {
         },
         customers: [],
         customerSearch: '',
+        customerFormSubmitted: false,
         searchNotFound: false
     },
 
@@ -77543,15 +77537,21 @@ var customerApp = {
     },
 
     methods: {
-        createCustomer: function createCustomer(evt) {
+        createCustomer: function createCustomer(e) {
             var _this2 = this;
 
-            evt.preventDefault();
-            axios.post('/client/customer/add', this.customerForm).then(function (res) {
-                swal('Success', res.data.message, 'success');
-                _this2.customerForm = '';
-            }).catch(function (err) {
-                swal('Error', 'There was an error adding staff', 'error');
+            e.preventDefault();
+            this.customerFormSubmitted = true;
+            this.$validator.validate().then(function (valid) {
+                if (valid) {
+                    axios.post('/client/customer/add', _this2.customerForm).then(function (res) {
+                        swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
+                            location.reload(true);
+                        });
+                    }).catch(function (err) {
+                        swal('Error', 'There was an error adding staff', 'error');
+                    });
+                }
             });
         },
         searchCustomer: function searchCustomer() {
@@ -77560,6 +77560,22 @@ var customerApp = {
             axios.get('/client/customer/search?param=' + this.customerSearch).then(function (res) {
                 _this3.customers = '';
                 var result = _this3.customers = res.data;
+            });
+        },
+        getAndProcessCustomerImage: function getAndProcessCustomerImage() {},
+        deleteCustomer: function deleteCustomer(customerId) {
+            axios.post('/client/customer/delete/' + customerId).then(function (res) {
+                swal({
+                    type: 'success',
+                    title: 'Success',
+                    text: res.data.message,
+                    timer: 3000,
+                    showConfirmButton: false
+                }).then(function () {
+                    location.reload(true);
+                });
+            }).catch(function (error) {
+                swal('error', error.response.data, 'error');
             });
         }
     }

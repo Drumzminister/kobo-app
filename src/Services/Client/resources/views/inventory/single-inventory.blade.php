@@ -61,23 +61,14 @@
                             <div class="form-row py-3">
                                     <div class="col">
                                         <label for="name">Quantity</label>
-                                        <select v-model="inventoryForm.quantity" name="quantity" id="quantity" class="form-control bg-grey">
-                                            <option selected>Choose...</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-
-                                        </select>
+                                        <input type="number" v-model="inventoryForm.quantity" name="quantity" id="quantity" class="form-control bg-grey">
                                     </div>
-                                    <div class="col">
+                                    <div class="col" >
                                         <label for="name">Vendor</label>
-                                        <select v-model="inventoryForm.vendor_id" id="inputState" name="vendor_id"  class="form-control bg-grey">
-                                            <option selected>Choose Vendor</option>
-                                            <option>Mercy Bassey</option>
-                                            <option>Promise Somto</option>
-
+                                        <select  v-model="inventoryForm.vendor_id" class="form-control bg-grey" >
+                                            <option v-for="vendor in vendors" :value="vendor.id">
+                                                @{{ vendor.name }}
+                                            </option>
                                         </select>
                                 </div>
                             </div>
@@ -118,4 +109,9 @@
         </div>
     </div>
 </section>
+@endsection
+@section('other_js')
+<script>
+window.vendors = @json($vendors)
+</script>
 @endsection

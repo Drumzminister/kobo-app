@@ -26,7 +26,7 @@
                                 <h4 class="h4 text-white">Total Number of Vendors</h4>
                             </div>
                             <div class="col-md-4">
-                                <h1 class="h1 text-orange">{{$count_vendor}}</h1>
+                                <h1 class="h1 text-orange">@{{ vendors.length }}</h1>
                             </div>
                         </div>
                     </div>
@@ -91,6 +91,5 @@
 @section('other_js')
     <script>
         window.all_vendors = @json($all_vendors);
-        window.count_vendor = @json($count_vendor);
     </script>
 @endsection

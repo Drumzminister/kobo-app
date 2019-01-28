@@ -3,7 +3,6 @@ export const vendorApp = {
         vendorTableRows:[],
         vendors: '',
         search: '',
-        vendorCount: '',
         vendorFormErrors: [],
         isLoading: false
     },
@@ -58,7 +57,7 @@ export const vendorApp = {
 
         activateVendor(id) {
             axios.post(`/client/vendor/${id}/activate`).then(res => {
-                swal("Success", res.data.message, "success");
+                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false});
             });
         }
     }
