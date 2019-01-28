@@ -73509,7 +73509,7 @@ var rentApp = {
         paymentMethods: [],
         isRequesting: false,
         rentSearchParam: "",
-        other_rental_cost: "",
+        other_costs: [],
         rentShowPaymentSettings: false
     },
     computed: {
@@ -73518,11 +73518,25 @@ var rentApp = {
         }
     },
     mounted: function mounted() {
+        this.addOtherCosts();
         this.banks = window.banks;
         this.rents = window.rents;
     },
 
     methods: {
+        removeOtherCost: function removeOtherCost(key) {
+            this.other_costs.splice(this.other_costs.findIndex(function (cost) {
+                return cost.key === key;
+            }), 1);
+        },
+        addOtherCosts: function addOtherCosts() {
+            this.other_costs.push({
+                key: Math.floor(Math.random() * 123456),
+                description: null,
+                amount: 0
+            });
+        },
+        removeCost: function removeCost() {},
         dater: function dater(value) {
             var date = new Date(value);
             var options = { month: 'long' };
@@ -73533,12 +73547,25 @@ var rentApp = {
         beforeSubmit: function beforeSubmit(form) {
             document.querySelector("#" + form).querySelector('.submitBtn').click();
         },
+        purifyCostsAndGetRentAmount: function purifyCostsAndGetRentAmount() {
+            this.other_costs = this.other_costs.filter(function (cost) {
+                return cost.description !== null;
+            });
+            var amount = 0;
+            this.other_costs.forEach(function (cost) {
+                amount += Number(cost.amount);
+            });
+            return Number(amount);
+        },
         createRent: function createRent(evt) {
             var _this = this;
 
             evt.preventDefault();
             this.isRequesting = true;
             var formData = new FormData(evt.target);
+            var rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(formData.get('amount'));
+            formData.set('amount', rentAmount);
+            formData.append('other_costs', JSON.stringify(this.other_costs));
             axios.post('/client/rent/add', formData).then(function (res) {
                 _this.rents.unshift(res.data.rent);
                 swal("Success", "Rent added successfully", "success");
@@ -73621,8 +73648,15 @@ var rentApp = {
             this.selectedRent = rent;
             this.openModal('#paymentModal');
         },
+        closeRentModal: function closeRentModal(id) {
+            this.other_costs = [];
+            this.addOtherCosts();
+            this.closeModal("#" + id);
+        },
         editRent: function editRent(evt, rent) {
             this.editingRent = _extends({}, rent);
+            this.other_costs = JSON.parse(this.editingRent.other_costs);
+            this.editingRent.amount = Number(this.editingRent.amount) - Number(this.purifyCostsAndGetRentAmount());
             this.openModal('#editRentModal');
         },
         updateRent: function updateRent(evt) {
@@ -73630,16 +73664,18 @@ var rentApp = {
 
             evt.preventDefault();
 
-            var formData = this.editingRent;
+            var formData = new FormData(evt.target);
+            formData.append('other_costs', JSON.stringify(this.other_costs));
+            var rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(formData.get('amount'));
+            formData.set('amount', rentAmount);
             this.isRequesting = true;
-            axios.post("/client/rent/update/" + formData.id, formData).then(function (response) {
+            axios.post("/client/rent/update/" + this.editingRent.id, formData).then(function (response) {
                 _this4.isRequesting = false;
                 swal("Success", "Rent updated successfully", "success");
                 _this4.rents.splice(_this4.rents.findIndex(function (rent) {
                     return rent.id === _this4.editingRent.id;
                 }), 1, response.data.rent);
-                // location.reload();
-                $('#editRentModal').modal('toggle');
+                _this4.closeRentModal('editRentModal');
             });
         },
         setRentParams: function setRentParams() {

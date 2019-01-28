@@ -22,7 +22,7 @@ class CreateRentsTable extends Migration
             $table->date('end');
             $table->text('property_details');
             $table->boolean('has_completed_payment')->default(false);
-            $table->decimal('other_costs', 15, 2);
+            $table->text('other_costs')->nullable();
             $table->boolean('expired')->default(false);
             $table->date('prev_rent_period_end')->nullable();
             $table->date('next_rent_period_start')->nullable();

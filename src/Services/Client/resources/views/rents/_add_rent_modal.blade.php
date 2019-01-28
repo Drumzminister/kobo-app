@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="container p-3">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close"  @click="closeRentModal('addRentModal')">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h5 class="h5 uppercase" id="">Add Rent</h5>
@@ -36,7 +36,14 @@
                         <div class="form-group">
                             <label for=""><h5>Other Rental Cost</h5></label>
                             <label for="" class="d-block"><small>Add other rental cost </small></label>
-                            <input type="number" v-model="other_rental_cost" name="other_costs" class="form-control" id="" placeholder="">
+                            <div class="d-flex mt-2" v-for="cost in other_costs">
+                                <input type="text" class="form-control mr-4" v-model="cost.description" placeholder="Description" >
+                                <input type="number" placeholder="amount" v-model="cost.amount" class="form-control" id="" placeholder="">
+                                <span v-if="other_costs.length > 1" @click="removeOtherCost(cost.key)"><i class="fa fa-times ml-2" style="font-size:32px;color:#c22c29; cursor:pointer"></i></span>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <i class="fa fa-plus-square" @click="addOtherCosts" style="font-size:32px; color:#00C259; cursor:pointer;"></i>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for=""><h5>Comments</h5></label>
