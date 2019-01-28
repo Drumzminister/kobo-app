@@ -1,5 +1,4 @@
 <template>
-
     <section id="info">
         <div class="container mt-3">
             <div class="row">

@@ -1,4 +1,3 @@
-
 <template>
     <div class="bg-grey">
         <div class="bg-grey py-4 px-3" id="top">
@@ -177,12 +176,12 @@
             },
             addSalePaymentMethod: function () {
                 if (this.bankIsNotAvailable() || this.readOnly) return;
+
                 this.salePaymentMethods.push({
                     bank_id: null,
                     amount: null,
                     name: null,
                 });
-
             },
             removeSalePaymentMethod: function (index, accountId) {
                 this.salePaymentMethods.splice(index, 1);

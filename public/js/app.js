@@ -88357,7 +88357,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -88465,6 +88464,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         addSalePaymentMethod: function addSalePaymentMethod() {
             if (this.bankIsNotAvailable() || this.readOnly) return;
+
             this.salePaymentMethods.push({
                 bank_id: null,
                 amount: null,
@@ -98014,7 +98014,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -99017,7 +99016,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_select2_component__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
 //
 //
 //
@@ -117187,7 +117185,6 @@ var saleModule = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
 /* harmony default export */ __webpack_exports__["a"] = (function (Vue) {
     Vue.currency = new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 2
