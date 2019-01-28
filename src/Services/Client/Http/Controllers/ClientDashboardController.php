@@ -41,4 +41,9 @@ class ClientDashboardController extends Controller
 	{
 		return $this->serve(TestFeature::class, ['slug' => $slug]);
 	}
+
+	public function viewAccountant()
+    {
+         return $this->serve(\App\Services\Client\Features\ShowClientAccountantPage::class);
+    }
 }

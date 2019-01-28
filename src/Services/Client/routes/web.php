@@ -117,3 +117,4 @@ Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashbo
 
 Route::get('/bar/{slug}', 'ClientDashboardController@testFeature');
 
+Route::get('/view/accountant', 'ClientDashboardController@viewAccountant');
