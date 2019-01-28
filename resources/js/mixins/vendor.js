@@ -1,23 +1,19 @@
 export const vendorApp = {
     data:{
         vendorTableRows:[],
-        vendors: [],
+        vendors: '',
         search: '',
-        vendorCount: '',
+        vendorFormErrors: [],
+        isLoading: false
     },
+
     created() {
-            axios.get('/client/vendor/all-vendors').then(res => {
-                this.vendors = res.data;
-                this.vendorCount = res.data.length;
-            });
+        this.vendors = window.all_vendors;
         this.addNewRow();
     },
     methods: {
-        CheckForm() {
-            this.errors = [];
-
-        },
         saveVendor() {
+            this.isLoading = true;
             let data = {
                 items: this.vendorTableRows,
             };
@@ -25,14 +21,19 @@ export const vendorApp = {
             .then(res => {
                 this.vendorTableRows = [],
                 this.addNewRow();
-                swal('Vendor added!',res.data.message,'success');
-            })
-            .catch(error => {
                 swal({
-                    type: 'error',
-                    title: error.response.data.message,
+                    title: 'Vendor added!',
+                    text: res.data.message,
+                    type: 'success',
                     timer: 1500
                 });
+                this.isLoading = false;
+                this.vendorFormErrors = "";
+            })
+            .catch(error => {
+                this.vendorFormErrors = error.response.data.errors;
+                this.isLoading = false;
+                console.log(this.vendorFormErrors);
             });
         },
 
@@ -56,8 +57,7 @@ export const vendorApp = {
 
         activateVendor(id) {
             axios.post(`/client/vendor/${id}/activate`).then(res => {
-                swal("Success", res.data.message, "success");
-                console.log(res.data);
+                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false});
             });
         }
     }

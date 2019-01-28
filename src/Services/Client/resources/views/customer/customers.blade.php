@@ -13,7 +13,7 @@
                 </span>
             </div>
         </div>
-    </section>
+</section>
 {{-- end of heading section --}}
 
 <section id="sale-table">
@@ -63,13 +63,19 @@
                                 <td>@{{ customer.address }}</td>
                                 <td>@{{ customer.phone }}</td>
                                 <td>@{{ customer.email }}</td>
-                                <td>@{{ customer.website }}</td>
+                                <td>@{{ customer.website }}no-light </td>
                               <td v-show="searchNotFound">No Data found</td>
-                                <td class="flex" > 
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
-                                </td> 
+                                <td class="flex" >
+                                    <div class="dropdown">
+                                        <button class="btn bg-transparent p-0" type="button" id="dropdownMenuButton1">
+                                            <i class="fa fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:30px; font-size: 30px" aria-labelledby="dropdownMenuButton1">
+                                            <a class="dropdown-item text-primary"><i class="fa fa-edit"></i></a>
+                                            <a @click.prevent="deleteCustomer(customer.id)" class="dropdown-item text-danger" href="#"><i class="fa fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </td>
                           </tr>
                         </tbody>
                 </table>

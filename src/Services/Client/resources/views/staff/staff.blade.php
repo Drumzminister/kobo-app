@@ -103,7 +103,6 @@
                                     <th scope="col">Staff</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">Phone</th>
-                                    <th scope="col">Date Of Employment</th>
                                     <th scope="col" @click.prevent="staffStatusFilter" style="cursor: ns-resize">Status</th>
                                     <th scope="col"></th>
                                   
@@ -119,7 +118,6 @@
                                         </td>
                                         <td >@{{ worker.role }} </td>
                                         <td >@{{ worker.phone }}</td>
-                                        <td>@{{ worker.employed_date }} </td>
 
                                         <td v-if="worker.isActive">
                                             <span class="badge badge-success">Active</span>

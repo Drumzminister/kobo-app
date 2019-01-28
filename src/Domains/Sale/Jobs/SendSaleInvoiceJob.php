@@ -20,6 +20,11 @@ class SendSaleInvoiceJob extends QueueableJob
 	private $sale;
 
 	/**
+	 * @var array
+	 */
+	private $data;
+
+	/**
 	 * Create a new job instance.
 	 *
 	 * @param string $saleId
@@ -37,6 +42,6 @@ class SendSaleInvoiceJob extends QueueableJob
      */
     public function handle()
     {
-        //
+    	$sale = $this->sale->items;
     }
 }

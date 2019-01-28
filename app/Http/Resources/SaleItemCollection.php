@@ -15,6 +15,6 @@ class SaleItemCollection extends JsonResource
      */
     public function toArray($request)
     {
-        return array_merge(parent::toArray($request), ['inventory' => $this->inventory]);
+        return array_merge(parent::toArray($request), ['inventory' => $this->inventory, 'reversedItem' => $this->reversedItem]);
     }
 }

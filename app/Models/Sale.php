@@ -28,10 +28,11 @@ class Sale extends Model
 	    'tax_id',
 	    'discount',
 	    'type',
+	    'balance',
     ];
 
     protected $with = [
-    	'saleItems', 'customer', 'tax'
+    	'saleItems', 'customer', 'tax', 'transactions'
     ];
 
     protected $dates = ['deleted_at', 'created_at'];
@@ -63,8 +64,8 @@ class Sale extends Model
     	return $this->belongsTo(Tax::class);
     }
 
-    public function transaction()
+    public function transactions()
     {
-    	return $this->hasOne(Transaction::class);
+    	return $this->hasMany(Transaction::class);
     }
 }

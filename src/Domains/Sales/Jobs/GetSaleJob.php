@@ -3,6 +3,7 @@
 namespace App\Domains\Sales\Jobs;
 
 use App\Data\Repositories\SaleRepository;
+use Koboaccountant\Http\Resources\SaleCollection;
 use Lucid\Foundation\Job;
 
 class GetSaleJob extends Job
@@ -33,6 +34,6 @@ class GetSaleJob extends Job
      */
     public function handle()
     {
-    	return $this->sale->find($this->saleId);
+    	return new SaleCollection($this->sale->find($this->saleId));
     }
 }

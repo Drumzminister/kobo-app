@@ -12,14 +12,15 @@ class ListVendorsJob extends Job
      *
      * @return void
      */
-    private $vendor;
+    private $vendor, $companyId;
 
     /**
      * ListVendorsJob constructor.
      */
     public function __construct()
     {
-        $this->vendor = new VendorRepository();
+        $this->vendor = app(VendorRepository::class);
+        $this->companyId = auth()->user()->company->id;
     }
 
     /**
@@ -29,7 +30,7 @@ class ListVendorsJob extends Job
      */
     public function handle()
     {
-        $data = $this->vendor->all();
+        $data = $this->vendor->latest($this->companyId);
         return $data;
     }
 }

@@ -26,6 +26,11 @@ class SaleItem
         this.sale_channel_id = "";
         this._inventory = inventory;
         this.debounceItemSaving = window._.debounce(this.saveItem, 500);
+        this.reversedItem = null;
+    }
+
+    get id () {
+        return this._id;
     }
 
     /**
@@ -179,9 +184,9 @@ class SaleItem
 
         this.processing = true;
         let data = this.getItemData();
-        let api = new API({ baseUri: 'https://kobo.test/api/client'});
+        let api = new API({ baseUri: 'https://kobo.test/api/client' });
 
-        api.createEntity({ name: 'saleItem'});
+        api.createEntity({ name: 'saleItem' });
         return api.endpoints.saleItem.delete(data);
     }
 
@@ -194,6 +199,7 @@ class SaleItem
         return {
             id: this._id,
             type: this.type,
+            reversed_item_id: this.reversedItem ? this.reversedItem.id : null,
             sale_id: this._sale_id,
             inventory_id: this.inventory_id,
             sale_channel_id: this.sale_channel_id,

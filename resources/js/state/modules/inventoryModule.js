@@ -10,6 +10,9 @@ export const inventoryModule = {
         },
         getInventory: (state) => (inventoryId) => {
             return state.companyInventories.find(inventory => inventory.id === inventoryId);
+        },
+        selectedInventories: (state) => {
+            return state.selectedInventories;
         }
     },
     mutations: {

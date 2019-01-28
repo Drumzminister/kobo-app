@@ -12,12 +12,20 @@
 */
 
 
-Route::group(['prefix' => 'client'], function () {
+//use PDF;
+
+Route::group([ 'prefix' => 'client'], function () {
     // The controllers live in src/Services/Client/Http/Controllers
     // Route::get('/', 'UserController@index');
 
     Route::get('/', function () {
-        return view('client::welcome');
+
+	    $html = view('client::pdf.invoice')->render();
+	    $pdf = \Illuminate\Support\Facades\App::make('snappy.pdf.wrapper');
+//	    $pdf->loadHTML($html);
+//	    return $pdf->inline();
+	    $pdf = PDF::loadHTML($html)->setPaper('a4')->setOrientation('portrait')->setOption('margin-bottom', 0);
+	    return $pdf->inline();
     });
 
     Route::get('{userId}/banks', 'BankDetailController@listBanks')->name('client.banks');
@@ -62,7 +70,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::get('/staff/multiple-staff', 'StaffController@showMultipleStaff')->name('client.single-staff.add');
     Route::post('/staff/single-staff/add', 'StaffController@addSingleStaff')->name('client.single-staff.add');
     Route::post('/staff/multiple-staff/add', 'StaffController@addMultipleStaff')->name('client.multiple-staff.add');
-//    Route::get('/staff/all-staff', 'StaffController@allStaff')->name('client.staff.all');
+
     Route::get('/staff/search', 'StaffController@searchStaff')->name('client.staff.search');
     Route::post('staff/imageUpload', 'StaffController@imageUpload')->name('client.staffImageUpload');
 
@@ -72,6 +80,9 @@ Route::group(['prefix' => 'client'], function () {
     Route::get('/customer/list', 'CustomerController@listAllCustomers')->name('client.customer.list');
     Route::get('/customer/all-customers', 'CustomerController@allCustomers')->name('client.customer.all');
     Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');
+    Route::post('/customer/uploadCsv', 'CustomerController@handleCsvUpload')->name('upload-multiple-customer');
+    Route::post('/customer/delete/{customerId}', 'CustomerController@deleteCustomer')->name('delete.customer');
+
 
 
     // Sale Routes

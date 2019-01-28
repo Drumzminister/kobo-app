@@ -17,6 +17,8 @@ class Transaction extends Model
 		'company_id', 'loan_id', 'transaction_category_id', 'note', 'isProcessed'
 	];
 
+//	protected $with = ['paymentMode'];
+
 	public function sale()
 	{
 		return $this->belongsTo(Sale::class, 'sale_id');

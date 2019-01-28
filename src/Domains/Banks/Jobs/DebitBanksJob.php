@@ -7,6 +7,8 @@ use App\Data\Repositories\BankDetailRepository;
 use App\Domains\Bank\Jobs\CheckIfBanksHaveEnoughBalance;
 use Koboaccountant\Traits\HelpsResponse;
 use Lucid\Foundation\Job;
+use ReflectionClass;
+use ReflectionException;
 
 class DebitBanksJob extends Job
 {
@@ -48,9 +50,10 @@ class DebitBanksJob extends Job
 	 */
 	public function handle()
 	{
-		if (!class_exists($this->getModelClass())) {
+		if (!class_exists($this->getTransactionClass())) {
 			return $this->createJobResponse('error', 'Transaction data cannot be created for ' . ucfirst(get_class($this->model)), $this->model);
 		}
+
 		$response = $this->checkIfBanksHaveEnoughBalance();
 
 		if ($response->status !== "success") {
@@ -79,7 +82,7 @@ class DebitBanksJob extends Job
 		/**
 		 * @var $transactionObj TransactionInterface
 		 */
-		$transactionObj = app($this->getModelClass());
+		$transactionObj = app($this->getTransactionClass());
 		$transactionData = [];
 
 		$transactionData = array_merge($transactionData, [
@@ -90,13 +93,24 @@ class DebitBanksJob extends Job
 		$transactionObj->saveTransaction($transactionData, $this->model);
 	}
 
-	protected function getModelClass()
+	protected function getTransactionClass()
 	{
-		return $class = self::TRANSACTION_NAMESPACE . ucfirst(str_plural(get_class($this->model))) . self::CLASS_SUFFIX;
+		return $class = self::TRANSACTION_NAMESPACE . ucfirst(str_plural($this->getModelClassName())) . self::CLASS_SUFFIX;
 	}
 
 	protected function checkIfBanksHaveEnoughBalance()
 	{
 		return (new CheckIfBanksHaveEnoughBalance($this->paymentModes))->handle();
+	}
+
+	protected function getModelClassName()
+	{
+		try {
+			$obj = new ReflectionClass($this->model);
+
+			return $obj->getShortName();
+		} catch (ReflectionException $e) {
+			return false;
+		}
 	}
 }

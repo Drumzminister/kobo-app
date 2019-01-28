@@ -26,7 +26,7 @@
                                 <h4 class="h4 text-white">Total Number of Vendors</h4>
                             </div>
                             <div class="col-md-4">
-                                <h1 class="h1 text-orange"> @{{ vendorCount }}</h1>
+                                <h1 class="h1 text-orange">@{{ vendors.length }}</h1>
                             </div>
                         </div>
                     </div>
@@ -39,9 +39,9 @@
         
                             <div class="col-md-6 col-12">
                                 <div class="input-group">
-                                    <input v-model="search" type="text"class="form-control search" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input v-model="search" @keyup.prevent="searchVendor" type="text"class="form-control search" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                        <a href="#"> <span @click.prevent="searchVendor" class="input-group-text vat-input px-5 py-2"  id="basic-addon2">Search</a></span>
+                                        <a href="#"> <span  class="input-group-text vat-input px-5 py-2"  id="basic-addon2">Search</a></span>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,6 @@
                     <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
                           <tr class="tab">
-                            <th>Id</th>
                             <th scope="col">Vendor's Name</th>
                             <th scope="col">Address</th>                                    
                             <th scope="col">Phone No</th>
@@ -61,9 +60,8 @@
                             <th scope="col" id="delete"></th>
                           </tr>
                         </thead>
-                        <tbody class="vendor" v-for="(vendor, index) in vendors">
+                        <tbody class="vendor" v-for="vendor in vendors">
                           <tr>
-                                <td>@{{ ++index }}</td>
                                 <td>@{{ vendor.name }} </td>
                                 <td>@{{ vendor.address }}</td>
                                 <td> @{{ vendor.phone }} </td>
@@ -89,4 +87,9 @@
            
         </div>
     </section>
+@endsection
+@section('other_js')
+    <script>
+        window.all_vendors = @json($all_vendors);
+    </script>
 @endsection
