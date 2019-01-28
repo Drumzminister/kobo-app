@@ -17,6 +17,9 @@ export const rentApp = {
     computed: {
         selectedAccounts () {
             return this.$store.state.selectedAccounts;
+        },
+        spreadAmount () {
+            return this.selectedRent.amount - this.selectedRent.amount_paid;
         }
     },
     mounted () {
@@ -126,13 +129,13 @@ export const rentApp = {
                 }
             });
 
-            if (sum !== Number(this.selectedRent.amount)) {
-                swal("Error", `Total amount payable should be equal to ${this.selectedRent.amount}`, "error");
+            if (sum > Number(this.spreadAmount)) {
+                swal("Error", `Total amount payable should be not be more than ${this.spreadAmount}`, "error");
                 return;
             }
             let formData = new FormData();
             formData.append('amount', sum.toString());
-            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            formData.append('paymentMethods', this.selectedAccounts);
             this.isRequesting = true;
             axios.post(`/client/rent/${this.selectedRent.id}/pay`, formData).then(response => {
                 this.isRequesting = false;

@@ -16,7 +16,7 @@ class DebitBanksJob extends Job
 
 	const TRANSACTION_NAMESPACE = '\\App\\Data\\Repositories\\';
 
-	const CLASS_SUFFIX = 'Transaction';
+	const CLASS_SUFFIX = 'TransactionRepository';
 	/**
 	 * @var array
 	 */
@@ -32,16 +32,20 @@ class DebitBanksJob extends Job
 	 */
 	private $bank;
 
-	/**
-	 * Create a new job instance.
-	 *
-	 * @param array $paymentModes
-	 * @param       $model
-	 */
-	public function __construct(array $paymentModes, $model)
+	private $companyId;
+
+    /**
+     * Create a new job instance.
+     *
+     * @param array $paymentModes
+     * @param       $model
+     * @param string $companyId
+     */
+	public function __construct(array $paymentModes, $model, string $companyId)
 	{
 		$this->paymentModes = $paymentModes;
 		$this->model = $model;
+		$this->companyId = $companyId;
 		$this->bank = app(BankDetailRepository::class);
 	}
 
@@ -83,15 +87,14 @@ class DebitBanksJob extends Job
 		 * @var $transactionObj TransactionInterface
 		 */
 		$transactionObj = app($this->getTransactionClass());
-		$transactionData = [];
-
-		$transactionData = array_merge($transactionData, [
-			'bank_detail_id' => $paymentMode,
+		$transactionData =  [
+			'bank_detail_id' => $paymentMode['id'],
 			'amount' => 0,
-		]);
+            'company_id' => $this->companyId
+		];
 
-		$transactionObj->saveTransaction($transactionData, $this->model);
-	}
+        $transactionObj->saveTransaction($transactionData, $this->model);
+    }
 
 	protected function getTransactionClass()
 	{

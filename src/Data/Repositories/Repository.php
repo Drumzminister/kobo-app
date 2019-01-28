@@ -280,7 +280,6 @@ class Repository
 	    $attributes['id'] = isset($attributes['id']) ? $attributes['id'] : $this->generateUuid();
         $this->model->fill($attributes);
         $this->model->save();
-
         return $this->model;
     }
 
