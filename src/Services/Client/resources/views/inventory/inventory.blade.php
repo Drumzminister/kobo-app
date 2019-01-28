@@ -123,9 +123,9 @@ input {
                             <h3 v-if="top_purchase.length === 0"class="text-center">
                                 Top purchases will appear here
                             </h3>
-                        <div class="text-center p-1">
-                                <a href="" class="view-more">View More Analytics</a>
-                            </div>
+                        {{--<div class="text-center p-1">--}}
+                            {{--<a href="" class="view-more">View More Analytics</a>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
             </div>

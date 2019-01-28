@@ -3,7 +3,6 @@ export const vendorApp = {
         vendorTableRows:[],
         vendors: '',
         search: '',
-        vendorCount: '',
         vendorFormErrors: [],
         isLoading: false
     },

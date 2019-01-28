@@ -77248,6 +77248,7 @@ var inventoryApp = {
     mounted: function mounted() {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
+        this.vendors = window.vendors;
         this.addInventoryRow();
     },
 
@@ -77257,7 +77258,9 @@ var inventoryApp = {
 
             evt.preventDefault();
             axios.post('/client/inventory/add', this.inventoryForm).then(function (res) {
-                swal('Success', res.data.message, "success");
+                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
+                    location.reload(true);
+                });
                 _this.inventoryForm = '';
             }).catch(function (err) {
                 swal("Oops", "An error occurred when creating this account", "error");
@@ -77443,7 +77446,6 @@ var vendorApp = {
         vendorTableRows: [],
         vendors: '',
         search: '',
-        vendorCount: '',
         vendorFormErrors: [],
         isLoading: false
     },

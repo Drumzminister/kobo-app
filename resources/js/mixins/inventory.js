@@ -24,13 +24,14 @@ export const inventoryApp = {
     mounted () {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
+        this.vendors = window.vendors;
         this.addInventoryRow();
     },
     methods: {
         createInventory(evt) {
             evt.preventDefault();
             axios.post('/client/inventory/add', this.inventoryForm).then(res => {
-                swal('Success', res.data.message, "success");
+                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false,}).then(() =>{location.reload(true)});
                 this.inventoryForm = '';
             }).catch(err => {
                 swal("Oops", "An error occurred when creating this account", "error");

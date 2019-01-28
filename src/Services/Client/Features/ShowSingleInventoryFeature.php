@@ -3,6 +3,7 @@
 namespace App\Services\Client\Features;
 
 use App\Domains\Http\Jobs\RespondWithViewJob;
+use App\Domains\Vendor\Jobs\ListVendorsJob;
 use Lucid\Foundation\Feature;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,7 @@ class ShowSingleInventoryFeature extends Feature
 {
     public function handle(Request $request)
     {
-        return $this->run(new RespondWithViewJob('client::inventory.single-inventory'));
+        $data['vendors'] = $this->run(ListVendorsJob::class);
+        return $this->run(new RespondWithViewJob('client::inventory.single-inventory', $data));
     }
 }
