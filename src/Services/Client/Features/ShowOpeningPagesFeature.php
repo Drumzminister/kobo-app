@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Services\Accountant\Features;
+namespace App\Services\Client\Features;
 
 use App\Domains\Http\Jobs\RespondWithViewJob;
 use Lucid\Foundation\Feature;
 use Illuminate\Http\Request;
 
-class ShowAccountantDashboardFeature extends Feature
+class ShowOpeningPagesFeature extends Feature
 {
     public function handle(Request $request)
     {
-        return $this->run(new RespondWithViewJob('accountant::dashboard'));
+        return $this->run(new RespondWithViewJob('client::opening-pages.index'));
     }
 }

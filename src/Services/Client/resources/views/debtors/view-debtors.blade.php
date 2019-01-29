@@ -4,8 +4,8 @@
 <section id="top">
     <div class="container py-3">
         <div class="row">
-                <h3 class="h3">Debtors</h3>
-                @include('client::accountant-button')
+                <h3><a href="/client/debtors" class="text-dark">Debtors</a></h2>
+               @include('client::accountant-button')
         </div>
     </div>
 </section>
@@ -74,7 +74,7 @@
                                 <tbody>
                                   <tr>
                                         <td >21/08/2020 </td>                                       
-                                        <td><a href="/debt">Mercy Ikpe</a> </td>                                        
+                                        <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
                                         <td> 23,000</td>
                                         <td> 43,000</td>
                                         <td>50,000</td>
@@ -82,63 +82,64 @@
         
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>                                    </tr>
         
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt"> Mercy Ikpe</a></td>                                        
+                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a></td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt"> Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt"> Mercy Ikpe</a></td>                                        
+                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a></td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                       </tr>
                                       <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                       </tr>
                                       <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                       </tr>
                                       <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                       </tr>
 
                                 </tbody>
-                        </table>                </div>
+                        </table>  
+                    </div>
             </div> 
            
         </div>

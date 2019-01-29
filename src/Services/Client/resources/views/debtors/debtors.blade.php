@@ -175,7 +175,7 @@
                                 <tbody>
                                   <tr>
                                         <td >21/08/2020 </td>                                       
-                                        <td><a href="/debt">Mercy Ikpe</a> </td>                                        
+                                        <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
                                         <td> 23,000</td>
                                         <td> 43,000</td>
                                         <td>50,000</td>
@@ -183,51 +183,39 @@
         
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>                                    </tr>
         
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt"> Mercy Ikpe</a></td>                                        
+                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a></td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt"> Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/debt"> Mercy Ikpe</a></td>                                        
+                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a></td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
-                                    <tr class="d-none">
-                                        <td>
-                                            <div class="dates">
-                                                <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
-                                            </div>
-                                        </td>
-                                          <td> <input type="text" placeholder=""></td>
-                                          <td> <input type="number" placeholder=""> </td>
-                                          <td><input class="number" onKeyup="AddComma()"placeholder=""></td>
-                                          <td><input type="text" placeholder=""></td>
-                                        <td> IG</td>
-        
-                                    </tr>
+                                    
                                 </tbody>
                         </table>
                 </div>
                     <hr class="mt-0">
                     <div class="text-center pb-3">
-                        <a href="/view-debtor" class="view-more">View More</a> 
+                        <a href="/client/debtors/all" class="view-more">View More</a> 
                     </div>
             </div> 
            
