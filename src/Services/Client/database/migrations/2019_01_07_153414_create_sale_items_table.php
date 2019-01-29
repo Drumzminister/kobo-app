@@ -16,7 +16,7 @@ class CreateSaleItemsTable extends Migration
         Schema::create('sale_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('sale_id', 36);
-	        $table->string('inventory_id', 36);
+	        $table->string('inventory_item_id', 36);
 	        $table->string('sale_channel_id')->nullable();
 	        $table->unsignedInteger('quantity');
 	        $table->double('sales_price', 2);

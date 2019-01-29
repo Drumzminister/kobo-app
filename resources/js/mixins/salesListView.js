@@ -1,5 +1,6 @@
 
 import Chart from "chart.js";
+
 export const salesListView = {
     data: {
         saleSearchQuery: "",
@@ -39,7 +40,7 @@ export const salesListView = {
         }
     },
     mounted () {
-        // this.processChart();
+        this.processChart();
     },
     methods: {
         searchSale: function () {
@@ -54,15 +55,19 @@ export const salesListView = {
         resolveSaleDate: function (date) {
             return date = moment(date);
         },
+        getSalesQuantityData () {
+            return this.salesList.map(({ quantity }) => quantity);
+        },
         processChart () {
+            console.log(this.getSalesQuantityData());
             let ctx = document.getElementById("myChart").getContext('2d');
             let myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                     datasets: [{
                         label: '# of Votes',
-                        data: [12, 19, 3, 5, 2, 3],
+                        data: this.getSalesQuantityData(),
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -84,9 +89,10 @@ export const salesListView = {
                 },
                 options: {
                     scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
+                        xAxes: [{
+                            type: 'time',
+                            time: {
+                                unit: 'month'
                             }
                         }]
                     }
