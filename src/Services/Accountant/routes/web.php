@@ -42,3 +42,6 @@ Route::group(['prefix' => 'accountant'], function() {
 
 
 });
+    Route::get('/accountant/register', 'AccountantRegistrationController@showAccountantRegistrationPage')->name('accountant.register');    
+    Route::get('/accountant/registration', 'AccountantRegistrationController@showAccountantRegistrationPage2')->name('accountant.register');    
+
