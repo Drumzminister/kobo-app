@@ -1,4 +1,5 @@
-@extends('layouts.app-acct')
+@extends('accountant::layouts.app-acct')
+
 <style>
         .modal.left .modal-dialog {
             position: fixed;

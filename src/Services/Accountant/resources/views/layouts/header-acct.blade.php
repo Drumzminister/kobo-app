@@ -18,9 +18,9 @@
                     Clients
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item " href="/client">Client</a>
-                    <a class="dropdown-item" href="/manage/clients">Manage Clients</a>
-                    <a class="dropdown-item" href="/profile">Client Profile</a>
+                    <a class="dropdown-item " href="/accountant/clients">Client</a>
+                    <a class="dropdown-item" href="/accountant/manage-clients">Manage Clients</a>
+                    <a class="dropdown-item" href="/accountant/client/profile">Client Profile</a>
                     </div>
                 </li>
                 
@@ -29,9 +29,9 @@
                     Transaction
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item " href="/budget">Budget</a>
-                    <a class="dropdown-item" href="/npv">NPV Calculator</a>
-                    <a class="dropdown-item" href="/bank-reconciliation">Bank Reconcilation</a>
+                    <a class="dropdown-item " href="/accounatant/budget">Budget</a>
+                    <a class="dropdown-item" href="/accountant/npv">NPV Calculator</a>
+                    <a class="dropdown-item" href="/accountant/bank-reconciliation">Bank Reconcilation</a>
                     </div>
                 </li>
 
@@ -40,14 +40,14 @@
                     Tools
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item " href="/toolkits">Toolkits</a>
-                    <a class="dropdown-item" href="/resources">Resources</a>
+                    <a class="dropdown-item " href="/accountant/toolkits">Toolkits</a>
+                    <a class="dropdown-item" href="/accountant/resources">Resources</a>
                     </div>
                 </li>
 
 
                 <li class="nav-item pr-4 pl-4">
-                    <a class="nav-link pr-3 pl-3 " href="/chats">Chats</a>
+                    <a class="nav-link pr-3 pl-3 " href="/accountant/chats">Chats</a>
                 </li>
 
             </ul>
@@ -170,14 +170,14 @@
                             </div>
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right " style="width:260px;" aria-labelledby="navbarSettings">
+                        <div class="dropdown-menu dropdown-menu-right py-2 " style="width:260px;" aria-labelledby="navbarSettings">
                          {{-- <div class="">
                                 <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" style="width:50px" >
                                 Olu David <span class="pl-4"> ekpnoambrose@gmial.com</span>
                         </div> --}}
                             <a class="dropdown-item " href="#"><i class="fa fa-user pr-3" style="font-size:24px; color:#00C259;"></i>Profile</a>
                             <a class="dropdown-item" href="#"><i class="fa fa-gear pr-3" style="font-size:24px; color:#00C259;"></i>Setting</a>
-                            <a class="dropdown-item hover" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();"><i class="fa fa-power-off pr-3" style="font-size:24px;color:#00C259;" >
                                 </i>Logout
                             </a>

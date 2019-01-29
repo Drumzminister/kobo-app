@@ -40,7 +40,7 @@
 </head>
 <body class="">
      <!-- Header -->
-     @include('layouts.header-acct')
+     @include('accountant::layouts.header-acct')
         
      <!-- include main content --->
      <main>

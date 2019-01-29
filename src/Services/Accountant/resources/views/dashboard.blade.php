@@ -1,4 +1,4 @@
-@extends('layouts.app-acct')
+@extends('accountant::layouts.app-acct')
 
 @section('content')
 <section class="bg-white pb-3">
