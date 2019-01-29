@@ -35,11 +35,8 @@ class GetLoanPageDataJob extends Job
         $data['runningLoanOwing'] = $runningLoan->sum('amount') - $runningLoan->sum('amount_paid');
         $data['loans'] = $this->loan->getByCompany_id($this->companyId);
         $data['loanSources'] = (new ListLoanSourcesJob($this->companyId))->handle();
-        $banks = (new GetBankAccountsJob($this->companyId))->handle();
-        $banks->push( (new GetCashJob($this->companyId))->handle() );
-        $banks[$banks->count() -1]->account_name = "Cash";
-        $data['banks'] = $banks;
-
+        $data['banks'] = $banks = (new GetBankAccountsJob($this->companyId))->handle();
+        
         return $data;
     }
 }

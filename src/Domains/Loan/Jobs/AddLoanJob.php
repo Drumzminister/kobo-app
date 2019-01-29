@@ -3,6 +3,7 @@
 namespace App\Domains\Loan\Jobs;
 
 use App\Data\Repositories\LoanRepository;
+use App\Domains\Banks\Jobs\CreditBanksJob;
 use Illuminate\Database\Eloquent\Model;
 use Lucid\Foundation\Job;
 
@@ -33,6 +34,17 @@ class AddLoanJob extends Job
      */
     public function handle()
     {
-        return $this->loan->fillAndSave($this->data);
+        $loan = $this->loan->fillAndSave($this->data);
+        $account = json_decode($this->data['receivingAccount'], true);
+        $credit = (new CreditBanksJob($account, $loan, $this->data['company_id']))->handle();
+        if ($credit->status !== 'success') {
+            $loan->delete();
+            return response()->json([
+                'message' => $credit->message
+            ], 400);
+        }
+        return response()->json([
+            'loan'  =>  $loan
+        ], 201);
     }
 }

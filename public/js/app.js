@@ -77157,6 +77157,9 @@ var loanApp = {
     computed: {
         selectedAccounts: function selectedAccounts() {
             return this.$store.getters.selectedAccounts;
+        },
+        spreadAmount: function spreadAmount() {
+            return this.loanAmount;
         }
     },
     methods: {
@@ -77203,11 +77206,11 @@ var loanApp = {
             this.isRequestingLoan = true;
             formData.append('name', this.newSource);
             axios.post('/client/loan/sources/add', formData).then(function (res) {
-                swal('Successful', "New loan source added successfully", "success");
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])("New loan source added successfully", 'success');
                 _this3.showSourcesForm = false;
                 _this3.isRequestingLoan = false;
-                _this3.searchSource = res.data.source.name;
                 _this3.chosenSource = res.data.source.id;
+                _this3.searchSource = res.data.source.name;
             }).catch(function (err) {
                 _this3.isRequestingLoan = false;
                 console.error(err);
@@ -77216,8 +77219,24 @@ var loanApp = {
         saveLoan: function saveLoan() {
             var _this4 = this;
 
-            if (this.accountReceivingLoan === null || this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear || this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
-                swal('Oops', "Some required fields are empty", "error");
+            if (this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear || this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])("Some required fields are empty", "error");
+                return;
+            }
+            var sum = 0;
+            this.selectedAccounts.forEach(function (account) {
+                if (!isNaN(Number(account.amount))) {
+                    sum += Number(account.amount);
+                }
+            });
+            if (sum !== Number(this.loanAmount)) {
+                swal({
+                    title: "Error",
+                    text: "Amount receivable should equal loan amount: " + this.loanAmount,
+                    type: "warning",
+                    timer: 1000,
+                    showConfirmButton: false
+                });
                 return;
             }
             var formData = new FormData();
@@ -77229,12 +77248,18 @@ var loanApp = {
             formData.append('term', this.loanTerm);
             formData.append('payment_interval', this.loanPaymentInterval.value);
             formData.append('start_date', this.loanDate);
-            formData.append('receivingAccount', JSON.stringify(this.accountReceivingLoan));
+            formData.append('receivingAccount', JSON.stringify(this.selectedAccounts));
             this.isRequestingLoan = true;
             axios.post(window.addLoanUrl, formData).then(function (res) {
-                swal('Successful', 'Loan added successfully', 'success');
+                swal({
+                    type: 'success',
+                    title: "Successful",
+                    text: 'Loan added successfully',
+                    timer: 1000,
+                    showConfirmButton: false
+                });
                 _this4.isRequestingLoan = false;
-                document.querySelector('#cancelLoanModal').click();
+                _this4.closeLoanModal();
                 var loan = res.data.loan;
                 loan.source_name = _this4.searchSource;
                 loan.status = "running";
@@ -77245,10 +77270,9 @@ var loanApp = {
                 swal('Oops', err.response.data.error, "error");
             });
         },
-        displayLoanDetails: function displayLoanDetails(loan, evt) {
+        displayLoanDetails: function displayLoanDetails(loan) {
             var _this5 = this;
 
-            var row = evt.target;
             this.currentLoan = loan;
             this.loadingLoanDetails = true;
             axios.get("/client/loan/" + loan.id + "/payments").then(function (res) {
@@ -88382,6 +88406,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -88401,6 +88428,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['availableAccounts', 'selectedAccounts']), {
         readOnly: function readOnly() {
             return this.options ? this.options.readOnly || false : false;
+        },
+        receiveMode: function receiveMode() {
+            return this.options ? this.options.receiveMode || false : false;
         },
         totalAmountPaid: function totalAmountPaid() {
             var sum = 0;
@@ -88517,13 +88547,25 @@ var render = function() {
       { staticClass: "bg-grey py-4 px-3", attrs: { id: "top" } },
       [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-6" }, [
-            _vm._v(
-              "\n                PAID: " +
-                _vm._s(_vm.$currency.format(_vm.totalAmountPaid)) +
-                "\n            "
-            )
-          ]),
+          !_vm.receiveMode
+            ? _c("div", { staticClass: "col-md-6" }, [
+                _vm._v(
+                  "\n                PAID: " +
+                    _vm._s(_vm.$currency.format(_vm.totalAmountPaid)) +
+                    "\n            "
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.receiveMode
+            ? _c("div", { staticClass: "col-md-6" }, [
+                _vm._v(
+                  "\n                Amount Received: " +
+                    _vm._s(_vm.$currency.format(_vm.totalAmountPaid)) +
+                    "\n            "
+                )
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6" }, [
             _vm._v(
@@ -88634,7 +88676,7 @@ var render = function() {
               staticClass: "row"
             },
             [
-              _c("div", { staticClass: "col-md-5" }, [
+              _c("div", { staticClass: "w-50" }, [
                 _c("div", { staticClass: "dropdown show mt-3 payment_mode" }, [
                   _c(
                     "button",
@@ -88642,7 +88684,6 @@ var render = function() {
                       staticClass: "btn btn-lg btn-payment dropdown-toggle",
                       attrs: {
                         role: "button",
-                        id: "dropdownMenuLink",
                         "data-toggle": "dropdown",
                         "aria-haspopup": "true",
                         "aria-expanded": "false"
@@ -88668,6 +88709,7 @@ var render = function() {
                         "button",
                         {
                           staticClass: "dropdown-item",
+                          attrs: { type: "button" },
                           on: {
                             click: function($event) {
                               _vm.setPaymentMode(paymentMethod, account)

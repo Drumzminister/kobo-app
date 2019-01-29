@@ -9,7 +9,7 @@
 namespace App\Data\Repositories;
 
 
-class LoanTransactionRepository extends TransactionRepository
+class LoansTransactionRepository extends TransactionRepository
 {
     /**
      * @param array $data
@@ -20,7 +20,7 @@ class LoanTransactionRepository extends TransactionRepository
     public function saveTransaction(array $data, $loan)
     {
         $data['loan_id'] = $loan->id;
-        $data['kobo-id'] = explode('-', $this->generateUuid())[0];
+        $data['kobo_id'] = explode('-', $this->generateUuid())[0];
 
         return $this->fillAndSave($data);
     }
