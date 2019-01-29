@@ -35,15 +35,22 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item " href="/client/vendor">Vendors</a>
                         <a class="dropdown-item" href="/client/customer">Customers</a>
-                        <a class="dropdown-item" href="/client/staff">Staffs</a>
+                        <a class="dropdown-item" href="/client/staff">Staff</a>
                     </div>
                 </li>
 
 
-                <li class="nav-item pr-4 pl-4">
-                    <a class="nav-link pr-3 pl-3 " href="/">Other Informations</a>
+                <li class="nav-item dropdown pr-4 pl-4">                   
+                    <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Other Informations
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item " href="/client/bank">Banking</a>
+                        <a class="dropdown-item" href="/client/opening-pages">Opening Pages</a>
+                        <a class="dropdown-item" href="/client/creditors">Creditors</a>
+                        <a class="dropdown-item" href="/client/debtors">Debtors</a>
+                    </div>
                 </li>
-
                 
             </ul>
 
@@ -165,16 +172,16 @@
                             </div>
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right " style="width:240px;" aria-labelledby="navbarSettings">
-                        <div class="">
-                                <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" style="width:50px" >
-                                <span class="pl-4"> {{ $user->email }} </span>
-                        </div>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item hover" href="#"><i class="fa fa-user pr-3" style="font-size:24px"></i>Account</a>
-                            <a class="dropdown-item hover" href="#"><i class="fa fa-gear pr-3" style="font-size:24px"></i>Setting</a>
-                                <div class="dropdown-divider"></div>
-                            <a class="dropdown-item hover" href="/logout"><i class="fa fa-power-off pr-3" style="font-size:24px"></i>Logout</a>
+                        <div class="dropdown-menu dropdown-menu-right py-2" style="width:260px;" aria-labelledby="navbarSettings">
+                        {{-- <div class="d-flex">
+                              <p> <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" style="width:30px" >
+                                {{ $user->email }}</p>
+                        </div> --}}
+                            {{-- <div class="dropdown-divider"></div> --}}
+                            <a class="dropdown-item " href="#"><i class="fa fa-user pr-3" style="font-size:24px; color:#00C259;"></i>Profile</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-gear pr-3" style="font-size:24px; color:#00C259;"></i>Setting</a>
+                                {{-- <div class="dropdown-divider"></div> --}}
+                            <a class="dropdown-item " href="/logout"><i class="fa fa-power-off pr-3" style="font-size:24px; color:#00C259;"></i>Logout</a>
                         </div>
                     </li>
                 </ul>

@@ -21,11 +21,7 @@ input {
         <div class="container p-2">
             <div class="row py-2">
                 <h2><a href="/client/inventory" class="text-dark">Purchase</a></h2>
-                <span class="accountant ml-auto btn btn-accountant">
-                <a href="" class="btn-accountant">
-                    <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>                
-                </span>
+                @include('client::accountant-button')
             </div>
         </div>
     </section>
@@ -191,7 +187,7 @@ input {
                                   @{{purchase.delivered_date | dateTime  }}
                               </td>
                             <td>
-                                <a href="" @click.prevent="getInventoryItem(purchase.id)" data-toggle="modal" data-target="#exampleModalCenter">
+                                <a href="" @click.prevent="getSelectedInventory(purchase)" data-toggle="modal" data-target="#exampleModalCenter">
                                    INV-@{{ purchase.invoice_number }}
                                 </a>
                             </td>
@@ -236,31 +232,31 @@ input {
                                 <span aria-hidden="true">&times;</span>
                             </button>
 
-                            <div class="row px-5 pt-3">
+                            <div class="row px-5 pt-3" >
                                 <div class="col-md-2">
                                     <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                                 </div>
                                 <div class="col-md-10">
-                                    <h5 class="text-green h5">Mercy Ikpa</h5>
-                                    <h6 class="text-primary h6">Invoice NO:KB &#x2d; 1234</h6>
+                                    <h5 class="text-green h5" v-if="selectedInventory.vendor">@{{ selectedInventory.vendor.name }}</h5>
+                                    <h6 class="text-primary h6">Invoice NO:KB @{{selectedInventory.invoice_number}}</h6>
 
                                         <div class="form row pt-3 px-3">
                                             <div class="col-md-4">
                                                 <div class="p-2" id="topp">
                                                     <h5 class="h5">Total Amount</h5>
-                                                    <h4 class="text-orange">&#8358;18,000</h4>
+                                                    <h4 class="text-orange">&#8358;@{{ selectedInventory.total_amount }}</h4>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="p-2" id="topp">
                                                     <h5 class="h5">Amount Paid</h5>
-                                                    <h4 class="text-orange">&#8358;18,000.45</h4>
+                                                    <h4 class="text-orange">&#8358;@{{ selectedInventory.amount_paid }}</h4>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="p-2" id="topp">
                                                     <h5 class="h5 "> Balance</h5>
-                                                    <h4 class="text-orange">&#8358;18,000.53</h4>
+                                                    <h4 class="text-orange">&#8358;@{{ selectedInventory.balance }}</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -279,20 +275,16 @@ input {
                                                     <th scope="col">Product</th>
                                                     <th scope="col">QTY</th>
                                                     <th scope="col">Sales Price (&#8358;)</th>
-                                                    <th scope="col">Balance</th>
-                        
-                                        
+                                                    <th scope="col">Purchase Price (&#8358;)</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                        Lorem ipsum dolor si
-                                                        </td> 
-                                                        <td> 23</td>
-                                                        <td> 43,000</td>
-                                                        <td>123,0000</td>
+                                                    <tr v-for="item in selectedInventory.inventory_item">
+                                                        <td> @{{ item.created_at | dateTime }} </td>
+                                                        <td>@{{ item.name }}</td>
+                                                        <td> @{{ item.quantity }}</td>
+                                                        <td> @{{ item.sales_price | numberFormat }}</td>
+                                                        <td> @{{ item.purchase_price | numberFormat }}</td>
                                                     </tr>
 
                                                 </tbody>

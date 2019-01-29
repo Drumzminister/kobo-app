@@ -89,7 +89,7 @@
     </section>
 @endsection
 @section('other_js')
-    <script>
+    {{-- <script>
         window.all_vendors = @json($all_vendors);
-    </script>
+    </script> --}}
 @endsection

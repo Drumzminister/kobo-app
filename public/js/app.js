@@ -77376,6 +77376,8 @@ var loanApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return inventoryApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection__);
 
 var inventoryApp = {
     data: {
@@ -77387,8 +77389,10 @@ var inventoryApp = {
             quantity: '',
             vendor_id: '',
             category: '',
-            paymentMode: '',
-            attachment: ''
+            attachment: '',
+            tax: '',
+            discount: ''
+
         },
         inventoryItem: {
             delivered_date: '',
@@ -77406,9 +77410,13 @@ var inventoryApp = {
         all_purchases: window.all_purchases,
         vendors: window.vendors,
         inventoryTableRow: [],
-        totalCostPrice: []
+        totalCostPrice: [],
+        selectedInventory: '',
+        banks: window.banks
     },
-
+    component: {
+        PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default.a
+    },
     mounted: function mounted() {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
@@ -77489,6 +77497,10 @@ var inventoryApp = {
                 total += Number(input.value);
             });
             return this.totalCostPrice = total;
+        },
+        getSelectedInventory: function getSelectedInventory(inventory) {
+            console.log(inventory);
+            this.selectedInventory = inventory;
         }
     }
 };

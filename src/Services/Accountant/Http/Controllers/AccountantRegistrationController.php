@@ -22,5 +22,18 @@ class AccountantRegistrationController extends Controller
     public function showNewAccountantForm()
     {
 		return $this->serve(ShowNewAccountantFormFeature::class);
-    }
+		}
+
+		public function showAccountantRegistrationPage()
+    {
+    return $this->serve(\App\Services\Accountant\Features\ShowAccountantRegistrationPageFeature::class);
+		}
+
+		public function showAccountantRegistrationPage2()
+    {
+    return $this->serve(\App\Services\Accountant\Features\ShowAccountantRegistrationPage2Feature::class);
+		}
+		
+		
+
 }
