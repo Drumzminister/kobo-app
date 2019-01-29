@@ -172,16 +172,16 @@
                             </div>
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right " style="width:240px;" aria-labelledby="navbarSettings">
-                        <div class="">
-                                <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" style="width:50px" >
-                                <span class="pl-4"> {{ $user->email }} </span>
-                        </div>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item hover" href="#"><i class="fa fa-user pr-3" style="font-size:24px"></i>Account</a>
-                            <a class="dropdown-item hover" href="#"><i class="fa fa-gear pr-3" style="font-size:24px"></i>Setting</a>
-                                <div class="dropdown-divider"></div>
-                            <a class="dropdown-item hover" href="/logout"><i class="fa fa-power-off pr-3" style="font-size:24px"></i>Logout</a>
+                        <div class="dropdown-menu dropdown-menu-right py-2" style="width:260px;" aria-labelledby="navbarSettings">
+                        {{-- <div class="d-flex">
+                              <p> <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png" style="width:30px" >
+                                {{ $user->email }}</p>
+                        </div> --}}
+                            {{-- <div class="dropdown-divider"></div> --}}
+                            <a class="dropdown-item " href="#"><i class="fa fa-user pr-3" style="font-size:24px; color:#00C259;"></i>Profile</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-gear pr-3" style="font-size:24px; color:#00C259;"></i>Setting</a>
+                                {{-- <div class="dropdown-divider"></div> --}}
+                            <a class="dropdown-item " href="/logout"><i class="fa fa-power-off pr-3" style="font-size:24px; color:#00C259;"></i>Logout</a>
                         </div>
                     </li>
                 </ul>

@@ -29,4 +29,8 @@ Route::group(['prefix' => 'accountant'], function() {
 
     // Accountant Budget Routes
     Route::get('/clients-budget/{id}', 'AccountantDashboardController@viewBudget')->name('view.budget');
+
+
+
+
 });

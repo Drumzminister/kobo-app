@@ -112,10 +112,13 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/vendor/search', 'VendorController@searchVendors')->name('vendor.search');
     Route::post('/vendor/{vendorId}/activate', 'VendorController@activateVendor')->name('vendor.activate');
 
+    Route::get('/creditors', 'CreditorController@showCreditorPage')->name('creditor.index');
+    Route::get('/creditors/creditor', 'CreditorController@showSingleCreditorPage')->name('creditor.credit');
+    Route::get('/creditors/all', 'CreditorController@showAllCreditor')->name('creditor.show-all');
+
+
 });
 
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
-
 Route::get('/bar/{slug}', 'ClientDashboardController@testFeature');
-
 Route::get('/view/accountant', 'ClientDashboardController@viewAccountant');

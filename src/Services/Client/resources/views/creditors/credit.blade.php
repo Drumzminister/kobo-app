@@ -5,7 +5,7 @@
     <section id="top">
         <div class="container p-2">
             <div class="row p-3">
-                <h2>Creditors</h2>
+                <h2><a href="/client/creditors" class="text-dark">Creditors</a></h2>
                 @include('client::accountant-button')
             </div>
         </div>

@@ -12,7 +12,7 @@
                         </div>
                         <div class="profile-name row pt-2 pb-2 ">
                              <div class="col">
-                                <h5 class="text-muted">Idong Okon </h5>
+      l                          <h5 class="text-muted">Idong Okon </h5>
                                 <p class="text-muted">Joined: 20/12/2017</p>                        
                             </div>
                             <div class="col">
@@ -81,13 +81,13 @@
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="loa bg-orange text-white p-3">
+                        <div class="loa bg-orange text-white p-2">
                             <h4 class="h4">Review Accountant</h4>
                         </div>
                     </div>
                     <div class="col-md-2"></div>
                     <div class="col-md-6">
-                        <div class="loa bg-white text-muted p-3 text-center">
+                        <div class="loa bg-white text-muted p-2 text-center">
                             <h4><i class="fa fa-comments"></i>    Chat with Accountant</h4>
                         </div>
                     </div>

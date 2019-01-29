@@ -4,7 +4,7 @@
 <section id="top">
     <div class="container py-3">
             <div class="row">
-                    <h3 class="h3">Creditors</h3>
+                <h2><a href="/client/creditors" class="text-dark">Creditors</a></h2>
                     @include('client::accountant-button')
             </div>
     </div>
@@ -74,7 +74,7 @@
                                 <tbody>
                                   <tr>
                                         <td >21/08/2020 </td>                                       
-                                        <td><a href="/credit">Mercy Ikpe</a> </td>                                        
+                                        <td><a href="/client/creditors/creditor">Mercy Ikpe</a> </td>                                        
                                         <td> 23,000</td>
                                         <td> 43,000</td>
                                         <td>50,000</td>
@@ -82,56 +82,56 @@
         
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/creditors/creditor">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>                                    </tr>
         
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit"> Mercy Ikpe</a></td>                                        
+                                            <td><a href="/client/creditors/creditor"> Mercy Ikpe</a></td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit"> Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/creditors/creditor"> Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit"> Mercy Ikpe</a></td>                                        
+                                            <td><a href="/client/creditors/creditor"> Mercy Ikpe</a></td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                     </tr>
                                     <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/creditors/creditor">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                       </tr>
                                       <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/creditors/creditor">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                       </tr>
                                       <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/creditors/creditor">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
                                       </tr>
                                       <tr>
                                             <td >21/08/2020 </td>                                       
-                                            <td><a href="/credit">Mercy Ikpe</a> </td>                                        
+                                            <td><a href="/client/creditors/creditor">Mercy Ikpe</a> </td>                                        
                                             <td> 23,000</td>
                                             <td> 43,000</td>
                                             <td>50,000</td>
