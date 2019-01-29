@@ -11,19 +11,36 @@ export const rentApp = {
         paymentMethods: [],
         isRequesting: false,
         rentSearchParam: "",
-        other_rental_cost: "",
+        other_costs: [],
         rentShowPaymentSettings: false,
     },
     computed: {
         selectedAccounts () {
             return this.$store.state.selectedAccounts;
+        },
+        spreadAmount () {
+            return this.selectedRent.amount - this.selectedRent.amount_paid;
         }
     },
     mounted () {
+        this.addOtherCosts();
         this.banks = window.banks;
         this.rents = window.rents;
     },
     methods: {
+        removeOtherCost (key) {
+            this.other_costs.splice(this.other_costs.findIndex(cost => cost.key === key),1);
+        },
+        addOtherCosts () {
+            this.other_costs.push({
+                key: Math.floor(Math.random() * 123456),
+                description: null,
+                amount: 0
+            });
+        },
+        removeCost () {
+
+        },
         dater (value) {
             let date = new Date(value);
             let options = { month: 'long'};
@@ -34,11 +51,21 @@ export const rentApp = {
         beforeSubmit (form) {
             document.querySelector(`#${form}`).querySelector('.submitBtn').click();
         },
-
+        purifyCostsAndGetRentAmount () {
+            this.other_costs = this.other_costs.filter(cost => cost.description !== null);
+            let amount = 0; 
+            this.other_costs.forEach(cost => {
+                amount += Number(cost.amount);
+            });
+            return Number(amount);
+        },
         createRent (evt) {
             evt.preventDefault();
             this.isRequesting = true;
             let formData = new FormData(evt.target);
+            let rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(formData.get('amount'));
+            formData.set('amount', rentAmount);
+            formData.append('other_costs', JSON.stringify(this.other_costs));
             axios.post('/client/rent/add', formData).then(res => {
                 this.rents.unshift(res.data.rent);
                 swal("Success", "Rent added successfully", "success");
@@ -102,13 +129,13 @@ export const rentApp = {
                 }
             });
 
-            if (sum !== Number(this.selectedRent.amount)) {
-                swal("Error", `Total amount payable should be equal to ${this.selectedRent.amount}`, "error");
+            if (sum > Number(this.spreadAmount)) {
+                swal("Error", `Total amount payable should be not be more than ${this.spreadAmount}`, "error");
                 return;
             }
             let formData = new FormData();
             formData.append('amount', sum.toString());
-            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            formData.append('paymentMethods', this.selectedAccounts);
             this.isRequesting = true;
             axios.post(`/client/rent/${this.selectedRent.id}/pay`, formData).then(response => {
                 this.isRequesting = false;
@@ -124,25 +151,33 @@ export const rentApp = {
             this.selectedRent = rent;
             this.openModal('#paymentModal');
         },
-
+        closeRentModal (id) {
+            this.other_costs = [];
+            this.addOtherCosts();
+            this.closeModal(`#${id}`);
+        },
         editRent (evt, rent) {
             this.editingRent = {...rent};
+            this.other_costs = JSON.parse(this.editingRent.other_costs);
+            this.editingRent.amount = Number(this.editingRent.amount) - Number(this.purifyCostsAndGetRentAmount());
             this.openModal('#editRentModal');
         },
 
         updateRent(evt) {
             evt.preventDefault();
 
-            let formData = this.editingRent;
+            let formData = new FormData(evt.target);
+            formData.append('other_costs', JSON.stringify(this.other_costs));
+            let rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(formData.get('amount'));
+            formData.set('amount', rentAmount);
             this.isRequesting = true;
-            axios.post(`/client/rent/update/${formData.id}`, formData).then((response) => {
+            axios.post(`/client/rent/update/${this.editingRent.id}`, formData).then((response) => {
                 this.isRequesting = false;
                 swal("Success", "Rent updated successfully", "success");
                 this.rents.splice(this.rents.findIndex((rent) => {
                     return rent.id === this.editingRent.id;
                 }), 1, response.data.rent);
-                // location.reload();
-                $('#editRentModal').modal('toggle');
+                this.closeRentModal('editRentModal')
             });
         },
 

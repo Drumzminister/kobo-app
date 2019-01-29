@@ -1,5 +1,5 @@
 <div class="modal fade" id="loanDetailsModal" tabindex="-1" role="dialog" aria-labelledby="loanDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="container p-3">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -78,10 +78,18 @@
                     <h5 class="d-flex justify-content-center mt-3" v-if="loadingLoanDetails">
                         Loading details ...
                     </h5>
+                    <div class="col-6 px-0" v-if="showSelectPaymentMode">
+                        <payment-method-selection  :banks="{{ $banks }}"></payment-method-selection>
+                        <div class="d-flex justify-content-end col-12 mt-3">
+                            <button class="btn btn-sm btn-payment" v-if="isRequestingLoan">Paying...<i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
+                            <button class="btn btn-sm btn-payment" @click="payLoan" v-if="selectedAccounts.length > 0 && !isRequestingLoan">Pay</button>
+                            <button class="btn btn-sm px-3 btn-info" style="cursor: not-allowed;" v-if="selectedAccounts.length < 1" disabled>Pay</button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer text-center justify-content-between">
-                    <button class="btn btn-started" v-if="(currentLoan.amount - currentLoan.amount_paid) + (currentLoan.interest * currentLoan.amount / 100) !== 0 " @click="openModal('#paymentModal')">Pay Loan</button>
+                    <button class="btn btn-started" v-if="(currentLoan.amount - currentLoan.amount_paid) + (currentLoan.interest * currentLoan.amount / 100) !== 0 " @click="showSelectPaymentMode = !showSelectPaymentMode">Pay Loan</button>
                     <button class="btn btn-success" v-if="(currentLoan.amount - currentLoan.amount_paid) + (currentLoan.interest * currentLoan.amount / 100) === 0 " >Payment Completed</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
@@ -92,7 +100,7 @@
 </div>
 
 {{-- Pay loan modal --}}
-<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -111,4 +119,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}

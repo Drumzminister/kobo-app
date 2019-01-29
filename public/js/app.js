@@ -4579,7 +4579,7 @@
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)(module)))
 
 /***/ }),
 /* 1 */
@@ -4794,7 +4794,7 @@ module.exports = {
 	}
 
 })(typeof module === 'object' && module && typeof module.exports === 'object' && module.exports);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24)(module)))
 
 /***/ }),
 /* 4 */
@@ -5430,6 +5430,45 @@ module.exports = g;
 
 /***/ }),
 /* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return toast; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return confirmSomethingWithAlert; });
+var swal = __webpack_require__(42);
+
+var toast = function toast(title, type) {
+    var position = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "top-end";
+
+    var toast = swal.mixin({
+        toast: true,
+        position: position,
+        showConfirmButton: false,
+        timer: 3000
+    });
+
+    toast({
+        type: type,
+        title: title
+    });
+};
+
+var confirmSomethingWithAlert = function confirmSomethingWithAlert(message) {
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Are you sure?';
+
+    return swal.fire({
+        title: title,
+        text: message,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    });
+};
+
+/***/ }),
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6374,7 +6413,7 @@ var index_esm = {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -16745,7 +16784,7 @@ return jQuery;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -16933,45 +16972,6 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return toast; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return confirmSomethingWithAlert; });
-var swal = __webpack_require__(42);
-
-var toast = function toast(title, type) {
-    var position = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "top-end";
-
-    var toast = swal.mixin({
-        toast: true,
-        position: position,
-        showConfirmButton: false,
-        timer: 3000
-    });
-
-    toast({
-        type: type,
-        title: title
-    });
-};
-
-var confirmSomethingWithAlert = function confirmSomethingWithAlert(message) {
-    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Are you sure?';
-
-    return swal.fire({
-        title: title,
-        text: message,
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes'
-    });
-};
 
 /***/ }),
 /* 14 */
@@ -29894,6 +29894,53 @@ helpers.getValueAtIndexOrDefault = helpers.valueAtIndexOrDefault;
 var disposed = false
 var normalizeComponent = __webpack_require__(6)
 /* script */
+var __vue_script__ = __webpack_require__(271)
+/* template */
+var __vue_template__ = __webpack_require__(272)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/banks/PaymentMethodSelection.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6cd68cf0", Component.options)
+  } else {
+    hotAPI.reload("data-v-6cd68cf0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(6)
+/* script */
 var __vue_script__ = __webpack_require__(286)
 /* template */
 var __vue_template__ = __webpack_require__(293)
@@ -29935,7 +29982,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 /*!
@@ -29952,7 +29999,7 @@ module.exports = function isExtglob(str) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -29962,7 +30009,7 @@ module.exports = function isExtglob(str) {
  * Licensed under the MIT License.
  */
 
-var isExtglob = __webpack_require__(21);
+var isExtglob = __webpack_require__(22);
 
 module.exports = function isGlob(str) {
   return typeof str === 'string'
@@ -29971,7 +30018,7 @@ module.exports = function isGlob(str) {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -29999,7 +30046,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30100,10 +30147,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30122,53 +30169,6 @@ var appModal = {
         }
     }
 };
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(6)
-/* script */
-var __vue_script__ = __webpack_require__(275)
-/* template */
-var __vue_template__ = __webpack_require__(276)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/banks/PaymentMethodSelection.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6cd68cf0", Component.options)
-  } else {
-    hotAPI.reload("data-v-6cd68cf0", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
 
 /***/ }),
 /* 27 */
@@ -30379,8 +30379,8 @@ utils.unique = __webpack_require__(185);
 utils.braces = __webpack_require__(350);
 utils.brackets = __webpack_require__(361);
 utils.extglob = __webpack_require__(363);
-utils.isExtglob = __webpack_require__(21);
-utils.isGlob = __webpack_require__(22);
+utils.isExtglob = __webpack_require__(22);
+utils.isGlob = __webpack_require__(23);
 utils.typeOf = __webpack_require__(186);
 utils.normalize = __webpack_require__(364);
 utils.omit = __webpack_require__(366);
@@ -30513,7 +30513,7 @@ utils.escapeRe = function escapeRe(str) {
 
 module.exports = utils;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
 
 /***/ }),
 /* 31 */
@@ -30744,7 +30744,7 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
 
 /***/ }),
 /* 32 */
@@ -47935,7 +47935,7 @@ module.exports = debounce;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(23)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(24)(module)))
 
 /***/ }),
 /* 34 */
@@ -68011,7 +68011,7 @@ exports.positioners = positioners;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__API__ = __webpack_require__(27);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -71028,13 +71028,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins_customer__ = __webpack_require__(225);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins_salesListView__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins_loadingView__ = __webpack_require__(269);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__mixins_appModals__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__mixins_appModals__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__mixins_expenses__ = __webpack_require__(270);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_vee_validate__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_vue_tables_2__ = __webpack_require__(304);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_vue_tables_2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_vue_tables_2__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__state_store__ = __webpack_require__(472);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_v_select2_component__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_v_select2_component__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_v_select2_component__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__plugins_Currency__ = __webpack_require__(477);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__plugins_ModalHelper__ = __webpack_require__(478);
@@ -71067,7 +71067,7 @@ window.moment = __webpack_require__(0);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var files = __webpack_require__(271);
+var files = __webpack_require__(273);
 files.keys().map(function (key) {
     return Vue.component(key.split('/').pop().split('.')[0], files(key));
 });
@@ -71105,7 +71105,7 @@ window.app = new Vue({
         },
         dateTime: function dateTime(value) {
             if (!value) return '';
-            return moment(value).fromNow(); // here u modify data
+            return moment(value).format('l'); // here u modify data
         }
     },
     data: {},
@@ -71127,7 +71127,7 @@ window.Popper = __webpack_require__(34).default;
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(11);
+  window.$ = window.jQuery = __webpack_require__(12);
 
   __webpack_require__(199);
 } catch (e) {}
@@ -71183,7 +71183,7 @@ if (token) {
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(34), __webpack_require__(11)) :
+   true ? factory(exports, __webpack_require__(34), __webpack_require__(12)) :
   typeof define === 'function' && define.amd ? define(['exports', 'popper.js', 'jquery'], factory) :
   (factory((global.bootstrap = {}),global.Popper,global.jQuery));
 }(this, (function (exports,Popper,$) { 'use strict';
@@ -75438,7 +75438,7 @@ if (token) {
 var utils = __webpack_require__(4);
 var bind = __webpack_require__(36);
 var Axios = __webpack_require__(201);
-var defaults = __webpack_require__(24);
+var defaults = __webpack_require__(25);
 
 /**
  * Create an instance of Axios
@@ -75494,7 +75494,7 @@ module.exports.default = axios;
 "use strict";
 
 
-var defaults = __webpack_require__(24);
+var defaults = __webpack_require__(25);
 var utils = __webpack_require__(4);
 var InterceptorManager = __webpack_require__(210);
 var dispatchRequest = __webpack_require__(211);
@@ -76033,7 +76033,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(4);
 var transformData = __webpack_require__(212);
 var isCancel = __webpack_require__(40);
-var defaults = __webpack_require__(24);
+var defaults = __webpack_require__(25);
 var isAbsoluteURL = __webpack_require__(213);
 var combineURLs = __webpack_require__(214);
 
@@ -76544,7 +76544,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(13)))
 
 /***/ }),
 /* 219 */
@@ -76837,20 +76837,37 @@ var rentApp = {
         paymentMethods: [],
         isRequesting: false,
         rentSearchParam: "",
-        other_rental_cost: "",
+        other_costs: [],
         rentShowPaymentSettings: false
     },
     computed: {
         selectedAccounts: function selectedAccounts() {
             return this.$store.state.selectedAccounts;
+        },
+        spreadAmount: function spreadAmount() {
+            return this.selectedRent.amount - this.selectedRent.amount_paid;
         }
     },
     mounted: function mounted() {
+        this.addOtherCosts();
         this.banks = window.banks;
         this.rents = window.rents;
     },
 
     methods: {
+        removeOtherCost: function removeOtherCost(key) {
+            this.other_costs.splice(this.other_costs.findIndex(function (cost) {
+                return cost.key === key;
+            }), 1);
+        },
+        addOtherCosts: function addOtherCosts() {
+            this.other_costs.push({
+                key: Math.floor(Math.random() * 123456),
+                description: null,
+                amount: 0
+            });
+        },
+        removeCost: function removeCost() {},
         dater: function dater(value) {
             var date = new Date(value);
             var options = { month: 'long' };
@@ -76861,12 +76878,25 @@ var rentApp = {
         beforeSubmit: function beforeSubmit(form) {
             document.querySelector("#" + form).querySelector('.submitBtn').click();
         },
+        purifyCostsAndGetRentAmount: function purifyCostsAndGetRentAmount() {
+            this.other_costs = this.other_costs.filter(function (cost) {
+                return cost.description !== null;
+            });
+            var amount = 0;
+            this.other_costs.forEach(function (cost) {
+                amount += Number(cost.amount);
+            });
+            return Number(amount);
+        },
         createRent: function createRent(evt) {
             var _this = this;
 
             evt.preventDefault();
             this.isRequesting = true;
             var formData = new FormData(evt.target);
+            var rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(formData.get('amount'));
+            formData.set('amount', rentAmount);
+            formData.append('other_costs', JSON.stringify(this.other_costs));
             axios.post('/client/rent/add', formData).then(function (res) {
                 _this.rents.unshift(res.data.rent);
                 swal("Success", "Rent added successfully", "success");
@@ -76927,13 +76957,13 @@ var rentApp = {
                 }
             });
 
-            if (sum !== Number(this.selectedRent.amount)) {
-                swal("Error", "Total amount payable should be equal to " + this.selectedRent.amount, "error");
+            if (sum > Number(this.spreadAmount)) {
+                swal("Error", "Total amount payable should be not be more than " + this.spreadAmount, "error");
                 return;
             }
             var formData = new FormData();
             formData.append('amount', sum.toString());
-            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            formData.append('paymentMethods', this.selectedAccounts);
             this.isRequesting = true;
             axios.post("/client/rent/" + this.selectedRent.id + "/pay", formData).then(function (response) {
                 _this3.isRequesting = false;
@@ -76949,8 +76979,15 @@ var rentApp = {
             this.selectedRent = rent;
             this.openModal('#paymentModal');
         },
+        closeRentModal: function closeRentModal(id) {
+            this.other_costs = [];
+            this.addOtherCosts();
+            this.closeModal("#" + id);
+        },
         editRent: function editRent(evt, rent) {
             this.editingRent = _extends({}, rent);
+            this.other_costs = JSON.parse(this.editingRent.other_costs);
+            this.editingRent.amount = Number(this.editingRent.amount) - Number(this.purifyCostsAndGetRentAmount());
             this.openModal('#editRentModal');
         },
         updateRent: function updateRent(evt) {
@@ -76958,16 +76995,18 @@ var rentApp = {
 
             evt.preventDefault();
 
-            var formData = this.editingRent;
+            var formData = new FormData(evt.target);
+            formData.append('other_costs', JSON.stringify(this.other_costs));
+            var rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(formData.get('amount'));
+            formData.set('amount', rentAmount);
             this.isRequesting = true;
-            axios.post("/client/rent/update/" + formData.id, formData).then(function (response) {
+            axios.post("/client/rent/update/" + this.editingRent.id, formData).then(function (response) {
                 _this4.isRequesting = false;
                 swal("Success", "Rent updated successfully", "success");
                 _this4.rents.splice(_this4.rents.findIndex(function (rent) {
                     return rent.id === _this4.editingRent.id;
                 }), 1, response.data.rent);
-                // location.reload();
-                $('#editRentModal').modal('toggle');
+                _this4.closeRentModal('editRentModal');
             });
         },
         setRentParams: function setRentParams() {
@@ -76982,6 +77021,13 @@ var rentApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return loanApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(10);
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+
+
 var loanApp = {
     data: {
         loans: [],
@@ -77002,6 +77048,7 @@ var loanApp = {
         loanDescription: "",
         loanPeriod: "month",
         noSourceFound: false,
+        allLoanIntervals: [],
         loanPaymentAmount: "",
         showSourcesForm: false,
         sourceSearching: false,
@@ -77009,10 +77056,12 @@ var loanApp = {
         currentLoanPayments: [],
         isRequestingLoan: false,
         showMoreIntervals: false,
-        accountReceivingLoan: null,
         loadingLoanDetails: false,
+        accountReceivingLoan: null,
+        loanPaymentIntervalList: [],
         showIntervalSelector: false,
         loanPaymentInterval: "Monthly",
+        showSelectPaymentMode: false,
         loanPaymentValidationMessage: "",
         loanPaymentValidationError: false
     },
@@ -77036,6 +77085,18 @@ var loanApp = {
             } else {
                 this.loanPaymentValidationError = false;
             }
+        },
+        loanInterest: function loanInterest() {
+            if (Number(this.loanInterest) >= 100) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Interest can not be greater than 100%', 'error');
+                this.loanInterest = this.loanInterest.slice(0, this.loanInterest.length - 1);
+            }
+        },
+        loanTerm: function loanTerm() {
+            this.calculateIntervalsToBeShown();
+        },
+        loanPeriod: function loanPeriod() {
+            this.calculateIntervalsToBeShown();
         }
     },
     mounted: function mounted() {
@@ -77045,6 +77106,51 @@ var loanApp = {
         this.loanAmtPaid = window.loanAmtPaid;
         this.loanAmtOwing = window.loanAmtOwing;
         this.loanAmtRunning = window.loanAmtRunning;
+        this.allLoanIntervals = [{
+            name: "Weekly",
+            value: "1 week"
+        }, {
+            name: "Bi-weekly",
+            value: "2 week"
+        }, {
+            name: "Monthly",
+            value: "1 month"
+        }, {
+            name: "Bi-monthly",
+            value: "2 month"
+        }, {
+            name: "Quaterly",
+            value: "3 month"
+        }, {
+            name: "Anually",
+            value: "1 year"
+        }, {
+            name: "4 Months",
+            value: "4 month"
+        }, {
+            name: "5 Months",
+            value: "5 month"
+        }, {
+            name: "6 Months",
+            value: "6 month"
+        }, {
+            name: "7 Months",
+            value: "7 month"
+        }, {
+            name: "8 Months",
+            value: "8 month"
+        }, {
+            name: "9 Months",
+            value: "9 month"
+        }, {
+            name: "10 Months",
+            value: "10 month"
+        }, {
+            name: "11 Months",
+            value: "11 month"
+        }];
+        this.loanPaymentIntervalList = [].concat(_toConsumableArray(this.allLoanIntervals));
+        this.loanPaymentInterval = this.loanPaymentIntervalList[0];
         this.runDebouncedSearch = _.debounce(this.searchForSource, 500);
     },
 
@@ -77121,7 +77227,7 @@ var loanApp = {
             formData.append('amount', this.loanAmount);
             formData.append('period', this.loanPeriod);
             formData.append('term', this.loanTerm);
-            formData.append('payment_interval', this.paymentPerYear);
+            formData.append('payment_interval', this.loanPaymentInterval.value);
             formData.append('start_date', this.loanDate);
             formData.append('receivingAccount', JSON.stringify(this.accountReceivingLoan));
             this.isRequestingLoan = true;
@@ -77175,12 +77281,13 @@ var loanApp = {
             this.isRequestingLoan = true;
             axios.post("/client/loan/" + this.currentLoan.id + "/pay", formData).then(function (response) {
                 _this6.isRequestingLoan = false;
-                _this6.closeModal('#paymentModal');
                 _this6.closeModal('#loanDetailsModal');
-                swal('Success', "Payment made successfully", 'success');
+                _this6.currentLoan.amount_paid = Number(_this6.currentLoan.amount_paid) + Number(sum);
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])("Payment made successfully", 'success');
+                _this6.showSelectPaymentMode = !_this6.showSelectPaymentMode;
             }).catch(function (err) {
                 _this6.isRequestingLoan = false;
-                swal('Oops', "" + err.response.data.message, 'error');
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])("" + err.response.data.message, 'error');
             });
         },
         toggleShowMoreIntervals: function toggleShowMoreIntervals(evt) {
@@ -77198,8 +77305,8 @@ var loanApp = {
         toggleShowIntervalSelector: function toggleShowIntervalSelector() {
             this.showIntervalSelector = !this.showIntervalSelector;
         },
-        selectLoanPaymentInterval: function selectLoanPaymentInterval(event) {
-            this.loanPaymentInterval = event.target.innerText;
+        selectLoanPaymentInterval: function selectLoanPaymentInterval(interval) {
+            this.loanPaymentInterval = interval;
             this.toggleShowIntervalSelector();
         },
         closeLoanModal: function closeLoanModal() {
@@ -77212,6 +77319,29 @@ var loanApp = {
             this.loanInterest = "";
             this.paymentPerYear = 1;
             this.closeModal('#addLoanModal');
+        },
+        calculateIntervalsToBeShown: function calculateIntervalsToBeShown() {
+            if (this.loanTerm.trim() === "") {
+                this.loanPaymentIntervalList = [].concat(_toConsumableArray(this.allLoanIntervals));
+            }
+            if (this.loanTerm) {
+                var duration = moment([]).add(this.loanTerm, this.loanPeriod);
+                this.loanPaymentIntervalList = this.allLoanIntervals.filter(function (interval) {
+                    var term = void 0,
+                        period = void 0;
+
+                    var _interval$value$split = interval.value.split(" ");
+
+                    var _interval$value$split2 = _slicedToArray(_interval$value$split, 2);
+
+                    term = _interval$value$split2[0];
+                    period = _interval$value$split2[1];
+
+                    var nextInterval = moment([]).add(term, period);
+                    return duration.isSameOrAfter(nextInterval);
+                });
+                this.loanPaymentInterval = this.loanPaymentIntervalList[0];
+            }
         }
     }
 };
@@ -77222,6 +77352,7 @@ var loanApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return inventoryApp; });
+
 var inventoryApp = {
     data: {
         inventoryForm: {
@@ -77234,6 +77365,15 @@ var inventoryApp = {
             category: '',
             paymentMode: '',
             attachment: ''
+        },
+        inventoryItem: {
+            delivered_date: '',
+            name: '',
+            quantity: '',
+            sales_price: '',
+            balance: '',
+            invoice: '',
+            vendor: ''
         },
         top_purchase: {},
         highest_purchase: window.highest_purchase,
@@ -77253,6 +77393,20 @@ var inventoryApp = {
     },
 
     methods: {
+        getPurchaseSalesPriceInventoryItem: function getPurchaseSalesPriceInventoryItem(_purchase) {
+            var inventoryItemSum = 0;
+            _purchase['inventory_item'].map(function (purchase) {
+                inventoryItemSum += Number(purchase.purchase_price);
+            });
+            return inventoryItemSum;
+        },
+        getPurchaseQuantityInventoryItem: function getPurchaseQuantityInventoryItem(_purchase) {
+            var inventoryQuantitySum = 0;
+            _purchase['inventory_item'].map(function (purchase) {
+                inventoryQuantitySum += Number(purchase.quantity);
+            });
+            return inventoryQuantitySum;
+        },
         createInventory: function createInventory(evt) {
             var _this = this;
 
@@ -77321,7 +77475,7 @@ var inventoryApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return staffApp; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(10);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 
@@ -77589,6 +77743,7 @@ var customerApp = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return salesListView; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_chart_js__ = __webpack_require__(227);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_chart_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_chart_js__);
+
 
 var salesListView = {
     data: {
@@ -87946,6 +88101,9 @@ var loadingView = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return expenseApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection__);
+
 var expenseApp = {
     data: {
         expenseAmount: 0,
@@ -88000,7 +88158,7 @@ var expenseApp = {
                     type: 'error',
                     position: 'top-end',
                     showConfirmButton: false,
-                    title: "Amount payable must be equal to expense amount:" + expenseAmount
+                    title: 'Amount payable must be equal to expense amount:' + expenseAmount
                 });
                 return;
             }
@@ -88017,7 +88175,7 @@ var expenseApp = {
                     type: 'success',
                     position: 'top-end',
                     showConfirmButton: false,
-                    title: "Payment Made successfully"
+                    title: 'Payment Made successfully'
                 });
                 _this.isPayingExpense = false;
                 _this.currentExpense.querySelector('.expenseAmount').readOnly = true;
@@ -88031,13 +88189,13 @@ var expenseApp = {
                     type: 'error',
                     position: 'top-end',
                     showConfirmButton: false,
-                    title: "Unable to complete payment: " + err.response.data.message
+                    title: 'Unable to complete payment: ' + err.response.data.message
                 });
                 _this.isPayingExpense = false;
             });
         },
         addExpenseRecord: function addExpenseRecord() {
-            this.expenseRecords.push("record");
+            this.expenseRecords.push('record');
         },
         beforeSavingExpenses: function beforeSavingExpenses() {
             var _this2 = this;
@@ -88055,7 +88213,7 @@ var expenseApp = {
                 type: 'info',
                 position: 'top-end',
                 showConfirmButton: false,
-                text: "All unfilled records will be ignored"
+                text: 'All unfilled records will be ignored'
             });
             for (var i = 0; i < rows.length; i++) {
                 if (rows[i].querySelector('.expenseDescription').value.trim()) {
@@ -88097,7 +88255,7 @@ var expenseApp = {
                         type: 'error',
                         position: 'top-end',
                         showConfirmButton: false,
-                        text: "Some records have no amount entered"
+                        text: 'Some records have no amount entered'
                     });
                     return;
                 }
@@ -88117,7 +88275,7 @@ var expenseApp = {
                         type: 'error',
                         position: 'top-end',
                         showConfirmButton: false,
-                        title: "Unable to save: " + err.response.data.message
+                        title: 'Unable to save: ' + err.response.data.message
                     });
                 });
             });
@@ -88134,161 +88292,12 @@ var expenseApp = {
 
 /***/ }),
 /* 271 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./components/ExampleComponent.vue": 272,
-	"./components/banks/PaymentMethodSelection.vue": 26,
-	"./components/sales/AddSale.vue": 277,
-	"./components/sales/InvoiceModal.vue": 28,
-	"./components/sales/InvoiceSender.vue": 29,
-	"./components/sales/NewCustomer.vue": 175,
-	"./components/sales/UpdateSale.vue": 296,
-	"./components/sales/VatComponent.vue": 300
-};
-function webpackContext(req) {
-	return __webpack_require__(webpackContextResolve(req));
-};
-function webpackContextResolve(req) {
-	var id = map[req];
-	if(!(id + 1)) // check for number or string
-		throw new Error("Cannot find module '" + req + "'.");
-	return id;
-};
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = 271;
-
-/***/ }),
-/* 272 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(6)
-/* script */
-var __vue_script__ = __webpack_require__(273)
-/* template */
-var __vue_template__ = __webpack_require__(274)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/ExampleComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-299e239e", Component.options)
-  } else {
-    hotAPI.reload("data-v-299e239e", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 273 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
-});
-
-/***/ }),
-/* 274 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-299e239e", module.exports)
-  }
-}
-
-/***/ }),
-/* 275 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_alert__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_alert__ = __webpack_require__(10);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -88495,7 +88504,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 });
 
 /***/ }),
-/* 276 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -88813,6 +88822,155 @@ if (false) {
 }
 
 /***/ }),
+/* 273 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./components/ExampleComponent.vue": 274,
+	"./components/banks/PaymentMethodSelection.vue": 20,
+	"./components/sales/AddSale.vue": 277,
+	"./components/sales/InvoiceModal.vue": 28,
+	"./components/sales/InvoiceSender.vue": 29,
+	"./components/sales/NewCustomer.vue": 175,
+	"./components/sales/UpdateSale.vue": 296,
+	"./components/sales/VatComponent.vue": 300
+};
+function webpackContext(req) {
+	return __webpack_require__(webpackContextResolve(req));
+};
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) // check for number or string
+		throw new Error("Cannot find module '" + req + "'.");
+	return id;
+};
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 273;
+
+/***/ }),
+/* 274 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(6)
+/* script */
+var __vue_script__ = __webpack_require__(275)
+/* template */
+var __vue_template__ = __webpack_require__(276)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/ExampleComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-299e239e", Component.options)
+  } else {
+    hotAPI.reload("data-v-299e239e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 275 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    }
+});
+
+/***/ }),
+/* 276 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "card card-default" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v("Example Component")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _vm._v(
+                "\n                    I'm an example component.\n                "
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-299e239e", module.exports)
+  }
+}
+
+/***/ }),
 /* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -88866,8 +89024,8 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_addSale__ = __webpack_require__(279);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_appModals__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_appModals__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InvoiceModal__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InvoiceModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__InvoiceModal__);
@@ -88875,7 +89033,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InvoiceSender___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__InvoiceSender__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__NewCustomer__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__NewCustomer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__NewCustomer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_v_select2_component__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_v_select2_component__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_v_select2_component__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__helpers_formatter__ = __webpack_require__(294);
 //
@@ -89028,9 +89186,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_addSale__["a" /* addSale */], __WEBPACK_IMPORTED_MODULE_1__mixins_appModals__["a" /* appModal */]],
-    props: ['inventories', 'channels', 'banks', 'sale'],
-    components: { PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection___default.a, InvoiceModal: __WEBPACK_IMPORTED_MODULE_3__InvoiceModal___default.a, InvoiceSender: __WEBPACK_IMPORTED_MODULE_4__InvoiceSender___default.a, Select2: __WEBPACK_IMPORTED_MODULE_6_v_select2_component___default.a, NewCustomer: __WEBPACK_IMPORTED_MODULE_5__NewCustomer___default.a },
     data: function data() {
         return {
             currency: new Intl.NumberFormat('en-US', {
@@ -89056,10 +89211,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addSale; });
+/* unused harmony export addSale */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__classes_API__ = __webpack_require__(27);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -90092,7 +90247,7 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(11);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -90466,7 +90621,7 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_select2__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_select2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_select2__);
@@ -90577,7 +90732,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 ;(function (factory) {
   if (true) {
     // AMD. Register as an anonymous module.
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(11)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(12)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -97864,14 +98019,14 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_updateSale__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_appModals__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_appModals__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__banks_PaymentMethodSelection__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InvoiceModal__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InvoiceModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__InvoiceModal__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InvoiceSender__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InvoiceSender___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__InvoiceSender__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_v_select2_component__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_v_select2_component__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_v_select2_component__);
 //
 //
@@ -98061,8 +98216,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateSale; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__classes_API__ = __webpack_require__(27);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -99027,8 +99182,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_select2_component__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -112560,7 +112715,7 @@ module.exports = function isPosixBracket(str) {
  * Module dependencies
  */
 
-var isExtglob = __webpack_require__(21);
+var isExtglob = __webpack_require__(22);
 var re, cache = {};
 
 /**
@@ -112774,7 +112929,7 @@ function isSeparator(str, i) {
 	return i > 0 && (char === '/' || (isWin && char === '\\'));
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
 
 /***/ }),
 /* 366 */
@@ -112880,9 +113035,9 @@ module.exports = function forIn(obj, fn, thisArg) {
 
 
 
-var isGlob = __webpack_require__(22);
+var isGlob = __webpack_require__(23);
 var findBase = __webpack_require__(370);
-var extglob = __webpack_require__(21);
+var extglob = __webpack_require__(22);
 var dotfile = __webpack_require__(372);
 
 /**
@@ -113045,7 +113200,7 @@ function unescape(str) {
 
 var path = __webpack_require__(31);
 var parent = __webpack_require__(371);
-var isGlob = __webpack_require__(22);
+var isGlob = __webpack_require__(23);
 
 module.exports = function globBase(pattern) {
   if (typeof pattern !== 'string') {
@@ -113095,7 +113250,7 @@ function dirname(glob) {
 
 
 var path = __webpack_require__(31);
-var isglob = __webpack_require__(22);
+var isglob = __webpack_require__(23);
 
 module.exports = function globParent(str) {
 	str += 'a'; // preserves full path in case of trailing path separator
@@ -116992,7 +117147,7 @@ module.exports = function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_paymentMethodSelection__ = __webpack_require__(473);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_inventoryModule__ = __webpack_require__(474);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_vatModule__ = __webpack_require__(475);
@@ -117008,7 +117163,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
-        currentUri: __webpack_require__(11)(document)[0].baseURI
+        currentUri: __webpack_require__(12)(document)[0].baseURI
     },
     getters: {
         getCurrentURI: function getCurrentURI(state) {

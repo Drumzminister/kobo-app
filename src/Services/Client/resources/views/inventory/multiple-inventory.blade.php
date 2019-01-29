@@ -89,70 +89,17 @@
                                 <td><input v-model="content.quantity" type="text" class="form-control "></td>
                                 <td><input v-model="content.cost_price" @keyup="calculateTotalInventoryCost()" id="" type="text" class="form-control cost_price"></td>
                                 <td><input v-model="content.sales_price"  id="" type="text" class="form-control "></td>
-                                <td><i class="fa fa-trash-o" @click="deleteInventoryRow(index)" style="font-size:24px"></i></td>
+                                <td style="cursor: pointer"><i class="fa fa-trash-o" @click="deleteInventoryRow(index)" style="font-size:24px"></i></td>
                             </tr>
                         </tbody>
                     </table>
-                    <span class="float-right" @click="addInventoryRow()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
+                    <span class="float-right" @click="addInventoryRow()" style="cursor: pointer">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                     </span>
             </div>
 
         <div class="row p-2 mt-2 ">
                 <div class="col-md-6">
-                    <div class="bg-grey py-4 px-3" id="topp">
-                        <div class="row" >
-                            <div class="col-md-5">
-                                <h5 class="h5 uppercase">Payment Mode</h5>
-                                <div class="dropdown show mt-3">
-                                        <a class="btn btn-lg btn-payment dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Bank (GTB)
-                                        </a>
-                                    
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#">GTB 1</a>
-                                        <a class="dropdown-item" href="#">GTB 2</a>
-                                        <a class="dropdown-item" href="#">Skye Bank</a>
-                                        </div>
-                                    </div>
-                            </div>
-
-                            <div class="col-md-5">
-                                <h5 class="h5 uppercase">Amount</h5>
-                                <div class="show input-group input-group-lg mt-3">
-                                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
-                                </div>                                
-                            </div>
-
-                            <div class="col-md-2"></div>
-                        </div>
-                        
-                        
-                        <div class="row">
-                                <div class="col-md-5">
-                                    <div class="dropdown show mt-3">
-                                            <a class="btn btn-lg btn-payment dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Cash
-                                            </a>
-                                        
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item" href="#">ATM</a>
-                                            <a class="dropdown-item" href="#">GTB 2</a>
-                                            <a class="dropdown-item" href="#">Skye Bank</a>
-                                            </div>
-                                        </div>
-                                </div>
-
-                                <div class="col-md-5">
-                                    <div class="show input-group input-group-lg mt-3">
-                                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="750,000">
-                                    </div>                                   
-                                </div>
-                                <div class="col-md-2 mt-4 "> 
-                                        <span class=""><i class="fa fa-plus-square" style="font-size:32px;color:#00C259;"></i>
-                                        </span>
-                                </div>    
-                        </div>
-                    </div>
+                    {{--<payment-method-selection></payment-method-selection>--}}
                 </div>
             {{-- end of current payment --}}
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Data\InventoryItem;
 use Faker\Generator as Faker;
 use Koboaccountant\Models\Inventory;
 use Koboaccountant\Models\SaleChannel;
@@ -63,16 +64,26 @@ $factory->define(Inventory::class, function (Faker $faker) {
         'invoice_number' => explode('-', $faker->uuid)[0],
         'user_id' => '',
         'vendor_id' => '',
-        'name' => ucfirst($faker->sentence(2)),
-        'sales_price' => $salesPrice = random_int(50, 2000),
-        'purchase_price' => $salesPrice + random_int(50, 120),
-        'quantity' => random_int(19, 50),
-        'description' => $faker->sentence(10),
+//        'name' => ucfirst($faker->sentence(2)),
+//        'sales_price' => $salesPrice = random_int(50, 2000),
+//        'purchase_price' => $salesPrice + random_int(50, 120),
+//        'quantity' => random_int(19, 50),
+//        'description' => $faker->sentence(10),
         'delivered_date' => $faker->dateTime(),
-        'attachment' => $faker->word(6),
+//        'attachment' => $faker->word(6),
     ];
 });
-
+$factory->define(InventoryItem::class, function (Faker $faker) {
+   return [
+       'id' => $faker->uuid,
+       'inventory_id' => '',
+       'name' => ucfirst($faker->sentence(2)),
+       'sales_price' => $salesPrice = random_int(50, 2000),
+       'purchase_price' => $salesPrice + random_int(50, 120),
+       'quantity' => random_int(19, 50),
+       'description' => ucfirst($faker->sentence(2)),
+   ];
+});
 $roles = ['CEO', 'Product Manager', 'Public Servant', 'Marketer', 'Member', 'Developer'];
 $factory->define(\Koboaccountant\Models\Staff::class, function (Faker $faker) use($roles) {
 	shuffle($roles);
