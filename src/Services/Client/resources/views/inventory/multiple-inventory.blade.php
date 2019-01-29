@@ -99,7 +99,7 @@
 
         <div class="row p-2 mt-2 ">
                 <div class="col-md-6">
-                    {{--<payment-method-selection></payment-method-selection>--}}
+                    <payment-method-selection :banks="banks"></payment-method-selection>
                 </div>
             {{-- end of current payment --}}
 
@@ -118,12 +118,12 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <h5 class="h5 uppercase">Total Delivery Amount</h5>
+                                        <h5 class="h5 uppercase">Delivery cost</h5>
                                         <div class="input-group mb-3 input-group-lg">
-                                            {{-- <div class="input-group-prepend">
-                                                <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
-                                            </div> --}}
-                                            <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 100,000">
+                                             {{--<div class="input-group-prepend">--}}
+                                                {{--<span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>--}}
+                                            {{--</div>--}}
+                                            <input type="text" class="form-control"  id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 100,000">
                                         </div>
 
                                     </div>
@@ -168,5 +168,6 @@
 @section('other_js')
     <script>
         window.vendors = @json($vendors);
+        window.banks = @json($banks);
     </script>
 @endsection

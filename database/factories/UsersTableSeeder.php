@@ -64,13 +64,14 @@ $factory->define(Inventory::class, function (Faker $faker) {
         'invoice_number' => explode('-', $faker->uuid)[0],
         'user_id' => '',
         'vendor_id' => '',
-//        'name' => ucfirst($faker->sentence(2)),
-//        'sales_price' => $salesPrice = random_int(50, 2000),
-//        'purchase_price' => $salesPrice + random_int(50, 120),
-//        'quantity' => random_int(19, 50),
-//        'description' => $faker->sentence(10),
+        'attachment' =>  $faker->imageUrl(),
         'delivered_date' => $faker->dateTime(),
-//        'attachment' => $faker->word(6),
+        'discount' =>  random_int(50, 120),
+        'delivery_cost' =>  random_int(50, 120),
+        'total_amount' =>  random_int(50, 120),
+        'amount_paid' =>  random_int(50, 120),
+        'balance' =>  random_int(50, 120),
+
     ];
 });
 $factory->define(InventoryItem::class, function (Faker $faker) {
