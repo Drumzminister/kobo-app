@@ -2,6 +2,7 @@
 
 namespace Koboaccountant\Models;
 
+use App\Data\InventoryItem;
 use App\Data\Transaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,11 +26,22 @@ class Inventory extends Model
 
     use SoftDeletes;
 
+    public function inventoryItem()
+    {
+        return $this->hasMany(InventoryItem::class);
+    }
     public function vendor()
     {
         return $this->belongsTo('Koboaccountant\Models\Vendor');
     }
-
+    public function quantitySum()
+    {
+        return $this->inventoryItem()->sum('quantity');
+    }
+    public function salesPriceSum()
+    {
+        return $this->inventoryItem()->sum('sales_price');
+    }
 	public function transaction()
 	{
 		return $this->hasOne(Transaction::class);

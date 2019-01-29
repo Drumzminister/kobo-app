@@ -1,3 +1,4 @@
+import PaymentMethodSelection from '../components/banks/PaymentMethodSelection';
 export const expenseApp = {
     data: {
         expenseAmount: 0,

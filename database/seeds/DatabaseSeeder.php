@@ -3,6 +3,7 @@
 use App\Data\AccountantClient;
 use App\Data\BankDetail;
 use App\Data\CompanyReview;
+use App\Data\InventoryItem;
 use App\Data\SaleItem;
 use App\Data\Tax;
 use Illuminate\Database\Seeder;
@@ -76,6 +77,10 @@ class DatabaseSeeder extends Seeder
 		return factory(Vendor::class, $nums)->create(['company_id' => $company->id, 'user_id' => $user->id]);
     }
 
+    private function createInventoryItem($nums, $inventory)
+    {
+        return factory(InventoryItem::class, $nums)->create(['inventory_id' => $inventory]);
+    }
 
     private function createClientAndHisCompany($accountant)
     {
@@ -107,17 +112,22 @@ class DatabaseSeeder extends Seeder
 	    // Create Staffs for his company
 	    $staffs = $this->createStaffsForCompany($company);
 
-		// Create vendor for the client
-	    $vendors = $this->createVendorsForUser(10, $company, $clientUser);
+        // Create vendor for the client
+        $vendors = $this->createVendorsForUser(10, $company, $clientUser);
 
-	    // Create Inventories (things he bought) from his vendors
-	    $inventories = collect([]);
+        // Create Inventories (things he bought) from his vendors
+        $inventories = collect([]);
 
-	    $vendors->each(function (Vendor $vendor) use ($company, &$inventories, $clientUser) {
-	    	$inventories->merge(factory(Inventory::class, 4)->create(['company_id' => $company->id, 'vendor_id' => $vendor->id, 'user_id' => $clientUser->id]));
-	    });
+        $vendors->each(function (Vendor $vendor) use ($company, &$inventories, $clientUser) {
+            $inventory = $inventories->merge(factory(Inventory::class, 4)->create(['company_id' => $company->id, 'vendor_id' => $vendor->id, 'user_id' => $clientUser->id]));
+            $inventory->each(function($inventory) {
+                $this->createInventoryItem(10, $inventory->id);
+            });
+        });
 
-	    // We make an accountant Review his company
+        // Create inventory for the client
+
+        // We make an accountant Review his company
 	    factory(CompanyReview::class)->create(['company_id' => $company->id]);
 
 	    // Then we make the client review his accountant
