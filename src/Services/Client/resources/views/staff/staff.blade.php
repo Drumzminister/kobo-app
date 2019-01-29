@@ -51,7 +51,7 @@
 <section id="top">
     <div class="container py-3">
         <div class="row ">
-            <h2>Staffs</h2>
+            <h2>Staff</h2>
             <span class="accountant ml-auto ">
                 <a href="/client/staff/single-staff" class="btn btn-started">
                     Add Staff

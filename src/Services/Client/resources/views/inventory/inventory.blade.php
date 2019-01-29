@@ -21,11 +21,7 @@ input {
         <div class="container p-2">
             <div class="row py-2">
                 <h2><a href="/client/inventory" class="text-dark">Purchase</a></h2>
-                <span class="accountant ml-auto btn btn-accountant">
-                <a href="" class="btn-accountant">
-                    <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>                
-                </span>
+                @include('client::accountant-button')
             </div>
         </div>
     </section>
