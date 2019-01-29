@@ -1,15 +1,12 @@
-@extends("layouts.app-acct")
+@extends("layouts.app")
 
 @section("content")
 <section id="top">
     <div class="container py-3">
         <div class="row">
-            <h3 class="h3">Expenses</h3>
-            <span class="accountant ml-auto btn btn-accountant">
-                <a href="" class="btn-accountant">
-                    <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>              
-            </span>
+            <h3 class="h3"><a href ="/client/expenses" class="text-dark">Expenses</a></h3>
+             @include('client::accountant-button')
+
         </div>
     </div>
 </section>
@@ -25,17 +22,17 @@
 
 <section>
     <div class="container">    
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-md-10 col-6">
-                <div class="input-group mt-2">
+                <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                        <span class="input-group-text vat-input px-5" id="basic-addon2">Search</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-2 col-6">
-                <div id="" class="mt-2 float-right" onclick="">
+                <div id="" class=float-right" onclick="">
                     <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
                 </div>
             </div>

@@ -13,12 +13,12 @@
 
 <section>
     <div class="container px-4 py-3">
-        <div class="row">
+        <div class="row py-2">
                 <div class="col-md-10 col-6">
-                    <div class="input-group mt-2">
+                    <div class="input-group">
                         <input v-model="search" type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <a href="#"><span @click.prevent="searchVendor" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span></a>
+                            <a href="#"><span @click.prevent="searchVendor" class="input-group-text vat-input px-5" id="basic-addon2">Search</span></a>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
 </section>
 
 <section id="sale-table">
-        <div class="container mt-4">
+        <div class="container mt-2">
 
             <div class="bg-white p-4">
 
