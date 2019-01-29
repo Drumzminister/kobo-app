@@ -1,4 +1,4 @@
-
+import PaymentMethodSelection from "../components/banks/PaymentMethodSelection";
 export const inventoryApp = {
     data: {
         inventoryForm: {
@@ -9,8 +9,10 @@ export const inventoryApp = {
             quantity: '',
             vendor_id: '',
             category: '',
-            paymentMode: '',
-            attachment: ''
+            attachment: '',
+            tax: '',
+            discount: ''
+
         },
         inventoryItem: {
             delivered_date: '',
@@ -29,8 +31,12 @@ export const inventoryApp = {
         vendors: window.vendors,
         inventoryTableRow: [],
         totalCostPrice: [],
+        selectedInventory: '',
+        banks: window.banks
     },
-
+    component: {
+      PaymentMethodSelection,
+    },
     mounted () {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
@@ -109,5 +115,10 @@ export const inventoryApp = {
             });
             return this.totalCostPrice = total;
         },
+        getSelectedInventory(inventory) {
+            console.log(inventory);
+            this.selectedInventory = inventory;
+        },
+        // calculatePurchase
     }
 };

@@ -21,6 +21,12 @@ class CreateInventoriesTable extends Migration
             $table->string('invoice_number')->unique();
 	        $table->dateTime('delivered_date');
 	        $table->string('attachment')->nullable();
+	        $table->string('discount')->nullable();
+	        $table->double('delivery_cost', 2)->nullable();
+            $table->unsignedInteger('tax_id')->nullable();
+            $table->double('total_amount', 2);
+            $table->double('amount_paid', 2);
+            $table->double('balance', 2);
             $table->timestamps();
             $table->softDeletes();
 
