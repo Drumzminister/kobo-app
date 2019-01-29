@@ -5,11 +5,14 @@ namespace App\Domains\Rent\Jobs;
 use App\Data\Repositories\RentPaymentRepository;
 use App\Data\Repositories\RentRepository;
 use App\Domains\Banking\Jobs\DebitAccountJob;
+use App\Domains\Banks\Jobs\DebitBanksJob;
 use Lucid\Foundation\Job;
 
 class PayRentJob extends Job
 {
     private $rent, $rentPayment;
+    private $companyId;
+
     /**
      * Create a new job instance.
      *
@@ -36,9 +39,13 @@ class PayRentJob extends Job
         if ($rent->has_completed_payment) {
             throw new \Exception('Payment has already been made for this period');
         }
-        $methods = json_decode( $this->data['paymentMethods'], true );
-        foreach ($methods as $method) {
-            (new DebitAccountJob($method, $this->companyId ))->handle();
+        $methods = $this->data['paymentMethods'];
+
+        $debit = (new DebitBanksJob($methods, $rent, $this->companyId))->handle();
+//        dd($debit);
+
+        if ($debit->status !== 'success') {
+            throw new \Exception($debit->message);
         }
 
         if (floatval($rent->amount) === floatval($this->data['amount'])) {

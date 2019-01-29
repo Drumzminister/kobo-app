@@ -42,10 +42,11 @@ class CheckIfBanksHaveEnoughBalance extends Job
     			if ($bank->account_balance < $method['amount']) {
 				    return $this->createJobResponse('error', "Insufficient Balance for $bank->bank_name.", $bank);
 			    }
-		    }
+		    } else {
+                return $this->createJobResponse('error', "The bank selected does not exist.", $bank);
+            }
 
-		    return $this->createJobResponse('error', "The bank selected does not exist.", $bank);
-	    }
+        }
 
 	    return $this->createJobResponse('success', "Balance is sufficient for all accounts.", $this->paymentMethods);
     }
