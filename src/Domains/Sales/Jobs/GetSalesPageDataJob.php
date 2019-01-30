@@ -70,6 +70,7 @@ class GetSalesPageDataJob extends Job
 
 
     	$sales = $this->sale->getByAttributes(['company_id' => $company->id]);
+    	$firstSale = $this->sale->getFirstSale($company->id);
     	$monthSales = $this->createSaleCollectionsFromSales($this->sale->getCompanyMonthSale($company->id));
     	$daySales = $this->createSaleCollectionsFromSales($this->sale->getCompanyDaySale($company->id));
     	$weekSales = $this->createSaleCollectionsFromSales($this->sale->getCompanyWeekSale($company->id));
@@ -88,7 +89,8 @@ class GetSalesPageDataJob extends Job
 	    	'weekSales'     => $weekSales,
 	    	'yearSales'     => $yearSales,
 		    'sales'         => $sales,
-		    'topSales'      => $topSales ?? collect([])
+		    'topSales'      => $topSales ?? collect([]),
+		    'startDate'     => $firstSale->created_at,
 	    ];
     }
 
