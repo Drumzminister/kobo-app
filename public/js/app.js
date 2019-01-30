@@ -117559,7 +117559,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { DateRangePicker: __WEBPACK_IMPORTED_MODULE_0_vue2_daterange_picker___default.a },
-    props: ['month', 'weekData', 'dayData', 'yearData', 'options'],
+    props: ['month', 'day', 'week', 'year', 'options'],
     filters: {
         date: function date(value) {
             var options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -117592,14 +117592,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     watch: {
-        mode: function mode(oldValue, newValue) {}
+        mode: function mode(newValue, oldValue) {
+            console.log(newValue);
+        }
     },
     mounted: function mounted() {
         this.processChart();
-        // $('#graphDateRange').daterangepicker();
     },
 
     methods: {
+        updateValues: function updateValues(values) {
+            this.startDate = values.startDate.toISOString().slice(0, 10);
+            this.endDate = values.endDate.toISOString().slice(0, 10);
+        },
         getSalesQuantityData: function getSalesQuantityData(data) {
             var graphData = data.map(function (_ref) {
                 var quantity = _ref.quantity,
@@ -117613,9 +117618,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return { graphData: graphData, labels: labels };
         },
         processChart: function processChart() {
-            var mode = this.options.mode || 'month';
+            var mode = this.mode;
             var data = this.getSalesQuantityData(this[mode]);
-            console.log(data);
 
             var ctx = document.getElementById("myChart").getContext('2d');
             var myChart = new Chart(ctx, {
