@@ -14,7 +14,7 @@
         .modal.left .modal-dialog {
             position: fixed;
             margin: auto;
-            width: 400px;
+            width: 500px;
             height: 100%;
             -webkit-transform: translate3d(0%, 0, 0);
             -ms-transform: translate3d(0%, 0, 0);
@@ -169,9 +169,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-center mt-3">
+                            {{--<div class="text-center mt-3">
                                 <a href="/" class="view-more">View More Details</a>
-                            </div>
+                            </div>--}}
                         </div>
                     </div>
                 </div>
@@ -181,44 +181,42 @@
         <section id="loan-table">
             <div class="container mt-4">
                 <div class="row py-3">
-                    <div class="col">
+                    <div class="col" v-if="loans.length > 0">
                         <button  class="btn btn-addsale left-modal" @click="openModal('#addLoanModal')" >Add Loan</button>
                     </div>
-                    {{--<div class="col">
-                        <div class="float-right">
-                            <button  class="btn btn-started" data-toggle="modal" data-target="#pay-loan">Pay Loan</button>
-                        </div>
-                    </div>--}}
                 </div>
-                <div class="bg-white mt">
-                    <div class="table-responsive table-responsive-sm">
+                <div class="bg-white mb-5">
+                    <div class="table-responsive table-responsive-sm ">
                         <table class="table table-striped table-hover" v-if="loans.length > 0" id="dataTable">
                             <thead class="p-3">
-                            <tr class="tab">
-                                <th scope="col">Source</th>
-                                <th scope="col">Purpose</th>
-                                <th scope="col">Amount (&#8358;)</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Period</th>
-                            </tr>
+                                <tr class="tab">
+                                    <th scope="col">Source</th>
+                                    <th scope="col">Purpose</th>
+                                    <th scope="col">Amount (&#8358;)</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Period</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="loan in loans" style="cursor: pointer;" @click="displayLoanDetails(loan, $event)">
-                                <td>@{{loan.source_name}}</td>
-                                <td>@{{loan.description}}</td>
-                                <td >@{{loan.amount | numberFormat}}</td>
-                                <td><a :class="loan.status">@{{loan.status}}</a></td>
-                                <td> @{{  loan.term }} @{{loan.period}}s </td>
-                            </tr>
+                                <tr v-for="loan in loans" style="cursor: pointer;" @click="displayLoanDetails(loan, $event)">
+                                    <td>@{{loan.source_name}}</td>
+                                    <td>@{{loan.description}}</td>
+                                    <td >@{{loan.amount | numberFormat}}</td>
+                                    <td><a :class="loan.status">@{{loan.status}}</a></td>
+                                    <td> @{{  loan.term }} @{{loan.period}}s </td>
+                                </tr>
                             </tbody>
                         </table>
                         <p v-if="loans.length === 0" class="alert alert-info">
                             You have no running loan.
                         </p>
                     </div>
-                    <hr class="mt-0">
-                    <div class="text-center mb-5 pb-3">
+                    <hr class="mt-0" v-if="loans.length > 10">
+                    <div class="text-center mb-5 pb-3" v-if="loans.length > 10">
                         <a href="/loans/all" class="view-more">View More</a>
+                    </div>
+                    <div class="d-flex justify-content-center mb-5" v-if="loans.length === 0">
+                        <button  class="btn btn-addsale left-modal px-5" @click="openModal('#addLoanModal')" >Add Loan</button>
                     </div>
                 </div>
             </div>
@@ -289,11 +287,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="px-0" for="account">Receiving Account</label>
-                                        <select name="receivingAccount" class="form-control" v-model="accountReceivingLoan" id="account">
-                                            <option v-for="bank in banks" :value="bank" >@{{ bank.account_name }}</option>
-
-                                        </select>
+                                        <payment-method-selection :banks="{{ $banks }}" :options="{receiveMode: true}"></payment-method-selection>
                                     </div>
                                     <div class="row">
                                         <div class="col-4">
@@ -338,7 +332,6 @@
         window.loanAmtPaid = @json($runningLoanPaid);
         window.loanAmtOwing = @json($runningLoanOwing);
         window.loanAmtRunning = @json($runningLoanCount);
-        window.banks = @json($banks);
         window.addLoanUrl = "{{ route('client.loan.add') }}";
     </script>
 @endsection
