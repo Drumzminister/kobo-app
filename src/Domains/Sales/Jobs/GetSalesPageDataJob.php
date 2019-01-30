@@ -70,10 +70,11 @@ class GetSalesPageDataJob extends Job
 
 
     	$sales = $this->sale->getByAttributes(['company_id' => $company->id]);
-    	$monthSales = $this->sale->getCompanyMonthSale($company->id);
-    	$monthSales = $monthSales->map(function ($sale)  {
-		    return new SaleCollection($sale);
-	    });
+    	$monthSales = $this->createSaleCollectionsFromSales($this->sale->getCompanyMonthSale($company->id));
+    	$daySales = $this->createSaleCollectionsFromSales($this->sale->getCompanyDaySale($company->id));
+    	$weekSales = $this->createSaleCollectionsFromSales($this->sale->getCompanyWeekSale($company->id));
+    	$yearSales = $this->createSaleCollectionsFromSales($this->sale->getCompanyYearSale($company->id));
+
 
 
     	$sales = $sales->map(function ($sale)  {
@@ -81,6 +82,21 @@ class GetSalesPageDataJob extends Job
 	    });
 
 
-	    return ['monthSales' => $monthSales, 'sales' => $sales, 'topSales' => $topSales ?? collect([])];
+	    return [
+	    	'monthSales'    => $monthSales,
+	    	'daySales'      => $daySales,
+	    	'weekSales'     => $weekSales,
+	    	'yearSales'     => $yearSales,
+		    'sales'         => $sales,
+		    'topSales'      => $topSales ?? collect([])
+	    ];
+    }
+
+    protected function createSaleCollectionsFromSales($sales)
+    {
+	    return $sales->map(function ($sale)  {
+		    return new SaleCollection($sale);
+	    });
+
     }
 }

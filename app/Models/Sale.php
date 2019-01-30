@@ -71,12 +71,12 @@ class Sale extends Model
 
     public function scopesDaySale($query)
     {
-	    return $query->whereIn('created_at', [now()->subDay(), now()]);
+	    return $query->whereBetween('created_at', [now()->subDay(), now()]);
     }
 
 	public function scopeWeekSale($query)
 	{
-		return $query->whereIn('created_at', [now()->subWeek(), now()]);
+		return $query->whereBetween('created_at', [now()->subWeek(), now()]);
 	}
 
 	public function scopeMonthSale($query)
@@ -86,6 +86,6 @@ class Sale extends Model
 
 	public function scopeYearSale($query)
 	{
-		return $query->whereIn('created_at', [now()->subYear(), now()]);
+		return $query->whereBetween('created_at', [now()->subYear(), now()]);
 	}
 }
