@@ -117570,10 +117570,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             mode: this.options.mode || 'month',
             opens: 'center',
-            startDate: '2017-09-19',
-            endDate: '2017-10-09',
+            startDate: this.options.dateRangeStart || moment().format("YYYY-MM-DD"),
+            endDate: moment().format("YYYY-MM-DD"),
             minDate: '2017-09-02',
-            maxDate: '2017-10-02'
+            maxDate: moment().format("YYYY-MM-DD")
         };
     },
 
@@ -117589,11 +117589,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 case 'year':
                     return "Yearly";
             }
+        },
+
+        dateRange: {
+            get: function get() {
+                return this.startDate + ' - ' + this.endDate;
+            }
         }
     },
     watch: {
         mode: function mode(newValue, oldValue) {
             this.processChart();
+        },
+        dateRange: function dateRange(newValue, oldValue) {
+            this.processChart(this.getDataByDateRange());
         }
     },
     mounted: function mounted() {
@@ -117601,35 +117610,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        getDataByDateRange: function getDataByDateRange() {
+            var _this = this;
+
+            return this.year.filter(function (_ref) {
+                var created_at = _ref.created_at;
+                return moment(created_at).isBetween(_this.startDate, _this.endDate, null, '[]');
+            });
+        },
         updateValues: function updateValues(values) {
             this.startDate = values.startDate.toISOString().slice(0, 10);
             this.endDate = values.endDate.toISOString().slice(0, 10);
         },
         getSalesQuantityData: function getSalesQuantityData(data) {
-            var _this = this;
+            var _this2 = this;
 
-            var graphData = data.map(function (_ref) {
-                var quantity = _ref.quantity,
-                    created_at = _ref.created_at;
+            var graphData = data.map(function (_ref2) {
+                var quantity = _ref2.quantity,
+                    created_at = _ref2.created_at;
                 return { t: new Date(created_at), y: quantity };
             });
-            var labels = data.map(function (_ref2) {
-                var created_at = _ref2.created_at;
+            var labels = data.map(function (_ref3) {
+                var created_at = _ref3.created_at;
 
-                return moment(created_at)[_this.mode]();
+                return moment(created_at)[_this2.mode]();
             });
             return { graphData: graphData, labels: labels };
         },
-        processChart: function processChart() {
+        processChart: function processChart(newData) {
             var mode = this.mode;
-            var data = this.getSalesQuantityData(this[mode]);
+            var data = newData ? this.getSalesQuantityData(newData) : this.getSalesQuantityData(this[mode]);
 
             var ctx = document.getElementById("myChart").getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    // labels: data.labels,
-                    // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                     datasets: [{
                         label: '# of Quantity Sold',
                         data: data.graphData,

@@ -82,10 +82,10 @@
             return {
                 mode: this.options.mode || 'month',
                 opens: 'center',
-                startDate: '2017-09-19',
-                endDate: '2017-10-09',
+                startDate: this.options.dateRangeStart || moment().format("YYYY-MM-DD"),
+                endDate: moment().format("YYYY-MM-DD"),
                 minDate: '2017-09-02',
-                maxDate: '2017-10-02',
+                maxDate: moment().format("YYYY-MM-DD"),
             }
         },
         computed: {
@@ -100,17 +100,28 @@
                     case 'year':
                         return "Yearly";
                 }
+            },
+            dateRange: {
+                get: function() {
+                    return this.startDate + ' - ' + this.endDate;
+                }
             }
         },
         watch: {
             mode: function(newValue, oldValue) {
                 this.processChart();
+            },
+            dateRange: function(newValue, oldValue) {
+                this.processChart(this.getDataByDateRange());
             }
         },
         mounted() {
             this.processChart();
         },
         methods: {
+            getDataByDateRange () {
+                return this.year.filter(({ created_at }) => moment(created_at).isBetween(this.startDate, this.endDate, null, '[]') );
+            },
             updateValues (values) {
                 this.startDate = values.startDate.toISOString().slice(0, 10);
                 this.endDate = values.endDate.toISOString().slice(0, 10);
@@ -122,16 +133,14 @@
                 });
                 return { graphData, labels };
             },
-            processChart () {
+            processChart (newData) {
                 let mode = this.mode;
-                let data = this.getSalesQuantityData(this[mode]);
+                let data = newData ? this.getSalesQuantityData(newData) : this.getSalesQuantityData(this[mode]);
 
                 let ctx = document.getElementById("myChart").getContext('2d');
                 let myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        // labels: data.labels,
-                        // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                         datasets: [{
                             label: '# of Quantity Sold',
                             data: data.graphData,

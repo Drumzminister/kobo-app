@@ -30,4 +30,9 @@ class SaleRepository extends Repository
 	{
 		return $this->model->where('company_id', $companyId)->yearSale()->orderBy('created_at', 'desc')->get();
 	}
+
+	public function getFirstSale($companyId)
+	{
+		return $this->model->where('company_id', $companyId)->orderBy('created_at', 'asc')->first();
+	}
 }
