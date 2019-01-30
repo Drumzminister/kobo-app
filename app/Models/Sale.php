@@ -69,7 +69,7 @@ class Sale extends Model
     	return $this->hasMany(Transaction::class);
     }
 
-    public function scopesDaySale($query)
+    public function scopeDaySale($query)
     {
 	    return $query->whereBetween('created_at', [now()->subDay(), now()]);
     }

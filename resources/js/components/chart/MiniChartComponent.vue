@@ -70,7 +70,7 @@
     export default {
         components: { DateRangePicker },
         props: [
-            'month', 'weekData', 'dayData', 'yearData', 'options'
+            'month', 'day', 'week', 'year', 'options'
         ],
         filters: {
             date (value) {
@@ -103,24 +103,28 @@
             }
         },
         watch: {
-            mode (oldValue, newValue) {
-
+            mode: function(newValue, oldValue) {
+                this.processChart();
             }
         },
         mounted() {
             this.processChart();
-            // $('#graphDateRange').daterangepicker();
         },
         methods: {
+            updateValues (values) {
+                this.startDate = values.startDate.toISOString().slice(0, 10);
+                this.endDate = values.endDate.toISOString().slice(0, 10);
+            },
             getSalesQuantityData (data) {
                 let graphData = data.map(({ quantity, created_at }) => { return { t:new Date(created_at), y:quantity } });
-                let labels = data.map(({ created_at }) => { return moment(created_at).week(); });
+                let labels = data.map(({ created_at }) => {
+                    return moment(created_at)[this.mode]();
+                });
                 return { graphData, labels };
             },
             processChart () {
-                let mode = this.options.mode || 'month';
+                let mode = this.mode;
                 let data = this.getSalesQuantityData(this[mode]);
-                console.log(data);
 
                 let ctx = document.getElementById("myChart").getContext('2d');
                 let myChart = new Chart(ctx, {
@@ -129,7 +133,7 @@
                         // labels: data.labels,
                         // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                         datasets: [{
-                            label: '# of Quantity',
+                            label: '# of Quantity Sold',
                             data: data.graphData,
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',

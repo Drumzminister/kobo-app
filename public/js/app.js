@@ -117559,7 +117559,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { DateRangePicker: __WEBPACK_IMPORTED_MODULE_0_vue2_daterange_picker___default.a },
-    props: ['month', 'weekData', 'dayData', 'yearData', 'options'],
+    props: ['month', 'day', 'week', 'year', 'options'],
     filters: {
         date: function date(value) {
             var options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -117592,15 +117592,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     watch: {
-        mode: function mode(oldValue, newValue) {}
+        mode: function mode(newValue, oldValue) {
+            this.processChart();
+        }
     },
     mounted: function mounted() {
         this.processChart();
-        // $('#graphDateRange').daterangepicker();
     },
 
     methods: {
+        updateValues: function updateValues(values) {
+            this.startDate = values.startDate.toISOString().slice(0, 10);
+            this.endDate = values.endDate.toISOString().slice(0, 10);
+        },
         getSalesQuantityData: function getSalesQuantityData(data) {
+            var _this = this;
+
             var graphData = data.map(function (_ref) {
                 var quantity = _ref.quantity,
                     created_at = _ref.created_at;
@@ -117608,14 +117615,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
             var labels = data.map(function (_ref2) {
                 var created_at = _ref2.created_at;
-                return moment(created_at).week();
+
+                return moment(created_at)[_this.mode]();
             });
             return { graphData: graphData, labels: labels };
         },
         processChart: function processChart() {
-            var mode = this.options.mode || 'month';
+            var mode = this.mode;
             var data = this.getSalesQuantityData(this[mode]);
-            console.log(data);
 
             var ctx = document.getElementById("myChart").getContext('2d');
             var myChart = new Chart(ctx, {
@@ -117624,7 +117631,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     // labels: data.labels,
                     // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                     datasets: [{
-                        label: '# of Quantity',
+                        label: '# of Quantity Sold',
                         data: data.graphData,
                         backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
                         borderColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
