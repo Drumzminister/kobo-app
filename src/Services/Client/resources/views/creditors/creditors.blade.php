@@ -154,7 +154,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                        <span class="input-group-text vat-input px-5 " id="basic-addon2">Search</span>
+                                        <span class="input-group-text vat-input append-border px-5 " id="basic-addon2">Search</span>
                                     </div>
                                 </div>
                             </div>

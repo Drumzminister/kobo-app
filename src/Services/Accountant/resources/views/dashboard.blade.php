@@ -162,7 +162,7 @@
                                 Take records, reports, Statictics of the clients and easily access their 
                                 records.
                             </p>
-                            <span class="show"><a href="/clients" class="show-more uppercase">Show More</a></span>
+                            <span class="show"><a href="/accountant/manage-clients" class="show-more uppercase" target="_blank">Show More</a></span>
                         </div>
                         <div class="col-md-3">
 
@@ -179,7 +179,7 @@
                             <p class="p-12 text-muted">
                                     View the transaction details, the amount received and the deliverables.
                             </p>
-                            <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
+                            <span class="show"><a href="/accountant/" class="show-more uppercase" target="_blank">Show More</a></span>
                         </div>
                         <div class="col-md-3">
 
@@ -197,7 +197,7 @@
                                     Take records, reports, Statictics of the clients and easily access their 
                                     records.
                             </p>
-                            <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
+                            <span class="show"><a href="/accountant/" class="show-more uppercase" target="_blank">Show More</a></span>
                         </div>
                         <div class="col-md-3">
 
@@ -217,7 +217,7 @@
                                 Take records, reports, Statictics of the clients and easily access their 
                                 records.
                             </p>
-                            <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
+                            <span class="show"><a href="/accountant/budget" class="show-more uppercase" target="_blank">Show More</a></span>
                         </div>
                         <div class="col-md-3">
 
@@ -234,7 +234,7 @@
                             <p class="p-12 text-muted">
                                 View the transaction details, the amount received and the deliverables.
                             </p>
-                            <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
+                            <span class="show"><a href="/accountant/toolkits" class="show-more uppercase" target="_blank">Show More</a></span>
                         </div>
                         <div class="col-md-3">
 
@@ -252,7 +252,7 @@
                                     Take records, reports, Statictics of the clients and easily access their 
                                     records.
                             </p>
-                            <span class="show"><a href="" class="show-more uppercase">Show More</a></span>
+                            <span class="show"><a href="/accountant/resources" class="show-more uppercase" target="_blank">Show More</a></span>
                         </div>
                         <div class="col-md-3">
 

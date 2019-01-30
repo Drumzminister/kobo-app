@@ -87,7 +87,7 @@
                         <div class="input-group ">
                             <input type="text" v-model="staffSearchInput" @keyup.prevent="searchStaff" class="form-control" placeholder="&#xF002;" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append" @click.prevent.enter="searchStaff">
-                                <a href="#"> <span class="input-group-text vat-input px-5 " id="basic-addon2">Search</span></a>
+                                <a href="#"> <span class="input-group-text vat-input append-border px-5 " id="basic-addon2">Search</span></a>
                             </div>
                         </div>
                     </div>

@@ -519,21 +519,48 @@ tooltips styling
 
 /* width */
 .scroll::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 /* Track */
 .scroll::-webkit-scrollbar-track {
-  background: #f1f1f1;
+    background: #f1f1f1;
 }
 
 /* Handle */
 .scroll::-webkit-scrollbar-thumb {
-  background: #00C259;
+    background: #00C259;
 }
 
 /* Handle on hover */
 .scroll::-webkit-scrollbar-thumb:hover {
+    background: #408080;
+}
+
+
+.acct-scroll {
+    max-height: 225px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/* width */
+.acct-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.acct-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.acct-scroll::-webkit-scrollbar-thumb {
+  background: #00C259;
+}
+
+/* Handle on hover */
+.acct-scroll::-webkit-scrollbar-thumb:hover {
   background: #408080;
 }
 
@@ -546,7 +573,7 @@ tooltips styling
 
 /* width */
 .all-scroll::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 /* Track */
@@ -831,4 +858,10 @@ margin: auto;
 }
 ::placeholder{
     color: #d6d8db !important;
+}
+.client-message{
+  position: static;
+}
+.append-border{
+  border: none;
 }

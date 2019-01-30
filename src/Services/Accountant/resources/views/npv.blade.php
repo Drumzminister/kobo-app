@@ -5,14 +5,14 @@
 <section id="top">
     <div class="container py-3">
         <div class="row ">
-            <h2> <a href="/npv" class="text-dark">Net Present Value (NPV) Calculator</a></h2>            
+            <h2> <a href="/accountant/npv" class="text-dark">Net Present Value (NPV) Calculator</a></h2>            
         </div>
     </div>
 </section>
 
 <section>
     <div class="container my-4 bg-white">
-        <div class="npv-header bg-green text-white text-center py-3">
+        <div class="npv-header bg-green text-white text-center py-2">
             <h3 class="h3">Net Present Value (NPV) Calculator </h3>
             <p>Fill in the details and calculate you NPV</p>
         </div>
@@ -24,8 +24,8 @@
                             <label for=""><h5>Inflation rate</h5></label>
                             <div class="input-group input-group-lg mb-3">
                                     <input type="text" class="form-control" aria-label="">
-                                    <div class="input-group-append input-group-lg">
-                                      <span class="input-group-text vat-input">%</span>
+                                    <div class="input-group-append input-group-lg ">
+                                      <span class="input-group-text vat-input append-border">%</span>
                                     </div>
                             </div>
                     </div>
@@ -36,7 +36,7 @@
                             <div class="input-group input-group-lg mb-3">
                                     <input type="text" class="form-control" aria-label="">
                                     <div class="input-group-append">
-                                      <span class="input-group-text vat-input">%</span>
+                                      <span class="input-group-text vat-input append-border">%</span>
                                     </div>
                             </div>
                     </div>
@@ -47,7 +47,7 @@
                                 <label for=""><h5>Initial Cash Outlay</h5></label>
                                 <div class="input-group input-group-lg mb-3">
                                         <div class="input-group-append">
-                                            <span class="input-group-text vat-input">&#8358;</span>
+                                            <span class="input-group-text vat-input append-border">&#8358;</span>
                                         </div>
                                         <input type="text" class="form-control" aria-label="">
                                 </div>
@@ -59,7 +59,7 @@
                                 <div class="input-group input-group-lg mb-3">
                                         <input type="text" class="form-control" aria-label="">
                                         <div class="input-group-append">
-                                          <span class="input-group-text vat-input">%</span>
+                                          <span class="input-group-text vat-input append-border">%</span>
                                         </div>
                                 </div>
                         </div>
