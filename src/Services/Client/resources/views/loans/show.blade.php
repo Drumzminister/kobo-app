@@ -1,14 +1,15 @@
 @extends('client::layouts.app')
 @section('other_styles')
     <style>
-        label {display: block; padding: 5px; position: relative; padding-left: 10px;}
+        label {display: block; padding: 5px; position: relative;}
         label input {display: none;}
-        label span {border: 1px solid #ccc; width: 17px; height: 17px; position: absolute; overflow: hidden; line-height: 1; text-align: center; border-radius: 100%; font-size: 10pt; left: 0; top: 50%; margin-top: -7.5px;}
+        label span {border: 1px solid #ccc; width: 17px; height: 17px; position: absolute; overflow: hidden; line-height: ; text-align: center; border-radius: 100%; font-size: 10pt; left: 0; top: 50%; margin-top: -7.5px;}
         input:checked + span {background: #ccf; border-color: #ccf;}
 
         input {
             border: none;
             background: transparent;
+            text-align: center;
         }
 
         .modal.left .modal-dialog {
