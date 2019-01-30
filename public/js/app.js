@@ -117593,7 +117593,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     watch: {
         mode: function mode(newValue, oldValue) {
-            console.log(newValue);
+            this.processChart();
         }
     },
     mounted: function mounted() {
@@ -117606,6 +117606,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.endDate = values.endDate.toISOString().slice(0, 10);
         },
         getSalesQuantityData: function getSalesQuantityData(data) {
+            var _this = this;
+
             var graphData = data.map(function (_ref) {
                 var quantity = _ref.quantity,
                     created_at = _ref.created_at;
@@ -117613,7 +117615,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
             var labels = data.map(function (_ref2) {
                 var created_at = _ref2.created_at;
-                return moment(created_at).week();
+
+                return moment(created_at)[_this.mode]();
             });
             return { graphData: graphData, labels: labels };
         },
@@ -117628,7 +117631,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     // labels: data.labels,
                     // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                     datasets: [{
-                        label: '# of Quantity',
+                        label: '# of Quantity Sold',
                         data: data.graphData,
                         backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
                         borderColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],

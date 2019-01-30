@@ -104,7 +104,7 @@
         },
         watch: {
             mode: function(newValue, oldValue) {
-                console.log(newValue);
+                this.processChart();
             }
         },
         mounted() {
@@ -117,7 +117,9 @@
             },
             getSalesQuantityData (data) {
                 let graphData = data.map(({ quantity, created_at }) => { return { t:new Date(created_at), y:quantity } });
-                let labels = data.map(({ created_at }) => { return moment(created_at).week(); });
+                let labels = data.map(({ created_at }) => {
+                    return moment(created_at)[this.mode]();
+                });
                 return { graphData, labels };
             },
             processChart () {
@@ -131,7 +133,7 @@
                         // labels: data.labels,
                         // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                         datasets: [{
-                            label: '# of Quantity',
+                            label: '# of Quantity Sold',
                             data: data.graphData,
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
