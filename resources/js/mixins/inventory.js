@@ -1,3 +1,4 @@
+import PaymentMethodSelection from "../components/banks/PaymentMethodSelection";
 export const inventoryApp = {
     data: {
         inventoryForm: {
@@ -8,8 +9,19 @@ export const inventoryApp = {
             quantity: '',
             vendor_id: '',
             category: '',
-            paymentMode: '',
-            attachment: ''
+            attachment: '',
+            tax: '',
+            discount: ''
+
+        },
+        inventoryItem: {
+            delivered_date: '',
+            name: '',
+            quantity: '',
+            sales_price: '',
+            balance: '',
+            invoice: '',
+            vendor: ''
         },
         top_purchase: {},
         highest_purchase: window.highest_purchase,
@@ -19,18 +31,37 @@ export const inventoryApp = {
         vendors: window.vendors,
         inventoryTableRow: [],
         totalCostPrice: [],
+        selectedInventory: '',
+        banks: window.banks
     },
-
+    component: {
+      PaymentMethodSelection,
+    },
     mounted () {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
+        this.vendors = window.vendors;
         this.addInventoryRow();
     },
     methods: {
+        getPurchaseSalesPriceInventoryItem(_purchase) {
+            let inventoryItemSum = 0;
+            _purchase['inventory_item'].map(purchase => {
+                inventoryItemSum += Number(purchase.purchase_price)
+            });
+            return inventoryItemSum;
+        },
+        getPurchaseQuantityInventoryItem(_purchase) {
+            let inventoryQuantitySum = 0;
+            _purchase['inventory_item'].map(purchase => {
+                inventoryQuantitySum += Number(purchase.quantity)
+            });
+            return inventoryQuantitySum;
+        },
         createInventory(evt) {
             evt.preventDefault();
             axios.post('/client/inventory/add', this.inventoryForm).then(res => {
-                swal('Success', res.data.message, "success");
+                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false,}).then(() =>{location.reload(true)});
                 this.inventoryForm = '';
             }).catch(err => {
                 swal("Oops", "An error occurred when creating this account", "error");
@@ -46,28 +77,21 @@ export const inventoryApp = {
         trimIdToInvoice(value) {
             return value.slice(0, 5);
         },
-        deleteInventoryButton(index) {
-            swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((index) => {
-                if (index) {
-                    axios.post(`/client/inventory/${index}/delete`).then(res => {
-                        swal('Success', res.data.message, 'success');
-                        this.purchase.splice(index, 1);
+        deleteInventory(inventoryId) {
+                axios.post(`/client/inventory/${inventoryId}/delete`).then(res => {
+                    console.log(res.data.message);
+                    swal({
+                        type: 'success',
+                        title: 'Success',
+                        text: res.data.message,
+                        timer: 3000,
+                        showConfirmButton: false,
+                    }).then(() =>{
+                        location.reload(true);
                     });
-                    swal(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            })
+                }).catch(error => {
+
+                });
         },
         addInventoryRow() {
             this.inventoryTableRow.push({
@@ -90,6 +114,11 @@ export const inventoryApp = {
                 total += Number(input.value);
             });
             return this.totalCostPrice = total;
-        }
+        },
+        getSelectedInventory(inventory) {
+            console.log(inventory);
+            this.selectedInventory = inventory;
+        },
+        // calculatePurchase
     }
 };

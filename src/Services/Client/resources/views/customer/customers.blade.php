@@ -13,7 +13,7 @@
                 </span>
             </div>
         </div>
-    </section>
+</section>
 {{-- end of heading section --}}
 
 <section id="sale-table">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="col-md-6"></div>
                 </div>     
-                    <div class="row py-3">
+                    <div class="row p-3">
                             <div class="col-md-6 col-12">
                                 <h4 class= "h4">Customers List </h4>
                             </div>
@@ -40,7 +40,7 @@
                             <div class="input-group mt-2">
                                 <input type="text" v-model="search" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                   <a href="#"> <span @click.prevent="searchCustomer" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span></a>
+                                   <a href="#"> <span @click.prevent="searchCustomer" class="input-group-text vat-input append-border px-5" id="basic-addon2">Search</span></a>
                                 </div>
                             </div>
                     </div>
@@ -63,13 +63,19 @@
                                 <td>@{{ customer.address }}</td>
                                 <td>@{{ customer.phone }}</td>
                                 <td>@{{ customer.email }}</td>
-                                <td>@{{ customer.website }}</td>
+                                <td>@{{ customer.website }}no-light </td>
                               <td v-show="searchNotFound">No Data found</td>
-                                <td class="flex" > 
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
-                                </td> 
+                                <td class="flex" >
+                                    <div class="dropdown">
+                                        <button class="btn bg-transparent p-0" type="button" id="dropdownMenuButton1">
+                                            <i class="fa fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:30px; font-size: 30px" aria-labelledby="dropdownMenuButton1">
+                                            <a class="dropdown-item text-primary"><i class="fa fa-edit"></i></a>
+                                            <a @click.prevent="deleteCustomer(customer.id)" class="dropdown-item text-danger" href="#"><i class="fa fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </td>
                           </tr>
                         </tbody>
                 </table>

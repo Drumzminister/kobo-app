@@ -120,13 +120,13 @@
                     </div>
 
                     <div class="col">
-                            <span class="float-right mr-2">
-                                <button type="submit" :disabled="savingSale" @click="saveSale()" class="btn btn-lg btn-started"><i v-show="savingSale" class="fa fa-circle-notch fa-spin"></i> {{ savingSale ? 'Saving' : saleSaved ? 'Saved!' : 'Save' }}</button>
-                            </span>
+                        <span class="float-right mr-2">
+                            <button type="submit" :disabled="savingSale" @click="saveSale()" class="btn btn-lg btn-started"><i v-show="savingSale" class="fa fa-circle-notch fa-spin"></i> {{ savingSale ? 'Saving' : saleSaved ? 'Saved!' : 'Save' }}</button>
+                        </span>
 
-                            <span class="float-right mr-2">
-                                <button type="submit" @click="previewInvoice()" class="btn btn-lg btn-started">Preview</button>
-                            </span>
+                        <span class="float-right mr-2">
+                            <button type="submit" @click="previewInvoice()" class="btn btn-lg btn-started">Preview</button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -148,9 +148,7 @@
     import currency from "../../helpers/formatter"
 
     export default {
-        mixins: [addSale, appModal],
-        props: ['inventories', 'channels', 'banks', 'sale'],
-        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal, InvoiceSender, Select2, NewCustomer },
+
         data() {
             return {
                 currency: new Intl.NumberFormat('en-US', {

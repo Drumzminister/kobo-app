@@ -10,6 +10,7 @@ use App\Services\Client\Features\ListLoanSourcesFeature;
 use App\Services\Client\Features\PayLoanFeature;
 use App\Services\Client\Features\SearchLoansFeature;
 use App\Services\Client\Features\SearchLoanSourcesFeature;
+use App\Services\Client\Features\ShowAllLoansFeature;
 use App\Services\Client\Features\ShowLoansPageFeature;
 use Illuminate\Http\Request;
 use Lucid\Foundation\Http\Controller;
@@ -28,7 +29,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        //
+        return $this->serve(ShowAllLoansFeature::class);
     }
 
     public function show()

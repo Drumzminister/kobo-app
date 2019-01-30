@@ -7,11 +7,7 @@
         <div class="container p-2">
             <div class="row p-3">
                 <h2>Expenses</h2>
-                <span class="accountant ml-auto btn btn-accountant">
-                <a href="" class="btn-accountant">
-                    <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>
-                </span>
+                @include('client::accountant-button')
             </div>
         </div>
     </section>
@@ -133,7 +129,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                                <span class="input-group-text vat-input append-border px-5 py-2" id="basic-addon2">Search</span>
                             </div>
                         </div>
                     </div>

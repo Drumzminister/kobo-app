@@ -7,11 +7,7 @@
         <div class="container p-2">
             <div class="row py-2">
                 <h2><a href="/inventory" class="text-dark">Purchase</a></h2>
-                <span class="accountant ml-auto btn btn-accountant">
-                <a href="" class="btn-accountant">
-                    <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>
-                </span>
+                @include('client::accountant-button')
             </div>
         </div>
     </section>
@@ -61,23 +57,14 @@
                             <div class="form-row py-3">
                                     <div class="col">
                                         <label for="name">Quantity</label>
-                                        <select v-model="inventoryForm.quantity" name="quantity" id="quantity" class="form-control bg-grey">
-                                            <option selected>Choose...</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-
-                                        </select>
+                                        <input type="number" v-model="inventoryForm.quantity" name="quantity" id="quantity" class="form-control bg-grey">
                                     </div>
-                                    <div class="col">
+                                    <div class="col" >
                                         <label for="name">Vendor</label>
-                                        <select v-model="inventoryForm.vendor_id" id="inputState" name="vendor_id"  class="form-control bg-grey">
-                                            <option selected>Choose Vendor</option>
-                                            <option>Mercy Bassey</option>
-                                            <option>Promise Somto</option>
-
+                                        <select  v-model="inventoryForm.vendor_id" class="form-control bg-grey" >
+                                            <option v-for="vendor in vendors" :value="vendor.id">
+                                                @{{ vendor.name }}
+                                            </option>
                                         </select>
                                 </div>
                             </div>
@@ -118,4 +105,9 @@
         </div>
     </div>
 </section>
+@endsection
+@section('other_js')
+<script>
+window.vendors = @json($vendors)
+</script>
 @endsection

@@ -21,11 +21,7 @@ input {
         <div class="container p-2">
             <div class="row py-2">
                 <h2><a href="/client/inventory" class="text-dark">Purchase</a></h2>
-                <span class="accountant ml-auto btn btn-accountant">
-                <a href="" class="btn-accountant">
-                    <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>                
-                </span>
+                @include('client::accountant-button')
             </div>
         </div>
     </section>
@@ -120,9 +116,12 @@ input {
 
                         </table>
                         </div>
-                        <div class="text-center p-1">
-                                <a href="" class="view-more">View More Analytics</a> 
-                            </div>
+                            <h3 v-if="top_purchase.length === 0"class="text-center">
+                                Top purchases will appear here
+                            </h3>
+                        {{--<div class="text-center p-1">--}}
+                            {{--<a href="" class="view-more">View More Analytics</a>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
             </div>
@@ -151,7 +150,7 @@ input {
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                             <div class="input-group-append">
-                                                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
+                                                <span class="input-group-text vat-input append-border px-5 py-2" id="basic-addon2">Search</span>
                                             </div>
                                         </div>
                                     </div>
@@ -179,40 +178,41 @@ input {
                             <th scope="col">Sales Price (&#8358;)</th>
                             <th scope="col">Vendors</th>
                             <th scope="col"></th>
-
-                
                           </tr>
                         </thead>
                         <tbody>
                           <tr v-for="(purchase, index) in all_purchases" :key="index">
                               <td>@{{ index + 1 }}</td>
                               <td>
-                                  @{{purchase.delivered_date | dateTime }}
+                                  @{{purchase.delivered_date | dateTime  }}
                               </td>
                             <td>
-                                <a href="" data-toggle="modal" data-target="#exampleModalCenter">
-                                   INV-@{{ trimIdToInvoice(purchase.id) }}
+                                <a href="" @click.prevent="getSelectedInventory(purchase)" data-toggle="modal" data-target="#exampleModalCenter">
+                                   INV-@{{ purchase.invoice_number }}
                                 </a>
                             </td>
                             <td>
-                                @{{ purchase.quantity }}
+                                @{{ getPurchaseQuantityInventoryItem(purchase) }}
                             </td>
                             <td>
-                                @{{ purchase.sales_price }}
+                                @{{ getPurchaseSalesPriceInventoryItem(purchase) | numberFormat }}
                             </td>
                             <td>
                                 @{{ purchase.vendor.name }}
                             </td>
-                              <td><i @click.prevent="deleteInventoryButton(purchase.id)" class="fa fa-trash" style="font-size:24px; cursor: pointer"></i></td>
+                              <td><i @click.prevent="deleteInventory(purchase.id)" class="fa fa-trash" style="font-size:24px; cursor: pointer"></i></td>
                         </tr>
-
+                        <tr v-if="purchase.length === 0">
+                            <td colspan="7" class="text-center"><h3>All purchases will appear here</h3></td>
+                        </tr>
                             
                         </tbody>
+
                     </table>
                 </div>
                     <hr class="mt-0">
-                    <div class="text-center ">
-                        <a href="/client/view-inventory" class="view-more">View More</a>
+                    <div class="text-center mt-3" v-if="purchase.length > 0">
+                        <a href="/client/inventory/list" class="view-more">View More</a>
                     </div>
                    
             </div> 
@@ -232,36 +232,34 @@ input {
                                 <span aria-hidden="true">&times;</span>
                             </button>
 
-                            <div class="row px-5 pt-3">
+                            <div class="row px-5 pt-3" >
                                 <div class="col-md-2">
                                     <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                                 </div>
                                 <div class="col-md-10">
-                                    <h5 class="text-green h5">Mary Ikpe</h5>
-                                    <h6 class="text-primary h6">Invoice NO:KB &#x2d; 1234</h6>
+                                    <h5 class="text-green h5" v-if="selectedInventory.vendor">@{{ selectedInventory.vendor.name }}</h5>
+                                    <h6 class="text-primary h6">Invoice NO:KB @{{selectedInventory.invoice_number}}</h6>
 
-                                    <form action="" method="post">
                                         <div class="form row pt-3 px-3">
                                             <div class="col-md-4">
                                                 <div class="p-2" id="topp">
                                                     <h5 class="h5">Total Amount</h5>
-                                                    <h4 class="text-orange">&#8358;18,000</h4>
+                                                    <h4 class="text-orange">&#8358;@{{ selectedInventory.total_amount }}</h4>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="p-2" id="topp">
                                                     <h5 class="h5">Amount Paid</h5>
-                                                    <h4 class="text-orange">&#8358;18,000.45</h4>
+                                                    <h4 class="text-orange">&#8358;@{{ selectedInventory.amount_paid }}</h4>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="p-2" id="topp">
                                                     <h5 class="h5 "> Balance</h5>
-                                                    <h4 class="text-orange">&#8358;18,000.53</h4>
+                                                    <h4 class="text-orange">&#8358;@{{ selectedInventory.balance }}</h4>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
                                 </div>
                             </div>
                        
@@ -277,83 +275,18 @@ input {
                                                     <th scope="col">Product</th>
                                                     <th scope="col">QTY</th>
                                                     <th scope="col">Sales Price (&#8358;)</th>
-                                                    <th scope="col">Balance</th>
-                        
-                                        
+                                                    <th scope="col">Purchase Price (&#8358;)</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                        
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                        Lorem ipsum dolor si
-                                                        </td> 
-                                                        <td> 23</td>
-                                                        <td> 43,000</td>
-                                                        <td>123,0000</td>
-                                                        
+                                                    <tr v-for="item in selectedInventory.inventory_item">
+                                                        <td> @{{ item.created_at | dateTime }} </td>
+                                                        <td>@{{ item.name }}</td>
+                                                        <td> @{{ item.quantity }}</td>
+                                                        <td> @{{ item.sales_price | numberFormat }}</td>
+                                                        <td> @{{ item.purchase_price | numberFormat }}</td>
                                                     </tr>
 
-                                                    <tr>
-                                                        <td>21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>
-                                                                
-                                                        </tr>
-                        
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>        
-                                                    </tr>
-                        
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>        
-                                                    </tr>
-                                                    <tr>
-                                                        <td >21/08/2020 </td>
-                                                        <td>
-                                                                Lorem ipsum dolor si
-                                                                </td> 
-                                                                <td> 23</td>
-                                                                <td> 43,000</td>
-                                                                <td>123,0000</td>
-          
-                                                    </tr>                                                    <tr>
-                                                    <tr>
-                                                            <td >21/08/2020 </td>
-                                                            <td>
-                                                                    Lorem ipsum dolor si
-                                                                    </td> 
-                                                                    <td> 23</td>
-                                                                    <td> 43,000</td>
-                                                                    <td>123,0000</td>
-                                                                    
-                                                   </tr>
-                                                   <tr>
-                                                            <td >21/08/2020 </td>
-                                                            <td>
-                                                                    Lorem ipsum dolor si
-                                                                    </td> 
-                                                                    <td> 23</td>
-                                                                    <td> 43,000</td>
-                                                                    <td>123,0000</td>            
-                                                   </tr>
                                                 </tbody>
                                             </table>
                                         </div>

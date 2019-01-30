@@ -1,13 +1,15 @@
-
 <template>
     <div class="bg-grey">
         <div class="bg-grey py-4 px-3" id="top">
             <div class="row">
-                <div class="col-md-6">
-                    PAID: {{ $parent.currency.format(totalAmountPaid) }}
+                <div class="col-md-6" v-if="!receiveMode">
+                    PAID: {{ $currency.format(totalAmountPaid) }}
+                </div>
+                <div class="col-md-6" v-if="receiveMode">
+                    Amount Received: {{ $currency.format(totalAmountPaid) }}
                 </div>
                 <div class="col-md-6">
-                    BAL: {{ $parent.currency.format(balanceLeft) }}
+                    BAL: {{ $currency.format(balanceLeft) }}
                 </div>
             </div>
             <hr>
@@ -44,13 +46,13 @@
             </div>
 
             <div v-show="!readOnly" v-for="(paymentMethod, index) in salePaymentMethods" class="row" >
-                <div class="col-md-5">
+                <div class="w-50">
                     <div class="dropdown show mt-3 payment_mode">
-                        <button class="btn btn-lg btn-payment dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-lg btn-payment dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ paymentMethod.name || 'Select'}}
                         </button>
                         <div class="dropdown-menu payment_mode_id" aria-labelledby="dropdownMenuLink">
-                            <button class="dropdown-item" v-for="account in availableAccounts" @click="setPaymentMode(paymentMethod, account)">{{ account.account_name.split(' ')[0] }}</button>
+                            <button class="dropdown-item" type="button" v-for="account in availableAccounts" @click="setPaymentMode(paymentMethod, account)">{{ account.account_name.split(' ')[0] }}</button>
                         </div>
                     </div>
                 </div>
@@ -100,6 +102,9 @@
             ...mapGetters(['availableAccounts', 'selectedAccounts']),
             readOnly () {
                 return this.options ? this.options.readOnly || false : false;
+            },
+            receiveMode () {
+                return this.options ? this.options.receiveMode || false : false;
             },
             totalAmountPaid () {
                 let sum = 0;
@@ -159,7 +164,7 @@
             },
             paidAmountChanged(val) {
                 if (this.totalAmountPaid > this.totalSpread) {
-                    toast('Amount paid cannot be greater than total sales amount', 'error', 'center');
+                    // toast('Amount paid cannot be greater than total sales amount', 'error', 'center');
                     this.invalidPaymentsSum(true);
                     this.$store.commit('totalPaid', this.totalAmountPaid);
                     return null;
@@ -177,12 +182,12 @@
             },
             addSalePaymentMethod: function () {
                 if (this.bankIsNotAvailable() || this.readOnly) return;
+
                 this.salePaymentMethods.push({
                     bank_id: null,
                     amount: null,
                     name: null,
                 });
-
             },
             removeSalePaymentMethod: function (index, accountId) {
                 this.salePaymentMethods.splice(index, 1);

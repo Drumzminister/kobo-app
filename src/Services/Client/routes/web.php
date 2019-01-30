@@ -70,7 +70,7 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/staff/multiple-staff', 'StaffController@showMultipleStaff')->name('client.single-staff.add');
     Route::post('/staff/single-staff/add', 'StaffController@addSingleStaff')->name('client.single-staff.add');
     Route::post('/staff/multiple-staff/add', 'StaffController@addMultipleStaff')->name('client.multiple-staff.add');
-//    Route::get('/staff/all-staff', 'StaffController@allStaff')->name('client.staff.all');
+
     Route::get('/staff/search', 'StaffController@searchStaff')->name('client.staff.search');
     Route::post('staff/imageUpload', 'StaffController@imageUpload')->name('client.staffImageUpload');
 
@@ -80,6 +80,9 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/customer/list', 'CustomerController@listAllCustomers')->name('client.customer.list');
     Route::get('/customer/all-customers', 'CustomerController@allCustomers')->name('client.customer.all');
     Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');
+    Route::post('/customer/uploadCsv', 'CustomerController@handleCsvUpload')->name('upload-multiple-customer');
+    Route::post('/customer/delete/{customerId}', 'CustomerController@deleteCustomer')->name('delete.customer');
+
 
 
     // Sale Routes
@@ -109,8 +112,19 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/vendor/search', 'VendorController@searchVendors')->name('vendor.search');
     Route::post('/vendor/{vendorId}/activate', 'VendorController@activateVendor')->name('vendor.activate');
 
+    Route::get('/creditors', 'CreditorController@showCreditorPage')->name('creditor.index');
+    Route::get('/creditors/creditor', 'CreditorController@showSingleCreditorPage')->name('creditor.credit');
+    Route::get('/creditors/all', 'CreditorController@showAllCreditor')->name('creditor.show-all');
+
+    Route::get('/debtors', 'DebtorsController@showDebtorsPage')->name('debtor.index');
+    Route::get('/debtors/debtor', 'DebtorsController@showSingleDebtorPage')->name('debtor.debt');
+    Route::get('/debtors/all', 'DebtorsController@showAllDebtorsPage')->name('debtor.show-all');
+
+    Route::get('/opening-pages', 'OpeningPagesController@showOpeningPages')->name('opening-pages.index');
+
+    Route::get('/bank', 'BankPagesController@showBankPages')->name('bank.index');
+
 });
-
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
-
 Route::get('/bar/{slug}', 'ClientDashboardController@testFeature');
+Route::get('/view/accountant', 'ClientDashboardController@viewAccountant');

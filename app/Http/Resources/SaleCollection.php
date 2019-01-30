@@ -27,11 +27,12 @@ class SaleCollection extends JsonResource
 	        'saleChannel' => new SaleChannelCollection($this->saleChannel),
 	        'discount' => $this->discount,
 	        'delivery_cost' => $this->delivery_cost,
+	        'balance' => $this->balance,
 
 	        // Custom Fields
 	        'transactions' => ClientTransactionCollection::collection($this->transactions),
 	        'customer_name' => $this->customer ? $this->customer->name : null,
-	        'quantity'  => $this->saleItems->count(),
+	        'quantity'  => array_sum($this->saleItems->pluck('quantity')->toArray()),
         ];
     }
 }

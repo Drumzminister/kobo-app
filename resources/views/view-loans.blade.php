@@ -1,4 +1,4 @@
-@extends("layouts.app-acct")
+@extends("layouts.app")
 
 @section("content")
     <style>
@@ -28,28 +28,24 @@
     <div id="loanApp">
         <section id="top">
             <div class="container py-3">
-                <h3 class="h3">Loans</h3>
-                <span class="accountant ml-auto btn btn-accountant">
-            <a href="" class="btn-accountant">
-                <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-            </a>
-        </span>
+                <h3 class="h3"><a href="/client/loans" class="text-dark">Loans</a></h3>
+                @include('client::accountant-button')
             </div>
         </section>
 
         <section>
             <div class="container">
-                <div class="row">
+                <div class="row py-3">
                     <div class="col-md-10 col-6">
-                        <div class="input-group mt-2">
+                        <div class="input-group">
                             <input type="text" class="form-control" v-model="search"  placeholder="&#xF002; Search different sources, purposes or status of loans" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div style="cursor:pointer;" @click="searchLoan()" class="input-group-append searchP">
-                                <span class="input-group-text vat-input px-5 py-2 mysearch" id="basic-addon2">Search</span>
+                                <span class="input-group-text vat-input px-5 mysearch" id="basic-addon2">Search</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-2 col-6">
-                        <div class="mt-2">
+                        <div class="">
                             <button style="" @click="showFilterOptions = !showFilterOptions" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>
                         </div>
                         <div class="box bg-white py-2" v-if="showFilterOptions">
@@ -65,7 +61,7 @@
         </section>
 
         <section id="sale-table">
-            <div class="container mt-4">
+            <div class="container">
 
                 <div class="bg-white p-4">
 

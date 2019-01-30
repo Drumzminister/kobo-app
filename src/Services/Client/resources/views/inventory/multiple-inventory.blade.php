@@ -12,11 +12,7 @@
         <div class="container p-2">
             <div class="row p-3">
                 <h2 class="h2"><a href="/client/inventory" class="text-dark"> Purchase Order</a> </h2>
-                <span class="accountant ml-auto btn btn-accountant">
-                <a href="" class="btn-accountant">
-                    <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>                
-                </span>
+                @include('client::accountant-button')
             </div>
         </div>
 </section>
@@ -45,7 +41,7 @@
                         
                     <div class="col-md-3">
                         <div class="form-group">
-                                <select class="form-control form-control-lg form-control vat-input" name="tax" id="basic-addon3">
+                                <select class="form-control form-control-lg form-control vat-input append-border" name="tax" id="basic-addon3">
                                 <option value="5">Value Added Tax (VAT) 5%</option>
                                 <option value="10">PAT (10%)</option>
                                 <option value="">Cashh</option>
@@ -93,70 +89,17 @@
                                 <td><input v-model="content.quantity" type="text" class="form-control "></td>
                                 <td><input v-model="content.cost_price" @keyup="calculateTotalInventoryCost()" id="" type="text" class="form-control cost_price"></td>
                                 <td><input v-model="content.sales_price"  id="" type="text" class="form-control "></td>
-                                <td><i class="fa fa-trash-o" @click="deleteInventoryRow(index)" style="font-size:24px"></i></td>
+                                <td style="cursor: pointer"><i class="fa fa-trash-o" @click="deleteInventoryRow(index)" style="font-size:24px"></i></td>
                             </tr>
                         </tbody>
                     </table>
-                    <span class="float-right" @click="addInventoryRow()">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
+                    <span class="float-right" @click="addInventoryRow()" style="cursor: pointer">Add Row <i class="fa fa-plus-square" style="font-size:24px;color:#00C259;"></i>
                     </span>
             </div>
 
         <div class="row p-2 mt-2 ">
                 <div class="col-md-6">
-                    <div class="bg-grey py-4 px-3" id="topp">
-                        <div class="row" >
-                            <div class="col-md-5">
-                                <h5 class="h5 uppercase">Payment Mode</h5>
-                                <div class="dropdown show mt-3">
-                                        <a class="btn btn-lg btn-payment dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Bank (GTB)
-                                        </a>
-                                    
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#">GTB 1</a>
-                                        <a class="dropdown-item" href="#">GTB 2</a>
-                                        <a class="dropdown-item" href="#">Skye Bank</a>
-                                        </div>
-                                    </div>
-                            </div>
-
-                            <div class="col-md-5">
-                                <h5 class="h5 uppercase">Amount</h5>
-                                <div class="show input-group input-group-lg mt-3">
-                                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="500,000">
-                                </div>                                
-                            </div>
-
-                            <div class="col-md-2"></div>
-                        </div>
-                        
-                        
-                        <div class="row">
-                                <div class="col-md-5">
-                                    <div class="dropdown show mt-3">
-                                            <a class="btn btn-lg btn-payment dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Cash
-                                            </a>
-                                        
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item" href="#">ATM</a>
-                                            <a class="dropdown-item" href="#">GTB 2</a>
-                                            <a class="dropdown-item" href="#">Skye Bank</a>
-                                            </div>
-                                        </div>
-                                </div>
-
-                                <div class="col-md-5">
-                                    <div class="show input-group input-group-lg mt-3">
-                                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="750,000">
-                                    </div>                                   
-                                </div>
-                                <div class="col-md-2 mt-4 "> 
-                                        <span class=""><i class="fa fa-plus-square" style="font-size:32px;color:#00C259;"></i>
-                                        </span>
-                                </div>    
-                        </div>
-                    </div>
+                    <payment-method-selection :banks="banks"></payment-method-selection>
                 </div>
             {{-- end of current payment --}}
 
@@ -175,12 +118,12 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <h5 class="h5 uppercase">Total Delivery Amount</h5>
+                                        <h5 class="h5 uppercase">Delivery cost</h5>
                                         <div class="input-group mb-3 input-group-lg">
-                                            {{-- <div class="input-group-prepend">
-                                                <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
-                                            </div> --}}
-                                            <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 100,000">
+                                             {{--<div class="input-group-prepend">--}}
+                                                {{--<span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>--}}
+                                            {{--</div>--}}
+                                            <input type="text" class="form-control"  id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 100,000">
                                         </div>
 
                                     </div>
@@ -225,5 +168,6 @@
 @section('other_js')
     <script>
         window.vendors = @json($vendors);
+        window.banks = @json($banks);
     </script>
 @endsection

@@ -73,7 +73,7 @@ window.app = new Vue({
 
         dateTime(value) {
             if (!value) return '';
-            return moment(value).fromNow(); // here u modify data
+            return moment(value).format('l'); // here u modify data
         },
     },
     data: {},

@@ -1,3 +1,5 @@
+import {toast} from "../helpers/alert";
+
 export const loanApp = {
     data: {
         loans: [],
@@ -18,6 +20,7 @@ export const loanApp = {
         loanDescription: "",
         loanPeriod: "month",
         noSourceFound: false,
+        allLoanIntervals: [],
         loanPaymentAmount: "",
         showSourcesForm: false,
         sourceSearching: false,
@@ -25,10 +28,12 @@ export const loanApp = {
         currentLoanPayments: [],
         isRequestingLoan: false,
         showMoreIntervals: false,
-        accountReceivingLoan: null,
         loadingLoanDetails: false,
+        accountReceivingLoan: null,
+        loanPaymentIntervalList: [],
         showIntervalSelector: false,
         loanPaymentInterval: "Monthly",
+        showSelectPaymentMode: false,
         loanPaymentValidationMessage: "",
         loanPaymentValidationError: false
     },
@@ -50,7 +55,20 @@ export const loanApp = {
             } else{
                 this.loanPaymentValidationError = false;
             }
+        },
+        loanInterest () {
+            if (Number(this.loanInterest) >= 100) {
+                toast('Interest can not be greater than 100%', 'error');
+                this.loanInterest = this.loanInterest.slice(0, this.loanInterest.length - 1) ;
+            }
+        },
+        loanTerm () {
+            this.calculateIntervalsToBeShown();
+        },
+        loanPeriod () {
+            this.calculateIntervalsToBeShown();
         }
+
     },
     mounted () {
         this.loans = window.loans;
@@ -59,11 +77,74 @@ export const loanApp = {
         this.loanAmtPaid = window.loanAmtPaid;
         this.loanAmtOwing = window.loanAmtOwing;
         this.loanAmtRunning = window.loanAmtRunning;
+        this.allLoanIntervals = [
+            {
+                name: "Weekly" ,
+                value: "1 week"
+            },
+            {
+                name: "Bi-weekly",
+                value: "2 week"
+            },
+            {
+                name: "Monthly",
+                value: "1 month"
+            },
+            {
+                name: "Bi-monthly",
+                value: "2 month"
+            },
+            {
+                name: "Quaterly",
+                value: "3 month"
+            },
+            {
+                name: "Anually",
+                value: "1 year"
+            },
+            {
+                name: "4 Months",
+                value: "4 month"
+            },
+            {
+                name: "5 Months",
+                value: "5 month"
+            },
+            {
+                name: "6 Months",
+                value: "6 month"
+            },
+            {
+                name: "7 Months",
+                value: "7 month"
+            },
+            {
+                name: "8 Months",
+                value: "8 month"
+            },
+            {
+                name: "9 Months",
+                value: "9 month"
+            },
+            {
+                name: "10 Months",
+                value: "10 month"
+            },
+            {
+                name: "11 Months",
+                value: "11 month"
+            },
+        ];
+        this.loanPaymentIntervalList = [...this.allLoanIntervals];
+        this.loanPaymentInterval = this.loanPaymentIntervalList[0];
         this.runDebouncedSearch = _.debounce(this.searchForSource, 500);
     },
     computed: {
         selectedAccounts () {
             return this.$store.getters.selectedAccounts;
+        },
+        spreadAmount () {
+            return this.loanAmount;
         }
     },
     methods: {
@@ -107,19 +188,35 @@ export const loanApp = {
             this.isRequestingLoan = true;
             formData.append('name', this.newSource);
             axios.post('/client/loan/sources/add', formData).then(res => {
-                swal('Successful', "New loan source added successfully", "success");
+                toast("New loan source added successfully", 'success');
                 this.showSourcesForm = false;
                 this.isRequestingLoan = false;
-                this.searchSource = res.data.source.name;
                 this.chosenSource= res.data.source.id;
+                this.searchSource = res.data.source.name;
             }).catch(err => {
                 this.isRequestingLoan = false;
                 console.error(err);
             })
         },
         saveLoan () {
-            if (this.accountReceivingLoan === null || this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear ||  this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
-                swal('Oops', "Some required fields are empty", "error");
+            if (this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear ||  this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
+                toast("Some required fields are empty", "error");
+                return;
+            }
+            let sum = 0;
+            this.selectedAccounts.forEach((account) => {
+                if ( !isNaN(Number(account.amount)) ) {
+                    sum += Number(account.amount);
+                }
+            });
+            if (sum !== Number(this.loanAmount)) {
+                swal({
+                    title: "Error",
+                    text: `Amount receivable should equal loan amount: ${this.loanAmount}`,
+                    type: `warning`,
+                    timer: 1000,
+                    showConfirmButton: false
+                });
                 return;
             }
             let formData = new FormData();
@@ -129,14 +226,20 @@ export const loanApp = {
             formData.append('amount', this.loanAmount);
             formData.append('period', this.loanPeriod);
             formData.append('term', this.loanTerm);
-            formData.append('payment_interval', this.paymentPerYear);
+            formData.append('payment_interval', this.loanPaymentInterval.value);
             formData.append('start_date', this.loanDate);
-            formData.append('receivingAccount', JSON.stringify(this.accountReceivingLoan) );
+            formData.append('receivingAccount', JSON.stringify(this.selectedAccounts));
             this.isRequestingLoan = true;
             axios.post(window.addLoanUrl, formData).then(res => {
-                swal('Successful', 'Loan added successfully', 'success');
+                swal({
+                    type: 'success',
+                    title: "Successful",
+                    text: 'Loan added successfully',
+                    timer: 1000,
+                    showConfirmButton: false
+                });
                 this.isRequestingLoan = false;
-                document.querySelector('#cancelLoanModal').click();
+                this.closeLoanModal();
                 let loan = res.data.loan;
                 loan.source_name = this.searchSource;
                 loan.status = "running";
@@ -147,8 +250,7 @@ export const loanApp = {
                 swal('Oops', err.response.data.error, "error");
             });
         },
-        displayLoanDetails (loan, evt) {
-            let row = evt.target;
+        displayLoanDetails (loan) {
             this.currentLoan = loan;
             this.loadingLoanDetails = true;
             axios.get(`/client/loan/${loan.id}/payments`).then(res => {
@@ -179,12 +281,13 @@ export const loanApp = {
             this.isRequestingLoan = true;
             axios.post(`/client/loan/${this.currentLoan.id}/pay`, formData).then(response => {
                 this.isRequestingLoan = false;
-                this.closeModal('#paymentModal');
                 this.closeModal('#loanDetailsModal');
-                swal('Success', `Payment made successfully`, 'success');
+                this.currentLoan.amount_paid = Number(this.currentLoan.amount_paid) + Number(sum);
+                toast(`Payment made successfully`, 'success');
+                this.showSelectPaymentMode = !this.showSelectPaymentMode
             }).catch(err => {
                 this.isRequestingLoan = false;
-                swal('Oops', `${err.response.data.message}`, 'error');
+                toast(`${err.response.data.message}`, 'error');
             });
         },
         toggleShowMoreIntervals (evt) {
@@ -202,8 +305,8 @@ export const loanApp = {
         toggleShowIntervalSelector () {
             this.showIntervalSelector = !this.showIntervalSelector;
         },
-        selectLoanPaymentInterval (event) {
-            this.loanPaymentInterval = event.target.innerText;
+        selectLoanPaymentInterval (interval) {
+            this.loanPaymentInterval = interval;
             this.toggleShowIntervalSelector();
         },
         closeLoanModal () {
@@ -216,6 +319,21 @@ export const loanApp = {
             this.loanInterest = "";
             this.paymentPerYear = 1;
             this.closeModal('#addLoanModal');
+        },
+        calculateIntervalsToBeShown () {
+            if (this.loanTerm.trim() === "") {
+                this.loanPaymentIntervalList = [...this.allLoanIntervals];
+            }
+            if (this.loanTerm) {
+                let duration = moment([]).add(this.loanTerm, this.loanPeriod);
+                this.loanPaymentIntervalList = this.allLoanIntervals.filter(interval => {
+                    let term, period;
+                    [term, period] = interval.value.split(" ");
+                    let nextInterval = moment([]).add(term, period);
+                    return duration.isSameOrAfter(nextInterval);
+                });
+                this.loanPaymentInterval = this.loanPaymentIntervalList[0];
+            }
         }
     }
 };
