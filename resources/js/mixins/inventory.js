@@ -2,17 +2,15 @@ import PaymentMethodSelection from "../components/banks/PaymentMethodSelection";
 export const inventoryApp = {
     data: {
         inventoryForm: {
-            name: '',
-            description: '',
-            costPrice: '',
-            salePrice: '',
-            quantity: '',
+            inventoryItem:[],
             vendor_id: '',
-            category: '',
+            date: '',
             attachment: '',
             tax: '',
-            discount: ''
-
+            discount: '',
+            delivery_cost: '',
+            total_price: '',
+            banks: '',
         },
         inventoryItem: {
             delivered_date: '',
@@ -32,7 +30,13 @@ export const inventoryApp = {
         inventoryTableRow: [],
         totalCostPrice: [],
         selectedInventory: '',
-        banks: window.banks
+        banks: window.banks,
+        taxes: window.taxes,
+    },
+    computed : {
+        selectedAccounts () {
+            return this.$store.getters.selectedAccounts;
+        },
     },
     component: {
       PaymentMethodSelection,
@@ -60,8 +64,11 @@ export const inventoryApp = {
         },
         createInventory(evt) {
             evt.preventDefault();
+            this.totalCostPrice = this.inventoryForm.total_price;
+            this.inventoryForm.banks = this.selectedAccounts;
+            this.inventoryForm.inventoryItem = this.inventoryTableRow;
             axios.post('/client/inventory/add', this.inventoryForm).then(res => {
-                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false,}).then(() =>{location.reload(true)});
+                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false,});
                 this.inventoryForm = '';
             }).catch(err => {
                 swal("Oops", "An error occurred when creating this account", "error");

@@ -77,11 +77,10 @@ class DatabaseSeeder extends Seeder
 		return factory(Vendor::class, $nums)->create(['company_id' => $company->id, 'user_id' => $user->id]);
     }
 
-    private function createInventoryItem($nums, $inventory)
+    private function createInventoryItem($nums, $inventory, $company, $user)
     {
-        return factory(InventoryItem::class, $nums)->create(['inventory_id' => $inventory]);
+        return factory(InventoryItem::class, $nums)->create(['inventory_id' => $inventory, 'user_id' => $user, 'company_id' => $company]);
     }
-
     private function createClientAndHisCompany($accountant)
     {
     	// Create some subscriptions
@@ -120,8 +119,8 @@ class DatabaseSeeder extends Seeder
 
         $vendors->each(function (Vendor $vendor) use ($company, &$inventories, $clientUser) {
             $inventory = $inventories->merge(factory(Inventory::class, 4)->create(['company_id' => $company->id, 'vendor_id' => $vendor->id, 'user_id' => $clientUser->id]));
-            $inventory->each(function($inventory) {
-                $this->createInventoryItem(10, $inventory->id);
+            $inventory->each(function($inventory) use($company, $clientUser) {
+                $this->createInventoryItem(10, $inventory->id, $company->id, $clientUser->id);
             });
         });
 
