@@ -71,6 +71,9 @@ class GetSalesPageDataJob extends Job
 
     	$sales = $this->sale->getByAttributes(['company_id' => $company->id]);
     	$monthSales = $this->sale->getCompanyMonthSale($company->id);
+    	$monthSales = $monthSales->map(function ($sale)  {
+		    return new SaleCollection($sale);
+	    });
 
 
     	$sales = $sales->map(function ($sale)  {

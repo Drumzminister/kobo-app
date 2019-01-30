@@ -34,22 +34,6 @@
                     </div>
                 </div>
         </form>
-
-        <div class="row">
-                <div class="col-md-10 col-6">
-                    <div class="input-group mt-2">
-                        <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-6">
-                    <div id="" class="mt-2 float-right" onclick="">
-                        <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
-                    </div>
-                </div>
-        </div>
     </div>
 </section>
 
@@ -57,6 +41,22 @@
         <div class="container mt-4">
                         
             <div class="bg-white p-4"> 
+
+                <div class="row py-2">
+                    <div class="col-md-10 col-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <span class="input-group-text vat-input px-5" id="basic-addon2">Search</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <div id="" class="float-right" onclick="">
+                            <button style="" class="btn btn-filter">Filter <i class="fa fa-filter"></i></button>         
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="table-responsive table-responsive-sm">
                         <table class="table table-striped table-hover" id="dataTable">

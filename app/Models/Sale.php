@@ -81,7 +81,7 @@ class Sale extends Model
 
 	public function scopeMonthSale($query)
 	{
-		return $query->whereIn('created_at', [now()->subMonth(), now()]);
+		return $query->whereBetween('created_at', [now()->subMonth(), now()]);
 	}
 
 	public function scopeYearSale($query)

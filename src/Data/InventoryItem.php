@@ -19,4 +19,16 @@ class InventoryItem extends Model
     {
     	return $this->hasMany(SaleItem::class);
     }
+    public function sumQuantity()
+    {
+        return $this->sum('quantity');
+    }
+    public function totalSalePrice()
+    {
+        return $this->sum('sales_price');
+    }
+    public function sumPurchasePrice()
+    {
+        return $this->sum('purchase_price');
+    }
 }
