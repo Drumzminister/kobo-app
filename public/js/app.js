@@ -117593,7 +117593,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         dateRange: {
             get: function get() {
-                return moment.range(this.startDate, this.endDate);
+                return this.startDate + ' - ' + this.endDate;
             }
         }
     },
@@ -117601,7 +117601,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         mode: function mode(newValue, oldValue) {
             this.processChart();
         },
-        dateRange: function dateRange(newValue, oldValue) {}
+        dateRange: function dateRange(newValue, oldValue) {
+            this.processChart(this.getDataByDateRange());
+        }
     },
     mounted: function mounted() {
         this.processChart();
@@ -117611,11 +117613,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getDataByDateRange: function getDataByDateRange() {
             var _this = this;
 
-            var data = this.year.filter(function (_ref) {
+            return this.year.filter(function (_ref) {
                 var created_at = _ref.created_at;
-                return moment(created_at).isBetween(_this.startDate, _this.endDate);
+                return moment(created_at).isBetween(_this.startDate, _this.endDate, null, '[]');
             });
-            console.log(data);
         },
         updateValues: function updateValues(values) {
             this.startDate = values.startDate.toISOString().slice(0, 10);
@@ -117638,7 +117639,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         processChart: function processChart(newData) {
             var mode = this.mode;
-            var data = newData || this.getSalesQuantityData(this[mode]);
+            var data = newData ? this.getSalesQuantityData(newData) : this.getSalesQuantityData(this[mode]);
 
             var ctx = document.getElementById("myChart").getContext('2d');
             var myChart = new Chart(ctx, {

@@ -103,7 +103,7 @@
             },
             dateRange: {
                 get: function() {
-                    return moment.range(this.startDate, this.endDate);
+                    return this.startDate + ' - ' + this.endDate;
                 }
             }
         },
@@ -112,7 +112,7 @@
                 this.processChart();
             },
             dateRange: function(newValue, oldValue) {
-
+                this.processChart(this.getDataByDateRange());
             }
         },
         mounted() {
@@ -120,8 +120,7 @@
         },
         methods: {
             getDataByDateRange () {
-                let data = this.year.filter(({ created_at }) => moment(created_at).isBetween(this.startDate, this.endDate) );
-                console.log(data);
+                return this.year.filter(({ created_at }) => moment(created_at).isBetween(this.startDate, this.endDate, null, '[]') );
             },
             updateValues (values) {
                 this.startDate = values.startDate.toISOString().slice(0, 10);
@@ -136,7 +135,7 @@
             },
             processChart (newData) {
                 let mode = this.mode;
-                let data = newData || this.getSalesQuantityData(this[mode]);
+                let data = newData ? this.getSalesQuantityData(newData) : this.getSalesQuantityData(this[mode]);
 
                 let ctx = document.getElementById("myChart").getContext('2d');
                 let myChart = new Chart(ctx, {
