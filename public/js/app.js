@@ -77382,17 +77382,18 @@ var loanApp = {
 var inventoryApp = {
     data: {
         inventoryForm: {
-            name: '',
-            description: '',
-            costPrice: '',
-            salePrice: '',
-            quantity: '',
+            inventoryItem: [],
             vendor_id: '',
-            category: '',
+            delivered_date: '',
             attachment: '',
-            tax: '',
-            discount: ''
-
+            tax_id: '',
+            discount: '',
+            delivery_cost: '',
+            total_cost_price: '',
+            total_sales_price: '',
+            total_quantity: '',
+            amount_paid: 0,
+            banks: ''
         },
         inventoryItem: {
             delivered_date: '',
@@ -77412,7 +77413,29 @@ var inventoryApp = {
         inventoryTableRow: [],
         totalCostPrice: [],
         selectedInventory: '',
-        banks: window.banks
+        banks: window.banks,
+        taxes: window.taxes
+    },
+    computed: {
+        selectedAccounts: function selectedAccounts() {
+            return this.$store.getters.selectedAccounts;
+        },
+        inventoryTax: function inventoryTax() {
+            if (this.inventoryForm.tax_id) {
+                var tax = Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.totalCostPrice);
+                return tax;
+            }
+            return 0;
+        },
+        getActualAmountPaidThroughBank: function getActualAmountPaidThroughBank() {
+            var _this = this;
+
+            var total = 0;
+            this.selectedAccounts.forEach(function (bank) {
+                total += Number(bank.amount);
+                _this.inventoryForm.amount_paid = total;
+            });
+        }
     },
     component: {
         PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default.a
@@ -77421,6 +77444,7 @@ var inventoryApp = {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
         this.vendors = window.vendors;
+        this.inventoryForm.tax_id = this.taxes[2];
         this.addInventoryRow();
     },
 
@@ -77440,17 +77464,25 @@ var inventoryApp = {
             return inventoryQuantitySum;
         },
         createInventory: function createInventory(evt) {
-            var _this = this;
-
             evt.preventDefault();
+            this.totalCostPrice = this.inventoryForm.total_price;
+            this.inventoryForm.banks = this.selectedAccounts;
+            this.inventoryForm.inventoryItem = this.inventoryTableRow;
+            this.inventoryForm.total_cost_price = this.calculateTotalCost();
+            this.inventoryForm.total_quantity = this.calculateTotalQuantity();
+            this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
+            this.inventoryForm.tax_amount = this.inventoryTax;
+            this.inventoryForm.tax_id = this.inventoryForm.tax_id.id;
+            // this.inventoryForm.amount_paid = this.getActualAmountPaidThroughBank
+            console.log(this.getActualAmountPaidThroughBank);
             axios.post('/client/inventory/add', this.inventoryForm).then(function (res) {
-                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
-                    location.reload(true);
-                });
-                _this.inventoryForm = '';
+                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false });
             }).catch(function (err) {
                 swal("Oops", "An error occurred when creating this account", "error");
             });
+        },
+        getTotalCostPrice: function getTotalCostPrice() {
+            return document.querySelector("totalCostPrice").value;
         },
         highestPurchase: function highestPurchase() {
             if (this.top_purchase === highest_quantity) {
@@ -77459,12 +77491,8 @@ var inventoryApp = {
                 this.top_purchase = highest_quantity;
             }
         },
-        trimIdToInvoice: function trimIdToInvoice(value) {
-            return value.slice(0, 5);
-        },
         deleteInventory: function deleteInventory(inventoryId) {
             axios.post('/client/inventory/' + inventoryId + '/delete').then(function (res) {
-                console.log(res.data.message);
                 swal({
                     type: 'success',
                     title: 'Success',
@@ -77488,9 +77516,9 @@ var inventoryApp = {
         deleteInventoryRow: function deleteInventoryRow(row) {
             $("#row-" + row).remove();
             // reevaluate total after deletion
-            this.calculateTotalInventoryCost();
+            this.calculateTotalCost();
         },
-        calculateTotalInventoryCost: function calculateTotalInventoryCost() {
+        calculateTotalCost: function calculateTotalCost() {
             var total = 0;
             var cost_price = document.querySelectorAll(".cost_price");
             cost_price.forEach(function (input) {
@@ -77498,8 +77526,23 @@ var inventoryApp = {
             });
             return this.totalCostPrice = total;
         },
+        calculateTotalSalesPrice: function calculateTotalSalesPrice() {
+            var total = 0;
+            var sales_price = document.querySelectorAll(".sales_price");
+            sales_price.forEach(function (input) {
+                total += Number(input.value);
+            });
+            return total;
+        },
+        calculateTotalQuantity: function calculateTotalQuantity() {
+            var total = 0;
+            var total_quantity = document.querySelectorAll(".quantity");
+            total_quantity.forEach(function (input) {
+                total += Number(input.value);
+            });
+            return total;
+        },
         getSelectedInventory: function getSelectedInventory(inventory) {
-            console.log(inventory);
             this.selectedInventory = inventory;
         }
     }
@@ -78267,23 +78310,21 @@ var customerApp = {
         searchNotFound: false
     },
 
-    created: function created() {
-        var _this = this;
-
-        axios.get('/client/customer/all-customers').then(function (res) {
-            _this.customers = res.data.all_customers.data;
-        });
-    },
-
+    // created() {
+    //     axios.get('/client/customer/all-customers')
+    //         .then(res => {
+    //             this.customers = res.data.all_customers.data;
+    //         });
+    // },
     methods: {
         createCustomer: function createCustomer(e) {
-            var _this2 = this;
+            var _this = this;
 
             e.preventDefault();
             this.customerFormSubmitted = true;
             this.$validator.validate().then(function (valid) {
                 if (valid) {
-                    axios.post('/client/customer/add', _this2.customerForm).then(function (res) {
+                    axios.post('/client/customer/add', _this.customerForm).then(function (res) {
                         swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
                             location.reload(true);
                         });
@@ -78294,11 +78335,11 @@ var customerApp = {
             });
         },
         searchCustomer: function searchCustomer() {
-            var _this3 = this;
+            var _this2 = this;
 
             axios.get('/client/customer/search?param=' + this.customerSearch).then(function (res) {
-                _this3.customers = '';
-                var result = _this3.customers = res.data;
+                _this2.customers = '';
+                var result = _this2.customers = res.data;
             });
         },
         getAndProcessCustomerImage: function getAndProcessCustomerImage() {},
@@ -89182,8 +89223,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 };
             });
 
-            console.log(graphData);
-
             var labels = data.map(function (_ref) {
                 var sale_date = _ref.sale_date;
 
@@ -89226,7 +89265,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             options.scales = { xAxes: xAxes };
-            console.log(options);
             return options;
         }
     }

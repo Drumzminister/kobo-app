@@ -14,12 +14,12 @@ export const customerApp = {
         searchNotFound: false,
     },
 
-    created() {
-        axios.get('/client/customer/all-customers')
-            .then(res => {
-                this.customers = res.data.all_customers.data;
-            });
-    },
+    // created() {
+    //     axios.get('/client/customer/all-customers')
+    //         .then(res => {
+    //             this.customers = res.data.all_customers.data;
+    //         });
+    // },
     methods: {
         createCustomer(e) {
             e.preventDefault();

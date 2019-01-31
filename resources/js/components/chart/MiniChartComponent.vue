@@ -116,8 +116,6 @@
                     }
                 });
 
-                console.log(graphData);
-
                 let labels = data.map(({ sale_date }) => {
                     return moment(sale_date)[this.mode]();
                 });
@@ -162,7 +160,6 @@
                 }
 
                 options.scales = { xAxes: xAxes };
-                console.log(options);
                 return options;
             },
         }
