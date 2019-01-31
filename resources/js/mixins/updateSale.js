@@ -69,7 +69,7 @@ export const updateSale = {
 
             let newItem = this.addSaleItemForm();
             newItem.inventory = item.inventory;
-            newItem.inventory_id = item.inventory_id;
+            newItem.inventory_id = item.inventory_item_id;
             newItem.sales_price = -1 * item.sales_price;
             newItem.type = 'reversed';
             newItem.quantity = item.quantity;
@@ -90,7 +90,7 @@ export const updateSale = {
             return item;
         },
         createWatcherForSaleItem (item) {
-            this.$watch(() => item.inventory_id, this.saleItemDataChanged);
+            this.$watch(() => item.inventory_item_id, this.saleItemDataChanged);
             this.$watch(() => item.sale_channel_id, this.saleItemDataChanged);
             this.$watch(() => item.description, this.saleItemDataChanged);
             this.$watch(() => item.quantity, this.saleItemDataChanged);
@@ -184,9 +184,9 @@ export const updateSale = {
             }
         },
         createNewSaleItemFromSaleItem (item) {
-            let inventory = this.$store.getters.getInventory(item.inventory_id);
+            let inventory = this.$store.getters.getInventory(item.inventory_item_id);
             let saleItem = new SaleItem(this.sale.id, inventory);
-            saleItem.inventory_id = item.inventory_id;
+            saleItem.inventory_item_id = item.inventory_item_id;
             saleItem.id = item.id;
             saleItem.sale_channel_id = item.sale_channel_id;
             saleItem.quantity = parseInt(item.quantity);

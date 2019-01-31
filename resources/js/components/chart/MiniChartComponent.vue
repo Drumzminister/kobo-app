@@ -33,29 +33,7 @@
                             {{ picker.startDate | date }} - {{ picker.endDate | date }}
                         </div>
                     </date-range-picker>
-                    <!--<input type="date" v-model="dateRange" id="graphDateRange" class="form-control" placeholder="Start Date">-->
-                    <!--<select id="inputState" class="form-control btn-loginn">-->
-                        <!--<option selected>Start Date</option>-->
-                        <!--<option>January</option>-->
-                        <!--<option>Feburary</option>-->
-                        <!--<option>March</option>-->
-                        <!--<option>April</option>-->
-                        <!--<option>May</option>-->
-                        <!--<option>June</option>-->
-                    <!--</select>-->
                 </div>
-                <!--<div class="form-group col-6">-->
-                    <!--<input type="date" v-model="endDate" class="form-control" placeholder="End Date">-->
-                    <!--&lt;!&ndash;<select id="inputState" class="form-control btn-loginn">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option selected class>End Date</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>January</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>Feburary</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>March</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>April</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>May</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>June</option>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
-                <!--</div>-->
             </div>
         </div>
         <div class="row">
@@ -120,16 +98,16 @@
         },
         methods: {
             getDataByDateRange () {
-                return this.year.filter(({ created_at }) => moment(created_at).isBetween(this.startDate, this.endDate, null, '[]') );
+                return this.year.filter(({ sale_date }) => moment(sale_date).isBetween(this.startDate, this.endDate, null, '[]') );
             },
             updateValues (values) {
                 this.startDate = values.startDate.toISOString().slice(0, 10);
                 this.endDate = values.endDate.toISOString().slice(0, 10);
             },
             getSalesQuantityData (data) {
-                let graphData = data.map(({ quantity, created_at }) => { return { t:new Date(created_at), y:quantity } });
-                let labels = data.map(({ created_at }) => {
-                    return moment(created_at)[this.mode]();
+                let graphData = data.map(({ quantity, sale_date }) => { return { t:new Date(sale_date), y:quantity } });
+                let labels = data.map(({ sale_date }) => {
+                    return moment(sale_date)[this.mode]();
                 });
                 return { graphData, labels };
             },

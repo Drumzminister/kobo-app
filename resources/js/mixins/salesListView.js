@@ -7,7 +7,7 @@ export const salesListView = {
         salesList: window.salesList,
         saleInvoice: {},
         columns: [
-            'created_at',
+            'sale_date',
             'invoice_number',
             'quantity',
             'total_amount',
@@ -19,13 +19,13 @@ export const salesListView = {
             //     filterBy: 'Filter by {column}',
             //     count:''
             // },
-            dateColumns: ['created_at'],
+            dateColumns: ['sale_date'],
             datepickerOptions: {
                 showDropdowns: true,
                 autoUpdateInput: true,
             },
             headings: {
-                created_at: 'Date',
+                sale_date: 'Date',
                 invoice_number: 'Invoice',
                 quantity: 'QTY Sold',
                 customer_name: 'Customer',
@@ -36,7 +36,7 @@ export const salesListView = {
                 //
             },
             // sortable: ['name', 'code'],
-            filterable: ['created_at', 'customer_name', 'channel_name', 'total_amount', 'invoice_number', 'quantity']
+            filterable: ['sale_date', 'customer_name', 'channel_name', 'total_amount', 'invoice_number', 'quantity']
         }
     },
     mounted () {
