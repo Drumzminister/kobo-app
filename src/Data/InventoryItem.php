@@ -1,12 +1,14 @@
 <?php
 namespace App\Data;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Koboaccountant\Models\Inventory;
 
 class InventoryItem extends Model
 {
-    protected $fillable = ['inventory_id', 'name', 'quantity', 'description', 'purchase_price', 'sales_price'];
+    use Cachable;
+    protected $fillable = ['inventory_id', 'company_id', 'user_id', 'name', 'quantity', 'description', 'cost_price', 'sales_price'];
 
     public $incrementing = false;
 

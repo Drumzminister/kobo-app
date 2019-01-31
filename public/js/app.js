@@ -77423,7 +77423,7 @@ var inventoryApp = {
         inventoryTax: function inventoryTax() {
             if (this.inventoryForm.tax_id) {
                 var tax = Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.totalCostPrice);
-                return tax;
+                return parseFloat(tax).toFixed(2);
             }
             return 0;
         },
@@ -77444,7 +77444,7 @@ var inventoryApp = {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
         this.vendors = window.vendors;
-        this.inventoryForm.tax_id = this.taxes[2];
+        if (this.taxes) this.inventoryForm.tax_id = this.taxes[2];
         this.addInventoryRow();
     },
 

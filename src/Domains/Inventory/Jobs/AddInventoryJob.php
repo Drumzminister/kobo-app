@@ -45,17 +45,17 @@ class AddInventoryJob extends Job
         $this->data['company_id'] = $this->companyId;
         $inventory = $this->inventory->fillAndSave($this->data);
         $methods = $this->data['banks'];
-        foreach ($methods as $method) {
-            (new DebitAccountJob($method, $this->companyId ))->handle();
-        }
+//        foreach ($methods as $method) {
+//            (new DebitAccountJob($method, $this->companyId ))->handle();
+//        }
         $items = $this->data['inventoryItem'];
         foreach($items as $key => $data)
         {
-            $data['id'] = $this->inventoryItem->generateUuid()->toString();
             $data['user_id'] = $this->userId;
             $data['company_id'] = $this->companyId;
             $data['inventory_id'] = $inventory->id;
             $this->inventoryItem->fillAndSave($data);
         }
+        return true;
     }
 }

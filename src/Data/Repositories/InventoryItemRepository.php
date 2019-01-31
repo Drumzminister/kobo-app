@@ -26,6 +26,6 @@ class InventoryItemRepository extends Repository
     }
     public function topTenHighestAmountPurchases($companyId)
     {
-        return $this->model->newQuery()->where('company_id', $companyId)->orderBy('purchase_price', 'desc')->take(10)->get();
+        return $this->model->newQuery()->where('company_id', $companyId)->orderByDesc('cost_price')->take(10)->get();
     }
 }
