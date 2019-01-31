@@ -35,7 +35,8 @@ class GetCompanyInventoriesJob extends Job
     {
     	return $this->inventory->getAvailableInventories($this->companyId)
 	                           ->pluck('inventoryItem')
-	                           ->flatten()
-	                           ->filter(function ($item) { return $item->quantity > 0; });
+	                           ->flatten(1)
+	                           ->filter(function ($item) { return $item->quantity > 0; })
+	                           ->values();
     }
 }
