@@ -33,29 +33,7 @@
                             {{ picker.startDate | date }} - {{ picker.endDate | date }}
                         </div>
                     </date-range-picker>
-                    <!--<input type="date" v-model="dateRange" id="graphDateRange" class="form-control" placeholder="Start Date">-->
-                    <!--<select id="inputState" class="form-control btn-loginn">-->
-                        <!--<option selected>Start Date</option>-->
-                        <!--<option>January</option>-->
-                        <!--<option>Feburary</option>-->
-                        <!--<option>March</option>-->
-                        <!--<option>April</option>-->
-                        <!--<option>May</option>-->
-                        <!--<option>June</option>-->
-                    <!--</select>-->
                 </div>
-                <!--<div class="form-group col-6">-->
-                    <!--<input type="date" v-model="endDate" class="form-control" placeholder="End Date">-->
-                    <!--&lt;!&ndash;<select id="inputState" class="form-control btn-loginn">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option selected class>End Date</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>January</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>Feburary</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>March</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>April</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>May</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>June</option>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
-                <!--</div>-->
             </div>
         </div>
         <div class="row">
@@ -70,7 +48,7 @@
     export default {
         components: { DateRangePicker },
         props: [
-            'month', 'day', 'week', 'year', 'options'
+            'month', 'day', 'week', 'year', 'options', 'data'
         ],
         filters: {
             date (value) {
@@ -105,6 +83,9 @@
                 get: function() {
                     return this.startDate + ' - ' + this.endDate;
                 }
+            },
+            type () {
+                return this.options.dateColumn ? 'line' : 'scatter';
             }
         },
         watch: {
@@ -120,61 +101,67 @@
         },
         methods: {
             getDataByDateRange () {
-                return this.year.filter(({ created_at }) => moment(created_at).isBetween(this.startDate, this.endDate, null, '[]') );
+                return this.data.filter((one) => moment(one[this.options.dateColumn]).isBetween(this.startDate, this.endDate, null, '[]') );
             },
             updateValues (values) {
                 this.startDate = values.startDate.toISOString().slice(0, 10);
                 this.endDate = values.endDate.toISOString().slice(0, 10);
             },
-            getSalesQuantityData (data) {
-                let graphData = data.map(({ quantity, created_at }) => { return { t:new Date(created_at), y:quantity } });
-                let labels = data.map(({ created_at }) => {
-                    return moment(created_at)[this.mode]();
+            getData (data) {
+                let { xColumn, yColumn } = this.options;
+                let graphData = data.map((plot) => {
+                    return {
+                            x:this.options.dateColumn ? new Date(plot[xColumn]) : plot[xColumn],
+                            y:plot[yColumn]
+                    }
                 });
-                return { graphData, labels };
+
+                let labels = data.map(({ sale_date }) => {
+                    return moment(sale_date)[this.mode]();
+                });
+                return { graphData };
             },
             processChart (newData) {
                 let mode = this.mode;
-                let data = newData ? this.getSalesQuantityData(newData) : this.getSalesQuantityData(this[mode]);
+                let data = newData ? this.getData(newData) : this.getData(this[mode]);
 
-                let ctx = document.getElementById("myChart").getContext('2d');
+                let ctx = document.getElementById("myChart");
                 let myChart = new Chart(ctx, {
-                    type: 'line',
+                    type: this.type,
                     data: {
                         datasets: [{
-                            label: '# of Quantity Sold',
+                            showLine: true,
+                            label: this.options.label,
                             data: data.graphData,
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
+
                             ],
                             borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
+
                             ],
                             borderWidth: 3
                         }]
                     },
-                    options: {
-                        scales: {
-                            xAxes: [{
-                                type: 'time',
-                                // time: {
-                                //     unit: 'week'
-                                // }
-                            }]
-                        }
-                    }
+                    options: this.getOptions()
                 });
-            }
+            },
+            getOptions () {
+                let options = {};
+                let xAxes = [];
+
+                if (this.options.dateColumn) {
+                    xAxes.push({ type: 'time' });
+                } else {
+                    xAxes.push({
+                        type: 'linear',
+                        position: 'bottom'
+                    });
+                    options.responsive = true;
+                }
+
+                options.scales = { xAxes: xAxes };
+                return options;
+            },
         }
     }
 </script>

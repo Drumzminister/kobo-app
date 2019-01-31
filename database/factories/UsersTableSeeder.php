@@ -4,7 +4,6 @@ use App\Data\InventoryItem;
 use Faker\Generator as Faker;
 use Koboaccountant\Models\Inventory;
 use Koboaccountant\Models\SaleChannel;
-use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +57,19 @@ $factory->define('Koboaccountant\Models\Vendor', function (Faker $faker) {
     ];
 });
 
+$factory->define(InventoryItem::class, function (Faker $faker) {
+   return [
+       'id' => $faker->uuid,
+       'inventory_id' => '',
+       'user_id' => '',
+       'company_id' => '',
+       'name' => ucfirst($faker->sentence(2)),
+       'sales_price' => $salesPrice = random_int(50, 2000),
+       'purchase_price' => $salesPrice + random_int(50, 120),
+       'quantity' =>  random_int(19, 50),
+       'description' => ucfirst($faker->sentence(2)),
+   ];
+});
 $factory->define(Inventory::class, function (Faker $faker) {
     return [
         'id' => $faker->uuid,
@@ -68,22 +80,15 @@ $factory->define(Inventory::class, function (Faker $faker) {
         'delivered_date' => $faker->dateTime(),
         'discount' =>  random_int(50, 120),
         'delivery_cost' =>  random_int(50, 120),
-        'total_amount' =>  random_int(50, 120),
-        'amount_paid' =>  random_int(50, 120),
+        'tax_amount' => random_int(20, 400),
+        'tax_id'    => random_int(1,5),
+        'total_amount' =>  $amount = random_int(50, 120),
+        'amount_paid' =>  $amount_paid = random_int(50, 120),
         'balance' =>  random_int(50, 120),
-
+        'total_sales_price' => random_int(50, 120),
+        'total_cost_price' => random_int(50, 120),
+        'total_quantity' => random_int(50, 120),
     ];
-});
-$factory->define(InventoryItem::class, function (Faker $faker) {
-   return [
-       'id' => $faker->uuid,
-       'inventory_id' => '',
-       'name' => ucfirst($faker->sentence(2)),
-       'sales_price' => $salesPrice = random_int(50, 2000),
-       'purchase_price' => $salesPrice + random_int(50, 120),
-       'quantity' => random_int(19, 50),
-       'description' => ucfirst($faker->sentence(2)),
-   ];
 });
 $roles = ['CEO', 'Product Manager', 'Public Servant', 'Marketer', 'Member', 'Developer'];
 $factory->define(\Koboaccountant\Models\Staff::class, function (Faker $faker) use($roles) {

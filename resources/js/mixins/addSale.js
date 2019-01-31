@@ -66,8 +66,8 @@ export const addSale = {
         ...mapMutations(['setCompanyInventories', 'selectInventory', "removeInventory", 'setSale']),
         ...mapGetters(['getCurrentURI']),
         fillSaleItemWithInventory (item) {
-            if (item.inventory_id !== "" && item.inventory_id !== null && typeof item.inventory_id !== 'undefined') {
-                let inventory = this.$store.getters.getInventory(item.inventory_id);
+            if (item.inventory_item_id !== "" && item.inventory_item_id !== null && typeof item.inventory_item_id !== 'undefined') {
+                let inventory = this.$store.getters.getInventory(item.inventory_item_id);
                 item.sales_price = inventory.sales_price;
 
                 // Free the inventory that was selected for this item before
@@ -105,7 +105,7 @@ export const addSale = {
             this.createWatcherForSaleItem(this.saleItems[pos]);
         },
         createWatcherForSaleItem (item) {
-            this.$watch(() => item.inventory_id, this.saleItemDataChanged);
+            this.$watch(() => item.inventory_item_id, this.saleItemDataChanged);
             this.$watch(() => item.sale_channel_id, this.saleItemDataChanged);
             this.$watch(() => item.description, this.saleItemDataChanged);
             this.$watch(() => item.quantity, this.saleItemDataChanged);
@@ -134,7 +134,7 @@ export const addSale = {
             this.createSale();
         },
         createSale: function () {
-            let api = new API({ baseUri: 'https://kobo.test/client'});
+            let api = new API({ baseUri: 'https://kobo.test/client' });
             api.createEntity({ name: 'sale'});
             let data = {
                 tax_id: this.taxId,
@@ -197,12 +197,12 @@ export const addSale = {
             if (sale.saleItems) {
                 for (let key in sale.saleItems) {
                     let item = sale.saleItems[key];
-                    let inventory = this.$store.getters.getInventory(item.inventory_id);
+                    let inventory = this.$store.getters.getInventory(item.inventory_item_id);
 
                     this.selectInventory(inventory);
 
                     let saleItem = new SaleItem(this.sale.id, inventory);
-                    saleItem.inventory_id = item.inventory_id;
+                    saleItem.inventory_item_id = item.inventory_item_id;
                     saleItem.id = item.id;
                     saleItem.sale_channel_id = item.sale_channel_id;
                     saleItem.quantity = parseInt(item.quantity);

@@ -78,11 +78,10 @@ class DatabaseSeeder extends Seeder
 		return factory(Vendor::class, $nums)->create(['company_id' => $company->id, 'user_id' => $user->id]);
     }
 
-    private function createInventoryItem($nums, $inventory)
+    private function createInventoryItem($nums, $inventory, $company, $user)
     {
-        return factory(InventoryItem::class, $nums)->create(['inventory_id' => $inventory]);
+        return factory(InventoryItem::class, $nums)->create(['inventory_id' => $inventory, 'user_id' => $user, 'company_id' => $company]);
     }
-
     private function createClientAndHisCompany($accountant)
     {
     	// Create some subscriptions
@@ -121,8 +120,8 @@ class DatabaseSeeder extends Seeder
 
         $vendors->each(function (Vendor $vendor) use ($company, &$inventories, $clientUser) {
             $inventory = $inventories->merge(factory(Inventory::class, 4)->create(['company_id' => $company->id, 'vendor_id' => $vendor->id, 'user_id' => $clientUser->id]));
-            $inventory->each(function($inventory) {
-                $this->createInventoryItem(10, $inventory->id);
+            $inventory->each(function($inventory) use($company, $clientUser) {
+                $this->createInventoryItem(10, $inventory->id, $company->id, $clientUser->id);
             });
         });
 
@@ -138,7 +137,7 @@ class DatabaseSeeder extends Seeder
 	    factory(Asset::class, 6)->create(['company_id' => $company->id]);
 
 	    // We're creating some customers for his company as well
-	    $customers = factory(Customer::class, 12)->create(['company_id' => $company->id, 'user_id' => $clientUser->id]);
+	    $customers = factory(Customer::class, 10)->create(['company_id' => $company->id, 'user_id' => $clientUser->id]);
 
 	    // Here, we'll make some Customers debtors 😁
 	    $count = 0;
@@ -200,6 +199,8 @@ class DatabaseSeeder extends Seeder
 			$thingsIWantToBuy = $inventoryItems->random(random_int(1, 20));
 			$tax_id = $taxes->random()->id;
 
+		    $time = mt_rand(now()->subYear()->timestamp, time());
+
 		    /**
 		     * @var $sale Sale
 		     */
@@ -209,6 +210,8 @@ class DatabaseSeeder extends Seeder
 				    'tax_id'            => $tax_id,
 				    'staff_id'          => $staff->id,
 				    'company_id'        => $company->id,
+				    'type'              => 'published',
+				    'sale_date'         => date("Y-m-d H:i:s", $time)
 			    ]);
 
 		    $totalAmount = 0;

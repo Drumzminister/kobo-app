@@ -2,6 +2,7 @@
 
 namespace App\Data;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Koboaccountant\Models\Inventory;
 use Koboaccountant\Models\Sale;
@@ -9,6 +10,8 @@ use Koboaccountant\Models\SaleChannel;
 
 class SaleItem extends Model
 {
+	use Cachable;
+
 	protected $fillable = ['sale_id', 'inventory_item_id', 'sale_channel_id', 'quantity', 'sales_price', 'total_price', 'description', 'type', 'reversed_item_id'];
 
 	protected $with = [

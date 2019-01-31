@@ -70,15 +70,6 @@
                             </div>
                             <div class="form-row">
                                     <div class="col">
-                                        <label for="name">Category</label>
-                                        <select v-model="inventoryForm.category" name="category" id="quantity" class="form-control bg-grey">
-                                                <option selected>Choose...</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>5</option>
-                                            </select>
-                                                                            </div>
-                                    <div class="col">
                                         <label for="name">Payment Mode</label>
                                         <select v-model="inventoryForm.paymentMode" name="payment_mode" id="quantity" class="form-control bg-grey">
                                                 <option selected>Select Payment</option>

@@ -20,6 +20,7 @@ class SaleCollection extends JsonResource
 	        'tax' => $this->tax,
 	        'type' => $this->type,
 	        'created_at' => date("Y-m-d", strtotime((string) $this->created_at)),
+	        'sale_date' => date("Y-m-d", strtotime((string) $this->sale_date)),
 	        'saleItems' => SaleItemCollection::collection($this->saleItems),
 	        'total_amount' => $this->total_amount,
 	        'invoice_number' => $this->invoice_number,

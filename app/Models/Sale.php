@@ -5,16 +5,17 @@ namespace Koboaccountant\Models;
 use App\Data\SaleItem;
 use App\Data\Tax;
 use App\Data\Transaction;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sale extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Cachable;
 
     protected $fillable = [
     	'id',
-        'sales_date',
+        'sale_date',
         'name',
         'quantity',
         'amount',
