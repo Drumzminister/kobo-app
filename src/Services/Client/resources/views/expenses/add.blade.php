@@ -48,15 +48,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="record in expenseRecords" class="records">
+                            <tr v-for="expense in expenseRecords" class="records">
                                 <td class="pt-3-half">
-                                    <input type="text" name="description" class="form-control expenseDescription">
+                                    <input type="text" v-model="expense.description" name="description" class="form-control expenseDescription">
                                 </td>
                                 <td class="pt-3-half">
-                                    <input type="number" name="amount" class="form-control expenseAmount">
+                                    <input type="number" v-model="expense.amount" name="amount" class="form-control expenseAmount">
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary px-4 payBtn" type="button" @click="showPayExpenseModal($event)">Pay</button>
+                                    <button class="btn btn-primary px-4 payBtn" type="button" @click="showPayExpenseModal($event, expense)">Pay</button>
                                     <button class="btn btn-success px-4 paid" style="display: none" type="button" disabled>Paid</button>
                                 </td>
                             </tr>

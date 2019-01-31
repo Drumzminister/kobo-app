@@ -21,7 +21,8 @@ class CreateExpensesTable extends Migration
             $table->date('date');
             $table->text('details');
             $table->decimal('amount', 10, 2);
-            $table->boolean('hasPaid')->default(false);
+            $table->decimal('amount_paid', 15, 2)->default(0);
+            $table->boolean('has_finished_payment')->default(false);
             $table->string('classification')->nullable();
             $table->timestamps();
         });

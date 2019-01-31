@@ -39,7 +39,7 @@ class PayRentJob extends Job
         if ($rent->has_completed_payment) {
             throw new \Exception('Payment has already been made for this period');
         }
-        $methods = $this->data['paymentMethods'];
+        $methods = json_decode($this->data['paymentMethods'], true);
 
         $debit = (new DebitBanksJob($methods, $rent, $this->companyId))->handle();
 //        dd($debit);
