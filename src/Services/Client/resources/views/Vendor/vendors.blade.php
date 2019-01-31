@@ -41,7 +41,7 @@
                                 <div class="input-group">
                                     <input v-model="search" @keyup.prevent="searchVendor" type="text"class="form-control search" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                        <a href="#"> <span  class="input-group-text vat-input px-5 py-2"  id="basic-addon2">Search</a></span>
+                                        <a href="#"> <span  class="input-group-text vat-input append-border px-5"  id="basic-addon2">Search</a></span>
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
     </section>
 @endsection
 @section('other_js')
-    <script>
+    {{-- <script>
         window.all_vendors = @json($all_vendors);
-    </script>
+    </script> --}}
 @endsection

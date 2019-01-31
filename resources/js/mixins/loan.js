@@ -142,6 +142,9 @@ export const loanApp = {
     computed: {
         selectedAccounts () {
             return this.$store.getters.selectedAccounts;
+        },
+        spreadAmount () {
+            return this.loanAmount;
         }
     },
     methods: {
@@ -185,19 +188,35 @@ export const loanApp = {
             this.isRequestingLoan = true;
             formData.append('name', this.newSource);
             axios.post('/client/loan/sources/add', formData).then(res => {
-                swal('Successful', "New loan source added successfully", "success");
+                toast("New loan source added successfully", 'success');
                 this.showSourcesForm = false;
                 this.isRequestingLoan = false;
-                this.searchSource = res.data.source.name;
                 this.chosenSource= res.data.source.id;
+                this.searchSource = res.data.source.name;
             }).catch(err => {
                 this.isRequestingLoan = false;
                 console.error(err);
             })
         },
         saveLoan () {
-            if (this.accountReceivingLoan === null || this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear ||  this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
-                swal('Oops', "Some required fields are empty", "error");
+            if (this.loanDescription.trim() === "" || this.loanAmount.trim() === "" || this.loanInterest.trim() === "" || this.loanPeriod.trim() === "" || this.loanTerm.trim() === "" || !this.paymentPerYear ||  this.chosenSource.toLocaleString() === "" || this.loanDate.trim() === "") {
+                toast("Some required fields are empty", "error");
+                return;
+            }
+            let sum = 0;
+            this.selectedAccounts.forEach((account) => {
+                if ( !isNaN(Number(account.amount)) ) {
+                    sum += Number(account.amount);
+                }
+            });
+            if (sum !== Number(this.loanAmount)) {
+                swal({
+                    title: "Error",
+                    text: `Amount receivable should equal loan amount: ${this.loanAmount}`,
+                    type: `warning`,
+                    timer: 1000,
+                    showConfirmButton: false
+                });
                 return;
             }
             let formData = new FormData();
@@ -209,12 +228,18 @@ export const loanApp = {
             formData.append('term', this.loanTerm);
             formData.append('payment_interval', this.loanPaymentInterval.value);
             formData.append('start_date', this.loanDate);
-            formData.append('receivingAccount', JSON.stringify(this.accountReceivingLoan) );
+            formData.append('receivingAccount', JSON.stringify(this.selectedAccounts));
             this.isRequestingLoan = true;
             axios.post(window.addLoanUrl, formData).then(res => {
-                swal('Successful', 'Loan added successfully', 'success');
+                swal({
+                    type: 'success',
+                    title: "Successful",
+                    text: 'Loan added successfully',
+                    timer: 1000,
+                    showConfirmButton: false
+                });
                 this.isRequestingLoan = false;
-                document.querySelector('#cancelLoanModal').click();
+                this.closeLoanModal();
                 let loan = res.data.loan;
                 loan.source_name = this.searchSource;
                 loan.status = "running";
@@ -225,8 +250,7 @@ export const loanApp = {
                 swal('Oops', err.response.data.error, "error");
             });
         },
-        displayLoanDetails (loan, evt) {
-            let row = evt.target;
+        displayLoanDetails (loan) {
             this.currentLoan = loan;
             this.loadingLoanDetails = true;
             axios.get(`/client/loan/${loan.id}/payments`).then(res => {

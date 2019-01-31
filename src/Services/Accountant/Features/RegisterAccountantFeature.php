@@ -23,4 +23,6 @@ class RegisterAccountantFeature extends Feature
     {
     	return redirect()->route('accountant.dashboard');
     }
+
+    
 }

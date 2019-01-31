@@ -7,6 +7,7 @@ use App\Data\InventoryItem;
 use App\Data\SaleItem;
 use App\Data\Tax;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Collection;
 use Koboaccountant\Models\Accountant;
 use Koboaccountant\Models\Asset;
 use Koboaccountant\Models\Client;
@@ -192,9 +193,10 @@ class DatabaseSeeder extends Seeder
 	    $channels = $company->saleChannels;
 	    $inventories = $company->inventories;
 	    $customers = $company->customers;
+	    $inventoryItems = $inventories->pluck('inventoryItem')->flatten();
 
-	    $customers->each(function (Customer $customer) use ($inventories, $taxes, $staff, $company, $channels) {
-			$thingsIWantToBuy = $inventories->random(random_int(1, $inventories->count()));
+	    $customers->each(function (Customer $customer) use ($inventoryItems, $taxes, $staff, $company, $channels) {
+			$thingsIWantToBuy = $inventoryItems->random(random_int(1, 20));
 			$tax_id = $taxes->random()->id;
 
 		    /**
@@ -209,13 +211,13 @@ class DatabaseSeeder extends Seeder
 			    ]);
 
 		    $totalAmount = 0;
-			$thingsIWantToBuy->each(function (Inventory $inventory) use ($customer, $company, $sale, &$totalAmount, $channels) {
+			$thingsIWantToBuy->each(function (InventoryItem $inventory) use ($customer, $company, $sale, &$totalAmount, $channels) {
 				if ($inventory->quantity > 0) {
 					$channel_id = $channels->random()->id;
 					$saleItem = factory(SaleItem::class)->make([
-						'inventory_id' => $inventory->id,
+						'inventory_item_id' => $inventory->id,
 						'sale_id' => $sale->id,
-						'quantity' => $quantity = random_int(1, $inventory->quantity),
+						'quantity' => $quantity = random_int(1, ceil($inventory->quantity / 2)),
 						'sales_price' => $sales_price = $inventory->sales_price,
 						'total_price' => $sales_price * $quantity,
 						'sale_channel_id'   => $channel_id,

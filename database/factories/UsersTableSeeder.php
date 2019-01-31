@@ -80,6 +80,8 @@ $factory->define(Inventory::class, function (Faker $faker) {
         'delivered_date' => $faker->dateTime(),
         'discount' =>  random_int(50, 120),
         'delivery_cost' =>  random_int(50, 120),
+        'tax_amount' => random_int(20, 400),
+        'tax_id'    => random_int(1,5),
         'total_amount' =>  $amount = random_int(50, 120),
         'amount_paid' =>  $amount_paid = random_int(50, 120),
         'balance' =>  random_int(50, 120),

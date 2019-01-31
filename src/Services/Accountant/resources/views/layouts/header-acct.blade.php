@@ -29,7 +29,7 @@
                     Transaction
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item " href="/accounatant/budget">Budget</a>
+                    <a class="dropdown-item" href="/accountant/budget">Budget</a>
                     <a class="dropdown-item" href="/accountant/npv">NPV Calculator</a>
                     <a class="dropdown-item" href="/accountant/bank-reconciliation">Bank Reconcilation</a>
                     </div>

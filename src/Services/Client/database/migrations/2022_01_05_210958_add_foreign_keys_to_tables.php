@@ -80,7 +80,7 @@ class AddForeignKeysToTables extends Migration
 
 	    Schema::table('sale_items', function (Blueprint $table) {
 		    $table->foreign('sale_id')->references('id')->on('sales');
-		    $table->foreign('inventory_id')->references('id')->on('inventories');
+		    $table->foreign('inventory_item_id')->references('id')->on('inventory_items');
 		    $table->foreign('sale_channel_id')->references('id')->on('sale_channels');
 	    });
     }
@@ -131,7 +131,7 @@ class AddForeignKeysToTables extends Migration
 	    Schema::table('sale_items', function (Blueprint $table) {
 		    $table->dropForeign('sale_items_sale_id_foreign');
 		    $table->dropForeign('sale_items_inventory_id_foreign');
-		    $table->dropForeign('sales_sale_items_id_foreign');
+		    $table->dropForeign('sales_items_sale_channel_id_foreign');
 	    });
 
         Schema::table('rents', function (Blueprint $table) {

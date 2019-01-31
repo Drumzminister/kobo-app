@@ -4,13 +4,16 @@ export const inventoryApp = {
         inventoryForm: {
             inventoryItem:[],
             vendor_id: '',
-            date: '',
+            delivered_date: '',
             attachment: '',
-            tax: '',
+            tax_id: '',
             discount: '',
             delivery_cost: '',
-            total_price: '',
-            banks: '',
+            total_cost_price: '',
+            total_sales_price: '',
+            total_quantity: '',
+            amount_paid: 0,
+            banks: ''
         },
         inventoryItem: {
             delivered_date: '',
@@ -37,6 +40,20 @@ export const inventoryApp = {
         selectedAccounts () {
             return this.$store.getters.selectedAccounts;
         },
+        inventoryTax() {
+            if (this.inventoryForm.tax_id) {
+               let tax =  Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.totalCostPrice);
+                return tax;
+            }
+            return 0;
+        },
+        getActualAmountPaidThroughBank() {
+            let total = 0;
+            this.selectedAccounts.forEach(bank => {
+                total += Number(bank.amount);
+                this.inventoryForm.amount_paid = total;
+            })
+        },
     },
     component: {
       PaymentMethodSelection,
@@ -45,6 +62,7 @@ export const inventoryApp = {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
         this.vendors = window.vendors;
+        this.inventoryForm.tax_id = this.taxes[2];
         this.addInventoryRow();
     },
     methods: {
@@ -62,17 +80,27 @@ export const inventoryApp = {
             });
             return inventoryQuantitySum;
         },
+
         createInventory(evt) {
             evt.preventDefault();
             this.totalCostPrice = this.inventoryForm.total_price;
             this.inventoryForm.banks = this.selectedAccounts;
             this.inventoryForm.inventoryItem = this.inventoryTableRow;
+            this.inventoryForm.total_cost_price = this.calculateTotalCost();
+            this.inventoryForm.total_quantity = this.calculateTotalQuantity();
+            this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
+            this.inventoryForm.tax_amount = this.inventoryTax;
+            this.inventoryForm.tax_id = this.inventoryForm.tax_id.id;
+            // this.inventoryForm.amount_paid = this.getActualAmountPaidThroughBank
+            console.log(this.getActualAmountPaidThroughBank);
             axios.post('/client/inventory/add', this.inventoryForm).then(res => {
                 swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false,});
-                this.inventoryForm = '';
             }).catch(err => {
                 swal("Oops", "An error occurred when creating this account", "error");
             });
+        },
+        getTotalCostPrice() {
+            return document.querySelector("totalCostPrice").value;
         },
         highestPurchase() {
             if (this.top_purchase === highest_quantity) {
@@ -81,12 +109,8 @@ export const inventoryApp = {
                 this.top_purchase = highest_quantity;
             }
         },
-        trimIdToInvoice(value) {
-            return value.slice(0, 5);
-        },
         deleteInventory(inventoryId) {
                 axios.post(`/client/inventory/${inventoryId}/delete`).then(res => {
-                    console.log(res.data.message);
                     swal({
                         type: 'success',
                         title: 'Success',
@@ -112,9 +136,9 @@ export const inventoryApp = {
         deleteInventoryRow(row) {
             $("#row-" + row).remove();
             // reevaluate total after deletion
-            this.calculateTotalInventoryCost();
+            this.calculateTotalCost();
         },
-        calculateTotalInventoryCost() {
+        calculateTotalCost() {
             let total = 0;
             let cost_price = document.querySelectorAll(".cost_price");
             cost_price.forEach(input => {
@@ -122,10 +146,24 @@ export const inventoryApp = {
             });
             return this.totalCostPrice = total;
         },
+        calculateTotalSalesPrice() {
+            let total = 0;
+            let sales_price = document.querySelectorAll(".sales_price");
+            sales_price.forEach(input => {
+                total += Number(input.value);
+            });
+            return total;
+        },
+        calculateTotalQuantity() {
+            let total = 0;
+            let total_quantity = document.querySelectorAll(".quantity");
+            total_quantity.forEach(input => {
+              total += Number(input.value);
+          });
+            return total;
+        },
         getSelectedInventory(inventory) {
-            console.log(inventory);
             this.selectedInventory = inventory;
         },
-        // calculatePurchase
     }
 };

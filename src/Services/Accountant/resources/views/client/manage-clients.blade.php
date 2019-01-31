@@ -24,7 +24,7 @@
 
             <div class="row py-3">
                 <div class="col-md-8">
-                    <div class="bg-white scroll" id="topp">
+                    <div class="bg-white acct-scroll" id="topp">
                         <div class="client-message bg-green p-3 text-white">
                             <h5 class="h5">Message (Recommendations)</h5>
                         </div>
@@ -32,10 +32,15 @@
                             <div class="col-md-3">
                                 <p class="text-muted">12/09/2018</p>
                                 <p class="text-muted">12/09/2018</p>
+                                <p class="text-muted">12/09/2018</p>
+                                <p class="text-muted">12/09/2018</p>
                             </div>
                             <div class="col-md-9">
                                 <p class="text-muted">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem, architecto?</p>                                
                                 <p class="text-muted">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem, architecto?</p>
+                                <p class="text-muted">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem, architecto?</p>
+                                <p class="text-muted">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem, architecto?</p>
+                            
                             </div>
                         </div>
                     </div>

@@ -10,10 +10,7 @@ class AddInventoryFeature extends Feature
 {
     public function handle(Request $request)
     {
-        dd($request->all());
-        $data = $request->all();
-        $data['user_id'] = auth()->id();
-        $added = $this->run(AddInventoryJob::class, ['data' => $data]);
+        $added = $this->run(AddInventoryJob::class, ['data' => $request->all(), 'userId' => auth()->id(), 'companyId' => auth()->user()->company->id]);
 
         if($added) {
             return response()->json(['message' => 'Inventory added successfully.']);
