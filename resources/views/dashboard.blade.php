@@ -66,7 +66,7 @@
 <section>
     <div class="container">
             <div class="row mt-3 ">
-                <div class="col-md-4 ">
+                <div class="col-md-4 col-4">
                     <div class="bg-white py-2">
                         <div class="rounded-circlee ml-5 mt-3"></div>
                         <ul class="history">
@@ -84,25 +84,25 @@
                     </div>
                 </div>
 
-                <div class="col-md-8 ">
+                <div class="col-md-8 col-8">
                     <div class="bg-white px-4 py-1">
                         <h5 class= "h5">PERFORMANCE</h5>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-4">
                                 <div id="test-circle"></div>
                                     <div class= "text-center">
                                         <h6 class="h6">PROFITABILITY</h6>
                                         <p>Lorem ipsum dolor sit amet consectetur adipisit, possimus?</p>
                                     </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-4">
                                 <div id="test-circle2"></div>
                                     <div class= "text-center">
                                         <h6 class="h6">PROFITABILITY</h6>
                                         <p>Lorem ipsum dolor sit amet consectetur adipisicing eus?</p>
                                     </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-4">
                                 <div id="test-circle3"></div>
                                     <div class= "text-center">
                                         <h6 class="h6">PROFITABILITY</h6>
@@ -163,13 +163,13 @@
                     {{-- report date --}}
                     <form action="" method="post">
                         <div class="form-row pt-2">
-                          <div class="dates form-group col-md-6">
+                          <div class="dates form-group col-md-6 col-6">
                                 <label for="date" class="date">Start Date</label>
                                 {{-- <div class="dates input-group mb-3 input-group-lg"> --}}
                                     <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
                                 {{-- </div>                           --}}
                             </div>
-                            <div class="dates form-group col-md-6">
+                            <div class="dates form-group col-md-6 col-6">
                                 <label for="date" class="date">End Date</label>
                                 <input type="text" class="form-control" id="usr1" name="event_date" placeholder="DD-MM-YYYY" autocomplete="off" >
                             </div>
@@ -177,17 +177,17 @@
                     {{-- end of report date --}}
 
                         <div class="row pt-2 px-2">
-                            <div class="col-md-4" id="topp">
+                            <div class="col-md-4 col-4" id="topp">
                                 <h5 class="h6 col-net">Total Sales</h5>
                                 <span class="col-net">NGN</span>
                                 <h5 class="text-muted">18,000</h5>
                             </div>
-                            <div class="col-md-4" id="topp">
+                            <div class="col-md-4 col-4" id="topp">
                                 <h5 class="h6 col-net">Total Expenses</h5>
                                 <span class="text-warning">NGN</span>
                                 <h5 class="text-muted">18,000.45</h5>
                             </div>
-                            <div class="col-md-4" id="topp">
+                            <div class="col-md-4  col-4" id="topp">
                                 <h5 class="h6 col-net"> Total Profit</h5>
                                 <span class="text-green">NGN</span>
                                 <h5 class="text-muted">18,000.53</h5>
@@ -204,9 +204,9 @@
 
 {{-- services section --}}
 <section id="services">
-    <div class="container pl-5 bg-white mt-3">
-        <div class="row py-4 px-5">
-            <div class="col-md-4 text-center">
+    <div class="container bg-white mt-3 text-center py-4 pl-5 ">
+        <div class="row col-12 text-center px-5 d-flex justify-content-center">
+            <div class="col-md-4 text-center col-4 ">
                 <div class="circle loa text-center p-5">
                     <a href="/client/sales" class="service-link">
                         <img src="{{asset('img/sales.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
@@ -216,7 +216,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 col-4">
                 <div class="circle loa text-center p-5">
                     <a href="/client/inventory" class="service-link">
                         <img src="{{asset('img/inventory.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
@@ -226,7 +226,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 col-4">
                 <div class="circle loa text-center p-5">
                     <a href="/client/expenses" class="service-link">
                         <img src="{{asset('img/expenses.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
@@ -238,7 +238,7 @@
         </div>
 
         <div class="row py-3 px-5">
-                <div class="col-md-4 text-center">
+                <div class="col-md-4 text-center col-4">
                     <div class="circle loa text-center p-5">
                         <a href="/client/loans" class="service-link">
                             <img src="{{asset('img/loans.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
@@ -248,7 +248,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 col-4">
                     <div class="circle loa text-center p-5">
                         <a href="/client/rent" class="service-link">
                             <img src="{{asset('img/rent.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
@@ -258,9 +258,9 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 col-4">
                     <div class="circle loa text-center p-5">
-                        <a href="/client/banking" class="service-link">
+                        <a href="/client/bank" class="service-link">
                             <img src="{{asset('img/banking.svg')}}" alt="services-img" srcset="" class="img-fluid service-img">
                             <h5 class="h5 pt-1">BANKING</h5>
                             <p class="service-p">Lorem ipsum dolor sit amet consectetur </p>
