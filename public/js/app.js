@@ -89103,7 +89103,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { DateRangePicker: __WEBPACK_IMPORTED_MODULE_0_vue2_daterange_picker___default.a },
-    props: ['month', 'day', 'week', 'year', 'options'],
+    props: ['month', 'day', 'week', 'year', 'options', 'data'],
     filters: {
         date: function date(value) {
             var options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -89139,6 +89139,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             get: function get() {
                 return this.startDate + ' - ' + this.endDate;
             }
+        },
+        type: function type() {
+            return this.options.dateColumn ? 'line' : 'scatter';
         }
     },
     watch: {
@@ -89157,57 +89160,74 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getDataByDateRange: function getDataByDateRange() {
             var _this = this;
 
-            return this.year.filter(function (_ref) {
-                var sale_date = _ref.sale_date;
-                return moment(sale_date).isBetween(_this.startDate, _this.endDate, null, '[]');
+            return this.data.filter(function (one) {
+                return moment(one[_this.options.dateColumn]).isBetween(_this.startDate, _this.endDate, null, '[]');
             });
         },
         updateValues: function updateValues(values) {
             this.startDate = values.startDate.toISOString().slice(0, 10);
             this.endDate = values.endDate.toISOString().slice(0, 10);
         },
-        getSalesQuantityData: function getSalesQuantityData(data) {
+        getData: function getData(data) {
             var _this2 = this;
 
-            var graphData = data.map(function (_ref2) {
-                var quantity = _ref2.quantity,
-                    sale_date = _ref2.sale_date;
-                return { t: new Date(sale_date), y: quantity };
+            var _options = this.options,
+                xColumn = _options.xColumn,
+                yColumn = _options.yColumn;
+
+            var graphData = data.map(function (plot) {
+                return {
+                    x: _this2.options.dateColumn ? new Date(plot[xColumn]) : plot[xColumn],
+                    y: plot[yColumn]
+                };
             });
-            var labels = data.map(function (_ref3) {
-                var sale_date = _ref3.sale_date;
+
+            console.log(graphData);
+
+            var labels = data.map(function (_ref) {
+                var sale_date = _ref.sale_date;
 
                 return moment(sale_date)[_this2.mode]();
             });
-            return { graphData: graphData, labels: labels };
+            return { graphData: graphData };
         },
         processChart: function processChart(newData) {
             var mode = this.mode;
-            var data = newData ? this.getSalesQuantityData(newData) : this.getSalesQuantityData(this[mode]);
+            var data = newData ? this.getData(newData) : this.getData(this[mode]);
 
-            var ctx = document.getElementById("myChart").getContext('2d');
+            var ctx = document.getElementById("myChart");
             var myChart = new Chart(ctx, {
-                type: 'line',
+                type: this.type,
                 data: {
                     datasets: [{
-                        label: '# of Quantity Sold',
+                        showLine: true,
+                        label: this.options.label,
                         data: data.graphData,
-                        backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
-                        borderColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                        backgroundColor: [],
+                        borderColor: [],
                         borderWidth: 3
                     }]
                 },
-                options: {
-                    scales: {
-                        xAxes: [{
-                            type: 'time'
-                            // time: {
-                            //     unit: 'week'
-                            // }
-                        }]
-                    }
-                }
+                options: this.getOptions()
             });
+        },
+        getOptions: function getOptions() {
+            var options = {};
+            var xAxes = [];
+
+            if (this.options.dateColumn) {
+                xAxes.push({ type: 'time' });
+            } else {
+                xAxes.push({
+                    type: 'linear',
+                    position: 'bottom'
+                });
+                options.responsive = true;
+            }
+
+            options.scales = { xAxes: xAxes };
+            console.log(options);
+            return options;
         }
     }
 });
