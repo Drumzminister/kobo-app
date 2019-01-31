@@ -72,7 +72,7 @@
                           <tr class="tab text-center">
                             <th scope="col">Inventory Item</th>
                             <th scope="col">Description</th>
-                            <th scope="col">QTY(@{{ calculateTotalQuantity()}})</th>
+                            <th scope="col">QTY(@{{ }})</th>
                             <th scope="col">Cost Price (&#8358;)</th>
                             <th scope="col">Sales Price (&#8358;)</th>
                             <th scope="col"></th>

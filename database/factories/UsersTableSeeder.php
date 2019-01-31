@@ -53,6 +53,7 @@ $factory->define('Koboaccountant\Models\Vendor', function (Faker $faker) {
         'phone' => $faker->phoneNumber,
         'email' => $faker->email,
         'website' => $faker->url,
+        'image'  => $faker->imageUrl(),
         'isActive' => $faker->numberBetween(0, 1),
     ];
 });
@@ -82,7 +83,6 @@ $factory->define(Inventory::class, function (Faker $faker) {
         'delivery_cost' =>  random_int(50, 120),
         'tax_amount' => random_int(20, 400),
         'tax_id'    => random_int(1,5),
-        'total_amount' =>  $amount = random_int(50, 120),
         'amount_paid' =>  $amount_paid = random_int(50, 120),
         'balance' =>  random_int(50, 120),
         'total_sales_price' => random_int(50, 120),
