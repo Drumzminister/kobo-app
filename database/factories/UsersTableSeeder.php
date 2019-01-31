@@ -76,7 +76,6 @@ $factory->define(Inventory::class, function (Faker $faker) {
 });
 $factory->define(InventoryItem::class, function (Faker $faker) {
    return [
-       'id' => $faker->uuid,
        'inventory_id' => '',
        'name' => ucfirst($faker->sentence(2)),
        'sales_price' => $salesPrice = random_int(50, 2000),

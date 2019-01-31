@@ -20,7 +20,7 @@ class SaleItem
         this.sales_price =  0;
         this.total_price = "";
         this._isValid = false;
-        this.inventory_id = "";
+        this.inventory_item_id = "";
         this._sale_id = saleId;
         this.processing = false;
         this.sale_channel_id = "";
@@ -40,7 +40,7 @@ class SaleItem
      */
     get isNotValid () {
         if (this.type === 'reversed') return false;
-        return this.inventory_id === ""
+        return this.inventory_item_id === ""
             || this.description === "" || parseInt(this._quantity) <= 0
             || this.sale_channel_id === "" || this.totalPrice() <= 0
             || this.sales_price === "";
@@ -55,7 +55,7 @@ class SaleItem
         if (this.type === 'reversed') {
             this._quantity = quantity;
         } else {
-            if (this.inventory_id === "") return;
+            if (this.inventory_item_id === "") return;
             let inventoryQuantity = parseInt(this.getInventoryQuantity());
 
             if (parseInt(quantity) < 0) {
@@ -97,7 +97,7 @@ class SaleItem
      * @returns {*}
      */
     getInventoryQuantity () {
-        return this.inventory_id === "" ? 0 : this._inventory.quantity;
+        return this.inventory_item_id === "" ? 0 : this._inventory.quantity;
     }
 
     /**
@@ -201,7 +201,7 @@ class SaleItem
             type: this.type,
             reversed_item_id: this.reversedItem ? this.reversedItem.id : null,
             sale_id: this._sale_id,
-            inventory_id: this.inventory_id,
+            inventory_item_id: this.inventory_item_id,
             sale_channel_id: this.sale_channel_id,
             quantity: this.quantity,
             sales_price: this.sales_price,

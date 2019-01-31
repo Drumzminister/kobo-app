@@ -4,6 +4,7 @@ namespace Koboaccountant\Models;
 
 use App\Data\InventoryItem;
 use App\Data\Transaction;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,8 +25,10 @@ class Inventory extends Model
         'user_id'
     ];
 
-    use SoftDeletes;
-
+    use SoftDeletes, Cachable;
+    protected $with = [
+    	'inventoryItem'
+    ];
     public function inventoryItem()
     {
         return $this->hasMany(InventoryItem::class);
@@ -45,10 +48,5 @@ class Inventory extends Model
 	public function transaction()
 	{
 		return $this->hasOne(Transaction::class);
-	}
-
-	public function scopeAvailable($query)
-	{
-		return $query->where('quantity', '>', 0);
 	}
 }

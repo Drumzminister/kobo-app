@@ -40,8 +40,11 @@ Route::group(['prefix' => 'accountant'], function() {
 
     Route::get('/toolkits', 'ToolkitController@ShowToolkitPages')->name('toolkits.index');    
 
+    Route::get('/bank-reconciliation', 'BankReconciliationController@ShowBankReconciliationPage')->name('bank-reconciliation.index');    
+
+    Route::get('/accountant/register', 'AccountantRegistrationController@showAccountantRegistrationPage')->name('accountant.register');    
+    Route::get('/accountant/registration', 'AccountantRegistrationController@showAccountantRegistrationPage2')->name('accountant.register');
 
 });
-    Route::get('/accountant/register', 'AccountantRegistrationController@showAccountantRegistrationPage')->name('accountant.register');    
-    Route::get('/accountant/registration', 'AccountantRegistrationController@showAccountantRegistrationPage2')->name('accountant.register');    
+        
 

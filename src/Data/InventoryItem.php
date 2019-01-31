@@ -1,11 +1,14 @@
 <?php
 namespace App\Data;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Koboaccountant\Models\Inventory;
 
 class InventoryItem extends Model
 {
+	use Cachable;
+
     protected $fillable = ['inventory_id', 'name', 'quantity', 'description', 'purchase_price', 'sales_price'];
 
     public $incrementing = false;
@@ -31,4 +34,9 @@ class InventoryItem extends Model
     {
         return $this->sum('purchase_price');
     }
+
+	public function scopeAvailable($query)
+	{
+		return $query->where('quantity', '>', 0);
+	}
 }
