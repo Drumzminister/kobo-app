@@ -11,25 +11,20 @@ class Inventory extends Model
 {
     public $incrementing = false;
 
-    use SoftDeletes;
-
     protected $fillable = [
         'id',
-        'company_id',
-        'vendor_id',
-        'user_id',
-        'invoice_number',
-        'delivered_date',
+        'name', 
+        'sales_price', 
+        'purchase_price', 
+        'quantity', 
+        'description',
+        'delivered_data',
         'attachment',
-        'delivery_cost',
-        'tax_id',
-        'tax_amount',
-        'amount_paid',
-        'balance',
-        'total_sales_price',
-        'total_cost_price',
-        'total_quantity'
+        'vendor_id',
+        'user_id'
     ];
+
+    use SoftDeletes;
 
     public function inventoryItem()
     {

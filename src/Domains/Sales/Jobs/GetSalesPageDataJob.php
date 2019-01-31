@@ -62,19 +62,25 @@ class GetSalesPageDataJob extends Job
 	    }
 
     	$inventories = $this->inventory->getByAttributes(['company_id' => $company->id]);
-	    $inventoryItems = $inventories->pluck('inventoryItem')->flatten();
+	    $soldInventoryItems = $inventories->pluck('inventoryItem')
+	                                  ->flatten()
+	                                  ->filter(function ($item) {
+	                                  	    return $item->saleItems && $item->saleItems->first() && $item->saleItems->first()->sale->type === 'published';
+							          });
 
-    	$topSales = $inventoryItems->sortByDesc(function ($item) {
+    	$topSales = $soldInventoryItems->sortByDesc(function ($item) {
     		return !$item->saleItems ? 0 : array_sum($item->saleItems->pluck('quantity')->toArray());
 	    })->chunk(5)->first();
 
 
-    	$sales = $this->sale->getByAttributes(['company_id' => $company->id]);
-    	$monthSales = $this->createSaleCollectionsFromSales($this->sale->getCompanyMonthSale($company->id));
-    	$daySales = $this->createSaleCollectionsFromSales($this->sale->getCompanyDaySale($company->id));
-    	$weekSales = $this->createSaleCollectionsFromSales($this->sale->getCompanyWeekSale($company->id));
-    	$yearSales = $this->createSaleCollectionsFromSales($this->sale->getCompanyYearSale($company->id));
+    	$sales = $this->sale->getPublishedSalesOrderedByDate($company->id, 'published');
 
+    	$firstSale = $sales->first();
+
+	    $daySales = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subDay(), now()]));
+	    $weekSales = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subWeek(), now()]));
+	    $monthSales = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subMonth(), now()]));
+	    $yearSales = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subYear(), now()]));
 
 
     	$sales = $sales->map(function ($sale)  {
@@ -88,7 +94,8 @@ class GetSalesPageDataJob extends Job
 	    	'weekSales'     => $weekSales,
 	    	'yearSales'     => $yearSales,
 		    'sales'         => $sales,
-		    'topSales'      => $topSales ?? collect([])
+		    'topSales'      => $topSales ?? collect([]),
+		    'startDate'     => $firstSale ? $firstSale->created_at : now()->toDateString(),
 	    ];
     }
 

@@ -122,7 +122,7 @@ Route::group([ 'prefix' => 'client'], function () {
 
     Route::get('/opening-pages', 'OpeningPagesController@showOpeningPages')->name('opening-pages.index');
 
-    Route::get('/bank', 'BankPagesController@showBankPages')->name('bank.index');
+    Route::get('/bank', 'BankPagesController@showBankPages')->name('bank.banking-page');
 
 });
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');

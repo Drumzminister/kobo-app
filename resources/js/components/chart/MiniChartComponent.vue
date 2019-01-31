@@ -33,29 +33,7 @@
                             {{ picker.startDate | date }} - {{ picker.endDate | date }}
                         </div>
                     </date-range-picker>
-                    <!--<input type="date" v-model="dateRange" id="graphDateRange" class="form-control" placeholder="Start Date">-->
-                    <!--<select id="inputState" class="form-control btn-loginn">-->
-                        <!--<option selected>Start Date</option>-->
-                        <!--<option>January</option>-->
-                        <!--<option>Feburary</option>-->
-                        <!--<option>March</option>-->
-                        <!--<option>April</option>-->
-                        <!--<option>May</option>-->
-                        <!--<option>June</option>-->
-                    <!--</select>-->
                 </div>
-                <!--<div class="form-group col-6">-->
-                    <!--<input type="date" v-model="endDate" class="form-control" placeholder="End Date">-->
-                    <!--&lt;!&ndash;<select id="inputState" class="form-control btn-loginn">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option selected class>End Date</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>January</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>Feburary</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>March</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>April</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>May</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option>June</option>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
-                <!--</div>-->
             </div>
         </div>
         <div class="row">
@@ -82,10 +60,10 @@
             return {
                 mode: this.options.mode || 'month',
                 opens: 'center',
-                startDate: '2017-09-19',
-                endDate: '2017-10-09',
+                startDate: this.options.dateRangeStart || moment().format("YYYY-MM-DD"),
+                endDate: moment().format("YYYY-MM-DD"),
                 minDate: '2017-09-02',
-                maxDate: '2017-10-02',
+                maxDate: moment().format("YYYY-MM-DD"),
             }
         },
         computed: {
@@ -100,38 +78,47 @@
                     case 'year':
                         return "Yearly";
                 }
+            },
+            dateRange: {
+                get: function() {
+                    return this.startDate + ' - ' + this.endDate;
+                }
             }
         },
         watch: {
             mode: function(newValue, oldValue) {
                 this.processChart();
+            },
+            dateRange: function(newValue, oldValue) {
+                this.processChart(this.getDataByDateRange());
             }
         },
         mounted() {
             this.processChart();
         },
         methods: {
+            getDataByDateRange () {
+                return this.year.filter(({ sale_date }) => moment(sale_date).isBetween(this.startDate, this.endDate, null, '[]') );
+            },
             updateValues (values) {
                 this.startDate = values.startDate.toISOString().slice(0, 10);
                 this.endDate = values.endDate.toISOString().slice(0, 10);
             },
             getSalesQuantityData (data) {
-                let graphData = data.map(({ quantity, created_at }) => { return { t:new Date(created_at), y:quantity } });
-                let labels = data.map(({ created_at }) => {
-                    return moment(created_at)[this.mode]();
+                let graphData = data.map(({ quantity, sale_date }) => { return { t:new Date(sale_date), y:quantity } });
+                let labels = data.map(({ sale_date }) => {
+                    return moment(sale_date)[this.mode]();
                 });
                 return { graphData, labels };
             },
-            processChart () {
+            processChart (newData) {
                 let mode = this.mode;
-                let data = this.getSalesQuantityData(this[mode]);
+                let data = newData ? this.getSalesQuantityData(newData) : this.getSalesQuantityData(this[mode]);
 
                 let ctx = document.getElementById("myChart").getContext('2d');
                 let myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        // labels: data.labels,
-                        // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                         datasets: [{
                             label: '# of Quantity Sold',
                             data: data.graphData,

@@ -4,6 +4,7 @@ namespace Koboaccountant\Models;
 
 // use Cviebrock\EloquentSluggable\Sluggable;
 use App\Data\BankDetail;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Company extends Model
 {
 //    use Sluggable;
+	use Cachable;
 
     use SoftDeletes;
 

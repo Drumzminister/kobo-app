@@ -2,6 +2,7 @@
 
 namespace App\Data;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Koboaccountant\Models\Company;
 use Koboaccountant\Models\Expense;
@@ -10,6 +11,8 @@ use Koboaccountant\Models\Sale;
 
 class Transaction extends Model
 {
+	use Cachable;
+
 	public $incrementing = false;
 
 	protected $fillable = [

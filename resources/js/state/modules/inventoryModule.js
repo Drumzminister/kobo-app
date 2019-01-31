@@ -9,7 +9,7 @@ export const inventoryModule = {
             // return state.companyInventories.filter(inventory => !state.selectedInventories.map(inventory => inventory.id).includes(inventory.id));
         },
         getInventory: (state) => (inventoryId) => {
-            return state.companyInventories.find(inventory => inventory.id === inventoryId);
+            return state.companyInventories.find(inventory => parseInt(inventory.id) === parseInt(inventoryId));
         },
         selectedInventories: (state) => {
             return state.selectedInventories;

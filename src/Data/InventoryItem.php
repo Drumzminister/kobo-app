@@ -6,7 +6,7 @@ use Koboaccountant\Models\Inventory;
 
 class InventoryItem extends Model
 {
-    protected $fillable = ['inventory_id', 'name', 'quantity', 'description', 'purchase_price', 'sales_price', 'id', 'user_id', 'company_id'];
+    protected $fillable = ['inventory_id', 'name', 'quantity', 'description', 'purchase_price', 'sales_price'];
 
     public $incrementing = false;
 

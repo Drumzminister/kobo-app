@@ -10,9 +10,9 @@
                         <div class="img text-center">
                             <img src="{{asset('img/person.png')}}" class="img-fluid img-circle" alt="accountant-image" srcset="">
                         </div>
-                        <div class="profile-name row pt-2 pb-2 ">
+                        <div class="profile-name row py-2 ">
                              <div class="col">
-      l                          <h5 class="text-muted">Idong Okon </h5>
+                               <h5 class="text-muted">Idong Okon </h5>
                                 <p class="text-muted">Joined: 20/12/2017</p>                        
                             </div>
                             <div class="col">

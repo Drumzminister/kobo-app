@@ -137,7 +137,7 @@ class DatabaseSeeder extends Seeder
 	    factory(Asset::class, 6)->create(['company_id' => $company->id]);
 
 	    // We're creating some customers for his company as well
-	    $customers = factory(Customer::class, 12)->create(['company_id' => $company->id, 'user_id' => $clientUser->id]);
+	    $customers = factory(Customer::class, 10)->create(['company_id' => $company->id, 'user_id' => $clientUser->id]);
 
 	    // Here, we'll make some Customers debtors 😁
 	    $count = 0;
@@ -199,6 +199,8 @@ class DatabaseSeeder extends Seeder
 			$thingsIWantToBuy = $inventoryItems->random(random_int(1, 20));
 			$tax_id = $taxes->random()->id;
 
+		    $time = mt_rand(now()->subYear()->timestamp, time());
+
 		    /**
 		     * @var $sale Sale
 		     */
@@ -208,6 +210,8 @@ class DatabaseSeeder extends Seeder
 				    'tax_id'            => $tax_id,
 				    'staff_id'          => $staff->id,
 				    'company_id'        => $company->id,
+				    'type'              => 'published',
+				    'sale_date'         => date("Y-m-d H:i:s", $time)
 			    ]);
 
 		    $totalAmount = 0;
