@@ -13,6 +13,6 @@ class InventoryRepository extends Repository
 
     public function getAvailableInventories($companyId)
     {
-    	return $this->model->newQuery()->where('company_id', '=', $companyId)->available()->get();
+    	return $this->model->newQuery()->where('company_id', '=', $companyId)->get();
     }
 }

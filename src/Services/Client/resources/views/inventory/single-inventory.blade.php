@@ -6,12 +6,8 @@
     <section id="top">
         <div class="container p-2">
             <div class="row py-2">
-                <h2><a href="/inventory" class="text-dark">Purchase</a></h2>
-                <span class="accountant ml-auto btn btn-accountant">
-                <a href="" class="btn-accountant">
-                    <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>
-                </span>
+                <h2><a href="/client/inventory" class="text-dark">Purchase</a></h2>
+                @include('client::accountant-button')
             </div>
         </div>
     </section>
@@ -73,15 +69,6 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                    <div class="col">
-                                        <label for="name">Category</label>
-                                        <select v-model="inventoryForm.category" name="category" id="quantity" class="form-control bg-grey">
-                                                <option selected>Choose...</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>5</option>
-                                            </select>
-                                                                            </div>
                                     <div class="col">
                                         <label for="name">Payment Mode</label>
                                         <select v-model="inventoryForm.paymentMode" name="payment_mode" id="quantity" class="form-control bg-grey">

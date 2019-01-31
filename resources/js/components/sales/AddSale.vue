@@ -32,7 +32,7 @@
                         <tbody id="salesTable">
                         <tr v-for="(item, index) in saleItems" :class="{'border-right-green' : item.saved, 'border-right-red' : !item.saved }">
                             <td>
-                                <Select2 :settings="inventorySelectSettings" v-model="item.inventory_id"
+                                <Select2 :settings="inventorySelectSettings" v-model="item.inventory_item_id"
                                          :options="availableInventories.map((inventory) => { return { id: inventory.id, text: inventory.name, disabled: selectedInventories.map(inventory => inventory.id).includes(inventory.id) } })"
                                          @change="fillSaleItemWithInventory(item)"/>
                             </td>
@@ -148,7 +148,9 @@
     import currency from "../../helpers/formatter"
 
     export default {
-
+        mixins: [addSale, appModal],
+        props: ['inventories', 'channels', 'banks', 'sale'],
+        components: { PaymentMethodSelection : PaymentMethodSelection, InvoiceModal, InvoiceSender, Select2, NewCustomer },
         data() {
             return {
                 currency: new Intl.NumberFormat('en-US', {

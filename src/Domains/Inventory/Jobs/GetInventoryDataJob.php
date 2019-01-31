@@ -9,7 +9,7 @@ use Lucid\Foundation\Job;
 
 class GetInventoryDataJob extends Job
 {
-    private $inventory, $inventoryItem;
+    private $inventory, $inventoryItem, $companyId;
     /**
      * Create a new job instance.
      *
@@ -19,6 +19,7 @@ class GetInventoryDataJob extends Job
     {
         $this->inventory = new InventoryRepository();
         $this->inventoryItem = new InventoryItemRepository();
+        $this->companyId = auth()->user()->company->id;
     }
 
     /**
@@ -29,9 +30,20 @@ class GetInventoryDataJob extends Job
     public function handle()
     {
         $data['inventories'] = $inventories = $this->inventory->getBy('user_id', auth()->id(), ['vendor','inventoryItem']);
-        $data['highest_purchase'] = $inventories->sortByDesc('purchase_price')->take(10);
-        $data['highest_quantity'] = $inventories->sortByDesc('quantity')->take(10);
+        $data['highest_purchase'] = $this->inventoryItem->topTenHighestAmountPurchases($this->companyId);
+        $data['highest_quantity'] = $this->inventoryItem->topTenQuantityPurchases($this->companyId);
         return $data;
+    }
+
+    private function getSum($inventoryId) {
+        $inventory = $this->inventory->getBy('inventory_id', $inventoryId);
+        return $inventory;
+    }
+    public function inventoryItem($inventoryId)
+    {
+        $inventory = $this->inventoryItem->all();
+        $inventoryItem = $inventory->getBy('inventory_id', $inventoryId);
+        return $inventoryItem;
     }
 
 }

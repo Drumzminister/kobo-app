@@ -9,7 +9,7 @@
 
 				<div class="row px-5 pt-3">
 					<div class="col-md-2">
-						<img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+						<img :src="saleInvoice.customer ? saleInvoice.customer.image : 'img/account-client.png'" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
 					</div>
 					<div class="col-md-10">
 						<h5 class="text-green h5">@{{ saleInvoice.customer ? saleInvoice.customer.name : "" }}</h5>
@@ -20,19 +20,19 @@
 								<div class="col-md-4">
 									<div class="p-2" id="topp">
 										<h5 class="h5">Total Amount</h5>
-										<h4 class="text-orange">&#8358; @{{ saleInvoice.total_amount || 0 }}</h4>
+										<h4 class="text-orange">&#8358; @{{ $currency.format(saleInvoice.total_amount) || 0 }}</h4>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="p-2" id="topp">
 										<h5 class="h5">Amount Paid</h5>
-										<h4 class="text-orange">&#8358; @{{ saleInvoice.total_amount || 0 }}</h4>
+										<h4 class="text-orange">&#8358; @{{ $currency.format(saleInvoice.total_amount) || 0 }}</h4>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="p-2" id="topp">
 										<h5 class="h5 "> Balance</h5>
-										<h4 class="text-orange">&#8358; @{{ 0 }}</h4>
+										<h4 class="text-orange">&#8358; @{{ $currency.format(saleInvoice.balance) || 0 }}</h4>
 									</div>
 								</div>
 							</div>

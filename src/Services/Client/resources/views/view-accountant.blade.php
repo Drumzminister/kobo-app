@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client::layouts.app')
 
 @section('content')
 <section>
@@ -10,9 +10,9 @@
                         <div class="img text-center">
                             <img src="{{asset('img/person.png')}}" class="img-fluid img-circle" alt="accountant-image" srcset="">
                         </div>
-                        <div class="profile-name row pt-2 pb-2 ">
+                        <div class="profile-name row py-2 ">
                              <div class="col">
-                                <h5 class="text-muted">Idong Okon </h5>
+                               <h5 class="text-muted">Idong Okon </h5>
                                 <p class="text-muted">Joined: 20/12/2017</p>                        
                             </div>
                             <div class="col">
@@ -48,7 +48,7 @@
 
                     {{-- qualifications --}}
                     <div class="row px-3 py-2 ">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-6">
                             <ul class="list-unstyled text-muted">
                                 <li class="level">
                                 <i class="fa fa-level-up-alt"></i>    Level
@@ -61,7 +61,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-6 ">
+                        <div class="col-md-6 col-6">
                             <ul class="list-unstyled">
                                 <li class="level">
                                     kB4
@@ -80,14 +80,14 @@
             </div>
             <div class="col-md-8">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="loa bg-orange text-white p-3">
+                    <div class="col-md-4 col-6">
+                        <div class="loa bg-orange text-white p-2">
                             <h4 class="h4">Review Accountant</h4>
                         </div>
                     </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-6">
-                        <div class="loa bg-white text-muted p-3 text-center">
+                    <div class="col-md-2 col-0"></div>
+                    <div class="col-md-6 col-6">
+                        <div class="loa bg-white text-muted p-2 text-center">
                             <h4><i class="fa fa-comments"></i>    Chat with Accountant</h4>
                         </div>
                     </div>
@@ -165,5 +165,20 @@
             </div>
         </div>
     </div>
+
+    <div id="owl-demo">
+          
+  <div class="item">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, id?</div>
+  <div class="item">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, eaque.</div>
+  <div class="item">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, voluptatum.</div>
+  <div class="item">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, voluptatum.</div>
+  <div class="item">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, voluptatum.</div>
+  <div class="item">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, voluptatum.</div>
+
+ 
+</div>
 </section>
+
+
+
 @endsection

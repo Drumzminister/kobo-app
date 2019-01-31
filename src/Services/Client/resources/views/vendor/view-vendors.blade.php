@@ -5,23 +5,20 @@
     <div class="container py-3">
         <div class="row">
                 <h2><a href="/client/vendor" class="text-dark"> Vendors</a></h2>
-                <span class="accountant ml-auto btn btn-accountant">
-                    <a href="" class="btn-accountant">
-                        <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                    </a>
-                </span>
+                 @include('client::accountant-button')
+
         </div>
     </div>
 </section>
 
 <section>
     <div class="container px-4 py-3">
-        <div class="row">
+        <div class="row py-2">
                 <div class="col-md-10 col-6">
-                    <div class="input-group mt-2">
+                    <div class="input-group">
                         <input v-model="search" type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <a href="#"><span @click.prevent="searchVendor" class="input-group-text vat-input px-5 py-2" id="basic-addon2">Search</span></a>
+                            <a href="#"><span @click.prevent="searchVendor" class="input-group-text vat-input append-border px-5" id="basic-addon2">Search</span></a>
                         </div>
                     </div>
                 </div>
@@ -30,7 +27,7 @@
 </section>
 
 <section id="sale-table">
-        <div class="container mt-4">
+        <div class="container mt-2">
 
             <div class="bg-white p-4">
 

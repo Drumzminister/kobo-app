@@ -53,11 +53,7 @@
         <div class="container p-2">
             <div class="row p-3">
                 <h2>Sales</h2>
-                <span class="accountant ml-auto btn btn-accountant">
-                <a href="" class="btn-accountant">
-                    <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>
-                </span>
+                     @include('client::accountant-button')
             </div>
         </div>
     </section>
@@ -71,51 +67,13 @@
                     <div class="bg-white px-3 py-4 introduction" id="topp">
                         <a href='http://example.com/' data-intro='Hello step one! View your History'></a>
                         @if($sales->count() > 0)
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h5 class="h5">Monthly sales</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-check form-check-inline">
-                                    <label><input type="radio" name="select" /><span>D</span></label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label><input type="radio" name="select" /><span>W</span></label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label><input type="radio" name="select" /><span>M</span></label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label><input type="radio" name="select" /><span>Y</span></label>
-                                </div>
-
-                            </div>
-                            <div class="col-md-6 row">
-                                <div class="form-group col">
-                                    <select id="inputState" class="form-control btn-loginn">
-                                        <option selected>Start Date</option>
-                                        <option>January</option>
-                                        <option>Feburary</option>
-                                        <option>March</option>
-                                        <option>April</option>
-                                        <option>May</option>
-                                        <option>June</option>
-
-                                    </select>
-                                </div>
-                                <div class="form-group col">
-                                    <select id="inputState" class="form-control btn-loginn">
-                                        <option selected class>End Date</option>
-                                        <option>January</option>
-                                        <option>Feburary</option>
-                                        <option>March</option>
-                                        <option>April</option>
-                                        <option>May</option>
-                                        <option>June</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                            <mini-chart-component :options="{ mode: 'month', dateRangeStart: '{{ $startDate }}', dateColumn: 'sale_date', xColumn: 'sale_date', yColumn: 'quantity', label: '# of Quantity Sold'}"
+                                                  :month="{{ $monthSales }}"
+                                                  :data="{{ $sales }}"
+                                                  :year="{{ $yearSales }}"
+                                                  :week="{{ $weekSales }}"
+                                                  :day="{{ $daySales }}">
+                            </mini-chart-component>
                         @else
                             <div class="row">
                                 <div class="col-md-12">
@@ -123,14 +81,13 @@
                                 </div>
                             </div>
                         @endif
-                        <canvas id="myChart" width="400"></canvas>
                     </div>
                 </div>
 
                 {{-- top sales --}}
                 <div class="col-md-4">
                     <div class="bg-white p-2 " id="topp"  data-step="2" data-intro="Here is your performance" data-position='right' data-scrollTo='tooltip'>
-                        @if($topFiveItems->count() > 0)
+                        @if($topSales->count() > 0)
                             <div class="row my-1">
                                 <div class="col mt-1">
                                     <h5 class="h5">Top Sales</h5>
@@ -159,11 +116,11 @@
                                     </thead>
                                     <tbody>
                                     {{--{{ dd($topFiveSales) }}--}}
-                                    @foreach($topFiveItems as $t5s)
+                                    @foreach($topSales as $t5s)
                                         <tr class="right-modal" data-toggle="modal" data-target="#exampleModal">
-                                            <td>{{ $t5s->inventory->name }}</td>
-                                            <td>{{ $t5s->quantity }}</td>
-                                            <td>{{ $t5s->quantity * $t5s->inventory->sales_price }}</td>
+                                            <td>{{ $t5s->name }}</td>
+                                            <td>{{ array_sum($t5s->saleItems->pluck('quantity')->toArray()) }}</td>
+                                            <td>{{ array_sum($t5s->saleItems->pluck('sales_price')->toArray()) }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

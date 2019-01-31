@@ -6,8 +6,8 @@ use App\Data\Tax;
 
 class TaxRepository extends Repository
 {
-	public function __construct(Tax $model)
+	public function __construct()
 	{
-		parent::__construct($model);
+		parent::__construct(new Tax);
 	}
 }

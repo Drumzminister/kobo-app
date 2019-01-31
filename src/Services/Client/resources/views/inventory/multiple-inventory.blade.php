@@ -12,11 +12,7 @@
         <div class="container p-2">
             <div class="row p-3">
                 <h2 class="h2"><a href="/client/inventory" class="text-dark"> Purchase Order</a> </h2>
-                <span class="accountant ml-auto btn btn-accountant">
-                <a href="" class="btn-accountant">
-                    <img src="https://res.cloudinary.com/samuelweke/image/upload/v1527079189/profile.png"> Accountant
-                </a>                
-                </span>
+                @include('client::accountant-button')
             </div>
         </div>
 </section>
@@ -33,29 +29,27 @@
                                 <span class="input-group-text customer-input" id="basic-addon3">Vendor Name</span>
                             </div> 
         
-                            <select class="customer" name="customer" class="form-control" >
-                                    <option selected="Pick customer Name" style="width:200" v-for="vendor in vendors" value="vendor.id">
+                            <select class="customer" v-model="inventoryForm.vendor_id" name="customer" class="form-control" >
+                                    <option selected="Pick customer Name" style="width:200" v-for="vendor in vendors" :value="vendor.id">
                                         @{{ vendor.name }}
                                     </option>
                             </select>
                         </div>
                     </div>
-        
-                            
                         
                     <div class="col-md-3">
                         <div class="form-group">
-                                <select class="form-control form-control-lg form-control vat-input" name="tax" id="basic-addon3">
-                                <option value="5">Value Added Tax (VAT) 5%</option>
-                                <option value="10">PAT (10%)</option>
-                                <option value="">Cashh</option>
-                            </select>
-                        </div> 
+                                <select v-model="inventoryForm.tax_id" class="form-control form-control-lg form-control vat-input" name="tax" id="basic-addon3">
+                                    <option v-for="tax in taxes" :value="tax">
+                                        @{{ tax.name }}
+                                    </option>
+                                </select>
+                        </div>
                     </div>
-                    
+
                     <div class="col-md-3">
                             <div class="dates input-group mb-3 input-group-lg">
-                                <input type="date"  class="form-control" id="datepicker" name="event_date">
+                                <input type="date" v-model="inventoryForm.delivered_date" class="form-control">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-calendar icon" id="datepicker" name="event_date" ></i></span>
                                 </div> 
@@ -75,24 +69,22 @@
             <div class="table-responsive table-responsive-sm">
                     <table class="table table-striped table-hover" id="dataTable">
                         <thead class="p-3">
-                          <tr class="tab">
+                          <tr class="tab text-center">
                             <th scope="col">Inventory Item</th>
                             <th scope="col">Description</th>
-                            <th scope="col">QTY Bought</th>
+                            <th scope="col">QTY(@{{ calculateTotalQuantity()}})</th>
                             <th scope="col">Cost Price (&#8358;)</th>
                             <th scope="col">Sales Price (&#8358;)</th>
                             <th scope="col"></th>
-
-                
                           </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(content, index) in inventoryTableRow" :id="'row-' + index">
                                 <td><input v-model="content.name" type="text" class="form-control "></td>
                                 <td><input v-model="content.description" id="" type="text" class="form-control "></td>
-                                <td><input v-model="content.quantity" type="text" class="form-control "></td>
-                                <td><input v-model="content.cost_price" @keyup="calculateTotalInventoryCost()" id="" type="text" class="form-control cost_price"></td>
-                                <td><input v-model="content.sales_price"  id="" type="text" class="form-control "></td>
+                                <td><input v-model="content.quantity" type="number" @keyup="calculateTotalQuantity()" class="form-control quantity"></td>
+                                <td><input v-model="content.cost_price" @keyup="calculateTotalCost()" id="" type="number" class="form-control cost_price"></td>
+                                <td><input v-model="content.sales_price"  @keyup="calculateTotalSalesPrice()" id="" type="number" class="form-control sales_price"></td>
                                 <td style="cursor: pointer"><i class="fa fa-trash-o" @click="deleteInventoryRow(index)" style="font-size:24px"></i></td>
                             </tr>
                         </tbody>
@@ -103,51 +95,54 @@
 
         <div class="row p-2 mt-2 ">
                 <div class="col-md-6">
-                    {{--<payment-method-selection></payment-method-selection>--}}
+                    <payment-method-selection :banks="banks"></payment-method-selection>
                 </div>
             {{-- end of current payment --}}
 
             {{-- total sum section --}}
-                <div class="col-md-6">
-                        <div class="bg-grey py-4 px-3" id="topp">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h5 class="h5 uppercase">Total Discount</h5>
-                                        <div class="input-group mb-3 input-group-lg">
-                                            {{-- <div class="input-group-prepend">
-                                                <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
-                                            </div> --}}
-                                            <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 100,000">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <h5 class="h5 uppercase">Total Delivery Amount</h5>
-                                        <div class="input-group mb-3 input-group-lg">
-                                            {{-- <div class="input-group-prepend">
-                                                <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
-                                            </div> --}}
-                                            <input type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 100,000">
-                                        </div>
-
-                                    </div>
+                    {{--Payment Section--}}
+                    <div class="col-md-6 ">
+                        <div class="bg-grey py-3 px-4" id="topp">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="h6 mt-2 uppercase text-muted">Total Discount</h5>
                                 </div>
-                                                                        
-                                <div class="row pt-2">
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-5 col-12">
-                                    <h5 class="h5 uppercase">Total Cost Price</h5>
-                                    </div>
-                                    <div class="col input-group input-group-lg">
-                                        {{-- <div class="input-group-prepend cus">
-                                            <span class="input-group-text customer-input" id="basic-addon3">&#8358;</span>
-                                        </div>  --}}
-                                        <input v-model="totalCostPrice" type="text" class="form-control " id="basic-url" aria-describedby="basic-addon3" placeholder="NGN 1,275,000">
-                                    </div>            
+                                <div class="col input-group mb-2 input-group-lg">
+                                    <input type="number" min="1" v-model="inventoryForm.discount"  class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="0.00">
                                 </div>
                             </div>
-                </div>
-                {{-- end of total sum section --}}                    
+
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="h6 mt-2 uppercase text-muted">Total Delivery Amount</h5>
+                                </div>
+                                <div class="col input-group mb-2 input-group-lg">
+                                    <input type="number" v-model="inventoryForm.delivery_cost" min="1" class="form-control " id="" aria-describedby="basic-addon3" placeholder="0.00">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="h6 mt-2 uppercase text-muted">TAX Amount</h5>
+                                </div>
+                                <div class="col input-group input-group-lg">
+                                    <input type="text" v-model="inventoryTax" :disabled="true" class="form-control" aria-describedby="basic-addon3" placeholder="0.00">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row px-5 mt-0">
+                                <div class="col-md-5">
+                                    <h5 class="h5 mt-2 uppercase text-muted">Total Amount</h5>
+                                </div>
+                                <div class="col input-group input-group-lg">
+                                    <input type="text" v-model="calculateTotalCost()" :disabled="true" class="form-control totalCostPrice" aria-describedby="basic-addon3" placeholder="0.00">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            {{--End of payment section--}}
+                {{-- end of total sum section --}}
             </div>  
             {{-- end of entire payment section --}}
 
@@ -158,7 +153,7 @@
                 </div>
                 <div class="col">
                     <span class="float-right">
-                        <a href="" class="btn btn-lg btn-started">Save</a>
+                        <a href="" @click="createInventory"class="btn btn-lg btn-started">Save</a>
                     </span>
                 </div>
             </div>
@@ -172,5 +167,7 @@
 @section('other_js')
     <script>
         window.vendors = @json($vendors);
+        window.banks = @json($banks);
+        window.taxes = @json($taxes);
     </script>
 @endsection
