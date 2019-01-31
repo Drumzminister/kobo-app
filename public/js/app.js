@@ -98715,7 +98715,7 @@ var updateSale = {
 
             var newItem = this.addSaleItemForm();
             newItem.inventory = item.inventory;
-            newItem.inventory_id = item.inventory_item_id;
+            newItem.inventory_item_id = item.inventory_item_id;
             newItem.sales_price = -1 * item.sales_price;
             newItem.type = 'reversed';
             newItem.quantity = item.quantity;
@@ -98772,7 +98772,7 @@ var updateSale = {
         },
         saveAllItems: function saveAllItems() {
             this.saleItems.forEach(function (item) {
-                return item.saveItem();
+                if (!item.saved) item.saveItem();
             });
             // Return Promise at this spot
             return true;

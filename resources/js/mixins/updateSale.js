@@ -69,7 +69,7 @@ export const updateSale = {
 
             let newItem = this.addSaleItemForm();
             newItem.inventory = item.inventory;
-            newItem.inventory_id = item.inventory_item_id;
+            newItem.inventory_item_id = item.inventory_item_id;
             newItem.sales_price = -1 * item.sales_price;
             newItem.type = 'reversed';
             newItem.quantity = item.quantity;
@@ -115,7 +115,9 @@ export const updateSale = {
             }
         },
         saveAllItems () {
-            this.saleItems.forEach((item) => item.saveItem());
+            this.saleItems.forEach((item) => {
+                if (!item.saved) item.saveItem()
+            });
             // Return Promise at this spot
             return true;
         },
