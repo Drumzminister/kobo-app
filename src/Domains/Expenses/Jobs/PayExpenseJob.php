@@ -3,7 +3,7 @@
 namespace App\Domains\Expenses\Jobs;
 
 use App\Data\Repositories\ExpenseRepository;
-use App\Domains\Banking\Jobs\DebitAccountJob;
+use App\Domains\Banks\Jobs\DebitBanksJob;
 use Lucid\Foundation\Job;
 
 class PayExpenseJob extends Job
@@ -38,11 +38,19 @@ class PayExpenseJob extends Job
         if ($expense->hasPaid) {
             throw new \Exception('This expense has already been paid for');
         }
-        $methods = json_decode( $this->data['paymentMethods'], true );
-        foreach($methods as $method) {
-            (new DebitAccountJob($method, $this->companyId))->handle();
+
+        if (($expense->amount - $expense->amount_paid) > $this->data['amount']) {
+            throw new \Exception('Amount is greater than amount payable');
         }
-        $expense->hasPaid = true;
+
+        $methods = json_decode( $this->data['paymentMethods'], true );
+        $debit = (new DebitBanksJob($methods, $expense,$this->companyId))->handle();
+        if ($debit->status !== 'success') {
+            throw new \Exception($debit->message);
+        }
+        $expense->amount_paid += floatval($this->data['amount_paid']);
+        $expense->has_finished_payment = floatval($expense->amount ) === $expense->amount_paid;
+
         $expense->save();
         return $expense;
     }

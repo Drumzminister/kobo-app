@@ -105,14 +105,12 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="text-center p-1">
+                        {{--<div class="text-center p-1">
                             <a href="" class="view-more">View More Analytics</a>
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
             </div>
-        </div>
-        {{-- end of sales chart --}}
         </div>
     </section>
 
@@ -165,7 +163,11 @@
                                 <td>{{$expense->details}}</td>
                                 <td>{{number_format($expense->amount, 2)}}</td>
                                 <td>{{$expense->class_type}}</td>
-                                <td> {{ $expense->hasPaid ? 'Paid' : 'Not Paid' }}</td>
+                                @if($expense->has_finished_payment)
+                                    <td>Paid</td>
+                                @else
+                                    <td>{{ $expense->amount_paid > 0 ? 'Incomplete' : 'Not paid'}}<button class="btn mr-4 pull-right btn-sm btn-primary" @click='payUnpaidExpenses("{{ $expense->id }}")'>Pay</button></td>
+                                @endif
                             </tr>
                         @empty
                             <tr id="noExpense">
@@ -221,7 +223,7 @@
     </div>
 
 @endsection
-@section('other__js')
+@section('other_js')
     <script>
         window.expenses = @json($expenses)
     </script>
