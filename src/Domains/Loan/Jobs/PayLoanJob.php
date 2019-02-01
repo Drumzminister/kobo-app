@@ -5,6 +5,7 @@ namespace App\Domains\Loan\Jobs;
 use App\Data\Repositories\LoanPaymentRepository;
 use App\Data\Repositories\LoanRepository;
 use App\Domains\Banking\Jobs\DebitAccountJob;
+use App\Domains\Banks\Jobs\DebitBanksJob;
 use Lucid\Foundation\Job;
 
 class PayLoanJob extends Job
@@ -33,19 +34,25 @@ class PayLoanJob extends Job
     public function handle()
     {
         $loan = $this->loan->find($this->loanId);
+
         $loanPayable = ($loan->amount * $loan->interest /100) + $loan->amount;
+
         if ($loan->amount_paid === $loanPayable ) {
             throw new \Exception('Payment has already been competed');
         }
+
         $methods = json_decode( $this->data['paymentMethods'], true );
-        foreach ($methods as $method) {
-            (new DebitAccountJob($method, $this->companyId ))->handle();
+        $debit = (new DebitBanksJob($methods, $loan, $this->companyId ))->handle();
+        if ($debit->status !== 'success') {
+            throw new \Exception($debit->message);
         }
 
         $loan->amount_paid += floatval($this->data['amount']);
+
         if (floatval($loanPayable - $loan->amount_paid) === floatval($this->data['amount'])) {
             $loan->status = 'completed';
         }
+
         $loan->save();
 
         $payment = $this->loanPayment->fillAndSave([

@@ -7,10 +7,7 @@
                 </button>
 
                 <div class="px-3 pt-3">
-                    {{--<div class="col-md-1">
-                        <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
-                    </div>--}}
-                    <div class="col-md-11">
+                    <div class="col-md-12">
                         <h5 class="text-green h5">@{{currentLoan.source_name}}</h5>
                         <div class="form row pt-3">
                             <div class="col-md-3">
@@ -78,13 +75,8 @@
                     <h5 class="d-flex justify-content-center mt-3" v-if="loadingLoanDetails">
                         Loading details ...
                     </h5>
-                    <div class="col-6 px-0" v-if="showSelectPaymentMode">
-                        <payment-method-selection  :banks="{{ $banks }}"></payment-method-selection>
-                        <div class="d-flex justify-content-end col-12 mt-3">
-                            <button class="btn btn-sm btn-payment" v-if="isRequestingLoan">Paying...<i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
-                            <button class="btn btn-sm btn-payment" @click="payLoan" v-if="selectedAccounts.length > 0 && !isRequestingLoan">Pay</button>
-                            <button class="btn btn-sm px-3 btn-info" style="cursor: not-allowed;" v-if="selectedAccounts.length < 1" disabled>Pay</button>
-                        </div>
+                    <div class="col-7 px-0" v-if="showSelectPaymentMode">
+                        <loan-payment :loan="currentLoan" :payments="currentLoanPayments" :banks="{{ $banks }}"></loan-payment>
                     </div>
                 </div>
 
@@ -98,25 +90,3 @@
         </div>
     </div>
 </div>
-
-{{-- Pay loan modal --}}
-{{-- <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Select Payment Mode</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <payment-method-selection class="col-12" :banks="{{ $banks }}"></payment-method-selection>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-sm btn-payment" v-if="isRequestingLoan">Paying...<i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
-                <button class="btn btn-sm btn-payment" @click="payLoan" v-if="selectedAccounts.length > 0 && !isRequestingLoan">Pay</button>
-                <button class="btn btn-sm px-3 btn-info" style="cursor: not-allowed;" v-if="selectedAccounts.length < 1" disabled>Pay</button>
-            </div>
-        </div>
-    </div>
-</div> --}}
