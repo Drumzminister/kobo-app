@@ -19,11 +19,12 @@ class CreateInventoryItemsTable extends Migration
             $table->string('company_id');
             $table->string('user_id');
             $table->string('name');
-            $table->string('quantity');
+            $table->integer('quantity');
             $table->string('description');
             $table->double('cost_price', 2);
             $table->double('sales_price', 2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

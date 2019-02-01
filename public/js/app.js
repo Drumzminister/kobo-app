@@ -77378,6 +77378,8 @@ var loanApp = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return inventoryApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_alert__ = __webpack_require__(10);
+
 
 var inventoryApp = {
     data: {
@@ -77387,6 +77389,7 @@ var inventoryApp = {
             delivered_date: '',
             attachment: '',
             tax_id: '',
+            tax_amount: 0,
             discount: '',
             delivery_cost: '',
             total_cost_price: '',
@@ -77414,7 +77417,8 @@ var inventoryApp = {
         totalCostPrice: [],
         selectedInventory: '',
         banks: window.banks,
-        taxes: window.taxes
+        taxes: window.taxes,
+        InventoryFormSubmitted: false
     },
     computed: {
         selectedAccounts: function selectedAccounts() {
@@ -77463,8 +77467,10 @@ var inventoryApp = {
             });
             return inventoryQuantitySum;
         },
-        createInventory: function createInventory(evt) {
-            evt.preventDefault();
+        createInventory: function createInventory() {
+            var _this2 = this;
+
+            this.InventoryFormSubmitted = true;
             this.totalCostPrice = this.inventoryForm.total_price;
             this.inventoryForm.banks = this.selectedAccounts;
             this.inventoryForm.inventoryItem = this.inventoryTableRow;
@@ -77472,13 +77478,24 @@ var inventoryApp = {
             this.inventoryForm.total_quantity = this.calculateTotalQuantity();
             this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
             this.inventoryForm.tax_amount = this.inventoryTax;
-            this.inventoryForm.tax_id = this.inventoryForm.tax_id.id;
-            // this.inventoryForm.amount_paid = this.getActualAmountPaidThroughBank
-            console.log(this.getActualAmountPaidThroughBank);
-            axios.post('/client/inventory/add', this.inventoryForm).then(function (res) {
-                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false });
-            }).catch(function (err) {
-                swal("Oops", "An error occurred when creating this account", "error");
+            this.$validator.validate().then(function (valid) {
+                if (valid) {
+                    axios.post('/client/inventory/add', _this2.inventoryForm).then(function (res) {
+                        swal({
+                            type: 'success',
+                            title: 'Success',
+                            text: res.data.message,
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    }).catch(function (err) {
+                        // swal("Oops", "An error occurred when creating this account", "error");
+                    });
+                } else {
+                    _this2.errors.items.forEach(function (error) {
+                        Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])(error.msg, 'error');
+                    });
+                }
             });
         },
         getTotalCostPrice: function getTotalCostPrice() {
@@ -77492,7 +77509,7 @@ var inventoryApp = {
             }
         },
         deleteInventory: function deleteInventory(inventoryId) {
-            axios.post('/client/inventory/' + inventoryId + '/delete').then(function (res) {
+            axios.post("/client/inventory/" + inventoryId + "/delete").then(function (res) {
                 swal({
                     type: 'success',
                     title: 'Success',
@@ -77514,7 +77531,9 @@ var inventoryApp = {
             });
         },
         deleteInventoryRow: function deleteInventoryRow(row) {
-            $("#row-" + row).remove();
+            this.inventoryTableRow.splice(this.inventoryTableRow.findIndex(function (item) {
+                return item === row;
+            }), 1);
             // reevaluate total after deletion
             this.calculateTotalCost();
         },

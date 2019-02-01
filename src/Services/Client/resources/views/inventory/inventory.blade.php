@@ -110,7 +110,7 @@ input {
                               <tr v-for="purchase in top_purchase">
                                 <td>@{{  purchase.name }}</td>
                                 <td>@{{ purchase.quantity }}</td>
-                                <td>@{{ purchase.cost_price }}</td>
+                                <td>@{{ purchase.sales_price }}</td>
                               </tr>
                             </tbody>
 
@@ -192,10 +192,10 @@ input {
                                 </a>
                             </td>
                             <td>
-                                @{{ getPurchaseQuantityInventoryItem(purchase) }}
+                                @{{ purchase.total_quantity }}
                             </td>
                             <td>
-                                @{{ getPurchaseSalesPriceInventoryItem(purchase) | numberFormat }}
+                                @{{ purchase.total_sales_price | numberFormat }}
                             </td>
                             <td>
                                 @{{ purchase.vendor.name }}
