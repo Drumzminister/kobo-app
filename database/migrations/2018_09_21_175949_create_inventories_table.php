@@ -27,6 +27,7 @@ class CreateInventoriesTable extends Migration
             $table->double('tax_amount', 2)->nullable();
             $table->double('amount_paid', 2);
             $table->double('balance', 2);
+            $table->string('total_amount')->nullable();
             $table->double('total_sales_price', 2);
             $table->double('total_cost_price', 2);
             $table->double('total_quantity', 2);

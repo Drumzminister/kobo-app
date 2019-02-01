@@ -59,7 +59,6 @@ $factory->define('Koboaccountant\Models\Vendor', function (Faker $faker) {
 
 $factory->define(InventoryItem::class, function (Faker $faker) {
    return [
-       'id' => $faker->uuid,
        'inventory_id' => '',
        'user_id' => '',
        'company_id' => '',
@@ -70,6 +69,7 @@ $factory->define(InventoryItem::class, function (Faker $faker) {
        'description' => ucfirst($faker->sentence(2)),
    ];
 });
+
 $factory->define(Inventory::class, function (Faker $faker) {
     return [
         'id' => $faker->uuid,
