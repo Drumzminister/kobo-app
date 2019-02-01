@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="Description" content="Accounting site, Accounting App ">
   <meta content="koboaccountant, accounting, kobo" name="keywords">
-  <meta name="csrf-token" content="{{ csrf_token() }}"> 
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Favicons -->
   <link href="https://res.cloudinary.com/syfon/image/upload/v1536857508/favicon.png" rel="icon">
 
@@ -19,7 +19,7 @@
 
 </head>
 <body>
-    <div id="load"></div>
+    {{--<div id="load"></div>--}}
          <section id="particles"></section>
 
          @if (session('status'))
@@ -32,10 +32,10 @@
              {{ session('warning') }}
          </div>
          @endif
-         
+
 
         <div id="login pt-3">
-            <div class="container pt-3">               
+            <div class="container pt-3">
                 <div class="col-md-6 login-kobo">
                     <div class=" p-3">
                         <div class="">
@@ -51,7 +51,7 @@
                                 <div class="form-group">
                                     <div class="input-box">
                                         <input id="firstname" type="text" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" placeholder="First Name" name="first_name" value="{{ old('first_name') }}" required autofocus>
-                                        
+
                                         @if ($errors->has('first_name'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('first_name') }}</strong>
@@ -118,7 +118,7 @@
 
                                     </div>
                                 </div>
-                               
+
                                 <button type="submit" class="btn btn-loginn">
                                     {{ __('Register') }}
                                 </button>
@@ -131,10 +131,10 @@
                         </p>
                     </div>
 
-                </div> 
+                </div>
             </div>
         </div>
-    
+
 
 <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
@@ -144,4 +144,3 @@
 
 </body>
 </html>
-

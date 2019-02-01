@@ -30252,84 +30252,84 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var axios = __webpack_require__(36);
 
 var API = function () {
-    function API(_ref) {
-        var baseUri = _ref.baseUri;
+        function API(_ref) {
+                var baseUri = _ref.baseUri;
 
-        _classCallCheck(this, API);
+                _classCallCheck(this, API);
 
-        this.baseUri = baseUri;
-        this.endpoints = {};
-    }
-    /**
-     * Create and store a single entity's endpoints
-     * @param {A entity Object} entity
-     */
-
-
-    _createClass(API, [{
-        key: 'createEntity',
-        value: function createEntity(entity) {
-            this.endpoints[entity.name] = this.createBasicCRUDEndpoints(entity);
-        }
-    }, {
-        key: 'createEntities',
-        value: function createEntities(arrayOfEntity) {
-            arrayOfEntity.forEach(this.createEntity.bind(this));
+                this.baseUri = baseUri;
+                this.endpoints = {};
         }
         /**
-         * Create the basic endpoints handlers for CRUD operations
+         * Create and store a single entity's endpoints
          * @param {A entity Object} entity
          */
 
-    }, {
-        key: 'createBasicCRUDEndpoints',
-        value: function createBasicCRUDEndpoints(_ref2) {
-            var name = _ref2.name;
 
-            var endpoints = {};
+        _createClass(API, [{
+                key: 'createEntity',
+                value: function createEntity(entity) {
+                        this.endpoints[entity.name] = this.createBasicCRUDEndpoints(entity);
+                }
+        }, {
+                key: 'createEntities',
+                value: function createEntities(arrayOfEntity) {
+                        arrayOfEntity.forEach(this.createEntity.bind(this));
+                }
+                /**
+                 * Create the basic endpoints handlers for CRUD operations
+                 * @param {A entity Object} entity
+                 */
 
-            var resourceURL = this.baseUri + '/' + name;
+        }, {
+                key: 'createBasicCRUDEndpoints',
+                value: function createBasicCRUDEndpoints(_ref2) {
+                        var name = _ref2.name;
 
-            endpoints.getAll = function (_ref3) {
-                var _ref3$query = _ref3.query,
-                    query = _ref3$query === undefined ? {} : _ref3$query;
-                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-                return axios.get(resourceURL, Object.assign({ params: { query: query }, config: config }));
-            };
+                        var endpoints = {};
 
-            endpoints.getOne = function (_ref4) {
-                var id = _ref4.id;
-                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-                return axios.get(resourceURL + '/' + id, config);
-            };
+                        var resourceURL = this.baseUri + '/' + name;
 
-            endpoints.create = function (toCreate) {
-                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-                return axios.post(resourceURL, toCreate, config);
-            };
+                        endpoints.getAll = function (_ref3) {
+                                var _ref3$query = _ref3.query,
+                                    query = _ref3$query === undefined ? {} : _ref3$query;
+                                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                                return axios.get(resourceURL, Object.assign({ params: { query: query }, config: config }));
+                        };
 
-            endpoints.update = function (toUpdate) {
-                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-                return axios.put(resourceURL + '/' + toUpdate.id, toUpdate, config);
-            };
+                        endpoints.getOne = function (_ref4) {
+                                var id = _ref4.id;
+                                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                                return axios.get(resourceURL + '/' + id, config);
+                        };
 
-            endpoints.patch = function (_ref5, toPatch) {
-                var id = _ref5.id;
-                var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-                return axios.patch(resourceURL + '/' + id, toPatch, config);
-            };
+                        endpoints.create = function (toCreate) {
+                                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                                return axios.post(resourceURL, toCreate, config);
+                        };
 
-            endpoints.delete = function (_ref6) {
-                var id = _ref6.id;
-                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-                return axios.delete(resourceURL + '/' + id, config);
-            };
+                        endpoints.update = function (toUpdate) {
+                                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                                return axios.put(resourceURL + '/' + toUpdate.id, toUpdate, config);
+                        };
 
-            return endpoints;
-        }
-    }]);
+                        endpoints.patch = function (_ref5, toPatch) {
+                                var id = _ref5.id;
+                                var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+                                return axios.patch(resourceURL + '/' + id, toPatch, config);
+                        };
 
-    return API;
+                        endpoints.delete = function (_ref6) {
+                                var id = _ref6.id;
+                                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                                return axios.delete(resourceURL + '/' + id, config);
+                        };
+
+                        return endpoints;
+                }
+        }]);
+
+        return API;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (API);
@@ -77382,17 +77382,18 @@ var loanApp = {
 var inventoryApp = {
     data: {
         inventoryForm: {
-            name: '',
-            description: '',
-            costPrice: '',
-            salePrice: '',
-            quantity: '',
+            inventoryItem: [],
             vendor_id: '',
-            category: '',
+            delivered_date: '',
             attachment: '',
-            tax: '',
-            discount: ''
-
+            tax_id: '',
+            discount: '',
+            delivery_cost: '',
+            total_cost_price: '',
+            total_sales_price: '',
+            total_quantity: '',
+            amount_paid: 0,
+            banks: ''
         },
         inventoryItem: {
             delivered_date: '',
@@ -77412,7 +77413,29 @@ var inventoryApp = {
         inventoryTableRow: [],
         totalCostPrice: [],
         selectedInventory: '',
-        banks: window.banks
+        banks: window.banks,
+        taxes: window.taxes
+    },
+    computed: {
+        selectedAccounts: function selectedAccounts() {
+            return this.$store.getters.selectedAccounts;
+        },
+        inventoryTax: function inventoryTax() {
+            if (this.inventoryForm.tax_id) {
+                var tax = Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.totalCostPrice);
+                return tax;
+            }
+            return 0;
+        },
+        getActualAmountPaidThroughBank: function getActualAmountPaidThroughBank() {
+            var _this = this;
+
+            var total = 0;
+            this.selectedAccounts.forEach(function (bank) {
+                total += Number(bank.amount);
+                _this.inventoryForm.amount_paid = total;
+            });
+        }
     },
     component: {
         PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default.a
@@ -77421,6 +77444,7 @@ var inventoryApp = {
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
         this.vendors = window.vendors;
+        this.inventoryForm.tax_id = this.taxes[2];
         this.addInventoryRow();
     },
 
@@ -77440,17 +77464,25 @@ var inventoryApp = {
             return inventoryQuantitySum;
         },
         createInventory: function createInventory(evt) {
-            var _this = this;
-
             evt.preventDefault();
+            this.totalCostPrice = this.inventoryForm.total_price;
+            this.inventoryForm.banks = this.selectedAccounts;
+            this.inventoryForm.inventoryItem = this.inventoryTableRow;
+            this.inventoryForm.total_cost_price = this.calculateTotalCost();
+            this.inventoryForm.total_quantity = this.calculateTotalQuantity();
+            this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
+            this.inventoryForm.tax_amount = this.inventoryTax;
+            this.inventoryForm.tax_id = this.inventoryForm.tax_id.id;
+            // this.inventoryForm.amount_paid = this.getActualAmountPaidThroughBank
+            console.log(this.getActualAmountPaidThroughBank);
             axios.post('/client/inventory/add', this.inventoryForm).then(function (res) {
-                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
-                    location.reload(true);
-                });
-                _this.inventoryForm = '';
+                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false });
             }).catch(function (err) {
                 swal("Oops", "An error occurred when creating this account", "error");
             });
+        },
+        getTotalCostPrice: function getTotalCostPrice() {
+            return document.querySelector("totalCostPrice").value;
         },
         highestPurchase: function highestPurchase() {
             if (this.top_purchase === highest_quantity) {
@@ -77459,12 +77491,8 @@ var inventoryApp = {
                 this.top_purchase = highest_quantity;
             }
         },
-        trimIdToInvoice: function trimIdToInvoice(value) {
-            return value.slice(0, 5);
-        },
         deleteInventory: function deleteInventory(inventoryId) {
             axios.post('/client/inventory/' + inventoryId + '/delete').then(function (res) {
-                console.log(res.data.message);
                 swal({
                     type: 'success',
                     title: 'Success',
@@ -77488,9 +77516,9 @@ var inventoryApp = {
         deleteInventoryRow: function deleteInventoryRow(row) {
             $("#row-" + row).remove();
             // reevaluate total after deletion
-            this.calculateTotalInventoryCost();
+            this.calculateTotalCost();
         },
-        calculateTotalInventoryCost: function calculateTotalInventoryCost() {
+        calculateTotalCost: function calculateTotalCost() {
             var total = 0;
             var cost_price = document.querySelectorAll(".cost_price");
             cost_price.forEach(function (input) {
@@ -77498,8 +77526,23 @@ var inventoryApp = {
             });
             return this.totalCostPrice = total;
         },
+        calculateTotalSalesPrice: function calculateTotalSalesPrice() {
+            var total = 0;
+            var sales_price = document.querySelectorAll(".sales_price");
+            sales_price.forEach(function (input) {
+                total += Number(input.value);
+            });
+            return total;
+        },
+        calculateTotalQuantity: function calculateTotalQuantity() {
+            var total = 0;
+            var total_quantity = document.querySelectorAll(".quantity");
+            total_quantity.forEach(function (input) {
+                total += Number(input.value);
+            });
+            return total;
+        },
         getSelectedInventory: function getSelectedInventory(inventory) {
-            console.log(inventory);
             this.selectedInventory = inventory;
         }
     }
@@ -78267,23 +78310,21 @@ var customerApp = {
         searchNotFound: false
     },
 
-    created: function created() {
-        var _this = this;
-
-        axios.get('/client/customer/all-customers').then(function (res) {
-            _this.customers = res.data.all_customers.data;
-        });
-    },
-
+    // created() {
+    //     axios.get('/client/customer/all-customers')
+    //         .then(res => {
+    //             this.customers = res.data.all_customers.data;
+    //         });
+    // },
     methods: {
         createCustomer: function createCustomer(e) {
-            var _this2 = this;
+            var _this = this;
 
             e.preventDefault();
             this.customerFormSubmitted = true;
             this.$validator.validate().then(function (valid) {
                 if (valid) {
-                    axios.post('/client/customer/add', _this2.customerForm).then(function (res) {
+                    axios.post('/client/customer/add', _this.customerForm).then(function (res) {
                         swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
                             location.reload(true);
                         });
@@ -78294,11 +78335,11 @@ var customerApp = {
             });
         },
         searchCustomer: function searchCustomer() {
-            var _this3 = this;
+            var _this2 = this;
 
             axios.get('/client/customer/search?param=' + this.customerSearch).then(function (res) {
-                _this3.customers = '';
-                var result = _this3.customers = res.data;
+                _this2.customers = '';
+                var result = _this2.customers = res.data;
             });
         },
         getAndProcessCustomerImage: function getAndProcessCustomerImage() {},
@@ -89103,7 +89144,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { DateRangePicker: __WEBPACK_IMPORTED_MODULE_0_vue2_daterange_picker___default.a },
-    props: ['month', 'day', 'week', 'year', 'options'],
+    props: ['month', 'day', 'week', 'year', 'options', 'data'],
     filters: {
         date: function date(value) {
             var options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -89139,6 +89180,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             get: function get() {
                 return this.startDate + ' - ' + this.endDate;
             }
+        },
+        type: function type() {
+            return this.options.dateColumn ? 'line' : 'scatter';
         }
     },
     watch: {
@@ -89157,57 +89201,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getDataByDateRange: function getDataByDateRange() {
             var _this = this;
 
-            return this.year.filter(function (_ref) {
-                var sale_date = _ref.sale_date;
-                return moment(sale_date).isBetween(_this.startDate, _this.endDate, null, '[]');
+            return this.data.filter(function (one) {
+                return moment(one[_this.options.dateColumn]).isBetween(_this.startDate, _this.endDate, null, '[]');
             });
         },
         updateValues: function updateValues(values) {
             this.startDate = values.startDate.toISOString().slice(0, 10);
             this.endDate = values.endDate.toISOString().slice(0, 10);
         },
-        getSalesQuantityData: function getSalesQuantityData(data) {
+        getData: function getData(data) {
             var _this2 = this;
 
-            var graphData = data.map(function (_ref2) {
-                var quantity = _ref2.quantity,
-                    sale_date = _ref2.sale_date;
-                return { t: new Date(sale_date), y: quantity };
+            var _options = this.options,
+                xColumn = _options.xColumn,
+                yColumn = _options.yColumn;
+
+            var graphData = data.map(function (plot) {
+                return {
+                    x: _this2.options.dateColumn ? new Date(plot[xColumn]) : plot[xColumn],
+                    y: plot[yColumn]
+                };
             });
-            var labels = data.map(function (_ref3) {
-                var sale_date = _ref3.sale_date;
+
+            var labels = data.map(function (_ref) {
+                var sale_date = _ref.sale_date;
 
                 return moment(sale_date)[_this2.mode]();
             });
-            return { graphData: graphData, labels: labels };
+            return { graphData: graphData };
         },
         processChart: function processChart(newData) {
             var mode = this.mode;
-            var data = newData ? this.getSalesQuantityData(newData) : this.getSalesQuantityData(this[mode]);
+            var data = newData ? this.getData(newData) : this.getData(this[mode]);
 
-            var ctx = document.getElementById("myChart").getContext('2d');
+            var ctx = document.getElementById("myChart");
             var myChart = new Chart(ctx, {
-                type: 'line',
+                type: this.type,
                 data: {
                     datasets: [{
-                        label: '# of Quantity Sold',
+                        showLine: true,
+                        label: this.options.label,
                         data: data.graphData,
-                        backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
-                        borderColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                        backgroundColor: [],
+                        borderColor: [],
                         borderWidth: 3
                     }]
                 },
-                options: {
-                    scales: {
-                        xAxes: [{
-                            type: 'time'
-                            // time: {
-                            //     unit: 'week'
-                            // }
-                        }]
-                    }
-                }
+                options: this.getOptions()
             });
+        },
+        getOptions: function getOptions() {
+            var options = {};
+            var xAxes = [];
+
+            if (this.options.dateColumn) {
+                xAxes.push({ type: 'time' });
+            } else {
+                xAxes.push({
+                    type: 'linear',
+                    position: 'bottom'
+                });
+                options.responsive = true;
+            }
+
+            options.scales = { xAxes: xAxes };
+            return options;
         }
     }
 });
