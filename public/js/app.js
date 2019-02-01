@@ -90520,20 +90520,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            subject: "Invoice for Sale"
+            subject: "Invoice for Sale",
+            message: null
         };
     },
 
     computed: {
         customer: function customer() {
             return this.$parent.customer || { email: "" };
+        },
+        apiData: function apiData() {
+            return {
+                email: this.customer.email,
+                subject: this.subject,
+                message: this.message,
+                sale_id: this.$parent.sale.id
+            };
         }
     },
     methods: {
         sendInvoiceToCustomer: function sendInvoiceToCustomer() {
             if (this.customer.email !== "") {}
 
-            this.$modal.close('#invoiceSender');
+            console.log(this.apiData);
+
+            // this.$modal.close('#invoiceSender');
         }
     }
 });
@@ -90645,7 +90656,33 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1),
+                _c("div", { staticClass: "form-group shadow-textarea" }, [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.message,
+                        expression: "message"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      id: "exampleFormControlTextarea1",
+                      rows: "3",
+                      placeholder: "Compose Message"
+                    },
+                    domProps: { value: _vm.message },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.message = $event.target.value
+                      }
+                    }
+                  })
+                ]),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -90699,21 +90736,6 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group shadow-textarea" }, [
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: {
-          id: "exampleFormControlTextarea1",
-          rows: "3",
-          placeholder: "Compose Message"
-        }
-      })
-    ])
   }
 ]
 render._withStripped = true

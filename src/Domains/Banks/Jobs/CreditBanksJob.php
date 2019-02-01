@@ -38,8 +38,9 @@ class CreditBanksJob extends Job
 	/**
 	 * Create a new job instance.
 	 *
-	 * @param array $paymentModes
-	 * @param       $model
+	 * @param array  $paymentModes
+	 * @param        $model
+	 * @param string $companyId
 	 */
     public function __construct(array $paymentModes, $model, string $companyId)
     {
