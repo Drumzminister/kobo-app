@@ -12,7 +12,7 @@
     {{-- end of heading section --}}
 
     {{-- VAT section --}}
-    <vat-component :customers="{{ $customers }}" :taxes="{{ $taxes }}" :sale="{{ json_encode($sale) }}"></vat-component>
+        <vat-component :customers="{{ $customers }}" :taxes="{{ $taxes }}" :sale="{{ json_encode($sale) }}"></vat-component>
     {{-- End VAT section --}}
 
     @if($sale->type === "published")

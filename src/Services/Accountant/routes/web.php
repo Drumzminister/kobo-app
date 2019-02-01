@@ -13,19 +13,19 @@
 
 Route::group(['prefix' => 'accountant'], function() {
 
-    Route::get('/register', 'AccountantRegistrationController@showNewAccountantForm')->name('register.accountant');
-	Route::post('/register', 'AccountantRegistrationController@showNewAccountantForm')->name('register.accountant');
+    Route::get('/register', 'AccountantRegistrationController@showAccountantRegistrationPage')->name('register.accountant');
+	// Route::post('/register', 'AccountantRegistrationController@showNewAccountantForm')->name('register.accountant');
 
 	// Accountant Dashboard Routes
 	Route::get('/dashboard', 'AccountantDashboardController@showAccountantDashboardPage')->name('accountant.dashboard');
 
 	// Client Review
     // Route::get('/clients', 'AccountantDashboardController@showClients')->name('accountant.clients');
-    
-    Route::get('/clients', 'ClientController@showClientPages')->name('client.index');    
+
+    Route::get('/clients', 'ClientController@showClientPages')->name('client.index');
     Route::post('/clients-review', 'AccountantDashboardController@reviewClient')->name('client.review');
-    Route::get('/client/profile', 'ClientController@showClientProfilePage')->name('client.profile');    
-    Route::get('/manage-clients', 'ClientController@ShowManageClientPage')->name('client.manage-client');    
+    Route::get('/client/profile', 'ClientController@showClientProfilePage')->name('client.profile');
+    Route::get('/manage-clients', 'ClientController@ShowManageClientPage')->name('client.manage-client');
 
     // Accountant Profile
     Route::post('/profile-update', 'AccountantDashboardController@updateProfile')->name('accountant.profile.update');
@@ -34,14 +34,15 @@ Route::group(['prefix' => 'accountant'], function() {
     // Accountant Budget Routes
     Route::get('/clients-budget/{id}', 'AccountantDashboardController@viewBudget')->name('view.budget');
 
-    Route::get('/npv', 'NPVController@ShowNPVPages')->name('NPV.index');    
+    Route::get('/npv', 'NPVController@ShowNPVPages')->name('NPV.index');
 
-    Route::get('/resources', 'ResourceController@ShowResourcePages')->name('resource.index');    
+    Route::get('/resources', 'ResourceController@ShowResourcePages')->name('resource.index');
 
-    Route::get('/toolkits', 'ToolkitController@ShowToolkitPages')->name('toolkits.index');    
+    Route::get('/toolkits', 'ToolkitController@ShowToolkitPages')->name('toolkits.index');
 
+    Route::get('/bank-reconciliation', 'BankReconciliationController@ShowBankReconciliationPage')->name('bank-reconciliation.index');
+
+    Route::get('/accountant/register', 'AccountantRegistrationController@showAccountantRegistrationPage')->name('accountant.register');
+    Route::get('/accountant/registration', 'AccountantRegistrationController@showAccountantRegistrationPage2')->name('accountant.register');
 
 });
-    Route::get('/accountant/register', 'AccountantRegistrationController@showAccountantRegistrationPage')->name('accountant.register');    
-    Route::get('/accountant/registration', 'AccountantRegistrationController@showAccountantRegistrationPage2')->name('accountant.register');    
-

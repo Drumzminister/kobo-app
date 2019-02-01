@@ -46,7 +46,7 @@
         <div class="input-group my-3">
             <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
             <div class="input-group-append">
-                <span class="input-group-text vat-input px-5 py-2" id="basic-addon2">Filter<i class="fa fa-filter px-2"></i></span>
+                <span class="input-group-text vat-input append-border px-5" id="basic-addon2">Filter<i class="fa fa-filter px-2"></i></span>
             </div>
         </div>
     </div>

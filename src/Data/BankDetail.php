@@ -2,11 +2,14 @@
 
 namespace App\Data;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Koboaccountant\Models\Company;
 
 class BankDetail extends Model
 {
+	use Cachable;
+
     public $incrementing = false;
 
     protected $fillable = [

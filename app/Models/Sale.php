@@ -5,16 +5,17 @@ namespace Koboaccountant\Models;
 use App\Data\SaleItem;
 use App\Data\Tax;
 use App\Data\Transaction;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sale extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Cachable;
 
     protected $fillable = [
     	'id',
-        'sales_date',
+        'sale_date',
         'name',
         'quantity',
         'amount',
@@ -68,4 +69,24 @@ class Sale extends Model
     {
     	return $this->hasMany(Transaction::class);
     }
+
+    public function scopeDaySale($query)
+    {
+	    return $query->whereBetween('created_at', [now()->subDay(), now()]);
+    }
+
+	public function scopeWeekSale($query)
+	{
+		return $query->whereBetween('created_at', [now()->subWeek(), now()]);
+	}
+
+	public function scopeMonthSale($query)
+	{
+		return $query->whereBetween('created_at', [now()->subMonth(), now()]);
+	}
+
+	public function scopeYearSale($query)
+	{
+		return $query->whereBetween('created_at', [now()->subYear(), now()]);
+	}
 }

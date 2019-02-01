@@ -10,6 +10,6 @@ class ShowBankPagesFeature extends Feature
 {
     public function handle(Request $request)
     {
-        return $this->run(new RespondWithViewJob('client::bank.index'));
+        return $this->run(new RespondWithViewJob('client::bank.banking-pages'));
     }
 }

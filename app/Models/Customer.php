@@ -2,12 +2,14 @@
 
 namespace Koboaccountant\Models;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Cachable;
+
     protected $fillable = ['id', 'user_id', 'first_name', 'last_name', 'company_id', 'email', 'address', 'phone', 'website', 'isActive', 'image'];
     public $incrementing = false;
 
