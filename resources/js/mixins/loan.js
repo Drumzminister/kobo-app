@@ -63,12 +63,20 @@ export const loanApp = {
             }
         },
         loanTerm () {
+            if (Number(this.loanTerm) >= 100000) {
+                this.loanTerm = this.loanTerm.slice(0, this.loanTerm.length -2);
+            }
             this.calculateIntervalsToBeShown();
         },
         loanPeriod () {
             this.calculateIntervalsToBeShown();
         }
 
+    },
+    computed: {
+        spreadAmount () {
+            return this.loanAmount;
+        }
     },
     mounted () {
         this.loans = window.loans;

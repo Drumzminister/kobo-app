@@ -77150,14 +77150,6 @@ var rentApp = {
         other_costs: [],
         rentShowPaymentSettings: false
     },
-    computed: {
-        selectedAccounts: function selectedAccounts() {
-            return this.$store.state.selectedAccounts;
-        },
-        spreadAmount: function spreadAmount() {
-            return this.selectedRent.amount - this.selectedRent.amount_paid;
-        }
-    },
     mounted: function mounted() {
         this.addOtherCosts();
         this.banks = window.banks;
@@ -77375,10 +77367,18 @@ var loanApp = {
             }
         },
         loanTerm: function loanTerm() {
+            if (Number(this.loanTerm) >= 100000) {
+                this.loanTerm = this.loanTerm.slice(0, this.loanTerm.length - 2);
+            }
             this.calculateIntervalsToBeShown();
         },
         loanPeriod: function loanPeriod() {
             this.calculateIntervalsToBeShown();
+        }
+    },
+    computed: {
+        spreadAmount: function spreadAmount() {
+            return this.loanAmount;
         }
     },
     mounted: function mounted() {

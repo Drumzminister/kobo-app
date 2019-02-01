@@ -14,14 +14,6 @@ export const rentApp = {
         other_costs: [],
         rentShowPaymentSettings: false,
     },
-    computed: {
-        selectedAccounts () {
-            return this.$store.state.selectedAccounts;
-        },
-        spreadAmount () {
-            return this.selectedRent.amount - this.selectedRent.amount_paid;
-        }
-    },
     mounted () {
         this.addOtherCosts();
         this.banks = window.banks;
