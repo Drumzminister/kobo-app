@@ -153,8 +153,8 @@
 <section id="menu">
     <div class="container mt-4">
         <div class="row">
-            <div class="col-md-4">
-                <div class="bg-white p-3 loa" id="topp">
+            <div class="col-md-4 p-4">
+                <div class="bg-white p-4 loa" id="topp">
                     <div class="row">
                         <div class="col-md-9">
                             <h5 class="h5 ">Manage Clients</h5>
@@ -171,8 +171,8 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="bg-white p-3 loa" id="topp">
+            <div class="col-md-4 p-4">
+                <div class="bg-white p-4 loa" id="topp">
                     <div class="row">
                         <div class="col-md-9">
                             <h5 class="h5 ">Payments Received</h5>
@@ -188,8 +188,8 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="bg-white p-3 loa" id="topp">
+            <div class="col-md-4 p-4">
+                <div class="bg-white p-4 loa" id="topp">
                     <div class="row">
                         <div class="col-md-9">
                             <h5 class="h5 ">Payments Receivables</h5>
@@ -208,8 +208,8 @@
         </div>
 
         <div class="row mt-4">
-            <div class="col-md-4">
-                <div class="bg-white p-3 loa" id="topp">
+            <div class="col-md-4 p-4">
+                <div class="bg-white p-4 loa" id="topp">
                     <div class="row">
                         <div class="col-md-9">
                             <h5 class="h5">Budgeting</h5>
@@ -226,8 +226,8 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="bg-white p-3 loa" id="topp">
+            <div class="col-md-4 p-4">
+                <div class="bg-white p-4 loa" id="topp">
                     <div class="row">
                         <div class="col-md-9">
                             <h5 class="h5">Toolkits</h5>
@@ -243,8 +243,8 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="bg-white p-3 loa" id="topp">
+            <div class="col-md-4 p-4">
+                <div class="bg-white p-4 loa" id="topp">
                     <div class="row">
                         <div class="col-md-9">
                             <h5 class="h6">Resources & Training Modules</h5>
