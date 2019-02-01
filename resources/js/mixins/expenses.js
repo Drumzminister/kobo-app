@@ -1,30 +1,37 @@
-import PaymentMethodSelection from '../components/banks/PaymentMethodSelection';
 export const expenseApp = {
     data: {
+        expenses: [],
         expenseAmount: 0,
         currentExpense: "",
+        currentExpenseRow: "",
         selectedMethods: [],
-        expenseRecords: ['0'],
+        expenseRecords: [],
         methodToBeChanged: {},
         isPayingExpense: false,
         isSavingExpense: false,
-        expensePaymentMethods: [],
         expenseShowPaymentMethods: false
     },
     mounted () {
-        this.expensePaymentMethods = window.paymentMethods;
-        if (this.expensePaymentMethods) {
-            this.selectedMethods.push(this.expensePaymentMethods[0]);
+        this.expenses = window.expenses;
+        this.addExpenseRecord();
+    },
+    computed: {
+        selectedAccounts () {
+            return this.$store.getters.selectedAccounts;
+        },
+        spreadAmount () {
+            return this.currentExpense.amount - this.currentExpense.amount_paid || 0;
         }
     },
     methods: {
-        showPayExpenseModal (evt) {
+        showPayExpenseModal (evt, expense) {
             let row = evt.target.parentElement.parentElement;
             
             if (!document.querySelector("#expense_date").value) {
                 swal("Oops", "No date specified", "warning");
-            }else if ( row.querySelector('.expenseDescription').value.trim() && row.querySelector('.expenseAmount').value.trim() && !isNaN(row.querySelector('.expenseAmount').value.trim()) && row.querySelector('.expenseAmount').value.trim() > 0) {
-                this.currentExpense = row;
+            }else if ( expense.description.trim() && expense.amount.trim() && !isNaN(Number(expense.amount.trim())) && expense.amount.trim() > 0) {
+                this.currentExpense = expense;
+                this.currentExpenseRow = row;
                 this.openModal("#paymentModal");
             } else {
                 swal("Oops", "Invalid description or amount of expense", "warning");
@@ -38,26 +45,26 @@ export const expenseApp = {
                     sum += Number(account.amount);
                 }
             });
-            let expenseAmount = Number(this.currentExpense.querySelector('.expenseAmount').value);
-            let details = this.currentExpense.querySelector('.expenseDescription').value.trim();
+            let expenseAmount = Number(this.currentExpense.amount);
+            let details = this.currentExpense.description;
             let date = document.querySelector("#expense_date").value;
-            let payBtn = this.currentExpense.querySelector('.payBtn');
-            let paidBtn = this.currentExpense.querySelector('.paid');
+            let payBtn = this.currentExpenseRow.querySelector('.payBtn');
+            let paidBtn = this.currentExpenseRow.querySelector('.paid');
             if ( sum !==  expenseAmount) {
                 swal({
                     timer: 3000,
                     toast: true,
-                    type: 'error',
+                    type: 'warning',
                     position: 'top-end',
                     showConfirmButton: false,
-                    title: `Amount payable must be equal to expense amount:${expenseAmount}`,
+                    text: `You are making an incomplete payment for this expense amount left is:${expenseAmount - sum}`,
                 });
-                return;
             }
             let formData = new FormData();
             formData.append('date', date);
             formData.append('details', details);
-            formData.append('amount', expenseAmount);
+            formData.append('amount', expenseAmount.toString());
+            formData.append('amount_paid', sum.toString());
             formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
             this.isPayingExpense = true;
             axios
@@ -72,7 +79,7 @@ export const expenseApp = {
                         title: `Payment Made successfully`,
                     });
                     this.isPayingExpense = false;
-                    this.currentExpense.querySelector('.expenseAmount').readOnly = true;
+                    this.currentExpenseRow.querySelector('.expenseAmount').readOnly = true;
                     payBtn.style.display = "none";
                     paidBtn.style.display = "block";
                     this.closeModal('#paymentModal');
@@ -87,11 +94,15 @@ export const expenseApp = {
                         title: `Unable to complete payment: ${err.response.data.message}`,
                     });
                     this.isPayingExpense = false;
-                });
-            
+                })
+            ;
         },
         addExpenseRecord () {
-            this.expenseRecords.push(`record`);
+            let expense = {
+                description: null,
+                amount: null,
+            };
+            this.expenseRecords.push(expense);
         },
         beforeSavingExpenses () {
             let rows = document.querySelectorAll('.records');
@@ -181,6 +192,10 @@ export const expenseApp = {
                     this.isSavingExpense = false;
                 }
             }, 50)
+        },
+        payUnpaidExpenses (expenseId) {
+            this.currentExpense = this.expenses.find(exp => exp.id === expenseId);
+            console.log("jame");
         }
     }
 };

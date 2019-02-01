@@ -1,6 +1,6 @@
 <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        {{--<div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Select Payment Mode</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -15,6 +15,7 @@
                 <button class="btn btn-sm btn-payment" @click="payRent" v-if="selectedAccounts.length > 0 && !isRequesting">Pay</button>
                 <button class="btn btn-sm px-3 btn-info" style="cursor: not-allowed;" v-if="selectedAccounts.length < 1" disabled>Pay</button>
             </div>
-        </div>
+        </div>--}}
+        <rent-payment :rent="selectedRent" :banks="{{ $banks }}"></rent-payment>
     </div>
 </div>

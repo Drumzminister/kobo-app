@@ -16,9 +16,9 @@ let token = document.querySelector('meta[name="csrf-token"]').content;
     });
 
 
-    
-       
-      
+
+
+
 
 /*=============
 landing page
@@ -28,13 +28,13 @@ landing page
 
 
 // rotate
-$('.land-header').on('mousemove',function(e){
-    centerX = $(this).width()/1.5;
-    var moveX = centerX - e.offsetX;
-    $(this).css({
-        'transform' : 'perspective(500px)  rotateY('+ moveX/7 + 'deg)'
-    });
-});
+// $('.land-header').on('mousemove',function(e){
+//     centerX = $(this).width()/1.5;
+//     var moveX = centerX - e.offsetX;
+//     $(this).css({
+//         'transform' : 'perspective(500px)  rotateY('+ moveX/7 + 'deg)'
+//     });
+// });
 
 
 
@@ -172,3 +172,17 @@ function AddComma() {
 //
 //     });
 // });
+
+$(document).ready(function () {
+
+  $("#owl-demo").owlCarousel({
+
+    autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+    items: 4,
+    itemsDesktop: [1199, 3],
+    itemsDesktopSmall: [979, 3]
+
+  });
+
+});

@@ -28,9 +28,7 @@ class GetExpensesPageDataJob extends Job
     public function handle()
     {
         $data['expenses'] = (new ListAllCompaniesExpensesJob($this->companyId))->handle();
-        $banks = (new GetBankAccountsJob($this->companyId))->handle();
-        $banks->push( (new GetCashJob($this->companyId))->handle() );
-        $banks[$banks->count() -1]->account_name = "Cash";
+        $data['banks'] = $banks = (new GetBankAccountsJob($this->companyId))->handle();
         return $data;
     }
 }
