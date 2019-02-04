@@ -30,4 +30,12 @@ class Bank {
             account_balance: this.account_balance,
         }
     }
+
+    transfer (amount = 0) {
+
+    }
+
+    recieve (amount) {
+
+    }
 }
