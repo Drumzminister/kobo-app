@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="form-group shadow-textarea">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Compose Message"></textarea>
+                            <textarea v-model="message" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Compose Message"></textarea>
                         </div>
                         <div class="justify-content-around text-center pt-2">
                             <a style="cursor:pointer;" @click="sendInvoiceToCustomer()">  <i class="fa fa-paper-plane" style="font-size:48px; color:#00C259;"></i></a>
@@ -40,21 +40,31 @@
     export default {
         data () {
             return {
-                subject: "Invoice for Sale"
+                subject: "Invoice for Sale",
+                message: null
             }
         },
         computed: {
             customer () {
                 return this.$parent.customer || { email: "" }
+            },
+            apiData () {
+                return {
+                    email: this.customer.email,
+                    subject: this.subject,
+                    message: this.message,
+                    sale_id: this.$parent.sale.id
+                }
             }
         },
         methods: {
             sendInvoiceToCustomer () {
                 if (this.customer.email !== "") {
-
                 }
 
-                this.$modal.close('#invoiceSender');
+                console.log(this.apiData);
+
+                // this.$modal.close('#invoiceSender');
             }
         }
     }

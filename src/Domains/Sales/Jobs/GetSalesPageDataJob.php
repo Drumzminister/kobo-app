@@ -61,7 +61,7 @@ class GetSalesPageDataJob extends Job
     		abort(404);
 	    }
 
-    	$inventories = $this->inventory->getByAttributes(['company_id' => $company->id]);
+    	$inventories        = $this->inventory->getByAttributes(['company_id' => $company->id]);
 	    $soldInventoryItems = $inventories->pluck('inventoryItem')
 	                                  ->flatten()
 	                                  ->filter(function ($item) {
@@ -77,10 +77,10 @@ class GetSalesPageDataJob extends Job
 
     	$firstSale = $sales->first();
 
-	    $daySales = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subDay(), now()]));
-	    $weekSales = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subWeek(), now()]));
+	    $daySales   = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subDay(), now()]));
+	    $weekSales  = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subWeek(), now()]));
 	    $monthSales = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subMonth(), now()]));
-	    $yearSales = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subYear(), now()]));
+	    $yearSales  = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subYear(), now()]));
 
 
     	$sales = $sales->map(function ($sale)  {

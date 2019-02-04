@@ -1,5 +1,6 @@
 import PaymentMethodSelection from "../components/banks/PaymentMethodSelection";
 import HighestPurchases from "../components/inventory/HighestPurchases";
+import Select2 from "v-select2-component";
 import {toast} from "../helpers/alert";
 export const inventoryApp = {
     data: {
@@ -27,9 +28,6 @@ export const inventoryApp = {
             invoice: '',
             vendor: ''
         },
-        top_purchase: {},
-        highest_purchase: '',
-        highest_quantity: '',
         purchase: {},
         all_purchases: '',
         vendors: window.vendors,
@@ -38,7 +36,19 @@ export const inventoryApp = {
         selectedInventory: '',
         banks: window.banks,
         taxes: window.taxes,
-        InventoryFormSubmitted: false,
+        // all_inventory_items: window.all_inventory_items,
+        products: window.products,
+        InventorySelectSettings: {
+            placeholder: 'Inventory',
+            language: {
+                noResults: function () {
+                    return `<a href="/client/inventory" })"><span class="fa fa-plus"></span> Add Product</button>`;
+                }
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            }
+        }
     },
     computed : {
         selectedAccounts () {
@@ -60,14 +70,12 @@ export const inventoryApp = {
         },
     },
     components: {
-      PaymentMethodSelection,
-        HighestPurchases: HighestPurchases
+        PaymentMethodSelection: PaymentMethodSelection,
+        HighestPurchases: HighestPurchases,
+        Select2: Select2,
     },
     mounted () {
-        this.fetchHighestPurchases();
-        this.fetchHighestQuantity();
         this.fetchAllPurchases();
-        this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
         this.vendors = window.vendors;
         if (this.taxes)
@@ -75,14 +83,13 @@ export const inventoryApp = {
         this.addInventoryRow();
     },
     methods: {
+        formattedInventory() {
+            // return this.all_inventory_items['inventory_items'].map((inventory) => {
+            //     return inventory.name
+            // });
+        },
         fetchAllPurchases() {
             this.all_purchases =  window.all_purchases
-        },
-        fetchHighestQuantity() {
-            this.highest_quantity = window.highest_quantity;
-        },
-        fetchHighestPurchases() {
-            this.highest_purchase = window.highest_purchase
         },
         getPurchaseSalesPriceInventoryItem(_purchase) {
             let inventoryItemSum = 0;
@@ -100,7 +107,6 @@ export const inventoryApp = {
         },
 
         createInventory() {
-            this.InventoryFormSubmitted = true;
             this.totalCostPrice = this.inventoryForm.total_price;
             this.inventoryForm.banks = this.selectedAccounts;
             this.inventoryForm.inventoryItem = this.inventoryTableRow;
@@ -131,13 +137,6 @@ export const inventoryApp = {
         getTotalCostPrice() {
             return document.querySelector("totalCostPrice").value;
         },
-        highestPurchase() {
-            if (this.top_purchase === highest_quantity) {
-                this.top_purchase = highest_purchase;
-            } else {
-                this.top_purchase = highest_quantity;
-            }
-        },
         deleteInventory(inventory) {
             console.log(inventory)
             swal({
@@ -153,8 +152,6 @@ export const inventoryApp = {
                        toast(`Invoice number  ${inventory['invoice_number']}  has been reversed`)
                             let index = this.all_purchases.indexOf(inventory);
                             this.all_purchases.splice(index, 1);
-                            this.highest_purchase = window.highest_purchase;
-                            this.highest_quantity = window.highest_quantity;
                     });
                 }
             });
