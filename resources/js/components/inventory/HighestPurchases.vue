@@ -22,10 +22,10 @@
                     </tr>
                     </thead>
                     <tbody class="tbody">
-                    <tr v-for="purchase in top_purchase">
-                        <td>@{{  purchase.name }}</td>
-                        <td>@{{ purchase.quantity }}</td>
-                        <td>@{{ purchase.sales_price }}</td>
+                    <tr v-for="purchase in top_purchase" :key="purchase.id">
+                        <td>{{  purchase.name }}</td>
+                        <td>{{ purchase.quantity }}</td>
+                        <td>{{ purchase.sales_price }}</td>
                     </tr>
                     </tbody>
 
@@ -34,17 +34,41 @@
             <h3 v-if="top_purchase.length === 0"class="text-center">
                 Top purchases will appear here
             </h3>
-            <div class="text-center p-1">
-                <a href="" class="view-more">View More Analytics</a>
-            </div>
+            <!--<div class="text-center p-1">-->
+                <!--<a href="" class="view-more">View More Analytics</a>-->
+            <!--</div>-->
         </div>
     </div>
 </template>
 
 <script>
     export default {
+        data() {
+            return {
+                top_purchase: {},
+                highest_purchase: '',
+                highest_quantity: '',
+            }
+        },
         mounted() {
-            console.log('Component mounted.')
+            this.fetchHighestPurchases();
+            this.fetchHighestQuantity();
+            this.top_purchase = this.highest_quantity;
+        },
+        methods: {
+            fetchHighestQuantity() {
+                this.highest_quantity = window.highest_quantity;
+            },
+            fetchHighestPurchases() {
+                this.highest_purchase = window.highest_purchase
+            },
+            highestPurchase() {
+                if (this.top_purchase === highest_quantity) {
+                    this.top_purchase = highest_purchase;
+                } else {
+                    this.top_purchase = highest_quantity;
+                }
+            },
         }
     }
 </script>

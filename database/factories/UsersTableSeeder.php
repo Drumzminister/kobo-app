@@ -4,6 +4,7 @@ use App\Data\InventoryItem;
 use Faker\Generator as Faker;
 use Koboaccountant\Models\Inventory;
 use Koboaccountant\Models\SaleChannel;
+use Koboaccountant\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,15 @@ $factory->define('Koboaccountant\Models\Vendor', function (Faker $faker) {
         'website' => $faker->url,
         'image'  => $faker->imageUrl(),
         'isActive' => $faker->numberBetween(0, 1),
+    ];
+});
+
+$factory->define(Product::class, function(Faker $faker) {
+    return [
+        'name' => $faker->word,
+        'company_id' => '',
+        'user_id' => '',
+        'low_quantity' => random_int(1,30),
     ];
 });
 
