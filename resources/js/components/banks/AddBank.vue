@@ -29,11 +29,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="balance">Balance (&#8358;)</label>
-                                <input type="number" step="0.01" name="account_balance" class="form-control" id="balance" placeholder="">
+                                <input type="number" :min="1" step="0.01" name="account_balance" class="form-control" id="balance" placeholder="">
                                 <!--<small class="text-danger" v-if="showBalError">Account balance should be greater than &#8358;0 .</small>-->
                             </div>
                             <div class="form-group d-flex justify-content-center">
-                                <button type="submit" class="btn btn-green px-5">Save</button>
+                                <button type="submit" @click="saveBankDetail" class="btn btn-green px-5">Save</button>
                             </div>
                         </form>
                     </div>
@@ -48,8 +48,12 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        mounted () {
+        },
+        methods: {
+            saveBankDetails () {
+
+            }
         }
     }
 </script>

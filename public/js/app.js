@@ -120740,8 +120740,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    mounted: function mounted() {},
+
+    methods: {
+        saveBankDetails: function saveBankDetails() {}
     }
 });
 
@@ -120753,7 +120755,78 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "addBankModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalLongTitle",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _c("div", { staticClass: "container p-3" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("p", { staticClass: "f-18 mb-4" }, [
+                _vm._v("Add Bank Details")
+              ]),
+              _vm._v(" "),
+              _c("form", [
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "balance" } }, [
+                    _vm._v("Balance (₦)")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "number",
+                      min: 1,
+                      step: "0.01",
+                      name: "account_balance",
+                      id: "balance",
+                      placeholder: ""
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group d-flex justify-content-center" },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-green px-5",
+                        attrs: { type: "submit" },
+                        on: { click: _vm.saveBankDetail }
+                      },
+                      [_vm._v("Save")]
+                    )
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -120761,150 +120834,81 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "div",
+      "button",
       {
-        staticClass: "modal fade",
+        staticClass: "close",
         attrs: {
-          id: "addBankModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLongTitle",
-          "aria-hidden": "true"
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
         }
       },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "container p-3" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-body" }, [
-                  _c("p", { staticClass: "f-18 mb-4" }, [
-                    _vm._v("Add Bank Details")
-                  ]),
-                  _vm._v(" "),
-                  _c("form", [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "bankName" } }, [
-                        _vm._v("Bank Name")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          staticClass: "form-control",
-                          attrs: { name: "bank_name", id: "bankName" }
-                        },
-                        [
-                          _c("option", { attrs: { value: "Bank" } }, [
-                            _vm._v("Bank")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "" } }, [
-                            _vm._v("Bank Name")
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "accountName" } }, [
-                        _vm._v("Account Name")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "account_name",
-                          id: "accountName",
-                          placeholder: "",
-                          required: ""
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "accountNumber" } }, [
-                        _vm._v("Account Number")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          name: "account_number",
-                          id: "accountNumber",
-                          placeholder: ""
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("small", { staticClass: "text-danger" }, [
-                        _vm._v("Account number should contain 10 characters.")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "balance" } }, [
-                        _vm._v("Balance (₦)")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          step: "0.01",
-                          name: "account_balance",
-                          id: "balance",
-                          placeholder: ""
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "form-group d-flex justify-content-center"
-                      },
-                      [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-green px-5",
-                            attrs: { type: "submit" }
-                          },
-                          [_vm._v("Save")]
-                        )
-                      ]
-                    )
-                  ])
-                ])
-              ])
-            ])
-          ]
-        )
-      ]
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "bankName" } }, [_vm._v("Bank Name")]),
+      _vm._v(" "),
+      _c(
+        "select",
+        {
+          staticClass: "form-control",
+          attrs: { name: "bank_name", id: "bankName" }
+        },
+        [
+          _c("option", { attrs: { value: "Bank" } }, [_vm._v("Bank")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "" } }, [_vm._v("Bank Name")])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "accountName" } }, [_vm._v("Account Name")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          name: "account_name",
+          id: "accountName",
+          placeholder: "",
+          required: ""
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "accountNumber" } }, [
+        _vm._v("Account Number")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "number",
+          name: "account_number",
+          id: "accountNumber",
+          placeholder: ""
+        }
+      }),
+      _vm._v(" "),
+      _c("small", { staticClass: "text-danger" }, [
+        _vm._v("Account number should contain 10 characters.")
+      ])
+    ])
   }
 ]
 render._withStripped = true
