@@ -46,7 +46,7 @@ class AddExpenseJob extends Job
         }
 
         if (array_key_exists('paymentMethods', $this->data)) {
-           (new PayExpenseJob($expense->id, $this->companyId, $this->data))->handle();
+            (new PayExpenseJob($expense->id, $this->companyId, $this->data))->handle();
         }
         return $expense;
 

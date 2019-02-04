@@ -29,7 +29,7 @@ class GetInventoryDataJob extends Job
      */
     public function handle()
     {
-        $data['inventories'] = $inventories = $this->inventory->getBy('user_id', auth()->id(), ['vendor','inventoryItem']);
+        $data['inventories'] = $inventories = $this->inventory->getBy('user_id', auth()->user()->id, ['vendor','inventoryItem']);//getAvailableInventories($this->companyId);//
         $data['highest_purchase'] = $this->inventoryItem->topTenHighestAmountPurchases($this->companyId);
         $data['highest_quantity'] = $this->inventoryItem->topTenQuantityPurchases($this->companyId);
         return $data;

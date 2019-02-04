@@ -1,4 +1,6 @@
 import PaymentMethodSelection from "../components/banks/PaymentMethodSelection";
+import HighestPurchases from "../components/inventory/HighestPurchases";
+import {toast} from "../helpers/alert";
 export const inventoryApp = {
     data: {
         inventoryForm: {
@@ -7,6 +9,7 @@ export const inventoryApp = {
             delivered_date: '',
             attachment: '',
             tax_id: '',
+            tax_amount: 0,
             discount: '',
             delivery_cost: '',
             total_cost_price: '',
@@ -25,16 +28,17 @@ export const inventoryApp = {
             vendor: ''
         },
         top_purchase: {},
-        highest_purchase: window.highest_purchase,
-        highest_quantity: window.highest_quantity,
+        highest_purchase: '',
+        highest_quantity: '',
         purchase: {},
-        all_purchases: window.all_purchases,
+        all_purchases: '',
         vendors: window.vendors,
         inventoryTableRow: [],
         totalCostPrice: [],
         selectedInventory: '',
         banks: window.banks,
         taxes: window.taxes,
+        InventoryFormSubmitted: false,
     },
     computed : {
         selectedAccounts () {
@@ -42,8 +46,8 @@ export const inventoryApp = {
         },
         inventoryTax() {
             if (this.inventoryForm.tax_id) {
-               let tax =  Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.totalCostPrice);
-                return tax;
+                let tax =  Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.totalCostPrice);
+                return parseFloat(tax).toFixed(2);
             }
             return 0;
         },
@@ -55,17 +59,31 @@ export const inventoryApp = {
             })
         },
     },
-    component: {
+    components: {
       PaymentMethodSelection,
+        HighestPurchases: HighestPurchases
     },
     mounted () {
+        this.fetchHighestPurchases();
+        this.fetchHighestQuantity();
+        this.fetchAllPurchases();
         this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
         this.vendors = window.vendors;
-        this.inventoryForm.tax_id = this.taxes[2];
+        if (this.taxes)
+            this.inventoryForm.tax_id = this.taxes[2];
         this.addInventoryRow();
     },
     methods: {
+        fetchAllPurchases() {
+            this.all_purchases =  window.all_purchases
+        },
+        fetchHighestQuantity() {
+            this.highest_quantity = window.highest_quantity;
+        },
+        fetchHighestPurchases() {
+            this.highest_purchase = window.highest_purchase
+        },
         getPurchaseSalesPriceInventoryItem(_purchase) {
             let inventoryItemSum = 0;
             _purchase['inventory_item'].map(purchase => {
@@ -81,8 +99,8 @@ export const inventoryApp = {
             return inventoryQuantitySum;
         },
 
-        createInventory(evt) {
-            evt.preventDefault();
+        createInventory() {
+            this.InventoryFormSubmitted = true;
             this.totalCostPrice = this.inventoryForm.total_price;
             this.inventoryForm.banks = this.selectedAccounts;
             this.inventoryForm.inventoryItem = this.inventoryTableRow;
@@ -90,13 +108,24 @@ export const inventoryApp = {
             this.inventoryForm.total_quantity = this.calculateTotalQuantity();
             this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
             this.inventoryForm.tax_amount = this.inventoryTax;
-            this.inventoryForm.tax_id = this.inventoryForm.tax_id.id;
-            // this.inventoryForm.amount_paid = this.getActualAmountPaidThroughBank
-            console.log(this.getActualAmountPaidThroughBank);
-            axios.post('/client/inventory/add', this.inventoryForm).then(res => {
-                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false,});
-            }).catch(err => {
-                swal("Oops", "An error occurred when creating this account", "error");
+            this.$validator.validate().then(valid => {
+                if(valid) {
+                    axios.post('/client/inventory/add', this.inventoryForm).then(res => {
+                        swal({
+                            type: 'success',
+                            title: 'Success',
+                            text: res.data.message,
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    }).catch(err => {
+                        // swal("Oops", "An error occurred when creating this account", "error");
+                    });
+                }else {
+                    this.errors.items.forEach(error => {
+                        toast(error.msg, 'error')
+                    })
+                }
             });
         },
         getTotalCostPrice() {
@@ -109,20 +138,26 @@ export const inventoryApp = {
                 this.top_purchase = highest_quantity;
             }
         },
-        deleteInventory(inventoryId) {
-                axios.post(`/client/inventory/${inventoryId}/delete`).then(res => {
-                    swal({
-                        type: 'success',
-                        title: 'Success',
-                        text: res.data.message,
-                        timer: 3000,
-                        showConfirmButton: false,
-                    }).then(() =>{
-                        location.reload(true);
+        deleteInventory(inventory) {
+            console.log(inventory)
+            swal({
+                title: 'Are you sure',
+                text: 'Are you sure you want to delete',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes, Am sure',
+            }).then((result) => {
+                if(result.value){
+                    axios.post(`/client/inventory/${inventory['id']}/delete`).then(response => {
+                       toast(`Invoice number  ${inventory['invoice_number']}  has been reversed`)
+                            let index = this.all_purchases.indexOf(inventory);
+                            this.all_purchases.splice(index, 1);
+                            this.highest_purchase = window.highest_purchase;
+                            this.highest_quantity = window.highest_quantity;
                     });
-                }).catch(error => {
-
-                });
+                }
+            });
         },
         addInventoryRow() {
             this.inventoryTableRow.push({
@@ -134,7 +169,7 @@ export const inventoryApp = {
             });
         },
         deleteInventoryRow(row) {
-            $("#row-" + row).remove();
+            this.inventoryTableRow.splice(this.inventoryTableRow.findIndex(item => item === row ), 1);
             // reevaluate total after deletion
             this.calculateTotalCost();
         },
