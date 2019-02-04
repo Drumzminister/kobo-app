@@ -77670,7 +77670,10 @@ var loanApp = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_v_select2_component__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_v_select2_component__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_alert__ = __webpack_require__(6);
+
 
 
 
@@ -77700,9 +77703,6 @@ var inventoryApp = {
             invoice: '',
             vendor: ''
         },
-        top_purchase: {},
-        highest_purchase: '',
-        highest_quantity: '',
         purchase: {},
         all_purchases: '',
         vendors: window.vendors,
@@ -77711,7 +77711,19 @@ var inventoryApp = {
         selectedInventory: '',
         banks: window.banks,
         taxes: window.taxes,
-        InventoryFormSubmitted: false
+        // all_inventory_items: window.all_inventory_items,
+        products: window.products,
+        InventorySelectSettings: {
+            placeholder: 'Inventory',
+            language: {
+                noResults: function noResults() {
+                    return "<a href=\"/client/inventory\" })\"><span class=\"fa fa-plus\"></span> Add Product</button>";
+                }
+            },
+            escapeMarkup: function escapeMarkup(markup) {
+                return markup;
+            }
+        }
     },
     computed: {
         selectedAccounts: function selectedAccounts() {
@@ -77736,13 +77748,11 @@ var inventoryApp = {
     },
     components: {
         PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default.a,
-        HighestPurchases: __WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases___default.a
+        HighestPurchases: __WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases___default.a,
+        Select2: __WEBPACK_IMPORTED_MODULE_2_v_select2_component___default.a
     },
     mounted: function mounted() {
-        this.fetchHighestPurchases();
-        this.fetchHighestQuantity();
         this.fetchAllPurchases();
-        this.top_purchase = this.highest_quantity;
         this.purchase = this.all_purchases;
         this.vendors = window.vendors;
         if (this.taxes) this.inventoryForm.tax_id = this.taxes[2];
@@ -77750,14 +77760,13 @@ var inventoryApp = {
     },
 
     methods: {
+        formattedInventory: function formattedInventory() {
+            // return this.all_inventory_items['inventory_items'].map((inventory) => {
+            //     return inventory.name
+            // });
+        },
         fetchAllPurchases: function fetchAllPurchases() {
             this.all_purchases = window.all_purchases;
-        },
-        fetchHighestQuantity: function fetchHighestQuantity() {
-            this.highest_quantity = window.highest_quantity;
-        },
-        fetchHighestPurchases: function fetchHighestPurchases() {
-            this.highest_purchase = window.highest_purchase;
         },
         getPurchaseSalesPriceInventoryItem: function getPurchaseSalesPriceInventoryItem(_purchase) {
             var inventoryItemSum = 0;
@@ -77776,7 +77785,6 @@ var inventoryApp = {
         createInventory: function createInventory() {
             var _this2 = this;
 
-            this.InventoryFormSubmitted = true;
             this.totalCostPrice = this.inventoryForm.total_price;
             this.inventoryForm.banks = this.selectedAccounts;
             this.inventoryForm.inventoryItem = this.inventoryTableRow;
@@ -77799,20 +77807,13 @@ var inventoryApp = {
                     });
                 } else {
                     _this2.errors.items.forEach(function (error) {
-                        Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])(error.msg, 'error');
+                        Object(__WEBPACK_IMPORTED_MODULE_3__helpers_alert__["b" /* toast */])(error.msg, 'error');
                     });
                 }
             });
         },
         getTotalCostPrice: function getTotalCostPrice() {
             return document.querySelector("totalCostPrice").value;
-        },
-        highestPurchase: function highestPurchase() {
-            if (this.top_purchase === highest_quantity) {
-                this.top_purchase = highest_purchase;
-            } else {
-                this.top_purchase = highest_quantity;
-            }
         },
         deleteInventory: function deleteInventory(inventory) {
             var _this3 = this;
@@ -77828,11 +77829,9 @@ var inventoryApp = {
             }).then(function (result) {
                 if (result.value) {
                     axios.post("/client/inventory/" + inventory['id'] + "/delete").then(function (response) {
-                        Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("Invoice number  " + inventory['invoice_number'] + "  has been reversed");
+                        Object(__WEBPACK_IMPORTED_MODULE_3__helpers_alert__["b" /* toast */])("Invoice number  " + inventory['invoice_number'] + "  has been reversed");
                         var index = _this3.all_purchases.indexOf(inventory);
                         _this3.all_purchases.splice(index, 1);
-                        _this3.highest_purchase = window.highest_purchase;
-                        _this3.highest_quantity = window.highest_quantity;
                     });
                 }
             });
@@ -78483,8 +78482,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            top_purchase: {},
+            highest_purchase: '',
+            highest_quantity: ''
+        };
+    },
     mounted: function mounted() {
-        console.log('Component mounted.');
+        this.fetchHighestPurchases();
+        this.fetchHighestQuantity();
+        this.top_purchase = this.highest_quantity;
+    },
+
+    methods: {
+        fetchHighestQuantity: function fetchHighestQuantity() {
+            this.highest_quantity = window.highest_quantity;
+        },
+        fetchHighestPurchases: function fetchHighestPurchases() {
+            this.highest_purchase = window.highest_purchase;
+        },
+        highestPurchase: function highestPurchase() {
+            if (this.top_purchase === highest_quantity) {
+                this.top_purchase = highest_purchase;
+            } else {
+                this.top_purchase = highest_quantity;
+            }
+        }
     }
 });
 
@@ -78532,12 +78556,12 @@ var render = function() {
               "tbody",
               { staticClass: "tbody" },
               _vm._l(_vm.top_purchase, function(purchase) {
-                return _c("tr", [
-                  _c("td", [_vm._v("@" + _vm._s(purchase.name))]),
+                return _c("tr", { key: purchase.id }, [
+                  _c("td", [_vm._v(_vm._s(purchase.name))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v("@" + _vm._s(purchase.quantity))]),
+                  _c("td", [_vm._v(_vm._s(purchase.quantity))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v("@" + _vm._s(purchase.sales_price))])
+                  _c("td", [_vm._v(_vm._s(purchase.sales_price))])
                 ])
               }),
               0
@@ -78550,9 +78574,7 @@ var render = function() {
         ? _c("h3", { staticClass: "text-center" }, [
             _vm._v("\n            Top purchases will appear here\n        ")
           ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm._m(3)
+        : _vm._e()
     ])
   ])
 }
@@ -78585,16 +78607,6 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Quantity")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Amount")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center p-1" }, [
-      _c("a", { staticClass: "view-more", attrs: { href: "" } }, [
-        _vm._v("View More Analytics")
       ])
     ])
   }

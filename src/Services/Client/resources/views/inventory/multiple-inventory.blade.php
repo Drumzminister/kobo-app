@@ -76,7 +76,8 @@
                         </thead>
                         <tbody>
                             <tr v-for="(content, index) in inventoryTableRow" :id="'row-' + index">
-                                <td><input v-model="content.name" type="text" class="form-control "></td>
+                                <td><Select2 v-model="content.name" :settings="Object.assign(InventorySelectSettings, {placeholder: 'Select Inventory' })" :options="formattedInventory()"></Select2></td>
+                                {{--<td><input v-model="content.name" type="text" class="form-control "></td>--}}
                                 <td><input v-model="content.description" id="" type="text" class="form-control "></td>
                                 <td><input v-model="content.quantity" type="number" name="quantity" v-validate="'required'" @keyup="calculateTotalQuantity()" class="form-control quantity"></td>
                                 <td><input v-model="content.cost_price" @keyup="calculateTotalCost()" name="cost_price" v-validate="'required'"  type="number" class="form-control cost_price"></td>
@@ -136,7 +137,6 @@
                             </div>
                         </div>
                     </div>
-
             {{--End of payment section--}}
                 {{-- end of total sum section --}}
             </div>  
@@ -148,6 +148,7 @@
                     <a href="" class="btn btn-lg btn-login" data-toggle="modal" data-target="">Send Order</a>
                 </div>
                 <div class="col">
+                    {{$products}}
                     <span class="float-right">
                         <button type="submit" @click="createInventory" class="btn btn-lg btn-started">Save</button>
                     </span>
@@ -155,15 +156,13 @@
             </div>
         </div> 
     </div>
-
 </section>
-
 @endsection
-
 @section('other_js')
     <script>
         window.vendors = @json($vendors);
         window.banks = @json($banks);
         window.taxes = @json($taxes);
+        {{--window.products = @json($products);--}}
     </script>
 @endsection
