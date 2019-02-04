@@ -9,7 +9,6 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.swal = require('sweetalert2');
 window.moment = require('moment');
-
 import {rentApp} from "./mixins/rent";
 import {loanApp} from "./mixins/loan";
 import {inventoryApp} from "./mixins/inventory";

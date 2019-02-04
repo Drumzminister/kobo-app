@@ -151,7 +151,7 @@ export const updateSale = {
                         this.saleSaved = true;
                         toast('Sale record updated successfully!', 'success', 'center');
                         setTimeout(function () {
-                            // window.location.href = "/client/sales";
+                            window.location.href = "/client/sales";
                         }, 1000);
                     } else {
                         this.savingSale = false;
