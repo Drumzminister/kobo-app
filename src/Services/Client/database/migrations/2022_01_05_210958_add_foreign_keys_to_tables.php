@@ -78,6 +78,12 @@ class AddForeignKeysToTables extends Migration
 		    $table->foreign('customer_id')->references('id')->on('customers');
 	    });
 
+	    Schema::table('inventory_items', function(Blueprint $table) {
+	       $table->foreign('inventory_id')->references('id')->on('inventories')->onDelete('cascade');
+	       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+	       $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+        });
+
 	    Schema::table('sale_items', function (Blueprint $table) {
 		    $table->foreign('sale_id')->references('id')->on('sales');
 		    $table->foreign('inventory_item_id')->references('id')->on('inventory_items');
@@ -134,6 +140,11 @@ class AddForeignKeysToTables extends Migration
 		    $table->dropForeign('sales_items_sale_channel_id_foreign');
 	    });
 
+	    Schema::table('inventory_items', function(Blueprint $table) {
+	        $table->dropForeign('inventory_items_inventory_id_foreign');
+	        $table->dropForeign('inventory_items_company_id_foreign');
+	        $table->dropForeign('inventory_items_user_id_foreign');
+        });
         Schema::table('rents', function (Blueprint $table) {
             $table->dropForeign('rents_company_id_foreign');
             $table->dropForeign('rents_staff_id_foreign');

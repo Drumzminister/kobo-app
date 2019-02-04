@@ -121,7 +121,7 @@ class DatabaseSeeder extends Seeder
         $vendors->each(function (Vendor $vendor) use ($company, &$inventories, $clientUser) {
             $inventory = $inventories->merge(factory(Inventory::class, 4)->create(['company_id' => $company->id, 'vendor_id' => $vendor->id, 'user_id' => $clientUser->id]));
             $inventory->each(function($inventory) use($company, $clientUser) {
-                $this->createInventoryItem(10, $inventory->id, $company->id, $clientUser->id);
+                $this->createInventoryItem(2, $inventory->id, $company->id, $clientUser->id);
             });
         });
 
