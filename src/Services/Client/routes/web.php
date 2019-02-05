@@ -123,6 +123,8 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/opening-pages', 'OpeningPagesController@showOpeningPages')->name('opening-pages.index');
 
     Route::get('/bank', 'BankPagesController@showBankPages')->name('bank.banking-page');
+    Route::get('/bank/add', 'BankDetailController@addBankBankDetail')->name('add.bank');
+    Route::get('/bank/transfer', 'BankDetailController@addBankBankDetail')->name('bank.transfer');
 
     Route::get('/product/add', 'ProductController@addProductPage')->name('add-product');
     Route::post('/product/add-product', 'ProductController@addProduct')->name('add-product');

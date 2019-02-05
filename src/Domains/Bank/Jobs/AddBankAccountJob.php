@@ -3,10 +3,13 @@
 namespace App\Domains\Bank\Jobs;
 
 use App\Data\Repositories\BankDetailRepository;
+use Koboaccountant\Traits\HelpsResponse;
 use Lucid\Foundation\Job;
 
 class AddBankAccountJob extends Job
 {
+	use HelpsResponse;
+
 	private $data;
 
 	/**
@@ -32,10 +35,7 @@ class AddBankAccountJob extends Job
     {
     	// ToDo: Validate Account: Check if Same has been stored before
 	    if ((new CheckIfBankExistJob($this->data))->handle()->count()) {
-	    	return [
-	    		'status' => 'error',
-			    'message' => 'You already have this account number linked to your account',
-		    ];
+	    	return $this->createJobResponse('error', 'You already have this account number linked to your account', null);
 	    }
 
 	    return $this->bankDetail->fillAndSave($this->data) ? true : false;

@@ -18,7 +18,7 @@
     </section>
 
     <!-- Modal -->
-    <add-bank></add-bank>
+    <add-bank :banks="{{ $supportedBanks }}"></add-bank>
 {{--    @include('modals._makeTransfer')--}}
     <make-transfer></make-transfer>
 </div>

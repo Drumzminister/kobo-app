@@ -1,4 +1,5 @@
-class Bank {
+class Bank
+{
     constructor () {
         this.account_name = "";
         this.account_number = "";
@@ -19,7 +20,6 @@ class Bank {
     }
 
     saveBank () {
-
     }
 
     getBankData () {
@@ -27,7 +27,7 @@ class Bank {
             bank_name: this.bank_name,
             account_name: this.account_name,
             account_number: this.account_number,
-            account_balance: this.account_balance,
+            account_balance: this.account_balance || 0,
         }
     }
 
@@ -35,7 +35,9 @@ class Bank {
 
     }
 
-    recieve (amount) {
+    receive (amount) {
 
     }
 }
+
+export default Bank;

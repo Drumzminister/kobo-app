@@ -8,7 +8,12 @@ use Lucid\Foundation\Http\Controller;
 
 class BankPagesController extends Controller
 {
-    public function showBankPages()
+	public function __construct()
+	{
+		$this->middleware(['auth']);
+	}
+
+	public function showBankPages()
     {
     	return $this->serve( ShowBankPagesFeature::class);
 	}
