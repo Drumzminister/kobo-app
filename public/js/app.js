@@ -71457,14 +71457,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins_loadingView__ = __webpack_require__(283);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__mixins_appModals__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__mixins_expenses__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_vee_validate__ = __webpack_require__(327);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_vue_tables_2__ = __webpack_require__(328);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_vue_tables_2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_vue_tables_2__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__state_store__ = __webpack_require__(496);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_v_select2_component__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_v_select2_component__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__plugins_Currency__ = __webpack_require__(501);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__plugins_ModalHelper__ = __webpack_require__(502);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__mixins_product__ = __webpack_require__(505);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_vee_validate__ = __webpack_require__(327);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_vue_tables_2__ = __webpack_require__(328);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_vue_tables_2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_vue_tables_2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__state_store__ = __webpack_require__(496);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_v_select2_component__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_v_select2_component__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__plugins_Currency__ = __webpack_require__(501);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__plugins_ModalHelper__ = __webpack_require__(502);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -71476,6 +71477,7 @@ __webpack_require__(202);
 window.Vue = __webpack_require__(20);
 window.swal = __webpack_require__(45);
 window.moment = __webpack_require__(0);
+
 
 
 
@@ -71502,20 +71504,20 @@ files.keys().map(function (key) {
 
 
 var koboTheme = __webpack_require__(495);
-Vue.use(__WEBPACK_IMPORTED_MODULE_11_vue_tables_2__["ClientTable"], {}, false, koboTheme, 'default');
-Vue.use(__WEBPACK_IMPORTED_MODULE_10_vee_validate__["a" /* default */]);
+Vue.use(__WEBPACK_IMPORTED_MODULE_12_vue_tables_2__["ClientTable"], {}, false, koboTheme, 'default');
+Vue.use(__WEBPACK_IMPORTED_MODULE_11_vee_validate__["a" /* default */]);
 
 
 
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_14__plugins_Currency__["a" /* default */]);
-Vue.use(__WEBPACK_IMPORTED_MODULE_15__plugins_ModalHelper__["a" /* default */]);
+Vue.use(__WEBPACK_IMPORTED_MODULE_15__plugins_Currency__["a" /* default */]);
+Vue.use(__WEBPACK_IMPORTED_MODULE_16__plugins_ModalHelper__["a" /* default */]);
 
 window.app = new Vue({
     el: '#app',
-    store: __WEBPACK_IMPORTED_MODULE_12__state_store__["a" /* store */],
-    components: { Select2: __WEBPACK_IMPORTED_MODULE_13_v_select2_component___default.a },
-    mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins_vendor__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_0__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_loan__["a" /* loanApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_staff__["a" /* staffApp */], __WEBPACK_IMPORTED_MODULE_5__mixins_customer__["a" /* customerApp */], __WEBPACK_IMPORTED_MODULE_6__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_7__mixins_loadingView__["a" /* loadingView */], __WEBPACK_IMPORTED_MODULE_8__mixins_appModals__["a" /* appModal */], __WEBPACK_IMPORTED_MODULE_9__mixins_expenses__["a" /* expenseApp */]],
+    store: __WEBPACK_IMPORTED_MODULE_13__state_store__["a" /* store */],
+    components: { Select2: __WEBPACK_IMPORTED_MODULE_14_v_select2_component___default.a },
+    mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins_vendor__["a" /* vendorApp */], __WEBPACK_IMPORTED_MODULE_0__mixins_rent__["a" /* rentApp */], __WEBPACK_IMPORTED_MODULE_1__mixins_loan__["a" /* loanApp */], __WEBPACK_IMPORTED_MODULE_2__mixins_inventory__["a" /* inventoryApp */], __WEBPACK_IMPORTED_MODULE_3__mixins_staff__["a" /* staffApp */], __WEBPACK_IMPORTED_MODULE_5__mixins_customer__["a" /* customerApp */], __WEBPACK_IMPORTED_MODULE_6__mixins_salesListView__["a" /* salesListView */], __WEBPACK_IMPORTED_MODULE_7__mixins_loadingView__["a" /* loadingView */], __WEBPACK_IMPORTED_MODULE_8__mixins_appModals__["a" /* appModal */], __WEBPACK_IMPORTED_MODULE_9__mixins_expenses__["a" /* expenseApp */], __WEBPACK_IMPORTED_MODULE_10__mixins_product__["a" /* productApp */]],
     // components: {PaymentMethodSelection: PaymentMethodSelection},
     filters: {
         numberFormat: function numberFormat(value) {
@@ -77717,7 +77719,7 @@ var inventoryApp = {
             placeholder: 'Inventory',
             language: {
                 noResults: function noResults() {
-                    return "<a href=\"/client/inventory\" })\"><span class=\"fa fa-plus\"></span> Add Product</button>";
+                    return "<a href=\"/client/product/add\" })\"><span class=\"fa fa-plus\"></span> Add Product</button>";
                 }
             },
             escapeMarkup: function escapeMarkup(markup) {
@@ -77760,10 +77762,10 @@ var inventoryApp = {
     },
 
     methods: {
-        formattedInventory: function formattedInventory() {
-            // return this.all_inventory_items['inventory_items'].map((inventory) => {
-            //     return inventory.name
-            // });
+        formattedProduct: function formattedProduct() {
+            return this.products['products'].map(function (product) {
+                return { id: product.id, text: product.name };
+            });
         },
         fetchAllPurchases: function fetchAllPurchases() {
             this.all_purchases = window.all_purchases;
@@ -119883,6 +119885,51 @@ var saleModule = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 504 */,
+/* 505 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return productApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(6);
+
+var productApp = {
+    data: {
+        productForm: {
+            name: '',
+            attachment: '',
+            tag: '',
+            description: '',
+            low_quantity: ''
+        }
+    },
+
+    methods: {
+        productImageUpload: function productImageUpload(event) {
+            var _this = this;
+
+            var file = event.target.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/product/add-product-image', formData).then(function (res) {
+                console.log(res.data.data);
+                _this.productForm.attachment = res.data.data;
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product image successfully uploaded', 'success');
+            }).catch(function (error) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('error', 'Error saving image, try again mbok');
+            });
+        },
+        createProduct: function createProduct() {
+            this.productForm.attachment = this.productForm.attachment['data'];
+            axios.post('/client/product/add-product', this.productForm).then(function (res) {
+                console.log(res);
+            });
+        }
+    }
+
+};
 
 /***/ })
 /******/ ]);

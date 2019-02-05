@@ -19,7 +19,6 @@ class ShowMultipleInventoryFeature extends Feature
         $data['vendors'] = $this->run(ListVendorsJob::class);
         $data['banks'] = $this->run(GetBankAccountsJob::class, ['companyId' => auth()->user()->company->id]);
         $data['taxes'] = $this->run(GetAllTaxJob::class);
-//        $data['inventory_items'] = $this->run(GetInventoryItemDataJob::class);
         $data['products'] = $this->run(GetProductDataJob::class);
         return $this->run(new RespondWithViewJob('client::inventory.multiple-inventory', $data));
     }

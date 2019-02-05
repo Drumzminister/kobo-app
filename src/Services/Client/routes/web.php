@@ -124,6 +124,10 @@ Route::group([ 'prefix' => 'client'], function () {
 
     Route::get('/bank', 'BankPagesController@showBankPages')->name('bank.banking-page');
 
+    Route::get('/product/add', 'ProductController@addProductPage')->name('add-product');
+    Route::post('/product/add-product', 'ProductController@addProduct')->name('add-product');
+    Route::post('/product/add-product-image', 'ProductController@addProductImage')->name('add-product-image');
+
 });
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
 Route::get('/bar/{slug}', 'ClientDashboardController@testFeature');

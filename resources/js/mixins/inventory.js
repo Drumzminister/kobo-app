@@ -42,7 +42,7 @@ export const inventoryApp = {
             placeholder: 'Inventory',
             language: {
                 noResults: function () {
-                    return `<a href="/client/inventory" })"><span class="fa fa-plus"></span> Add Product</button>`;
+                    return `<a href="/client/product/add" })"><span class="fa fa-plus"></span> Add Product</button>`;
                 }
             },
             escapeMarkup: function (markup) {
@@ -83,10 +83,8 @@ export const inventoryApp = {
         this.addInventoryRow();
     },
     methods: {
-        formattedInventory() {
-            // return this.all_inventory_items['inventory_items'].map((inventory) => {
-            //     return inventory.name
-            // });
+        formattedProduct() {
+            return this.products['products'].map((product) => {return {id: product.id, text: product.name}});
         },
         fetchAllPurchases() {
             this.all_purchases =  window.all_purchases
