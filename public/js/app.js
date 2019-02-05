@@ -90939,123 +90939,8 @@ var render = function() {
                     if ($event.target.composing) {
                       return
                     }
-<<<<<<< HEAD
-                });
-            } else {
-                this.saveExpenses(details);
-            }
-        },
-        saveExpenses: function saveExpenses(details) {
-            var _this3 = this;
-
-            var saved = 0;
-            var date = document.querySelector("#expense_date").value;
-            details.forEach(function (expense) {
-                if (!expense.querySelector('.expenseAmount').value) {
-                    swal({
-                        timer: 2000,
-                        toast: true,
-                        type: 'error',
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        text: "Some records have no amount entered"
-                    });
-                    return;
-                }
-
-                var formData = new FormData();
-                formData.append('date', date);
-                formData.append('details', expense.querySelector('.expenseDescription').value.trim());
-                formData.append('amount', expense.querySelector('.expenseAmount').value.trim());
-
-                _this3.isSavingExpense = true;
-                axios.post('/client/expenses/add', formData).then(function (res) {
-                    saved += 1;
-                }).catch(function (err) {
-                    swal({
-                        timer: 3000,
-                        toast: true,
-                        type: 'error',
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        title: "Unable to save: " + err.response.data.message
-                    });
-                });
-            });
-            var checkSaved = setInterval(function () {
-                if (saved === details.length) {
-                    location.href = "/client/expenses";
-                    clearInterval(checkSaved);
-                    this.isSavingExpense = false;
-                }
-            }, 50);
-        },
-        payUnpaidExpenses: function payUnpaidExpenses(expenseId) {
-            this.currentExpense = this.expenses.find(function (exp) {
-                return exp.id === expenseId;
-            });
-            console.log("jame");
-        }
-    }
-};
-
-/***/ }),
-/* 285 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return productApp; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_select2_component__);
-
-
-var productApp = {
-    data: {
-        productForm: {
-            name: '',
-            attachment: '',
-            tag: '',
-            description: '',
-            low_quantity: ''
-        },
-        ProductSelectSettings: {
-            multiple: true,
-            tags: true,
-            placeholder: 'Select varieties',
-            tokenSeparators: [',', '']
-        }
-    },
-    components: {
-        Select2: __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default.a
-    },
-    methods: {
-        productImageUpload: function productImageUpload(event) {
-            var _this = this;
-
-            var file = event.target.files[0];
-            var formData = new FormData();
-            formData.append('file', file);
-            axios.post('/client/product/add-product-image', formData).then(function (res) {
-                _this.productForm.attachment = res.data.data;
-                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product image successfully uploaded', 'success');
-            }).catch(function (error) {
-                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('error', 'Error saving image, try again mbok');
-            });
-        },
-        createProduct: function createProduct() {
-            var _this2 = this;
-
-            this.productForm.attachment = this.productForm.attachment;
-            this.$validator.validate().then(function (valid) {
-                if (valid) {
-                    axios.post('/client/product/add-product', _this2.productForm).then(function (res) {
-                        _this2.productForm = '', Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product successfully uploaded', 'success');
-                    });
-=======
                     _vm.newSource = $event.target.value
                   }
->>>>>>> ffbb9bcff664e03a58aaa2943e4d8e067a39ff07
                 }
               }),
               _vm._v(" "),
@@ -120637,7 +120522,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['storedBankDetails']), {
         transferNotValid: function transferNotValid() {
-            return this.payingBankId === "" || this.transfer_date === "" || this.amount <= 0 || this.amount === 0 || this.receivingBankId === "";
+            return this.payingBankId === "" || this.transfer_date === "" || this.amount <= 0 || this.amount === 0 || this.receivingBankId === "" || this.receivingBankId === this.payingBankId;
         },
         payingBankDoesNotHaveSufficientFund: function payingBankDoesNotHaveSufficientFund() {
             return parseFloat(this.getStoredBank(this.payingBankId).account_balance) < parseFloat(this.amount);
@@ -120649,8 +120534,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         startTransfer: function startTransfer() {
             var _this = this;
-
-            this.transferring = true;
 
             if (this.transferNotValid) {
                 this.showValidationErrors();
@@ -120667,15 +120550,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var receivingBank = this.getStoredBank(this.receivingBankId);
             var payingBank = this.getStoredBank(this.payingBankId);
 
+            console.log(receivingBank);
+            console.log(payingBank);
+
             Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["a" /* confirmSomethingWithAlert */])("You are about to make transfer of NGN " + this.amount + " from " + payingBank.account_name + " balance to " + receivingBank.account_name + " balance!").then(function (_ref) {
                 var value = _ref.value;
 
                 if (value) {
-                    receivingBank.receive(payingBank.transfer(_this.amount));
+                    _this.finalizeTransfer(payingBank, receivingBank);
                 }
             });
-
-            this.transfering = false;
         },
         showValidationErrors: function showValidationErrors() {
             if (this.receivingBankId === this.payingBankId) {
@@ -120683,6 +120567,44 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
                 return null;
             }
+        },
+        finalizeTransfer: function finalizeTransfer(payingBank, receivingBank) {
+            var _this2 = this;
+
+            this.transferring = true;
+
+            receivingBank.receive(payingBank.transfer(this.amount));
+            receivingBank.saved = payingBank.saved = false;
+            receivingBank.saveBank().then(function (_ref2) {
+                var data = _ref2.data;
+
+                if (data.status === "success") {
+                    receivingBank.saved = true;
+                    payingBank.saveBank().then(function (_ref3) {
+                        var data = _ref3.data;
+
+                        if (data.status === "success") {
+                            payingBank.saved = true;
+
+                            Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])("Transfer of N" + _this2.amount + " completed successfully!", 'success');
+
+                            _this2.transferring = false;
+                        } else {
+                            Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])("" + data.message, 'error');
+                            _this2.transferring = false;
+                        }
+                    });
+                } else {
+                    Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])("" + data.message, 'error');
+                    _this2.transferring = false;
+                }
+            });
+        },
+        getStoredBank: function getStoredBank(bank_id) {
+            return this.storedBankDetails.filter(function (_ref4) {
+                var id = _ref4.id;
+                return id === bank_id;
+            })[0];
         }
     })
 });
@@ -120974,14 +120896,27 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn btn-green px-5",
-                        attrs: { type: "button" },
+                        attrs: { disabled: _vm.transferring, type: "button" },
                         on: {
                           click: function($event) {
                             _vm.startTransfer()
                           }
                         }
                       },
-                      [_vm._v("Send")]
+                      [
+                        _c("i", {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.transferring,
+                              expression: "transferring"
+                            }
+                          ],
+                          staticClass: "fa fa-circle-notch fa-spin"
+                        }),
+                        _vm._v(" Transfer")
+                      ]
                     )
                   ]
                 )
@@ -121126,7 +121061,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     mounted: function mounted() {},
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(["storedBankDetails"])),
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(["addStoredBankDetail"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(["getStoredBank"]), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(["addStoredBankDetail"]), {
         runValidatorProcess: function runValidatorProcess() {
             if (this.storedBankDetails.map(function (_ref) {
                 var account_number = _ref.account_number;
@@ -121171,6 +121106,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         closeAddBankModal: function closeAddBankModal() {
             this.newBank = new __WEBPACK_IMPORTED_MODULE_0__classes_Bank__["a" /* default */]();
             this.$modal.close("#addBankModal");
+        },
+        getStoredBank: function getStoredBank(bank_id) {
+            return this.storedBankDetails.filter(function (_ref3) {
+                var id = _ref3.id;
+                return id === bank_id;
+            })[0];
         }
     })
 });
@@ -121501,7 +121442,7 @@ var productApp = {
             this.$validator.validate().then(function (valid) {
                 if (valid) {
                     axios.post('/client/product/add-product', _this2.productForm).then(function (res) {
-                        _this2.productForm = '', Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product image successfully uploaded', 'success');
+                        _this2.productForm = '', Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product successfully uploaded', 'success');
                     });
                 }
             });
@@ -121548,15 +121489,16 @@ var Bank = function () {
             }
 
             if (!this.id) {
-                return axios.post(route('add.bank'), this.getBankData());
+                return axios.post(route('bank.add'), this.getBankData());
+            } else {
+                return axios.patch(route('bank.update'), this.getBankData());
             }
-
-            return false;
         }
     }, {
         key: "getBankData",
         value: function getBankData() {
             return {
+                id: this.id,
                 bank_name: this.bank_name,
                 account_name: this.account_name,
                 account_number: this.account_number,
@@ -121600,15 +121542,6 @@ var bankDetailModule = {
     getters: {
         storedBankDetails: function storedBankDetails(state) {
             return state.banks;
-        },
-
-        getStoredBank: function getStoredBank(state) {
-            return function (bank_id) {
-                return state.banks.filter(function (_ref) {
-                    var id = _ref.id;
-                    return id === bank_id;
-                })[0];
-            };
         }
     },
     mutations: {

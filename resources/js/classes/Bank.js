@@ -26,14 +26,15 @@ class Bank
         }
 
         if (!this.id) {
-            return axios.post(route('add.bank'), this.getBankData());
+            return axios.post(route('bank.add'), this.getBankData());
+        } else {
+            return axios.patch(route('bank.update'), this.getBankData());
         }
-
-        return false;
     }
 
     getBankData () {
         return {
+            id: this.id,
             bank_name: this.bank_name,
             account_name: this.account_name,
             account_number: this.account_number,

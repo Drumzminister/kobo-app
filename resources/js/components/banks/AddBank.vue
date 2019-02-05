@@ -67,7 +67,6 @@
         },
         methods: {
             ...mapMutations(["addStoredBankDetail"]),
-            ...mapGetters(["getStoredBank"]),
             runValidatorProcess () {
                 if (this.storedBankDetails.map(({ account_number }) => account_number).includes(this.newBank.account_number)) {
                     toast(`A bank with account number "${this.newBank.account_number}" already exists.`, 'error');
@@ -96,7 +95,6 @@
                             this.saving = false;
 
                             this.closeAddBankModal();
-
                         } else {
                             toast(data.message, 'error');
 
@@ -107,6 +105,9 @@
             closeAddBankModal () {
                 this.newBank = new Bank();
                 this.$modal.close("#addBankModal")
+            },
+            getStoredBank (bank_id) {
+                return this.storedBankDetails.filter(({ id }) => id === bank_id)[0];
             }
         }
     }

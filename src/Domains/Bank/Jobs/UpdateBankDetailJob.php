@@ -22,13 +22,11 @@ class UpdateBankDetailJob extends Job
 	/**
 	 * Create a new job instance.
 	 *
-	 * @param $detailId
 	 * @param $data array
 	 */
-	public function __construct($detailId, array $data)
+	public function __construct(array $data)
 	{
 		$this->data = $data;
-		$this->detailId = $detailId;
 		$this->bankDetail = app(BankDetailRepository::class);
 	}
 
@@ -37,6 +35,6 @@ class UpdateBankDetailJob extends Job
 	 */
 	public function handle()
 	{
-		return $this->bankDetail->find($this->detailId)->fill($this->data)->save();
+		return $this->bankDetail->find($this->data['id'])->fill($this->data)->save();
 	}
 }
