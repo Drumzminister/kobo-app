@@ -10,7 +10,7 @@
                     <br/>
                     <div class="modal-body">
                         <p class="f-18 mb-4">Add Bank Details</p>
-                        <form>
+                        <!--<form @submit.prevent="">-->
                             <div class="form-group">
                                 <label for="bankName">Bank Name</label>
                                 <select v-model="newBank.bank_name" name="bank_name" class="form-control"  id="bankName">
@@ -37,7 +37,7 @@
                             <div class="form-group d-flex justify-content-center">
                                 <button type="button" @click="saveBankDetails()" class="btn btn-green px-5">Save</button>
                             </div>
-                        </form>
+                        <!--</form>-->
                     </div>
 
                 </div>
@@ -73,7 +73,7 @@
                 this.addStoredBankDetail(this.newBank);
             },
             closeAddBankModal () {
-                this.newBank.reset();
+                this.newBank = new Bank();
                 this.$modal.close("#addBankModal")
             }
         }

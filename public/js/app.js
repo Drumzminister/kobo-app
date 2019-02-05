@@ -120401,7 +120401,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['storedBankDetails']), {
         balanceSum: function balanceSum() {
             var sum = 0;
-            this.banks.forEach(function (bank) {
+            this.storedBankDetails.forEach(function (bank) {
                 sum += parseInt(bank.account_balance);
             });
 
@@ -120412,7 +120412,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         var _this = this;
 
         this.banks.forEach(function (bank) {
-            console.log(bank);
             _this.addStoredBankDetail(_this.createBankObject(bank));
         });
     },
@@ -120443,6 +120442,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_alert__ = __webpack_require__(6);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -120490,17 +120493,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            receivingBank: {},
-            payingBank: {}
+            receivingBankId: "",
+            payingBankId: "",
+            transfer_date: "",
+            comment: "",
+            amount: null,
+            transferring: false
         };
     },
 
-    computed: {},
-    methods: {}
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['storedBankDetails']), {
+        transferNotValid: function transferNotValid() {
+            return this.payingBankId === "" || this.transfer_date === "" || this.amount <= 0 || this.amount === 0 || this.receivingBankId === "";
+        }
+    }),
+    methods: {
+        closeMakeTransferModal: function closeMakeTransferModal() {
+            this.$modal.close("#makeTransferModal");
+        },
+        startTransfer: function startTransfer() {
+            this.transferring = true;
+
+            if (this.transferNotValid) {
+                this.showValidationErrors();
+
+                return null;
+            }
+        },
+        showValidationErrors: function showValidationErrors() {
+            if (this.receivingBankId === this.payingBankId) {
+                Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])('Receiving bank and Paying bank cannot be the same', 'error');
+
+                return null;
+            }
+        }
+    }
 });
 
 /***/ }),
@@ -120511,148 +120556,303 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "makeTransferModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLongTitle",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-body" }, [
-                _c("p", { staticClass: "f-18 mb-4" }, [
-                  _vm._v("Make a Transfer")
-                ]),
-                _vm._v(" "),
-                _c("form", [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "payingBank" } }, [
-                      _vm._v("Paying Bank")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        staticClass: "form-control custom-select",
-                        attrs: { name: "payer", id: "payingBank", required: "" }
-                      },
-                      [_c("option", [_vm._v("Paying Bank")])]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "amountSend" } }, [
-                      _vm._v("Amount  (₦)")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "number",
-                        min: "0",
-                        step: "0.01",
-                        id: "amountSend",
-                        placeholder: "",
-                        required: ""
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "receivingBank" } }, [
-                      _vm._v("Receiving Bank")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        staticClass: "form-control custom-select",
-                        attrs: {
-                          name: "receiver",
-                          id: "receivingBank",
-                          required: ""
-                        }
-                      },
-                      [_c("option", [_vm._v("Receiving Bank Name")])]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col" }, [
-                        _c("label", { attrs: { for: "dateSent" } }, [
-                          _vm._v("Date")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "date",
-                            name: "date",
-                            id: "dateSent",
-                            placeholder: "",
-                            required: ""
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col" }, [
-                        _c("label", { attrs: { for: "transactionComments" } }, [
-                          _vm._v("Comments ")
-                        ]),
-                        _vm._v(" "),
-                        _c("textarea", {
-                          staticClass: "form-control",
-                          attrs: {
-                            id: "transactionComments",
-                            name: "comment",
-                            rows: "3"
-                          }
-                        })
-                      ])
-                    ])
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "makeTransferModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalLongTitle",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _c("div", { staticClass: "container p-3" }, [
+            _c(
+              "button",
+              {
+                staticClass: "close",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    _vm.closeMakeTransferModal()
+                  }
+                }
+              },
+              [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("p", { staticClass: "f-18 mb-4" }, [
+                _vm._v("Make a Transfer")
+              ]),
+              _vm._v(" "),
+              _c("form", [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "payingBank" } }, [
+                    _vm._v("Paying Bank")
                   ]),
                   _vm._v(" "),
                   _c(
-                    "div",
-                    { staticClass: "form-group d-flex justify-content-center" },
-                    [
-                      _c(
-                        "button",
+                    "select",
+                    {
+                      directives: [
                         {
-                          staticClass: "btn btn-green px-5",
-                          attrs: { type: "submit" }
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.payingBankId,
+                          expression: "payingBankId"
+                        }
+                      ],
+                      staticClass: "form-control custom-select",
+                      attrs: { name: "payer", id: "payingBank", required: "" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.payingBankId = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("Paying Bank ...")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.storedBankDetails, function(bank) {
+                        return _c("option", { domProps: { value: bank.id } }, [
+                          _vm._v(_vm._s(bank.account_name))
+                        ])
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _vm.payingBankId === "" && _vm.transferring
+                    ? _c("small", { staticClass: "text-danger" }, [
+                        _vm._v("You must select a paying bank!")
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "amountSend" } }, [
+                    _vm._v("Amount  (₦)")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.amount,
+                        expression: "amount"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "number",
+                      min: "0",
+                      step: "0.01",
+                      id: "amountSend",
+                      placeholder: "",
+                      required: ""
+                    },
+                    domProps: { value: _vm.amount },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.amount = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  (_vm.amount <= 0 || _vm.amount === null) && _vm.transferring
+                    ? _c("small", { staticClass: "text-danger" }, [
+                        _vm._v("Amount is not valid")
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "receivingBank" } }, [
+                    _vm._v("Receiving Bank")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.receivingBankId,
+                          expression: "receivingBankId"
+                        }
+                      ],
+                      staticClass: "form-control custom-select",
+                      attrs: {
+                        name: "payer",
+                        id: "receivingBank",
+                        required: ""
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.receivingBankId = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("Receiving Bank ...")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.storedBankDetails, function(receivingBank) {
+                        return _c(
+                          "option",
+                          { domProps: { value: receivingBank.id } },
+                          [_vm._v(_vm._s(receivingBank.account_name))]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _vm.receivingBankId === "" && _vm.transferring
+                    ? _c("small", { staticClass: "text-danger" }, [
+                        _vm._v("You must select a receiving bank!")
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c("label", { attrs: { for: "dateSent" } }, [
+                        _vm._v("Date")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.transfer_date,
+                            expression: "transfer_date"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "date",
+                          name: "date",
+                          id: "dateSent",
+                          placeholder: "",
+                          required: ""
                         },
-                        [_vm._v("Send")]
-                      )
-                    ]
-                  )
-                ])
+                        domProps: { value: _vm.transfer_date },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.transfer_date = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.transfer_date === "" && _vm.transferring
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v("Please Choose a date!")
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col" }, [
+                      _c("label", { attrs: { for: "transactionComments" } }, [
+                        _vm._v("Comments(Optional) ")
+                      ]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.comment,
+                            expression: "comment"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          id: "transactionComments",
+                          name: "comment",
+                          rows: "3"
+                        },
+                        domProps: { value: _vm.comment },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.comment = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group d-flex justify-content-center" },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-green px-5",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.startTransfer()
+                          }
+                        }
+                      },
+                      [_vm._v("Send")]
+                    )
+                  ]
+                )
               ])
             ])
-          ]
-        )
-      ]
-    )
-  }
-]
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -120793,7 +120993,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.addStoredBankDetail(this.newBank);
         },
         closeAddBankModal: function closeAddBankModal() {
-            this.newBank.reset();
+            this.newBank = new __WEBPACK_IMPORTED_MODULE_0__classes_Bank__["a" /* default */]();
             this.$modal.close("#addBankModal");
         }
     })
@@ -120844,214 +121044,206 @@ var render = function() {
                 _vm._v("Add Bank Details")
               ]),
               _vm._v(" "),
-              _c("form", [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "bankName" } }, [
-                    _vm._v("Bank Name")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.newBank.bank_name,
-                          expression: "newBank.bank_name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { name: "bank_name", id: "bankName" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.newBank,
-                            "bank_name",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "" } }, [
-                        _vm._v("Select Bank ...")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.banks, function(bank) {
-                        return _c(
-                          "option",
-                          { domProps: { value: bank.name } },
-                          [_vm._v(_vm._s(bank.name))]
-                        )
-                      })
-                    ],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _vm.newBank.bank_name === "" && _vm.saving
-                    ? _c("small", { staticClass: "text-danger" }, [
-                        _vm._v("You must select a bank name")
-                      ])
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "accountName" } }, [
-                    _vm._v("Account Name")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.newBank.account_name,
-                        expression: "newBank.account_name"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      name: "account_name",
-                      id: "accountName",
-                      placeholder: "",
-                      required: ""
-                    },
-                    domProps: { value: _vm.newBank.account_name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.newBank,
-                          "account_name",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.newBank.account_name === "" && _vm.saving
-                    ? _c("small", { staticClass: "text-danger" }, [
-                        _vm._v("You must input an account name")
-                      ])
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "accountNumber" } }, [
-                    _vm._v("Account Number")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.newBank.account_number,
-                        expression: "newBank.account_number"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      name: "account_number",
-                      id: "accountNumber",
-                      placeholder: ""
-                    },
-                    domProps: { value: _vm.newBank.account_number },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.newBank,
-                          "account_number",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.newBank.account_number === "" && _vm.saving
-                    ? _c("small", { staticClass: "text-danger" }, [
-                        _vm._v("You must input account number")
-                      ])
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "balance" } }, [
-                    _vm._v("Balance (₦)")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.newBank.account_balance,
-                        expression: "newBank.account_balance"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "number",
-                      min: 1,
-                      step: "0.01",
-                      name: "account_balance",
-                      id: "balance",
-                      placeholder: ""
-                    },
-                    domProps: { value: _vm.newBank.account_balance },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.newBank,
-                          "account_balance",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "bankName" } }, [
+                  _vm._v("Bank Name")
                 ]),
                 _vm._v(" "),
                 _c(
-                  "div",
-                  { staticClass: "form-group d-flex justify-content-center" },
-                  [
-                    _c(
-                      "button",
+                  "select",
+                  {
+                    directives: [
                       {
-                        staticClass: "btn btn-green px-5",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.saveBankDetails()
-                          }
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newBank.bank_name,
+                        expression: "newBank.bank_name"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { name: "bank_name", id: "bankName" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.newBank,
+                          "bank_name",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v("Select Bank ...")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.banks, function(bank) {
+                      return _c("option", { domProps: { value: bank.name } }, [
+                        _vm._v(_vm._s(bank.name))
+                      ])
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _vm.newBank.bank_name === "" && _vm.saving
+                  ? _c("small", { staticClass: "text-danger" }, [
+                      _vm._v("You must select a bank name")
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "accountName" } }, [
+                  _vm._v("Account Name")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.newBank.account_name,
+                      expression: "newBank.account_name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "account_name",
+                    id: "accountName",
+                    placeholder: "",
+                    required: ""
+                  },
+                  domProps: { value: _vm.newBank.account_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.newBank, "account_name", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.newBank.account_name === "" && _vm.saving
+                  ? _c("small", { staticClass: "text-danger" }, [
+                      _vm._v("You must input an account name")
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "accountNumber" } }, [
+                  _vm._v("Account Number")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.newBank.account_number,
+                      expression: "newBank.account_number"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    name: "account_number",
+                    id: "accountNumber",
+                    placeholder: ""
+                  },
+                  domProps: { value: _vm.newBank.account_number },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.newBank,
+                        "account_number",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.newBank.account_number === "" && _vm.saving
+                  ? _c("small", { staticClass: "text-danger" }, [
+                      _vm._v("You must input account number")
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "balance" } }, [
+                  _vm._v("Balance (₦)")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.newBank.account_balance,
+                      expression: "newBank.account_balance"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "number",
+                    min: 1,
+                    step: "0.01",
+                    name: "account_balance",
+                    id: "balance",
+                    placeholder: ""
+                  },
+                  domProps: { value: _vm.newBank.account_balance },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.newBank,
+                        "account_balance",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group d-flex justify-content-center" },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-green px-5",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.saveBankDetails()
                         }
-                      },
-                      [_vm._v("Save")]
-                    )
-                  ]
-                )
-              ])
+                      }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ]
+              )
             ])
           ])
         ])

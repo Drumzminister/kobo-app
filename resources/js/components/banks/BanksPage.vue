@@ -136,7 +136,7 @@
             ...mapGetters(['storedBankDetails']),
             balanceSum () {
                 let sum = 0;
-                this.banks.forEach(function (bank) {
+                this.storedBankDetails.forEach(function (bank) {
                     sum += parseInt(bank.account_balance);
                 });
 
@@ -145,7 +145,6 @@
         },
         mounted () {
             this.banks.forEach((bank) => {
-                console.log(bank);
                 this.addStoredBankDetail(this.createBankObject(bank));
             });
         },
