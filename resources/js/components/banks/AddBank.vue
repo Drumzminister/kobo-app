@@ -35,7 +35,7 @@
                                 <!--<small class="text-danger" v-if="newBank.account_balance === '' && saving" >You must select a bank name</small>  -->
                             </div>
                             <div class="form-group d-flex justify-content-center">
-                                <button type="button" @click="saveBankDetails()" class="btn btn-green px-5">Save</button>
+                                <button :disabled="saving" type="button" @click="saveBankDetails()" class="btn btn-green px-5"><i v-show="saving" class="fa fa-circle-notch"></i> Save</button>
                             </div>
                         <!--</form>-->
                     </div>
@@ -51,6 +51,7 @@
 <script>
     import Bank from "../../classes/Bank";
     import { mapMutations, mapGetters } from "vuex";
+    import {toast} from "../../helpers/alert";
 
     export default {
         props: ['banks'],
@@ -62,15 +63,28 @@
         },
         mounted () {
         },
+        computed: {
+            ...mapGetters(["storedBankDetails"])
+        },
         methods: {
             ...mapMutations(["addStoredBankDetail"]),
+            ...mapGetters(["getStoredBank"]),
             saveBankDetails () {
                 this.saving = true;
                 if (this.newBank.isNotValid) {
                     return;
                 }
+                if (this.storedBankDetails.map(({ account_number }) => account_number).includes(this.newBank.account_number)) {
+                    toast(`A bank with account number ${this.newBank.account_number} already exists.`, 'error');
 
-                this.addStoredBankDetail(this.newBank);
+                    return;
+                }
+                if (this.newBank.saveBank()) {
+                    this.addStoredBankDetail(this.newBank);
+                    this.saving = false;
+
+                    this.closeAddBankModal();
+                }
             },
             closeAddBankModal () {
                 this.newBank = new Bank();

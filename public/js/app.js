@@ -120528,7 +120528,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return parseFloat(this.getStoredBank(this.payingBankId).account_balance) < parseFloat(this.amount);
         }
     }),
-    methods: {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(["getStoredBank"]), {
         closeMakeTransferModal: function closeMakeTransferModal() {
             this.$modal.close("#makeTransferModal");
         },
@@ -120568,14 +120568,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
                 return null;
             }
-        },
-        getStoredBank: function getStoredBank(bank_id) {
-            return this.storedBankDetails.filter(function (_ref2) {
-                var id = _ref2.id;
-                return id === bank_id;
-            })[0];
         }
-    }
+    })
 });
 
 /***/ }),
@@ -120949,6 +120943,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Bank__ = __webpack_require__(515);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(6);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -121005,6 +121000,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['banks'],
     data: function data() {
@@ -121015,14 +121011,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
     mounted: function mounted() {},
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(["addStoredBankDetail"]), {
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(["storedBankDetails"])),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(["addStoredBankDetail"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(["getStoredBank"]), {
         saveBankDetails: function saveBankDetails() {
             this.saving = true;
             if (this.newBank.isNotValid) {
                 return;
             }
+            if (this.storedBankDetails.map(function (_ref) {
+                var account_number = _ref.account_number;
+                return account_number;
+            }).includes(this.newBank.account_number)) {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("A bank with account number " + this.newBank.account_number + " already exists.", 'error');
 
-            this.addStoredBankDetail(this.newBank);
+                return;
+            }
+            if (this.newBank.saveBank()) {
+                this.addStoredBankDetail(this.newBank);
+                this.saving = false;
+
+                this.closeAddBankModal();
+            }
         },
         closeAddBankModal: function closeAddBankModal() {
             this.newBank = new __WEBPACK_IMPORTED_MODULE_0__classes_Bank__["a" /* default */]();
@@ -121265,14 +121274,27 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-green px-5",
-                      attrs: { type: "button" },
+                      attrs: { disabled: _vm.saving, type: "button" },
                       on: {
                         click: function($event) {
                           _vm.saveBankDetails()
                         }
                       }
                     },
-                    [_vm._v("Save")]
+                    [
+                      _c("i", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.saving,
+                            expression: "saving"
+                          }
+                        ],
+                        staticClass: "fa fa-circle-notch"
+                      }),
+                      _vm._v(" Save")
+                    ]
                   )
                 ]
               )
@@ -121385,7 +121407,22 @@ var Bank = function () {
 
     _createClass(Bank, [{
         key: "saveBank",
-        value: function saveBank() {}
+        value: function saveBank() {
+            var _this = this;
+
+            if (this.isNotValid) {
+                return false;
+            }
+
+            if (!this.id) {
+                axios.post(route('add.bank'), this.getBankData()).then(function (_ref) {
+                    var data = _ref.data;
+
+                    _this.id = data.data.id;
+                    _this.saved = true;
+                });
+            }
+        }
     }, {
         key: "getBankData",
         value: function getBankData() {
@@ -121433,6 +121470,15 @@ var bankDetailModule = {
     getters: {
         storedBankDetails: function storedBankDetails(state) {
             return state.banks;
+        },
+
+        getStoredBank: function getStoredBank(state) {
+            return function (bank_id) {
+                return state.banks.filter(function (_ref) {
+                    var id = _ref.id;
+                    return id === bank_id;
+                })[0];
+            };
         }
     },
     mutations: {

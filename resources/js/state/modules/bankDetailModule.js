@@ -5,6 +5,9 @@ export const bankDetailModule = {
     getters: {
         storedBankDetails(state) {
             return state.banks;
+        },
+        getStoredBank: (state) => (bank_id) => {
+            return state.banks.filter(({ id }) => id === bank_id)[0];
         }
     },
     mutations: {

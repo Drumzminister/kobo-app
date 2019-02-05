@@ -82,6 +82,7 @@
             },
         },
         methods: {
+            ...mapGetters(["getStoredBank"]),
             closeMakeTransferModal () {
                 this.$modal.close("#makeTransferModal");
             },
@@ -118,9 +119,6 @@
 
                     return null;
                 }
-            },
-            getStoredBank (bank_id) {
-                return this.storedBankDetails.filter(({ id }) => id === bank_id)[0];
             }
         }
     }

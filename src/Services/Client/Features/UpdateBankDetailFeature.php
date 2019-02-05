@@ -20,8 +20,8 @@ class UpdateBankDetailFeature extends Feature
 
 		if ($isUpdated) {
 			return [
-				'status' => 'success',
-				'message' => 'Bank details updated successfully',
+				'status'    => 'success',
+				'message'   => 'Bank details updated successfully',
 			];
 		}
 

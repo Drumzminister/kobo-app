@@ -15,7 +15,7 @@ class AddBankAccountFeature extends Feature
     	$data = $request->all();
     	$data['user_id'] = Auth::user()->id;
 
-		$isAdded = $this->run(AddBankAccountJob::class, ['data' => $data]);
+		$isAdded = $this->run(AddBankAccountJob::class, ['companyId' => Auth::user()->getUserCompany()->id, 'data' => $data]);
 
 		if ($isAdded === true) {
 			// Bank Added successfully
