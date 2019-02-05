@@ -46,7 +46,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <template v-for="bank in banks">
+                <template v-for="bank in storedBankDetails">
                     <tr>
                         <th scope="row">
                             <div class="d-flex h-100 align-items-center">
@@ -123,6 +123,9 @@
     </div>
 </template>
 <script>
+    import { mapMutations, mapGetters } from "vuex";
+    import Bank from "../../classes/Bank";
+
     export default {
         props: ['banks'],
         data () {
@@ -130,6 +133,7 @@
             }
         },
         computed: {
+            ...mapGetters(['storedBankDetails']),
             balanceSum () {
                 let sum = 0;
                 this.banks.forEach(function (bank) {
@@ -140,6 +144,10 @@
             }
         },
         mounted () {
+            this.banks.forEach((bank) => {
+                console.log(bank);
+                this.addStoredBankDetail(this.createBankObject(bank));
+            });
         },
         watch: {
         },
@@ -147,8 +155,20 @@
 
         },
         methods: {
+            ...mapMutations(["addStoredBankDetail"]),
             addNewBank () {
                 this.$modal.open('#addBankModal');
+            },
+            createBankObject (bank) {
+                let newBank = new Bank();
+                newBank.account_balance = bank.account_balance;
+                newBank.bank_name = bank.bank_name;
+                newBank.account_number = bank.account_number;
+                newBank.account_name = bank.account_name;
+                newBank.id = bank.id;
+                newBank.saved = bank.id !== null;
+
+                return newBank;
             }
         }
     }

@@ -77974,12 +77974,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -119661,6 +119655,8 @@ module.exports = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_inventoryModule__ = __webpack_require__(498);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_vatModule__ = __webpack_require__(499);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_saleModule__ = __webpack_require__(500);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_bankDetailModule__ = __webpack_require__(516);
+
 
 
 
@@ -119683,7 +119679,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         paymentModule: __WEBPACK_IMPORTED_MODULE_2__modules_paymentMethodSelection__["a" /* paymentMethodSelectionModule */],
         inventoryModule: __WEBPACK_IMPORTED_MODULE_3__modules_inventoryModule__["a" /* inventoryModule */],
         vatModule: __WEBPACK_IMPORTED_MODULE_4__modules_vatModule__["a" /* vatModule */],
-        saleModule: __WEBPACK_IMPORTED_MODULE_5__modules_saleModule__["a" /* saleModule */]
+        saleModule: __WEBPACK_IMPORTED_MODULE_5__modules_saleModule__["a" /* saleModule */],
+        bankDetail: __WEBPACK_IMPORTED_MODULE_6__modules_bankDetailModule__["a" /* bankDetailModule */]
     }
 });
 
@@ -119997,7 +119994,7 @@ var render = function() {
             _c(
               "tbody",
               [
-                _vm._l(_vm.banks, function(bank) {
+                _vm._l(_vm.storedBankDetails, function(bank) {
                   return [
                     _c("tr", [
                       _c("th", { attrs: { scope: "row" } }, [
@@ -120263,6 +120260,10 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__classes_Bank__ = __webpack_require__(515);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -120387,6 +120388,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['banks'],
@@ -120394,7 +120398,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {};
     },
 
-    computed: {
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['storedBankDetails']), {
         balanceSum: function balanceSum() {
             var sum = 0;
             this.banks.forEach(function (bank) {
@@ -120403,16 +120407,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             return sum;
         }
+    }),
+    mounted: function mounted() {
+        var _this = this;
+
+        this.banks.forEach(function (bank) {
+            console.log(bank);
+            _this.addStoredBankDetail(_this.createBankObject(bank));
+        });
     },
-    mounted: function mounted() {},
 
     watch: {},
     filters: {},
-    methods: {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(["addStoredBankDetail"]), {
         addNewBank: function addNewBank() {
             this.$modal.open('#addBankModal');
+        },
+        createBankObject: function createBankObject(bank) {
+            var newBank = new __WEBPACK_IMPORTED_MODULE_1__classes_Bank__["a" /* default */]();
+            newBank.account_balance = bank.account_balance;
+            newBank.bank_name = bank.bank_name;
+            newBank.account_number = bank.account_number;
+            newBank.account_name = bank.account_name;
+            newBank.id = bank.id;
+            newBank.saved = bank.id !== null;
+
+            return newBank;
         }
-    }
+    })
 });
 
 /***/ }),
@@ -120694,6 +120716,9 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Bank__ = __webpack_require__(515);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(11);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -120743,6 +120768,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -120753,26 +120781,287 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             saving: false
         };
     },
+    mounted: function mounted() {},
 
-    methods: {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(["addStoredBankDetail"]), {
         saveBankDetails: function saveBankDetails() {
             this.saving = true;
             if (this.newBank.isNotValid) {
                 return;
             }
+
+            this.addStoredBankDetail(this.newBank);
         },
         closeAddBankModal: function closeAddBankModal() {
             this.newBank.reset();
             this.$modal.close("#addBankModal");
         }
-    }
+    })
 });
 
 /***/ }),
 /* 513 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function(){},staticRenderFns:[]}
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "addBankModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalLongTitle",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _c("div", { staticClass: "container p-3" }, [
+            _c(
+              "button",
+              {
+                staticClass: "close",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    _vm.closeAddBankModal()
+                  }
+                }
+              },
+              [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("p", { staticClass: "f-18 mb-4" }, [
+                _vm._v("Add Bank Details")
+              ]),
+              _vm._v(" "),
+              _c("form", [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "bankName" } }, [
+                    _vm._v("Bank Name")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.newBank.bank_name,
+                          expression: "newBank.bank_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { name: "bank_name", id: "bankName" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.newBank,
+                            "bank_name",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("Select Bank ...")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.banks, function(bank) {
+                        return _c(
+                          "option",
+                          { domProps: { value: bank.name } },
+                          [_vm._v(_vm._s(bank.name))]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _vm.newBank.bank_name === "" && _vm.saving
+                    ? _c("small", { staticClass: "text-danger" }, [
+                        _vm._v("You must select a bank name")
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "accountName" } }, [
+                    _vm._v("Account Name")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newBank.account_name,
+                        expression: "newBank.account_name"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      name: "account_name",
+                      id: "accountName",
+                      placeholder: "",
+                      required: ""
+                    },
+                    domProps: { value: _vm.newBank.account_name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.newBank,
+                          "account_name",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.newBank.account_name === "" && _vm.saving
+                    ? _c("small", { staticClass: "text-danger" }, [
+                        _vm._v("You must input an account name")
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "accountNumber" } }, [
+                    _vm._v("Account Number")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newBank.account_number,
+                        expression: "newBank.account_number"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      name: "account_number",
+                      id: "accountNumber",
+                      placeholder: ""
+                    },
+                    domProps: { value: _vm.newBank.account_number },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.newBank,
+                          "account_number",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.newBank.account_number === "" && _vm.saving
+                    ? _c("small", { staticClass: "text-danger" }, [
+                        _vm._v("You must input account number")
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "balance" } }, [
+                    _vm._v("Balance (₦)")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newBank.account_balance,
+                        expression: "newBank.account_balance"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "number",
+                      min: 1,
+                      step: "0.01",
+                      name: "account_balance",
+                      id: "balance",
+                      placeholder: ""
+                    },
+                    domProps: { value: _vm.newBank.account_balance },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.newBank,
+                          "account_balance",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group d-flex justify-content-center" },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-green px-5",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.saveBankDetails()
+                          }
+                        }
+                      },
+                      [_vm._v("Save")]
+                    )
+                  ]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
@@ -120811,9 +121100,6 @@ var productApp = {
         Select2: __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default.a
     },
     methods: {
-        Checkit: function Checkit() {
-            console.log('she');
-        },
         productImageUpload: function productImageUpload(event) {
             var _this = this;
 
@@ -120821,7 +121107,7 @@ var productApp = {
             var formData = new FormData();
             formData.append('file', file);
             axios.post('/client/product/add-product-image', formData).then(function (res) {
-                console.log(res.data.data);
+                console.log(res.data);
                 _this.productForm.attachment = res.data.data;
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product image successfully uploaded', 'success');
             }).catch(function (error) {
@@ -120853,13 +121139,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Bank = function () {
     function Bank() {
+        var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
         _classCallCheck(this, Bank);
 
         this.account_name = "";
         this.account_number = "";
         this.bank_name = "";
         this.account_balance = null;
-        this._saved = false;
+        this.saved = false;
+        this.id = id;
     }
 
     /**
@@ -120901,6 +121190,31 @@ var Bank = function () {
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Bank);
+
+/***/ }),
+/* 516 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return bankDetailModule; });
+var bankDetailModule = {
+    state: {
+        banks: []
+    },
+    getters: {
+        storedBankDetails: function storedBankDetails(state) {
+            return state.banks;
+        }
+    },
+    mutations: {
+        setBanks: function setBanks(state, banks) {
+            state.banks = banks;
+        },
+        addStoredBankDetail: function addStoredBankDetail(state, bank) {
+            state.banks.push(bank);
+        }
+    }
+};
 
 /***/ })
 /******/ ]);

@@ -10,7 +10,7 @@
                     <br/>
                     <div class="modal-body">
                         <p class="f-18 mb-4">Add Bank Details</p>
-                        <form @submit.prevent="saveBankDetails()">
+                        <form>
                             <div class="form-group">
                                 <label for="bankName">Bank Name</label>
                                 <select v-model="newBank.bank_name" name="bank_name" class="form-control"  id="bankName">
@@ -32,9 +32,10 @@
                             <div class="form-group">
                                 <label for="balance">Balance (&#8358;)</label>
                                 <input type="number" v-model="newBank.account_balance" :min="1" step="0.01" name="account_balance" class="form-control" id="balance" placeholder="">
-                                <!--<small class="text-danger" v-if="newBank.account_balance === '' && saving" >You must select a bank name</small>                            </div>-->
+                                <!--<small class="text-danger" v-if="newBank.account_balance === '' && saving" >You must select a bank name</small>  -->
+                            </div>
                             <div class="form-group d-flex justify-content-center">
-                                <button type="submit" @click="saveBankDetails()" class="btn btn-green px-5">Save</button>
+                                <button type="button" @click="saveBankDetails()" class="btn btn-green px-5">Save</button>
                             </div>
                         </form>
                     </div>
@@ -49,6 +50,8 @@
 
 <script>
     import Bank from "../../classes/Bank";
+    import { mapMutations, mapGetters } from "vuex";
+
     export default {
         props: ['banks'],
         data () {
@@ -57,12 +60,17 @@
                 saving: false
             }
         },
+        mounted () {
+        },
         methods: {
+            ...mapMutations(["addStoredBankDetail"]),
             saveBankDetails () {
                 this.saving = true;
                 if (this.newBank.isNotValid) {
                     return;
                 }
+
+                this.addStoredBankDetail(this.newBank);
             },
             closeAddBankModal () {
                 this.newBank.reset();

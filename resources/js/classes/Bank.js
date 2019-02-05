@@ -1,11 +1,12 @@
 class Bank
 {
-    constructor () {
+    constructor (id = null) {
         this.account_name = "";
         this.account_number = "";
         this.bank_name = "";
         this.account_balance = null;
-        this._saved = false;
+        this.saved = false;
+        this.id = id;
     }
 
     /**
@@ -27,7 +28,7 @@ class Bank
             bank_name: this.bank_name,
             account_name: this.account_name,
             account_number: this.account_number,
-            account_balance: this.account_balance || 0,
+            account_balance: this.account_balance || 0
         }
     }
 
