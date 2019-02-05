@@ -35,7 +35,7 @@
                                 <!--<small class="text-danger" v-if="newBank.account_balance === '' && saving" >You must select a bank name</small>  -->
                             </div>
                             <div class="form-group d-flex justify-content-center">
-                                <button :disabled="saving" type="button" @click="saveBankDetails()" class="btn btn-green px-5"><i v-show="saving" class="fa fa-circle-notch"></i> Save</button>
+                                <button :disabled="saving" type="button" @click="saveBankDetails()" class="btn btn-green px-5"><i v-show="saving" class="fa fa-circle-notch fa-spin"></i> Save</button>
                             </div>
                         <!--</form>-->
                     </div>
@@ -83,6 +83,9 @@
                 this.saving = true;
 
                 if (this.newBank.saveBank()) {
+
+                    toast(`A bank with account number ${this.newBank.account_number} already exists.`, 'error');
+
                     this.addStoredBankDetail(this.newBank);
                     this.saving = false;
 

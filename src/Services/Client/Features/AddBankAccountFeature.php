@@ -6,7 +6,6 @@ use App\Domains\Bank\Jobs\AddBankAccountJob;
 use App\Services\Client\Http\Requests\AddBankAccountRequest;
 use Illuminate\Support\Facades\Auth;
 use Lucid\Foundation\Feature;
-use Illuminate\Http\Request;
 
 class AddBankAccountFeature extends Feature
 {

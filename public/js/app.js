@@ -121030,6 +121030,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.saving = true;
 
             if (this.newBank.saveBank()) {
+
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("A bank with account number " + this.newBank.account_number + " already exists.", 'error');
+
                 this.addStoredBankDetail(this.newBank);
                 this.saving = false;
 
@@ -121294,7 +121297,7 @@ var render = function() {
                             expression: "saving"
                           }
                         ],
-                        staticClass: "fa fa-circle-notch"
+                        staticClass: "fa fa-circle-notch fa-spin"
                       }),
                       _vm._v(" Save")
                     ]
@@ -121418,13 +121421,17 @@ var Bank = function () {
             }
 
             if (!this.id) {
-                axios.post(route('add.bank'), this.getBankData()).then(function (_ref) {
+                return axios.post(route('add.bank'), this.getBankData()).then(function (_ref) {
                     var data = _ref.data;
 
                     _this.id = data.data.id;
                     _this.saved = true;
+
+                    return true;
                 });
             }
+
+            return false;
         }
     }, {
         key: "getBankData",
