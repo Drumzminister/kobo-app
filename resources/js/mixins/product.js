@@ -37,7 +37,7 @@ export const productApp = {
                 if (valid) {
                         axios.post('/client/product/add-product', this.productForm).then(res => {
                             this.productForm = '',
-                                toast('Product image successfully uploaded', 'success');
+                                toast('Product successfully uploaded', 'success');
                         })
                 }
             });

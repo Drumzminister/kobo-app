@@ -90939,8 +90939,123 @@ var render = function() {
                     if ($event.target.composing) {
                       return
                     }
+<<<<<<< HEAD
+                });
+            } else {
+                this.saveExpenses(details);
+            }
+        },
+        saveExpenses: function saveExpenses(details) {
+            var _this3 = this;
+
+            var saved = 0;
+            var date = document.querySelector("#expense_date").value;
+            details.forEach(function (expense) {
+                if (!expense.querySelector('.expenseAmount').value) {
+                    swal({
+                        timer: 2000,
+                        toast: true,
+                        type: 'error',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        text: "Some records have no amount entered"
+                    });
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append('date', date);
+                formData.append('details', expense.querySelector('.expenseDescription').value.trim());
+                formData.append('amount', expense.querySelector('.expenseAmount').value.trim());
+
+                _this3.isSavingExpense = true;
+                axios.post('/client/expenses/add', formData).then(function (res) {
+                    saved += 1;
+                }).catch(function (err) {
+                    swal({
+                        timer: 3000,
+                        toast: true,
+                        type: 'error',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        title: "Unable to save: " + err.response.data.message
+                    });
+                });
+            });
+            var checkSaved = setInterval(function () {
+                if (saved === details.length) {
+                    location.href = "/client/expenses";
+                    clearInterval(checkSaved);
+                    this.isSavingExpense = false;
+                }
+            }, 50);
+        },
+        payUnpaidExpenses: function payUnpaidExpenses(expenseId) {
+            this.currentExpense = this.expenses.find(function (exp) {
+                return exp.id === expenseId;
+            });
+            console.log("jame");
+        }
+    }
+};
+
+/***/ }),
+/* 285 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return productApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_select2_component__);
+
+
+var productApp = {
+    data: {
+        productForm: {
+            name: '',
+            attachment: '',
+            tag: '',
+            description: '',
+            low_quantity: ''
+        },
+        ProductSelectSettings: {
+            multiple: true,
+            tags: true,
+            placeholder: 'Select varieties',
+            tokenSeparators: [',', '']
+        }
+    },
+    components: {
+        Select2: __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default.a
+    },
+    methods: {
+        productImageUpload: function productImageUpload(event) {
+            var _this = this;
+
+            var file = event.target.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/product/add-product-image', formData).then(function (res) {
+                _this.productForm.attachment = res.data.data;
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product image successfully uploaded', 'success');
+            }).catch(function (error) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('error', 'Error saving image, try again mbok');
+            });
+        },
+        createProduct: function createProduct() {
+            var _this2 = this;
+
+            this.productForm.attachment = this.productForm.attachment;
+            this.$validator.validate().then(function (valid) {
+                if (valid) {
+                    axios.post('/client/product/add-product', _this2.productForm).then(function (res) {
+                        _this2.productForm = '', Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product successfully uploaded', 'success');
+                    });
+=======
                     _vm.newSource = $event.target.value
                   }
+>>>>>>> ffbb9bcff664e03a58aaa2943e4d8e067a39ff07
                 }
               }),
               _vm._v(" "),
