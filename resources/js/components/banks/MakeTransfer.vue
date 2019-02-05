@@ -11,7 +11,7 @@
                     <p class="f-18 mb-4">Make a Transfer</p>
                     <form>
                         <div class="form-group">
-                            <label for="payingBank">Paying Bank</label>
+                            <label for="payingBank">Paying Source</label>
                             <select v-model="payingBankId" name="payer" id="payingBank" class="form-control custom-select" required>
                                 <option value="">Paying Bank ...</option>
                                 <option v-for="bank in storedBankDetails" :value="bank.id">{{ bank.account_name }}</option>
@@ -22,10 +22,9 @@
                             <label for="amountSend">Amount  (&#8358;)</label>
                             <input type="number" v-model="amount" min="0" step="0.01" class="form-control" id="amountSend" placeholder="" required>
                             <small class="text-danger" v-if="(amount <= 0 || amount === null)  && transferring" >Amount is not valid</small>
-                            <!--<small v-if="transferAmountError" class="text-danger">Amount entered is greater than minimum  amount</small>-->
                         </div>
                         <div class="form-group">
-                            <label for="receivingBank">Receiving Bank</label>
+                            <label for="receivingBank">Receiving Source</label>
                             <select v-model="receivingBankId" name="payer" id="receivingBank" class="form-control custom-select" required>
                                 <option value="">Receiving Bank ...</option>
                                 <option v-for="receivingBank in storedBankDetails" :value="receivingBank.id">{{ receivingBank.account_name }}</option>
@@ -79,7 +78,7 @@
                         this.amount <= 0 || this.amount === 0 || this.receivingBankId === "";
             },
             payingBankDoesNotHaveSufficientFund () {
-                return this.storedBankDetails.filter(({ id }) => id === this.payingBankId)[0].account_balance < parseFloat(this.amount);
+                return parseFloat(this.getStoredBank(this.payingBankId).account_balance) < parseFloat(this.amount);
             },
         },
         methods: {
@@ -96,12 +95,15 @@
                 }
 
                 if (this.payingBankDoesNotHaveSufficientFund) {
-                    toast('Insufficient balance in the receiving bank', 'error');
+                    toast('Insufficient balance in the paying bank', 'error');
+
+                    return null;
                 }
+
                 let receivingBank = this.getStoredBank(this.receivingBankId);
                 let payingBank = this.getStoredBank(this.payingBankId);
 
-                confirmSomethingWithAlert(`You are about to make transfer from ${payingBank.account_name} balance to ${receivingBank.account_name} balance!`)
+                confirmSomethingWithAlert(`You are about to make transfer of NGN ${this.amount} from ${payingBank.account_name} balance to ${receivingBank.account_name} balance!`)
                     .then(({ value }) => {
                         if (value) {
                             receivingBank.receive(payingBank.transfer(this.amount));

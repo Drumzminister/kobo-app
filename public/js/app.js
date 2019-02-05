@@ -120504,7 +120504,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -120526,12 +120525,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.payingBankId === "" || this.transfer_date === "" || this.amount <= 0 || this.amount === 0 || this.receivingBankId === "";
         },
         payingBankDoesNotHaveSufficientFund: function payingBankDoesNotHaveSufficientFund() {
-            var _this = this;
-
-            return this.storedBankDetails.filter(function (_ref) {
-                var id = _ref.id;
-                return id === _this.payingBankId;
-            })[0].account_balance < parseFloat(this.amount);
+            return parseFloat(this.getStoredBank(this.payingBankId).account_balance) < parseFloat(this.amount);
         }
     }),
     methods: {
@@ -120539,7 +120533,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.$modal.close("#makeTransferModal");
         },
         startTransfer: function startTransfer() {
-            var _this2 = this;
+            var _this = this;
 
             this.transferring = true;
 
@@ -120550,16 +120544,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }
 
             if (this.payingBankDoesNotHaveSufficientFund) {
-                Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])('Insufficient balance in the receiving bank', 'error');
+                Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])('Insufficient balance in the paying bank', 'error');
+
+                return null;
             }
+
             var receivingBank = this.getStoredBank(this.receivingBankId);
             var payingBank = this.getStoredBank(this.payingBankId);
 
-            Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["a" /* confirmSomethingWithAlert */])("You are about to make transfer from " + payingBank.account_name + " balance to " + receivingBank.account_name + " balance!").then(function (_ref2) {
-                var value = _ref2.value;
+            Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["a" /* confirmSomethingWithAlert */])("You are about to make transfer of NGN " + this.amount + " from " + payingBank.account_name + " balance to " + receivingBank.account_name + " balance!").then(function (_ref) {
+                var value = _ref.value;
 
                 if (value) {
-                    receivingBank.receive(payingBank.transfer(_this2.amount));
+                    receivingBank.receive(payingBank.transfer(_this.amount));
                 }
             });
 
@@ -120573,8 +120570,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }
         },
         getStoredBank: function getStoredBank(bank_id) {
-            return this.storedBankDetails.filter(function (_ref3) {
-                var id = _ref3.id;
+            return this.storedBankDetails.filter(function (_ref2) {
+                var id = _ref2.id;
                 return id === bank_id;
             })[0];
         }
@@ -120629,7 +120626,7 @@ var render = function() {
               _c("form", [
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", { attrs: { for: "payingBank" } }, [
-                    _vm._v("Paying Bank")
+                    _vm._v("Paying Source")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -120725,7 +120722,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", { attrs: { for: "receivingBank" } }, [
-                    _vm._v("Receiving Bank")
+                    _vm._v("Receiving Source")
                   ]),
                   _vm._v(" "),
                   _c(
