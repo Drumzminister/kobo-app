@@ -47,7 +47,9 @@
                         <div class="form-row py-3">
                             <div class="col">
                                 <label for="name">Tag</label>
-                                <input v-model="productForm.tag" type="text" class="form-control bg-grey" placeholder="Use comma to seperate tags">
+                                {{--<input v-model="productForm.tag" type="text" class="form-control bg-grey" placeholder="Use comma to seperate tags">--}}
+                                {{--<td><Select2 v-model="content.name" :settings="Object.assign(InventorySelectSettings, {placeholder: 'Select Product' })" :options="formattedProduct()" :value="1" ></Select2></td>--}}
+                                <Select2 v-model="productForm.tag" :settings="Object.assign(ProductSelectSettings)" :options="['people','time', 'business', 'cloud']" multiple="multiple"></Select2>
                             </div>
                         </div>
                         <div class="form-row py-3">

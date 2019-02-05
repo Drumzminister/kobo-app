@@ -40,6 +40,7 @@ export const inventoryApp = {
         products: window.products,
         InventorySelectSettings: {
             placeholder: 'Inventory',
+            // multiple: true,
             language: {
                 noResults: function () {
                     return `<a href="/client/product/add" })"><span class="fa fa-plus"></span> Add Product</button>`;

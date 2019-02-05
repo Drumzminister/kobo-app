@@ -83,6 +83,7 @@ $factory->define(InventoryItem::class, function (Faker $faker) {
        'description' => ucfirst($faker->sentence(2)),
    ];
 });
+
 $factory->define(Inventory::class, function (Faker $faker) {
     return [
         'id' => $faker->uuid,

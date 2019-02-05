@@ -1,4 +1,5 @@
-import {toast} from "../helpers/alert"
+import {toast} from "../helpers/alert";
+import Select2 from "v-select2-component";
 export const productApp = {
     data: {
         productForm: {
@@ -8,8 +9,16 @@ export const productApp = {
             description: '',
             low_quantity: '',
         },
+        ProductSelectSettings: {
+            multiple: true,
+            tags: true,
+            placeholder: 'Select varietie',
+            tokenSeparators: [',', ' ']
+        }
     },
-
+    components: {
+        Select2: Select2
+    },
     methods: {
         productImageUpload(event) {
             let file = event.target.files[0];
@@ -24,8 +33,11 @@ export const productApp = {
             });
         },
         createProduct() {
+            console.log(this.productForm.tag)
             this.productForm.attachment = this.productForm.attachment['data'];
             axios.post('/client/product/add-product', this.productForm).then(res => {
+                this.productForm = '',
+                toast('Product image successfully uploaded', 'success');
                 console.log(res)
             })
         }
