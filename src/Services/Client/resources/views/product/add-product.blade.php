@@ -39,7 +39,6 @@
                             <span class="text-danger">@{{ errors.first('name') }}</span>
                         </div>
 
-
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea v-model="productForm.description" class="form-control bg-grey" name="description" id="" rows="5" placeholder="Brief Placeholder"></textarea>
@@ -47,8 +46,6 @@
                         <div class="form-row py-3">
                             <div class="col">
                                 <label for="name">Tag</label>
-                                {{--<input v-model="productForm.tag" type="text" class="form-control bg-grey" placeholder="Use comma to seperate tags">--}}
-                                {{--<td><Select2 v-model="content.name" :settings="Object.assign(InventorySelectSettings, {placeholder: 'Select Product' })" :options="formattedProduct()" :value="1" ></Select2></td>--}}
                                 <Select2 v-model="productForm.tag" :settings="Object.assign(ProductSelectSettings)" ></Select2>
                             </div>
                         </div>
