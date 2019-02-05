@@ -120504,6 +120504,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -120523,6 +120524,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['storedBankDetails']), {
         transferNotValid: function transferNotValid() {
             return this.payingBankId === "" || this.transfer_date === "" || this.amount <= 0 || this.amount === 0 || this.receivingBankId === "";
+        },
+        payingBankDoesNotHaveSufficientFund: function payingBankDoesNotHaveSufficientFund() {
+            var _this = this;
+
+            return this.storedBankDetails.filter(function (_ref) {
+                var id = _ref.id;
+                return id === _this.payingBankId;
+            })[0].account_balance < this.amount;
         }
     }),
     methods: {
@@ -120536,6 +120545,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 this.showValidationErrors();
 
                 return null;
+            }
+
+            if (this.payingBankDoesNotHaveSufficientFund) {
+                Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])('Insufficient balance in the receiving bank', 'error');
             }
         },
         showValidationErrors: function showValidationErrors() {
@@ -120585,6 +120598,8 @@ var render = function() {
               },
               [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
             ),
+            _vm._v(" "),
+            _c("br"),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c("p", { staticClass: "f-18 mb-4" }, [
@@ -121285,7 +121300,7 @@ var productApp = {
             multiple: true,
             tags: true,
             placeholder: 'Select varieties',
-            tokenSeparators: [',', ' ']
+            tokenSeparators: [',', '']
         }
     },
     components: {
@@ -121299,7 +121314,6 @@ var productApp = {
             var formData = new FormData();
             formData.append('file', file);
             axios.post('/client/product/add-product-image', formData).then(function (res) {
-                console.log(res.data);
                 _this.productForm.attachment = res.data.data;
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product image successfully uploaded', 'success');
             }).catch(function (error) {
@@ -121309,11 +121323,13 @@ var productApp = {
         createProduct: function createProduct() {
             var _this2 = this;
 
-            console.log(this.productForm.tag);
-            this.productForm.attachment = this.productForm.attachment['data'];
-            axios.post('/client/product/add-product', this.productForm).then(function (res) {
-                _this2.productForm = '', Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product image successfully uploaded', 'success');
-                console.log(res);
+            this.productForm.attachment = this.productForm.attachment;
+            this.$validator.validate().then(function (valid) {
+                if (valid) {
+                    axios.post('/client/product/add-product', _this2.productForm).then(function (res) {
+                        _this2.productForm = '', Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product image successfully uploaded', 'success');
+                    });
+                }
             });
         }
     }

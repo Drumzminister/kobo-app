@@ -6,6 +6,7 @@
                     <button type="button" class="close" @click="closeMakeTransferModal()">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    <br>
                     <div class="modal-body">
                     <p class="f-18 mb-4">Make a Transfer</p>
                     <form>
@@ -76,7 +77,10 @@
             transferNotValid () {
                 return this.payingBankId === "" || this.transfer_date === "" ||
                         this.amount <= 0 || this.amount === 0 || this.receivingBankId === "";
-            }
+            },
+            payingBankDoesNotHaveSufficientFund () {
+                return this.storedBankDetails.filter(({ id }) => id === this.payingBankId)[0].account_balance < this.amount;
+            },
         },
         methods: {
             closeMakeTransferModal () {
@@ -89,6 +93,10 @@
                     this.showValidationErrors();
 
                     return null;
+                }
+
+                if (this.payingBankDoesNotHaveSufficientFund) {
+                    toast('Insufficient balance in the receiving bank', 'error');
                 }
 
 

@@ -9,7 +9,7 @@
     @slot('ctaButtons')
       <button type="button" class="btn ml-3" data-target="#addBankModal" data-toggle="modal">Add a Bank</button>
       @if($banks->count() > 0)
-        <button type="button" class="btn btn-green ml-3" data-target="#makeTransferModal" data-toggle="modal">Make a Transfer</button>
+        <button type="button" class="btn btn-green ml-3" @click="$modal.open('#makeTransferModal')">Make a Transfer</button>
       @endif
     @endslot
   @endcomponent

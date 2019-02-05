@@ -13,7 +13,7 @@ export const productApp = {
             multiple: true,
             tags: true,
             placeholder: 'Select varieties',
-            tokenSeparators: [',', ' ']
+            tokenSeparators: [',', '']
         }
     },
     components: {
@@ -25,7 +25,6 @@ export const productApp = {
             let formData = new FormData;
             formData.append('file', file);
             axios.post('/client/product/add-product-image', formData).then(res => {
-                console.log(res.data);
                 this.productForm.attachment = res.data.data;
                 toast('Product image successfully uploaded', 'success')
             }).catch(error => {
@@ -33,13 +32,15 @@ export const productApp = {
             });
         },
         createProduct() {
-            console.log(this.productForm.tag)
-            this.productForm.attachment = this.productForm.attachment['data'];
-            axios.post('/client/product/add-product', this.productForm).then(res => {
-                this.productForm = '',
-                toast('Product image successfully uploaded', 'success');
-                console.log(res)
-            })
+            this.productForm.attachment = this.productForm.attachment;
+            this.$validator.validate().then(valid => {
+                if (valid) {
+                        axios.post('/client/product/add-product', this.productForm).then(res => {
+                            this.productForm = '',
+                                toast('Product image successfully uploaded', 'success');
+                        })
+                }
+            });
         }
     }
 
