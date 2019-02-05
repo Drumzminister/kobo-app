@@ -120531,7 +120531,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.storedBankDetails.filter(function (_ref) {
                 var id = _ref.id;
                 return id === _this.payingBankId;
-            })[0].account_balance < this.amount;
+            })[0].account_balance < parseFloat(this.amount);
         }
     }),
     methods: {
@@ -120539,6 +120539,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.$modal.close("#makeTransferModal");
         },
         startTransfer: function startTransfer() {
+            var _this2 = this;
+
             this.transferring = true;
 
             if (this.transferNotValid) {
@@ -120550,6 +120552,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             if (this.payingBankDoesNotHaveSufficientFund) {
                 Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])('Insufficient balance in the receiving bank', 'error');
             }
+            var receivingBank = this.getStoredBank(this.receivingBankId);
+            var payingBank = this.getStoredBank(this.payingBankId);
+
+            Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["a" /* confirmSomethingWithAlert */])("You are about to make transfer from " + payingBank.account_name + " balance to " + receivingBank.account_name + " balance!").then(function (_ref2) {
+                var value = _ref2.value;
+
+                if (value) {
+                    receivingBank.receive(payingBank.transfer(_this2.amount));
+                }
+            });
+
+            this.transfering = false;
         },
         showValidationErrors: function showValidationErrors() {
             if (this.receivingBankId === this.payingBankId) {
@@ -120557,6 +120571,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
                 return null;
             }
+        },
+        getStoredBank: function getStoredBank(bank_id) {
+            return this.storedBankDetails.filter(function (_ref3) {
+                var id = _ref3.id;
+                return id === bank_id;
+            })[0];
         }
     }
 });
@@ -121381,12 +121401,16 @@ var Bank = function () {
         }
     }, {
         key: "transfer",
-        value: function transfer() {
-            var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        value: function transfer(amount) {
+            this.account_balance = parseFloat(this.account_balance) - parseFloat(amount);
+
+            return amount;
         }
     }, {
         key: "receive",
-        value: function receive(amount) {}
+        value: function receive(amount) {
+            this.account_balance = parseFloat(this.account_balance) + parseFloat(amount);
+        }
     }, {
         key: "isNotValid",
         get: function get() {

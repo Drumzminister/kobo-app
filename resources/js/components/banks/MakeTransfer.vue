@@ -79,7 +79,7 @@
                         this.amount <= 0 || this.amount === 0 || this.receivingBankId === "";
             },
             payingBankDoesNotHaveSufficientFund () {
-                return this.storedBankDetails.filter(({ id }) => id === this.payingBankId)[0].account_balance < this.amount;
+                return this.storedBankDetails.filter(({ id }) => id === this.payingBankId)[0].account_balance < parseFloat(this.amount);
             },
         },
         methods: {
@@ -98,8 +98,17 @@
                 if (this.payingBankDoesNotHaveSufficientFund) {
                     toast('Insufficient balance in the receiving bank', 'error');
                 }
+                let receivingBank = this.getStoredBank(this.receivingBankId);
+                let payingBank = this.getStoredBank(this.payingBankId);
 
+                confirmSomethingWithAlert(`You are about to make transfer from ${payingBank.account_name} balance to ${receivingBank.account_name} balance!`)
+                    .then(({ value }) => {
+                        if (value) {
+                            receivingBank.receive(payingBank.transfer(this.amount));
+                        }
+                    });
 
+                this.transfering = false;
             },
             showValidationErrors() {
                 if (this.receivingBankId === this.payingBankId) {
@@ -107,6 +116,9 @@
 
                     return null;
                 }
+            },
+            getStoredBank (bank_id) {
+                return this.storedBankDetails.filter(({ id }) => id === bank_id)[0];
             }
         }
     }

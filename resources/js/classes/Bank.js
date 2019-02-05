@@ -32,12 +32,14 @@ class Bank
         }
     }
 
-    transfer (amount = 0) {
+    transfer (amount) {
+        this.account_balance = parseFloat(this.account_balance) - parseFloat(amount);
 
+        return amount;
     }
 
     receive (amount) {
-
+        this.account_balance = parseFloat(this.account_balance) + parseFloat(amount);
     }
 }
 
