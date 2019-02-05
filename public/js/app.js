@@ -95937,7 +95937,7 @@ var productApp = {
         ProductSelectSettings: {
             multiple: true,
             tags: true,
-            placeholder: 'Select varietie',
+            placeholder: 'Select varieties',
             tokenSeparators: [',', ' ']
         }
     },
@@ -95945,6 +95945,9 @@ var productApp = {
         Select2: __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default.a
     },
     methods: {
+        Checkit: function Checkit() {
+            console.log('she');
+        },
         productImageUpload: function productImageUpload(event) {
             var _this = this;
 

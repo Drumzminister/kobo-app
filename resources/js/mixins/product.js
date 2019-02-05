@@ -12,7 +12,7 @@ export const productApp = {
         ProductSelectSettings: {
             multiple: true,
             tags: true,
-            placeholder: 'Select varietie',
+            placeholder: 'Select varieties',
             tokenSeparators: [',', ' ']
         }
     },
@@ -20,6 +20,9 @@ export const productApp = {
         Select2: Select2
     },
     methods: {
+        Checkit() {
+          console.log('she')
+        },
         productImageUpload(event) {
             let file = event.target.files[0];
             let formData = new FormData;

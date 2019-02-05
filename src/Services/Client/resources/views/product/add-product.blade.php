@@ -49,13 +49,13 @@
                                 <label for="name">Tag</label>
                                 {{--<input v-model="productForm.tag" type="text" class="form-control bg-grey" placeholder="Use comma to seperate tags">--}}
                                 {{--<td><Select2 v-model="content.name" :settings="Object.assign(InventorySelectSettings, {placeholder: 'Select Product' })" :options="formattedProduct()" :value="1" ></Select2></td>--}}
-                                <Select2 v-model="productForm.tag" :settings="Object.assign(ProductSelectSettings)" :options="['people','time', 'business', 'cloud']" multiple="multiple"></Select2>
+                                <Select2 @click="Checkit()" v-model="productForm.tag" :settings="Object.assign(ProductSelectSettings)" ></Select2>
                             </div>
                         </div>
                         <div class="form-row py-3">
                             <div class="col">
                                 <label for="name">Notify on low quantity</label>
-                                <input type="number" v-model="productForm.low_quantity" class="form-control bg-grey">
+                                <input type="number"  v-model="productForm.low_quantity" class="form-control bg-grey">
                             </div>
                         </div>
                         <div class="form-row mt-5">
