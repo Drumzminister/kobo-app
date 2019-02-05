@@ -121014,6 +121014,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(["storedBankDetails"])),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(["addStoredBankDetail"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(["getStoredBank"]), {
         saveBankDetails: function saveBankDetails() {
+            var _this = this;
+
             if (this.newBank.isNotValid) {
                 return;
             }
@@ -121029,15 +121031,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
             this.saving = true;
 
-            if (this.newBank.saveBank()) {
+            this.newBank.saveBank().then(function (_ref2) {
+                var data = _ref2.data;
 
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("A bank with account number " + this.newBank.account_number + " already exists.", 'error');
+                if (data.status === "success") {
+                    _this.newBank.id = data.data.id;
+                    _this.newBank.saved = true;
 
-                this.addStoredBankDetail(this.newBank);
-                this.saving = false;
+                    Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])(data.message, 'success');
 
-                this.closeAddBankModal();
-            }
+                    _this.addStoredBankDetail(_this.newBank);
+                    _this.saving = false;
+
+                    _this.closeAddBankModal();
+                } else {
+                    Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])(data.message, 'error');
+
+                    return false;
+                }
+            });
         },
         closeAddBankModal: function closeAddBankModal() {
             this.newBank = new __WEBPACK_IMPORTED_MODULE_0__classes_Bank__["a" /* default */]();
@@ -121414,21 +121426,12 @@ var Bank = function () {
     _createClass(Bank, [{
         key: "saveBank",
         value: function saveBank() {
-            var _this = this;
-
             if (this.isNotValid) {
                 return false;
             }
 
             if (!this.id) {
-                return axios.post(route('add.bank'), this.getBankData()).then(function (_ref) {
-                    var data = _ref.data;
-
-                    _this.id = data.data.id;
-                    _this.saved = true;
-
-                    return true;
-                });
+                return axios.post(route('add.bank'), this.getBankData());
             }
 
             return false;

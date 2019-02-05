@@ -82,15 +82,25 @@
 
                 this.saving = true;
 
-                if (this.newBank.saveBank()) {
+                this.newBank.saveBank()
+                    .then(({ data }) => {
+                        if (data.status === "success") {
+                            this.newBank.id = data.data.id;
+                            this.newBank.saved = true;
 
-                    toast(`A bank with account number ${this.newBank.account_number} already exists.`, 'error');
+                            toast(data.message, 'success');
 
-                    this.addStoredBankDetail(this.newBank);
-                    this.saving = false;
+                            this.addStoredBankDetail(this.newBank);
+                            this.saving = false;
 
-                    this.closeAddBankModal();
-                }
+                            this.closeAddBankModal();
+
+                        } else {
+                            toast(data.message, 'error');
+
+                            return false;
+                        }
+                    });
             },
             closeAddBankModal () {
                 this.newBank = new Bank();

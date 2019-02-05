@@ -26,13 +26,7 @@ class Bank
         }
 
         if (!this.id) {
-            return axios.post(route('add.bank'), this.getBankData())
-                .then(({ data }) => {
-                    this.id = data.data.id;
-                    this.saved = true;
-
-                    return true;
-                });
+            return axios.post(route('add.bank'), this.getBankData());
         }
 
         return false;
