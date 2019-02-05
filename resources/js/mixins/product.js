@@ -20,15 +20,12 @@ export const productApp = {
         Select2: Select2
     },
     methods: {
-        Checkit() {
-          console.log('she')
-        },
         productImageUpload(event) {
             let file = event.target.files[0];
             let formData = new FormData;
             formData.append('file', file);
             axios.post('/client/product/add-product-image', formData).then(res => {
-                console.log(res.data.data);
+                console.log(res.data);
                 this.productForm.attachment = res.data.data;
                 toast('Product image successfully uploaded', 'success')
             }).catch(error => {
