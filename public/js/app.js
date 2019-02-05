@@ -95965,7 +95965,7 @@ var productApp = {
             this.$validator.validate().then(function (valid) {
                 if (valid) {
                     axios.post('/client/product/add-product', _this2.productForm).then(function (res) {
-                        _this2.productForm = '', Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product image successfully uploaded', 'success');
+                        _this2.productForm = '', Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Product successfully uploaded', 'success');
                     });
                 }
             });
