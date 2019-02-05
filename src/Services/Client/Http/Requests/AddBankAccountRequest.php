@@ -26,7 +26,7 @@ class AddBankAccountRequest extends FormRequest
         return [
             'bank_name' => 'required',
 	        'account_name' => 'required',
-	        'account_number' => 'required|integer',
+	        'account_number' => 'required',
 	        'account_balance' => 'required',
         ];
     }

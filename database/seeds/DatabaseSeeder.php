@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-//        $this->call(SeedBanks::class);
+        $this->call(SeedBanks::class);
         $this->createTaxes();
 
 	    $this->createPlans();

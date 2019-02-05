@@ -5,8 +5,6 @@ namespace App\Services\Client\Features;
 use App\Domains\Bank\Jobs\UpdateBankDetailJob;
 use App\Services\Client\Http\Requests\AddBankAccountRequest;
 use Lucid\Foundation\Feature;
-use Illuminate\Http\Request;
-
 class UpdateBankDetailFeature extends Feature
 {
 	private $detailId;
@@ -21,10 +19,9 @@ class UpdateBankDetailFeature extends Feature
 		$isUpdated = $this->run(UpdateBankDetailJob::class, ['detailId' => $this->detailId, 'data' => $request->all()]);
 
 		if ($isUpdated) {
-			// This could be an alert
 			return [
-				'status' => 'success',
-				'message' => 'Bank details updated successfully',
+				'status'    => 'success',
+				'message'   => 'Bank details updated successfully',
 			];
 		}
 
