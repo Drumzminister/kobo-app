@@ -13,18 +13,12 @@ class AddBankAccountFeature extends Feature
     public function handle(AddBankAccountRequest $request)
     {
     	$data = $request->all();
-    	$data['user_id'] = Auth::user()->id;
+		$response = $this->run(AddBankAccountJob::class, ['companyId' => Auth::user()->getUserCompany()->id, 'data' => $data]);
 
-		$isAdded = $this->run(AddBankAccountJob::class, ['companyId' => Auth::user()->getUserCompany()->id, 'data' => $data]);
-
-		if ($isAdded === true) {
-			// Bank Added successfully
-			return [
-				'status' => 'success',
-				'message' => 'Bank details added successfully',
-			];
+		if ($response->status === "success") {
+			return $response;
 		}
 
-		return $isAdded;
+		return $response;
     }
 }

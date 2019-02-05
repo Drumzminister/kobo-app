@@ -44,6 +44,10 @@ class AddBankAccountJob extends Job
 	    	return $this->createJobResponse('error', 'You already have this account number linked to your account', null);
 	    }
 		$this->data['company_id'] = $this->companyId;
-	    return $this->bankDetail->fillAndSave($this->data) ? true : false;
+	    $bankDetail = $this->bankDetail->fillAndSave($this->data);
+
+	    if ($bankDetail) {
+	    	return $this->createJobResponse('success', 'Bank detail added successfully.', $bankDetail);
+	    }
     }
 }

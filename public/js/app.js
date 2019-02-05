@@ -121014,10 +121014,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(["storedBankDetails"])),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(["addStoredBankDetail"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(["getStoredBank"]), {
         saveBankDetails: function saveBankDetails() {
-            this.saving = true;
             if (this.newBank.isNotValid) {
                 return;
             }
+
             if (this.storedBankDetails.map(function (_ref) {
                 var account_number = _ref.account_number;
                 return account_number;
@@ -121026,6 +121026,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
                 return;
             }
+
+            this.saving = true;
+
             if (this.newBank.saveBank()) {
                 this.addStoredBankDetail(this.newBank);
                 this.saving = false;

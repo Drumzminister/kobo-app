@@ -70,15 +70,18 @@
             ...mapMutations(["addStoredBankDetail"]),
             ...mapGetters(["getStoredBank"]),
             saveBankDetails () {
-                this.saving = true;
                 if (this.newBank.isNotValid) {
                     return;
                 }
+
                 if (this.storedBankDetails.map(({ account_number }) => account_number).includes(this.newBank.account_number)) {
                     toast(`A bank with account number ${this.newBank.account_number} already exists.`, 'error');
 
                     return;
                 }
+
+                this.saving = true;
+
                 if (this.newBank.saveBank()) {
                     this.addStoredBankDetail(this.newBank);
                     this.saving = false;
