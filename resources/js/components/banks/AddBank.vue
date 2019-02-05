@@ -39,7 +39,6 @@
                             </div>
                         <!--</form>-->
                     </div>
-
                 </div>
             </div>
         </div>
@@ -69,14 +68,17 @@
         methods: {
             ...mapMutations(["addStoredBankDetail"]),
             ...mapGetters(["getStoredBank"]),
+            runValidatorProcess () {
+                if (this.storedBankDetails.map(({ account_number }) => account_number).includes(this.newBank.account_number)) {
+                    toast(`A bank with account number "${this.newBank.account_number}" already exists.`, 'error');
+                }
+                if (this.newBank.account_number.length !== 10) {
+                    toast(`Bank account number cannot be longer or lesser than 10 characters`, 'error');
+                }
+            },
             saveBankDetails () {
                 if (this.newBank.isNotValid) {
-                    return;
-                }
-
-                if (this.storedBankDetails.map(({ account_number }) => account_number).includes(this.newBank.account_number)) {
-                    toast(`A bank with account number ${this.newBank.account_number} already exists.`, 'error');
-
+                    this.runValidatorProcess();
                     return;
                 }
 

@@ -17,7 +17,7 @@ class Bank
     get isNotValid () {
         return this.bank_name === ""
             || this.account_balance === null || parseInt(this.account_balance) <= 0
-            || this.account_number === "";
+            || this.account_number === "" || this.account_number !== 10;
     }
 
     saveBank () {

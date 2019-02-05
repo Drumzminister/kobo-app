@@ -120995,7 +120995,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -121013,19 +121012,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(["storedBankDetails"])),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapMutations */])(["addStoredBankDetail"]), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(["getStoredBank"]), {
-        saveBankDetails: function saveBankDetails() {
-            var _this = this;
-
-            if (this.newBank.isNotValid) {
-                return;
-            }
-
+        runValidatorProcess: function runValidatorProcess() {
             if (this.storedBankDetails.map(function (_ref) {
                 var account_number = _ref.account_number;
                 return account_number;
             }).includes(this.newBank.account_number)) {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("A bank with account number " + this.newBank.account_number + " already exists.", 'error');
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("A bank with account number \"" + this.newBank.account_number + "\" already exists.", 'error');
+            }
+            if (this.newBank.account_number.length !== 10) {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("Bank account number cannot be longer or lesser than 10 characters", 'error');
+            }
+        },
+        saveBankDetails: function saveBankDetails() {
+            var _this = this;
 
+            if (this.newBank.isNotValid) {
+                this.runValidatorProcess();
                 return;
             }
 
@@ -121461,7 +121463,7 @@ var Bank = function () {
     }, {
         key: "isNotValid",
         get: function get() {
-            return this.bank_name === "" || this.account_balance === null || parseInt(this.account_balance) <= 0 || this.account_number === "";
+            return this.bank_name === "" || this.account_balance === null || parseInt(this.account_balance) <= 0 || this.account_number === "" || this.account_number !== 10;
         }
     }]);
 
