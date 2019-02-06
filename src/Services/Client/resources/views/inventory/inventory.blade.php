@@ -35,51 +35,58 @@ input {
                     <div class="bg-white px-3 py-4 introduction" id="topp"> 
                             <a href='http://example.com/' data-intro='Hello step one! View your History'></a>
                         <div class="row">
-                            <div class="col-md-3">
-                                    <h5 class="h5">Monthly Purchases</h5>
-                            </div>
-                            <div class="col-md-3">
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" /><span>D</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" /><span>W</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio"  /><span>M</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" /><span>Y</span></label>
-                                    </div>
-                                            
-                            </div>
-                            <div class="col-md-6 row">
-                                <div class="form-group col">
-                                    <select id="inputState" class="form-control btn-loginn">
-                                        <option selected>Start Date</option>
-                                        <option>January</option>
-                                        <option>Feburary</option>
-                                        <option>March</option>
-                                        <option>April</option>
-                                        <option>May</option>
-                                        <option>June</option>
-                                        
-                                    </select>
-                                </div>
-                                <div class="form-group col">
-                                    <select id="inputState" class="form-control btn-loginn">
-                                        <option selected class>End Date</option>
-                                        <option>January</option>
-                                        <option>Feburary</option>
-                                        <option>March</option>
-                                        <option>April</option>
-                                        <option>May</option>
-                                        <option>June</option>  
-                                    </select>
-                                </div>
-                            </div>
+                            {{--<div class="col-md-3">--}}
+                                    {{--<h5 class="h5">Monthly Purchases</h5>--}}
+                            {{--</div>--}}
+                            {{--<div class="col-md-3">--}}
+                                    {{--<div class="form-check form-check-inline">--}}
+                                        {{--<label><input type="radio" /><span>D</span></label>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="form-check form-check-inline">--}}
+                                        {{--<label><input type="radio" /><span>W</span></label>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="form-check form-check-inline">--}}
+                                        {{--<label><input type="radio"  /><span>M</span></label>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="form-check form-check-inline">--}}
+                                        {{--<label><input type="radio" /><span>Y</span></label>--}}
+                                    {{--</div>--}}
+                                            {{----}}
+                            {{--</div>--}}
+                            {{--<div class="col-md-6 row">--}}
+                                {{--<div class="form-group col">--}}
+                                    {{--<select id="inputState" class="form-control btn-loginn">--}}
+                                        {{--<option selected>Start Date</option>--}}
+                                        {{--<option>January</option>--}}
+                                        {{--<option>Feburary</option>--}}
+                                        {{--<option>March</option>--}}
+                                        {{--<option>April</option>--}}
+                                        {{--<option>May</option>--}}
+                                        {{--<option>June</option>--}}
+                                        {{----}}
+                                    {{--</select>--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group col">--}}
+                                    {{--<select id="inputState" class="form-control btn-loginn">--}}
+                                        {{--<option selected class>End Date</option>--}}
+                                        {{--<option>January</option>--}}
+                                        {{--<option>Feburary</option>--}}
+                                        {{--<option>March</option>--}}
+                                        {{--<option>April</option>--}}
+                                        {{--<option>May</option>--}}
+                                        {{--<option>June</option>  --}}
+                                    {{--</select>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
-                        <canvas id="canvasSale"  height="100"></canvas>
+                        <mini-chart-component :options="{ mode: 'year', dateRangeStart: '{{ 12/12/2008 }}', dateColumn: 'sale_date', xColumn: 'sale_date', yColumn: 'quantity', label: '# of Quantity Sold'}"
+                                              :month="{{ 10 }}"
+                                              :data="{{  10 }}"
+                                              :year="{{  10 }}"
+                                              :week="{{ 10 }}"
+                                              :day="{{  10 }}">
+                        </mini-chart-component>
+                        {{--<canvas id="canvasSale"  height="100"></canvas>--}}
                     </div>
                 </div>
                 {{-- top sales --}}
@@ -273,3 +280,9 @@ input {
         window.highest_quantity = @json($highest_quantity);
     </script>
 @endsection
+<script>
+    import MiniChartComponent from "../../../../../../resources/js/components/chart/MiniChartComponent";
+    export default {
+        components: {MiniChartComponent}
+    }
+</script>

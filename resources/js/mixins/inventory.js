@@ -2,6 +2,7 @@ import PaymentMethodSelection from "../components/banks/PaymentMethodSelection";
 import HighestPurchases from "../components/inventory/HighestPurchases";
 import Select2 from "v-select2-component";
 import {toast} from "../helpers/alert";
+import MiniChart from "../components/chart/MiniChartComponent";
 export const inventoryApp = {
     data: {
         inventoryForm: {
@@ -74,6 +75,7 @@ export const inventoryApp = {
         PaymentMethodSelection: PaymentMethodSelection,
         HighestPurchases: HighestPurchases,
         Select2: Select2,
+        MiniChart: MiniChart
     },
     mounted () {
         this.fetchAllPurchases();

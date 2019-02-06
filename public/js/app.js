@@ -77628,6 +77628,9 @@ var loanApp = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_v_select2_component__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_v_select2_component__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_alert__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent__ = __webpack_require__(279);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent__);
+
 
 
 
@@ -77705,7 +77708,8 @@ var inventoryApp = {
     components: {
         PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default.a,
         HighestPurchases: __WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases___default.a,
-        Select2: __WEBPACK_IMPORTED_MODULE_2_v_select2_component___default.a
+        Select2: __WEBPACK_IMPORTED_MODULE_2_v_select2_component___default.a,
+        MiniChart: __WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent___default.a
     },
     mounted: function mounted() {
         this.fetchAllPurchases();
