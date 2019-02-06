@@ -6,7 +6,6 @@ use App\Domains\Bank\Jobs\GetBankAccountsJob;
 use App\Services\Client\Features\AddBankAccountFeature;
 use App\Services\Client\Features\DeleteBankDetailFeature;
 use App\Services\Client\Features\UpdateBankDetailFeature;
-use Illuminate\Http\Request;
 use Lucid\Foundation\Http\Controller;
 
 class BankDetailController extends Controller
@@ -26,8 +25,8 @@ class BankDetailController extends Controller
 		return $this->serve(DeleteBankDetailFeature::class);
 	}
 
-	public function updateBankDetail($detailId)
+	public function updateBankDetail()
 	{
-		return $this->serve(UpdateBankDetailFeature::class, ['detailId' => $detailId]);
+		return $this->serve(UpdateBankDetailFeature::class);
 	}
 }

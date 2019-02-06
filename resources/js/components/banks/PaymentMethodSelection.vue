@@ -28,9 +28,6 @@
                         <button class="btn btn-lg btn-payment dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ paymentMethod.name || 'Select'}}
                         </button>
-                        <!--<div class="dropdown-menu payment_mode_id" aria-labelledby="dropdownMenuLink">-->
-                            <!--<button :disabled="readOnly" class="dropdown-item" v-for="account in selectedPaymentMethods">{{ account.bank.bank_name }}</button>-->
-                        <!--</div>-->
                     </div>
                 </div>
 
@@ -40,9 +37,6 @@
                     </div>
                 </div>
 
-                <!--<div class="col-md-3" style="margin-top: 20px">-->
-                    <!--<span class="" style="cursor: pointer; margin-top: 20px" v-show="salePaymentMethods.length > 1" @click="removeSalePaymentMethod(index, paymentMethod.id)"><i class="fa fa-times" style="font-size:32px;color:#c22c29;"></i></span>-->
-                <!--</div>-->
             </div>
 
             <div v-show="!readOnly" v-for="(paymentMethod, index) in salePaymentMethods" class="row" >

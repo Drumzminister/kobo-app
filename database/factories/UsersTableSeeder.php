@@ -64,6 +64,9 @@ $factory->define(Product::class, function(Faker $faker) {
         'name' => $faker->word,
         'company_id' => '',
         'user_id' => '',
+        'tag' => $faker->randomElement(['black', '50kg', 'mil', 'long', 'short', 'pink']),
+        'attachment' => $faker->imageUrl(),
+        'description' => $faker->sentence,
         'low_quantity' => random_int(1,30),
     ];
 });

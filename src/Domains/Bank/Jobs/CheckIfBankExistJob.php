@@ -13,16 +13,22 @@ class CheckIfBankExistJob extends Job
 	 * @var \Illuminate\Foundation\Application|BankDetailRepository
 	 */
 	private $bankDetail;
+	/**
+	 * @var string
+	 */
+	private $companyId;
 
 	/**
 	 * Create a new job instance.
 	 *
-	 * @param array $data
+	 * @param string $companyId
+	 * @param array  $data
 	 */
-	public function __construct(array $data)
+	public function __construct(string $companyId, array $data)
 	{
 		$this->data = $data;
 		$this->bankDetail = app(BankDetailRepository::class);
+		$this->companyId = $companyId;
 	}
 
 	/**
@@ -30,7 +36,7 @@ class CheckIfBankExistJob extends Job
 	 */
 	public function handle()
 	{
-		$bankDetail = $this->bankDetail->getByAttributes(['account_number' => $this->data['account_number'], 'user_id' => $this->data['account_number']]);
+		$bankDetail = $this->bankDetail->getByAttributes(['account_number' => $this->data['account_number'], 'company_id' => $this->companyId]);
 
 		return $bankDetail;
 	}
