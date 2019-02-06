@@ -1,5 +1,6 @@
 export const expenseApp = {
     data: {
+        latest: [],
         expenses: [],
         expenseAmount: 0,
         currentExpense: "",
@@ -12,6 +13,7 @@ export const expenseApp = {
         expenseShowPaymentMethods: false
     },
     mounted () {
+        this.latest = window.latest;
         this.expenses = window.expenses;
         this.addExpenseRecord();
     },
@@ -24,6 +26,17 @@ export const expenseApp = {
         }
     },
     methods: {
+        sortLatest (key) {
+            if (key) {
+                this.latest.sort(function (a, b) {
+                    return b.amount - a.amount;
+                })
+            } else {
+                this.latest.sort(function (a, b) {
+                    return a.amount - b.amount;
+                })
+            }
+        },
         showPayExpenseModal (evt, expense) {
             let row = evt.target.parentElement.parentElement;
             

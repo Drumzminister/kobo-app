@@ -75,8 +75,8 @@
                                 Most Recent Expenses
                             </a>
                             <div class="dropdown-menu text-green" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#" class="text-green">Highest Expenses</a>
-                                <a class="dropdown-item" href="#" class="text-green">Lowest Expenses</a>
+                                <a class="dropdown-item" @click="sortLatest(1)" class="text-green">Highest Expenses</a>
+                                <a class="dropdown-item" @click="sortLatest(0)" class="text-green">Lowest Expenses</a>
                             </div>
                         </div>
                         <div class="all-scroll">
@@ -85,29 +85,23 @@
                                 <tr>
                                     <th scope="col">Products</th>
                                     <th scope="col">Amount</th>
-                                    <th scope="col">Payment Mode</th>
+                                    <th scope="col">Payment Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{--@forelse($highExpenses as $expense)
-                                    <tr>
-                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">{{$expense->class_type}}</a></td>
-                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal" >{{$expense->amount}}</a></td>
-                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">{{$expense->payment_mode}}</a></td>
+                                    <tr v-for="expense in latest">
+                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">@{{ expense.details }}</a></td>
+                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal" >@{{ expense.amount }}</a></td>
+                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">@{{ expense.has_finished_payment? 'Paid': 'Owing' }}</a></td>
                                     </tr>
-                                @empty
-                                    <tr>
+                                    <tr v-if="latest.length === 0">
                                         <td colspan="3">
                                             No expense Available
                                         </td>
                                     </tr>
-                                @endforelse--}}
                                 </tbody>
                             </table>
                         </div>
-                        {{--<div class="text-center p-1">
-                            <a href="" class="view-more">View More Analytics</a>
-                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -122,26 +116,6 @@
                     <div class="col-md-3">
                         <a href="{{ route('client.expenses.add') }}" class="btn btn-addsale px-3"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Expenses</a>
                     </div>
-
-                    {{-- <div class="col-md-7">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <span class="input-group-text vat-input append-border px-5 py-2" id="basic-addon2">Search</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2 float-right">
-                        <div class="dropdown show float-right">
-                                <a class="btn btn-filter" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Filter <i class="fa fa-filter"></i>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="#" class="text-green">By Quantity</a>
-                                    <a class="dropdown-item" href="#" class="text-green">By Amount</a>
-                                </div>
-                        </div>
-                    </div> --}}
                 </div>
 
                 <div class="table-responsive table-responsive-sm">
@@ -184,7 +158,6 @@
                     <a href="/view-expenses" class="view-more">View More</a>
                 </div>
             </div>
-
         </div>
     </section>
     <div class="modal left fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -207,12 +180,7 @@
 
                             <h5>Accountant Review</h5>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda et dolore, necessitatibus sit .</p>
-
-
                         </div>
-
-
-
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -225,6 +193,7 @@
 @endsection
 @section('other_js')
     <script>
-        window.expenses = @json($expenses)
+        window.latest = @json($latest);
+        window.expenses = @json($expenses);
     </script>
 @endsection
