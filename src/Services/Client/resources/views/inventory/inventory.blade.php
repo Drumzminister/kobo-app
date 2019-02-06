@@ -82,48 +82,9 @@ input {
                         <canvas id="canvasSale"  height="100"></canvas>
                     </div>
                 </div>
-
                 {{-- top sales --}}
-                <div class="col-md-4">
-                    <div class="bg-white p-2 " id="topp">
-                        <div class="row my-1">
-                            <div class="col mt-1">
-                                <h5 class="h5">Top 10 Purchases</h5>
-                            </div>
-                            <div class="col">
-                                <select id="" @change="highestPurchase" class="form-control btn-filter pull-right">
-                                        <option selected>Quantity <i class="fa fa-filter"></i></option>
-                                        <option  class="text-small">By Amount</option>
-                                </select>           
-                            </div>
-                        </div>
-                        <div class="all-scroll">
-                        <table class="table table-striped table-hover" id="table">
-                            <thead class="sale-head">
-                              <tr>
-                                <th scope="col">Products</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Amount</th>
-                              </tr>
-                            </thead>
-                            <tbody class="tbody">
-                              <tr v-for="purchase in top_purchase">
-                                <td>@{{  purchase.name }}</td>
-                                <td>@{{ purchase.quantity }}</td>
-                                <td>@{{ purchase.purchase_price }}</td>
-                              </tr>
-                            </tbody>
-
-                        </table>
-                        </div>
-                            <h3 v-if="top_purchase.length === 0"class="text-center">
-                                Top purchases will appear here
-                            </h3>
-                        {{--<div class="text-center p-1">--}}
-                            {{--<a href="" class="view-more">View More Analytics</a>--}}
-                        {{--</div>--}}
-                    </div>
-                </div>
+                <highest-purchases></highest-purchases>
+                {{--end of top sales--}}
             </div>
 {{-- end of sales chart --}}
         </div>
@@ -192,15 +153,15 @@ input {
                                 </a>
                             </td>
                             <td>
-                                @{{ getPurchaseQuantityInventoryItem(purchase) }}
+                                @{{ purchase.total_quantity }}
                             </td>
                             <td>
-                                @{{ getPurchaseSalesPriceInventoryItem(purchase) | numberFormat }}
+                                @{{ purchase.total_sales_price | numberFormat }}
                             </td>
                             <td>
                                 @{{ purchase.vendor.name }}
                             </td>
-                              <td><i @click.prevent="deleteInventory(purchase.id)" class="fa fa-trash" style="font-size:24px; cursor: pointer"></i></td>
+                              <td><i @click.prevent="deleteInventory(purchase)" class="fa fa-trash" style="font-size:24px; cursor: pointer"></i></td>
                         </tr>
                         <tr v-if="purchase.length === 0">
                             <td colspan="7" class="text-center"><h3>All purchases will appear here</h3></td>
@@ -234,7 +195,8 @@ input {
 
                             <div class="row px-5 pt-3" >
                                 <div class="col-md-2">
-                                    <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                                    <img v-if="selectedInventory.vendor" :src="selectedInventory.vendor.image" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                                    <img v-else="selectedInventory.vendor" src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                                 </div>
                                 <div class="col-md-10">
                                     <h5 class="text-green h5" v-if="selectedInventory.vendor">@{{ selectedInventory.vendor.name }}</h5>
@@ -244,7 +206,7 @@ input {
                                             <div class="col-md-4">
                                                 <div class="p-2" id="topp">
                                                     <h5 class="h5">Total Amount</h5>
-                                                    <h4 class="text-orange">&#8358;@{{ selectedInventory.total_amount }}</h4>
+                                                    <h4 class="text-orange">&#8358;@{{ selectedInventory.total_sales_price }}</h4>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -284,7 +246,7 @@ input {
                                                         <td>@{{ item.name }}</td>
                                                         <td> @{{ item.quantity }}</td>
                                                         <td> @{{ item.sales_price | numberFormat }}</td>
-                                                        <td> @{{ item.purchase_price | numberFormat }}</td>
+                                                        <td> @{{ item.cost_price | numberFormat }}</td>
                                                     </tr>
 
                                                 </tbody>
@@ -303,8 +265,6 @@ input {
             </div>
         </div>
     </div>
-
-
 @endsection
 @section('other_js')
     <script>

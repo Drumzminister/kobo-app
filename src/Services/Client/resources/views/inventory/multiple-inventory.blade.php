@@ -21,7 +21,6 @@
 {{-- inventory section --}}      
 <section id="info">
         <div class="container mt-3">
-            <form action="">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="input-group mb-3 input-group-lg">
@@ -29,7 +28,7 @@
                                 <span class="input-group-text customer-input" id="basic-addon3">Vendor Name</span>
                             </div> 
         
-                            <select class="customer" v-model="inventoryForm.vendor_id" name="customer" class="form-control" >
+                            <select class="customer" v-model="inventoryForm.vendor_id" name="customer" v-validate="'required'" class="form-control" >
                                     <option selected="Pick customer Name" style="width:200" v-for="vendor in vendors" :value="vendor.id">
                                         @{{ vendor.name }}
                                     </option>
@@ -39,8 +38,8 @@
                         
                     <div class="col-md-3">
                         <div class="form-group">
-                                <select v-model="inventoryForm.tax_id" class="form-control form-control-lg form-control vat-input" name="tax" id="basic-addon3">
-                                    <option v-for="tax in taxes" :value="tax">
+                                <select v-if="inventoryForm.tax_id" v-model="inventoryForm.tax_id" class="form-control form-control-lg form-control vat-input">
+                                    <option v-if="tax" v-for="tax in taxes" :value="tax">
                                         @{{ tax.name }}
                                     </option>
                                 </select>
@@ -49,18 +48,15 @@
 
                     <div class="col-md-3">
                             <div class="dates input-group mb-3 input-group-lg">
-                                <input type="date" v-model="inventoryForm.delivered_date" class="form-control">
+                                <input type="date" v-model="inventoryForm.delivered_date" class="form-control" name="delivered_date" v-validate="'required'">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-calendar icon" id="datepicker" name="event_date" ></i></span>
-                                </div> 
+                                </div>
                             </div>
                         </div>       
                 </div>
-            </form>
         </div>
         </section>
-       
-
 
    {{-- payment section --}}
 <section>
@@ -72,7 +68,7 @@
                           <tr class="tab text-center">
                             <th scope="col">Inventory Item</th>
                             <th scope="col">Description</th>
-                            <th scope="col">QTY(@{{ calculateTotalQuantity()}})</th>
+                            <th scope="col">QTY(@{{ }})</th>
                             <th scope="col">Cost Price (&#8358;)</th>
                             <th scope="col">Sales Price (&#8358;)</th>
                             <th scope="col"></th>
@@ -80,12 +76,13 @@
                         </thead>
                         <tbody>
                             <tr v-for="(content, index) in inventoryTableRow" :id="'row-' + index">
-                                <td><input v-model="content.name" type="text" class="form-control "></td>
+                                <td><Select2 v-model="content.name" :settings="Object.assign(InventorySelectSettings, {placeholder: 'Select Product' })" :options="formattedProduct()" :value="1" ></Select2></td>
+                                {{--<td><input v-model="content.name" type="text" class="form-control "></td>--}}
                                 <td><input v-model="content.description" id="" type="text" class="form-control "></td>
-                                <td><input v-model="content.quantity" type="number" @keyup="calculateTotalQuantity()" class="form-control quantity"></td>
-                                <td><input v-model="content.cost_price" @keyup="calculateTotalCost()" id="" type="number" class="form-control cost_price"></td>
-                                <td><input v-model="content.sales_price"  @keyup="calculateTotalSalesPrice()" id="" type="number" class="form-control sales_price"></td>
-                                <td style="cursor: pointer"><i class="fa fa-trash-o" @click="deleteInventoryRow(index)" style="font-size:24px"></i></td>
+                                <td><input v-model="content.quantity" type="number" name="quantity" v-validate="'required'" @keyup="calculateTotalQuantity()" class="form-control quantity"></td>
+                                <td><input v-model="content.cost_price" @keyup="calculateTotalCost()" name="cost_price" v-validate="'required'"  type="number" class="form-control cost_price"></td>
+                                <td><input v-model="content.sales_price"  @keyup="calculateTotalSalesPrice()" name="sales_price" v-validate="'required'" v-validate="'required'" type="number" class="form-control sales_price"></td>
+                                <td style="cursor: pointer"><i class="fa fa-trash-o" @click="deleteInventoryRow(content)" style="font-size:24px"></i></td>
                             </tr>
                         </tbody>
                     </table>
@@ -140,7 +137,6 @@
                             </div>
                         </div>
                     </div>
-
             {{--End of payment section--}}
                 {{-- end of total sum section --}}
             </div>  
@@ -153,21 +149,19 @@
                 </div>
                 <div class="col">
                     <span class="float-right">
-                        <a href="" @click="createInventory"class="btn btn-lg btn-started">Save</a>
+                        <button type="submit" @click="createInventory" class="btn btn-lg btn-started">Save</button>
                     </span>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
-
 </section>
-
 @endsection
-
 @section('other_js')
     <script>
         window.vendors = @json($vendors);
         window.banks = @json($banks);
         window.taxes = @json($taxes);
+        window.products = @json($products);
     </script>
 @endsection

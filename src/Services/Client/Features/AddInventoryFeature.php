@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class AddInventoryFeature extends Feature
 {
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function handle(Request $request)
     {
         $added = $this->run(AddInventoryJob::class, ['data' => $request->all(), 'userId' => auth()->id(), 'companyId' => auth()->user()->company->id]);

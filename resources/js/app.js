@@ -9,7 +9,6 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.swal = require('sweetalert2');
 window.moment = require('moment');
-
 import {rentApp} from "./mixins/rent";
 import {loanApp} from "./mixins/loan";
 import {inventoryApp} from "./mixins/inventory";
@@ -20,6 +19,7 @@ import {salesListView} from "./mixins/salesListView";
 import {loadingView} from "./mixins/loadingView";
 import {appModal} from "./mixins/appModals";
 import {expenseApp} from "./mixins/expenses";
+import {productApp} from "./mixins/product";
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -57,7 +57,8 @@ window.app = new Vue({
         salesListView,
         loadingView,
         appModal,
-        expenseApp
+        expenseApp,
+        productApp,
     ],
     // components: {PaymentMethodSelection: PaymentMethodSelection},
     filters: {

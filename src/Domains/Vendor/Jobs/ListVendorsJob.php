@@ -30,7 +30,7 @@ class ListVendorsJob extends Job
      */
     public function handle()
     {
-        $data = $this->vendor->latest($this->companyId);
+        $data['vendors'] = $this->vendor->latest($this->companyId);
         return $data;
     }
 }

@@ -7,9 +7,10 @@
           <div class="form-group">
               <label for="bankName">Bank Name</label>
               <select name="bank_name" class="form-control"  id="bankName">
-                  @foreach($banks as $bank)
-                      <option value="{{$bank->name}}">{{$bank->name}}</option>
-                  @endforeach
+                <option value="Bank">Bank</option>
+                  {{--@foreach($banks as $bank)--}}
+                      {{--<option value="{{$bank->name}}">{{$bank->name}}</option>--}}
+                  {{--@endforeach--}}
               </select>
           </div>
           <div class="form-group">

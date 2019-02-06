@@ -84,12 +84,12 @@
                     <a href="/client/vendor/list" class="view-more">View More</a>
                 </div>
             </div> 
-           
         </div>
     </section>
 @endsection
 @section('other_js')
-    {{-- <script>
-        window.all_vendors = @json($all_vendors);
-    </script> --}}
+    <script>
+        window.vendors = @json($vendors)
+    </script>
 @endsection
+
