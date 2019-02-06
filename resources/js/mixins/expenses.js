@@ -50,70 +50,12 @@ export const expenseApp = {
                 swal("Oops", "Invalid description or amount of expense", "warning");
             }
         },
-        payExpense (evt) {
-            evt.preventDefault();
-            let sum = 0;
-            this.selectedAccounts.forEach((account) => {
-                if ( !isNaN(Number(account.amount)) ) {
-                    sum += Number(account.amount);
-                }
-            });
-            let expenseAmount = Number(this.currentExpense.amount);
-            let details = this.currentExpense.description;
-            let date = document.querySelector("#expense_date").value;
-            let payBtn = this.currentExpenseRow.querySelector('.payBtn');
-            let paidBtn = this.currentExpenseRow.querySelector('.paid');
-            if ( sum !==  expenseAmount) {
-                swal({
-                    timer: 3000,
-                    toast: true,
-                    type: 'warning',
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    text: `You are making an incomplete payment for this expense amount left is:${expenseAmount - sum}`,
-                });
-            }
-            let formData = new FormData();
-            formData.append('date', date);
-            formData.append('details', details);
-            formData.append('amount', expenseAmount.toString());
-            formData.append('amount_paid', sum.toString());
-            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
-            this.isPayingExpense = true;
-            axios
-                .post('/client/expenses/add', formData)
-                .then(res => {
-                    swal({
-                        timer: 2500,
-                        toast: true,
-                        type: 'success',
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        title: `Payment Made successfully`,
-                    });
-                    this.isPayingExpense = false;
-                    this.currentExpenseRow.querySelector('.expenseAmount').readOnly = true;
-                    payBtn.style.display = "none";
-                    paidBtn.style.display = "block";
-                    this.closeModal('#paymentModal');
-                })
-                .catch(err => {
-                    swal({
-                        timer: 3000,
-                        toast: true,
-                        type: 'error',
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        title: `Unable to complete payment: ${err.response.data.message}`,
-                    });
-                    this.isPayingExpense = false;
-                })
-            ;
-        },
+
         addExpenseRecord () {
             let expense = {
                 description: null,
                 amount: null,
+                amount_paid: 0,
             };
             this.expenseRecords.push(expense);
         },
@@ -208,7 +150,7 @@ export const expenseApp = {
         },
         payUnpaidExpenses (expenseId) {
             this.currentExpense = this.expenses.find(exp => exp.id === expenseId);
-            console.log("jame");
+            this.openModal("#paymentModal");
         }
     }
 };

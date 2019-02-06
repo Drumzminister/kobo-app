@@ -35,7 +35,7 @@ class PayExpenseJob extends Job
     public function handle()
     {
         $expense = $this->expense->find($this->expenseId);
-        if ($expense->hasPaid) {
+        if ($expense->has_finished_payment) {
             throw new \Exception('This expense has already been paid for');
         }
 

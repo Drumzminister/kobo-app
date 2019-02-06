@@ -89038,73 +89038,16 @@ var expenseApp = {
                 swal("Oops", "Invalid description or amount of expense", "warning");
             }
         },
-        payExpense: function payExpense(evt) {
-            var _this = this;
-
-            evt.preventDefault();
-            var sum = 0;
-            this.selectedAccounts.forEach(function (account) {
-                if (!isNaN(Number(account.amount))) {
-                    sum += Number(account.amount);
-                }
-            });
-            var expenseAmount = Number(this.currentExpense.amount);
-            var details = this.currentExpense.description;
-            var date = document.querySelector("#expense_date").value;
-            var payBtn = this.currentExpenseRow.querySelector('.payBtn');
-            var paidBtn = this.currentExpenseRow.querySelector('.paid');
-            if (sum !== expenseAmount) {
-                swal({
-                    timer: 3000,
-                    toast: true,
-                    type: 'warning',
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    text: "You are making an incomplete payment for this expense amount left is:" + (expenseAmount - sum)
-                });
-            }
-            var formData = new FormData();
-            formData.append('date', date);
-            formData.append('details', details);
-            formData.append('amount', expenseAmount.toString());
-            formData.append('amount_paid', sum.toString());
-            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
-            this.isPayingExpense = true;
-            axios.post('/client/expenses/add', formData).then(function (res) {
-                swal({
-                    timer: 2500,
-                    toast: true,
-                    type: 'success',
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    title: "Payment Made successfully"
-                });
-                _this.isPayingExpense = false;
-                _this.currentExpenseRow.querySelector('.expenseAmount').readOnly = true;
-                payBtn.style.display = "none";
-                paidBtn.style.display = "block";
-                _this.closeModal('#paymentModal');
-            }).catch(function (err) {
-                swal({
-                    timer: 3000,
-                    toast: true,
-                    type: 'error',
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    title: "Unable to complete payment: " + err.response.data.message
-                });
-                _this.isPayingExpense = false;
-            });
-        },
         addExpenseRecord: function addExpenseRecord() {
             var expense = {
                 description: null,
-                amount: null
+                amount: null,
+                amount_paid: 0
             };
             this.expenseRecords.push(expense);
         },
         beforeSavingExpenses: function beforeSavingExpenses() {
-            var _this2 = this;
+            var _this = this;
 
             var rows = document.querySelectorAll('.records');
             var details = [];
@@ -89141,7 +89084,7 @@ var expenseApp = {
                     confirmButtonText: 'No, Proceed!'
                 }).then(function (result) {
                     if (result.value) {
-                        _this2.saveExpenses(details);
+                        _this.saveExpenses(details);
                     }
                 });
             } else {
@@ -89149,7 +89092,7 @@ var expenseApp = {
             }
         },
         saveExpenses: function saveExpenses(details) {
-            var _this3 = this;
+            var _this2 = this;
 
             var saved = 0;
             var date = document.querySelector("#expense_date").value;
@@ -89171,7 +89114,7 @@ var expenseApp = {
                 formData.append('details', expense.querySelector('.expenseDescription').value.trim());
                 formData.append('amount', expense.querySelector('.expenseAmount').value.trim());
 
-                _this3.isSavingExpense = true;
+                _this2.isSavingExpense = true;
                 axios.post('/client/expenses/add', formData).then(function (res) {
                     saved += 1;
                 }).catch(function (err) {
@@ -89197,7 +89140,7 @@ var expenseApp = {
             this.currentExpense = this.expenses.find(function (exp) {
                 return exp.id === expenseId;
             });
-            console.log("jame");
+            this.openModal("#paymentModal");
         }
     }
 };
@@ -89213,6 +89156,7 @@ var map = {
 	"./components/banks/MakeTransfer.vue": 510,
 	"./components/banks/PaymentMethodSelection.vue": 14,
 	"./components/chart/MiniChartComponent.vue": 279,
+	"./components/expenses/ExpensePayment.vue": 517,
 	"./components/inventory/HighestPurchases.vue": 513,
 	"./components/loan/AddLoan.vue": 283,
 	"./components/loan/LoanPayment.vue": 289,
@@ -121565,6 +121509,383 @@ var bankDetailModule = {
         }
     }
 };
+
+/***/ }),
+/* 517 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(518)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(520)
+/* template */
+var __vue_template__ = __webpack_require__(521)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-0f76a6a7"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/expenses/ExpensePayment.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0f76a6a7", Component.options)
+  } else {
+    hotAPI.reload("data-v-0f76a6a7", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 518 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(519);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(29)("3fa98d2a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0f76a6a7\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExpensePayment.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0f76a6a7\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExpensePayment.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 519 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(21)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 520 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "ExpensePayment",
+    props: ['expense', 'banks', 'row', 'options'],
+    data: function data() {
+        return {
+            isPayingExpense: false
+        };
+    },
+
+    computed: {
+        spreadAmount: function spreadAmount() {
+            if (this.expense.amount) return this.expense.amount - this.expense.amount_paid;
+            return 0;
+        },
+        selectedAccounts: function selectedAccounts() {
+            return this.$store.getters.selectedAccounts;
+        }
+    },
+    methods: {
+        handlePayment: function handlePayment(evt) {
+            if (this.options) {
+                if (this.options.payOnly) {
+                    this.payExpense();
+                }
+            } else {
+                this.payAndSave(evt);
+            }
+        },
+        payAndSave: function payAndSave(evt) {
+            var _this = this;
+
+            evt.preventDefault();
+            var sum = 0;
+            this.selectedAccounts.forEach(function (account) {
+                if (!isNaN(Number(account.amount))) {
+                    sum += Number(account.amount);
+                }
+            });
+            var expenseAmount = Number(this.expense.amount);
+            var details = this.expense.description;
+            var date = document.querySelector("#expense_date").value;
+            var payBtn = this.row.querySelector('.payBtn');
+            var paidBtn = this.row.querySelector('.paid');
+            if (sum > expenseAmount) {
+                swal({
+                    timer: 3000,
+                    toast: true,
+                    type: 'error',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    text: 'Cannot pay more than:' + (expenseAmount - this.expense.amount_paid)
+                });
+                return;
+            }
+            if (sum < expenseAmount) {
+                swal({
+                    timer: 3000,
+                    toast: true,
+                    type: 'warning',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    text: 'You are making an incomplete payment for this expense amount left is:' + (expenseAmount - sum)
+                });
+            }
+            var formData = new FormData();
+            formData.append('date', date);
+            formData.append('details', details);
+            formData.append('amount', expenseAmount.toString());
+            formData.append('amount_paid', sum.toString());
+            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            this.isPayingExpense = true;
+            axios.post('/client/expenses/add', formData).then(function (res) {
+                swal({
+                    timer: 2500,
+                    toast: true,
+                    type: 'success',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    title: 'Payment Made successfully'
+                });
+                _this.isPayingExpense = false;
+                _this.row.querySelector('.expenseAmount').readOnly = true;
+                payBtn.style.display = "none";
+                paidBtn.style.display = "block";
+                _this.$parent.closeModal('#paymentModal');
+            }).catch(function (err) {
+                swal({
+                    timer: 3000,
+                    toast: true,
+                    type: 'error',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    title: 'Unable to complete payment: ' + err.response.data.message
+                });
+                _this.isPayingExpense = false;
+            });
+        },
+        payExpense: function payExpense() {
+            var _this2 = this;
+
+            var sum = 0;
+            this.selectedAccounts.forEach(function (account) {
+                if (!isNaN(Number(account.amount))) {
+                    sum += Number(account.amount);
+                }
+            });
+            if (sum > this.spreadAmount) {
+                swal({
+                    timer: 3000,
+                    toast: true,
+                    type: 'error',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    text: 'Cannot pay more than:' + (expenseAmount - this.expense.amount_paid)
+                });
+                return;
+            }
+            if (sum < this.spreadAmount) {
+                swal({
+                    timer: 3000,
+                    toast: true,
+                    type: 'warning',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    text: 'You are making an incomplete payment for this expense amount left is:' + (this.spreadAmount - sum)
+                });
+            }
+            this.isPayingExpense = true;
+            var formData = new FormData();
+            formData.append('details', this.expense.details);
+            formData.append('amount', this.expense.amount.toString());
+            formData.append('amount_paid', Number(this.expense.amount_paid) + Number(sum));
+            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
+            axios.post('/client/expenses/' + this.expense.id + '/pay', formData).then(function (res) {
+                swal({
+                    timer: 3000,
+                    toast: true,
+                    type: 'success',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    text: 'Payment Made Successfully'
+                });
+                _this2.expense = res.data;
+                _this2.isPayingExpense = false;
+                _this2.$parent.closeModal('#paymentModal');
+                location.reload();
+            }).catch(function (err) {
+                _this2.isPayingExpense = false;
+                swal({
+                    timer: 3000,
+                    toast: true,
+                    type: 'error',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    text: '' + err.response.data.message
+                });
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 521 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "modal-content" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "modal-body" },
+      [
+        _c("payment-method-selection", {
+          staticClass: "col-12",
+          attrs: { banks: _vm.banks }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "modal-footer" }, [
+      _vm.selectedAccounts.length > 0 && !_vm.isPayingExpense
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-payment",
+              on: { click: _vm.handlePayment }
+            },
+            [_vm._v("Pay")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selectedAccounts.length < 1
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-sm px-3 btn-info",
+              staticStyle: { cursor: "not-allowed" },
+              attrs: { disabled: "" }
+            },
+            [_vm._v("Pay")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isPayingExpense
+        ? _c(
+            "button",
+            { staticClass: "btn btn-sm btn-payment", attrs: { disabled: "" } },
+            [
+              _vm._v("Paying... "),
+              _c("i", {
+                staticClass: "fa fa-circle-o-notch fa-spin",
+                staticStyle: { "font-size": "24px" }
+              })
+            ]
+          )
+        : _vm._e()
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Select Payment Mode")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0f76a6a7", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

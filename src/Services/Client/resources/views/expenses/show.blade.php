@@ -131,25 +131,20 @@
                         </thead>
 
                         <tbody>
-                        @forelse(Auth::user()->expenses as $expense)
-                            <tr>
-                                <td>{{$expense->date}}</td>
-                                <td>{{$expense->details}}</td>
-                                <td>{{number_format($expense->amount, 2)}}</td>
-                                <td>{{$expense->class_type}}</td>
-                                @if($expense->has_finished_payment)
-                                    <td>Paid</td>
-                                @else
-                                    <td>{{ $expense->amount_paid > 0 ? 'Incomplete' : 'Not paid'}}<button class="btn mr-4 pull-right btn-sm btn-primary" @click='payUnpaidExpenses("{{ $expense->id }}")'>Pay</button></td>
-                                @endif
+                            <tr v-for="expense in expenses">
+                                <td>@{{ expense.date }}</td>
+                                <td>@{{ expense.details }}</td>
+                                <td>@{{ expense.amount, 2 }}</td>
+                                <td>@{{ expense.classification }}</td>
+                                <td v-if="expense.has_finished_payment">Paid</td>
+                                <td v-else>@{{ expense.amount_paid > 0 ? 'Incomplete' : 'Not paid' }}<button class="btn mr-4 pull-right btn-sm btn-primary" @click=payUnpaidExpenses(expense.id)>Pay</button></td>
+
                             </tr>
-                        @empty
-                            <tr id="noExpense">
+                            <tr v-if="expenses.length === 0" id="noExpense">
                                 <td colspan="5">
                                     You have no expense. <br> Use the add expense button to add new expenses.
                                 </td>
                             </tr>
-                        @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -189,7 +184,12 @@
             </div>
         </div>
     </div>
-
+    <!-- Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <expense-payment :expense="currentExpense" :row="currentExpenseRow" :options="{payOnly: true}" :banks="{{$banks}}"></expense-payment>
+        </div>
+    </div>
 @endsection
 @section('other_js')
     <script>
