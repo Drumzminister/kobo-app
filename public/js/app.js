@@ -121769,7 +121769,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     showConfirmButton: false,
                     text: 'Payment Made Successfully'
                 });
-                _this2.expense = res.data;
+                // this.expense = res.data;
                 _this2.isPayingExpense = false;
                 _this2.$parent.closeModal('#paymentModal');
                 location.reload();

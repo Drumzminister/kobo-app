@@ -162,7 +162,7 @@
                             showConfirmButton: false,
                             text: `Payment Made Successfully`,
                         });
-                        this.expense = res.data;
+                        // this.expense = res.data;
                         this.isPayingExpense = false;
                         this.$parent.closeModal('#paymentModal');
                         location.reload();
