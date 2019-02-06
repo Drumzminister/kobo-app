@@ -104,9 +104,6 @@
                 let receivingBank = this.getStoredBank(this.receivingBankId);
                 let payingBank = this.getStoredBank(this.payingBankId);
 
-                console.log(receivingBank);
-                console.log(payingBank);
-
                 confirmSomethingWithAlert(`You are about to make transfer of NGN ${this.amount} from ${payingBank.account_name} balance to ${receivingBank.account_name} balance!`)
                     .then(({ value }) => {
                         if (value) {
@@ -135,6 +132,8 @@
                                     payingBank.saved = true;
 
                                     toast(`Transfer of N${this.amount} completed successfully!`, 'success');
+
+                                    this.closeMakeTransferModal();
 
                                     this.transferring = false;
                                 } else {

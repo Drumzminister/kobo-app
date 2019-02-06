@@ -3,11 +3,12 @@
 namespace App\Domains\Bank\Jobs;
 
 use App\Data\Repositories\BankDetailRepository;
+use Koboaccountant\Traits\HelpsResponse;
 use Lucid\Foundation\Job;
 
 class UpdateBankDetailJob extends Job
 {
-	private $detailId;
+	use HelpsResponse;
 
 	/**
 	 * @var \Illuminate\Foundation\Application|BankDetailRepository
@@ -35,6 +36,12 @@ class UpdateBankDetailJob extends Job
 	 */
 	public function handle()
 	{
-		return $this->bankDetail->find($this->data['id'])->fill($this->data)->save();
+		$done = $this->bankDetail->find($this->data['id'])->fill($this->data)->save();
+
+		if ($done) {
+			return $this->createJobResponse('success', 'Bank detail updated successfully.', null);
+		}
+
+		return $this->createJobResponse('error', 'Unable to update bank detail.', null);
 	}
 }

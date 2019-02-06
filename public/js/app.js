@@ -120588,6 +120588,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
                             Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])("Transfer of N" + _this2.amount + " completed successfully!", 'success');
 
+                            _this2.closeMakeTransferModal();
+
                             _this2.transferring = false;
                         } else {
                             Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["b" /* toast */])("" + data.message, 'error');
@@ -121520,7 +121522,7 @@ var Bank = function () {
     }, {
         key: "isNotValid",
         get: function get() {
-            return this.bank_name === "" || this.account_balance === null || parseInt(this.account_balance) <= 0 || this.account_number === "" || this.account_number !== 10;
+            return this.bank_name === "" || this.account_balance === null || parseInt(this.account_balance) <= 0 || this.account_number === "";
         }
     }]);
 

@@ -124,7 +124,7 @@ Route::group([ 'prefix' => 'client'], function () {
 
     Route::get('/bank', 'BankPagesController@showBankPages')->name('bank.banking-page');
     Route::post('/bank', 'BankDetailController@addBankDetail')->name('bank.add');
-    Route::patch('/bank', 'BankDetailController@updateBankBankDetail')->name('bank.update');
+    Route::patch('/bank', 'BankDetailController@updateBankDetail')->name('bank.update');
 
     Route::get('/product/add', 'ProductController@addProductPage')->name('add-product');
     Route::post('/product/add-product', 'ProductController@addProduct')->name('add-product');

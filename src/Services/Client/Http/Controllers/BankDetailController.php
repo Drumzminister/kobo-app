@@ -25,8 +25,8 @@ class BankDetailController extends Controller
 		return $this->serve(DeleteBankDetailFeature::class);
 	}
 
-	public function updateBankDetail($detailId)
+	public function updateBankDetail()
 	{
-		return $this->serve(UpdateBankDetailFeature::class, ['detailId' => $detailId]);
+		return $this->serve(UpdateBankDetailFeature::class);
 	}
 }
