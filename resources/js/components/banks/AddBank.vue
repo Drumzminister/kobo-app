@@ -35,11 +35,10 @@
                                 <!--<small class="text-danger" v-if="newBank.account_balance === '' && saving" >You must select a bank name</small>  -->
                             </div>
                             <div class="form-group d-flex justify-content-center">
-                                <button :disabled="saving" type="button" @click="saveBankDetails()" class="btn btn-green px-5"><i v-show="saving" class="fa fa-circle-notch"></i> Save</button>
+                                <button :disabled="saving" type="button" @click="saveBankDetails()" class="btn btn-green px-5"><i v-show="saving" class="fa fa-circle-notch fa-spin"></i> Save</button>
                             </div>
                         <!--</form>-->
                     </div>
-
                 </div>
             </div>
         </div>
@@ -68,27 +67,47 @@
         },
         methods: {
             ...mapMutations(["addStoredBankDetail"]),
-            ...mapGetters(["getStoredBank"]),
-            saveBankDetails () {
-                this.saving = true;
-                if (this.newBank.isNotValid) {
-                    return;
-                }
+            runValidatorProcess () {
                 if (this.storedBankDetails.map(({ account_number }) => account_number).includes(this.newBank.account_number)) {
-                    toast(`A bank with account number ${this.newBank.account_number} already exists.`, 'error');
-
+                    toast(`A bank with account number "${this.newBank.account_number}" already exists.`, 'error');
+                }
+                if (this.newBank.account_number.length !== 10) {
+                    toast(`Bank account number cannot be longer or lesser than 10 characters`, 'error');
+                }
+            },
+            saveBankDetails () {
+                if (this.newBank.isNotValid) {
+                    this.runValidatorProcess();
                     return;
                 }
-                if (this.newBank.saveBank()) {
-                    this.addStoredBankDetail(this.newBank);
-                    this.saving = false;
 
-                    this.closeAddBankModal();
-                }
+                this.saving = true;
+
+                this.newBank.saveBank()
+                    .then(({ data }) => {
+                        if (data.status === "success") {
+                            this.newBank.id = data.data.id;
+                            this.newBank.saved = true;
+
+                            toast(data.message, 'success');
+
+                            this.addStoredBankDetail(this.newBank);
+                            this.saving = false;
+
+                            this.closeAddBankModal();
+                        } else {
+                            toast(data.message, 'error');
+
+                            return false;
+                        }
+                    });
             },
             closeAddBankModal () {
                 this.newBank = new Bank();
                 this.$modal.close("#addBankModal")
+            },
+            getStoredBank (bank_id) {
+                return this.storedBankDetails.filter(({ id }) => id === bank_id)[0];
             }
         }
     }

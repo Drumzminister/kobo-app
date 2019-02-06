@@ -11,7 +11,7 @@ class ShowAllRentsFeature extends Feature
 {
     public function handle(Request $request)
     {
-        $data = $this->run(GetRentPageDataJob::class);
+        $data = $this->run(GetRentPageDataJob::class, ['companyId' => $request->user()->getUserCompany()]);
         return $this->run(new RespondWithViewJob('client::rents.all', $data));
     }
 }

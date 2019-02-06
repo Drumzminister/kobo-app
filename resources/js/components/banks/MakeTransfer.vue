@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="form-group d-flex justify-content-center">
-                            <button type="button" class="btn btn-green px-5" @click="startTransfer()">Send</button>
+                            <button :disabled="transferring" type="button" class="btn btn-green px-5" @click="startTransfer()"><i v-show="transferring" class="fa fa-circle-notch fa-spin"></i> Transfer</button>
                         </div>
                     </form>
                 </div>
@@ -75,7 +75,8 @@
             ...mapGetters(['storedBankDetails']),
             transferNotValid () {
                 return this.payingBankId === "" || this.transfer_date === "" ||
-                        this.amount <= 0 || this.amount === 0 || this.receivingBankId === "";
+                        this.amount <= 0 || this.amount === 0 || this.receivingBankId === ""
+                        || this.receivingBankId === this.payingBankId;
             },
             payingBankDoesNotHaveSufficientFund () {
                 return parseFloat(this.getStoredBank(this.payingBankId).account_balance) < parseFloat(this.amount);
@@ -87,7 +88,6 @@
                 this.$modal.close("#makeTransferModal");
             },
             startTransfer () {
-                this.transferring = true;
 
                 if (this.transferNotValid) {
                     this.showValidationErrors();
@@ -107,11 +107,9 @@
                 confirmSomethingWithAlert(`You are about to make transfer of NGN ${this.amount} from ${payingBank.account_name} balance to ${receivingBank.account_name} balance!`)
                     .then(({ value }) => {
                         if (value) {
-                            receivingBank.receive(payingBank.transfer(this.amount));
+                            this.finalizeTransfer(payingBank, receivingBank);
                         }
                     });
-
-                this.transfering = false;
             },
             showValidationErrors() {
                 if (this.receivingBankId === this.payingBankId) {
@@ -119,6 +117,38 @@
 
                     return null;
                 }
+            },
+            finalizeTransfer(payingBank, receivingBank) {
+                this.transferring = true;
+
+                receivingBank.receive(payingBank.transfer(this.amount));
+                receivingBank.saved = payingBank.saved = false;
+                receivingBank.saveBank()
+                    .then(({ data }) => {
+                        if (data.status === "success") {
+                            receivingBank.saved = true;
+                            payingBank.saveBank().then(({data}) => {
+                                if (data.status === "success") {
+                                    payingBank.saved = true;
+
+                                    toast(`Transfer of N${this.amount} completed successfully!`, 'success');
+
+                                    this.closeMakeTransferModal();
+
+                                    this.transferring = false;
+                                } else {
+                                    toast(`${data.message}`, 'error');
+                                    this.transferring = false;
+                                }
+                            });
+                        } else {
+                            toast(`${data.message}`, 'error');
+                            this.transferring = false;
+                        }
+                    });
+            },
+            getStoredBank (bank_id) {
+                return this.storedBankDetails.filter(({ id }) => id === bank_id)[0];
             }
         }
     }
