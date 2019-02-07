@@ -70,7 +70,7 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/staff/multiple-staff', 'StaffController@showMultipleStaff')->name('client.single-staff.add');
     Route::post('/staff/single-staff/add', 'StaffController@addSingleStaff')->name('client.single-staff.add');
     Route::post('/staff/multiple-staff/add', 'StaffController@addMultipleStaff')->name('client.multiple-staff.add');
-
+    Route::post('/staff/deactivate/{staffId}', 'StaffController@deactivateStaff');
     Route::get('/staff/search', 'StaffController@searchStaff')->name('client.staff.search');
     Route::post('staff/imageUpload', 'StaffController@imageUpload')->name('client.staffImageUpload');
 

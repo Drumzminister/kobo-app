@@ -39,7 +39,7 @@ export const staffApp = {
             axios.post('/client/staff/imageUpload', formData).then(res => {
                     toast('Image has successfully uploaded', 'success');
                     console.log(res.data.data);
-                    this.staffForm.avatar = res.data.data;
+                    this.staffForm.avatar = "https://s3.us-east-2.amazonaws.com/koboapp/" . res.data.data;
             }).catch(error => {
                 toast('Staff upload unsuccessful', 'error');
             });
@@ -70,7 +70,7 @@ export const staffApp = {
             this.StaffInformation.dateOfEmployment = staff.employed_date;
             this.StaffInformation.comment = staff.comment;
             this.StaffInformation.salary = staff.salary;
-            this.StaffInformation.avatar = "https://s3.us-east-2.amazonaws.com/koboapp/"+staff.avatar;
+            this.StaffInformation.avatar = staff.avatar;
         },
 
         staffStatusFilter(){
@@ -99,7 +99,12 @@ export const staffApp = {
                 this.staffForm.phone = this.staffForm.phone.slice(0, this.staffForm.phone.length -1)
             }
         },
+        deactivateStaff(staffId) {
+            axios.post(`/client/staff/deactivate/${staffId}`).then(res => {
+
+            }).catch(error => {
+
+            });
+        }
     },
-
-
 };

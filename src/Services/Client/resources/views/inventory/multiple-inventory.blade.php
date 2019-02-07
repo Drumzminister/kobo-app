@@ -29,7 +29,7 @@
                             </div> 
         
                             <select class="customer" v-model="inventoryForm.vendor_id" name="customer" v-validate="'required'" class="form-control" >
-                                    <option selected="Pick customer Name" style="width:200" v-for="vendor in vendors" :value="vendor.id">
+                                    <option selected="Pick customer Name" v-for="vendor in user_vendors" :value="vendor">
                                         @{{ vendor.name }}
                                     </option>
                             </select>

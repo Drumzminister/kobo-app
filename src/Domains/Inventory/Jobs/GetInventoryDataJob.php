@@ -46,6 +46,7 @@ class GetInventoryDataJob extends Job
         $inventory = $inventory->map(function($invent){
             return new InventoryCollection($invent);
         });
+
         return [
             'dayInventories' => $dayInventories,
             'weekInventories' => $weekInventories,

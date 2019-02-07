@@ -34,7 +34,6 @@
                 {{--</div>--}}
             </div>
 
-            <form method="post">
                 <div class="form-group row py-2">
                     <div class="col-md-4">
                         <label for="name" class="col-md-3 col-form-label">Account</label>
@@ -91,7 +90,6 @@
                             <button type="submit" class="btn btn-addsale" @click="createCustomer"  data-dismiss="modal" type="submit">Save Information</button>
                         </div>
                     </div>
-            </form>
         </div>
     </div>
 </section>
