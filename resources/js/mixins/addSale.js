@@ -134,7 +134,7 @@ export const addSale = {
             this.createSale();
         },
         createSale: function () {
-            let api = new API({ baseUri: 'https://kobo.test/client' });
+            let api = new API({ baseUri: '/client' });
             api.createEntity({ name: 'sale'});
             let data = {
                 tax_id: this.taxId,

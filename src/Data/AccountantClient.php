@@ -3,6 +3,7 @@
 namespace App\Data;
 
 use Illuminate\Database\Eloquent\Model;
+use Koboaccountant\Models\Accountant;
 
 class AccountantClient extends Model
 {
@@ -21,6 +22,6 @@ class AccountantClient extends Model
 
     public function accountant()
     {
-    	return $this->hasOne('App\Models\Accountant');
+    	return $this->belongsTo(Accountant::class);
     }
 }

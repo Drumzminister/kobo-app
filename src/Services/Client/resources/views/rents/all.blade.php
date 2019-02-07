@@ -65,3 +65,9 @@
         </div>
     </section>
 @endsection
+@section('other_js')
+    <script>
+        window.rents = @json($rents);
+        window.banks = @json($banks);
+    </script>
+@endsection

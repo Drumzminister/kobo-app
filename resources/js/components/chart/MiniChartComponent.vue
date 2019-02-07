@@ -97,6 +97,7 @@
             }
         },
         mounted() {
+            console.log('hi');
             this.processChart();
         },
         methods: {
