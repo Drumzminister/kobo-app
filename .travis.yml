@@ -4,7 +4,7 @@ sudo: required
 php:
   - 7.1
 env:
-  - DEPLOY_SCRIPT_BRANCH=bosunski.fun
+  - DEPLOY_SCRIPT_BRANCH=kobo
 
 before_install:
   - git clone -b $DEPLOY_SCRIPT_BRANCH https://github.com/bosunski/deploscripts
