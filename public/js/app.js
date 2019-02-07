@@ -30567,7 +30567,7 @@ var API = function () {
 
         _classCallCheck(this, API);
 
-        this.baseUri = baseUri;
+        this.baseUri = window.location.protocol + '//' + window.location.hostname + baseUri;
         this.endpoints = {};
     }
     /**
@@ -68709,7 +68709,7 @@ var SaleItem = function () {
 
             this.processing = true;
             var data = this.getItemData();
-            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/api/client' });
+            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: '/api/client' });
 
             api.createEntity({ name: 'saleItem' });
             return api.endpoints.saleItem.delete(data);
@@ -102824,7 +102824,7 @@ var updateSale = {
         createSale: function createSale() {
             var _this2 = this;
 
-            var api = new __WEBPACK_IMPORTED_MODULE_3__classes_API__["a" /* default */]({ baseUri: 'https://kobo.test/client' });
+            var api = new __WEBPACK_IMPORTED_MODULE_3__classes_API__["a" /* default */]({ baseUri: '/client' });
             api.createEntity({ name: 'sale' });
             var data = {
                 tax_id: this.taxId,
