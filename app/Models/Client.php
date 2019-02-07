@@ -2,6 +2,7 @@
 
 namespace Koboaccountant\Models;
 
+use App\Data\AccountantClient;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,5 +20,10 @@ class Client extends Model
     public function reviews()
     {
     	return $this->hasMany('Koboaccountant\Models\Review');
+    }
+
+    public function accountantClient()
+    {
+	    return $this->hasOne(AccountantClient::class);
     }
 }

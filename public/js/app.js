@@ -120550,9 +120550,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var receivingBank = this.getStoredBank(this.receivingBankId);
             var payingBank = this.getStoredBank(this.payingBankId);
 
-            console.log(receivingBank);
-            console.log(payingBank);
-
             Object(__WEBPACK_IMPORTED_MODULE_1__helpers_alert__["a" /* confirmSomethingWithAlert */])("You are about to make transfer of NGN " + this.amount + " from " + payingBank.account_name + " balance to " + receivingBank.account_name + " balance!").then(function (_ref) {
                 var value = _ref.value;
 
