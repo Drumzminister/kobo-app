@@ -40,6 +40,8 @@ class RentHelper
             }
             if ($today->greaterThanOrEqualTo($end)) {
                 $usedRent = $rent->amount;
+            } elseif ($start->greaterThan($today)) {
+                $usedRent = 0;
             } else {
                 $usedRent = $amortized * ( $diff - $today->diffInMonths($end) );
             }

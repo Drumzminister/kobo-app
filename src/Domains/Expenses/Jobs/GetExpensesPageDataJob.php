@@ -2,12 +2,14 @@
 
 namespace App\Domains\Expenses\Jobs;
 
+use App\Data\Repositories\ExpenseRepository;
 use App\Domains\Bank\Jobs\GetBankAccountsJob;
 use App\Domains\Banking\Jobs\GetCashJob;
 use Lucid\Foundation\Job;
 
 class GetExpensesPageDataJob extends Job
 {
+    private $expense;
     private $companyId;
     /**
      * Create a new job instance.
@@ -16,6 +18,7 @@ class GetExpensesPageDataJob extends Job
      */
     public function __construct($companyId)
     {
+        $this->expense = new ExpenseRepository();
         $this->companyId = $companyId;
     }
 
@@ -28,6 +31,7 @@ class GetExpensesPageDataJob extends Job
     public function handle()
     {
         $data['expenses'] = (new ListAllCompaniesExpensesJob($this->companyId))->handle();
+        $data['latest'] = $this->expense->getLatest($this->companyId);
         $data['banks'] = $banks = (new GetBankAccountsJob($this->companyId))->handle();
         return $data;
     }

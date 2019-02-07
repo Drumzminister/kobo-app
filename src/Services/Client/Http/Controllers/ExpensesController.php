@@ -6,6 +6,7 @@ use App\Services\Client\Features\AddExpenseFeature;
 use App\Services\Client\Features\SearchExpensesFeature;
 use App\Services\Client\Features\ShowAddExpensesPageFeature;
 use App\Services\Client\Features\ShowExpensePageFeature;
+use App\Services\Web\Features\PayExpenseFeature;
 use Illuminate\Http\Request;
 use Lucid\Foundation\Http\Controller;
 
@@ -34,5 +35,10 @@ class ExpensesController extends Controller
     function searchExpenses($param)
     {
         return $this->serve(SearchExpensesFeature::class, ['param' => $param]);
+    }
+
+    public function payExpense($expenseId)
+    {
+        return $this->serve(PayExpenseFeature::class, ['expenseId' => $expenseId]);
     }
 }
