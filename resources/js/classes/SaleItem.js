@@ -144,7 +144,7 @@ class SaleItem
     createItemOnDatabase () {
         let data = this.getItemData();
         let self = this;
-        let api = new API({ baseUri: 'https://kobo.test/api/client'});
+        let api = new API({ baseUri: '/api/client'});
 
         api.createEntity({ name: 'saleItem'});
         api.endpoints.saleItem.create(data)
@@ -165,7 +165,7 @@ class SaleItem
     updateItemOnDatabase () {
         let data = this.getItemData();
         let self = this;
-        let api = new API({ baseUri: 'https://kobo.test/api/client'});
+        let api = new API({ baseUri: '/api/client'});
 
         api.createEntity({ name: 'saleItem'});
         api.endpoints.saleItem.update(data)

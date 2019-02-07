@@ -68663,7 +68663,7 @@ var SaleItem = function () {
 
             var data = this.getItemData();
             var self = this;
-            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/api/client' });
+            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: '/api/client' });
 
             api.createEntity({ name: 'saleItem' });
             api.endpoints.saleItem.create(data).then(function (_ref) {
@@ -68687,7 +68687,7 @@ var SaleItem = function () {
         value: function updateItemOnDatabase() {
             var data = this.getItemData();
             var self = this;
-            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: 'https://kobo.test/api/client' });
+            var api = new __WEBPACK_IMPORTED_MODULE_1__API__["a" /* default */]({ baseUri: '/api/client' });
 
             api.createEntity({ name: 'saleItem' });
             api.endpoints.saleItem.update(data).then(function (_ref2) {
