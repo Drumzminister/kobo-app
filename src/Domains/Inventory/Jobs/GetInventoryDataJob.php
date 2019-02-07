@@ -4,6 +4,7 @@ namespace App\Domains\Inventory\Jobs;
 
 use App\Data\Repositories\InventoryItemRepository;
 use App\Data\Repositories\InventoryRepository;
+use Koboaccountant\Http\Resources\InventoryCollection;
 use Koboaccountant\Models\Inventory;
 use Lucid\Foundation\Job;
 
@@ -25,24 +26,50 @@ class GetInventoryDataJob extends Job
     /**
      * Execute the job.
      *
-     * @return void
+     * @return array
      */
     public function handle()
     {
-        $data['inventories'] = $inventories = $this->inventory->getBy('user_id', auth()->user()->id, ['vendor','inventoryItem']);//getAvailableInventories($this->companyId);//
-        $data['highest_purchase'] = $this->inventoryItem->topTenHighestAmountPurchases($this->companyId);
-        $data['highest_quantity'] = $this->inventoryItem->topTenQuantityPurchases($this->companyId);
-        return $data;
+        $inventories = $inventories = $this->inventory->getBy('user_id', auth()->user()->id, ['vendor','inventoryItem']);//getAvailableInventories($this->companyId);//
+        $highest_purchase = $this->inventoryItem->topTenHighestAmountPurchases($this->companyId);
+        $highest_quantity = $this->inventoryItem->topTenQuantityPurchases($this->companyId);
+
+        $inventory = $this->inventory->getBy('company_id', auth()->user()->company->id);
+
+        $firstInventory = $inventory->first();
+
+        $dayInventories = $this->createInventoryCollectionsFromInventory($inventory->whereBetween('delivered_date', [now()->subDay(), now()]));
+        $weekInventories = $this->createInventoryCollectionsFromInventory($inventory->whereBetween('delivered_date', [now()->subWeek(), now()]));
+        $monthInventories = $this->createInventoryCollectionsFromInventory($inventory->whereBetween('delivered_date', [now()->subMonth(), now()]));
+        $yearInventories = $this->createInventoryCollectionsFromInventory($inventory->whereBetween('delivered_date', [now()->subYear(), now()]));
+
+        $inventory = $inventory->map(function($invent){
+            return new InventoryCollection($invent);
+        });
+        return [
+            'dayInventories' => $dayInventories,
+            'weekInventories' => $weekInventories,
+            'monthInventories' => $monthInventories,
+            'yearInventories'  => $yearInventories,
+            'inventory'     => $inventory,
+            'startDate'     => $firstInventory ? $firstInventory->created_at : now()->toDateString(),
+            'highest_purchase' => $highest_purchase,
+            'highest_quantity' => $highest_quantity,
+            'inventories'   => $inventories
+        ];
     }
 
-    private function getSum($inventoryId) {
-        $inventory = $this->inventory->getBy('inventory_id', $inventoryId);
-        return $inventory;
+
+    protected function createInventoryCollectionsFromInventory($inventory)
+    {
+        return $inventory->map(function($inventory) {
+            return new InventoryCollection($inventory);
+        });
     }
+
     public function inventoryItem($inventoryId)
     {
-        $inventory = $this->inventoryItem->all();
-        $inventoryItem = $inventory->getBy('inventory_id', $inventoryId);
+        $inventoryItem = $this->inventoryItem->getBy('inventory_id', $inventoryId);
         return $inventoryItem;
     }
 

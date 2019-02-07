@@ -62,14 +62,10 @@
 <script src="{{asset('js/rater.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
-<script src="{{asset('js/particles.js')}}"></script>
 
  {{-- chart js --}}
  <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.js"></script>
  <script src="{{asset('js/bundle.js')}}"></script>
- <script src="{{asset('js/jquery.circliful.js')}}"></script>
-<script src="{{asset('js/chart.js')}}"></script>
- <script src="{{asset('js/appp.js')}}"></script>
 
 
  <script>

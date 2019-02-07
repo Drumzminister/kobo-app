@@ -48,7 +48,7 @@
     export default {
         components: { DateRangePicker },
         props: [
-            'month', 'day', 'week', 'year', 'options', 'data'
+            'month', 'day', 'week', 'year', 'options', 'data', 'heading'
         ],
         filters: {
             date (value) {

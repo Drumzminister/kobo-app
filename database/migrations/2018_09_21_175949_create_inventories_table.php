@@ -20,7 +20,6 @@ class CreateInventoriesTable extends Migration
 	        $table->string('user_id');
             $table->string('invoice_number')->unique();
 	        $table->dateTime('delivered_date');
-	        $table->string('attachment')->nullable();
 	        $table->string('discount')->nullable();
 	        $table->double('delivery_cost', 2)->nullable();
             $table->unsignedInteger('tax_id')->nullable();
