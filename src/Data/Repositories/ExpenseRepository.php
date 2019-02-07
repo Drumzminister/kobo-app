@@ -17,4 +17,9 @@ class ExpenseRepository extends Repository
     {
         parent::__construct(new Expense());
     }
+
+    public function getLatest($companyId)
+    {
+        return Expense::where('company_id', $companyId)->latest()->take(5)->get();
+    }
 }

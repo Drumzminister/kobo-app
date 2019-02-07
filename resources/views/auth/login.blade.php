@@ -45,9 +45,26 @@
                             <h5 class="login-h2 pb-3 text-white">
                                 Sign in to Kobo Accountant
                             </h5>
+
+                            <div class="alert alert-info">
+                                <h3>Test Details</h3>
+                                <p>
+                                    <strong>Client</strong><br/>
+                                    @php
+                                        $clientUser = \Koboaccountant\Models\Role::where('name', 'Client')->first()->user;
+                                    @endphp
+                                    <span>Email: {{ $clientUser->email }}</span><br/>
+                                    <span>Password: secret</span><br/>
+                                </p>
+
+                                <p>
+                                    <strong>Client's Accountant</strong><br/>
+                                    <span>Email: {{ $clientUser->client->accountantClient->accountant->user->email }}</span><br/>
+                                    <span>Password: secret</span><br/>
+                                </p>
+                            </div>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
-
                                 <div class="form-group">
                                     <div class="input-box">
                                         <input type="email" name="email" class="form-control" id="email" aria-describedby="" placeholder="Email" required="" value="{{ old('email') }}">

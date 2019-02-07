@@ -57,4 +57,20 @@ class Inventory extends Model
 	{
 		return $query->where('quantity', '>', 0);
 	}
+	public function scopeDayInventory($query)
+	{
+	    return $query->whereBetween('created_at', [now()->subDay(), now()]);
+	}
+	public function scopeWeekInventory($query)
+	{
+	    return $query->whereBetween('created_at', [now()->subWeek(), now()]);
+	}
+	public function scopeMonthInventory($query)
+	{
+	    return $query->whereBetween('created_at', [now()->subMonth(), now()]);
+	}
+	public function scopeYearInventory($query)
+	{
+	    return $query->whereBetween('created_at', [now()->subYear(), now()]);
+	}
 }

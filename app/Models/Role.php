@@ -14,4 +14,9 @@ class Role extends Model
     {
         return $this->hasMany('Koboaccountant\Models\User');
     }
+
+	public function user()
+	{
+		return $this->belongsTo('Koboaccountant\Models\User');
+	}
 }

@@ -1,0 +1,23 @@
+if: branch = master
+language: php
+sudo: required
+php:
+  - 7.1
+env:
+  - DEPLOY_SCRIPT_BRANCH=kobo
+
+before_install:
+  - git clone -b $DEPLOY_SCRIPT_BRANCH https://github.com/bosunski/deploscripts
+  - source ./deploscripts/sources/env.sh
+  - "./deploscripts/sources/ssh_config.sh"
+
+
+install: skip
+before_script: skip
+#    - ./scripts/deploy/before_deploy.sh
+addons:
+
+script: skip
+#    - vendor/bin/phpunit
+after_script:
+  - "./deploscripts/deploy/deploy.sh"

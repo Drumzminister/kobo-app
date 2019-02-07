@@ -3,7 +3,7 @@ const axios = require('axios');
 class API {
 
     constructor({ baseUri: baseUri }){
-        this.baseUri = baseUri;
+        this.baseUri = window.location.protocol + '//' + window.location.hostname + baseUri;
         this.endpoints = {};
     }
     /**
