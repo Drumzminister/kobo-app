@@ -85731,8 +85731,15 @@ var staffApp = {
                 this.staffForm.phone = this.staffForm.phone.slice(0, this.staffForm.phone.length - 1);
             }
         },
-        deactivateStaff: function deactivateStaff(staffId) {
-            axios.post('/client/staff/deactivate/' + staffId).then(function (res) {}).catch(function (error) {});
+        deactivateStaff: function deactivateStaff(staff) {
+            var _this3 = this;
+
+            axios.post('/client/staff/deactivate/' + staff.id).then(function (res) {
+                _this3.staff = _this3.staff;
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(res.data.message, 'success');
+            }).catch(function (error) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(error.data.message, 'error');
+            });
         }
     }
 };
@@ -85753,7 +85760,8 @@ var vendorApp = {
     },
 
     created: function created() {
-        this.vendors = window.all_vendors;
+        this.vendors = window.vendors;
+        console.log(this.vendors);
         this.addNewRow();
     },
 

@@ -99,11 +99,12 @@ export const staffApp = {
                 this.staffForm.phone = this.staffForm.phone.slice(0, this.staffForm.phone.length -1)
             }
         },
-        deactivateStaff(staffId) {
-            axios.post(`/client/staff/deactivate/${staffId}`).then(res => {
-
+        deactivateStaff(staff) {
+            axios.post(`/client/staff/deactivate/${staff.id}`).then(res => {
+                this.staff = this.staff;
+                toast(res.data.message,'success')
             }).catch(error => {
-
+                toast(error.data.message,'error')
             });
         }
     },

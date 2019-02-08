@@ -136,7 +136,7 @@
                                               <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:30px; font-size: 20px" aria-labelledby="dropdownMenuButton1">
                                                   <a class="dropdown-item text-primary" href="client/staff/payment"><i class="fa fa-money">Salary</i></a>
                                                   <a class="dropdown-item text-primary" href="/client/staff/edit"><i class="fa fa-edit"></i>Edit</a>
-                                                  <a @click.prevent="deactivateStaff(worker.id)" class="dropdown-item text-danger" href="#">Deactivate<i class="fa fa-trash"></i></a>
+                                                  <a @click.prevent="deactivateStaff(worker)" class="dropdown-item text-danger" href="#">Deactivate<i class="fa fa-trash"></i></a>
                                               </div>
                                           </div>
                                         </td>

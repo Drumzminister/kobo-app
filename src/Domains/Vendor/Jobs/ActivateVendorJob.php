@@ -33,7 +33,7 @@ class ActivateVendorJob extends Job
         $vendor->fill(['isActive' => !$vendor->isActive])->save();
 
         return [
-            'status' => 'success',
+            "status" => 'success',
             'message' => "Vendor $state"
         ];
     }
