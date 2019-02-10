@@ -77822,7 +77822,8 @@ var inventoryApp = {
             total_sales_price: '',
             total_quantity: '',
             amount_paid: 0,
-            banks: ''
+            banks: '',
+            balance: ''
         },
         inventoryItem: {
             delivered_date: '',
@@ -77835,12 +77836,13 @@ var inventoryApp = {
         },
         purchase: {},
         all_purchases: '',
-        vendors: window.vendors,
         inventoryTableRow: [],
         totalCostPrice: [],
         selectedInventory: '',
         banks: window.banks,
         taxes: window.taxes,
+        user_vendors: window.vendors,
+        kep: window.vendors,
         // all_inventory_items: window.all_inventory_items,
         products: window.products,
         InventorySelectSettings: {
@@ -77886,12 +77888,15 @@ var inventoryApp = {
     mounted: function mounted() {
         this.fetchAllPurchases();
         this.purchase = this.all_purchases;
-        this.vendors = window.vendors;
         if (this.taxes) this.inventoryForm.tax_id = this.taxes[2];
         this.addInventoryRow();
     },
 
     methods: {
+        saveBalance: function saveBalance() {
+            var balance = this.inventoryForm.total_cost_price - this.getTotalAmountPaid();
+            return Math.abs(balance);
+        },
         formattedProduct: function formattedProduct() {
             return this.products['products'].map(function (product) {
                 return { id: product.id, text: product.name };
@@ -77924,8 +77929,15 @@ var inventoryApp = {
             this.inventoryForm.total_quantity = this.calculateTotalQuantity();
             this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
             this.inventoryForm.tax_amount = this.inventoryTax;
+            this.inventoryForm.balance = this.saveBalance();
+            var amountReminder = Number(this.inventoryForm.total_cost_price) - Number(this.getTotalAmountPaid());
             this.$validator.validate().then(function (valid) {
                 if (valid) {
+                    if (_this2.getTotalAmountPaid() > _this2.inventoryForm.total_cost_price) {
+                        return Object(__WEBPACK_IMPORTED_MODULE_3__helpers_alert__["b" /* toast */])("Amount paid is " + _this2.formatNumber(amountReminder) + " greater than cost price", 'error');
+                    } else if (_this2.getTotalAmountPaid() < _this2.inventoryForm.total_cost_price) {
+                        Object(__WEBPACK_IMPORTED_MODULE_3__helpers_alert__["b" /* toast */])("you are owing " + _this2.inventoryForm.vendor_id.name + " " + _this2.formatNumber(amountReminder), 'error');
+                    }
                     axios.post('/client/inventory/add', _this2.inventoryForm).then(function (res) {
                         swal({
                             type: 'success',
@@ -77944,13 +77956,22 @@ var inventoryApp = {
                 }
             });
         },
+        formatNumber: function formatNumber(number) {
+            return new Intl.NumberFormat('en-IN').format(Math.abs(number));
+        },
+        getTotalAmountPaid: function getTotalAmountPaid() {
+            var amountPaid = 0;
+            this.selectedAccounts.forEach(function (balance) {
+                amountPaid += Number(balance.amount);
+            });
+            return amountPaid;
+        },
         getTotalCostPrice: function getTotalCostPrice() {
             return document.querySelector("totalCostPrice").value;
         },
         deleteInventory: function deleteInventory(inventory) {
             var _this3 = this;
 
-            console.log(inventory);
             swal({
                 title: 'Are you sure',
                 text: 'Are you sure you want to delete',
@@ -85286,7 +85307,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { DateRangePicker: __WEBPACK_IMPORTED_MODULE_0_vue2_daterange_picker___default.a },
-    props: ['month', 'day', 'week', 'year', 'options', 'data', 'heading'],
+    props: ['month', 'day', 'week', 'year', 'options', 'data'],
     filters: {
         date: function date(value) {
             var options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -85336,7 +85357,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        console.log('hi');
         this.processChart();
     },
 
@@ -85355,21 +85375,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getData: function getData(data) {
             var _this2 = this;
 
+            var result = Object.values(data);
             var _options = this.options,
                 xColumn = _options.xColumn,
                 yColumn = _options.yColumn;
 
-            var graphData = data.map(function (plot) {
+            var graphData = result.map(function (plot) {
                 return {
                     x: _this2.options.dateColumn ? new Date(plot[xColumn]) : plot[xColumn],
                     y: plot[yColumn]
                 };
             });
+            var labels = result.map(function (_ref) {
+                var delivered_date = _ref.delivered_date;
 
-            var labels = data.map(function (_ref) {
-                var sale_date = _ref.sale_date;
-
-                return moment(sale_date)[_this2.mode]();
+                return moment(delivered_date)[_this2.mode]();
             });
             return { graphData: graphData };
         },
@@ -85581,6 +85601,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
+      _vm._v("`\n        "),
       _c("canvas", { attrs: { id: "myChart", width: "400", height: "150" } })
     ])
   }
@@ -85647,7 +85668,7 @@ var staffApp = {
             axios.post('/client/staff/imageUpload', formData).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image has successfully uploaded', 'success');
                 console.log(res.data.data);
-                _this.staffForm.avatar = res.data.data;
+                _this.staffForm.avatar = "https://s3.us-east-2.amazonaws.com/koboapp/".res.data.data;
             }).catch(function (error) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Staff upload unsuccessful', 'error');
             });
@@ -85678,7 +85699,7 @@ var staffApp = {
             this.StaffInformation.dateOfEmployment = staff.employed_date;
             this.StaffInformation.comment = staff.comment;
             this.StaffInformation.salary = staff.salary;
-            this.StaffInformation.avatar = "https://s3.us-east-2.amazonaws.com/koboapp/" + staff.avatar;
+            this.StaffInformation.avatar = staff.avatar;
         },
         staffStatusFilter: function staffStatusFilter() {
             if (!this.staffActive) {
@@ -85709,9 +85730,18 @@ var staffApp = {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Phone number cannot be greater than 11', 'error');
                 this.staffForm.phone = this.staffForm.phone.slice(0, this.staffForm.phone.length - 1);
             }
+        },
+        deactivateStaff: function deactivateStaff(staff) {
+            var _this3 = this;
+
+            axios.post('/client/staff/deactivate/' + staff.id).then(function (res) {
+                _this3.staff = _this3.staff;
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(res.data.message, 'success');
+            }).catch(function (error) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(error.data.message, 'error');
+            });
         }
     }
-
 };
 
 /***/ }),
@@ -85730,7 +85760,8 @@ var vendorApp = {
     },
 
     created: function created() {
-        this.vendors = window.all_vendors;
+        this.vendors = window.vendors;
+        console.log(this.vendors);
         this.addNewRow();
     },
 
@@ -85791,6 +85822,8 @@ var vendorApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return customerApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+
 var customerApp = {
     data: {
         customerForm: {
@@ -85801,24 +85834,17 @@ var customerApp = {
             email: '',
             website: ''
         },
-        customers: [],
+        customers: window.customers,
         customerSearch: '',
         customerFormSubmitted: false,
         searchNotFound: false
     },
+    mounted: function mounted() {},
 
-    // created() {
-    //     axios.get('/client/customer/all-customers')
-    //         .then(res => {
-    //             this.customers = res.data.all_customers.data;
-    //         });
-    // },
     methods: {
-        createCustomer: function createCustomer(e) {
+        createCustomer: function createCustomer() {
             var _this = this;
 
-            e.preventDefault();
-            this.customerFormSubmitted = true;
             this.$validator.validate().then(function (valid) {
                 if (valid) {
                     axios.post('/client/customer/add', _this.customerForm).then(function (res) {
@@ -85829,6 +85855,9 @@ var customerApp = {
                         swal('Error', 'There was an error adding staff', 'error');
                     });
                 }
+                _this.errors.items.forEach(function (message) {
+                    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('' + message.msg, 'error');
+                });
             });
         },
         searchCustomer: function searchCustomer() {

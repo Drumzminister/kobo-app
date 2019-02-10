@@ -8,7 +8,8 @@ export const vendorApp = {
     },
 
     created() {
-        this.vendors = window.all_vendors;
+        this.vendors = window.vendors;
+        console.log(this.vendors)
         this.addNewRow();
     },
     methods: {

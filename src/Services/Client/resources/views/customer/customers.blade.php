@@ -26,7 +26,7 @@
                                 <h4 class="h4 text-white">Total Number of customers</h4>
                             </div>
                             <div class="col-md-4">
-                                <h1 class="h1 text-orange">{{$total_customers}}</h1>
+                                <h1 class="h1 text-orange"></h1>
                             </div>
                         </div>
                     </div>
@@ -64,6 +64,7 @@
                                 <td>@{{ customer.phone }}</td>
                                 <td>@{{ customer.email }}</td>
                                 <td>@{{ customer.website }}no-light </td>
+
                               <td v-show="searchNotFound">No Data found</td>
                                 <td class="flex" >
                                     <div class="dropdown">
@@ -88,5 +89,9 @@
         </div>
     </section>
 
-  
+@endsection
+@section('other_js')
+<script>
+window.customers = @json($customers)
+</script>
 @endsection

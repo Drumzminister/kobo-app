@@ -5,17 +5,23 @@ namespace App\Domains\Customer\Jobs;
 use App\Data\Repositories\CustomerRepository;
 use Lucid\Foundation\Job;
 
+/**
+ * @property  customerId
+ */
 class GetCustomerDataJob extends Job
 {
     private $customer;
+    private $companyId;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $companyId
      */
-    public function __construct()
+    public function __construct($companyId)
     {
-        $this->customer = app(CustomerRepository::class);
+        $this->customer = new CustomerRepository();
+        $this->companyId = $companyId;
     }
 
     /**1
@@ -25,9 +31,7 @@ class GetCustomerDataJob extends Job
      */
     public function handle()
     {
-        $data['total_customers'] = $this->customer->count();
-        $data['customers'] = $this->customer->userAll();
-        $data['all_customers'] = $this->customer->page();
+        $data['customers'] = $this->customer->getBy('company_id', $this->companyId);
         return $data;
     }
 }

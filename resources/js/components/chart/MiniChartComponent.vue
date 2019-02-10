@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row">`
             <canvas id="myChart" width="400" height="150"></canvas>
         </div>
     </div>
@@ -48,7 +48,7 @@
     export default {
         components: { DateRangePicker },
         props: [
-            'month', 'day', 'week', 'year', 'options', 'data', 'heading'
+            'month', 'day', 'week', 'year', 'options', 'data'
         ],
         filters: {
             date (value) {
@@ -97,7 +97,6 @@
             }
         },
         mounted() {
-            console.log('hi');
             this.processChart();
         },
         methods: {
@@ -109,16 +108,16 @@
                 this.endDate = values.endDate.toISOString().slice(0, 10);
             },
             getData (data) {
+                let result = Object.values(data);
                 let { xColumn, yColumn } = this.options;
-                let graphData = data.map((plot) => {
+                let graphData = result.map((plot) => {
                     return {
                             x:this.options.dateColumn ? new Date(plot[xColumn]) : plot[xColumn],
                             y:plot[yColumn]
                     }
                 });
-
-                let labels = data.map(({ sale_date }) => {
-                    return moment(sale_date)[this.mode]();
+                let labels = result.map(({ delivered_date }) => {
+                    return moment(delivered_date)[this.mode]();
                 });
                 return { graphData };
             },

@@ -80,7 +80,7 @@ input {
                             {{--</div>--}}
                         </div>
                         @if($inventory->count() > 0)
-                        <mini-chart-component :options="{ mode: 'year', dateRangeStart: '{{ $startDate }}',  dateColumn: 'created_at', xColumn: 'created_at', yColumn: 'total_quantity', label: '# of Quantity Sold'}"
+                        <mini-chart-component :options="{ mode: 'year', dateRangeStart: '{{ $startDate }}',  dateColumn: 'delivered_date', xColumn: 'created_at', yColumn: 'total_quantity', label: '# of Quantity Purchased'}"
                                               :month="{{ $monthInventories }}"
                                               :data="{{ $inventories }}"
                                               :year="{{ $yearInventories }}"
