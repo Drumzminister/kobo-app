@@ -85763,43 +85763,58 @@ var vendorApp = {
 
 
     methods: {
-        uploadImage: function uploadImage(event) {
-            var _this = this;
-
-            var file = event.target.files[0];
-            var formData = new FormData();
-            formData.append('file', file);
-            axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
-                _this.vendorTableRows.image = res.data.data;
-            });
-        },
+        // uploadImage(event) {
+        //    let file = event.target.files[0];
+        //    let formData = new FormData();
+        //    formData.append('file', file);
+        //    axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
+        //        this.vendorTableRows.push(res.data.data)
+        //    });
+        // },
         saveVendor: function saveVendor() {
-            var _this2 = this;
+            var _this = this;
 
             this.isLoading = true;
             var data = {
                 items: this.vendorTableRows
             };
+
+            var _loop = function _loop(i) {
+                var handle = document.querySelector('.image').files[0];
+                data['items'].forEach(function (image) {
+                    var formData = new FormData();
+                    formData.append('file', handle);
+                    axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
+                        image.image = res.data.data;
+                    });
+                });
+            };
+
+            for (var i = 0; i < data.items.length; i++) {
+                _loop(i);
+            }
+
+            console.log(data);
             axios.post('/client/vendor/add', data).then(function (res) {
-                _this2.vendorTableRows = [], _this2.addNewRow();
+                _this.vendorTableRows = [], _this.addNewRow();
                 swal({
                     title: 'Vendor added!',
                     text: res.data.message,
                     type: 'success',
                     timer: 1500
                 });
-                _this2.isLoading = false;
-                _this2.vendorFormErrors = "";
+                _this.isLoading = false;
+                _this.vendorFormErrors = "";
             }).catch(function (error) {
-                _this2.vendorFormErrors = error.response.data.errors;
-                _this2.isLoading = false;
+                _this.vendorFormErrors = error.response.data.errors;
+                _this.isLoading = false;
             });
         },
         searchVendor: function searchVendor() {
-            var _this3 = this;
+            var _this2 = this;
 
             axios.get('/client/vendor/search?param=' + this.search).then(function (res) {
-                _this3.vendors = res.data;
+                _this2.vendors = res.data;
             });
         },
         addNewRow: function addNewRow() {
@@ -85809,7 +85824,7 @@ var vendorApp = {
                 phone: '',
                 email: '',
                 website: '',
-                image: this.fileUrls
+                image: ''
             });
         },
         deleteVendorRow: function deleteVendorRow(row) {
