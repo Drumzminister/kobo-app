@@ -77945,9 +77945,9 @@ var inventoryApp = {
                             text: res.data.message,
                             timer: 3000,
                             showConfirmButton: false
+                        }).then(function (res) {
+                            location.reload(true);
                         });
-                    }).catch(function (err) {
-                        // swal("Oops", "An error occurred when creating this account", "error");
                     });
                 } else {
                     _this2.errors.items.forEach(function (error) {
@@ -77956,6 +77956,9 @@ var inventoryApp = {
                 }
             });
         },
+
+
+        //this little happy method will remove minus from a negative value
         formatNumber: function formatNumber(number) {
             return new Intl.NumberFormat('en-IN').format(Math.abs(number));
         },
@@ -85639,7 +85642,6 @@ var staffApp = {
             comment: '',
             avatar: ''
         },
-        staff: [],
         staffSearchInput: '',
         StaffInformation: {
             name: '',
@@ -85650,12 +85652,9 @@ var staffApp = {
             comment: '',
             phone: ''
         },
-        messageText: ''
+        messageText: '',
+        staff: window.all_staff
     },
-    created: function created() {
-        this.staff = window.all_staff;
-    },
-
 
     methods: {
         getAndProcessImage: function getAndProcessImage(event) {
@@ -85667,10 +85666,8 @@ var staffApp = {
             formData.append('file', file);
             axios.post('/client/staff/imageUpload', formData).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image has successfully uploaded', 'success');
-                console.log(res.data.data);
-                _this.staffForm.avatar = "https://s3.us-east-2.amazonaws.com/koboapp/".res.data.data;
-            }).catch(function (error) {
-                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Staff upload unsuccessful', 'error');
+                var data = res.data.data;
+                _this.staffForm.avatar = 'https://s3.us-east-2.amazonaws.com/koboapp/' + data;
             });
         },
         createStaff: function createStaff(evt) {
@@ -85732,11 +85729,10 @@ var staffApp = {
             }
         },
         deactivateStaff: function deactivateStaff(staff) {
-            var _this3 = this;
-
             axios.post('/client/staff/deactivate/' + staff.id).then(function (res) {
-                _this3.staff = _this3.staff;
-                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(res.data.message, 'success');
+                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
+                    location.reload(true);
+                });
             }).catch(function (error) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(error.data.message, 'error');
             });
@@ -85761,7 +85757,6 @@ var vendorApp = {
 
     created: function created() {
         this.vendors = window.vendors;
-        console.log(this.vendors);
         this.addNewRow();
     },
 
@@ -85786,7 +85781,6 @@ var vendorApp = {
             }).catch(function (error) {
                 _this.vendorFormErrors = error.response.data.errors;
                 _this.isLoading = false;
-                console.log(_this.vendorFormErrors);
             });
         },
         searchVendor: function searchVendor() {
@@ -85832,15 +85826,14 @@ var customerApp = {
             phone: '',
             address: '',
             email: '',
-            website: ''
+            website: '',
+            image: ''
         },
         customers: window.customers,
         customerSearch: '',
         customerFormSubmitted: false,
         searchNotFound: false
     },
-    mounted: function mounted() {},
-
     methods: {
         createCustomer: function createCustomer() {
             var _this = this;
@@ -85868,7 +85861,20 @@ var customerApp = {
                 var result = _this2.customers = res.data;
             });
         },
-        getAndProcessCustomerImage: function getAndProcessCustomerImage() {},
+        getAndProcessCustomerImage: function getAndProcessCustomerImage(event) {
+            var _this3 = this;
+
+            Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Your image is uploading', 'info');
+            var file = event.target.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/customer/uploadImage', formData).then(function (res) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image uploaded', 'success');
+                var data = res.data.data;
+                var result = 'https://s3.us-east-2.amazonaws.com/koboapp/' + data;
+                _this3.customerForm.image = result;
+            });
+        },
         deleteCustomer: function deleteCustomer(customerId) {
             axios.post('/client/customer/delete/' + customerId).then(function (res) {
                 swal({

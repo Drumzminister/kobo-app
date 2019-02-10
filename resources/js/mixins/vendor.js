@@ -9,7 +9,6 @@ export const vendorApp = {
 
     created() {
         this.vendors = window.vendors;
-        console.log(this.vendors)
         this.addNewRow();
     },
     methods: {
@@ -34,7 +33,6 @@ export const vendorApp = {
             .catch(error => {
                 this.vendorFormErrors = error.response.data.errors;
                 this.isLoading = false;
-                console.log(this.vendorFormErrors);
             });
         },
 

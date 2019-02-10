@@ -22,7 +22,6 @@ class Inventory extends Model
         'user_id',
         'invoice_number',
         'delivered_date',
-        'attachment',
         'discount',
         'tax_id',
         'tax_amount',
