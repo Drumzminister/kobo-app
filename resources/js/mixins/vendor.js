@@ -1,24 +1,33 @@
 export const vendorApp = {
     data:{
         vendorTableRows:[],
-        vendors: '',
+        vendors: null,
         search: '',
         vendorFormErrors: [],
+        fileUrls: [],
         isLoading: false
     },
 
     created() {
-        this.vendors = window.vendors;
+        this.vendors = this.user_vendors;
         this.addNewRow();
     },
+
     methods: {
+        uploadImage(event) {
+           let file = event.target.files[0];
+           let formData = new FormData();
+           formData.append('file', file);
+           axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
+               this.vendorTableRows.image = res.data.data
+           });
+        },
         saveVendor() {
             this.isLoading = true;
             let data = {
                 items: this.vendorTableRows,
             };
-            axios.post('/client/vendor/add', data)
-            .then(res => {
+            axios.post('/client/vendor/add', data).then(res => {
                 this.vendorTableRows = [],
                 this.addNewRow();
                 swal({
@@ -35,9 +44,10 @@ export const vendorApp = {
                 this.isLoading = false;
             });
         },
-
         searchVendor() {
-             axios.get(`/client/vendor/search?param=${this.search}`).then(res => {this.vendors = res.data;});
+             axios.get(`/client/vendor/search?param=${this.search}`).then(res => {
+                 this.vendors = res.data;
+             });
         },
         addNewRow() {
             this.vendorTableRows.push(
@@ -47,13 +57,13 @@ export const vendorApp = {
                     phone: '',
                     email: '',
                     website: '',
-                }
+                    image: this.fileUrls
+                },
             );
         },
         deleteVendorRow(row) {
             $("#row-" + row).remove();
         },
-
         activateVendor(id) {
             axios.post(`/client/vendor/${id}/activate`).then(res => {
                 swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false});

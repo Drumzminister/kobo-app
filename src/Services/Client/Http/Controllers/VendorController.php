@@ -9,6 +9,7 @@ use App\Services\Client\Features\ListVendorsFeature;
 use App\Services\Client\Features\SearchVendorFeature;
 use App\Services\Client\Features\ShowAllVendorFeature;
 use App\Services\Client\Features\ShowVendorPageFeature;
+use App\Services\Client\Features\UploadVendorImageFeature;
 use Illuminate\Http\Request;
 use Lucid\Foundation\Http\Controller;
 
@@ -46,5 +47,9 @@ class VendorController extends Controller
     public function activateVendor($vendorId)
     {
         return $this->serve(ActivateVendorFeature::class, ['vendorId' => $vendorId]);
+    }
+    public function uploadVendorImage()
+    {
+        return $this->serve(UploadVendorImageFeature::class);
     }
 }

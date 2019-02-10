@@ -85749,45 +85749,57 @@ var staffApp = {
 var vendorApp = {
     data: {
         vendorTableRows: [],
-        vendors: '',
+        vendors: null,
         search: '',
         vendorFormErrors: [],
+        fileUrls: [],
         isLoading: false
     },
 
     created: function created() {
-        this.vendors = window.vendors;
+        this.vendors = this.user_vendors;
         this.addNewRow();
     },
 
+
     methods: {
-        saveVendor: function saveVendor() {
+        uploadImage: function uploadImage(event) {
             var _this = this;
+
+            var file = event.target.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
+                _this.vendorTableRows.image = res.data.data;
+            });
+        },
+        saveVendor: function saveVendor() {
+            var _this2 = this;
 
             this.isLoading = true;
             var data = {
                 items: this.vendorTableRows
             };
             axios.post('/client/vendor/add', data).then(function (res) {
-                _this.vendorTableRows = [], _this.addNewRow();
+                _this2.vendorTableRows = [], _this2.addNewRow();
                 swal({
                     title: 'Vendor added!',
                     text: res.data.message,
                     type: 'success',
                     timer: 1500
                 });
-                _this.isLoading = false;
-                _this.vendorFormErrors = "";
+                _this2.isLoading = false;
+                _this2.vendorFormErrors = "";
             }).catch(function (error) {
-                _this.vendorFormErrors = error.response.data.errors;
-                _this.isLoading = false;
+                _this2.vendorFormErrors = error.response.data.errors;
+                _this2.isLoading = false;
             });
         },
         searchVendor: function searchVendor() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/client/vendor/search?param=' + this.search).then(function (res) {
-                _this2.vendors = res.data;
+                _this3.vendors = res.data;
             });
         },
         addNewRow: function addNewRow() {
@@ -85796,7 +85808,8 @@ var vendorApp = {
                 address: '',
                 phone: '',
                 email: '',
-                website: ''
+                website: '',
+                image: this.fileUrls
             });
         },
         deleteVendorRow: function deleteVendorRow(row) {

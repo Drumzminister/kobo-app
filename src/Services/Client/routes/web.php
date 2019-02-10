@@ -110,6 +110,7 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/vendor/add', 'VendorController@addVendorPage')->name('vendor.add');
     Route::post('/vendor/add', 'VendorController@addVendor')->name('vendor.add');
     Route::get('/vendor/all-vendors', 'VendorController@listVendors')->name('vendor.list');
+    Route::post('/vendor/uploadVendorImage', 'VendorController@uploadVendorImage');
     Route::get('/vendor/search', 'VendorController@searchVendors')->name('vendor.search');
     Route::post('/vendor/{vendorId}/activate', 'VendorController@activateVendor')->name('vendor.activate');
 
