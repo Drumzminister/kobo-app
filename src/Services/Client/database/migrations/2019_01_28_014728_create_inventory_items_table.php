@@ -20,7 +20,7 @@ class CreateInventoryItemsTable extends Migration
             $table->string('user_id');
             $table->string('name');
             $table->integer('quantity');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->double('cost_price', 2);
             $table->double('sales_price', 2);
             $table->timestamps();
