@@ -1,3 +1,4 @@
+import {toast} from "../helpers/alert";
 export const customerApp = {
     data:{
         customerForm: {
@@ -8,22 +9,15 @@ export const customerApp = {
             email: '',
             website: ''
         },
-        customers: [],
+        customers: window.customers,
         customerSearch: '',
         customerFormSubmitted: false,
         searchNotFound: false,
     },
-
-    // created() {
-    //     axios.get('/client/customer/all-customers')
-    //         .then(res => {
-    //             this.customers = res.data.all_customers.data;
-    //         });
-    // },
+    mounted() {
+    },
     methods: {
-        createCustomer(e) {
-            e.preventDefault();
-            this.customerFormSubmitted = true;
+        createCustomer() {
             this.$validator.validate().then(valid => {
                 if (valid) {
                     axios.post('/client/customer/add', this.customerForm).then(res => {
@@ -34,6 +28,9 @@ export const customerApp = {
                         swal('Error', 'There was an error adding staff', 'error');
                     });
                 }
+                this.errors.items.forEach(message => {
+                    toast(`${message.msg}`, `error`);
+                });
             });
         },
         searchCustomer() {

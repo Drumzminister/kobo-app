@@ -79,13 +79,22 @@ input {
                                 {{--</div>--}}
                             {{--</div>--}}
                         </div>
-                        <mini-chart-component :options="{ mode: 'year', dateRangeStart: '{{ 12/12/2008 }}', dateColumn: 'sale_date', xColumn: 'sale_date', yColumn: 'quantity', label: '# of Quantity Sold'}"
-                                              :month="{{ 10 }}"
-                                              :data="{{  10 }}"
-                                              :year="{{  10 }}"
-                                              :week="{{ 10 }}"
-                                              :day="{{  10 }}">
+                        @if($inventory->count() > 0)
+                        <mini-chart-component :options="{ mode: 'year', dateRangeStart: '{{ $startDate }}',  dateColumn: 'delivered_date', xColumn: 'created_at', yColumn: 'total_quantity', label: '# of Quantity Purchased'}"
+                                              :month="{{ $monthInventories }}"
+                                              :data="{{ $inventories }}"
+                                              :year="{{ $yearInventories }}"
+                                              :week="{{ $weekInventories }}"
+                                              :day="{{ $dayInventories }}">
+
                         </mini-chart-component>
+                        @else
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="h5">No Inventory Record</h5>
+                                </div>
+                            </div>
+                        @endif
                         {{--<canvas id="canvasSale"  height="100"></canvas>--}}
                     </div>
                 </div>
@@ -280,9 +289,4 @@ input {
         window.highest_quantity = @json($highest_quantity);
     </script>
 @endsection
-<script>
-    import MiniChartComponent from "../../../../../../resources/js/components/chart/MiniChartComponent";
-    export default {
-        components: {MiniChartComponent}
-    }
-</script>
+
