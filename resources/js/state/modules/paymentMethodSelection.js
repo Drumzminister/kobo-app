@@ -20,6 +20,12 @@ export const paymentMethodSelectionModule = {
         }
     },
     mutations: {
+        resetDefaults (state) {
+            state.companyAccounts = [];
+            state.selectedAccounts = [];
+            state.totalPaid = 0;
+            state.invalidPaymentsSum = true;
+        },
         selectAccount(state, account) {
             state.selectedAccounts.push(account);
         },

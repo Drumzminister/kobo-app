@@ -18,6 +18,7 @@ export const loanApp = {
         loanAmtRunning: 0,
         paymentPerYear: 1,
         loanDescription: "",
+        onAddModal: false,
         loanPeriod: "month",
         noSourceFound: false,
         allLoanIntervals: [],
@@ -282,6 +283,7 @@ export const loanApp = {
             this.toggleShowIntervalSelector();
         },
         closeLoanModal () {
+            this.onAddModal = false;
             document.querySelector('.loan-form').reset();
             this.loanDate= "";
             this.loanTerm= "";
@@ -291,6 +293,10 @@ export const loanApp = {
             this.loanInterest = "";
             this.paymentPerYear = 1;
             this.closeModal('#addLoanModal');
+        },
+        openAddLoanModal () {
+            this.onAddModal = true;
+            this.openModal('#addLoanModal');
         },
         calculateIntervalsToBeShown () {
             if (this.loanTerm.trim() === "") {
