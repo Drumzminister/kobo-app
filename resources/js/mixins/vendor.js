@@ -1,25 +1,45 @@
 export const vendorApp = {
     data:{
         vendorTableRows:[],
-        vendors: '',
+        vendors: null,
         search: '',
         vendorFormErrors: [],
+        fileUrls: [],
         isLoading: false
     },
 
     created() {
-        this.vendors = window.vendors;
-        console.log(this.vendors)
+        this.vendors = this.user_vendors;
         this.addNewRow();
     },
+
     methods: {
+        // uploadImage(event) {
+        //    let file = event.target.files[0];
+        //    let formData = new FormData();
+        //    formData.append('file', file);
+        //    axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
+        //        this.vendorTableRows.push(res.data.data)
+        //    });
+        // },
         saveVendor() {
             this.isLoading = true;
             let data = {
                 items: this.vendorTableRows,
             };
-            axios.post('/client/vendor/add', data)
-            .then(res => {
+            for (let i = 0; i < data.items.length; i++) {
+                let handle = document.querySelector('.image').files[0];
+                data['items'].forEach(image => {
+                    let formData = new FormData();
+                    formData.append('file', handle);
+                    axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
+                        image.image = res.data.data
+                    });
+                })
+            }
+
+            console.log(data)
+            axios.post('/client/vendor/add', data).then(res => {
                 this.vendorTableRows = [],
                 this.addNewRow();
                 swal({
@@ -34,12 +54,12 @@ export const vendorApp = {
             .catch(error => {
                 this.vendorFormErrors = error.response.data.errors;
                 this.isLoading = false;
-                console.log(this.vendorFormErrors);
             });
         },
-
         searchVendor() {
-             axios.get(`/client/vendor/search?param=${this.search}`).then(res => {this.vendors = res.data;});
+             axios.get(`/client/vendor/search?param=${this.search}`).then(res => {
+                 this.vendors = res.data;
+             });
         },
         addNewRow() {
             this.vendorTableRows.push(
@@ -49,13 +69,13 @@ export const vendorApp = {
                     phone: '',
                     email: '',
                     website: '',
-                }
+                    image: ''
+                },
             );
         },
         deleteVendorRow(row) {
             $("#row-" + row).remove();
         },
-
         activateVendor(id) {
             axios.post(`/client/vendor/${id}/activate`).then(res => {
                 swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false});

@@ -136,10 +136,10 @@ export const inventoryApp = {
                             text: res.data.message,
                             timer: 3000,
                             showConfirmButton: false
+                        }).then(res => {
+                            location.reload(true)
                         });
-                    }).catch(err => {
-                        // swal("Oops", "An error occurred when creating this account", "error");
-                    });
+                    })
                 }else {
                     this.errors.items.forEach(error => {
                         toast(error.msg, 'error')
@@ -148,6 +148,7 @@ export const inventoryApp = {
             });
         },
 
+        //this little happy method will remove minus from a negative value
         formatNumber(number) {
             return new Intl.NumberFormat('en-IN').format(Math.abs(number));
         },

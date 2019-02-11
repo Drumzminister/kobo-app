@@ -26,10 +26,10 @@
                         <div class="input-group mb-3 input-group-lg">
                             <div class="input-group-prepend">
                                 <span class="input-group-text customer-input" id="basic-addon3">Vendor Name</span>
-                            </div> 
+                            </div>
         
-                            <select class="customer" v-model="inventoryForm.vendor_id" name="customer" v-validate="'required'" class="form-control" >
-                                    <option selected="Pick customer Name" v-for="vendor in user_vendors" :value="vendor">
+                            <select v-if="user_vendors"class="vendor" v-model="inventoryForm.vendor_id" name="vendor" v-validate="'required'" class="form-control" >
+                                    <option selected="Pick customer Name" v-for="vendor in user_vendors.vendors" :value="vendor">
                                         @{{ vendor.name }}
                                     </option>
                             </select>

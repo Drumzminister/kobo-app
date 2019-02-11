@@ -72,7 +72,8 @@
                         </div>
                         <div class="col-md-8">
                             <label for="first name">Years of Experience</label>
-                            <input v-model="staffForm.years_of_experience" @keyup="validateInput"  placeholder="Not less than 50" type="number" class="form-control bg-grey">
+                            <input v-model="staffForm.years_of_experience" @keyup="validateInput" name="yearsOfExperience" v-validate="'max_value:50'" placeholder="Not less than 50" type="number" class="form-control bg-grey">
+                            <span class="text-danger">@{{ errors.first('yearsOfExperience') }}</span>
                             <br>
                             <label for="Role">Date  Of Employment</label>
                             <input class="form-control" v-model="staffForm.employed_date" type="date" />

@@ -183,7 +183,7 @@
             <div class="container mt-4">
                 <div class="row py-3">
                     <div class="col" v-if="loans.length > 0">
-                        <button  class="btn btn-addsale left-modal" @click="openModal('#addLoanModal')" >Add Loan</button>
+                        <button  class="btn btn-addsale left-modal" @click="openAddLoanModal('#addLoanModal')" >Add Loan</button>
                     </div>
                 </div>
                 <div class="bg-white mb-5">
@@ -288,7 +288,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <payment-method-selection :banks="{{ $banks }}" :options="{receiveMode: true}"></payment-method-selection>
+                                        <loan-receiver :amount="loanAmount"  v-if="onAddModal" :banks="{{ $banks }}" :options="{receiveMode: true}"></loan-receiver>
                                     </div>
                                     <div class="row">
                                         <div class="col-4">

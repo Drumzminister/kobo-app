@@ -121,6 +121,9 @@
             this.debouncePaidAmountChanged = _.debounce(this.paidAmountChanged, 500);
             this.$watch(() => this.totalSpread, this.debouncePaidAmountChanged);
         },
+        destroyed: function () {
+            this.$store.commit('resetDefaults');
+        },
         methods: {
             ...mapMutations(['totalPaid', 'invalidPaymentsSum']),
             addTransactionsRecordIfAvailable () {

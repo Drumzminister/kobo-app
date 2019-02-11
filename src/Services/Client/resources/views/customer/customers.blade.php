@@ -71,9 +71,9 @@
                                         <button class="btn bg-transparent p-0" type="button" id="dropdownMenuButton1">
                                             <i class="fa fa-ellipsis-v"></i>
                                         </button>
-                                        <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:30px; font-size: 30px" aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item text-primary"><i class="fa fa-edit"></i></a>
-                                            <a @click.prevent="deleteCustomer(customer.id)" class="dropdown-item text-danger" href="#"><i class="fa fa-trash"></i></a>
+                                        <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:10px; font-size: 16px" aria-labelledby="dropdownMenuButton1">
+                                            <a class="dropdown-item text-primary"><i class="fa fa-edit"> Edit</i></a>
+                                            <a @click.prevent="deleteCustomer(customer.id)" class="dropdown-item text-danger" href="#"><i class="fa fa-trash"> Delete</i></a>
                                         </div>
                                     </div>
                                 </td>

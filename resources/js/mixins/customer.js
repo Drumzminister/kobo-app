@@ -7,14 +7,13 @@ export const customerApp = {
             phone: '',
             address: '',
             email: '',
-            website: ''
+            website: '',
+            image: '',
         },
         customers: window.customers,
         customerSearch: '',
         customerFormSubmitted: false,
         searchNotFound: false,
-    },
-    mounted() {
     },
     methods: {
         createCustomer() {
@@ -39,8 +38,17 @@ export const customerApp = {
                    let result = this.customers = res.data;
            });
         },
-        getAndProcessCustomerImage () {
-
+        getAndProcessCustomerImage (event) {
+            toast('Your image is uploading', 'info')
+            let file = event.target.files[0];
+            let formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/customer/uploadImage', formData).then(res => {
+                toast('Image uploaded', 'success')
+                let data = res.data.data;
+                let result = `https://s3.us-east-2.amazonaws.com/koboapp/${data}`;
+                this.customerForm.image = result;
+            });
         },
         deleteCustomer(customerId) {
             axios.post(`/client/customer/delete/${customerId}`).then(res => {

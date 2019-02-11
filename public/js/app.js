@@ -77493,6 +77493,7 @@ var loanApp = {
         loanAmtRunning: 0,
         paymentPerYear: 1,
         loanDescription: "",
+        onAddModal: false,
         loanPeriod: "month",
         noSourceFound: false,
         allLoanIntervals: [],
@@ -77706,6 +77707,7 @@ var loanApp = {
                     showConfirmButton: false
                 });
                 _this4.isRequestingLoan = false;
+                location.reload();
                 _this4.closeLoanModal();
                 var loan = res.data.loan;
                 loan.source_name = _this4.searchSource;
@@ -77751,6 +77753,7 @@ var loanApp = {
             this.toggleShowIntervalSelector();
         },
         closeLoanModal: function closeLoanModal() {
+            this.onAddModal = false;
             document.querySelector('.loan-form').reset();
             this.loanDate = "";
             this.loanTerm = "";
@@ -77760,6 +77763,10 @@ var loanApp = {
             this.loanInterest = "";
             this.paymentPerYear = 1;
             this.closeModal('#addLoanModal');
+        },
+        openAddLoanModal: function openAddLoanModal() {
+            this.onAddModal = true;
+            this.openModal('#addLoanModal');
         },
         calculateIntervalsToBeShown: function calculateIntervalsToBeShown() {
             if (this.loanTerm.trim() === "") {
@@ -77945,9 +77952,9 @@ var inventoryApp = {
                             text: res.data.message,
                             timer: 3000,
                             showConfirmButton: false
+                        }).then(function (res) {
+                            location.reload(true);
                         });
-                    }).catch(function (err) {
-                        // swal("Oops", "An error occurred when creating this account", "error");
                     });
                 } else {
                     _this2.errors.items.forEach(function (error) {
@@ -77956,6 +77963,9 @@ var inventoryApp = {
                 }
             });
         },
+
+
+        //this little happy method will remove minus from a negative value
         formatNumber: function formatNumber(number) {
             return new Intl.NumberFormat('en-IN').format(Math.abs(number));
         },
@@ -78171,6 +78181,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.$watch(function () {
             return _this.totalSpread;
         }, this.debouncePaidAmountChanged);
+    },
+    destroyed: function destroyed() {
+        this.$store.commit('resetDefaults');
     },
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapMutations */])(['totalPaid', 'invalidPaymentsSum']), {
         addTransactionsRecordIfAvailable: function addTransactionsRecordIfAvailable() {
@@ -85639,7 +85652,6 @@ var staffApp = {
             comment: '',
             avatar: ''
         },
-        staff: [],
         staffSearchInput: '',
         StaffInformation: {
             name: '',
@@ -85650,12 +85662,9 @@ var staffApp = {
             comment: '',
             phone: ''
         },
-        messageText: ''
+        messageText: '',
+        staff: window.all_staff
     },
-    created: function created() {
-        this.staff = window.all_staff;
-    },
-
 
     methods: {
         getAndProcessImage: function getAndProcessImage(event) {
@@ -85667,10 +85676,8 @@ var staffApp = {
             formData.append('file', file);
             axios.post('/client/staff/imageUpload', formData).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image has successfully uploaded', 'success');
-                console.log(res.data.data);
-                _this.staffForm.avatar = "https://s3.us-east-2.amazonaws.com/koboapp/".res.data.data;
-            }).catch(function (error) {
-                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Staff upload unsuccessful', 'error');
+                var data = res.data.data;
+                _this.staffForm.avatar = 'https://s3.us-east-2.amazonaws.com/koboapp/' + data;
             });
         },
         createStaff: function createStaff(evt) {
@@ -85732,11 +85739,10 @@ var staffApp = {
             }
         },
         deactivateStaff: function deactivateStaff(staff) {
-            var _this3 = this;
-
             axios.post('/client/staff/deactivate/' + staff.id).then(function (res) {
-                _this3.staff = _this3.staff;
-                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(res.data.message, 'success');
+                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
+                    location.reload(true);
+                });
             }).catch(function (error) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(error.data.message, 'error');
             });
@@ -85753,19 +85759,28 @@ var staffApp = {
 var vendorApp = {
     data: {
         vendorTableRows: [],
-        vendors: '',
+        vendors: null,
         search: '',
         vendorFormErrors: [],
+        fileUrls: [],
         isLoading: false
     },
 
     created: function created() {
-        this.vendors = window.vendors;
-        console.log(this.vendors);
+        this.vendors = this.user_vendors;
         this.addNewRow();
     },
 
+
     methods: {
+        // uploadImage(event) {
+        //    let file = event.target.files[0];
+        //    let formData = new FormData();
+        //    formData.append('file', file);
+        //    axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
+        //        this.vendorTableRows.push(res.data.data)
+        //    });
+        // },
         saveVendor: function saveVendor() {
             var _this = this;
 
@@ -85773,6 +85788,23 @@ var vendorApp = {
             var data = {
                 items: this.vendorTableRows
             };
+
+            var _loop = function _loop(i) {
+                var handle = document.querySelector('.image').files[0];
+                data['items'].forEach(function (image) {
+                    var formData = new FormData();
+                    formData.append('file', handle);
+                    axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
+                        image.image = res.data.data;
+                    });
+                });
+            };
+
+            for (var i = 0; i < data.items.length; i++) {
+                _loop(i);
+            }
+
+            console.log(data);
             axios.post('/client/vendor/add', data).then(function (res) {
                 _this.vendorTableRows = [], _this.addNewRow();
                 swal({
@@ -85786,7 +85818,6 @@ var vendorApp = {
             }).catch(function (error) {
                 _this.vendorFormErrors = error.response.data.errors;
                 _this.isLoading = false;
-                console.log(_this.vendorFormErrors);
             });
         },
         searchVendor: function searchVendor() {
@@ -85802,7 +85833,8 @@ var vendorApp = {
                 address: '',
                 phone: '',
                 email: '',
-                website: ''
+                website: '',
+                image: ''
             });
         },
         deleteVendorRow: function deleteVendorRow(row) {
@@ -85832,15 +85864,14 @@ var customerApp = {
             phone: '',
             address: '',
             email: '',
-            website: ''
+            website: '',
+            image: ''
         },
         customers: window.customers,
         customerSearch: '',
         customerFormSubmitted: false,
         searchNotFound: false
     },
-    mounted: function mounted() {},
-
     methods: {
         createCustomer: function createCustomer() {
             var _this = this;
@@ -85868,7 +85899,20 @@ var customerApp = {
                 var result = _this2.customers = res.data;
             });
         },
-        getAndProcessCustomerImage: function getAndProcessCustomerImage() {},
+        getAndProcessCustomerImage: function getAndProcessCustomerImage(event) {
+            var _this3 = this;
+
+            Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Your image is uploading', 'info');
+            var file = event.target.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/customer/uploadImage', formData).then(function (res) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image uploaded', 'success');
+                var data = res.data.data;
+                var result = 'https://s3.us-east-2.amazonaws.com/koboapp/' + data;
+                _this3.customerForm.image = result;
+            });
+        },
         deleteCustomer: function deleteCustomer(customerId) {
             axios.post('/client/customer/delete/' + customerId).then(function (res) {
                 swal({
@@ -96462,6 +96506,7 @@ var map = {
 	"./components/inventory/HighestPurchases.vue": 170,
 	"./components/loan/AddLoan.vue": 310,
 	"./components/loan/LoanPayment.vue": 315,
+	"./components/loan/LoanReceiver.vue": 522,
 	"./components/rent/RentPayment.vue": 320,
 	"./components/sales/AddSale.vue": 325,
 	"./components/sales/InvoiceModal.vue": 31,
@@ -98802,9 +98847,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
     methods: {
         closeModal: function closeModal() {
-            this.$parent.addLoan = false;
-            $('#addLoanModal').modal('toggle');
-            // this.$parent.closeLoanModal();
+            console.log("james");
+            this.$parent.closeLoanModal();
         },
         toggleShowMoreIntervals: function toggleShowMoreIntervals(evt) {
             this.showMoreIntervals = !this.showMoreIntervals;
@@ -121702,6 +121746,12 @@ var paymentMethodSelectionModule = {
         }
     },
     mutations: {
+        resetDefaults: function resetDefaults(state) {
+            state.companyAccounts = [];
+            state.selectedAccounts = [];
+            state.totalPaid = 0;
+            state.invalidPaymentsSum = true;
+        },
         selectAccount: function selectAccount(state, account) {
             state.selectedAccounts.push(account);
         },
@@ -121919,6 +121969,97 @@ var bankDetailModule = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 521 */,
+/* 522 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(523)
+/* template */
+var __vue_template__ = __webpack_require__(524)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/loan/LoanReceiver.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4556c823", Component.options)
+  } else {
+    hotAPI.reload("data-v-4556c823", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 523 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	name: "LoanReceiver",
+	props: ['options', 'banks', 'amount'],
+	computed: {
+		spreadAmount: function spreadAmount() {
+			return this.amount;
+		}
+	}
+});
+
+/***/ }),
+/* 524 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("payment-method-selection", {
+    attrs: { banks: _vm.banks, options: _vm.options }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4556c823", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
