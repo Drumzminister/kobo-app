@@ -85749,18 +85749,28 @@ var staffApp = {
 var vendorApp = {
     data: {
         vendorTableRows: [],
-        vendors: '',
+        vendors: null,
         search: '',
         vendorFormErrors: [],
+        fileUrls: [],
         isLoading: false
     },
 
     created: function created() {
-        this.vendors = window.vendors;
+        this.vendors = this.user_vendors;
         this.addNewRow();
     },
 
+
     methods: {
+        // uploadImage(event) {
+        //    let file = event.target.files[0];
+        //    let formData = new FormData();
+        //    formData.append('file', file);
+        //    axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
+        //        this.vendorTableRows.push(res.data.data)
+        //    });
+        // },
         saveVendor: function saveVendor() {
             var _this = this;
 
@@ -85768,6 +85778,23 @@ var vendorApp = {
             var data = {
                 items: this.vendorTableRows
             };
+
+            var _loop = function _loop(i) {
+                var handle = document.querySelector('.image').files[0];
+                data['items'].forEach(function (image) {
+                    var formData = new FormData();
+                    formData.append('file', handle);
+                    axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
+                        image.image = res.data.data;
+                    });
+                });
+            };
+
+            for (var i = 0; i < data.items.length; i++) {
+                _loop(i);
+            }
+
+            console.log(data);
             axios.post('/client/vendor/add', data).then(function (res) {
                 _this.vendorTableRows = [], _this.addNewRow();
                 swal({
@@ -85796,7 +85823,8 @@ var vendorApp = {
                 address: '',
                 phone: '',
                 email: '',
-                website: ''
+                website: '',
+                image: ''
             });
         },
         deleteVendorRow: function deleteVendorRow(row) {

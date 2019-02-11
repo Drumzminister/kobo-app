@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Domains\Customer\Jobs;
+namespace App\Domains\Vendor\Jobs;
 
-use App\Data\Repositories\CustomerRepository;
 use Lucid\Foundation\Job;
 
-class HandleCustomerImageUploadJob extends Job
+class UploadVendorImageJob extends Job
 {
     /**
      * Create a new job instance.
@@ -13,7 +12,6 @@ class HandleCustomerImageUploadJob extends Job
      * @return void
      */
     private $data;
-
     public function __construct($data)
     {
         $this->data = $data;
@@ -27,8 +25,7 @@ class HandleCustomerImageUploadJob extends Job
     public function handle()
     {
         $ext = $this->data->getClientOriginalExtension();
-        $store = $this->data->storeAs('customer', auth()->id() . time() . ".{$ext}", 's3', 'public');
+        $store = $this->data->storeAs('vendor', auth()->id().time().".{$ext}", 's3', 'public');
         return response()->json(['data' => $store]);
-        return $path;
     }
 }
