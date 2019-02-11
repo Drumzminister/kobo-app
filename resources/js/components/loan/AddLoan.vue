@@ -214,9 +214,8 @@
         },
         methods: {
             closeModal () {
-                this.$parent.addLoan = false;
-                $('#addLoanModal').modal('toggle');
-                // this.$parent.closeLoanModal();
+                console.log("james")
+                this.$parent.closeLoanModal();
             },
             toggleShowMoreIntervals (evt) {
                 this.showMoreIntervals = !this.showMoreIntervals;
