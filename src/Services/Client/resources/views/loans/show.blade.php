@@ -288,7 +288,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <payment-method-selection v-if="onAddModal" :banks="{{ $banks }}" :options="{receiveMode: true}"></payment-method-selection>
+                                        <loan-receiver :amount="loanAmount"  v-if="onAddModal" :banks="{{ $banks }}" :options="{receiveMode: true}"></loan-receiver>
                                     </div>
                                     <div class="row">
                                         <div class="col-4">
