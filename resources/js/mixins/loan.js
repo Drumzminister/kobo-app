@@ -240,6 +240,7 @@ export const loanApp = {
                     showConfirmButton: false
                 });
                 this.isRequestingLoan = false;
+                location.reload();
                 this.closeLoanModal();
                 let loan = res.data.loan;
                 loan.source_name = this.searchSource;

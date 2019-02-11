@@ -77707,6 +77707,7 @@ var loanApp = {
                     showConfirmButton: false
                 });
                 _this4.isRequestingLoan = false;
+                location.reload();
                 _this4.closeLoanModal();
                 var loan = res.data.loan;
                 loan.source_name = _this4.searchSource;
