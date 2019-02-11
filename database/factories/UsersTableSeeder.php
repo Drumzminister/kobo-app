@@ -90,7 +90,6 @@ $factory->define(Inventory::class, function (Faker $faker) {
         'invoice_number' => explode('-', $faker->uuid)[0],
         'user_id' => '',
         'vendor_id' => '',
-        'attachment' =>  $faker->imageUrl(),
         'delivered_date' => $faker->dateTime(),
         'discount' =>  random_int(50, 120),
         'delivery_cost' =>  random_int(50, 120),

@@ -47,9 +47,9 @@ class AddInventoryJob extends Job
         $this->data['user_id'] = $this->userId;
         $this->data['company_id'] = $this->companyId;
         $this->data['tax_id'] = $this->data['tax_id']['id'];
+        $this->data['vendor_id'] = $this->data['vendor_id']['id'];
         $inventory = $this->inventory->fillAndSave($this->data);
         $debit = (new DebitBanksJob($this->data['banks'], $inventory, $this->companyId))->handle();
-
         if ($debit->status !== 'success') {
             throw new \Exception($debit->message);
         }

@@ -34,7 +34,6 @@
                 {{--</div>--}}
             </div>
 
-            <form method="post">
                 <div class="form-group row py-2">
                     <div class="col-md-4">
                         <label for="name" class="col-md-3 col-form-label">Account</label>
@@ -80,7 +79,7 @@
                         </div>
                         <div class="col-md-8">
                             <label for="Website">Website Name</label>
-                            <input v-model="customerForm.website" v-validate="'email'" name="website" type="text" class="form-control bg-grey"/>
+                            <input v-model="customerForm.website"  name="website" type="text" class="form-control bg-grey"/>
                         </div>
                     </div>
                     <div class="form-row mt-3">
@@ -91,7 +90,6 @@
                             <button type="submit" class="btn btn-addsale" @click="createCustomer"  data-dismiss="modal" type="submit">Save Information</button>
                         </div>
                     </div>
-            </form>
         </div>
     </div>
 </section>

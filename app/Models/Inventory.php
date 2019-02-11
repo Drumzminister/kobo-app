@@ -3,6 +3,7 @@
 namespace Koboaccountant\Models;
 
 use App\Data\InventoryItem;
+use App\Data\Tax;
 use App\Data\Transaction;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +22,6 @@ class Inventory extends Model
         'user_id',
         'invoice_number',
         'delivered_date',
-        'attachment',
         'discount',
         'tax_id',
         'tax_amount',
@@ -52,7 +52,10 @@ class Inventory extends Model
 	{
 		return $this->hasOne(Transaction::class);
 	}
-
+    public function tax()
+    {
+        return $this->hasOne(Tax::class);
+    }
 	public function scopeAvailable($query)
 	{
 		return $query->where('quantity', '>', 0);

@@ -13,7 +13,6 @@ export const staffApp = {
             comment: '',
             avatar: ''
         },
-        staff: [],
         staffSearchInput: '',
         StaffInformation: {
             name: '',
@@ -24,10 +23,8 @@ export const staffApp = {
             comment: '',
             phone: ''
         },
-        messageText: ''
-    },
-    created() {
-            this.staff = window.all_staff;
+        messageText: '',
+        staff: window.all_staff,
     },
 
     methods: {
@@ -38,11 +35,9 @@ export const staffApp = {
             formData.append('file', file);
             axios.post('/client/staff/imageUpload', formData).then(res => {
                     toast('Image has successfully uploaded', 'success');
-                    console.log(res.data.data);
-                    this.staffForm.avatar = res.data.data;
-            }).catch(error => {
-                toast('Staff upload unsuccessful', 'error');
-            });
+                    let data = res.data.data;
+                    this.staffForm.avatar = `https://s3.us-east-2.amazonaws.com/koboapp/${data}`
+            })
         },
         createStaff(evt) {
             evt.preventDefault();
@@ -70,7 +65,7 @@ export const staffApp = {
             this.StaffInformation.dateOfEmployment = staff.employed_date;
             this.StaffInformation.comment = staff.comment;
             this.StaffInformation.salary = staff.salary;
-            this.StaffInformation.avatar = "https://s3.us-east-2.amazonaws.com/koboapp/"+staff.avatar;
+            this.StaffInformation.avatar = staff.avatar;
         },
 
         staffStatusFilter(){
@@ -99,7 +94,14 @@ export const staffApp = {
                 this.staffForm.phone = this.staffForm.phone.slice(0, this.staffForm.phone.length -1)
             }
         },
+        deactivateStaff(staff) {
+            axios.post(`/client/staff/deactivate/${staff.id}`).then(res => {
+                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false}).then(() => {
+                    location.reload(true);
+                })
+            }).catch(error => {
+                toast(error.data.message,'error')
+            });
+        }
     },
-
-
 };

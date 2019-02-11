@@ -129,7 +129,7 @@ export const updateSale = {
             return this.channels.filter(({ id }) => id === channelId)[0].name;
         },
         createSale: function () {
-            let api = new API({ baseUri: 'https://kobo.test/client'});
+            let api = new API({ baseUri: '/client'});
             api.createEntity({ name: 'sale'});
             let data = {
                 tax_id: this.taxId,

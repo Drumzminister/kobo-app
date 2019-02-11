@@ -257,6 +257,6 @@ Route::get('/banks/search', 'BankingController@search');
 Route::post('/banking/transfer', 'BankingController@makeTransfer');
 Route::get('/banking/payment_modes', 'PaymentMethodController@get');
 
-// Route::get('/view-accountant', function () {
-//     return view('view-accountant');
-// });
+ Route::get('/testing', function () {
+     return view('testing');
+ });

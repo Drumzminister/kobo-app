@@ -18,7 +18,8 @@ export const inventoryApp = {
             total_sales_price: '',
             total_quantity: '',
             amount_paid: 0,
-            banks: ''
+            banks: '',
+            balance: '',
         },
         inventoryItem: {
             delivered_date: '',
@@ -31,12 +32,13 @@ export const inventoryApp = {
         },
         purchase: {},
         all_purchases: '',
-        vendors: window.vendors,
         inventoryTableRow: [],
         totalCostPrice: [],
         selectedInventory: '',
         banks: window.banks,
         taxes: window.taxes,
+        user_vendors: window.vendors,
+        kep: window.vendors,
         // all_inventory_items: window.all_inventory_items,
         products: window.products,
         InventorySelectSettings: {
@@ -80,12 +82,15 @@ export const inventoryApp = {
     mounted () {
         this.fetchAllPurchases();
         this.purchase = this.all_purchases;
-        this.vendors = window.vendors;
         if (this.taxes)
             this.inventoryForm.tax_id = this.taxes[2];
         this.addInventoryRow();
     },
     methods: {
+        saveBalance() {
+            let balance = this.inventoryForm.total_cost_price - this.getTotalAmountPaid();
+            return Math.abs(balance);
+        },
         formattedProduct() {
             return this.products['products'].map((product) => {return {id: product.id, text: product.name}});
         },
@@ -115,8 +120,15 @@ export const inventoryApp = {
             this.inventoryForm.total_quantity = this.calculateTotalQuantity();
             this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
             this.inventoryForm.tax_amount = this.inventoryTax;
+            this.inventoryForm.balance = this.saveBalance()
+            let amountReminder = Number(this.inventoryForm.total_cost_price) - Number(this.getTotalAmountPaid());
             this.$validator.validate().then(valid => {
                 if(valid) {
+                    if(this.getTotalAmountPaid() > this.inventoryForm.total_cost_price){
+                        return toast(`Amount paid is ${this.formatNumber(amountReminder)} greater than cost price`, 'error');
+                    }else if (this.getTotalAmountPaid() < this.inventoryForm.total_cost_price) {
+                       toast(`you are owing ${this.inventoryForm.vendor_id.name} ${this.formatNumber(amountReminder)}`, 'error')
+                    }
                     axios.post('/client/inventory/add', this.inventoryForm).then(res => {
                         swal({
                             type: 'success',
@@ -124,10 +136,10 @@ export const inventoryApp = {
                             text: res.data.message,
                             timer: 3000,
                             showConfirmButton: false
+                        }).then(res => {
+                            location.reload(true)
                         });
-                    }).catch(err => {
-                        // swal("Oops", "An error occurred when creating this account", "error");
-                    });
+                    })
                 }else {
                     this.errors.items.forEach(error => {
                         toast(error.msg, 'error')
@@ -135,11 +147,22 @@ export const inventoryApp = {
                 }
             });
         },
+
+        //this little happy method will remove minus from a negative value
+        formatNumber(number) {
+            return new Intl.NumberFormat('en-IN').format(Math.abs(number));
+        },
+        getTotalAmountPaid() {
+            let amountPaid = 0;
+            this.selectedAccounts.forEach(balance => {
+                 amountPaid += Number(balance.amount)
+            })
+            return amountPaid;
+        },
         getTotalCostPrice() {
             return document.querySelector("totalCostPrice").value;
         },
         deleteInventory(inventory) {
-            console.log(inventory)
             swal({
                 title: 'Are you sure',
                 text: 'Are you sure you want to delete',

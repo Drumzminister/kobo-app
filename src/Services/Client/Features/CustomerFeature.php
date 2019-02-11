@@ -11,7 +11,7 @@ class CustomerFeature extends Feature
 {
     public function handle(Request $request)
     {
-        $data = $this->run(GetCustomerDataJob::class);
+        $data = $this->run(GetCustomerDataJob::class, ['companyId' => auth()->user()->company->id]);
         return $this->run(new RespondWithViewJob('client::customer.customers', $data));
     }
 }

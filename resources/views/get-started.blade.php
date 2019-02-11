@@ -143,8 +143,6 @@
 
 <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
-<script src="{{asset('js/particles.js')}}"></script>
-<script src="{{asset('js/appp.js')}}"></script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
     let email = "{{Auth::user()->email}}"

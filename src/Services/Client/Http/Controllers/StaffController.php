@@ -5,6 +5,7 @@ namespace App\Services\Client\Http\Controllers;
 use App\Services\Client\Features\AddMultipleStaffFeature;
 use App\Services\Client\Features\AddSingleStaffFeature;
 use App\Services\Client\Features\AllActiveStaffFeature;
+use App\Services\Client\Features\DeactivateStaffFeature;
 use App\Services\Client\Features\GetAllStaffFeature;
 use App\Services\Client\Features\ImageUploadFeature;
 use App\Services\Client\Features\SearchStaffFeature;
@@ -70,5 +71,9 @@ class StaffController extends Controller
     public function imageUpload()
     {
         return $this->serve(ImageUploadFeature::class);
+    }
+    public function deactivateStaff($staffId)
+    {
+        return $this->serve(DeactivateStaffFeature::class, ['staffId' => $staffId]);
     }
 }
