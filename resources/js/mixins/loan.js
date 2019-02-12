@@ -74,11 +74,6 @@ export const loanApp = {
         }
 
     },
-    computed: {
-        spreadAmount () {
-            return this.loanAmount;
-        }
-    },
     mounted () {
         this.loans = window.loans;
         this.banks = window.banks;
