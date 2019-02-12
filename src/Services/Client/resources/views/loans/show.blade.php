@@ -212,9 +212,9 @@
                             You have no running loan.
                         </p>
                     </div>
-                    <hr class="mt-0" v-if="loans.length > 10">
-                    <div class="text-center mb-5 pb-3" v-if="loans.length > 10">
-                        <a href="/loans/all" class="view-more">View More</a>
+                    <hr class="mt-0" v-if="loans.length > 5">
+                    <div class="text-center mb-5 pb-3" v-if="loans.length > 5">
+                        <a href="{{ route('client.loan.all') }}" class="view-more">View More</a>
                     </div>
                     <div class="d-flex justify-content-center mb-5" v-if="loans.length === 0">
                         <button  class="btn btn-addsale left-modal px-5"@click="openAddLoanModal('#addLoanModal')" >Add Loan</button>
