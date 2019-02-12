@@ -90,9 +90,9 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="expense in latest">
-                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">@{{ expense.details }}</a></td>
-                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal" >@{{ expense.amount }}</a></td>
-                                        <td><a href="" class="right-modal" data-toggle="modal" data-target="#exampleModal">@{{ expense.has_finished_payment? 'Paid': 'Owing' }}</a></td>
+                                        <td>@{{ expense.details }}</td>
+                                        <td>@{{ expense.amount }}</td>
+                                        <td>@{{ expense.has_finished_payment? 'Paid': 'Owing' }}</td>
                                     </tr>
                                     <tr v-if="latest.length === 0">
                                         <td colspan="3">
@@ -161,19 +161,16 @@
                 <div class="modal-body">
                     <div class="nav flex-sm-column flex-row">
                         <div class="product-details">
-                            <h5>Product Name</h5>
-                            <p>Wallpaper</p>
-
-                            <h5>Description</h5>
+                            <h5>Expense Description</h5>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, aliquid cumque asperiores, eius totam m ex itaque.</p>
 
-                            <h5>Amount Sold</h5>
+                            <h5>Cost</h5>
                             <p>&#8358; 50,000</p>
 
-                            <h5>Customer</h5>
+                            <h5>Amount Paid</h5>
                             <p>Mercy Ikpe</p>
 
-                            <h5>Accountant Review</h5>
+                            <h5>Payment Status</h5>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda et dolore, necessitatibus sit .</p>
                         </div>
                     </div>
