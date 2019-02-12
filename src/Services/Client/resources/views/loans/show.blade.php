@@ -217,7 +217,7 @@
                         <a href="/loans/all" class="view-more">View More</a>
                     </div>
                     <div class="d-flex justify-content-center mb-5" v-if="loans.length === 0">
-                        <button  class="btn btn-addsale left-modal px-5" @click="openModal('#addLoanModal')" >Add Loan</button>
+                        <button  class="btn btn-addsale left-modal px-5"@click="openAddLoanModal('#addLoanModal')" >Add Loan</button>
                     </div>
                 </div>
             </div>
