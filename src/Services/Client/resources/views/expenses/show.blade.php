@@ -17,7 +17,7 @@
     <section>
         <div class="container">
             <div class="row mt-4">
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="bg-white px-3 py-4" id="topp">
                         <div class="row">
                             <div class="col-md-3">
@@ -67,7 +67,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="bg-white p-3" id="topp">
                         {{-- <h4 class="sale-h4">Most Expenses Transaction</h4> --}}
                         <div class="dropdown show text-orange">
@@ -83,14 +83,14 @@
                             <table class="table table-striped table-hover">
                                 <thead class="sale-head">
                                 <tr>
-                                    <th scope="col">Products</th>
+                                    <th scope="col">Description</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Payment Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="expense in latest">
-                                        <td>@{{ expense.details }}</td>
+                                    <tr v-for="expense in latest" @click="showExpenseDetails(expense)" style="cursor: pointer;">
+                                        <td>@{{ expense.details | truncate }}</td>
                                         <td>@{{ expense.amount }}</td>
                                         <td>@{{ expense.has_finished_payment? 'Paid': 'Owing' }}</td>
                                     </tr>
@@ -112,13 +112,13 @@
         <div class="container mt-4">
 
             <div class="bg-white p-4">
-                <div class="row py-3">
+                <div class="row py-3" v-if="expenses.length > 0">
                     <div class="col-md-3">
                         <a href="{{ route('client.expenses.add') }}" class="btn btn-addsale px-3"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Expenses</a>
                     </div>
                 </div>
 
-                <div class="table-responsive table-responsive-sm">
+                <div class="table-responsive table-responsive-sm" v-if="expenses.length > 0">
                     <table class="table table-striped table-hover" id="expenseTable">
                         <thead class="p-3">
                         <tr class="tab">
@@ -148,30 +148,38 @@
                         </tbody>
                     </table>
                 </div>
+                <div v-else>
+                    <p class="alert alert-info">
+                        You have made no expense. Add an expense using the add expense button.
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <a href="{{ route('client.expenses.add') }}" class="btn btn-addsale px-3"  data-step="3" data-intro="Want your transaction? Here is it."  data-position='left' >Add Expenses</a>
+                    </div>
+                </div>
                 <hr class="mt-0">
-                <div class="text-center pb-3">
-                    <a href="/view-expenses" class="view-more">View More</a>
+                <div class="text-center pb-3" v-if="expenses.length > 10">
+                    <a href="/view-expenses" class="view-more" >View More</a>
                 </div>
             </div>
         </div>
     </section>
-    <div class="modal left fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal left fade" id="expenseDetailsModal" tabindex="-1" role="dialog" aria-labelledby="expenseDetailsModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="nav flex-sm-column flex-row">
                         <div class="product-details">
                             <h5>Expense Description</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, aliquid cumque asperiores, eius totam m ex itaque.</p>
+                            <p class="ml-3">@{{ currentExpense.details }}</p>
 
                             <h5>Cost</h5>
-                            <p>&#8358; 50,000</p>
+                            <p class="ml-3">&#8358; @{{ currentExpense.amount }}</p>
 
                             <h5>Amount Paid</h5>
-                            <p>Mercy Ikpe</p>
+                            <p class="ml-3">&#8358; @{{ currentExpense.amount_paid }}</p>
 
                             <h5>Payment Status</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda et dolore, necessitatibus sit .</p>
+                            <p class="ml-3">@{{ currentExpense.has_finished_payment? 'Paid': 'Owing' }}</p>
                         </div>
                     </div>
                 </div>
