@@ -81,12 +81,18 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6">
-							<div v-for="mode in saleInvoice.transactions" class="row pl-3">
+							<div v-if="saleInvoice.transactions.length > 0" v-for="mode in saleInvoice.transactions" class="row pl-3">
 								<div class="col-md-7">
 									@{{ mode.bank.bank_name }}:
 								</div>
 								<div class="col-md-5">
 									&#8358;@{{ $currency.format(mode.amount) }}
+								</div>
+							</div>
+
+							<div v-if="saleInvoice.transactions.length === 0" v-for="mode in saleInvoice.transactions" class="row pl-3">
+								<div class="col-md-12">
+									NONE
 								</div>
 							</div>
 						</div>
