@@ -65,7 +65,7 @@ class GetSalesPageDataJob extends Job
 	    $soldInventoryItems = $inventories->pluck('inventoryItem')
 	                                  ->flatten()
 	                                  ->filter(function ($item) {
-	                                  	    return $item->saleItems && $item->saleItems->first() && $item->saleItems->first()->sale->type === 'published';
+	                                  	    return $item->saleItems && $item->saleItems->first() && $item->saleItems->first()->sale && $item->saleItems->first()->sale->type === 'published';
 							          });
 
     	$topSales = $soldInventoryItems->sortByDesc(function ($item) {
