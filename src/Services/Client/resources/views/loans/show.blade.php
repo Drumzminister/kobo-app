@@ -86,13 +86,21 @@
                 <div class="row mt-4">
                     <div class="col-md-8">
                         <div class="bg-white px-3 py-4" id="topp">
-                            <mini-chart-component :options="{ mode: 'year', page: 'loans', dateRangeStart: '{{ $startDate }}', dateColumn: 'created_at', xColumn: 'created_at', yColumn: 'amount', label: '# of Loans'}"
-                                                  :month="{{ $monthLoans }}"
-                                                  :data="{{ $loans }}"
-                                                  :year="{{ $yearLoans }}"
-                                                  :week="{{ $weekLoans }}"
-                                                  :day="{{ $dayLoans }}">
-                            </mini-chart-component>
+                            @if($loans->count() > 0)
+                                <mini-chart-component :options="{ mode: 'year', page: 'loans', dateRangeStart: '{{ $startDate }}', dateColumn: 'created_at', xColumn: 'created_at', yColumn: 'amount', label: '# of Loans'}"
+                                                      :month="{{ $monthLoans }}"
+                                                      :data="{{ $loans }}"
+                                                      :year="{{ $yearLoans }}"
+                                                      :week="{{ $weekLoans }}"
+                                                      :day="{{ $dayLoans }}">
+                                </mini-chart-component>
+                            @else 
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5 class="h5">No Loan Taken</h5>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-4 ">
