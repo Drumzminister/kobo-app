@@ -85752,7 +85752,7 @@ var vendorApp = {
         vendors: null,
         search: '',
         vendorFormErrors: [],
-        fileUrls: [],
+        fileUrls: '',
         isLoading: false
     },
 
@@ -85763,14 +85763,12 @@ var vendorApp = {
 
 
     methods: {
-        // uploadImage(event) {
-        //    let file = event.target.files[0];
-        //    let formData = new FormData();
-        //    formData.append('file', file);
-        //    axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
-        //        this.vendorTableRows.push(res.data.data)
-        //    });
-        // },
+        uploadImage: function uploadImage(event) {
+            var file = event.target.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {});
+        },
         saveVendor: function saveVendor() {
             var _this = this;
 
@@ -85778,37 +85776,25 @@ var vendorApp = {
             var data = {
                 items: this.vendorTableRows
             };
-
-            var _loop = function _loop(i) {
-                var handle = document.querySelector('.image').files[0];
-                data['items'].forEach(function (image) {
-                    var formData = new FormData();
-                    formData.append('file', handle);
-                    axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
-                        image.image = res.data.data;
-                    });
-                });
-            };
-
-            for (var i = 0; i < data.items.length; i++) {
-                _loop(i);
-            }
-
+            // let totalImages = document.querySelectorAll(".image");  //Total Images
+            // totalImages.forEach(image => {
+            //     let eachImage = image.files[0];
+            //     let formData = new FormData();
+            //     formData.append('file', eachImage);
+            //     axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
+            //     })
+            // })
             console.log(data);
             axios.post('/client/vendor/add', data).then(function (res) {
                 _this.vendorTableRows = [], _this.addNewRow();
-                swal({
-                    title: 'Vendor added!',
-                    text: res.data.message,
-                    type: 'success',
-                    timer: 1500
-                });
+                swal({ title: 'Vendor added!', text: res.data.message, type: 'success', timer: 150 });
                 _this.isLoading = false;
                 _this.vendorFormErrors = "";
-            }).catch(function (error) {
-                _this.vendorFormErrors = error.response.data.errors;
-                _this.isLoading = false;
             });
+            // .catch(error => {
+            //     this.vendorFormErrors = error.response.data.errors;
+            //     this.isLoading = false;
+            // });
         },
         searchVendor: function searchVendor() {
             var _this2 = this;
@@ -85824,7 +85810,7 @@ var vendorApp = {
                 phone: '',
                 email: '',
                 website: '',
-                image: ''
+                image: this.fileUrls
             });
         },
         deleteVendorRow: function deleteVendorRow(row) {
@@ -85859,8 +85845,7 @@ var customerApp = {
         },
         customers: window.customers,
         customerSearch: '',
-        customerFormSubmitted: false,
-        searchNotFound: false
+        customerFormSubmitted: false
     },
     methods: {
         createCustomer: function createCustomer() {
@@ -85869,11 +85854,15 @@ var customerApp = {
             this.$validator.validate().then(function (valid) {
                 if (valid) {
                     axios.post('/client/customer/add', _this.customerForm).then(function (res) {
+                        console.log(res.response.data);
                         swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
-                            location.reload(true);
+                            // location.reload(true);
                         });
                     }).catch(function (err) {
-                        swal('Error', 'There was an error adding staff', 'error');
+                        var errors = err.response.data['errors']['email'];
+                        errors.forEach(function (error) {
+                            console.log(error);
+                        });
                     });
                 }
                 _this.errors.items.forEach(function (message) {

@@ -31,7 +31,7 @@ class GetCustomerDataJob extends Job
      */
     public function handle()
     {
-        $data['customers'] = $this->customer->getBy('company_id', $this->companyId);
+        $data['customers'] = $this->customer->latest($this->companyId);
         return $data;
     }
 }

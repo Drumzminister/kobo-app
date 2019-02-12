@@ -4,7 +4,7 @@ export const vendorApp = {
         vendors: null,
         search: '',
         vendorFormErrors: [],
-        fileUrls: [],
+        fileUrls: '',
         isLoading: false
     },
 
@@ -14,47 +14,40 @@ export const vendorApp = {
     },
 
     methods: {
-        // uploadImage(event) {
-        //    let file = event.target.files[0];
-        //    let formData = new FormData();
-        //    formData.append('file', file);
-        //    axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
-        //        this.vendorTableRows.push(res.data.data)
-        //    });
-        // },
+        uploadImage(event) {
+           let file = event.target.files[0];
+           let formData = new FormData();
+           formData.append('file', file);
+           axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
+
+           });
+
+        },
         saveVendor() {
             this.isLoading = true;
             let data = {
                 items: this.vendorTableRows,
             };
-            for (let i = 0; i < data.items.length; i++) {
-                let handle = document.querySelector('.image').files[0];
-                data['items'].forEach(image => {
-                    let formData = new FormData();
-                    formData.append('file', handle);
-                    axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
-                        image.image = res.data.data
-                    });
-                })
-            }
-
+                // let totalImages = document.querySelectorAll(".image");  //Total Images
+                // totalImages.forEach(image => {
+                //     let eachImage = image.files[0];
+                //     let formData = new FormData();
+                //     formData.append('file', eachImage);
+                //     axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
+                //     })
+                // })
             console.log(data)
             axios.post('/client/vendor/add', data).then(res => {
                 this.vendorTableRows = [],
                 this.addNewRow();
-                swal({
-                    title: 'Vendor added!',
-                    text: res.data.message,
-                    type: 'success',
-                    timer: 1500
-                });
+                swal({title: 'Vendor added!', text: res.data.message, type: 'success', timer: 150});
                 this.isLoading = false;
                 this.vendorFormErrors = "";
             })
-            .catch(error => {
-                this.vendorFormErrors = error.response.data.errors;
-                this.isLoading = false;
-            });
+            // .catch(error => {
+            //     this.vendorFormErrors = error.response.data.errors;
+            //     this.isLoading = false;
+            // });
         },
         searchVendor() {
              axios.get(`/client/vendor/search?param=${this.search}`).then(res => {
@@ -69,7 +62,7 @@ export const vendorApp = {
                     phone: '',
                     email: '',
                     website: '',
-                    image: ''
+                    image: this.fileUrls,
                 },
             );
         },

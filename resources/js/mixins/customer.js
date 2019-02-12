@@ -13,18 +13,21 @@ export const customerApp = {
         customers: window.customers,
         customerSearch: '',
         customerFormSubmitted: false,
-        searchNotFound: false,
     },
     methods: {
         createCustomer() {
             this.$validator.validate().then(valid => {
                 if (valid) {
                     axios.post('/client/customer/add', this.customerForm).then(res => {
+                        console.log(res.response.data)
                         swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false}).then(() => {
-                            location.reload(true);
+                            // location.reload(true);
                         })
                     }).catch(err => {
-                        swal('Error', 'There was an error adding staff', 'error');
+                            let errors = err.response.data['errors']['email'];
+                            errors.forEach(error => {
+                                console.log(error)
+                            })
                     });
                 }
                 this.errors.items.forEach(message => {
