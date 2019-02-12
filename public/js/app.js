@@ -85325,6 +85325,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             mode: this.options.mode || 'month',
+            page: this.options.page || '',
             opens: 'center',
             startDate: this.options.dateRangeStart || moment().format("YYYY-MM-DD"),
             endDate: moment().format("YYYY-MM-DD"),
@@ -85465,7 +85466,9 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-2" }, [
-        _c("h5", { staticClass: "h5" }, [_vm._v(_vm._s(_vm.period) + " Sales")])
+        _c("h5", { staticClass: "h5 text-capitalize" }, [
+          _vm._v(_vm._s(_vm.period) + " " + _vm._s(_vm.page))
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-3" }, [

@@ -86,50 +86,13 @@
                 <div class="row mt-4">
                     <div class="col-md-8">
                         <div class="bg-white px-3 py-4" id="topp">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <h5 class="h5">Loan Overview</h5>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>D</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>W</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>M</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>Y</span></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 row">
-                                    <div class="form-group col">
-                                        <select id="inputState" class="form-control btn-loginn">
-                                            <option selected>Start Date</option>
-                                            <option>January</option>
-                                            <option>Feburary</option>
-                                            <option>March</option>
-                                            <option>April</option>
-                                            <option>May</option>
-                                            <option>June</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col">
-                                        <select id="inputState" class="form-control btn-loginn">
-                                            <option selected class>End Date</option>
-                                            <option>January</option>
-                                            <option>Feburary</option>
-                                            <option>March</option>
-                                            <option>April</option>
-                                            <option>May</option>
-                                            <option>June</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <canvas id="canvasSale" height="100"></canvas>
+                            <mini-chart-component :options="{ mode: 'year', page: 'loans', dateRangeStart: '{{ $startDate }}', dateColumn: 'created_at', xColumn: 'created_at', yColumn: 'amount', label: '# of Loans'}"
+                                                  :month="{{ $monthLoans }}"
+                                                  :data="{{ $loans }}"
+                                                  :year="{{ $yearLoans }}"
+                                                  :week="{{ $weekLoans }}"
+                                                  :day="{{ $dayLoans }}">
+                            </mini-chart-component>
                         </div>
                     </div>
                     <div class="col-md-4 ">
