@@ -16,6 +16,8 @@ class CreditBanksJob extends Job
 	const TRANSACTION_NAMESPACE = 'App\\Data\\Repositories\\';
 
 	const CLASS_SUFFIX = 'TransactionRepository';
+
+    const TRANSACTION_TYPE = 'debit';
 	/**
 	 * @var array
 	 */
@@ -87,8 +89,9 @@ class CreditBanksJob extends Job
 
 	    $transactionData = array_merge($transactionData, [
 		    'bank_detail_id' => $paymentMode['id'],
-		    'amount' => $paymentMode['amount'],
-		    'company_id' => $this->companyId,
+		    'amount'        => $paymentMode['amount'],
+		    'type'          => self::TRANSACTION_TYPE,
+		    'company_id'    => $this->companyId,
 	    ]);
 
 	    $transactionObj->saveTransaction($transactionData, $this->model);

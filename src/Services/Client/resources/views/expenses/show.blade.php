@@ -19,52 +19,21 @@
             <div class="row mt-4">
                 <div class="col-md-7">
                     <div class="bg-white px-3 py-4" id="topp">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h5 class="h5">Monthly sales</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-check form-check-inline">
-                                    <label><input type="radio" name="select" /><span>D</span></label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label><input type="radio" name="select" /><span>W</span></label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label><input type="radio" name="select" /><span>M</span></label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label><input type="radio" name="select" /><span>Y</span></label>
-                                </div>
-
-                            </div>
-                            <div class="col-md-6 row">
-                                <div class="form-group col">
-                                    <select id="inputState" class="form-control btn-loginn">
-                                        <option selected>Start Date</option>
-                                        <option>January</option>
-                                        <option>Feburary</option>
-                                        <option>March</option>
-                                        <option>April</option>
-                                        <option>May</option>
-                                        <option>June</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col">
-                                    <select id="inputState" class="form-control btn-loginn">
-                                        <option selected class>End Date</option>
-                                        <option>January</option>
-                                        <option>Feburary</option>
-                                        <option>March</option>
-                                        <option>April</option>
-                                        <option>May</option>
-                                        <option>June</option>
-                                    </select>
+                        @if($expenses->count() > 0)
+                            <mini-chart-component :options="{ mode: 'year', page: 'expenses', dateRangeStart: '{{ $startDate }}', dateColumn: 'date', xColumn: 'date', yColumn: 'amount', label: '# of Expenses'}"
+                                                  :month="{{ $monthExpenses }}"
+                                                  :data="{{ $expenses }}"
+                                                  :year="{{ $yearExpenses }}"
+                                                  :week="{{ $weekExpenses }}"
+                                                  :day="{{ $dayExpenses }}">
+                            </mini-chart-component>
+                        @else
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="h5">No Loan Taken</h5>
                                 </div>
                             </div>
-                        </div>
-                        <canvas id="canvasSale" height="100"></canvas>
-
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-5">
@@ -123,7 +92,7 @@
                         <thead class="p-3">
                         <tr class="tab">
                             <th scope="col">Date</th>
-                            <th scope="col">Transaction details</th>
+                            <th scope="col">Description</th>
                             <th scope="col">Amount (&#8358;)</th>
                             <th scope="col">Category</th>
                             <th scope="col">Payment Status</th>
