@@ -77,6 +77,36 @@
 
 				<div class="modal-foote mt-3">
 					<div class="row">
+						<div class="col-md-3">Payment Mode</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div v-if="saleInvoice.transactions.length > 0" v-for="mode in saleInvoice.transactions" class="row pl-3">
+								<div class="col-md-7">
+									@{{ mode.bank.bank_name }}:
+								</div>
+								<div class="col-md-5">
+									&#8358;@{{ $currency.format(mode.amount) }}
+								</div>
+							</div>
+
+							<div v-if="saleInvoice.transactions.length === 0" v-for="mode in saleInvoice.transactions" class="row pl-3">
+								<div class="col-md-12">
+									NONE
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								Delivery Cost: &#8358;@{{ $currency.format(saleInvoice.delivery_cost) || '0.00' }}
+							</div>
+							<div class="row">
+								Discount: &#8358;@{{ $currency.format(saleInvoice.discount) || '0.00' }}
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
 						<div class="col-md-2"></div>
 						<div class="col">
 							<a :href="'/client/sale/'+saleInvoice.id" class="btn btn-login">Reverse</a>
@@ -87,7 +117,8 @@
 						<div class="col">
 							<button type="button" class="btn btn-danger px-5" data-dismiss="modal">Close</button>
 						</div>
-						<div class="col-md-2"></div>
+						<div class="col-md-2">
+						</div>
 					</div>
 				</div>
 			</div>

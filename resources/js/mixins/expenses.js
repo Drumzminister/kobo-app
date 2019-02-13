@@ -12,6 +12,14 @@ export const expenseApp = {
         isSavingExpense: false,
         expenseShowPaymentMethods: false
     },
+    filters: {
+        truncate (str) {
+            if (str.length > 20) {
+                return `${str.substring(0, 20)}...`;
+            }
+            return str;
+        }
+    },
     mounted () {
         this.latest = window.latest;
         this.expenses = window.expenses;
@@ -26,6 +34,10 @@ export const expenseApp = {
         }
     },
     methods: {
+        showExpenseDetails (expense) {
+            this.currentExpense = expense;
+            this.openModal('#expenseDetailsModal');
+        },
         sortLatest (key) {
             if (key) {
                 this.latest.sort(function (a, b) {

@@ -30,9 +30,25 @@ class GetExpensesPageDataJob extends Job
      */
     public function handle()
     {
-        $data['expenses'] = (new ListAllCompaniesExpensesJob($this->companyId))->handle();
-        $data['latest'] = $this->expense->getLatest($this->companyId);
-        $data['banks'] = $banks = (new GetBankAccountsJob($this->companyId))->handle();
-        return $data;
+        $expenses       = (new ListAllCompaniesExpensesJob($this->companyId))->handle();
+        $latest         = $this->expense->getLatest($this->companyId);
+        $banks          = (new GetBankAccountsJob($this->companyId))->handle();
+
+        $dayExpenses    = $expenses->whereBetween('created_at', [now()->subDay(), now()]);
+        $weekExpenses   = $expenses->whereBetween('created_at', [now()->subWeek(), now()]);
+        $monthExpenses  = $expenses->whereBetween('created_at', [now()->subMonth(), now()]);
+        $yearExpenses   = $expenses->whereBetween('created_at', [now()->subYear(), now()]);
+        $startDate      = $expenses->first()->date ?? now();
+
+        return [
+            'expenses'  => $expenses,
+            'latest'    => $latest,
+            'banks'     => $banks,
+            'dayExpenses'   => $dayExpenses,
+            'monthExpenses' => $monthExpenses,
+            'weekExpenses'  => $weekExpenses,
+            'yearExpenses'  => $yearExpenses,
+            'startDate'     => $startDate
+        ];
     }
 }

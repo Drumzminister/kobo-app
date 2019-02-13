@@ -29,14 +29,34 @@ class GetLoanPageDataJob extends Job
      */
     public function handle()
     {
-        $runningLoan = $this->loan->getByAttributes(['company_id' => $this->companyId, 'status' => 'running']);
-        $data['runningLoanCount'] = $runningLoan->sum('amount');
-        $data['runningLoanPaid'] = $runningLoan->sum('amount_paid');
-        $data['runningLoanOwing'] = $runningLoan->sum('amount') - $runningLoan->sum('amount_paid');
-        $data['loans'] = $this->loan->getByCompany_id($this->companyId);
-        $data['loanSources'] = (new ListLoanSourcesJob($this->companyId))->handle();
-        $data['banks'] = $banks = (new GetBankAccountsJob($this->companyId))->handle();
         
-        return $data;
+        $runningLoan = $this->loan->getByAttributes(['company_id' => $this->companyId, 'status' => 'running']);
+        $runningLoanCount = $runningLoan->sum('amount');
+        $runningLoanPaid = $runningLoan->sum('amount_paid');
+        $runningLoanOwing = $runningLoan->sum('amount') - $runningLoan->sum('amount_paid');
+        $loans = $this->loan->getByCompany_id($this->companyId);
+        $loanSources = (new ListLoanSourcesJob($this->companyId))->handle();
+        $banks = (new GetBankAccountsJob($this->companyId))->handle();
+
+        $dayLoans   = $loans->whereBetween('created_at', [now()->subDay(), now()]);
+        $weekLoans  = $loans->whereBetween('created_at', [now()->subWeek(), now()]);
+        $monthLoans = $loans->whereBetween('created_at', [now()->subMonth(), now()]);
+        $yearLoans  = $loans->whereBetween('created_at', [now()->subYear(), now()]);
+        $startDate  = $loans->first()->created_at ?? now();
+
+        return [
+            'runningLoan'       => $runningLoan,
+            'runningLoanOwing'  => $runningLoanOwing,
+            'runningLoanPaid'   => $runningLoanPaid,
+            'runningLoanCount'  => $runningLoanCount,
+            'loanSources'       => $loanSources,
+            'loans'             => $loans,
+            'banks'             => $banks,
+            'yearLoans'         => $yearLoans,
+            'dayLoans'          => $dayLoans,
+            'weekLoans'         => $weekLoans,
+            'monthLoans'        => $monthLoans,
+            'startDate'         => $startDate
+        ];
     }
 }

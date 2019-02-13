@@ -67,7 +67,7 @@
                     <div class="bg-white px-3 py-4 introduction" id="topp">
                         <a href='http://example.com/' data-intro='Hello step one! View your History'></a>
                         @if($sales->count() > 0)
-                            <mini-chart-component :options="{ mode: 'year', dateRangeStart: '{{ $startDate }}', dateColumn: 'sale_date', xColumn: 'sale_date', yColumn: 'quantity', label: '# of Quantity Sold'}"
+                            <mini-chart-component :options="{ mode: 'year', page: 'sales', dateRangeStart: '{{ $startDate }}', dateColumn: 'sale_date', xColumn: 'sale_date', yColumn: 'quantity', label: '# of Quantity Sold'}"
                                                   :month="{{ $monthSales }}"
                                                   :data="{{ $sales }}"
                                                   :year="{{ $yearSales }}"

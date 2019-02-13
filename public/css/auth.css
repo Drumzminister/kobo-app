@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:200,400,600,800");
+@import url("https://fonts.googleapis.com/css?family=Alef:200,400,600,800");
+
 /*================
 login page
 ===============*/
@@ -90,7 +93,7 @@ body{
   .login-forgot{
     color: #fff;
     float: right;
-    font-size:12px;
+    font-size:14px;
 
   }
   span.forgot{
@@ -100,8 +103,33 @@ body{
 
   /* button style */
   .btn-loginn{
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 3px;
+    display: inline-block;
+    padding: 8px 36px 4px 36px;
+    transition: 0s;
+    color: #fff;
+    background: #00C259;
+
+  }
+.btn-loginn:hover {
+    padding-right: 25px;
+    color: #00C259;
+    background: #fff;
+
+}
+.btn-arrow {
+    background: #057237;
+    padding: 10px 20px;
+    transition: 0s;
+    color: #fff;
+
+}
+
+  .btn-reset{
+    font-weight: 500;
+    font-size: 1rem;
     letter-spacing: 1px;
     display: inline-block;
     padding: 8px 30px;
@@ -109,36 +137,29 @@ body{
     transition: 0s;
     color: #fff;
     background: #00C259;
+  }  
+
+  .btn-reset:hover {
+      padding-right: 25px;
+      color: #00C259;
+      background: #fff;
 
   }
-  .btn-loginn span {
-    cursor: pointer;
+
+  .btn-light{
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 1px;
     display: inline-block;
-    position: relative;
-    transition: 0.8s;
-  }
-/* 
-  .btn-loginn span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
+    padding: 8px 30px;
+    border: 1px solid;
     transition: 0s;
-  } */
-
-  .btn-loginn:hover {
-    padding-right: 25px;
-    color: #00C259 ;
-    background: #fff;
-
+  }
+  
+  .box-shadow{
+     box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.1);
   }
 
-  /* .btn-loginn:hover span:after {
-    opacity: 1;
-    right: 2;
-    color: #00C259 ;
-    background: #fff;
-
-
-  } */
+.text-green {
+    color: #00C259;
+}
