@@ -34,17 +34,17 @@
          @endif
 
 
-        <div id="login pt-3">
-            <div class="container pt-3">
+        <div id="login pt-2">
+            <div class="container pt-2">
                 <div class="col-md-6 login-kobo">
                     <div class=" p-3">
                         <div class="pb-2">
                             <img src="{{asset('img/logo.svg')}}" alt="logo" srcset="" class="img-fluid logo">
                         </div>
 
-                            <h5 class="login-h2 pb-3 text-white">
+                            <h3 class="login-h2 pb-3 text-white">
                                 Sign in to Kobo Accountant
-                            </h5>
+                            </h3>
 
                             <div class="alert alert-info">
                                 <h3>Test Details</h3>
@@ -86,26 +86,32 @@
                                     </div>
                                 </div>
 
-                                <div class="text-white">
-                                    <label>
+                                <div class="">
+                                    <label class="text-muted">
                                         <input type="checkbox"  name="remember" class="text-white"> Remember me
                                     </label>
-                                    <span class="forgot"><a href="#" class="login-forgot pull-right">Forgot Password?</a></span>
-                                </div>
-                                <button class="btn btn-loginn" type="submit"><span>Login</span></button>
 
+                                    @include('auth.resetpassword')
+                                </div>
+
+                                <div class="justify-content-around text-center">
+                    
+                                <button class="btn btn-mixed " type="submit"><i class="fa fa-arrow-right btn-arrow " style="font-size:17px;color:#fff"></i><span class="btn-loginn">Login</span></button>
+                                </div>
                             </form>
                     </div>
-                    <div class="register-link">
-                        <p class="text-white pb-5">
+                    <div class="register-link mt-4">
+                        <p class="text-white pb-3">
                             Don't you have account?
-                            <a href="/register">Sign Up Here</a>
+                            <a href="/register" class="text-green">Sign Up Here</a>
                         </p>
                     </div>
 
                 </div>
             </div>
         </div>
+
+
 
 
 <script src="{{asset('js/app.js')}}"></script>

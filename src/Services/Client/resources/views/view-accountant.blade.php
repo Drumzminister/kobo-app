@@ -78,13 +78,12 @@
                     
                 </div>
             </div>
+
             <div class="col-md-8">
                 <div class="row">
-                    <div class="col-md-4 col-6">
-                        <div class="loa bg-orange text-white p-2">
-                            <h4 class="h4">Review Accountant</h4>
-                        </div>
-                    </div>
+
+                    @include('client::_view-accountantModal')
+                    
                     <div class="col-md-2 col-0"></div>
                     <div class="col-md-6 col-6">
                         <div class="loa bg-white text-muted p-2 text-center">
@@ -178,6 +177,7 @@
  
 </div>
 </section>
+
 
 
 
