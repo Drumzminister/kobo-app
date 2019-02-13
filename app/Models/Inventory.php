@@ -3,28 +3,34 @@
 namespace Koboaccountant\Models;
 
 use App\Data\InventoryItem;
+use App\Data\Tax;
 use App\Data\Transaction;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Inventory extends Model
 {
+    use SoftDeletes, Cachable;
+
     public $incrementing = false;
 
     protected $fillable = [
         'id',
-        'name', 
-        'sales_price', 
-        'purchase_price', 
-        'quantity', 
-        'description',
-        'delivered_data',
-        'attachment',
+        'company_id',
         'vendor_id',
-        'user_id'
+        'user_id',
+        'invoice_number',
+        'delivered_date',
+        'discount',
+        'tax_id',
+        'tax_amount',
+        'amount_paid',
+        'balance',
+        'total_sales_price',
+        'total_cost_price',
+        'total_quantity'
     ];
-
-    use SoftDeletes;
 
     public function inventoryItem()
     {
@@ -46,9 +52,28 @@ class Inventory extends Model
 	{
 		return $this->hasOne(Transaction::class);
 	}
-
+    public function tax()
+    {
+        return $this->hasOne(Tax::class);
+    }
 	public function scopeAvailable($query)
 	{
 		return $query->where('quantity', '>', 0);
+	}
+	public function scopeDayInventory($query)
+	{
+	    return $query->whereBetween('created_at', [now()->subDay(), now()]);
+	}
+	public function scopeWeekInventory($query)
+	{
+	    return $query->whereBetween('created_at', [now()->subWeek(), now()]);
+	}
+	public function scopeMonthInventory($query)
+	{
+	    return $query->whereBetween('created_at', [now()->subMonth(), now()]);
+	}
+	public function scopeYearInventory($query)
+	{
+	    return $query->whereBetween('created_at', [now()->subYear(), now()]);
 	}
 }

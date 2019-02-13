@@ -4,6 +4,7 @@ use App\Data\InventoryItem;
 use Faker\Generator as Faker;
 use Koboaccountant\Models\Inventory;
 use Koboaccountant\Models\SaleChannel;
+use Koboaccountant\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,36 +54,47 @@ $factory->define('Koboaccountant\Models\Vendor', function (Faker $faker) {
         'phone' => $faker->phoneNumber,
         'email' => $faker->email,
         'website' => $faker->url,
+        'image'  => $faker->imageUrl(),
         'isActive' => $faker->numberBetween(0, 1),
+    ];
+});
+
+$factory->define(Product::class, function(Faker $faker) {
+    return [
+        'name' => $faker->word,
+        'company_id' => '',
+        'user_id' => '',
+        'tag' => $faker->randomElement(['black', '50kg', 'mil', 'long', 'short', 'pink']),
+        'attachment' => $faker->imageUrl(),
+        'description' => $faker->sentence,
+        'low_quantity' => random_int(1,30),
     ];
 });
 
 $factory->define(InventoryItem::class, function (Faker $faker) {
    return [
-       'id' => $faker->uuid,
        'inventory_id' => '',
        'user_id' => '',
        'company_id' => '',
        'name' => ucfirst($faker->sentence(2)),
        'sales_price' => $salesPrice = random_int(50, 2000),
-       'purchase_price' => $salesPrice + random_int(50, 120),
+       'cost_price' => $salesPrice + random_int(50, 120),
        'quantity' =>  random_int(19, 50),
        'description' => ucfirst($faker->sentence(2)),
    ];
 });
+
 $factory->define(Inventory::class, function (Faker $faker) {
     return [
         'id' => $faker->uuid,
         'invoice_number' => explode('-', $faker->uuid)[0],
         'user_id' => '',
         'vendor_id' => '',
-        'attachment' =>  $faker->imageUrl(),
         'delivered_date' => $faker->dateTime(),
         'discount' =>  random_int(50, 120),
         'delivery_cost' =>  random_int(50, 120),
         'tax_amount' => random_int(20, 400),
         'tax_id'    => random_int(1,5),
-        'total_amount' =>  $amount = random_int(50, 120),
         'amount_paid' =>  $amount_paid = random_int(50, 120),
         'balance' =>  random_int(50, 120),
         'total_sales_price' => random_int(50, 120),

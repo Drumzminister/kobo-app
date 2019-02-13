@@ -21,6 +21,7 @@ class CreateVendorsTable extends Migration
 	        $table->text('address');
 	        $table->string('phone');
 	        $table->string('email');
+	        $table->string('image')->nullable();
 	        $table->string('website')->nullable();
 	        $table->boolean('isActive')->default(1);
             $table->timestamps();

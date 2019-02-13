@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="Description" content="Accounting site, Accounting App ">
   <meta content="koboaccountant, accounting, kobo" name="keywords">
-  <meta name="csrf-token" content="{{ csrf_token() }}"> 
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Favicons -->
   <link href="https://res.cloudinary.com/syfon/image/upload/v1536857508/favicon.png" rel="icon">
 
@@ -32,10 +32,10 @@
              {{ session('warning') }}
          </div>
          @endif
-         
+
 
         <div id="login pt-3">
-            <div class="container pt-3">               
+            <div class="container pt-3">
                 <div class="col-md-6 login-kobo">
                     <div class=" p-3">
                         <div class="pb-2">
@@ -45,9 +45,26 @@
                             <h5 class="login-h2 pb-3 text-white">
                                 Sign in to Kobo Accountant
                             </h5>
+
+                            <div class="alert alert-info">
+                                <h3>Test Details</h3>
+                                <p>
+                                    <strong>Client</strong><br/>
+                                    @php
+                                        $clientUser = \Koboaccountant\Models\Role::where('name', 'Client')->first()->user;
+                                    @endphp
+                                    <span>Email: {{ $clientUser->email }}</span><br/>
+                                    <span>Password: secret</span><br/>
+                                </p>
+
+                                <p>
+                                    <strong>Client's Accountant</strong><br/>
+                                    <span>Email: {{ $clientUser->client->accountantClient->accountant->user->email }}</span><br/>
+                                    <span>Password: secret</span><br/>
+                                </p>
+                            </div>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
-
                                 <div class="form-group">
                                     <div class="input-box">
                                         <input type="email" name="email" class="form-control" id="email" aria-describedby="" placeholder="Email" required="" value="{{ old('email') }}">
@@ -86,10 +103,10 @@
                         </p>
                     </div>
 
-                </div> 
+                </div>
             </div>
         </div>
-    
+
 
 <script src="{{asset('js/app.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
@@ -99,5 +116,3 @@
 
 </body>
 </html>
-
-

@@ -1,4 +1,8 @@
 import PaymentMethodSelection from "../components/banks/PaymentMethodSelection";
+import HighestPurchases from "../components/inventory/HighestPurchases";
+import Select2 from "v-select2-component";
+import {toast} from "../helpers/alert";
+import MiniChart from "../components/chart/MiniChartComponent";
 export const inventoryApp = {
     data: {
         inventoryForm: {
@@ -7,13 +11,15 @@ export const inventoryApp = {
             delivered_date: '',
             attachment: '',
             tax_id: '',
+            tax_amount: 0,
             discount: '',
             delivery_cost: '',
             total_cost_price: '',
             total_sales_price: '',
             total_quantity: '',
             amount_paid: 0,
-            banks: ''
+            banks: '',
+            balance: '',
         },
         inventoryItem: {
             delivered_date: '',
@@ -24,17 +30,29 @@ export const inventoryApp = {
             invoice: '',
             vendor: ''
         },
-        top_purchase: {},
-        highest_purchase: window.highest_purchase,
-        highest_quantity: window.highest_quantity,
         purchase: {},
-        all_purchases: window.all_purchases,
-        vendors: window.vendors,
+        all_purchases: '',
         inventoryTableRow: [],
         totalCostPrice: [],
         selectedInventory: '',
         banks: window.banks,
         taxes: window.taxes,
+        user_vendors: window.vendors,
+        kep: window.vendors,
+        // all_inventory_items: window.all_inventory_items,
+        products: window.products,
+        InventorySelectSettings: {
+            placeholder: 'Inventory',
+            // multiple: true,
+            language: {
+                noResults: function () {
+                    return `<a href="/client/product/add" })"><span class="fa fa-plus"></span> Add Product</button>`;
+                }
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            }
+        }
     },
     computed : {
         selectedAccounts () {
@@ -42,8 +60,8 @@ export const inventoryApp = {
         },
         inventoryTax() {
             if (this.inventoryForm.tax_id) {
-               let tax =  Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.totalCostPrice);
-                return tax;
+                let tax =  Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.totalCostPrice);
+                return parseFloat(tax).toFixed(2);
             }
             return 0;
         },
@@ -55,17 +73,30 @@ export const inventoryApp = {
             })
         },
     },
-    component: {
-      PaymentMethodSelection,
+    components: {
+        PaymentMethodSelection: PaymentMethodSelection,
+        HighestPurchases: HighestPurchases,
+        Select2: Select2,
+        MiniChart: MiniChart
     },
     mounted () {
-        this.top_purchase = this.highest_quantity;
+        this.fetchAllPurchases();
         this.purchase = this.all_purchases;
-        this.vendors = window.vendors;
-        this.inventoryForm.tax_id = this.taxes[2];
+        if (this.taxes)
+            this.inventoryForm.tax_id = this.taxes[2];
         this.addInventoryRow();
     },
     methods: {
+        saveBalance() {
+            let balance = this.inventoryForm.total_cost_price - this.getTotalAmountPaid();
+            return Math.abs(balance);
+        },
+        formattedProduct() {
+            return this.products['products'].map((product) => {return {id: product.id, text: product.name}});
+        },
+        fetchAllPurchases() {
+            this.all_purchases =  window.all_purchases
+        },
         getPurchaseSalesPriceInventoryItem(_purchase) {
             let inventoryItemSum = 0;
             _purchase['inventory_item'].map(purchase => {
@@ -81,8 +112,7 @@ export const inventoryApp = {
             return inventoryQuantitySum;
         },
 
-        createInventory(evt) {
-            evt.preventDefault();
+        createInventory() {
             this.totalCostPrice = this.inventoryForm.total_price;
             this.inventoryForm.banks = this.selectedAccounts;
             this.inventoryForm.inventoryItem = this.inventoryTableRow;
@@ -90,39 +120,65 @@ export const inventoryApp = {
             this.inventoryForm.total_quantity = this.calculateTotalQuantity();
             this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
             this.inventoryForm.tax_amount = this.inventoryTax;
-            this.inventoryForm.tax_id = this.inventoryForm.tax_id.id;
-            // this.inventoryForm.amount_paid = this.getActualAmountPaidThroughBank
-            console.log(this.getActualAmountPaidThroughBank);
-            axios.post('/client/inventory/add', this.inventoryForm).then(res => {
-                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false,});
-            }).catch(err => {
-                swal("Oops", "An error occurred when creating this account", "error");
+            this.inventoryForm.balance = this.saveBalance()
+            let amountReminder = Number(this.inventoryForm.total_cost_price) - Number(this.getTotalAmountPaid());
+            this.$validator.validate().then(valid => {
+                if(valid) {
+                    if(this.getTotalAmountPaid() > this.inventoryForm.total_cost_price){
+                        return toast(`Amount paid is ${this.formatNumber(amountReminder)} greater than cost price`, 'error');
+                    }else if (this.getTotalAmountPaid() < this.inventoryForm.total_cost_price) {
+                       toast(`you are owing ${this.inventoryForm.vendor_id.name} ${this.formatNumber(amountReminder)}`, 'error')
+                    }
+                    axios.post('/client/inventory/add', this.inventoryForm).then(res => {
+                        swal({
+                            type: 'success',
+                            title: 'Success',
+                            text: res.data.message,
+                            timer: 3000,
+                            showConfirmButton: false
+                        }).then(res => {
+                            location.reload(true)
+                        });
+                    })
+                }else {
+                    this.errors.items.forEach(error => {
+                        toast(error.msg, 'error')
+                    })
+                }
             });
+        },
+
+        //this little happy method will remove minus from a negative value
+        formatNumber(number) {
+            return new Intl.NumberFormat('en-IN').format(Math.abs(number));
+        },
+        getTotalAmountPaid() {
+            let amountPaid = 0;
+            this.selectedAccounts.forEach(balance => {
+                 amountPaid += Number(balance.amount)
+            })
+            return amountPaid;
         },
         getTotalCostPrice() {
             return document.querySelector("totalCostPrice").value;
         },
-        highestPurchase() {
-            if (this.top_purchase === highest_quantity) {
-                this.top_purchase = highest_purchase;
-            } else {
-                this.top_purchase = highest_quantity;
-            }
-        },
-        deleteInventory(inventoryId) {
-                axios.post(`/client/inventory/${inventoryId}/delete`).then(res => {
-                    swal({
-                        type: 'success',
-                        title: 'Success',
-                        text: res.data.message,
-                        timer: 3000,
-                        showConfirmButton: false,
-                    }).then(() =>{
-                        location.reload(true);
+        deleteInventory(inventory) {
+            swal({
+                title: 'Are you sure',
+                text: 'Are you sure you want to delete',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes, Am sure',
+            }).then((result) => {
+                if(result.value){
+                    axios.post(`/client/inventory/${inventory['id']}/delete`).then(response => {
+                       toast(`Invoice number  ${inventory['invoice_number']}  has been reversed`)
+                            let index = this.all_purchases.indexOf(inventory);
+                            this.all_purchases.splice(index, 1);
                     });
-                }).catch(error => {
-
-                });
+                }
+            });
         },
         addInventoryRow() {
             this.inventoryTableRow.push({
@@ -134,7 +190,7 @@ export const inventoryApp = {
             });
         },
         deleteInventoryRow(row) {
-            $("#row-" + row).remove();
+            this.inventoryTableRow.splice(this.inventoryTableRow.findIndex(item => item === row ), 1);
             // reevaluate total after deletion
             this.calculateTotalCost();
         },

@@ -75,7 +75,7 @@ class DebitBanksJob extends Job
 	protected function updateBankAccount($paymentMode)
 	{
 		$bank = $this->bank->findOnly('id', $paymentMode['id']);
-		$newBalance = $bank->account_balance + $paymentMode['amount'];
+		$newBalance = $bank->account_balance - $paymentMode['amount'];
 		$data['account_balance'] = $newBalance;
 
 		$bank->fill($data)->save();

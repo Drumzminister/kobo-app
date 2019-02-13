@@ -2,7 +2,7 @@
     <div>
         <div class="row">
             <div class="col-md-2">
-                <h5 class="h5">{{ period }} Sales</h5>
+                <h5 class="h5 text-capitalize">{{ period }} {{ page }}</h5>
             </div>
             <div class="col-md-3">
                 <div class="form-check form-check-inline">
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row">`
             <canvas id="myChart" width="400" height="150"></canvas>
         </div>
     </div>
@@ -59,6 +59,7 @@
         data() {
             return {
                 mode: this.options.mode || 'month',
+                page: this.options.page || '',
                 opens: 'center',
                 startDate: this.options.dateRangeStart || moment().format("YYYY-MM-DD"),
                 endDate: moment().format("YYYY-MM-DD"),
@@ -108,16 +109,16 @@
                 this.endDate = values.endDate.toISOString().slice(0, 10);
             },
             getData (data) {
+                let result = Object.values(data);
                 let { xColumn, yColumn } = this.options;
-                let graphData = data.map((plot) => {
+                let graphData = result.map((plot) => {
                     return {
                             x:this.options.dateColumn ? new Date(plot[xColumn]) : plot[xColumn],
                             y:plot[yColumn]
                     }
                 });
-
-                let labels = data.map(({ sale_date }) => {
-                    return moment(sale_date)[this.mode]();
+                let labels = result.map(({ delivered_date }) => {
+                    return moment(delivered_date)[this.mode]();
                 });
                 return { graphData };
             },

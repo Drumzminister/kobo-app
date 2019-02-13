@@ -48,15 +48,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="record in expenseRecords" class="records">
+                            <tr v-for="expense in expenseRecords" class="records">
                                 <td class="pt-3-half">
-                                    <input type="text" name="description" class="form-control expenseDescription">
+                                    <input type="text" v-model="expense.description" name="description" class="form-control expenseDescription">
                                 </td>
                                 <td class="pt-3-half">
-                                    <input type="number" name="amount" class="form-control expenseAmount">
+                                    <input type="number" v-model="expense.amount" name="amount" class="form-control expenseAmount">
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary px-4 payBtn" type="button" @click="showPayExpenseModal($event)">Pay</button>
+                                    <button class="btn btn-primary px-4 payBtn" type="button" @click="showPayExpenseModal($event, expense)">Pay</button>
                                     <button class="btn btn-success px-4 paid" style="display: none" type="button" disabled>Paid</button>
                                 </td>
                             </tr>
@@ -70,22 +70,7 @@
                 <!-- Modal -->
                 <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Select Payment Mode</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <payment-method-selection class="col-12" :banks="{{ $banks }}"></payment-method-selection>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-sm btn-payment" @click="payExpense" v-if="selectedAccounts.length > 0 && !isPayingExpense">Pay</button>
-                                <button class="btn btn-sm px-3 btn-info" style="cursor: not-allowed;" v-if="selectedAccounts.length < 1" disabled>Pay</button>
-                                <button class="btn btn-sm btn-payment" disabled v-if="isPayingExpense">Paying... <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></button>
-                            </div>
-                        </div>
+                        <expense-payment :expense="currentExpense" :row="currentExpenseRow" :banks="{{$banks}}"></expense-payment>
                     </div>
                 </div>
 

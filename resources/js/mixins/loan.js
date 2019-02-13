@@ -18,6 +18,7 @@ export const loanApp = {
         loanAmtRunning: 0,
         paymentPerYear: 1,
         loanDescription: "",
+        onAddModal: false,
         loanPeriod: "month",
         noSourceFound: false,
         allLoanIntervals: [],
@@ -63,6 +64,9 @@ export const loanApp = {
             }
         },
         loanTerm () {
+            if (Number(this.loanTerm) >= 100000) {
+                this.loanTerm = this.loanTerm.slice(0, this.loanTerm.length -2);
+            }
             this.calculateIntervalsToBeShown();
         },
         loanPeriod () {
@@ -138,14 +142,6 @@ export const loanApp = {
         this.loanPaymentIntervalList = [...this.allLoanIntervals];
         this.loanPaymentInterval = this.loanPaymentIntervalList[0];
         this.runDebouncedSearch = _.debounce(this.searchForSource, 500);
-    },
-    computed: {
-        selectedAccounts () {
-            return this.$store.getters.selectedAccounts;
-        },
-        spreadAmount () {
-            return this.loanAmount;
-        }
     },
     methods: {
         debouncedSearch () {
@@ -239,6 +235,7 @@ export const loanApp = {
                     showConfirmButton: false
                 });
                 this.isRequestingLoan = false;
+                location.reload();
                 this.closeLoanModal();
                 let loan = res.data.loan;
                 loan.source_name = this.searchSource;
@@ -262,34 +259,6 @@ export const loanApp = {
             });
             this.openModal('#loanDetailsModal');
         },
-        payLoan (evt) {
-            evt.preventDefault();
-            let sum = 0;
-            this.selectedAccounts.forEach((account) => {
-                if ( !isNaN(Number(account.amount)) ) {
-                    sum += Number(account.amount);
-                }
-            });
-
-            if (sum > (Number(this.currentLoan.amount - this.currentLoan.amount_paid) + Number(this.currentLoan.interest * this.currentLoan.amount / 100)) ) {
-                swal("Error", `Total amount payable should be less than ${(this.currentLoan.amount - this.currentLoan.amount_paid) + (this.currentLoan.interest * this.currentLoan.amount / 100)}`, "error");
-                return;
-            }
-            let formData = new FormData();
-            formData.append('amount', sum.toString());
-            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
-            this.isRequestingLoan = true;
-            axios.post(`/client/loan/${this.currentLoan.id}/pay`, formData).then(response => {
-                this.isRequestingLoan = false;
-                this.closeModal('#loanDetailsModal');
-                this.currentLoan.amount_paid = Number(this.currentLoan.amount_paid) + Number(sum);
-                toast(`Payment made successfully`, 'success');
-                this.showSelectPaymentMode = !this.showSelectPaymentMode
-            }).catch(err => {
-                this.isRequestingLoan = false;
-                toast(`${err.response.data.message}`, 'error');
-            });
-        },
         toggleShowMoreIntervals (evt) {
             this.showMoreIntervals = !this.showMoreIntervals;
             if (this.showMoreIntervals) {
@@ -310,6 +279,7 @@ export const loanApp = {
             this.toggleShowIntervalSelector();
         },
         closeLoanModal () {
+            this.onAddModal = false;
             document.querySelector('.loan-form').reset();
             this.loanDate= "";
             this.loanTerm= "";
@@ -319,6 +289,10 @@ export const loanApp = {
             this.loanInterest = "";
             this.paymentPerYear = 1;
             this.closeModal('#addLoanModal');
+        },
+        openAddLoanModal () {
+            this.onAddModal = true;
+            this.openModal('#addLoanModal');
         },
         calculateIntervalsToBeShown () {
             if (this.loanTerm.trim() === "") {

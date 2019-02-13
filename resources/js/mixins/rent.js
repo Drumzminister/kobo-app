@@ -14,14 +14,6 @@ export const rentApp = {
         other_costs: [],
         rentShowPaymentSettings: false,
     },
-    computed: {
-        selectedAccounts () {
-            return this.$store.state.selectedAccounts;
-        },
-        spreadAmount () {
-            return this.selectedRent.amount - this.selectedRent.amount_paid;
-        }
-    },
     mounted () {
         this.addOtherCosts();
         this.banks = window.banks;
@@ -120,32 +112,6 @@ export const rentApp = {
 
         balance (rent) {
             return rent.amount - this.rentUsed(rent);
-        },
-        payRent () {
-            let sum = 0;
-            this.selectedAccounts.forEach((account) => {
-                if ( !isNaN(Number(account.amount)) ) {
-                    sum += Number(account.amount);
-                }
-            });
-
-            if (sum > Number(this.spreadAmount)) {
-                swal("Error", `Total amount payable should be not be more than ${this.spreadAmount}`, "error");
-                return;
-            }
-            let formData = new FormData();
-            formData.append('amount', sum.toString());
-            formData.append('paymentMethods', this.selectedAccounts);
-            this.isRequesting = true;
-            axios.post(`/client/rent/${this.selectedRent.id}/pay`, formData).then(response => {
-                this.isRequesting = false;
-                this.closeModal('#paymentModal');
-                swal('Success', `${response.data.message}`, 'success');
-            }).catch(err => {
-                this.isRequesting = false;
-                this.closeModal('#paymentModal');
-                swal('Oops', `${err.response.data.message}`, 'error');
-            });
         },
         openPaymentModal(rent) {
             this.selectedRent = rent;

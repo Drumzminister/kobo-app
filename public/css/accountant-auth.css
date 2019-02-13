@@ -1,0 +1,77 @@
+body{
+  background: #a7a6a6b0;
+}
+
+body, p, h1, h2, h3, h4, h5, h6, .label {
+  font-family: 'Alef', sans-serif!important;
+}
+
+.form-group.required .label:after {
+  content:"*";
+  color:red;
+}
+
+input {
+  margin-bottom: 15px;
+}
+
+.hr{
+  width: 30px;
+  height: 2px;
+  background-color: red;
+  margin-top: -10px;
+}
+
+
+.btn-cancel{
+  border-radius: 5px;
+  background-color: transparent;
+  color: #818181;
+  font-weight: 600;
+  font-size: 1.1rem;
+  font-family: 'Alef', sans-serif!important;
+  padding: 6px 0px!important;
+  letter-spacing: 1px;
+  
+}
+
+.btn-cancel:hover,
+.btn-cancel:focus {
+  border: 2px solid  #818181;
+  color: #818181;
+  font-weight: 600;
+}
+.btn-continue{
+  font-weight: normal;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  font-family: 'Gothic A1', sans-serif;
+  padding: 6px 0px!important;
+  color: #FFFFFF;
+  background: #00C259;
+  border: 2px solid  #00C259;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.btn-continue:hover {
+  color: #00C259;
+  background: #FFFFFF;
+  font-weight: bold;
+}
+
+
+#login{
+    width: 90%;
+    margin: auto;
+    position:absolute;
+      width: 100%;
+      text-align: center;
+      background: transparent;
+      z-index: -2;
+}
+
+.login-kobo{
+  background: white;
+  margin: auto;
+}

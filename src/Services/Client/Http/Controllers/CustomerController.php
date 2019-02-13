@@ -8,6 +8,7 @@ use App\Services\Client\Features\CustomerFeature;
 use App\Services\Client\Features\AddSingleCustomerFeature;
 use App\Services\Client\Features\DeleteCustomerFeature;
 use App\Services\Client\Features\HandleCsvUploadFeature;
+use App\Services\Client\Features\HandleCustomerImageUploadFeature;
 use App\Services\Client\Features\ListAllCustomersFeature;
 use App\Services\Client\Features\SearchCustomerFeature;
 use Illuminate\Http\Request;
@@ -59,5 +60,9 @@ class CustomerController extends Controller
     public function deleteCustomer($customerId)
     {
         return $this->serve(DeleteCustomerFeature::class, ['customerId' => $customerId]);
+    }
+    public function handleImageUpload()
+    {
+        return $this->serve(HandleCustomerImageUploadFeature::class);
     }
 }

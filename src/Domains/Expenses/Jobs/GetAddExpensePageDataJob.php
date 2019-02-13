@@ -8,10 +8,12 @@ use Lucid\Foundation\Job;
 
 class GetAddExpensePageDataJob extends Job
 {
+    private $companyId;
+
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $companyId
      */
     public function __construct($companyId)
     {
@@ -27,10 +29,7 @@ class GetAddExpensePageDataJob extends Job
     public function handle()
     {
         $data = [];
-        $banks = (new GetBankAccountsJob($this->companyId))->handle();
-        $banks->push( (new GetCashJob($this->companyId))->handle() );
-        $banks[$banks->count() -1]->account_name = "Cash";
-        $data['banks'] = $banks;
+        $data['banks'] = $banks = (new GetBankAccountsJob($this->companyId))->handle();
 
         return $data;
     }

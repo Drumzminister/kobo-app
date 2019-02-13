@@ -23,12 +23,13 @@ use Koboaccountant\Models\Staff;
 use Koboaccountant\Models\SubscriptionPlan;
 use Koboaccountant\Models\User;
 use Koboaccountant\Models\Vendor;
+use Koboaccountant\Product;
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-//        $this->call(SeedBanks::class);
+        $this->call(SeedBanks::class);
         $this->createTaxes();
 
 	    $this->createPlans();
@@ -58,11 +59,6 @@ class DatabaseSeeder extends Seeder
     private function seedSalesChannel($nums, $company, $user)
     {
 	    return factory(SaleChannel::class, $nums)->create(['company_id' => $company->id, 'user_id' => $user->id]);
-    }
-
-    private function seedInventories()
-    {
-
     }
 
     private function createAccountant()
@@ -106,12 +102,15 @@ class DatabaseSeeder extends Seeder
 	    // Create some sales channels for him
 	    $salesChannels = $this->seedSalesChannel(5, $company, $clientUser);
 
+	    $this->createProductForCompany(10, $company, $clientUser);
 	    // Make this user a Staff of his company
 	    $staff = $this->createStaffFromUser($company, $clientUser);
 
 	    // Create Staffs for his company
 	    $staffs = $this->createStaffsForCompany($company);
 
+	    //Create product for his company
+        $product = $this;
         // Create vendor for the client
         $vendors = $this->createVendorsForUser(10, $company, $clientUser);
 
@@ -121,7 +120,7 @@ class DatabaseSeeder extends Seeder
         $vendors->each(function (Vendor $vendor) use ($company, &$inventories, $clientUser) {
             $inventory = $inventories->merge(factory(Inventory::class, 4)->create(['company_id' => $company->id, 'vendor_id' => $vendor->id, 'user_id' => $clientUser->id]));
             $inventory->each(function($inventory) use($company, $clientUser) {
-                $this->createInventoryItem(10, $inventory->id, $company->id, $clientUser->id);
+                $this->createInventoryItem(2, $inventory->id, $company->id, $clientUser->id);
             });
         });
 
@@ -167,6 +166,10 @@ class DatabaseSeeder extends Seeder
     	$users->each(function (User $user) use($company) {
     		factory(Staff::class)->create(['company_id' => $company->id, 'user_id' => $user->id]);
 	    });
+    }
+    private function createProductForCompany($num, $company, $user)
+    {
+        return factory(Product::class, $num)->create(['company_id' => $company->id, 'user_id' => $user->id]);
     }
 
     private function createUserWithRole($role, $nums = 0)

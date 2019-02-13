@@ -129,7 +129,7 @@ export const updateSale = {
             return this.channels.filter(({ id }) => id === channelId)[0].name;
         },
         createSale: function () {
-            let api = new API({ baseUri: 'https://kobo.test/client'});
+            let api = new API({ baseUri: '/client'});
             api.createEntity({ name: 'sale'});
             let data = {
                 tax_id: this.taxId,
@@ -151,7 +151,7 @@ export const updateSale = {
                         this.saleSaved = true;
                         toast('Sale record updated successfully!', 'success', 'center');
                         setTimeout(function () {
-                            // window.location.href = "/client/sales";
+                            window.location.href = "/client/sales";
                         }, 1000);
                     } else {
                         this.savingSale = false;

@@ -1,97 +1,75 @@
-import PaymentMethodSelection from '../components/banks/PaymentMethodSelection';
 export const expenseApp = {
     data: {
+        latest: [],
+        expenses: [],
         expenseAmount: 0,
         currentExpense: "",
+        currentExpenseRow: "",
         selectedMethods: [],
-        expenseRecords: ['0'],
+        expenseRecords: [],
         methodToBeChanged: {},
         isPayingExpense: false,
         isSavingExpense: false,
-        expensePaymentMethods: [],
         expenseShowPaymentMethods: false
     },
+    filters: {
+        truncate (str) {
+            if (str.length > 20) {
+                return `${str.substring(0, 20)}...`;
+            }
+            return str;
+        }
+    },
     mounted () {
-        this.expensePaymentMethods = window.paymentMethods;
-        if (this.expensePaymentMethods) {
-            this.selectedMethods.push(this.expensePaymentMethods[0]);
+        this.latest = window.latest;
+        this.expenses = window.expenses;
+        this.addExpenseRecord();
+    },
+    computed: {
+        selectedAccounts () {
+            return this.$store.getters.selectedAccounts;
+        },
+        spreadAmount () {
+            return this.currentExpense.amount - this.currentExpense.amount_paid || 0;
         }
     },
     methods: {
-        showPayExpenseModal (evt) {
+        showExpenseDetails (expense) {
+            this.currentExpense = expense;
+            this.openModal('#expenseDetailsModal');
+        },
+        sortLatest (key) {
+            if (key) {
+                this.latest.sort(function (a, b) {
+                    return b.amount - a.amount;
+                })
+            } else {
+                this.latest.sort(function (a, b) {
+                    return a.amount - b.amount;
+                })
+            }
+        },
+        showPayExpenseModal (evt, expense) {
             let row = evt.target.parentElement.parentElement;
             
             if (!document.querySelector("#expense_date").value) {
                 swal("Oops", "No date specified", "warning");
-            }else if ( row.querySelector('.expenseDescription').value.trim() && row.querySelector('.expenseAmount').value.trim() && !isNaN(row.querySelector('.expenseAmount').value.trim()) && row.querySelector('.expenseAmount').value.trim() > 0) {
-                this.currentExpense = row;
+            }else if ( expense.description.trim() && expense.amount.trim() && !isNaN(Number(expense.amount.trim())) && expense.amount.trim() > 0) {
+                this.currentExpense = expense;
+                this.currentExpenseRow = row;
                 this.openModal("#paymentModal");
             } else {
                 swal("Oops", "Invalid description or amount of expense", "warning");
             }
         },
-        payExpense (evt) {
-            evt.preventDefault();
-            let sum = 0;
-            this.selectedAccounts.forEach((account) => {
-                if ( !isNaN(Number(account.amount)) ) {
-                    sum += Number(account.amount);
-                }
-            });
-            let expenseAmount = Number(this.currentExpense.querySelector('.expenseAmount').value);
-            let details = this.currentExpense.querySelector('.expenseDescription').value.trim();
-            let date = document.querySelector("#expense_date").value;
-            let payBtn = this.currentExpense.querySelector('.payBtn');
-            let paidBtn = this.currentExpense.querySelector('.paid');
-            if ( sum !==  expenseAmount) {
-                swal({
-                    timer: 3000,
-                    toast: true,
-                    type: 'error',
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    title: `Amount payable must be equal to expense amount:${expenseAmount}`,
-                });
-                return;
-            }
-            let formData = new FormData();
-            formData.append('date', date);
-            formData.append('details', details);
-            formData.append('amount', expenseAmount);
-            formData.append('paymentMethods', JSON.stringify(this.selectedAccounts));
-            this.isPayingExpense = true;
-            axios
-                .post('/client/expenses/add', formData)
-                .then(res => {
-                    swal({
-                        timer: 2500,
-                        toast: true,
-                        type: 'success',
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        title: `Payment Made successfully`,
-                    });
-                    this.isPayingExpense = false;
-                    this.currentExpense.querySelector('.expenseAmount').readOnly = true;
-                    payBtn.style.display = "none";
-                    paidBtn.style.display = "block";
-                    this.closeModal('#paymentModal');
-                })
-                .catch(err => {
-                    swal({
-                        timer: 3000,
-                        toast: true,
-                        type: 'error',
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        title: `Unable to complete payment: ${err.response.data.message}`,
-                    });
-                    this.isPayingExpense = false;
-                });
-            
-        },
+
         addExpenseRecord () {
-            this.expenseRecords.push(`record`);
+            let expense = {
+                description: null,
+                amount: null,
+                amount_paid: 0,
+            };
+            this.expenseRecords.push(expense);
         },
         beforeSavingExpenses () {
             let rows = document.querySelectorAll('.records');
@@ -181,6 +159,10 @@ export const expenseApp = {
                     this.isSavingExpense = false;
                 }
             }, 50)
+        },
+        payUnpaidExpenses (expenseId) {
+            this.currentExpense = this.expenses.find(exp => exp.id === expenseId);
+            this.openModal("#paymentModal");
         }
     }
 };

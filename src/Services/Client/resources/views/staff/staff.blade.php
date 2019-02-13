@@ -51,7 +51,7 @@
 <section id="top">
     <div class="container py-3">
         <div class="row ">
-            <h2>Staff</h2>
+            <h2><a href="/client/staff"> Staff</a></h2>
             <span class="accountant ml-auto ">
                 <a href="/client/staff/single-staff" class="btn btn-started">
                     Add Staff
@@ -129,13 +129,22 @@
                                       </td>
 
                                       <td class="flex" >
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
+                                          <div class="dropdown">
+                                              <button class="btn bg-transparent p-0" type="button" id="dropdownMenuButton1">
+                                                  <i class="fa fa-ellipsis-v"></i>
+                                              </button>
+                                              <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:30px; font-size: 20px" aria-labelledby="dropdownMenuButton1">
+                                                  <a class="dropdown-item text-primary" href="client/staff/payment"><i class="fa fa-money"> Salary</i></a>
+                                                  <a class="dropdown-item text-primary" href="/client/staff/edit"><i class="fa fa-edit"></i> Edit</a>
+                                                  <a v-show="worker.isActive === 0"@click.prevent="deactivateStaff(worker)" class="dropdown-item text-danger" href="#"> <i class="fa fa-trash"> Deactivate</i></a>
+                                                  <a v-show="worker.isActive === 1"@click.prevent="deactivateStaff(worker)" class="dropdown-item text-danger" href="#"><i class="fa fa-eye"></i><i class="fa fa-lock-open"> Activate</i></a>
+
+                                              </div>
+                                          </div>
                                         </td>
                                   </tr>
                                   <tr v-if="staff.length === 0">
-                                      <td colspan="7" style="text-align: center">No search result found</td>
+                                      <td colspan="7" style="text-align: center">No result found</td>
                                   </tr>
                                 </tbody>
                             </table>

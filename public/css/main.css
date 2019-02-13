@@ -25,13 +25,13 @@ sales pages
     text-decoration: none;
 }
 tbody tr:hover{
-   
+
     box-shadow: 0rem 0.05rem 0.2rem 0rem rgba(0, 0, 0, 0.5);
 }
 tr{
   /* color:#666; */
   font-weight: 500;
-  
+
 
 }
 td a {
@@ -234,14 +234,46 @@ loan section
 .text-grey{
   color: #B2B2B2;
 }
+
+.show-more{
+  color: #00C259;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+.show-more:hover{
+  color:#FFFFFF;
+  text-decoration: underline;
+}
+
+.show-all{
+  color: #FF8800;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .loa{
-  transition: all 0.5s;
+  /* transition: all 0.5s; */
   box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.1);
 }
+.subtitle {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 15px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+
+  /* color: #696969; */
+}
 .loa:hover {
-  margin-top: -.25rem;
-  margin-bottom: .25rem;
+  color: #FFFFFF!important;
+  background: #00C259!important;
   box-shadow: 2px 3px 3px 2px rgba(0, 0, 0, 0.4);
+}
+.loa:hover .show-more {
+  color: #FFFFFF!important;
 }
 .loan-form .form-group label{
   font-size: 14px;
@@ -363,7 +395,7 @@ buttons
 .btn-secondary {
     background-color: #333;
     text-shadow: none;
-    font-weight: 600;   
+    font-weight: 600;
     color: #fff;
     border: .05rem solid #333;
     /* padding: .8em 4em; */
@@ -647,28 +679,6 @@ tooltips styling
 }
 
 
-.show-more{
-  color: #00C259;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 700;
-}
-.show-more:hover{
-  color:#FDC70C;
-  text-decoration: none;
-}
-
-.show-all{
-  color: #FF8800;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-}
-.show-more:hover{
-  color:#00C259;
-  text-decoration: none;
-}
-
 .p-12{
   font-size: 12px;
   font-weight:700;
@@ -677,7 +687,7 @@ tooltips styling
 #topp{
   box-shadow: 3px 1px 3px 1px rgb(238, 236, 236);
   border-radius: 5px;
-  transition: all 0.5s;
+  /* transition: all 0.5s; */
 }
 .text-green{
   color: #00C259;
@@ -875,6 +885,26 @@ margin: auto;
     display: block;
     width: 100%;
     height: auto;
+}
+
+.loaderTable {
+    width: 250% !important;
+    height: 50% !important;
+}
+.box li {
+    cursor: pointer;
+    background-color: #fdfdfd;
+}
+.box li:hover {
+    cursor: pointer;
+    background-color: #dedede;
+}
+.box {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    position: absolute;
+    margin-top: -25px;
+    border-radius: 3px;
 }
 
 /* This is for Date range Picker */

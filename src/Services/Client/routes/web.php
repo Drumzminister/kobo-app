@@ -70,7 +70,7 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/staff/multiple-staff', 'StaffController@showMultipleStaff')->name('client.single-staff.add');
     Route::post('/staff/single-staff/add', 'StaffController@addSingleStaff')->name('client.single-staff.add');
     Route::post('/staff/multiple-staff/add', 'StaffController@addMultipleStaff')->name('client.multiple-staff.add');
-
+    Route::post('/staff/deactivate/{staffId}', 'StaffController@deactivateStaff');
     Route::get('/staff/search', 'StaffController@searchStaff')->name('client.staff.search');
     Route::post('staff/imageUpload', 'StaffController@imageUpload')->name('client.staffImageUpload');
 
@@ -80,6 +80,7 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/customer/list', 'CustomerController@listAllCustomers')->name('client.customer.list');
     Route::get('/customer/all-customers', 'CustomerController@allCustomers')->name('client.customer.all');
     Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');
+    Route::post('/customer/uploadImage', 'CustomerController@handleImageUpload')->name('customer.imageUpload');
     Route::post('/customer/uploadCsv', 'CustomerController@handleCsvUpload')->name('upload-multiple-customer');
     Route::post('/customer/delete/{customerId}', 'CustomerController@deleteCustomer')->name('delete.customer');
 
@@ -109,6 +110,7 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/vendor/add', 'VendorController@addVendorPage')->name('vendor.add');
     Route::post('/vendor/add', 'VendorController@addVendor')->name('vendor.add');
     Route::get('/vendor/all-vendors', 'VendorController@listVendors')->name('vendor.list');
+    Route::post('/vendor/uploadVendorImage', 'VendorController@uploadVendorImage');
     Route::get('/vendor/search', 'VendorController@searchVendors')->name('vendor.search');
     Route::post('/vendor/{vendorId}/activate', 'VendorController@activateVendor')->name('vendor.activate');
 
@@ -123,6 +125,12 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/opening-pages', 'OpeningPagesController@showOpeningPages')->name('opening-pages.index');
 
     Route::get('/bank', 'BankPagesController@showBankPages')->name('bank.banking-page');
+    Route::post('/bank', 'BankDetailController@addBankDetail')->name('bank.add');
+    Route::patch('/bank', 'BankDetailController@updateBankDetail')->name('bank.update');
+
+    Route::get('/product/add', 'ProductController@addProductPage')->name('add-product');
+    Route::post('/product/add-product', 'ProductController@addProduct')->name('add-product');
+    Route::post('/product/add-product-image', 'ProductController@addProductImage')->name('add-product-image');
 
 });
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');
