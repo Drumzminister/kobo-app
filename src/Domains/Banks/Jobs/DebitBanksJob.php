@@ -17,6 +17,8 @@ class DebitBanksJob extends Job
 	const TRANSACTION_NAMESPACE = '\\App\\Data\\Repositories\\';
 
 	const CLASS_SUFFIX = 'TransactionRepository';
+
+	const TRANSACTION_TYPE = 'debit';
 	/**
 	 * @var array
 	 */
@@ -89,8 +91,9 @@ class DebitBanksJob extends Job
 		$transactionObj = app($this->getTransactionClass());
 		$transactionData =  [
 			'bank_detail_id' => $paymentMode['id'],
-			'amount' => 0,
-            'company_id' => $this->companyId
+			'amount'        => 0,
+            'type'          => self::TRANSACTION_TYPE,
+            'company_id'    => $this->companyId
 		];
 
         $transactionObj->saveTransaction($transactionData, $this->model);
