@@ -78,11 +78,12 @@
                     
                 </div>
             </div>
+
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-4 col-6">
                         <div class="loa bg-orange text-white p-2">
-                            <h4 class="h4">Review Accountant</h4>
+                            <h4 class="h4" data-toggle="modal" data-target="#reviewAccountant">Review Accountant</h4>
                         </div>
                     </div>
                     <div class="col-md-2 col-0"></div>
@@ -178,6 +179,48 @@
  
 </div>
 </section>
+
+
+{{-- view accountant modal --}}
+
+<div class="modal fade" id="reviewAccountant" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reviewAccountantTitle">Review and Rate</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" id="" placeholder="">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Comment</label>
+                <textarea class="form-control" id="" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Other note</label>
+                <input type="text" class="form-control" id="" placeholder="">
+            </div>
+
+            <div class="text-center">
+                <p>Rate Accountant</p>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
