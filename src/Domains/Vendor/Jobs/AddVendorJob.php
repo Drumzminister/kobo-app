@@ -32,6 +32,7 @@ class AddVendorJob extends Job
         $userId = $this->user->id;
         $items = $this->data['items'];
         $added = false;
+//        dd($items);
         foreach($items as $key => $data)
         {
             $data['user_id'] = $userId;

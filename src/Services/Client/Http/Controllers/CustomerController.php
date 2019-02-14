@@ -7,10 +7,12 @@ use App\Services\Client\Features\AllCustomerFeature;
 use App\Services\Client\Features\CustomerFeature;
 use App\Services\Client\Features\AddSingleCustomerFeature;
 use App\Services\Client\Features\DeleteCustomerFeature;
+use App\Services\Client\Features\EditCustomerFeature;
 use App\Services\Client\Features\HandleCsvUploadFeature;
 use App\Services\Client\Features\HandleCustomerImageUploadFeature;
 use App\Services\Client\Features\ListAllCustomersFeature;
 use App\Services\Client\Features\SearchCustomerFeature;
+use App\Services\Client\Features\EditCustomerPageFeature;
 use Illuminate\Http\Request;
 use Lucid\Foundation\Http\Controller;
 
@@ -43,7 +45,14 @@ class CustomerController extends Controller
     {
         return $this->serve(AddSingleCustomerFeature::class);
     }
-    
+    public function editCustomerPage($customerId)
+    {
+        return $this->serve(EditCustomerPageFeature::class, ['customerId' => $customerId]);
+    }
+    public function editCustomer($customerId)
+    {
+        return $this->serve(EditCustomerFeature::class, ['customerId' => $customerId]);
+    }
     public function allCustomers()
     {
         return $this->serve(AllCustomerFeature::class);

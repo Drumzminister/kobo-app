@@ -5,6 +5,7 @@ namespace App\Services\Client\Http\Controllers;
 use App\Services\Client\Features\ActivateVendorFeature;
 use App\Services\Client\Features\AddVendorFeature;
 use App\Services\Client\Features\AddVendorPageFeature;
+use App\Services\Client\Features\EditVendorPageFeature;
 use App\Services\Client\Features\ListVendorsFeature;
 use App\Services\Client\Features\SearchVendorFeature;
 use App\Services\Client\Features\ShowAllVendorFeature;
@@ -35,6 +36,10 @@ class VendorController extends Controller
     public function addVendor()
     {
         return $this->serve(AddVendorFeature::class);
+    }
+    public function editVendorPage()
+    {
+        return $this->serve(EditVendorPageFeature::class);
     }
     public function listVendors()
     {

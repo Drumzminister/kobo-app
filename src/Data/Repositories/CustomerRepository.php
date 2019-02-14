@@ -10,4 +10,8 @@ class CustomerRepository extends Repository
     {
         parent::__construct(new Customer());
     }
+    public function latest($companyId)
+    {
+        return $this->model->where('company_id', $companyId)->latest()->take(10)->get();
+    }
 }
