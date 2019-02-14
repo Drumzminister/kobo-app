@@ -5,33 +5,30 @@ namespace App\Domains\Customer\Jobs;
 use App\Data\Repositories\CustomerRepository;
 use Lucid\Foundation\Job;
 
-/**
- * @property  customerId
- */
-class GetCustomerDataJob extends Job
+class FindCustomerUsingIdJob extends Job
 {
-    private $customer;
-    private $companyId;
-
     /**
      * Create a new job instance.
      *
-     * @param $companyId
+     * @return void
      */
-    public function __construct($companyId)
+    private $userId, $customerId, $customer;
+
+    public function __construct($userId, $customerId)
     {
+        $this->customerId = $customerId;
+        $this->userId = $userId;
         $this->customer = new CustomerRepository();
-        $this->companyId = $companyId;
     }
 
-    /**1
+    /**
      * Execute the job.
      *
      * @return void
      */
     public function handle()
     {
-        $data['customers'] = $this->customer->latest($this->companyId);
+        $data = $this->customer->findBy('id', $this->customerId);
         return $data;
     }
 }

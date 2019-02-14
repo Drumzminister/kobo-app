@@ -85754,13 +85754,15 @@ var staffApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return vendorApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+
 var vendorApp = {
     data: {
         vendorTableRows: [],
         vendors: null,
         search: '',
         vendorFormErrors: [],
-        fileUrls: [],
+        fileUrls: '',
         isLoading: false
     },
 
@@ -85771,14 +85773,18 @@ var vendorApp = {
 
 
     methods: {
-        // uploadImage(event) {
-        //    let file = event.target.files[0];
-        //    let formData = new FormData();
-        //    formData.append('file', file);
-        //    axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
-        //        this.vendorTableRows.push(res.data.data)
-        //    });
-        // },
+        uploadImage: function uploadImage(event) {
+            Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image uploading', 'info');
+            var file = event.target.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
+
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image has been successfully uploaded', 'success');
+            }).catch(function (error) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Error uploading image, try again', 'error');
+            });
+        },
         saveVendor: function saveVendor() {
             var _this = this;
 
@@ -85786,37 +85792,25 @@ var vendorApp = {
             var data = {
                 items: this.vendorTableRows
             };
-
-            var _loop = function _loop(i) {
-                var handle = document.querySelector('.image').files[0];
-                data['items'].forEach(function (image) {
-                    var formData = new FormData();
-                    formData.append('file', handle);
-                    axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
-                        image.image = res.data.data;
-                    });
-                });
-            };
-
-            for (var i = 0; i < data.items.length; i++) {
-                _loop(i);
-            }
-
+            // let totalImages = document.querySelectorAll(".image");  //Total Images
+            // totalImages.forEach(image => {
+            //     let eachImage = image.files[0];
+            //     let formData = new FormData();
+            //     formData.append('file', eachImage);
+            //     axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
+            //     })
+            // })
             console.log(data);
             axios.post('/client/vendor/add', data).then(function (res) {
                 _this.vendorTableRows = [], _this.addNewRow();
-                swal({
-                    title: 'Vendor added!',
-                    text: res.data.message,
-                    type: 'success',
-                    timer: 1500
-                });
+                swal({ title: 'Vendor added!', text: res.data.message, type: 'success', timer: 150 });
                 _this.isLoading = false;
                 _this.vendorFormErrors = "";
-            }).catch(function (error) {
-                _this.vendorFormErrors = error.response.data.errors;
-                _this.isLoading = false;
             });
+            // .catch(error => {
+            //     this.vendorFormErrors = error.response.data.errors;
+            //     this.isLoading = false;
+            // });
         },
         searchVendor: function searchVendor() {
             var _this2 = this;
@@ -85832,7 +85826,7 @@ var vendorApp = {
                 phone: '',
                 email: '',
                 website: '',
-                image: ''
+                image: this.fileUrls
             });
         },
         deleteVendorRow: function deleteVendorRow(row) {
@@ -85867,8 +85861,7 @@ var customerApp = {
         },
         customers: window.customers,
         customerSearch: '',
-        customerFormSubmitted: false,
-        searchNotFound: false
+        customerFormSubmitted: false
     },
     methods: {
         createCustomer: function createCustomer() {
@@ -85880,12 +85873,21 @@ var customerApp = {
                         swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
                             location.reload(true);
                         });
-                    }).catch(function (err) {
-                        swal('Error', 'There was an error adding staff', 'error');
+                    }).catch(function (error) {
+                        var errors = error.response.data['errors'];
+                        for (var err in errors) {
+                            errors[err].forEach(function (message) {
+                                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(message, 'error');
+                            });
+                        }
                     });
                 }
-                _this.errors.items.forEach(function (message) {
-                    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('' + message.msg, 'error');
+            });
+        },
+        editCustomer: function editCustomer(customerId) {
+            axios.post('/client/customer/edit' + customerId, this.customerForm).then(function (res) {
+                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
+                    location.reload(true);
                 });
             });
         },
@@ -85909,6 +85911,8 @@ var customerApp = {
                 var data = res.data.data;
                 var result = 'https://s3.us-east-2.amazonaws.com/koboapp/' + data;
                 _this3.customerForm.image = result;
+            }).catch(function (error) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Error uploading image', 'error');
             });
         },
         deleteCustomer: function deleteCustomer(customerId) {
@@ -96512,6 +96516,7 @@ var map = {
 	"./components/banks/MakeTransfer.vue": 301,
 	"./components/banks/PaymentMethodSelection.vue": 16,
 	"./components/chart/MiniChartComponent.vue": 171,
+	"./components/dashboard/StatComponent.vue": 530,
 	"./components/expenses/ExpensePayment.vue": 304,
 	"./components/inventory/HighestPurchases.vue": 170,
 	"./components/loan/AddLoan.vue": 310,
@@ -122744,6 +122749,218 @@ var bankDetailModule = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 529 */,
+/* 530 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(531)
+/* template */
+var __vue_template__ = __webpack_require__(532)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/dashboard/StatComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4ecb2133", Component.options)
+  } else {
+    hotAPI.reload("data-v-4ecb2133", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 531 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['sales', 'expenses'],
+    computed: {
+        totalSales: function totalSales() {},
+        totalExpense: function totalExpense() {}
+    },
+    mounted: function mounted() {}
+});
+
+/***/ }),
+/* 532 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "bg-white p-3" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("p", [_vm._v("Lorem, ipsum dolor sit amet consectet")]),
+    _vm._v(" "),
+    _c("form", { attrs: { action: "", method: "post" } }, [
+      _vm._m(1),
+      _vm._v(" "),
+      _c("div", { staticClass: "row pt-2 px-2" }, [
+        _c("div", { staticClass: "col-md-4 col-4" }, [
+          _c("h5", { staticClass: "h6 col-net" }, [_vm._v("Total Sales")]),
+          _vm._v(" "),
+          _c("span", { staticClass: "col-net" }, [_vm._v("NGN")]),
+          _vm._v(" "),
+          _c("h5", { staticClass: "text-muted" }, [
+            _vm._v(_vm._s(_vm.$currency.format(3000)))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4 col-4" }, [
+          _c("h5", { staticClass: "h6 col-net" }, [_vm._v("Total Expenses")]),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-warning" }, [_vm._v("NGN")]),
+          _vm._v(" "),
+          _c("h5", { staticClass: "text-muted" }, [
+            _vm._v(_vm._s(_vm.$currency.format(3000)))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4  col-4" }, [
+          _c("h5", { staticClass: "h6 col-net" }, [_vm._v(" Total Profit")]),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-green" }, [_vm._v("NGN")]),
+          _vm._v(" "),
+          _c("h5", { staticClass: "text-muted" }, [
+            _vm._v(_vm._s(_vm.$currency.format(3000)))
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", { staticClass: "h5 pt-2 text-green" }, [
+      _vm._v("STAT ("),
+      _c("span", [_vm._v("₦")]),
+      _vm._v(")")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row pt-2" }, [
+      _c("div", { staticClass: "dates form-group col-md-6 col-6" }, [
+        _c("label", { staticClass: "date", attrs: { for: "date" } }, [
+          _vm._v("Start Date")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            id: "startDate",
+            name: "event_date",
+            placeholder: "DD-MM-YYYY",
+            autocomplete: "off"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "dates form-group col-md-6 col-6" }, [
+        _c("label", { staticClass: "date", attrs: { for: "date" } }, [
+          _vm._v("End Date")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            id: "endDate",
+            name: "event_date",
+            placeholder: "DD-MM-YYYY",
+            autocomplete: "off"
+          }
+        })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4ecb2133", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
