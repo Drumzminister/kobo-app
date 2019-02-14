@@ -30,7 +30,7 @@
                         @else
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h5 class="h5">No Loan Taken</h5>
+                                    <h5 class="h5">No Expenses Recorded</h5>
                                 </div>
                             </div>
                         @endif
