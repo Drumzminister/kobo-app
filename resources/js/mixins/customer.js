@@ -19,20 +19,25 @@ export const customerApp = {
             this.$validator.validate().then(valid => {
                 if (valid) {
                     axios.post('/client/customer/add', this.customerForm).then(res => {
-                        console.log(res.response.data)
                         swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false}).then(() => {
-                            // location.reload(true);
+                            location.reload(true);
                         })
-                    }).catch(err => {
-                            let errors = err.response.data['errors']['email'];
-                            errors.forEach(error => {
-                                console.log(error)
+                    }).catch(error => {
+                        let errors = error.response.data['errors'];
+                        for (let err in errors){
+                            errors[err].forEach(message => {
+                                toast(message, 'error')
                             })
+                        }
                     });
                 }
-                this.errors.items.forEach(message => {
-                    toast(`${message.msg}`, `error`);
-                });
+            })
+        },
+        editCustomer(customerId) {
+            axios.post(`/client/customer/edit${customerId}`, this.customerForm).then(res => {
+                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false}).then(() => {
+                    location.reload(true);
+                })
             });
         },
         searchCustomer() {
@@ -51,6 +56,8 @@ export const customerApp = {
                 let data = res.data.data;
                 let result = `https://s3.us-east-2.amazonaws.com/koboapp/${data}`;
                 this.customerForm.image = result;
+            }).catch(error => {
+                toast('Error uploading image', 'error')
             });
         },
         deleteCustomer(customerId) {

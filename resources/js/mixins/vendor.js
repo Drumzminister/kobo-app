@@ -1,3 +1,4 @@
+import {toast} from "../helpers/alert";
 export const vendorApp = {
     data:{
         vendorTableRows:[],
@@ -15,13 +16,16 @@ export const vendorApp = {
 
     methods: {
         uploadImage(event) {
+            toast('Image uploading', 'info')
            let file = event.target.files[0];
            let formData = new FormData();
            formData.append('file', file);
            axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
 
+            toast('Image has been successfully uploaded', 'success')
+           }).catch(error => {
+               toast('Error uploading image, try again', 'error')
            });
-
         },
         saveVendor() {
             this.isLoading = true;
