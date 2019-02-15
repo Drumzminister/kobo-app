@@ -34,14 +34,14 @@ export const vendorApp = {
     },
 
     methods: {
-        uploadImage(event) {
+        uploadImage(event, index) {
             toast('Image uploading', 'info')
-           let file = event.target.files[0];
-           let formData = new FormData();
-           formData.append('file', file);
-           axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
-
-            toast('Image has been successfully uploaded', 'success')
+            let file = event.target.files[0];
+            let formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
+                toast('Image has been successfully uploaded', 'success');
+                this.vendorTableRows[index].image = res.data.data;
            }).catch(error => {
                toast('Error uploading image, try again', 'error')
            });

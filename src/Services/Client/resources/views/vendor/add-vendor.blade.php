@@ -42,7 +42,7 @@
                                 </td>
                                 <td><input   v-model="content.website" id="website" type="text" class="form-control website">
                                 </td>
-                                <td><input type="file" @change="uploadImage($event)" class="form-control image" id="image">
+                                <td><input type="file" @change="uploadImage($event, index)" class="form-control image" id="image">
                                 </td>
                                 <td id="delete" @click='deleteVendorRow(index)'><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
