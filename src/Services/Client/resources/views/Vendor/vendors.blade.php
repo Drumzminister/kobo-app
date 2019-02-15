@@ -52,6 +52,7 @@
                     {{--<a slot="invoice_number" @click.prevent="showSaleInvoice(props.index - 1)" slot-scope="props" href="">@{{ props.row.invoice_number }}</a>--}}
                     {{--<span slot="created_at" slot-scope="props">@{{ resolveSaleDate(props.row.created_at) }}</span>--}}
                 </v-client-table>
+
                 {{--<div class="table-responsive table-responsive-sm">--}}
                     {{--<table class="table table-striped table-hover" id="dataTable">--}}
                         {{--<thead class="p-3">--}}
