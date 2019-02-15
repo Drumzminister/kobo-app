@@ -7,33 +7,33 @@ export const vendorApp = {
         vendorFormErrors: [],
         fileUrls: '',
         isLoading: false,
-        columns: [
-            'Name',
-            'Address',
-            'Phone Number',
-            'Email',
-            'Website',
-        ],
-        options: {
-            filterByColumn: true,
-            // texts: {
-            //     filterBy: 'Filter by {column}',
-            //     count:''
-            // },
-            dateColumns: ['created_at'],
-            datepickerOptions: {
-                showDropdowns: true,
-                autoUpdateInput: true,
-            },
-            headings: {
-                name: 'Name',
-                address: 'Address',
-                phone_number: 'Phone Number',
-                email: 'Email',
-                website: 'Website',
-            },
-            filterable: ['name', 'address', 'phone_number', 'email', 'website']
-        },
+        // columns: [
+        //     'Name',
+        //     'Address',
+        //     'Phone Number',
+        //     'Email',
+        //     'Website',
+        // ],
+        // options: {
+        //     filterByColumn: true,
+        //     // texts: {
+        //     //     filterBy: 'Filter by {column}',
+        //     //     count:''
+        //     // },
+        //     dateColumns: ['created_at'],
+        //     datepickerOptions: {
+        //         showDropdowns: true,
+        //         autoUpdateInput: true,
+        //     },
+        //     headings: {
+        //         name: 'Name',
+        //         address: 'Address',
+        //         phone_number: 'Phone Number',
+        //         email: 'Email',
+        //         website: 'Website',
+        //     },
+        //     filterable: ['name', 'address', 'phone_number', 'email', 'website']
+        // },
     },
     created() {
         this.vendors = this.user_vendors;
