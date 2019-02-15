@@ -78,7 +78,7 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/customer/add', 'CustomerController@showCustomer')->name('client.customer.add');
     Route::post('/customer/add', 'CustomerController@addCustomer')->name('client.customer.add');
     Route::get('/customer/edit/{customerId}', 'CustomerController@editCustomerPage')->name('client.customer.edit');
-    Route::post('/customer/edit', 'CustomerController@editCustomer')->name('client.customer.edit');
+    Route::post('/customer/update/{customerId}', 'CustomerController@updateCustomer')->name('client.customer.edit');
     Route::get('/customer/list', 'CustomerController@listAllCustomers')->name('client.customer.list');
     Route::get('/customer/all-customers', 'CustomerController@allCustomers')->name('client.customer.all');
     Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');

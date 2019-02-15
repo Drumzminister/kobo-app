@@ -1,16 +1,35 @@
 import {toast} from "../helpers/alert";
 export const vendorApp = {
-    data:{
-        vendorTableRows:[],
+    data: {
+        vendorTableRows: [],
         vendors: null,
         search: '',
         vendorFormErrors: [],
         fileUrls: '',
-        isLoading: false
+        isLoading: false,
+        // columns: [
+        //     'Time',
+        //     'Time',
+        //     'Time',
+        //     'Time',
+        //     'Time',
+        // ],
+        // options: {
+        //     filterByColumn: true,
+        //     // texts: {
+        //     //     filterBy: 'Filter by {column}',
+        //     //     count:''
+        //     // },
+        //     dateColumns: ['created_at'],
+        //     datepickerOptions: {
+        //         showDropdowns: true,
+        //         autoUpdateInput: true,
+        //     }
+        // },
     },
-
     created() {
         this.vendors = this.user_vendors;
+        console.log(this.vendors);
         this.addNewRow();
     },
 

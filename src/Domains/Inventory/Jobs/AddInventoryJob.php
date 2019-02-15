@@ -2,11 +2,11 @@
 
 namespace App\Domains\Inventory\Jobs;
 
+use App\Data\Repositories\CreditorRepository;
 use App\Data\Repositories\InventoryItemRepository;
 use App\Domains\Banks\Jobs\DebitBanksJob;
 use http\Env\Request;
 use App\Data\Repositories\InventoryRepository;
-use Koboaccountant\Repositories\Opening\CreditorRepository;
 use Lucid\Foundation\Job;
 
 class AddInventoryJob extends Job
@@ -53,9 +53,9 @@ class AddInventoryJob extends Job
         if ($debit->status !== 'success') {
             throw new \Exception($debit->message);
         }
-
-        //Todo move the user to the debitor
-        $this->checkAmountPaid($this->data['amount_paid'], $this->data['total_cost_price']);
+        if($this->data['amount_paid'] < $this->data['total_cost_price']) {
+            $this->checkAmountPaid($this->data['amount_paid'], $this->data['total_cost_price'], $this->companyId, $this->userId, $this->data['vendor_id'], $this->data['invoice_number'], $this->data['delivered_date']);
+        }
 
         if($debit->status === 'success') {
 
@@ -75,16 +75,26 @@ class AddInventoryJob extends Job
 
     /**
      * @param $amountPaid
-     * @param $expectedAmount
+     * @param $expectedAmount $user_id, $vendor_id, $invoice_number, $date
+     * @param $company_id
+     * @param $user_id
+     * @param $vendor_id
+     * @param $invoice_number
+     * @param $date
+     * @return bool
+     * @throws \Exception
      */
-    private function checkAmountPaid($amountPaid, $expectedAmount) {
-        if (!empty(auth()->user()->id)) {
-            $user = auth()->user()->id;
-        }
-        /** @var TYPE_NAME $userCompany */
-        $userCompany = auth()->user()->company->id;
-        if ($amountPaid < $expectedAmount) {
-           //New up the repository and fill the item, amount and date
-        }
+    private function checkAmountPaid($amountPaid, $expectedAmount, $company_id, $user_id, $vendor_id, $invoice_number, $date)
+    {
+        $amount = $expectedAmount - $amountPaid ;
+        $data['amount'] = $amount;
+        $data['user_id'] = $user_id;
+        $data['company_id'] = $company_id;
+        $data['vendor_id'] = $vendor_id;
+        $data['invoice_number'] = $invoice_number;
+        $data['date'] = $date;
+        $creditor = new CreditorRepository();
+        $creditor->fillAndSave($data);
+        return true;
     }
 }

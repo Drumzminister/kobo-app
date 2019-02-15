@@ -1,4 +1,5 @@
 import {toast} from "../helpers/alert";
+import {appModal} from "./appModals";
 export const customerApp = {
     data:{
         customerForm: {
@@ -13,6 +14,8 @@ export const customerApp = {
         customers: window.customers,
         customerSearch: '',
         customerFormSubmitted: false,
+        editingCustomer: {},
+        param: 'Justice',
     },
     methods: {
         createCustomer() {
@@ -33,12 +36,25 @@ export const customerApp = {
                 }
             })
         },
-        editCustomer(customerId) {
-            axios.post(`/client/customer/edit${customerId}`, this.customerForm).then(res => {
-                swal({type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false}).then(() => {
-                    location.reload(true);
-                })
-            });
+        updateCustomer() {
+            console.log(this.editingCustomer);
+            axios.post(`/client/customer/update/${this.editingCustomer.id}`, this.editingCustomer).then(res => {
+                toast('Customer updated successfully', 'success');
+                this.closeModal('#editCustomerModal')
+            })
+        },
+        editCustomer(evt, customer) {
+            this.editingCustomer = {...customer};
+            this.openModel('#editCustomerModal');
+        },
+        closeCustomerModal(id){
+          this.closeModal(id);
+        },
+        openModel(id) {
+           $(id).modal('toggle');
+        },
+        closeModal(id) {
+            $(id).modal('hide');
         },
         searchCustomer() {
            axios.get(`/client/customer/search?param=${this.customerSearch}`).then(res => {

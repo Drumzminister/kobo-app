@@ -49,7 +49,7 @@ class CustomerController extends Controller
     {
         return $this->serve(EditCustomerPageFeature::class, ['customerId' => $customerId]);
     }
-    public function editCustomer($customerId)
+    public function updateCustomer($customerId)
     {
         return $this->serve(EditCustomerFeature::class, ['customerId' => $customerId]);
     }

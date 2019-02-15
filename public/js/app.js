@@ -4724,6 +4724,45 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 /* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return toast; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return confirmSomethingWithAlert; });
+var swal = __webpack_require__(45);
+
+var toast = function toast(title, type) {
+    var position = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "top-end";
+
+    var toast = swal.mixin({
+        toast: true,
+        position: position,
+        showConfirmButton: false,
+        timer: 3000
+    });
+
+    toast({
+        type: type,
+        title: title
+    });
+};
+
+var confirmSomethingWithAlert = function confirmSomethingWithAlert(message) {
+    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Are you sure?';
+
+    return swal.fire({
+        title: title,
+        text: message,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    });
+};
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/*!
@@ -4904,45 +4943,6 @@ module.exports = function normalizeComponent (
 
 })(typeof module === 'object' && module && typeof module.exports === 'object' && module.exports);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)(module)))
-
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return toast; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return confirmSomethingWithAlert; });
-var swal = __webpack_require__(45);
-
-var toast = function toast(title, type) {
-    var position = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "top-end";
-
-    var toast = swal.mixin({
-        toast: true,
-        position: position,
-        showConfirmButton: false,
-        timer: 3000
-    });
-
-    toast({
-        type: type,
-        title: title
-    });
-};
-
-var confirmSomethingWithAlert = function confirmSomethingWithAlert(message) {
-    var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Are you sure?';
-
-    return swal.fire({
-        title: title,
-        text: message,
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes'
-    });
-};
 
 /***/ }),
 /* 6 */
@@ -68563,7 +68563,7 @@ var Bank = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__API__ = __webpack_require__(30);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -69002,7 +69002,7 @@ exports.default = function (source) {
   }, extra);
 };
 
-var _merge = __webpack_require__(4);
+var _merge = __webpack_require__(5);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -71210,7 +71210,7 @@ exports.default = function (useVuex, source) {
   return data;
 };
 
-var _merge = __webpack_require__(4);
+var _merge = __webpack_require__(5);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -77468,7 +77468,7 @@ var rentApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return loanApp; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(4);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -77801,7 +77801,7 @@ var loanApp = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_v_select2_component__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_v_select2_component__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_alert__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent__ = __webpack_require__(171);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent__);
 
@@ -77932,6 +77932,7 @@ var inventoryApp = {
             this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
             this.inventoryForm.tax_amount = this.inventoryTax;
             this.inventoryForm.balance = this.saveBalance();
+            this.inventoryForm.amount_paid = this.getTotalAmountPaid();
             var amountReminder = Number(this.inventoryForm.total_cost_price) - Number(this.getTotalAmountPaid());
             this.$validator.validate().then(function (valid) {
                 if (valid) {
@@ -78047,7 +78048,7 @@ var inventoryApp = {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_alert__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -85632,7 +85633,7 @@ if (false) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return staffApp; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(4);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 
@@ -85754,7 +85755,7 @@ var staffApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return vendorApp; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(4);
 
 var vendorApp = {
     data: {
@@ -85764,10 +85765,29 @@ var vendorApp = {
         vendorFormErrors: [],
         fileUrls: '',
         isLoading: false
+        // columns: [
+        //     'Time',
+        //     'Time',
+        //     'Time',
+        //     'Time',
+        //     'Time',
+        // ],
+        // options: {
+        //     filterByColumn: true,
+        //     // texts: {
+        //     //     filterBy: 'Filter by {column}',
+        //     //     count:''
+        //     // },
+        //     dateColumns: ['created_at'],
+        //     datepickerOptions: {
+        //         showDropdowns: true,
+        //         autoUpdateInput: true,
+        //     }
+        // },
     },
-
     created: function created() {
         this.vendors = this.user_vendors;
+        console.log(this.vendors);
         this.addNewRow();
     },
 
@@ -85846,7 +85866,11 @@ var vendorApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return customerApp; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appModals__ = __webpack_require__(29);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
 
 var customerApp = {
     data: {
@@ -85861,7 +85885,9 @@ var customerApp = {
         },
         customers: window.customers,
         customerSearch: '',
-        customerFormSubmitted: false
+        customerFormSubmitted: false,
+        editingCustomer: {},
+        param: 'Justice'
     },
     methods: {
         createCustomer: function createCustomer() {
@@ -85884,23 +85910,38 @@ var customerApp = {
                 }
             });
         },
-        editCustomer: function editCustomer(customerId) {
-            axios.post('/client/customer/edit' + customerId, this.customerForm).then(function (res) {
-                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
-                    location.reload(true);
-                });
-            });
-        },
-        searchCustomer: function searchCustomer() {
+        updateCustomer: function updateCustomer() {
             var _this2 = this;
 
-            axios.get('/client/customer/search?param=' + this.customerSearch).then(function (res) {
-                _this2.customers = '';
-                var result = _this2.customers = res.data;
+            console.log(this.editingCustomer);
+            axios.post("/client/customer/update/" + this.editingCustomer.id, this.editingCustomer).then(function (res) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Customer updated successfully', 'success');
+                _this2.closeModal('#editCustomerModal');
+            });
+        },
+        editCustomer: function editCustomer(evt, customer) {
+            this.editingCustomer = _extends({}, customer);
+            this.openModel('#editCustomerModal');
+        },
+        closeCustomerModal: function closeCustomerModal(id) {
+            this.closeModal(id);
+        },
+        openModel: function openModel(id) {
+            $(id).modal('toggle');
+        },
+        closeModal: function closeModal(id) {
+            $(id).modal('hide');
+        },
+        searchCustomer: function searchCustomer() {
+            var _this3 = this;
+
+            axios.get("/client/customer/search?param=" + this.customerSearch).then(function (res) {
+                _this3.customers = '';
+                var result = _this3.customers = res.data;
             });
         },
         getAndProcessCustomerImage: function getAndProcessCustomerImage(event) {
-            var _this3 = this;
+            var _this4 = this;
 
             Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Your image is uploading', 'info');
             var file = event.target.files[0];
@@ -85909,14 +85950,14 @@ var customerApp = {
             axios.post('/client/customer/uploadImage', formData).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image uploaded', 'success');
                 var data = res.data.data;
-                var result = 'https://s3.us-east-2.amazonaws.com/koboapp/' + data;
-                _this3.customerForm.image = result;
+                var result = "https://s3.us-east-2.amazonaws.com/koboapp/" + data;
+                _this4.customerForm.image = result;
             }).catch(function (error) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Error uploading image', 'error');
             });
         },
         deleteCustomer: function deleteCustomer(customerId) {
-            axios.post('/client/customer/delete/' + customerId).then(function (res) {
+            axios.post("/client/customer/delete/" + customerId).then(function (res) {
                 swal({
                     type: 'success',
                     title: 'Success',
@@ -96451,7 +96492,7 @@ var expenseApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return productApp; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_select2_component__);
 
@@ -96721,7 +96762,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Bank__ = __webpack_require__(179);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -97652,7 +97693,7 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_alert__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -98864,7 +98905,7 @@ exports.push([module.i, "\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__banks_PaymentMethodSelection__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__banks_PaymentMethodSelection__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -100532,7 +100573,7 @@ exports.push([module.i, "\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(4);
 //
 //
 //
@@ -100859,7 +100900,7 @@ exports.push([module.i, "\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(4);
 //
 //
 //
@@ -101281,7 +101322,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addSale; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__ = __webpack_require__(180);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__classes_API__ = __webpack_require__(30);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -103741,7 +103782,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateSale; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_SaleItem__ = __webpack_require__(180);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__classes_API__ = __webpack_require__(30);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -113830,7 +113871,7 @@ var _normal = __webpack_require__(185);
 
 var _normal2 = _interopRequireDefault(_normal);
 
-var _merge = __webpack_require__(4);
+var _merge = __webpack_require__(5);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -114018,7 +114059,7 @@ var _config = __webpack_require__(358);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _merge = __webpack_require__(4);
+var _merge = __webpack_require__(5);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -114628,7 +114669,7 @@ module.exports = function () {
 "use strict";
 
 
-var merge = __webpack_require__(4);
+var merge = __webpack_require__(5);
 
 module.exports = function (defaults, globalOptions, localOptions) {
 
@@ -114845,7 +114886,7 @@ module.exports = function () {
 "use strict";
 
 
-var merge = __webpack_require__(4);
+var merge = __webpack_require__(5);
 
 module.exports = function () {
 
@@ -114944,7 +114985,7 @@ module.exports = function () {
 "use strict";
 
 
-var merge = __webpack_require__(4);
+var merge = __webpack_require__(5);
 
 module.exports = function (filter) {
 
@@ -120566,7 +120607,7 @@ var _mutations = __webpack_require__(484);
 
 var _mutations2 = _interopRequireDefault(_mutations);
 
-var _merge = __webpack_require__(4);
+var _merge = __webpack_require__(5);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -120619,7 +120660,7 @@ exports.default = function (self) {
   return state;
 };
 
-var _merge = __webpack_require__(4);
+var _merge = __webpack_require__(5);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -120712,7 +120753,7 @@ exports.default = function (self) {
   }), _defineProperty(_merge$recursive, self.name + '/SORTED', function undefined(state, data) {}), _defineProperty(_merge$recursive, self.name + '/ROW_CLICK', function undefined(state, row) {}), _defineProperty(_merge$recursive, self.name + '/FILTER', function undefined(state, row) {}), _defineProperty(_merge$recursive, self.name + '/LIMIT', function undefined(state, limit) {}), _merge$recursive), extra);
 };
 
-var _merge = __webpack_require__(4);
+var _merge = __webpack_require__(5);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -120875,7 +120916,7 @@ module.exports = function () {
 "use strict";
 
 
-var _merge = __webpack_require__(4);
+var _merge = __webpack_require__(5);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -120990,7 +121031,7 @@ module.exports = function (h, modules, classes, slots) {
 "use strict";
 
 
-var _merge = __webpack_require__(4);
+var _merge = __webpack_require__(5);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -121356,7 +121397,7 @@ module.exports = function (h) {
 "use strict";
 
 
-var _merge = __webpack_require__(4);
+var _merge = __webpack_require__(5);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -122302,7 +122343,7 @@ module.exports = function (value) {
 "use strict";
 
 
-var _merge = __webpack_require__(4);
+var _merge = __webpack_require__(5);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -122495,7 +122536,7 @@ module.exports = function () {
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var merge = __webpack_require__(4);
+var merge = __webpack_require__(5);
 
 module.exports = function (promiseOnly) {
   var _data;

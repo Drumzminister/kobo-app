@@ -12,11 +12,13 @@ class CreateCreditorsTable extends Migration
     public function up()
     {
         Schema::create('creditors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('item');
-            $table->double('amount');
-            $table->timestamp('date');
+            $table->string('id')->primary();
+            $table->string('user_id')->index();
+            $table->string('vendor_id');
+            $table->string('invoice_number');
+            $table->string('company_id');
+            $table->date('date');
+            $table->decimal('amount', 11, 2);
             $table->timestamps();
         });
     }

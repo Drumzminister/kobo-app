@@ -16,7 +16,7 @@ class EditCustomerPageFeature extends Feature
     }
     public function handle(Request $request)
     {
-        $data = $this->run(FindCustomerUsingIdJob::class, ['userId' => auth()->id(), 'customerId' => $this->customerId]);
-        return $this->run(new RespondWithViewJob('client::customer.edit-customer', ['data' => $data]));
+        $customer = $this->run(FindCustomerUsingIdJob::class, ['userId' => auth()->id(), 'customerId' => $this->customerId]);
+        return $this->run(new RespondWithViewJob('client::customer.edit-customer', ['customer' => $customer]));
     }
 }

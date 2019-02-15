@@ -95,6 +95,11 @@ class AddForeignKeysToTables extends Migration
 	       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 	       $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
+	    Schema::table('creditors', function(Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
+        });
     }
 
     /**
@@ -169,6 +174,11 @@ class AddForeignKeysToTables extends Migration
             $table->dropForeign('loans_company_id_foreign');
             $table->dropForeign('loans_user_id_foreign');
             $table->dropForeign('loans_loan_source_id_foreign');
+        });
+        Schema::table('creditors', function(Blueprint $table) {
+           $table->dropForeign('creditors_user_id_foreign');
+           $table->dropForeign('creditors_company_id_foreign');
+            $table->dropForeign('creditors_vendor_id_foreign');
         });
     }
 }
