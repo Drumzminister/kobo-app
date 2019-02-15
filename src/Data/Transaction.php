@@ -17,7 +17,7 @@ class Transaction extends Model
 
 	protected $fillable = [
 		'id', 'bank_detail_id', 'kobo_id', 'sale_id', 'expense_id', 'purchase_id', 'inventory_id', 'amount',
-		'company_id', 'loan_id', 'transaction_category_id', 'note', 'isProcessed'
+		'company_id', 'loan_id', 'transaction_category_id', 'note', 'isProcessed', 'type'
 	];
 
 //	protected $with = ['paymentMode'];

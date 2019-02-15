@@ -3,12 +3,13 @@
 namespace App\Services\Client\Features;
 
 use App\Domains\Customer\Jobs\AddCustomerJob;
+use App\Services\Client\Http\Requests\AddCustomerRequest;
 use Lucid\Foundation\Feature;
 use Illuminate\Http\Request;
 
 class AddSingleCustomerFeature extends Feature
 {
-    public function handle(Request $request)
+    public function handle(AddCustomerRequest $request)
     {
         $data = $request->all();
         $data['user_id'] = auth()->id();
@@ -16,7 +17,7 @@ class AddSingleCustomerFeature extends Feature
         $customer = $this->run(AddCustomerJob::class, ['data' => $data]);
 
         if($customer)
-            return response()->json(['message' => 'Customer added successfully.', 'data' => $customer]);
+            return response()->json(['data' => $customer]);
 
         return response()->json(['error', 'Unable to add customer']);
     }

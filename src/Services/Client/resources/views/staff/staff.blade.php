@@ -114,7 +114,8 @@
                                 <tbody>
                                   <tr v-for="(worker, index) in staff" :key="index">
                                         <td> <a href="" class="left-modal" data-toggle="modal" data-target="#exampleModal" @click.prevent="staffModal(worker)">
-                                            <img src="{{asset('img/account-client.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                                            <img v-if="worker.avatar":src="worker.avatar" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                                            <img v-show="! worker.avatar" src="{{asset('img/avatar.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
                                             <span class="pl-3"> @{{ worker.first_name }} @{{ worker.last_name }}</span>
                                             </a>
                                         </td>
@@ -160,8 +161,9 @@
             <div class="modal-body">
                 <div class="nav flex-sm-column flex-row">
                     <div class="product-details text-center">
-                            <img :src="StaffInformation.avatar" alt="Staff Logo" srcset="" class="rounded-circle img-fluid">
-                            <h5 class="h5">@{{ StaffInformation.name }}
+                            <img v-if="StaffInformation.avatar" :src="StaffInformation.avatar" alt="Staff Logo" srcset="" class="rounded-circle img-fluid">
+                            <img v-show="! StaffInformation.avatar" src="{{asset('img/avatar.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid service-img">
+                        <h5 class="h5">@{{ StaffInformation.name }}
                             </h5>
                             <p class="text-muted">@{{ StaffInformation.role }}</p>
 

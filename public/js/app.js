@@ -77968,6 +77968,7 @@ var inventoryApp = {
             this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
             this.inventoryForm.tax_amount = this.inventoryTax;
             this.inventoryForm.balance = this.saveBalance();
+            this.inventoryForm.amount_paid = this.getTotalAmountPaid();
             var amountReminder = Number(this.inventoryForm.total_cost_price) - Number(this.getTotalAmountPaid());
             this.$validator.validate().then(function (valid) {
                 if (valid) {
@@ -85774,75 +85775,90 @@ var staffApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return vendorApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+
 var vendorApp = {
     data: {
         vendorTableRows: [],
-        vendors: null,
+        vendors: window.vendors,
         search: '',
         vendorFormErrors: [],
-        fileUrls: [],
+        fileUrls: '',
         isLoading: false
+        // columns: [
+        //     'Name',
+        //     'Address',
+        //     'Phone Number',
+        //     'Email',
+        //     'Website',
+        // ],
+        // options: {
+        //     filterByColumn: true,
+        //     // texts: {
+        //     //     filterBy: 'Filter by {column}',
+        //     //     count:''
+        //     // },
+        //     dateColumns: ['created_at'],
+        //     datepickerOptions: {
+        //         showDropdowns: true,
+        //         autoUpdateInput: true,
+        //     },
+        //     headings: {
+        //         name: 'Name',
+        //         address: 'Address',
+        //         phone_number: 'Phone Number',
+        //         email: 'Email',
+        //         website: 'Website',
+        //     },
+        //     filterable: ['name', 'address', 'phone_number', 'email', 'website']
+        // },
     },
-
     created: function created() {
         this.vendors = this.user_vendors;
+        console.log(this.vendors);
         this.addNewRow();
     },
 
 
     methods: {
-        // uploadImage(event) {
-        //    let file = event.target.files[0];
-        //    let formData = new FormData();
-        //    formData.append('file', file);
-        //    axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
-        //        this.vendorTableRows.push(res.data.data)
-        //    });
-        // },
-        saveVendor: function saveVendor() {
+        uploadImage: function uploadImage(event, index) {
             var _this = this;
+
+            Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image uploading', 'info');
+            var file = event.target.files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image has been successfully uploaded', 'success');
+                _this.vendorTableRows[index].image = res.data.data;
+            }).catch(function (error) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Error uploading image, try again', 'error');
+            });
+        },
+        saveVendor: function saveVendor() {
+            var _this2 = this;
 
             this.isLoading = true;
             var data = {
                 items: this.vendorTableRows
             };
-
-            var _loop = function _loop(i) {
-                var handle = document.querySelector('.image').files[0];
-                data['items'].forEach(function (image) {
-                    var formData = new FormData();
-                    formData.append('file', handle);
-                    axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
-                        image.image = res.data.data;
-                    });
-                });
-            };
-
-            for (var i = 0; i < data.items.length; i++) {
-                _loop(i);
-            }
-
             console.log(data);
             axios.post('/client/vendor/add', data).then(function (res) {
-                _this.vendorTableRows = [], _this.addNewRow();
-                swal({
-                    title: 'Vendor added!',
-                    text: res.data.message,
-                    type: 'success',
-                    timer: 1500
-                });
-                _this.isLoading = false;
-                _this.vendorFormErrors = "";
-            }).catch(function (error) {
-                _this.vendorFormErrors = error.response.data.errors;
-                _this.isLoading = false;
+                _this2.vendorTableRows = [], _this2.addNewRow();
+                swal({ title: 'Vendor added!', text: res.data.message, type: 'success', timer: 150 });
+                _this2.isLoading = false;
+                _this2.vendorFormErrors = "";
             });
+            // .catch(error => {
+            //     this.vendorFormErrors = error.response.data.errors;
+            //     this.isLoading = false;
+            // });
         },
         searchVendor: function searchVendor() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/client/vendor/search?param=' + this.search).then(function (res) {
-                _this2.vendors = res.data;
+                _this3.vendors = res.data;
             });
         },
         addNewRow: function addNewRow() {
@@ -85852,7 +85868,7 @@ var vendorApp = {
                 phone: '',
                 email: '',
                 website: '',
-                image: ''
+                image: this.fileUrls
             });
         },
         deleteVendorRow: function deleteVendorRow(row) {
@@ -85873,6 +85889,10 @@ var vendorApp = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return customerApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appModals__ = __webpack_require__(29);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
 
 var customerApp = {
     data: {
@@ -85888,7 +85908,8 @@ var customerApp = {
         customers: window.customers,
         customerSearch: '',
         customerFormSubmitted: false,
-        searchNotFound: false
+        editingCustomer: {},
+        param: 'Justice'
     },
     methods: {
         createCustomer: function createCustomer() {
@@ -85900,25 +85921,49 @@ var customerApp = {
                         swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
                             location.reload(true);
                         });
-                    }).catch(function (err) {
-                        swal('Error', 'There was an error adding staff', 'error');
+                    }).catch(function (error) {
+                        var errors = error.response.data['errors'];
+                        for (var err in errors) {
+                            errors[err].forEach(function (message) {
+                                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(message, 'error');
+                            });
+                        }
                     });
                 }
-                _this.errors.items.forEach(function (message) {
-                    Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('' + message.msg, 'error');
-                });
             });
         },
-        searchCustomer: function searchCustomer() {
+        updateCustomer: function updateCustomer() {
             var _this2 = this;
 
-            axios.get('/client/customer/search?param=' + this.customerSearch).then(function (res) {
-                _this2.customers = '';
-                var result = _this2.customers = res.data;
+            console.log(this.editingCustomer);
+            axios.post("/client/customer/update/" + this.editingCustomer.id, this.editingCustomer).then(function (res) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Customer updated successfully', 'success');
+                _this2.closeModal('#editCustomerModal');
+            });
+        },
+        editCustomer: function editCustomer(evt, customer) {
+            this.editingCustomer = _extends({}, customer);
+            this.openModel('#editCustomerModal');
+        },
+        closeCustomerModal: function closeCustomerModal(id) {
+            this.closeModal(id);
+        },
+        openModel: function openModel(id) {
+            $(id).modal('toggle');
+        },
+        closeModal: function closeModal(id) {
+            $(id).modal('hide');
+        },
+        searchCustomer: function searchCustomer() {
+            var _this3 = this;
+
+            axios.get("/client/customer/search?param=" + this.customerSearch).then(function (res) {
+                _this3.customers = '';
+                var result = _this3.customers = res.data;
             });
         },
         getAndProcessCustomerImage: function getAndProcessCustomerImage(event) {
-            var _this3 = this;
+            var _this4 = this;
 
             Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Your image is uploading', 'info');
             var file = event.target.files[0];
@@ -85927,12 +85972,14 @@ var customerApp = {
             axios.post('/client/customer/uploadImage', formData).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image uploaded', 'success');
                 var data = res.data.data;
-                var result = 'https://s3.us-east-2.amazonaws.com/koboapp/' + data;
-                _this3.customerForm.image = result;
+                var result = "https://s3.us-east-2.amazonaws.com/koboapp/" + data;
+                _this4.customerForm.image = result;
+            }).catch(function (error) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Error uploading image', 'error');
             });
         },
         deleteCustomer: function deleteCustomer(customerId) {
-            axios.post('/client/customer/delete/' + customerId).then(function (res) {
+            axios.post("/client/customer/delete/" + customerId).then(function (res) {
                 swal({
                     type: 'success',
                     title: 'Success',
