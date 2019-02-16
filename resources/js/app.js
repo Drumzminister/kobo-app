@@ -78,5 +78,8 @@ window.app = new Vue({
         },
     },
     data: {},
-    methods: {}
+    methods: {
+    },
+    mounted () {
+    }
 });
