@@ -79,40 +79,6 @@ window.app = new Vue({
     },
     data: {},
     methods: {
-        beautify (event) {
-            // event.srcElement.attr('type', 'text');
-            // console
-            // event.srcElement.focus = function (event) {
-            //     $(this).attr('type', 'text');
-            // };
-
-            event.srcElement.onkeyup = function(event) {
-                // alert("Typing");
-                // When user select text in the document, also abort.
-                let selection = window.getSelection().toString();
-                if (selection !== '') {
-                    return;
-                }
-                // When the arrow keys are pressed, abort.
-                if ( $.inArray( event.keyCode, [38, 40, 37, 39] ) !== -1 ) {
-                    return;
-                }
-
-                let $this = $(this);
-                // Get the value.
-                let input = $this.val();
-
-                input = input.replace(/[\D\s\._\-]+/g, "");
-                input = input ? parseInt( input, 10 ) : 0;
-
-                $this.val( function() {
-                    return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
-                });
-
-                console.log(val);
-            };
-            console.log(event);
-        }
     },
     mounted () {
     }
