@@ -65,14 +65,13 @@
                                 <td>@{{ customer.email }}</td>
                                 <td>@{{ customer.website }}no-light </td>
 
-                              <td v-show="searchNotFound">No Data found</td>
                                 <td class="flex" >
                                     <div class="dropdown">
                                         <button class="btn bg-transparent p-0" type="button" id="dropdownMenuButton1">
                                             <i class="fa fa-ellipsis-v"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:10px; font-size: 16px" aria-labelledby="dropdownMenuButton1">
-                                            <a :href=`/client/customer/edit/${customer.id}` class="dropdown-item text-primary"><i class="fa fa-edit"> Edit</i></a>
+                                            <a @click="editCustomer($event, customer)" class="dropdown-item text-primary" style="cursor: pointer"><i class="fa fa-edit"> Edit</i></a>
                                             <a @click.prevent="deleteCustomer(customer.id)" class="dropdown-item text-danger" href="#"><i class="fa fa-trash"> Delete</i></a>
                                         </div>
                                     </div>
@@ -89,9 +88,58 @@
         </div>
     </section>
 
+    {{--Update Modal--}}
+<div class="modal fade" id="editCustomerModal" tabindex="-1" role="dialog" aria-labelledby="editCustomerModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="container p-3">
+                <button type="button" class="close" @click="closeCustomerModal('editCustomerModal')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="h5 uppercase" id="">Edit Customer - @{{ editingCustomer.first_name }} @{{ editingCustomer.last_name }}<em></em></h5>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="first_name" class="d-block"><h5>First Name</h5></label>
+                        <input type="text" step="0.01" class="form-control" v-model="editingCustomer.first_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="d-block"><h5>Name</h5></label>
+                        <input type="text" step="0.01" class="form-control" v-model="editingCustomer.last_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="d-block"><h5>Address</h5></label>
+                        <input type="text" class="form-control" v-model="editingCustomer.address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="d-block"><h5>Phone</h5></label>
+                        <input type="text" class="form-control" v-model="editingCustomer.phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount" class="d-block"><h5>Email</h5></label>
+                        <input type="text" class="form-control" v-model="editingCustomer.email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="website" class="d-block"><h5>Website</h5></label>
+                        <input type="text" class="form-control" v-model="editingCustomer.website">
+                    </div>
+                    <div @click="updateCustomer" class="justify-content-around text-center pt-2">
+                                <span style="cursor: pointer" class="submit">
+                                    <i class="fa fa-telegram " style="font-size:48px; color:#00C259;"></i>
+                                </span>
+                        <h5 @click="updateCustomer" class="h5 text-green">Update Customer</h5>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @endsection
 @section('other_js')
-<script>
-window.customers = @json($customers)
-</script>
+    <script>
+            window.customers = @json($customers)
+    </script>
+    @include('client::customer._update_customer_model')
 @endsection

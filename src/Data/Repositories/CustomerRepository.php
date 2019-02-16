@@ -14,4 +14,9 @@ class CustomerRepository extends Repository
     {
         return $this->model->where('company_id', $companyId)->latest()->take(10)->get();
     }
+    public function update(array $data, $customer) {
+        $customer = $this->find($customer);
+        $customer->update($data);
+        return $customer;
+    }
 }

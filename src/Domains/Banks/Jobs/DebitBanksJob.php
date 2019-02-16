@@ -91,7 +91,7 @@ class DebitBanksJob extends Job
 		$transactionObj = app($this->getTransactionClass());
 		$transactionData =  [
 			'bank_detail_id' => $paymentMode['id'],
-			'amount'        => 0,
+			'amount'        => $paymentMode['amount'],
             'type'          => self::TRANSACTION_TYPE,
             'company_id'    => $this->companyId
 		];

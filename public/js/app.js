@@ -71662,7 +71662,43 @@ window.app = new Vue({
         }
     },
     data: {},
-    methods: {}
+    methods: {
+        beautify: function beautify(event) {
+            // event.srcElement.attr('type', 'text');
+            // console
+            // event.srcElement.focus = function (event) {
+            //     $(this).attr('type', 'text');
+            // };
+
+            event.srcElement.onkeyup = function (event) {
+                // alert("Typing");
+                // When user select text in the document, also abort.
+                var selection = window.getSelection().toString();
+                if (selection !== '') {
+                    return;
+                }
+                // When the arrow keys are pressed, abort.
+                if ($.inArray(event.keyCode, [38, 40, 37, 39]) !== -1) {
+                    return;
+                }
+
+                var $this = $(this);
+                // Get the value.
+                var input = $this.val();
+
+                input = input.replace(/[\D\s\._\-]+/g, "");
+                input = input ? parseInt(input, 10) : 0;
+
+                $this.val(function () {
+                    return input === 0 ? "" : input.toLocaleString("en-US");
+                });
+
+                console.log(val);
+            };
+            console.log(event);
+        }
+    },
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -77932,6 +77968,7 @@ var inventoryApp = {
             this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
             this.inventoryForm.tax_amount = this.inventoryTax;
             this.inventoryForm.balance = this.saveBalance();
+            this.inventoryForm.amount_paid = this.getTotalAmountPaid();
             var amountReminder = Number(this.inventoryForm.total_cost_price) - Number(this.getTotalAmountPaid());
             this.$validator.validate().then(function (valid) {
                 if (valid) {
@@ -78050,6 +78087,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_alert__ = __webpack_require__(5);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
 //
 //
 //
@@ -78452,36 +78491,18 @@ var render = function() {
                   "div",
                   { staticClass: "show input-group input-group-lg mt-3" },
                   [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: paymentMethod.amount,
-                          expression: "paymentMethod.amount"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      staticStyle: { height: "39px" },
+                    _c("money-input", {
+                      class: "form-control",
                       attrs: {
-                        disabled: _vm.readOnly,
-                        type: "number",
-                        min: "1",
-                        "aria-label": "Sizing example input",
-                        "aria-describedby": "",
+                        model:
+                          "salePaymentMethods." +
+                          index +
+                          ".paymentMethod.amount",
                         placeholder: "0.00"
-                      },
-                      domProps: { value: paymentMethod.amount },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(paymentMethod, "amount", $event.target.value)
-                        }
                       }
                     })
-                  ]
+                  ],
+                  1
                 )
               ]),
               _vm._v(" "),
@@ -85759,53 +85780,74 @@ var staffApp = {
 var vendorApp = {
     data: {
         vendorTableRows: [],
-        vendors: null,
+        vendors: window.vendors,
         search: '',
         vendorFormErrors: [],
         fileUrls: '',
         isLoading: false
+        // columns: [
+        //     'Name',
+        //     'Address',
+        //     'Phone Number',
+        //     'Email',
+        //     'Website',
+        // ],
+        // options: {
+        //     filterByColumn: true,
+        //     // texts: {
+        //     //     filterBy: 'Filter by {column}',
+        //     //     count:''
+        //     // },
+        //     dateColumns: ['created_at'],
+        //     datepickerOptions: {
+        //         showDropdowns: true,
+        //         autoUpdateInput: true,
+        //     },
+        //     headings: {
+        //         name: 'Name',
+        //         address: 'Address',
+        //         phone_number: 'Phone Number',
+        //         email: 'Email',
+        //         website: 'Website',
+        //     },
+        //     filterable: ['name', 'address', 'phone_number', 'email', 'website']
+        // },
     },
-
     created: function created() {
         this.vendors = this.user_vendors;
+        console.log(this.vendors);
         this.addNewRow();
     },
 
 
     methods: {
-        uploadImage: function uploadImage(event) {
+        uploadImage: function uploadImage(event, index) {
+            var _this = this;
+
             Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image uploading', 'info');
             var file = event.target.files[0];
             var formData = new FormData();
             formData.append('file', file);
             axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
-
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image has been successfully uploaded', 'success');
+                _this.vendorTableRows[index].image = res.data.data;
             }).catch(function (error) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Error uploading image, try again', 'error');
             });
         },
         saveVendor: function saveVendor() {
-            var _this = this;
+            var _this2 = this;
 
             this.isLoading = true;
             var data = {
                 items: this.vendorTableRows
             };
-            // let totalImages = document.querySelectorAll(".image");  //Total Images
-            // totalImages.forEach(image => {
-            //     let eachImage = image.files[0];
-            //     let formData = new FormData();
-            //     formData.append('file', eachImage);
-            //     axios.post('/client/vendor/uploadVendorImage', formData).then(res => {
-            //     })
-            // })
             console.log(data);
             axios.post('/client/vendor/add', data).then(function (res) {
-                _this.vendorTableRows = [], _this.addNewRow();
+                _this2.vendorTableRows = [], _this2.addNewRow();
                 swal({ title: 'Vendor added!', text: res.data.message, type: 'success', timer: 150 });
-                _this.isLoading = false;
-                _this.vendorFormErrors = "";
+                _this2.isLoading = false;
+                _this2.vendorFormErrors = "";
             });
             // .catch(error => {
             //     this.vendorFormErrors = error.response.data.errors;
@@ -85813,10 +85855,10 @@ var vendorApp = {
             // });
         },
         searchVendor: function searchVendor() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/client/vendor/search?param=' + this.search).then(function (res) {
-                _this2.vendors = res.data;
+                _this3.vendors = res.data;
             });
         },
         addNewRow: function addNewRow() {
@@ -85847,6 +85889,10 @@ var vendorApp = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return customerApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_alert__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appModals__ = __webpack_require__(29);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
 
 var customerApp = {
     data: {
@@ -85861,7 +85907,9 @@ var customerApp = {
         },
         customers: window.customers,
         customerSearch: '',
-        customerFormSubmitted: false
+        customerFormSubmitted: false,
+        editingCustomer: {},
+        param: 'Justice'
     },
     methods: {
         createCustomer: function createCustomer() {
@@ -85884,23 +85932,38 @@ var customerApp = {
                 }
             });
         },
-        editCustomer: function editCustomer(customerId) {
-            axios.post('/client/customer/edit' + customerId, this.customerForm).then(function (res) {
-                swal({ type: 'success', title: 'Success', text: res.data.message, timer: 3000, showConfirmButton: false }).then(function () {
-                    location.reload(true);
-                });
-            });
-        },
-        searchCustomer: function searchCustomer() {
+        updateCustomer: function updateCustomer() {
             var _this2 = this;
 
-            axios.get('/client/customer/search?param=' + this.customerSearch).then(function (res) {
-                _this2.customers = '';
-                var result = _this2.customers = res.data;
+            console.log(this.editingCustomer);
+            axios.post("/client/customer/update/" + this.editingCustomer.id, this.editingCustomer).then(function (res) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Customer updated successfully', 'success');
+                _this2.closeModal('#editCustomerModal');
+            });
+        },
+        editCustomer: function editCustomer(evt, customer) {
+            this.editingCustomer = _extends({}, customer);
+            this.openModel('#editCustomerModal');
+        },
+        closeCustomerModal: function closeCustomerModal(id) {
+            this.closeModal(id);
+        },
+        openModel: function openModel(id) {
+            $(id).modal('toggle');
+        },
+        closeModal: function closeModal(id) {
+            $(id).modal('hide');
+        },
+        searchCustomer: function searchCustomer() {
+            var _this3 = this;
+
+            axios.get("/client/customer/search?param=" + this.customerSearch).then(function (res) {
+                _this3.customers = '';
+                var result = _this3.customers = res.data;
             });
         },
         getAndProcessCustomerImage: function getAndProcessCustomerImage(event) {
-            var _this3 = this;
+            var _this4 = this;
 
             Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Your image is uploading', 'info');
             var file = event.target.files[0];
@@ -85909,14 +85972,14 @@ var customerApp = {
             axios.post('/client/customer/uploadImage', formData).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image uploaded', 'success');
                 var data = res.data.data;
-                var result = 'https://s3.us-east-2.amazonaws.com/koboapp/' + data;
-                _this3.customerForm.image = result;
+                var result = "https://s3.us-east-2.amazonaws.com/koboapp/" + data;
+                _this4.customerForm.image = result;
             }).catch(function (error) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Error uploading image', 'error');
             });
         },
         deleteCustomer: function deleteCustomer(customerId) {
-            axios.post('/client/customer/delete/' + customerId).then(function (res) {
+            axios.post("/client/customer/delete/" + customerId).then(function (res) {
                 swal({
                     type: 'success',
                     title: 'Success',
@@ -96518,6 +96581,7 @@ var map = {
 	"./components/chart/MiniChartComponent.vue": 171,
 	"./components/dashboard/StatComponent.vue": 304,
 	"./components/expenses/ExpensePayment.vue": 307,
+	"./components/inputs/MoneyInput.vue": 533,
 	"./components/inventory/HighestPurchases.vue": 170,
 	"./components/loan/AddLoan.vue": 313,
 	"./components/loan/AllLoans.vue": 318,
@@ -122919,6 +122983,10 @@ var bankDetailModule = {
         minimumFractionDigits: 2
     });
 
+    Vue.beautify = function (event) {
+        console.log(event.target);
+    };
+
     Object.defineProperties(Vue.prototype, {
         $currency: {
             get: function get() {
@@ -122960,6 +123028,167 @@ var bankDetailModule = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 532 */,
+/* 533 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(534)
+/* template */
+var __vue_template__ = __webpack_require__(535)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/inputs/MoneyInput.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-15e53435", Component.options)
+  } else {
+    hotAPI.reload("data-v-15e53435", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 534 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['model', 'placeholder', 'classes'],
+    data: function data() {
+        return {
+            localModel: ""
+        };
+    },
+
+    computed: {
+        numberValue: function numberValue() {
+            return this.localModel.replace(/,/gi, '');
+        }
+    },
+    watch: {
+        localModel: function localModel(oldVal) {
+            var _this = this;
+
+            var parts = this.model.split('.');
+            if (parts.length === 1 || parts.length === 0) {
+                this.$parent[this.model] = this.numberValue;
+
+                return;
+            }
+
+            var currentObj = null;
+            parts.forEach(function (p) {
+                if (currentObj === null) {
+                    currentObj = _this.$parent[p];
+                } else {
+                    if (_typeof(currentObj[p]) === "object") currentObj = currentObj[p];else currentObj[p] = _this.numberValue;
+                }
+            });
+        }
+    },
+    methods: {
+        beautify: function beautify(event) {
+            var _this2 = this;
+
+            event.srcElement.onkeyup = function (ev) {
+                var selection = window.getSelection().toString();
+                if (selection !== '') {
+                    return;
+                }
+                // When the arrow keys are pressed, abort.
+                if ($.inArray(ev.keyCode, [38, 40, 37, 39]) !== -1) {
+                    return;
+                }
+
+                var $this = ev.target;
+                // Get the value.
+                var input = $this.value;
+
+                input = input.replace(/[\D\s\._\-]+/g, "");
+                input = input ? parseInt(input, 10) : 0;
+                $this.value = _this2.localModel = input === 0 ? "" : input.toLocaleString("en-US");;
+            };
+        }
+    }
+});
+
+/***/ }),
+/* 535 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("input", {
+    directives: [
+      {
+        name: "model",
+        rawName: "v-model",
+        value: _vm.localModel,
+        expression: "localModel"
+      }
+    ],
+    class: _vm.classes,
+    attrs: { type: "text", placeholder: _vm.placeholder || "input" },
+    domProps: { value: _vm.localModel },
+    on: {
+      keyup: _vm.beautify,
+      input: function($event) {
+        if ($event.target.composing) {
+          return
+        }
+        _vm.localModel = $event.target.value
+      }
+    }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-15e53435", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

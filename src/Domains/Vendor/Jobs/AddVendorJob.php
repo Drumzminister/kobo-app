@@ -25,14 +25,15 @@ class AddVendorJob extends Job
     /**
      * Execute the job.
      *
-     * @return void
+     * @return bool|\Illuminate\Database\Eloquent\Model
+     * @throws \Exception
      */
     public function handle()
     {
         $userId = $this->user->id;
         $items = $this->data['items'];
         $added = false;
-//        dd($items);
+        dd($items);
         foreach($items as $key => $data)
         {
             $data['user_id'] = $userId;
