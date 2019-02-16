@@ -85764,14 +85764,8 @@ var vendorApp = {
         search: '',
         vendorFormErrors: [],
         fileUrls: '',
-        isLoading: false
-        // columns: [
-        //     'Name',
-        //     'Address',
-        //     'Phone Number',
-        //     'Email',
-        //     'Website',
-        // ],
+        isLoading: false,
+        columns: ['Name', 'Address', 'Phone Number', 'Email', 'Website']
         // options: {
         //     filterByColumn: true,
         //     // texts: {
