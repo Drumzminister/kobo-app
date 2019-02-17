@@ -45,7 +45,7 @@
                     Other Informations
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item " href="/client/bank">Banking</a>
+                        <a class="dropdown-item " href="/client/banking">Banking</a>
                         <a class="dropdown-item" href="/client/opening-pages">Opening Pages</a>
                         <a class="dropdown-item" href="/client/creditors">Creditors</a>
                         <a class="dropdown-item" href="/client/debtors">Debtors</a>
