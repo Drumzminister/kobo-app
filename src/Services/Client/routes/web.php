@@ -77,6 +77,8 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/customer', 'CustomerController@index')->name('client.customer');
     Route::get('/customer/add', 'CustomerController@showCustomer')->name('client.customer.add');
     Route::post('/customer/add', 'CustomerController@addCustomer')->name('client.customer.add');
+    Route::get('/customer/edit/{customerId}', 'CustomerController@editCustomerPage')->name('client.customer.edit');
+    Route::post('/customer/update/{customerId}', 'CustomerController@updateCustomer')->name('client.customer.edit');
     Route::get('/customer/list', 'CustomerController@listAllCustomers')->name('client.customer.list');
     Route::get('/customer/all-customers', 'CustomerController@allCustomers')->name('client.customer.all');
     Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');
@@ -109,6 +111,8 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/vendor/list', 'VendorController@showAllVendor')->name('vendor.show');
     Route::get('/vendor/add', 'VendorController@addVendorPage')->name('vendor.add');
     Route::post('/vendor/add', 'VendorController@addVendor')->name('vendor.add');
+    Route::get('/vendor/edit', 'VendorController@editVendorPage')->name('vendor.edit');
+    Route::post('/vendor/edit', 'VendorController@editVendorPage')->name('vendor.edit');
     Route::get('/vendor/all-vendors', 'VendorController@listVendors')->name('vendor.list');
     Route::post('/vendor/uploadVendorImage', 'VendorController@uploadVendorImage');
     Route::get('/vendor/search', 'VendorController@searchVendors')->name('vendor.search');

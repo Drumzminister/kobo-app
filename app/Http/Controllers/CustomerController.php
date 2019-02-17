@@ -1,12 +1,10 @@
+
 <?php
 
 namespace Koboaccountant\Http\Controllers;
 
 use Koboaccountant\Repositories\Customer\CustomerRepository;
 use Koboaccountant\Http\Requests\CustomerRegistrationRequest;
-use Illuminate\Http\Request;
-use Koboaccountant\Models\Company;
-use Koboaccountant\Models\Customer;
 
 class CustomerController extends Controller
 {

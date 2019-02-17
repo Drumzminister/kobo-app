@@ -26,6 +26,7 @@ class AddCustomerJob extends Job
      */
     public function handle()
     {
-        return $this->customer->fillAndSave($this->data);
+        $store = $this->customer->fillAndSave($this->data);
+        return response()->json(['data' => $store]);
     }
 }

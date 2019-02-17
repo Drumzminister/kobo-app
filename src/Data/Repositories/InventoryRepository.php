@@ -10,7 +10,10 @@ class InventoryRepository extends Repository
     {
         parent::__construct(new Inventory);
     }
-
+    public function fetchWithVendorAndInventory($companyId)
+    {
+        return $this->model->newQuery()->where('company_id', $companyId)->with('vendor', 'inventoryItem')->latest()->take(20)->get();
+    }
     public function getAvailableInventories($companyId)
     {
     	return $this->model->newQuery()->where('company_id', '=', $companyId)->latest()->get();

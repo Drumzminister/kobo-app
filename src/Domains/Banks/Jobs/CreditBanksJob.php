@@ -17,7 +17,7 @@ class CreditBanksJob extends Job
 
 	const CLASS_SUFFIX = 'TransactionRepository';
 
-    const TRANSACTION_TYPE = 'debit';
+    const TRANSACTION_TYPE = 'credit';
 	/**
 	 * @var array
 	 */

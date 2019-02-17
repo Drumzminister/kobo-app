@@ -121,6 +121,7 @@ export const inventoryApp = {
             this.inventoryForm.total_sales_price = this.calculateTotalSalesPrice();
             this.inventoryForm.tax_amount = this.inventoryTax;
             this.inventoryForm.balance = this.saveBalance()
+            this.inventoryForm.amount_paid = this.getTotalAmountPaid();
             let amountReminder = Number(this.inventoryForm.total_cost_price) - Number(this.getTotalAmountPaid());
             this.$validator.validate().then(valid => {
                 if(valid) {
