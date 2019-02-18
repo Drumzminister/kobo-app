@@ -3,8 +3,8 @@
 @section("content")
 {{-- heading section --}}
 <section id="top">
-        <div class="container p-2">
-            <div class="row p-1">
+        <div class="container p-2">      
+                 <div class="row p-1">
                     <h2><a href="/client/customer" class="text-dark"> Customers</a></h2>
                     <span class="accountant ml-auto ">
                 <a href="/client/customer/add" class="btn btn-started">
@@ -17,6 +17,7 @@
 {{-- end of heading section --}}
 
 <section id="sale-table">
+    
         <div class="container mt-4">             
             <div class="bg-white p-4">
                 <div class="row p-3">
@@ -37,13 +38,14 @@
                                 <h4 class= "h4">Customers List </h4>
                             </div>
 
-                            <div class="input-group mt-2">
+                            <div class="input-group">
                                 <input type="text" v-model="search" class="form-control" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
                                    <a href="#"> <span @click.prevent="searchCustomer" class="input-group-text vat-input append-border px-5" id="basic-addon2">Search</span></a>
                                 </div>
                             </div>
                     </div>
+                    
                 
                 <div class="table-responsive table-responsive-sm">
                     <table class="table table-striped table-hover" id="dataTable">
@@ -65,12 +67,13 @@
                                 <td>@{{ customer.email }}</td>
                                 <td>@{{ customer.website }}no-light </td>
 
-                                <td class="flex" >
+                       
+                                <td class="" >
                                     <div class="dropdown">
-                                        <button class="btn bg-transparent p-0" type="button" id="dropdownMenuButton1">
+                                        <button class="btn bg-transparent p-0 " type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-ellipsis-v"></i>
                                         </button>
-                                        <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:10px; font-size: 16px" aria-labelledby="dropdownMenuButton1">
+                                        <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:10px; font-size: 16px" aria-labelledby="dropdownMenuButton2">
                                             <a @click="editCustomer($event, customer)" class="dropdown-item text-primary" style="cursor: pointer"><i class="fa fa-edit"> Edit</i></a>
                                             <a @click.prevent="deleteCustomer(customer.id)" class="dropdown-item text-danger" href="#"><i class="fa fa-trash"> Delete</i></a>
                                         </div>
