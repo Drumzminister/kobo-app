@@ -15,7 +15,8 @@
         <div class="bg-white p-5">
             <div class="row">
                 <div class="col-md-4 img-in">
-                    <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle">
+                    <img v-if="! customerForm.image"src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle">
+                    <img v-show="customerForm.image" v-bind:src="customerForm.image" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle"/>
                     <div class="overlay">
                         <div class="text form-group">
                             <input type="file" @click="imageReset" @change="getAndProcessCustomerImage($event)" class="form-control-file" id="staffPhoto">
