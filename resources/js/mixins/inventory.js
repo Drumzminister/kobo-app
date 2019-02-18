@@ -78,9 +78,6 @@ export const inventoryApp = {
         MiniChart: MiniChart
     },
     mounted () {
-        if(this.user_vendors) {
-            this.inventoryForm.vendor_id = this.user_vendors.vendors[0]
-        }
         this.fetchAllPurchases();
         this.purchase = this.all_purchases;
         if (this.taxes)

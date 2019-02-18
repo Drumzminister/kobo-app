@@ -77887,9 +77887,6 @@ var inventoryApp = {
         MiniChart: __WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent___default.a
     },
     mounted: function mounted() {
-        if (this.user_vendors) {
-            this.inventoryForm.vendor_id = this.user_vendors.vendors[0];
-        }
         this.fetchAllPurchases();
         this.purchase = this.all_purchases;
         if (this.taxes) this.inventoryForm.tax_id = this.taxes[2];
@@ -85876,13 +85873,16 @@ var customerApp = {
         customerSearch: '',
         customerFormSubmitted: false,
         editingCustomer: {},
-        imageLoading: false,
+        imageUploaded: false,
         imageIsLoading: false
     },
     methods: {
         createCustomer: function createCustomer() {
             var _this = this;
 
+            if (this.imageIsLoading) {
+                return Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Please wait your image is still loading', 'info');
+            }
             this.$validator.validate().then(function (valid) {
                 if (valid) {
                     axios.post('/client/customer/add', _this.customerForm).then(function (res) {
@@ -85948,11 +85948,10 @@ var customerApp = {
             axios.post('/client/customer/uploadImage', formData).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image uploaded', 'success');
                 _this4.imageIsLoading = false;
-                _this4.imageLoading = true;
+                _this4.imageUploaded = true;
                 var data = res.data.data;
                 var result = "https://s3.us-east-2.amazonaws.com/koboapp/" + data;
                 _this4.customerForm.image = result;
-                return true;
             }).catch(function (error) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Error uploading image', 'error');
             });

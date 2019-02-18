@@ -26,7 +26,7 @@
                     <div v-show="imageIsLoading"class="spinner-border text-success" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
-                    <div v-show="imageLoading">
+                    <div v-show="imageUploaded">
                         <i style="color:green; font-size: 30px"class="fa fa-check-circle"></i>Uploaded
                     </div>
                 </h5>
@@ -50,14 +50,14 @@
                     <div class="col-md-8">
                         <label for="first name">First Name</label>
                         <input v-model="customerForm.first_name" name="Name" v-validate="'required'" type="text" class="form-control bg-grey" autofocus >
-                        <div v-if="customerFormSubmitted && errors.has('Name')" class="text-danger">@{{ errors.first('Name') }}</div><br>
+                        <div  class="text-danger">@{{ errors.first('Name') }}</div><br>
 
                         <label for="last name">Last name</label>
                         <input v-model="customerForm.last_name" type="text" class="form-control bg-grey" id="" ><br>
 
                         <label for="phone">Phone number</label>
                         <input v-model="customerForm.phone" name="phone" type="text" v-validate="'required|min:11'" class="form-control bg-grey" id="" >
-                        <div v-if="customerFormSubmitted && errors.has('phone')" class="text-danger">@{{ errors.first('phone') }}</div><br>
+                        <div class="text-danger">@{{ errors.first('phone') }}</div><br>
 
                         <label for="phone">Email</label>
                         <input v-model="customerForm.email" v-validate="'email'" name="email" type="text" class="form-control bg-grey" id="" >

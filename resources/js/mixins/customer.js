@@ -15,11 +15,14 @@ export const customerApp = {
         customerSearch: '',
         customerFormSubmitted: false,
         editingCustomer: {},
-        imageLoading: false,
+        imageUploaded: false,
         imageIsLoading: false,
     },
     methods: {
         createCustomer() {
+            if(this.imageIsLoading) {
+                return toast('Please wait your image is still loading', 'info')
+            }
             this.$validator.validate().then(valid => {
                 if (valid) {
                     axios.post('/client/customer/add', this.customerForm).then(res => {
@@ -79,11 +82,10 @@ export const customerApp = {
             axios.post('/client/customer/uploadImage', formData).then(res => {
                 toast('Image uploaded', 'success')
                 this.imageIsLoading = false;
-                this.imageLoading = true;
+                this.imageUploaded = true;
                 let data = res.data.data;
                 let result = `https://s3.us-east-2.amazonaws.com/koboapp/${data}`;
                 this.customerForm.image = result;
-                return true;
             }).catch(error => {
                 toast('Error uploading image', 'error')
             });
