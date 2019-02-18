@@ -26,6 +26,6 @@ class UploadVendorImageJob extends Job
     {
         $ext = $this->data->getClientOriginalExtension();
         $store = $this->data->storeAs('vendor', auth()->id().time().".{$ext}", 's3', 'public');
-        return response()->json(['data' => $store]);
+        return response()->json(['data' => "https://s3.us-east-2.amazonaws.com/koboapp/" . $store]);
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class AddVendorFeature extends Feature
 {
-    public function handle(AddVendorRequest $request)
+    public function handle(AddVendorRequest $request) //Remember to use AddVendorRequest
     {
         $added = $this->run(AddVendorJob::class, ['data' => $request->all(), 'user' => auth()->user()]);
 
