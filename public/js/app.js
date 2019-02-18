@@ -85784,14 +85784,8 @@ var vendorApp = {
         search: '',
         vendorFormErrors: [],
         fileUrls: '',
-        isLoading: false
-        // columns: [
-        //     'Name',
-        //     'Address',
-        //     'Phone Number',
-        //     'Email',
-        //     'Website',
-        // ],
+        isLoading: false,
+        columns: ['Name', 'Address', 'Phone Number', 'Email', 'Website']
         // options: {
         //     filterByColumn: true,
         //     // texts: {
@@ -123027,6 +123021,9 @@ var bankDetailModule = {
 /* 531 */
 /***/ (function(module, exports) {
 
+<<<<<<< HEAD
+throw new Error("Module build failed: ModuleBuildError: Module build failed: Error: Missing binding C:\\laragon\\www\\kobo-app\\node_modules\\node-sass\\vendor\\win32-x64-67\\binding.node\nNode Sass could not find a binding for your current environment: Windows 64-bit with Node.js 11.x\n\nFound bindings for the following environments:\n  - Windows 64-bit with Node.js 8.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (C:\\laragon\\www\\kobo-app\\node_modules\\node-sass\\lib\\binding.js:15:13)\n    at Object.<anonymous> (C:\\laragon\\www\\kobo-app\\node_modules\\node-sass\\lib\\index.js:14:35)\n    at Module._compile (internal/modules/cjs/loader.js:734:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:745:10)\n    at Module.load (internal/modules/cjs/loader.js:626:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:566:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:558:3)\n    at Module.require (internal/modules/cjs/loader.js:663:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\kobo-app\\node_modules\\sass-loader\\lib\\loader.js:3:14)\n    at Module._compile (internal/modules/cjs/loader.js:734:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:745:10)\n    at Module.load (internal/modules/cjs/loader.js:626:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:566:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:558:3)\n    at Module.require (internal/modules/cjs/loader.js:663:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:13:17)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:173:18\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:36:3)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:173:18\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:36:3)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at runLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:362:2)\n    at NormalModule.doBuild (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModule.js:182:3)\n    at NormalModule.build (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModule.js:275:15)\n    at runLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModule.js:195:19)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:364:11\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:170:18\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:27:11)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:173:18\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:36:3)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:173:18\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:36:3)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at runLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:362:2)\n    at NormalModule.doBuild (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModule.js:182:3)\n    at NormalModule.build (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModule.js:275:15)\n    at Compilation.buildModule (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\Compilation.js:157:10)\n    at moduleFactory.create (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\Compilation.js:460:10)\n    at factory (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModuleFactory.js:243:5)\n    at applyPluginsAsyncWaterfall (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModuleFactory.js:94:13)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\tapable\\lib\\Tapable.js:268:11\n    at NormalModuleFactory.params.normalModuleFactory.plugin (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\CompatibilityPlugin.js:52:5)\n    at NormalModuleFactory.applyPluginsAsyncWaterfall (C:\\laragon\\www\\kobo-app\\node_modules\\tapable\\lib\\Tapable.js:272:13)\n    at resolver (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModuleFactory.js:69:10)\n    at process.nextTick (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModuleFactory.js:196:7)\n    at processTicksAndRejections (internal/process/next_tick.js:74:9)");
+=======
 // removed by extract-text-webpack-plugin
 
 /***/ }),
@@ -123189,6 +123186,7 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-15e53435", module.exports)
   }
 }
+>>>>>>> 5706f1291d3d8a0518c9531799ccbb0e5fefe976
 
 /***/ })
 /******/ ]);

@@ -7,13 +7,13 @@ export const vendorApp = {
         vendorFormErrors: [],
         fileUrls: '',
         isLoading: false,
-        // columns: [
-        //     'Name',
-        //     'Address',
-        //     'Phone Number',
-        //     'Email',
-        //     'Website',
-        // ],
+        columns: [
+            'Name',
+            'Address',
+            'Phone Number',
+            'Email',
+            'Website',
+        ],
         // options: {
         //     filterByColumn: true,
         //     // texts: {
