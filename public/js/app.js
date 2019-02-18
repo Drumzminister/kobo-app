@@ -77848,7 +77848,6 @@ var inventoryApp = {
         products: window.products,
         InventorySelectSettings: {
             placeholder: 'Inventory',
-            // multiple: true,
             language: {
                 noResults: function noResults() {
                     return "<a href=\"/client/product/add\" })\"><span class=\"fa fa-plus\"></span> Add Product</button>";
@@ -85749,33 +85748,6 @@ var vendorApp = {
         vendorFormErrors: [],
         fileUrls: '',
         isLoading: false
-        // columns: [
-        //     'Name',
-        //     'Address',
-        //     'Phone Number',
-        //     'Email',
-        //     'Website',
-        // ],
-        // // options: {
-        // //     filterByColumn: true,
-        // //     // texts: {
-        // //     //     filterBy: 'Filter by {column}',
-        // //     //     count:''
-        // //     // },
-        // //     dateColumns: ['created_at'],
-        // //     datepickerOptions: {
-        // //         showDropdowns: true,
-        // //         autoUpdateInput: true,
-        // //     },
-        // //     headings: {
-        // //         name: 'Name',
-        // //         address: 'Address',
-        // //         phone_number: 'Phone Number',
-        // //         email: 'Email',
-        // //         website: 'Website',
-        // //     },
-        // //     filterable: ['name', 'address', 'phone_number', 'email', 'website']
-        // // },
     },
     created: function created() {
         this.vendors = this.user_vendors;
@@ -85787,21 +85759,35 @@ var vendorApp = {
         uploadImage: function uploadImage(event, index) {
             var _this = this;
 
+            this.vendorTableRows[index].vendorImageIsLoading = true;
+            this.vendorTableRows[index].vendorImageNotLoading = false;
             Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image uploading', 'info');
             var file = event.target.files[0];
             var formData = new FormData();
             formData.append('file', file);
             axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image has been successfully uploaded', 'success');
+                _this.vendorTableRows[index].vendorImageIsLoading = false;
+                _this.vendorTableRows[index].vendorImageIsLoaded = true;
                 _this.vendorTableRows[index].image = res.data.data;
-                // console.log(this.vendorTableRows[index].image)
             }).catch(function (error) {
+                _this.vendorTableRows[index].vendorImageIsLoading = false;
+                _this.vendorTableRows[index].vendorImageNotUpLoaded = false;
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Error uploading image, try again', 'error');
+                _this.vendorTableRows[index].vendorImageNotUpLoaded = true;
             });
+        },
+        resetVendorImage: function resetVendorImage(index) {
+            document.querySelector("#image-" + index).value = "";
+            this.vendorTableRows[index].vendorImageNotUpLoaded = false;
+            this.vendorTableRows[index].vendorImageIsLoaded = false;
         },
         saveVendor: function saveVendor() {
             var _this2 = this;
 
+            for (var key in this.vendorTableRows) {
+                if (this.vendorTableRows[key].vendorImageIsLoading) return Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('image still uploading', 'info');
+            }
             this.isLoading = true;
             var data = {
                 items: this.vendorTableRows
@@ -85830,7 +85816,10 @@ var vendorApp = {
                 phone: '',
                 email: '',
                 website: '',
-                image: this.fileUrls
+                image: this.fileUrls,
+                vendorImageIsLoading: false,
+                vendorImageIsLoaded: false,
+                vendorImageNotUpLoaded: false
             });
         },
         deleteVendorRow: function deleteVendorRow(row) {

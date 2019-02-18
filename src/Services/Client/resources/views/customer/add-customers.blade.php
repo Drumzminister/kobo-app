@@ -26,6 +26,7 @@
                     <div v-show="imageIsLoading"class="spinner-border text-success" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
+
                     <div v-show="imageUploaded">
                         <i style="color:green; font-size: 30px"class="fa fa-check-circle"></i>Uploaded
                     </div>
