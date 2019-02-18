@@ -15,7 +15,8 @@ export const customerApp = {
         customerSearch: '',
         customerFormSubmitted: false,
         editingCustomer: {},
-        param: 'Justice',
+        imageLoading: false,
+        imageIsLoading: false,
     },
     methods: {
         createCustomer() {
@@ -63,18 +64,25 @@ export const customerApp = {
            });
         },
         getAndProcessCustomerImage (event) {
+            this.imageIsLoading = true
             toast('Your image is uploading', 'info')
             let file = event.target.files[0];
             let formData = new FormData();
             formData.append('file', file);
             axios.post('/client/customer/uploadImage', formData).then(res => {
                 toast('Image uploaded', 'success')
+                this.imageIsLoading = false;
+                this.imageLoading = true;
                 let data = res.data.data;
                 let result = `https://s3.us-east-2.amazonaws.com/koboapp/${data}`;
                 this.customerForm.image = result;
             }).catch(error => {
                 toast('Error uploading image', 'error')
             });
+        },
+        imageReset() {
+            this.imageLoading = false,
+            document.getElementById("staffPhoto").value = "";
         },
         deleteCustomer(customerId) {
             axios.post(`/client/customer/delete/${customerId}`).then(res => {
