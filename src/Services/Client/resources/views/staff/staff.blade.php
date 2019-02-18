@@ -134,11 +134,11 @@
                                               <button class="btn bg-transparent p-0" type="button" id="dropdownMenuButton1">
                                                   <i class="fa fa-ellipsis-v"></i>
                                               </button>
-                                              <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:30px; font-size: 20px" aria-labelledby="dropdownMenuButton1">
+                                              <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:30px; font-size: 16px" aria-labelledby="dropdownMenuButton1">
                                                   <a class="dropdown-item text-primary" href="client/staff/payment"><i class="fa fa-money"> Salary</i></a>
                                                   <a class="dropdown-item text-primary" href="/client/staff/edit"><i class="fa fa-edit"></i> Edit</a>
-                                                  <a v-show="worker.isActive === 0"@click.prevent="deactivateStaff(worker)" class="dropdown-item text-danger" href="#"> <i class="fa fa-trash"> Deactivate</i></a>
-                                                  <a v-show="worker.isActive === 1"@click.prevent="deactivateStaff(worker)" class="dropdown-item text-danger" href="#"><i class="fa fa-eye"></i><i class="fa fa-lock-open"> Activate</i></a>
+                                                  <a v-if="worker.isActive"@click.prevent="deactivateStaff(worker)" class="dropdown-item text-danger" href="#"> <i class="fa fa-eye"></i><i class="fa fa-lock-open"> Deactivate</i></a>
+                                                  <a v-else="! worker.isActive"@click.prevent="deactivateStaff(worker)" class="dropdown-item text-danger" href="#"> <i class="fa fa-trash"> Activate</i></a>
 
                                               </div>
                                           </div>

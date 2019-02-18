@@ -36,7 +36,7 @@
                                     <span class="text-danger"></span>
                                 </td>
                                 <td><input v-model="content.address" id="address" type="text" class="form-control address"></td>
-                                <td><input name="phone" v-validate="'digits:11'" v-model="content.phone" id="phone" type="number" class="form-control number">
+                                <td><input name="phone" v-validate="'digits:11'" v-model="content.phone" id="phone" type="text" class="form-control number">
                                 </td>
                                 <td><input name="email" v-validate="'required|email'"  v-model="content.email" id="email" type="text" class="form-control email">
                                 </td>

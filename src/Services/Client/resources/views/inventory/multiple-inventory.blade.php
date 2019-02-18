@@ -79,9 +79,9 @@
                                 <td><Select2 v-model="content.name" :settings="Object.assign(InventorySelectSettings, {placeholder: 'Select Product' })" :options="formattedProduct()" :value="1" ></Select2></td>
                                 {{--<td><input v-model="content.name" type="text" class="form-control "></td>--}}
                                 <td><input v-model="content.description" id="" type="text" class="form-control "></td>
-                                <td><input v-model="content.quantity" type="number" name="quantity" v-validate="'required'" @keyup="calculateTotalQuantity()" class="form-control quantity"></td>
-                                <td><input v-model="content.cost_price" @keyup="calculateTotalCost()" name="cost_price" v-validate="'required'"  type="number" class="form-control cost_price"></td>
-                                <td><input v-model="content.sales_price"  @keyup="calculateTotalSalesPrice()" name="sales_price" v-validate="'required'" v-validate="'required'" type="number" class="form-control sales_price"></td>
+                                <td><input v-model="content.quantity" type="text" name="quantity" v-validate="'required'" @keyup="calculateTotalQuantity()" class="form-control quantity"></td>
+                                <td><input v-model="content.cost_price" @keyup="calculateTotalCost()"  name="cost_price" v-validate="'required'"  type="text" class="form-control cost_price"></td>
+                                <td><input v-model="content.sales_price"  @keydown="calculateTotalSalesPrice()"  name="sales_price" v-validate="'required'" v-validate="'required'" type="text" class="form-control sales_price"></td>
                                 <td style="cursor: pointer"><i class="fa fa-trash-o" @click="deleteInventoryRow(content)" style="font-size:24px"></i></td>
                             </tr>
                         </tbody>

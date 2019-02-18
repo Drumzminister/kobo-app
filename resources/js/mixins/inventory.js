@@ -8,7 +8,7 @@ export const inventoryApp = {
         inventoryForm: {
             inventoryItem:[],
             vendor_id: '',
-            delivered_date: '',
+            delivered_date: new Date().toISOString().split('T')[0],
             attachment: '',
             tax_id: '',
             tax_amount: 0,
@@ -38,8 +38,6 @@ export const inventoryApp = {
         banks: window.banks,
         taxes: window.taxes,
         user_vendors: window.vendors,
-        kep: window.vendors,
-        // all_inventory_items: window.all_inventory_items,
         products: window.products,
         InventorySelectSettings: {
             placeholder: 'Inventory',
@@ -80,6 +78,9 @@ export const inventoryApp = {
         MiniChart: MiniChart
     },
     mounted () {
+        if(this.user_vendors) {
+            this.inventoryForm.vendor_id = this.user_vendors.vendors[0]
+        }
         this.fetchAllPurchases();
         this.purchase = this.all_purchases;
         if (this.taxes)
@@ -123,6 +124,7 @@ export const inventoryApp = {
             this.inventoryForm.balance = this.saveBalance()
             this.inventoryForm.amount_paid = this.getTotalAmountPaid();
             let amountReminder = Number(this.inventoryForm.total_cost_price) - Number(this.getTotalAmountPaid());
+            console.log(this.inventoryForm)
             this.$validator.validate().then(valid => {
                 if(valid) {
                     if(this.getTotalAmountPaid() > this.inventoryForm.total_cost_price){
