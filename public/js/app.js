@@ -85933,9 +85933,16 @@ var customerApp = {
         getAndProcessCustomerImage: function getAndProcessCustomerImage(event) {
             var _this4 = this;
 
+            var file = event.target.files[0];
+            var acceptedExtensions = /\.(jpe?g|png|gif)$/;
+            if (!acceptedExtensions.exec(file.name)) {
+                return Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Select a valid image', 'error');
+            }
+            if (file.size > 40000000) {
+                return Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image size is above 5MB', 'error');
+            }
             this.imageIsLoading = true;
             Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Your image is uploading', 'info');
-            var file = event.target.files[0];
             var formData = new FormData();
             formData.append('file', file);
             axios.post('/client/customer/uploadImage', formData).then(function (res) {
@@ -85945,6 +85952,7 @@ var customerApp = {
                 var data = res.data.data;
                 var result = "https://s3.us-east-2.amazonaws.com/koboapp/" + data;
                 _this4.customerForm.image = result;
+                return true;
             }).catch(function (error) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Error uploading image', 'error');
             });

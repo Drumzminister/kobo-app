@@ -64,9 +64,16 @@ export const customerApp = {
            });
         },
         getAndProcessCustomerImage (event) {
+            let file = event.target.files[0];
+            let acceptedExtensions = /\.(jpe?g|png|gif)$/;
+            if (! acceptedExtensions.exec(file.name)){
+                return toast('Select a valid image', 'error')
+            }
+            if (file.size > 40000000){
+                return toast('Image size is above 5MB', 'error')
+            }
             this.imageIsLoading = true
             toast('Your image is uploading', 'info')
-            let file = event.target.files[0];
             let formData = new FormData();
             formData.append('file', file);
             axios.post('/client/customer/uploadImage', formData).then(res => {
@@ -76,6 +83,7 @@ export const customerApp = {
                 let data = res.data.data;
                 let result = `https://s3.us-east-2.amazonaws.com/koboapp/${data}`;
                 this.customerForm.image = result;
+                return true;
             }).catch(error => {
                 toast('Error uploading image', 'error')
             });

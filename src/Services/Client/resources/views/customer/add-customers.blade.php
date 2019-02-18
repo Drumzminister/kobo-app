@@ -19,10 +19,10 @@
                     <img v-show="customerForm.image" v-bind:src="customerForm.image" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle"/>
                     <div class="overlay">
                         <div class="text form-group">
-                            <input type="file" @click="imageReset" @change="getAndProcessCustomerImage($event)" class="form-control-file" id="staffPhoto">
+                            <input type="file"  @click="imageReset" @change="getAndProcessCustomerImage($event)" class="form-control-file" id="staffPhoto">
                         </div>
                     </div>
-                <h5 class="h5 px-4 py-2 ">Add Photo
+                    <h5 class="h5 px-4 py-2 ">Add Photo
                     <div v-show="imageIsLoading"class="spinner-border text-success" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
