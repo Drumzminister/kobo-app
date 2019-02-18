@@ -77815,7 +77815,7 @@ var inventoryApp = {
         inventoryForm: {
             inventoryItem: [],
             vendor_id: '',
-            delivered_date: '',
+            delivered_date: new Date().toISOString().split('T')[0],
             attachment: '',
             tax_id: '',
             tax_amount: 0,
@@ -77845,8 +77845,6 @@ var inventoryApp = {
         banks: window.banks,
         taxes: window.taxes,
         user_vendors: window.vendors,
-        kep: window.vendors,
-        // all_inventory_items: window.all_inventory_items,
         products: window.products,
         InventorySelectSettings: {
             placeholder: 'Inventory',
@@ -77889,6 +77887,9 @@ var inventoryApp = {
         MiniChart: __WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent___default.a
     },
     mounted: function mounted() {
+        if (this.user_vendors) {
+            this.inventoryForm.vendor_id = this.user_vendors.vendors[0];
+        }
         this.fetchAllPurchases();
         this.purchase = this.all_purchases;
         if (this.taxes) this.inventoryForm.tax_id = this.taxes[2];
@@ -77935,6 +77936,7 @@ var inventoryApp = {
             this.inventoryForm.balance = this.saveBalance();
             this.inventoryForm.amount_paid = this.getTotalAmountPaid();
             var amountReminder = Number(this.inventoryForm.total_cost_price) - Number(this.getTotalAmountPaid());
+            console.log(this.inventoryForm);
             this.$validator.validate().then(function (valid) {
                 if (valid) {
                     if (_this2.getTotalAmountPaid() > _this2.inventoryForm.total_cost_price) {
@@ -85749,32 +85751,37 @@ var vendorApp = {
         search: '',
         vendorFormErrors: [],
         fileUrls: '',
-        isLoading: false,
-        columns: ['Name', 'Address', 'Phone Number', 'Email', 'Website']
-        // options: {
-        //     filterByColumn: true,
-        //     // texts: {
-        //     //     filterBy: 'Filter by {column}',
-        //     //     count:''
-        //     // },
-        //     dateColumns: ['created_at'],
-        //     datepickerOptions: {
-        //         showDropdowns: true,
-        //         autoUpdateInput: true,
-        //     },
-        //     headings: {
-        //         name: 'Name',
-        //         address: 'Address',
-        //         phone_number: 'Phone Number',
-        //         email: 'Email',
-        //         website: 'Website',
-        //     },
-        //     filterable: ['name', 'address', 'phone_number', 'email', 'website']
-        // },
+        isLoading: false
+        // columns: [
+        //     'Name',
+        //     'Address',
+        //     'Phone Number',
+        //     'Email',
+        //     'Website',
+        // ],
+        // // options: {
+        // //     filterByColumn: true,
+        // //     // texts: {
+        // //     //     filterBy: 'Filter by {column}',
+        // //     //     count:''
+        // //     // },
+        // //     dateColumns: ['created_at'],
+        // //     datepickerOptions: {
+        // //         showDropdowns: true,
+        // //         autoUpdateInput: true,
+        // //     },
+        // //     headings: {
+        // //         name: 'Name',
+        // //         address: 'Address',
+        // //         phone_number: 'Phone Number',
+        // //         email: 'Email',
+        // //         website: 'Website',
+        // //     },
+        // //     filterable: ['name', 'address', 'phone_number', 'email', 'website']
+        // // },
     },
     created: function created() {
         this.vendors = this.user_vendors;
-        console.log(this.vendors);
         this.addNewRow();
     },
 
@@ -85790,6 +85797,7 @@ var vendorApp = {
             axios.post('/client/vendor/uploadVendorImage', formData).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Image has been successfully uploaded', 'success');
                 _this.vendorTableRows[index].image = res.data.data;
+                // console.log(this.vendorTableRows[index].image)
             }).catch(function (error) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Error uploading image, try again', 'error');
             });
@@ -85801,17 +85809,15 @@ var vendorApp = {
             var data = {
                 items: this.vendorTableRows
             };
-            console.log(data);
             axios.post('/client/vendor/add', data).then(function (res) {
                 _this2.vendorTableRows = [], _this2.addNewRow();
-                swal({ title: 'Vendor added!', text: res.data.message, type: 'success', timer: 150 });
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])(res.data.message, 'success');
                 _this2.isLoading = false;
                 _this2.vendorFormErrors = "";
+            }).catch(function (error) {
+                _this2.vendorFormErrors = error.response.data.errors;
+                _this2.isLoading = false;
             });
-            // .catch(error => {
-            //     this.vendorFormErrors = error.response.data.errors;
-            //     this.isLoading = false;
-            // });
         },
         searchVendor: function searchVendor() {
             var _this3 = this;
@@ -85831,7 +85837,9 @@ var vendorApp = {
             });
         },
         deleteVendorRow: function deleteVendorRow(row) {
-            $("#row-" + row).remove();
+            this.vendorTableRows.splice(this.vendorTableRows.findIndex(function (item) {
+                return item === row;
+            }), 1);
         },
         activateVendor: function activateVendor(id) {
             axios.post('/client/vendor/' + id + '/activate').then(function (res) {
@@ -85894,10 +85902,10 @@ var customerApp = {
         updateCustomer: function updateCustomer() {
             var _this2 = this;
 
-            console.log(this.editingCustomer);
             axios.post("/client/customer/update/" + this.editingCustomer.id, this.editingCustomer).then(function (res) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])('Customer updated successfully', 'success');
                 _this2.closeModal('#editCustomerModal');
+                location.reload(true);
             });
         },
         editCustomer: function editCustomer(evt, customer) {

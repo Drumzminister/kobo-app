@@ -37,10 +37,10 @@ export const customerApp = {
             })
         },
         updateCustomer() {
-            console.log(this.editingCustomer);
             axios.post(`/client/customer/update/${this.editingCustomer.id}`, this.editingCustomer).then(res => {
                 toast('Customer updated successfully', 'success');
                 this.closeModal('#editCustomerModal')
+                location.reload(true)
             })
         },
         editCustomer(evt, customer) {
