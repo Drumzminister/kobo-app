@@ -16,7 +16,7 @@ class Bank
      */
     get isNotValid () {
         return this.bank_name === ""
-            || this.account_balance === null || parseInt(this.account_balance) <= 0
+            || this.account_balance === null || this.account_balance === "" || parseInt(this.account_balance) <= 0
             || this.account_number === "";
     }
 

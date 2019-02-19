@@ -1,4 +1,3 @@
-import PaymentMethodSelection from "../components/banks/PaymentMethodSelection";
 import HighestPurchases from "../components/inventory/HighestPurchases";
 import Select2 from "v-select2-component";
 import {toast} from "../helpers/alert";
@@ -8,13 +7,13 @@ export const inventoryApp = {
         inventoryForm: {
             inventoryItem:[],
             vendor_id: '',
-            delivered_date: '',
+            delivered_date: new Date().toISOString().split('T')[0],
             attachment: '',
             tax_id: '',
             tax_amount: 0,
             discount: '',
             delivery_cost: '',
-            total_cost_price: '',
+            total_cost_price: 0,
             total_sales_price: '',
             total_quantity: '',
             amount_paid: 0,
@@ -33,17 +32,14 @@ export const inventoryApp = {
         purchase: {},
         all_purchases: '',
         inventoryTableRow: [],
-        totalCostPrice: [],
+        total_cost_price: '',
         selectedInventory: '',
         banks: window.banks,
         taxes: window.taxes,
         user_vendors: window.vendors,
-        kep: window.vendors,
-        // all_inventory_items: window.all_inventory_items,
         products: window.products,
         InventorySelectSettings: {
             placeholder: 'Inventory',
-            // multiple: true,
             language: {
                 noResults: function () {
                     return `<a href="/client/product/add" })"><span class="fa fa-plus"></span> Add Product</button>`;
@@ -52,7 +48,7 @@ export const inventoryApp = {
             escapeMarkup: function (markup) {
                 return markup;
             }
-        }
+        },
     },
     computed : {
         selectedAccounts () {
@@ -60,7 +56,7 @@ export const inventoryApp = {
         },
         inventoryTax() {
             if (this.inventoryForm.tax_id) {
-                let tax =  Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.totalCostPrice);
+                let tax =  Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.total_cost_price);
                 return parseFloat(tax).toFixed(2);
             }
             return 0;
@@ -74,7 +70,6 @@ export const inventoryApp = {
         },
     },
     components: {
-        PaymentMethodSelection: PaymentMethodSelection,
         HighestPurchases: HighestPurchases,
         Select2: Select2,
         MiniChart: MiniChart
@@ -113,7 +108,7 @@ export const inventoryApp = {
         },
 
         createInventory() {
-            this.totalCostPrice = this.inventoryForm.total_price;
+            this.total_cost_price = this.inventoryForm.total_price;
             this.inventoryForm.banks = this.selectedAccounts;
             this.inventoryForm.inventoryItem = this.inventoryTableRow;
             this.inventoryForm.total_cost_price = this.calculateTotalCost();
@@ -123,6 +118,7 @@ export const inventoryApp = {
             this.inventoryForm.balance = this.saveBalance()
             this.inventoryForm.amount_paid = this.getTotalAmountPaid();
             let amountReminder = Number(this.inventoryForm.total_cost_price) - Number(this.getTotalAmountPaid());
+            console.log(this.inventoryForm)
             this.$validator.validate().then(valid => {
                 if(valid) {
                     if(this.getTotalAmountPaid() > this.inventoryForm.total_cost_price){
@@ -199,9 +195,9 @@ export const inventoryApp = {
             let total = 0;
             let cost_price = document.querySelectorAll(".cost_price");
             cost_price.forEach(input => {
-                total += Number(input.value);
+                total += Number(input.value - this.inventoryForm.discount);
             });
-            return this.totalCostPrice = total;
+            return this.total_cost_price = total;
         },
         calculateTotalSalesPrice() {
             let total = 0;

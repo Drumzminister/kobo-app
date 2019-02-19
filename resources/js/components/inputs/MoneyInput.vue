@@ -1,9 +1,9 @@
 <template>
-    <input type="text" @keyup="beautify" v-model="localModel" :placeholder="placeholder || 'input'" :class="classes"/>
+    <input type="text" @keyup="beautify" v-model="localModel" :placeholder="options.placeholder || 'Money Input'" :class="classes"/>
 </template>
 <script>
     export default {
-        props: ['model', 'placeholder', 'classes'],
+        props: ['model', 'options', 'classes'],
         data () {
             return {
                 localModel: ""
@@ -28,8 +28,11 @@
                     if(currentObj === null) {
                         currentObj = this.$parent[p];
                     } else {
-                        if (typeof currentObj[p] === "object") currentObj = currentObj[p];
-                        else currentObj[p] = this.numberValue;
+                        if (null !== currentObj[p] && typeof currentObj[p] === "object") {
+                            currentObj = currentObj[p];
+                        } else {
+                            currentObj[p] = this.numberValue;
+                        }
                     }
                 });
             }
