@@ -62,12 +62,14 @@ class CreditBanksJob extends Job
 		    return $this->createJobResponse('error', 'Transaction data cannot be created for ' . ucfirst($this->getModelClassName()), $this->model);
 	    }
 
+	    $totalPaid = 0;
 	    foreach ($this->paymentModes as $paymentMode) {
+	        $totalPaid += $paymentMode['amount'];
 		    $this->updateBankAccount($paymentMode);
 		    $this->updateTransactionHistory($paymentMode);
 	    }
 
-	    return $this->createJobResponse('success', 'Banks Credited Successfully.', $this->model);
+	    return $this->createJobResponse('success', 'Banks Credited Successfully.', ['model' => $this->model, 'totalPaid' => $totalPaid]);
     }
 
     protected function updateBankAccount($paymentMode)

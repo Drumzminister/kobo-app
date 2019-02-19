@@ -101777,7 +101777,7 @@ var addSale = {
                 discount: this.saleDiscount,
                 customer_id: this.customer.id,
                 delivery_cost: this.deliveryCost,
-                total_amount: this.totalSalesAmount,
+                total_amount: this.computedSalesAmount,
                 paymentMethods: this.selectedAccounts,
                 invoice_number: this.sale.invoice_number
             };
