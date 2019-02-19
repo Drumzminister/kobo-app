@@ -195,7 +195,7 @@ export const inventoryApp = {
             let total = 0;
             let cost_price = document.querySelectorAll(".cost_price");
             cost_price.forEach(input => {
-                total += Number(input.value);
+                total += Number(input.value - this.inventoryForm.discount);
             });
             return this.total_cost_price = total;
         },

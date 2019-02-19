@@ -78007,10 +78007,12 @@ var inventoryApp = {
             this.calculateTotalCost();
         },
         calculateTotalCost: function calculateTotalCost() {
+            var _this4 = this;
+
             var total = 0;
             var cost_price = document.querySelectorAll(".cost_price");
             cost_price.forEach(function (input) {
-                total += Number(input.value);
+                total += Number(input.value - _this4.inventoryForm.discount);
             });
             return this.total_cost_price = total;
         },
