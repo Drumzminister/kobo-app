@@ -96,7 +96,7 @@
                 {{--</div>--}}
             <div class="col-md-6">
                 {{total_cost_price}}
-                <inventory-payment :totalCostPrice="total_cost_price" :banks="banks"></inventory-payment>
+                <inventory-payment :banks="banks"></inventory-payment>
             </div>
             {{-- end of current payment --}}
 

@@ -77856,6 +77856,9 @@ var inventoryApp = {
         }
     },
     computed: {
+        spreadAmount: function spreadAmount() {
+            return this.total_cost_price;
+        },
         selectedAccounts: function selectedAccounts() {
             return this.$store.getters.selectedAccounts;
         },
@@ -123259,12 +123262,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "InventoryPayment",
     props: ['banks', 'total_cost_price'],
     computed: {
         spreadAmount: function spreadAmount() {
-            return this.totalCostPrice;
+            return this.total_cost_price;
         }
     }
 });
