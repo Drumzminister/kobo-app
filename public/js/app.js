@@ -68549,7 +68549,7 @@ var Bank = function () {
     }, {
         key: "isNotValid",
         get: function get() {
-            return this.bank_name === "" || this.account_balance === null || parseInt(this.account_balance) <= 0 || this.account_number === "";
+            return this.bank_name === "" || this.account_balance === null || this.account_balance === "" || parseInt(this.account_balance) <= 0 || this.account_number === "";
         }
     }]);
 
@@ -96286,7 +96286,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data: function data() {
         return {
             newBank: new __WEBPACK_IMPORTED_MODULE_0__classes_Bank__["a" /* default */](),
-            saving: false
+            saving: false,
+            saveClicked: false
         };
     },
     mounted: function mounted() {},
@@ -96307,11 +96308,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         saveBankDetails: function saveBankDetails() {
             var _this = this;
 
+            this.saveClicked = true;
             if (this.newBank.isNotValid) {
                 this.runValidatorProcess();
                 return;
             }
 
+            this.saveClicked = false;
             this.saving = true;
 
             this.newBank.saveBank().then(function (_ref2) {
@@ -96444,7 +96447,7 @@ var render = function() {
                   2
                 ),
                 _vm._v(" "),
-                _vm.newBank.bank_name === "" && _vm.saving
+                _vm.newBank.bank_name === "" && _vm.saveClicked
                   ? _c("small", { staticClass: "text-danger" }, [
                       _vm._v("You must select a bank name")
                     ])
@@ -96484,7 +96487,7 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm.newBank.account_name === "" && _vm.saving
+                _vm.newBank.account_name === "" && _vm.saveClicked
                   ? _c("small", { staticClass: "text-danger" }, [
                       _vm._v("You must input an account name")
                     ])
@@ -96527,51 +96530,39 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm.newBank.account_number === "" && _vm.saving
+                _vm.newBank.account_number === "" && _vm.saveClicked
                   ? _c("small", { staticClass: "text-danger" }, [
                       _vm._v("You must input account number")
                     ])
                   : _vm._e()
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "balance" } }, [
-                  _vm._v("Balance (₦)")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.newBank.account_balance,
-                      expression: "newBank.account_balance"
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { attrs: { for: "balance" } }, [
+                    _vm._v("Balance (₦)")
+                  ]),
+                  _vm._v(" "),
+                  _c("money-input", {
+                    class: "form-control",
+                    attrs: {
+                      model: "newBank.account_balance",
+                      options: { placeholder: "0.00" }
                     }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "number",
-                    min: 1,
-                    step: "0.01",
-                    name: "account_balance",
-                    id: "balance",
-                    placeholder: ""
-                  },
-                  domProps: { value: _vm.newBank.account_balance },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.newBank,
-                        "account_balance",
-                        $event.target.value
-                      )
-                    }
-                  }
-                })
-              ]),
+                  }),
+                  _vm._v(" "),
+                  (!_vm.newBank.account_balance ||
+                    _vm.newBank.account_balance === "") &&
+                  _vm.saveClicked
+                    ? _c("small", { staticClass: "text-danger" }, [
+                        _vm._v("You must input balance")
+                      ])
+                    : _vm._e()
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
                 "div",
@@ -98070,7 +98061,7 @@ var render = function() {
                           "salePaymentMethods." +
                           index +
                           ".paymentMethod.amount",
-                        placeholder: "0.00"
+                        options: { placeholder: "0.00" }
                       }
                     })
                   ],
@@ -98860,7 +98851,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['model', 'placeholder', 'classes'],
+    props: ['model', 'options', 'classes'],
     data: function data() {
         return {
             localModel: ""
@@ -98888,7 +98879,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 if (currentObj === null) {
                     currentObj = _this.$parent[p];
                 } else {
-                    if (_typeof(currentObj[p]) === "object") currentObj = currentObj[p];else currentObj[p] = _this.numberValue;
+                    if (null !== currentObj[p] && _typeof(currentObj[p]) === "object") {
+                        currentObj = currentObj[p];
+                    } else {
+                        currentObj[p] = _this.numberValue;
+                    }
                 }
             });
         }
@@ -98937,7 +98932,10 @@ var render = function() {
       }
     ],
     class: _vm.classes,
-    attrs: { type: "text", placeholder: _vm.placeholder || "input" },
+    attrs: {
+      type: "text",
+      placeholder: _vm.options.placeholder || "Money Input"
+    },
     domProps: { value: _vm.localModel },
     on: {
       keyup: _vm.beautify,

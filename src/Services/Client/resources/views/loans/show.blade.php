@@ -217,7 +217,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="px-0" for="exampleFormControlInput1">Loan Amount</label>
-                                        <money-input :model="'loanAmount'" :class="'form-control'"></money-input>
+                                        <money-input :model="'loanAmount'" :options="{ placeholder: 'Loan Amount' }" :class="'form-control'"></money-input>
                                         {{--<input type="number" min="0.00" step="0.01" v-model="loanAmount" onfocus="this.type = 'text'" @keyup="beautify" class="form-control" id="" placeholder="0.00">--}}
                                     </div>
                                     <div class="form-group row">
