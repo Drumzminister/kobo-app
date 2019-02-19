@@ -147,8 +147,8 @@
                 }
 
                 if (this.selectedAccounts.length === 0 && !this.readOnly) {
-                    paymentMode.amount = this.totalSpread;
-                    this.invalidPaymentsSum(false);
+                    // paymentMode.amount = this.totalSpread;
+                    // this.invalidPaymentsSum(false);
                 }
 
                 paymentMode.id = selectedBank.id;

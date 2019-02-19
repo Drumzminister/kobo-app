@@ -122,7 +122,7 @@ export const addSale = {
             if (this.balanceLeft === 0) {
                 this.sendSaleCreationRequest();
             } else {
-                confirmSomethingWithAlert(`You have a balance of NGN ${this.$currency.format(this.balanceLeft)}`).then((result) => {
+                confirmSomethingWithAlert(`You are been owned a balance of NGN ${this.$currency.format(this.balanceLeft)}. If you continue, this customer will be added as a Debtor.`).then((result) => {
                     if (result.value) {
                         this.sendSaleCreationRequest();
                     }

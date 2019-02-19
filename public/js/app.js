@@ -97805,8 +97805,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }
 
             if (this.selectedAccounts.length === 0 && !this.readOnly) {
-                paymentMode.amount = this.totalSpread;
-                this.invalidPaymentsSum(false);
+                // paymentMode.amount = this.totalSpread;
+                // this.invalidPaymentsSum(false);
             }
 
             paymentMode.id = selectedBank.id;
@@ -101563,6 +101563,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -101746,7 +101753,7 @@ var addSale = {
             if (this.balanceLeft === 0) {
                 this.sendSaleCreationRequest();
             } else {
-                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* confirmSomethingWithAlert */])("You have a balance of NGN " + this.$currency.format(this.balanceLeft)).then(function (result) {
+                Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["a" /* confirmSomethingWithAlert */])("You are been owned a balance of NGN " + this.$currency.format(this.balanceLeft) + ". If you continue, this customer will be added as a Debtor.").then(function (result) {
                     if (result.value) {
                         _this.sendSaleCreationRequest();
                     }
@@ -103184,66 +103191,30 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [
                           _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: item.sales_price,
-                                expression: "item.sales_price"
-                              }
-                            ],
                             staticClass: "form-control sales_price",
                             attrs: {
-                              disabled: "",
-                              type: "number",
+                              disabled: true,
+                              type: "text",
                               min: "1",
                               placeholder: "0.00"
                             },
-                            domProps: { value: item.sales_price },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  item,
-                                  "sales_price",
-                                  $event.target.value
-                                )
-                              }
+                            domProps: {
+                              value: _vm.currency.format(item.sales_price)
                             }
                           })
                         ]),
                         _vm._v(" "),
                         _c("td", [
                           _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: item.totalPrice(),
-                                expression: "item.totalPrice()"
-                              }
-                            ],
                             staticClass: "form-control sales_total",
                             attrs: {
-                              disabled: "",
+                              disabled: true,
                               type: "text",
                               id: "sales_total",
                               placeholder: "0.00"
                             },
-                            domProps: { value: item.totalPrice() },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  item,
-                                  "totalPrice()",
-                                  $event.target.value
-                                )
-                              }
+                            domProps: {
+                              value: _vm.currency.format(item.totalPrice())
                             }
                           })
                         ]),
@@ -103406,34 +103377,15 @@ var render = function() {
                       "div",
                       { staticClass: "col input-group mb-2 input-group-lg" },
                       [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.saleDiscount,
-                              expression: "saleDiscount"
-                            }
-                          ],
-                          staticClass: "form-control discount",
+                        _c("money-input", {
+                          class: "form-control discount",
                           attrs: {
-                            type: "number",
-                            min: "1",
-                            id: "basic-url",
-                            "aria-describedby": "basic-addon3",
-                            placeholder: "0.00"
-                          },
-                          domProps: { value: _vm.saleDiscount },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.saleDiscount = $event.target.value
-                            }
+                            model: "saleDiscount",
+                            options: { placeholder: "0.00" }
                           }
                         })
-                      ]
+                      ],
+                      1
                     )
                   ]),
                   _vm._v(" "),
@@ -103444,34 +103396,15 @@ var render = function() {
                       "div",
                       { staticClass: "col input-group mb-2 input-group-lg" },
                       [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.deliveryCost,
-                              expression: "deliveryCost"
-                            }
-                          ],
-                          staticClass: "form-control ",
+                        _c("money-input", {
+                          class: "form-control discount",
                           attrs: {
-                            type: "number",
-                            min: "1",
-                            id: "",
-                            "aria-describedby": "basic-addon3",
-                            placeholder: "0.00"
-                          },
-                          domProps: { value: _vm.deliveryCost },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.deliveryCost = $event.target.value
-                            }
+                            model: "deliveryCost",
+                            options: { placeholder: "0.00" }
                           }
                         })
-                      ]
+                      ],
+                      1
                     )
                   ]),
                   _vm._v(" "),
