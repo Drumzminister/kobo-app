@@ -77796,16 +77796,13 @@ var loanApp = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return inventoryApp; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_v_select2_component__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_v_select2_component__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_alert__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent__);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_inventory_HighestPurchases__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_inventory_HighestPurchases___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_inventory_HighestPurchases__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_select2_component__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_alert__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_chart_MiniChartComponent__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_chart_MiniChartComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_chart_MiniChartComponent__);
 
 
 
@@ -77821,7 +77818,7 @@ var inventoryApp = {
             tax_amount: 0,
             discount: '',
             delivery_cost: '',
-            total_cost_price: '',
+            total_cost_price: 0,
             total_sales_price: '',
             total_quantity: '',
             amount_paid: 0,
@@ -77840,7 +77837,7 @@ var inventoryApp = {
         purchase: {},
         all_purchases: '',
         inventoryTableRow: [],
-        totalCostPrice: [],
+        total_cost_price: '',
         selectedInventory: '',
         banks: window.banks,
         taxes: window.taxes,
@@ -77864,7 +77861,7 @@ var inventoryApp = {
         },
         inventoryTax: function inventoryTax() {
             if (this.inventoryForm.tax_id) {
-                var tax = Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.totalCostPrice);
+                var tax = Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.total_cost_price);
                 return parseFloat(tax).toFixed(2);
             }
             return 0;
@@ -77880,10 +77877,9 @@ var inventoryApp = {
         }
     },
     components: {
-        PaymentMethodSelection: __WEBPACK_IMPORTED_MODULE_0__components_banks_PaymentMethodSelection___default.a,
-        HighestPurchases: __WEBPACK_IMPORTED_MODULE_1__components_inventory_HighestPurchases___default.a,
-        Select2: __WEBPACK_IMPORTED_MODULE_2_v_select2_component___default.a,
-        MiniChart: __WEBPACK_IMPORTED_MODULE_4__components_chart_MiniChartComponent___default.a
+        HighestPurchases: __WEBPACK_IMPORTED_MODULE_0__components_inventory_HighestPurchases___default.a,
+        Select2: __WEBPACK_IMPORTED_MODULE_1_v_select2_component___default.a,
+        MiniChart: __WEBPACK_IMPORTED_MODULE_3__components_chart_MiniChartComponent___default.a
     },
     mounted: function mounted() {
         this.fetchAllPurchases();
@@ -77922,7 +77918,7 @@ var inventoryApp = {
         createInventory: function createInventory() {
             var _this2 = this;
 
-            this.totalCostPrice = this.inventoryForm.total_price;
+            this.total_cost_price = this.inventoryForm.total_price;
             this.inventoryForm.banks = this.selectedAccounts;
             this.inventoryForm.inventoryItem = this.inventoryTableRow;
             this.inventoryForm.total_cost_price = this.calculateTotalCost();
@@ -77936,9 +77932,9 @@ var inventoryApp = {
             this.$validator.validate().then(function (valid) {
                 if (valid) {
                     if (_this2.getTotalAmountPaid() > _this2.inventoryForm.total_cost_price) {
-                        return Object(__WEBPACK_IMPORTED_MODULE_3__helpers_alert__["b" /* toast */])("Amount paid is " + _this2.formatNumber(amountReminder) + " greater than cost price", 'error');
+                        return Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("Amount paid is " + _this2.formatNumber(amountReminder) + " greater than cost price", 'error');
                     } else if (_this2.getTotalAmountPaid() < _this2.inventoryForm.total_cost_price) {
-                        Object(__WEBPACK_IMPORTED_MODULE_3__helpers_alert__["b" /* toast */])("you are owing " + _this2.inventoryForm.vendor_id.name + " " + _this2.formatNumber(amountReminder), 'error');
+                        Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("you are owing " + _this2.inventoryForm.vendor_id.name + " " + _this2.formatNumber(amountReminder), 'error');
                     }
                     axios.post('/client/inventory/add', _this2.inventoryForm).then(function (res) {
                         swal({
@@ -77953,7 +77949,7 @@ var inventoryApp = {
                     });
                 } else {
                     _this2.errors.items.forEach(function (error) {
-                        Object(__WEBPACK_IMPORTED_MODULE_3__helpers_alert__["b" /* toast */])(error.msg, 'error');
+                        Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])(error.msg, 'error');
                     });
                 }
             });
@@ -77987,7 +77983,7 @@ var inventoryApp = {
             }).then(function (result) {
                 if (result.value) {
                     axios.post("/client/inventory/" + inventory['id'] + "/delete").then(function (response) {
-                        Object(__WEBPACK_IMPORTED_MODULE_3__helpers_alert__["b" /* toast */])("Invoice number  " + inventory['invoice_number'] + "  has been reversed");
+                        Object(__WEBPACK_IMPORTED_MODULE_2__helpers_alert__["b" /* toast */])("Invoice number  " + inventory['invoice_number'] + "  has been reversed");
                         var index = _this3.all_purchases.indexOf(inventory);
                         _this3.all_purchases.splice(index, 1);
                     });
@@ -78016,7 +78012,7 @@ var inventoryApp = {
             cost_price.forEach(function (input) {
                 total += Number(input.value);
             });
-            return this.totalCostPrice = total;
+            return this.total_cost_price = total;
         },
         calculateTotalSalesPrice: function calculateTotalSalesPrice() {
             var total = 0;
@@ -96553,6 +96549,7 @@ var map = {
 	"./components/expenses/ExpensePayment.vue": 307,
 	"./components/inputs/MoneyInput.vue": 313,
 	"./components/inventory/HighestPurchases.vue": 170,
+	"./components/inventory/InventoryPayment.vue": 536,
 	"./components/loan/AddLoan.vue": 316,
 	"./components/loan/AllLoans.vue": 321,
 	"./components/loan/LoanPayment.vue": 326,
@@ -123158,6 +123155,139 @@ var bankDetailModule = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 535 */,
+/* 536 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(537)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(539)
+/* template */
+var __vue_template__ = __webpack_require__(540)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-958ed4f0"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/inventory/InventoryPayment.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-958ed4f0", Component.options)
+  } else {
+    hotAPI.reload("data-v-958ed4f0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 537 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(538);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(20)("27e80a28", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-958ed4f0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./InventoryPayment.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-958ed4f0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./InventoryPayment.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 538 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(13)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 539 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "InventoryPayment",
+    props: ['banks', 'total_cost_price'],
+    computed: {
+        spreadAmount: function spreadAmount() {
+            return this.totalCostPrice;
+        }
+    }
+});
+
+/***/ }),
+/* 540 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("payment-method-selection", { attrs: { banks: _vm.banks } })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-958ed4f0", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
