@@ -128,20 +128,19 @@
                                       <td v-else="worker.isActive">
                                           <span class="badge badge-danger">Inactive</span>
                                       </td>
-
-                                      <td class="flex" >
-                                          <div class="dropdown">
-                                              <button class="btn bg-transparent p-0" type="button" id="dropdownMenuButton1">
-                                                  <i class="fa fa-ellipsis-v"></i>
-                                              </button>
-                                              <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:30px; font-size: 16px" aria-labelledby="dropdownMenuButton1">
-                                                  <a class="dropdown-item text-primary" href="client/staff/payment"><i class="fa fa-money"> Salary</i></a>
-                                                  <a class="dropdown-item text-primary" href="/client/staff/edit"><i class="fa fa-edit"></i> Edit</a>
-                                                  <a v-if="worker.isActive"@click.prevent="deactivateStaff(worker)" class="dropdown-item text-danger" href="#"> <i class="fa fa-eye"></i><i class="fa fa-lock-open"> Deactivate</i></a>
-                                                  <a v-else="! worker.isActive"@click.prevent="deactivateStaff(worker)" class="dropdown-item text-danger" href="#"> <i class="fa fa-trash"> Activate</i></a>
-
-                                              </div>
-                                          </div>
+                                      
+                                        <td class="" >
+                                            <div class="dropdown">
+                                                <button class="btn bg-transparent p-0 " type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-ellipsis-v"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right p-0"  style="max-width:10px; font-size: 16px" aria-labelledby="dropdownMenuButton2">
+                                                    <a class="dropdown-item text-primary" href="client/staff/payment"><i class="fa fa-money"> Salary</i></a>
+                                                    <a class="dropdown-item text-primary" href="/client/staff/edit"><i class="fa fa-edit"></i> Edit</a>
+                                                    <a v-if="worker.isActive"@click.prevent="deactivateStaff(worker)" class="dropdown-item text-danger" href="#"> <i class="fa fa-eye"></i><i class="fa fa-lock-open">  Deactivate</i></a>
+                                                    <a v-else="! worker.isActive"@click.prevent="deactivateStaff(worker)" class="dropdown-item text-danger" href="#"> <i class="fa fa-trash">  Activate</i></a>
+                                                </div>
+                                            </div>
                                         </td>
                                   </tr>
                                   <tr v-if="staff.length === 0">

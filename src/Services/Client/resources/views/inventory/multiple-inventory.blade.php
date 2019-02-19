@@ -91,9 +91,12 @@
             </div>
 
         <div class="row p-2 mt-2 ">
-                <div class="col-md-6">
-                    <payment-method-selection :banks="banks"></payment-method-selection>
-                </div>
+                {{--<div class="col-md-6">--}}
+                    {{--<payment-method-selection :banks="banks"></payment-method-selection>--}}
+                {{--</div>--}}
+            <div class="col-md-6">
+                <inventory-payment :total_cost_price="total_cost_price" :banks="banks"></inventory-payment>
+            </div>
             {{-- end of current payment --}}
 
             {{-- total sum section --}}

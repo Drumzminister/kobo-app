@@ -1,4 +1,3 @@
-import PaymentMethodSelection from "../components/banks/PaymentMethodSelection";
 import HighestPurchases from "../components/inventory/HighestPurchases";
 import Select2 from "v-select2-component";
 import {toast} from "../helpers/alert";
@@ -14,7 +13,7 @@ export const inventoryApp = {
             tax_amount: 0,
             discount: '',
             delivery_cost: '',
-            total_cost_price: '',
+            total_cost_price: 0,
             total_sales_price: '',
             total_quantity: '',
             amount_paid: 0,
@@ -33,7 +32,7 @@ export const inventoryApp = {
         purchase: {},
         all_purchases: '',
         inventoryTableRow: [],
-        totalCostPrice: [],
+        total_cost_price: '',
         selectedInventory: '',
         banks: window.banks,
         taxes: window.taxes,
@@ -41,7 +40,6 @@ export const inventoryApp = {
         products: window.products,
         InventorySelectSettings: {
             placeholder: 'Inventory',
-            // multiple: true,
             language: {
                 noResults: function () {
                     return `<a href="/client/product/add" })"><span class="fa fa-plus"></span> Add Product</button>`;
@@ -50,7 +48,7 @@ export const inventoryApp = {
             escapeMarkup: function (markup) {
                 return markup;
             }
-        }
+        },
     },
     computed : {
         selectedAccounts () {
@@ -58,7 +56,7 @@ export const inventoryApp = {
         },
         inventoryTax() {
             if (this.inventoryForm.tax_id) {
-                let tax =  Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.totalCostPrice);
+                let tax =  Number(this.inventoryForm.tax_id.percentage) / 100 * Number(this.total_cost_price);
                 return parseFloat(tax).toFixed(2);
             }
             return 0;
@@ -72,15 +70,11 @@ export const inventoryApp = {
         },
     },
     components: {
-        PaymentMethodSelection: PaymentMethodSelection,
         HighestPurchases: HighestPurchases,
         Select2: Select2,
         MiniChart: MiniChart
     },
     mounted () {
-        if(this.user_vendors) {
-            this.inventoryForm.vendor_id = this.user_vendors.vendors[0]
-        }
         this.fetchAllPurchases();
         this.purchase = this.all_purchases;
         if (this.taxes)
@@ -114,7 +108,7 @@ export const inventoryApp = {
         },
 
         createInventory() {
-            this.totalCostPrice = this.inventoryForm.total_price;
+            this.total_cost_price = this.inventoryForm.total_price;
             this.inventoryForm.banks = this.selectedAccounts;
             this.inventoryForm.inventoryItem = this.inventoryTableRow;
             this.inventoryForm.total_cost_price = this.calculateTotalCost();
@@ -201,9 +195,9 @@ export const inventoryApp = {
             let total = 0;
             let cost_price = document.querySelectorAll(".cost_price");
             cost_price.forEach(input => {
-                total += Number(input.value);
+                total += Number(input.value - this.inventoryForm.discount);
             });
-            return this.totalCostPrice = total;
+            return this.total_cost_price = total;
         },
         calculateTotalSalesPrice() {
             let total = 0;
