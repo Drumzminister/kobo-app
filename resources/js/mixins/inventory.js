@@ -51,9 +51,6 @@ export const inventoryApp = {
         },
     },
     computed : {
-        spreadAmount () {
-            return this.total_cost_price
-        },
         selectedAccounts () {
             return this.$store.getters.selectedAccounts;
         },

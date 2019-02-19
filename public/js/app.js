@@ -77856,9 +77856,6 @@ var inventoryApp = {
         }
     },
     computed: {
-        spreadAmount: function spreadAmount() {
-            return this.total_cost_price;
-        },
         selectedAccounts: function selectedAccounts() {
             return this.$store.getters.selectedAccounts;
         },
