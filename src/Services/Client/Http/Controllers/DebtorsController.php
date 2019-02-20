@@ -2,6 +2,9 @@
 
 namespace App\Services\Client\Http\Controllers;
 
+use App\Services\Client\Features\ShowAllDebtorsPageFeature;
+use App\Services\Client\Features\ShowDebtorsPageFeature;
+use App\Services\Client\Features\ShowSingleDebtorsPageFeature;
 use Illuminate\Http\Request;
 use Lucid\Foundation\Http\Controller;
 
@@ -14,16 +17,16 @@ class DebtorsController extends Controller
 
     public function showDebtorsPage()
     {
-        return $this->serve(\App\Services\Client\Features\ShowDebtorsPageFeature::class);
+        return $this->serve(ShowDebtorsPageFeature::class);
     }
 
     public function showSingleDebtorPage()
     {
-        return $this->serve(\App\Services\Client\Features\ShowSingleDebtorsPageFeature::class);
+        return $this->serve(ShowSingleDebtorsPageFeature::class);
     }
 
     public function showAllDebtorsPage()
     {
-        return $this->serve(\App\Services\Client\Features\ShowAllDebtorsPageFeature::class);
+        return $this->serve(ShowAllDebtorsPageFeature::class);
     }
 }
