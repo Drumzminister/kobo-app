@@ -43,24 +43,3 @@
     </div>
   </div>
 </div>
-
-
-<style>
-.modal-center{
-    max-width: 400px;
-}
-.modal-header{
-    border-bottom: none!important;
-    padding: 0.5rem 1rem!important;
-}
-.modal-body{
-    padding-top: 0;
-    
-}
-.circle{
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    background: #00C259;
-}
-</style>

@@ -8,24 +8,24 @@
                 <div class="bg-white">
                     <article class="p-3">
                         <div class="img text-center">
-                            <img src="{{asset('img/person.png')}}" class="img-fluid" alt="accountant-image" srcset="">
+                            <img src="{{ $accountant->picture }}" class="img-fluid" alt="accountant-image" srcset="">
                         </div>
                         <div class="profile-name row pt-2 pb-2 ">
                              <div class="col">
-                                <h5 class="text-muted">Idong Okon </h5>
-                                <p class="text-muted">Joined: 20/12/2017</p>                        
+                                <h5 class="text-muted text-capitalize">{{ $accountant->first_name }}, {{ $accountant->last_name }} </h5>
+                                <p class="text-muted">Joined: {{ $accountant->toFormattedDateString() }}</p>                        
                             </div>
                             <div class="col">
                                 <p class="small text-muted float-right">
-                                    A123553
+                                    {{ $accountant->kobo_id }}
                                 </p>
                             </div>
                         </div>
-                        <p class="text-muted"><i class="fa fa-map-marker-alt"></i>  Lagos, Nigeria</p>
+                        <p class="text-muted text-capitalize"><i class="fa fa-map-marker-alt"></i>  {{ $accountant->state }}, {{ $accountant->country }}</p>
                         
                         {{-- rating --}}
                         <div class="rating ">
-                            <h4>4.82</h4>
+                            <h4>{{ $accountant->rating() }}</h4>
                             <span>rating</span>
                         </div>
                     </article>
@@ -35,12 +35,12 @@
                     <div class="row p-3">
                         <div class="col">
                             <div class="loa bg-white text-center p-3 ">
-                                <h5>37 Clients</h5>
+                                <h5>{{ $accountant->clients->count() }}Clients</h5>
                             </div>
                         </div>
                         <div class="col">
                             <div class="loa text-center text-white bg-green p-3">
-                                <h5>120 reviews</h5>
+                                <h5>{{ $accountant->reviews->count }} reviews</h5>
                             </div>
                         </div>
                     </div>                    
