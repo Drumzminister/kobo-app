@@ -7,16 +7,23 @@ use Lucid\Foundation\Http\Controller;
 
 class DebtorsController extends Controller
 {
-public function showDebtorsPage(){
-    return $this->serve(\App\Services\Client\Features\ShowDebtorsPageFeature::class);
-}
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
 
-public function showSingleDebtorPage(){
-    return $this->serve(\App\Services\Client\Features\ShowSingleDebtorsPageFeature::class);
-}
+    public function showDebtorsPage()
+    {
+        return $this->serve(\App\Services\Client\Features\ShowDebtorsPageFeature::class);
+    }
 
-public function showAllDebtorsPage(){
-    return $this->serve(\App\Services\Client\Features\ShowAllDebtorsPageFeature::class);
-}
+    public function showSingleDebtorPage()
+    {
+        return $this->serve(\App\Services\Client\Features\ShowSingleDebtorsPageFeature::class);
+    }
 
+    public function showAllDebtorsPage()
+    {
+        return $this->serve(\App\Services\Client\Features\ShowAllDebtorsPageFeature::class);
+    }
 }
