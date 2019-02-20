@@ -106,7 +106,7 @@ class AddSaleJob extends Job
 	    $this->data['balance'] = $balance;
 
 	    if ($balance > 0) {
-	        $this->createDebtorFromCustomer($this->data['customer_id'], $balance);
+	        $this->createDebtorFromCustomer($this->data['customer_id'], $balance, $sale);
         }
 
 	    if ($response->status === "success") {
@@ -122,9 +122,9 @@ class AddSaleJob extends Job
 	    return $this->createJobResponse('error', $response->message, $sale);
     }
 
-    protected function createDebtorFromCustomer(string $customerId, $balance)
+    protected function createDebtorFromCustomer(string $customerId, $balance, $sale)
     {
-        return (new CreateDebtorJob($customerId, $balance))->handle();
+        return (new CreateDebtorJob($customerId, $balance, $sale))->handle();
     }
 
     protected function performReversalUpdate($paymentMethods, $sale)

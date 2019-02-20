@@ -12,7 +12,6 @@ class ShowDebtorsPageFeature extends Feature
     public function handle(Request $request)
     {
         $data['debtors'] = $this->run(GetCompanyDebtorsJob::class, ['companyId' => auth()->user()->getUserCompany()->id]);
-        dd($data);
         return $this->run(new RespondWithViewJob('client::debtors.debtors'));
     }
 }

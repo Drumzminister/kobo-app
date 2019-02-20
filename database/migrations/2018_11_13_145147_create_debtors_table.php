@@ -17,6 +17,7 @@ class CreateDebtorsTable extends Migration
             $table->increments('id');
             $table->string('company_id');
             $table->string('customer_id');
+            $table->string('sale_id');
             $table->decimal('amount', 15, 2)->default(0);
             $table->timestamps();
 
