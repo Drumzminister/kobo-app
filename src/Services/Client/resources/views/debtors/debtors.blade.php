@@ -172,11 +172,11 @@
                                 <tbody>
                                 @foreach($debtors as $debtor)
                                   <tr>
-                                        <td>21/08/2020</td>
+                                        <td>{{ $debtor->created_at }}</td>
                                         <td><a href="#">{{ $debtor->customer->name }}</a> </td>
                                         <td>23,000</td>
-                                        <td> 43,000</td>
-                                        <td>50,000</td>
+                                        <td>43,000</td>
+                                        <td>{{ $debtor->amount }}</td>
                                   </tr>
                                 @endforeach
                                 </tbody>

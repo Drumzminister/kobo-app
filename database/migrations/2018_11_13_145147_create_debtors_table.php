@@ -17,11 +17,13 @@ class CreateDebtorsTable extends Migration
             $table->increments('id');
             $table->string('company_id');
             $table->string('customer_id');
-            $table->string('sale_id');
+            $table->string('sale_id')->nullable();
+            $table->enum('source', ['sale'])->default('sale');
             $table->decimal('amount', 15, 2)->default(0);
             $table->timestamps();
 
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('sale_id')->references('id')->on('sales');
             $table->foreign('customer_id')->references('id')->on('customers');
         });
     }

@@ -2,18 +2,21 @@
 
 namespace Koboaccountant\Models;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 
 class Debtor extends Model
 {
+    use Cachable;
+
     protected $fillable = [
-        'company_id', 'amount', 'customer_id', 'source', 'source_id'
+        'company_id', 'amount', 'customer_id', 'source', 'sale_id',
     ];
 
     /**
      * @var array
      */
-    protected $with = ['customer'];
+    protected $with = ['customer', 'sale'];
 
     public $incrementing = false;
 

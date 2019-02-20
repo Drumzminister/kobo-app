@@ -50,7 +50,9 @@ class CreateDebtorJob extends Job
         $data = [
             'company_id' => $customer->company->id,
             'customer_id' => $this->customerId,
-            'amount' => $this->balance
+            'amount' => $this->balance,
+            'sale_id' => $this->sale->id,
+            'source' => 'sale'
         ];
 
         return $this->debtor->fillAndSave($data);
