@@ -11,4 +11,9 @@ class Debtor extends Model
     ];
 
     public $incrementing = false;
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }
