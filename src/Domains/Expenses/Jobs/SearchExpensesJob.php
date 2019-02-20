@@ -32,6 +32,6 @@ class SearchExpensesJob extends Job
      */
     public function handle()
     {
-        return $this->expenses->searchBy('companyId', $this->param);
+        return $this->expenses->searchByDetails($this->param, $this->companyId);
     }
 }

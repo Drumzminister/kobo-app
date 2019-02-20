@@ -22,4 +22,9 @@ class ExpenseRepository extends Repository
     {
         return Expense::where('company_id', $companyId)->latest()->take(5)->get();
     }
+
+    public function paginated($companyId, $amount) 
+    {
+        return Expense::where('company_id', $companyId)->paginate($amount);
+    }
 }
