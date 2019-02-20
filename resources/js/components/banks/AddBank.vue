@@ -17,22 +17,22 @@
                                     <option value="">Select Bank ...</option>
                                     <option v-for="bank in banks" :value="bank.name">{{ bank.name }}</option>
                                 </select>
-                                <small class="text-danger" v-if="newBank.bank_name === '' && saving" >You must select a bank name</small>
+                                <small class="text-danger" v-if="newBank.bank_name === '' && saveClicked" >You must select a bank name</small>
                             </div>
                             <div class="form-group">
                                 <label for="accountName">Account Name</label>
                                 <input type="text" v-model="newBank.account_name" name="account_name" class="form-control" id="accountName" placeholder="" required>
-                                <small class="text-danger" v-if="newBank.account_name === '' && saving" >You must input an account name</small>
+                                <small class="text-danger" v-if="newBank.account_name === '' && saveClicked" >You must input an account name</small>
                             </div>
                             <div class="form-group">
                                 <label for="accountNumber">Account Number</label>
                                 <input type="text" v-model="newBank.account_number" name="account_number" class="form-control" id="accountNumber" placeholder="">
-                                <small class="text-danger" v-if="newBank.account_number === '' && saving" >You must input account number</small>
+                                <small class="text-danger" v-if="newBank.account_number === '' && saveClicked" >You must input account number</small>
                             </div>
                             <div class="form-group">
                                 <label for="balance">Balance (&#8358;)</label>
-                                <input type="number" v-model="newBank.account_balance" :min="1" step="0.01" name="account_balance" class="form-control" id="balance" placeholder="">
-                                <!--<small class="text-danger" v-if="newBank.account_balance === '' && saving" >You must select a bank name</small>  -->
+                                <money-input :model="'newBank.account_balance'" :class="'form-control'" :options="{ placeholder: '0.00' }"></money-input>
+                                <small class="text-danger" v-if="(!newBank.account_balance || newBank.account_balance === '') && saveClicked">You must input balance</small>
                             </div>
                             <div class="form-group d-flex justify-content-center">
                                 <button :disabled="saving" type="button" @click="saveBankDetails()" class="btn btn-green px-5"><i v-show="saving" class="fa fa-circle-notch fa-spin"></i> Save</button>
@@ -57,7 +57,8 @@
         data () {
             return {
                 newBank: new Bank(),
-                saving: false
+                saving: false,
+                saveClicked: false
             }
         },
         mounted () {
@@ -76,11 +77,13 @@
                 }
             },
             saveBankDetails () {
+                this.saveClicked = true;
                 if (this.newBank.isNotValid) {
                     this.runValidatorProcess();
                     return;
                 }
 
+                this.saveClicked = false;
                 this.saving = true;
 
                 this.newBank.saveBank()

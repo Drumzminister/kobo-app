@@ -17,6 +17,6 @@ class EditCustomerFeature extends Feature
     }
     public function handle(Request $request)
     {
-        return $this->run(EditCustomerJob::class, ['companyId' => $this->companyId, 'customerId' => $this->customerId]);
+        return $this->run(EditCustomerJob::class, ['companyId' => $this->companyId, 'customerId' => $this->customerId, 'data' => $request->all()]);
     }
 }

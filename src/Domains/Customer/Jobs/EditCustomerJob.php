@@ -12,13 +12,14 @@ class EditCustomerJob extends Job
      *
      * @return void
      */
-    private $customerId, $companyId, $customer;
+    private $customerId, $companyId, $customer, $data;
 
-    public function __construct($customerId, $companyId)
+    public function __construct($customerId, $companyId, $data)
     {
         $this->customerId = $customerId;
         $this->companyId = $companyId;
         $this->customer = new CustomerRepository();
+        $this->data = $data;
     }
 
     /**
@@ -28,7 +29,7 @@ class EditCustomerJob extends Job
      */
     public function handle()
     {
-        $this->customer->findBy('id', $this->companyId);
-        $this->customer->fillAndSave();
+        $customer = $this->customer->update($this->data, $this->customerId);
+        return $customer;
     }
 }

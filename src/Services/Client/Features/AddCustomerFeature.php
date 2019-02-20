@@ -3,12 +3,12 @@
 namespace App\Services\Client\Features;
 
 use App\Domains\Http\Jobs\RespondWithViewJob;
+use App\Services\Client\Http\Requests\AddCustomerRequest;
 use Lucid\Foundation\Feature;
-use Illuminate\Http\Request;
 
 class AddCustomerFeature extends Feature
 {
-    public function handle(Request $request)
+    public function handle(AddCustomerRequest $request)
     {
         return $this->run(new RespondWithViewJob('client::customer.add-customers'));
     }

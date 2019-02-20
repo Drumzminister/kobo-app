@@ -78,7 +78,7 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/customer/add', 'CustomerController@showCustomer')->name('client.customer.add');
     Route::post('/customer/add', 'CustomerController@addCustomer')->name('client.customer.add');
     Route::get('/customer/edit/{customerId}', 'CustomerController@editCustomerPage')->name('client.customer.edit');
-    Route::post('/customer/edit', 'CustomerController@editCustomer')->name('client.customer.edit');
+    Route::post('/customer/update/{customerId}', 'CustomerController@updateCustomer')->name('client.customer.edit');
     Route::get('/customer/list', 'CustomerController@listAllCustomers')->name('client.customer.list');
     Route::get('/customer/all-customers', 'CustomerController@allCustomers')->name('client.customer.all');
     Route::get('/customer/search', 'CustomerController@searchCustomers')->name('client.customer.search');
@@ -135,6 +135,8 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::get('/product/add', 'ProductController@addProductPage')->name('add-product');
     Route::post('/product/add-product', 'ProductController@addProduct')->name('add-product');
     Route::post('/product/add-product-image', 'ProductController@addProductImage')->name('add-product-image');
+
+    Route::get('/banking', 'BankingController@ShowBankingPages')->name('banking.bank');
 
 });
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');

@@ -36,15 +36,26 @@
                                     <span class="text-danger"></span>
                                 </td>
                                 <td><input v-model="content.address" id="address" type="text" class="form-control address"></td>
-                                <td><input name="phone" v-validate="'digits:11'" v-model="content.phone" id="phone" type="number" class="form-control number">
+                                <td><input name="phone" v-validate="'digits:11'" v-model="content.phone" id="phone" type="text" class="form-control number">
                                 </td>
                                 <td><input name="email" v-validate="'required|email'"  v-model="content.email" id="email" type="text" class="form-control email">
                                 </td>
-                                <td><input   v-model="content.website" id="website" type="text" class="form-control website">
+                                <td><input  v-model="content.website" id="website" type="text" class="form-control website">
                                 </td>
-                                <td><input type="file" @change="uploadImage($event, index)" class="form-control image" id="image">
-                                </td>
-                                <td id="delete" @click='deleteVendorRow(index)'><i class="fa fa-trash-o" style="font-size:24px"></i></td>
+                                <div>
+                                    <td><input type="file"  accept="image/*" @click="resetVendorImage(index)" @change="uploadImage($event, index)" class="form-control image" :id="'image-'+index">
+                                        <div v-show="content.vendorImageIsLoading" class="spinner-border text-success" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        <div v-show="content.vendorImageIsLoaded">
+                                            <i style="color:green; font-size: 30px"class="fa fa-check-circle"></i>Uploaded
+                                        </div>
+                                        <div v-show="content.vendorImageNotUpLoaded">
+                                            <i style="color:red; font-size: 30px"class="fa fa-check-circle"></i>Not uploaded
+                                        </div>
+                                    </td>
+                                </div>
+                                <td id="delete" style="cursor:pointer" @click='deleteVendorRow(index)'><i class="fa fa-trash-o" style="font-size:24px"></i></td>
                             </tr>
                             <ul>
                                 <li class="text-danger" v-for="error in errors.all()">@{{ error }}</li>

@@ -15,13 +15,22 @@
         <div class="bg-white p-5">
             <div class="row">
                 <div class="col-md-4 img-in">
-                    <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle">
+                    <img v-if="! customerForm.image"src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle">
+                    <img v-show="customerForm.image" v-bind:src="customerForm.image" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle"/>
                     <div class="overlay">
                         <div class="text form-group">
-                            <input type="file" @change="getAndProcessCustomerImage($event)" class="form-control-file" id="staffPhoto">
+                            <input type="file"  @click="imageReset" accept="image/*" @change="getAndProcessCustomerImage($event)" class="form-control-file" id="staffPhoto">
                         </div>
                     </div>
-                <h5 class="h5 px-4 py-2 ">Add Photo</h5>
+                    <h5 class="h5 px-4 py-2 ">Add Photo
+                    <div v-show="imageIsLoading"class="spinner-border text-success" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+
+                    <div v-show="imageUploaded">
+                        <i style="color:green; font-size: 30px"class="fa fa-check-circle"></i>Uploaded
+                    </div>
+                </h5>
                 </div>
                 {{--<div class="col-md-8">--}}
                     {{--<form method="post" action="uploadCsv" enctype="multipart/form-data">--}}
@@ -42,14 +51,14 @@
                     <div class="col-md-8">
                         <label for="first name">First Name</label>
                         <input v-model="customerForm.first_name" name="Name" v-validate="'required'" type="text" class="form-control bg-grey" autofocus >
-                        <div v-if="customerFormSubmitted && errors.has('Name')" class="text-danger">@{{ errors.first('Name') }}</div><br>
+                        <div  class="text-danger">@{{ errors.first('Name') }}</div><br>
 
                         <label for="last name">Last name</label>
                         <input v-model="customerForm.last_name" type="text" class="form-control bg-grey" id="" ><br>
 
                         <label for="phone">Phone number</label>
                         <input v-model="customerForm.phone" name="phone" type="text" v-validate="'required|min:11'" class="form-control bg-grey" id="" >
-                        <div v-if="customerFormSubmitted && errors.has('phone')" class="text-danger">@{{ errors.first('phone') }}</div><br>
+                        <div class="text-danger">@{{ errors.first('phone') }}</div><br>
 
                         <label for="phone">Email</label>
                         <input v-model="customerForm.email" v-validate="'email'" name="email" type="text" class="form-control bg-grey" id="" >
@@ -87,7 +96,7 @@
                         <div class="col-md-8">
                             {{--<button type="submit" v-on:click="createCustomer" class="btn btn-addsale">Save Information</button>--}}
                             {{--<button type="submit" v-if="errors.any()" disabled="disabled" class="btn btn-primary" v-on:click="createCustomer" data-dismiss="modal" type="submit">Save Information</button>--}}
-                            <button type="submit" class="btn btn-addsale" @click="updateCustomer"  data-dismiss="modal" type="submit">Save Information</button>
+                            <button type="submit" class="btn btn-addsale" @click="createCustomer"  data-dismiss="modal" type="submit">Save Information</button>
                         </div>
                     </div>
         </div>
