@@ -3,10 +3,12 @@
 namespace App\Domains\Sale\Jobs;
 
 use App\Data\Repositories\BankDetailRepository;
+use App\Data\Repositories\CustomerRepository;
 use App\Data\Repositories\SaleItemRepository;
 use App\Data\Repositories\SaleRepository;
 use App\Data\Repositories\UserRepository;
 use App\Domains\Banks\Jobs\CreditBanksJob;
+use App\Domains\Debtor\Jobs\CreateDebtorJob;
 use App\Domains\Inventory\Jobs\DecrementItemInInventoryJob;
 use Koboaccountant\Traits\HelpsResponse;
 use Lucid\Foundation\Job;
@@ -100,17 +102,29 @@ class AddSaleJob extends Job
     {
 	    $response = $this->creditPaymentMethodsForSale($paymentMethods, $sale);
 
+	    $balance = $this->data['total_amount'] - $response->data['totalPaid'];
+	    $this->data['balance'] = $balance;
+
+	    if ($balance > 0) {
+	        $this->createDebtorFromCustomer($this->data['customer_id'], $balance, $sale);
+        }
+
 	    if ($response->status === "success") {
 		    $updated = $sale->fill($this->data)->save();
 
 			// Decrease Inventory Items based on Sales Items bought
-		    $this->removeItemsBoughtFromInventory($sale );
+		    $this->removeItemsBoughtFromInventory($sale);
 
 		    return $updated ? $this->createJobResponse('success', 'Sale Completed', $sale)
 			    : $this->createJobResponse('error', 'Sale could not be completed', $sale);
 	    }
 
 	    return $this->createJobResponse('error', $response->message, $sale);
+    }
+
+    protected function createDebtorFromCustomer(string $customerId, $balance, $sale)
+    {
+        return (new CreateDebtorJob($customerId, $balance, $sale))->handle();
     }
 
     protected function performReversalUpdate($paymentMethods, $sale)

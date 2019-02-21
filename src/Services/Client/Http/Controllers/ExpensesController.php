@@ -5,6 +5,7 @@ namespace App\Services\Client\Http\Controllers;
 use App\Services\Client\Features\AddExpenseFeature;
 use App\Services\Client\Features\SearchExpensesFeature;
 use App\Services\Client\Features\ShowAddExpensesPageFeature;
+use App\Services\Client\Features\ShowAllExpensesFeature;
 use App\Services\Client\Features\ShowExpensePageFeature;
 use App\Services\Web\Features\PayExpenseFeature;
 use Illuminate\Http\Request;
@@ -20,6 +21,11 @@ class ExpensesController extends Controller
     function showExpensePage()
     {
         return $this->serve(ShowExpensePageFeature::class);
+    }
+
+    function showAllExpenses()
+    {
+        return $this->serve(ShowAllExpensesFeature::class);
     }
 
     function showAddExpensePage()

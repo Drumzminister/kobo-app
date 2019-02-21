@@ -8,9 +8,13 @@ $factory->define(\Koboaccountant\Models\Accountant::class, function (Faker $fake
 	shuffle($genders);
 	return [
 		'id'                => $faker->uuid,
+        'kobo_id'           => 'A-' . str_random(8),
 		'first_name'        => $faker->firstName,
 		'last_name'         => $faker->lastName,
+		'picture'			=> $faker->imageUrl($width = 640, $height = 480),
 		'city'              => $faker->city,
+		'years_of_experience' => rand(0, 10),
+		'level'				=> "KB4",
 		'state'             => $faker->city,
 		'address'           => $faker->address,
 		'sex'               => $genders[0],

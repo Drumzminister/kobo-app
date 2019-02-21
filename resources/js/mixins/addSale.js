@@ -122,7 +122,7 @@ export const addSale = {
             if (this.balanceLeft === 0) {
                 this.sendSaleCreationRequest();
             } else {
-                confirmSomethingWithAlert(`You have a balance of NGN ${this.$currency.format(this.balanceLeft)}`).then((result) => {
+                confirmSomethingWithAlert(`You are been owned a balance of NGN ${this.$currency.format(this.balanceLeft)}. If you continue, this customer will be added as a Debtor.`).then((result) => {
                     if (result.value) {
                         this.sendSaleCreationRequest();
                     }
@@ -143,7 +143,7 @@ export const addSale = {
                 discount: this.saleDiscount,
                 customer_id: this.customer.id,
                 delivery_cost: this.deliveryCost,
-                total_amount: this.totalSalesAmount,
+                total_amount: this.computedSalesAmount,
                 paymentMethods: this.selectedAccounts,
                 invoice_number: this.sale.invoice_number
             };

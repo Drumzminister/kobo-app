@@ -1,12 +1,12 @@
 <template>
-    <input type="text" @keyup="beautify" v-model="localModel" :placeholder="placeholder || 'input'" :class="classes"/>
+    <input type="text" @keyup="beautify" v-model="localModel" :placeholder="options.placeholder || 'Money Input'" :class="classes"/>
 </template>
 <script>
     export default {
-        props: ['model', 'placeholder', 'classes'],
+        props: ['model','initial', 'options', 'classes'],
         data () {
             return {
-                localModel: ""
+                localModel: "",
             }
         },
         computed: {
@@ -14,7 +14,13 @@
                 return this.localModel.replace(/,/gi, '');
             }
         },
+        mounted() {
+            if (this.initial) this.localModel = Number(this.initial).toLocaleString( "en-US" );
+        },
         watch: {
+            initial () {
+                this.localModel = Number(this.initial).toLocaleString( "en-US" );
+            },
             localModel (oldVal) {
                 let parts = this.model.split('.');
                 if (parts.length === 1 || parts.length === 0) {
@@ -26,10 +32,23 @@
                 let currentObj = null;
                 parts.forEach(p => {
                     if(currentObj === null) {
-                        currentObj = this.$parent[p];
+                        if (p.includes("[") && p.endsWith ("]")) {
+                            let parts = p.split('[');
+                            currentObj = this.$parent [parts[0]] [Number(parts[1].substring(0, parts[1].length-1 ))];
+                        } else {
+                            currentObj = this.$parent[p];
+                        }
                     } else {
-                        if (typeof currentObj[p] === "object") currentObj = currentObj[p];
-                        else currentObj[p] = this.numberValue;
+                        if (null !== currentObj[p] && typeof currentObj[p] === "object") {
+                            if (p.includes("[") && p.endsWith ("]")) {
+                                let parts = p.split('[');
+                                currentObj = this.$parent [parts[0]] [Number(parts[1].substring(0, parts[1].length-1 ))];
+                            } else {
+                                currentObj = this.$parent[p];
+                            }
+                        } else {
+                            currentObj[p] = this.numberValue;
+                        }
                     }
                 });
             }

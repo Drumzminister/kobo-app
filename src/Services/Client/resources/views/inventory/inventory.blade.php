@@ -113,13 +113,13 @@ input {
                             <div class="row pb-3">
                                     <div class="col-md-3">
                                         <div class="dropdown show">
-                                            <a class="btn btn-addSale" href="/client/inventory/single-inventory" role="button">
-                                                    Add Purchase                                    
+                                            <a class="btn btn-addSale" href="/client/inventory/multiple-inventory" role="button">
+                                                    Add Purchase
                                             </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="/client/inventory/single-inventory" class="text-green">Single Product</a>
-                                                <a class="dropdown-item" href="/client/inventory/multiple-inventory" class="text-green">Multi Products</a>
-                                            </div>
+                                            {{--<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">--}}
+                                                {{--<a class="dropdown-item" href="/client/inventory/single-inventory" class="text-green">Single Product</a>--}}
+                                                {{--<a class="dropdown-item"  class="text-green">Multi Products</a>--}}
+                                            {{--</div>--}}
                                         </div>                                              
                                     </div>
                 

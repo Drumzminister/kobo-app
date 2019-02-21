@@ -39,7 +39,7 @@ class AddCustomerRequest extends FormRequest
     public function validateCustomerEmailUnique($attribute, $value, $fail)
     {
         $customer = $this->customer->getByAttributes(['company_id' => auth()->user()->getUserCompany()->id, 'email' => $value])->first();
-        if($customer) $fail('Customer email already exist');
+        if($customer && ! is_null($value)) $fail('Customer email already exist');
     }
     public function validateCustomerPhoneUnique($attribute, $value, $fail)
     {

@@ -38,8 +38,13 @@
                             </td>
                             <td><input v-model="item.description" @change="item.debounceItemSaving()" type="text" id="sales_description" class="form-control sales_description "></td>
                             <td><input style="width: 200px" :disabled="item.inventoryid === ''" @change="item.debounceItemSaving()" min="1" :max="item.inventory ? item.inventory.quantity : 0" v-model="item.quantity" type="number" class="sales_quantity form-control" :placeholder="item.inventory ? item.inventory.quantity + ' In Stock' : null"></td>
-                            <td><input disabled v-model="item.sales_price" type="number" min="1" class="form-control sales_price" placeholder="0.00"></td>
-                            <td><input disabled v-model="item.totalPrice()" type="text" class="form-control sales_total" id="sales_total" placeholder="0.00"></td>
+                            <td>
+                                <input :disabled="true" :value="currency.format(item.sales_price)" type="text" min="1" class="form-control sales_price" placeholder="0.00">
+                                <!--<money-input :model="'saleItems.'+index+'sales_price'" :class="'form-control sales_price'" :options="{ placeholder: '0.00', disabled: true }"></money-input>-->
+                            </td>
+                            <td>
+                                <input :disabled="true" :value="currency.format(item.totalPrice())" type="text" class="form-control sales_total" id="sales_total" placeholder="0.00">
+                            </td>
                             <td>
                                 <select v-model="item.sale_channel_id" @change="item.debounceItemSaving()" class="form-control search sales_channel">
                                     <option value="">Channel ...</option>
@@ -75,7 +80,8 @@
                                     <h5 class="h6 mt-2 uppercase text-muted">Total Discount</h5>
                                 </div>
                                     <div class="col input-group mb-2 input-group-lg">
-                                        <input type="number" min="1" v-model="saleDiscount" class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="0.00">
+                                        <!--<input type="number" min="1" v-model="saleDiscount" class="form-control discount" id="basic-url" aria-describedby="basic-addon3" placeholder="0.00">-->
+                                        <money-input :model="'saleDiscount'" :class="'form-control discount'" :options="{ placeholder: '0.00' }"></money-input>
                                     </div>
                                 </div>
                             
@@ -84,7 +90,8 @@
                                         <h5 class="h6 mt-2 uppercase text-muted">Total Delivery Amount</h5>
                                     </div>
                                     <div class="col input-group mb-2 input-group-lg">
-                                        <input type="number" min="1" v-model="deliveryCost" class="form-control " id="" aria-describedby="basic-addon3" placeholder="0.00">
+                                        <!--<input type="number" min="1" v-model="deliveryCost" class="form-control " id="" aria-describedby="basic-addon3" placeholder="0.00">-->
+                                        <money-input :model="'deliveryCost'" :class="'form-control discount'" :options="{ placeholder: '0.00' }"></money-input>
                                     </div>
                                 </div>
                             

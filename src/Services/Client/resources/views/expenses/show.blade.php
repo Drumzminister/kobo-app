@@ -22,7 +22,7 @@
                         @if($expenses->count() > 0)
                             <mini-chart-component :options="{ mode: 'year', page: 'expenses', dateRangeStart: '{{ $startDate }}', dateColumn: 'date', xColumn: 'date', yColumn: 'amount', label: '# of Expenses'}"
                                                   :month="{{ $monthExpenses }}"
-                                                  :data="{{ $expenses }}"
+                                                  :data="expenses"
                                                   :year="{{ $yearExpenses }}"
                                                   :week="{{ $weekExpenses }}"
                                                   :day="{{ $dayExpenses }}">
@@ -87,36 +87,7 @@
                     </div>
                 </div>
 
-                <div class="table-responsive table-responsive-sm" v-if="expenses.length > 0">
-                    <table class="table table-striped table-hover" id="expenseTable">
-                        <thead class="p-3">
-                        <tr class="tab">
-                            <th scope="col">Date</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Amount (&#8358;)</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Payment Status</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr v-for="expense in expenses">
-                                <td>@{{ expense.date }}</td>
-                                <td>@{{ expense.details }}</td>
-                                <td>@{{ expense.amount, 2 }}</td>
-                                <td>@{{ expense.classification }}</td>
-                                <td v-if="expense.has_finished_payment">Paid</td>
-                                <td v-else>@{{ expense.amount_paid > 0 ? 'Incomplete' : 'Not paid' }}<button class="btn mr-4 pull-right btn-sm btn-primary" @click=payUnpaidExpenses(expense.id)>Pay</button></td>
-
-                            </tr>
-                            <tr v-if="expenses.length === 0" id="noExpense">
-                                <td colspan="5">
-                                    You have no expense. <br> Use the add expense button to add new expenses.
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <expenses-table :expenses="expenses" v-if="expenses.length > 0"></expenses-table>
                 <div v-else>
                     <p class="alert alert-info">
                         You have made no expense. Add an expense using the add expense button.
@@ -126,8 +97,8 @@
                     </div>
                 </div>
                 <hr class="mt-0">
-                <div class="text-center pb-3" v-if="expenses.length > 10">
-                    <a href="/view-expenses" class="view-more" >View More</a>
+                <div class="text-center pb-3" v-if="expenses.length > 1">
+                    <a href="{{route('client.expenses.show-all')}}" class="view-more" >View More</a>
                 </div>
             </div>
         </div>
@@ -168,6 +139,6 @@
 @section('other_js')
     <script>
         window.latest = @json($latest);
-        window.expenses = @json($expenses);
+        window.expenses = @json($expenses).data;
     </script>
 @endsection

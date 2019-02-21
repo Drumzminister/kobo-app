@@ -31,7 +31,9 @@ class GetExpensesPageDataJob extends Job
     public function handle()
     {
         $expenses       = (new ListAllCompaniesExpensesJob($this->companyId))->handle();
+        $paginated      = (new ListAllCompaniesExpensesJob($this->companyId, true))->handle();
         $latest         = $this->expense->getLatest($this->companyId);
+        $totalExpensesAmount = $expenses->sum('amount');
         $banks          = (new GetBankAccountsJob($this->companyId))->handle();
 
         $dayExpenses    = $expenses->whereBetween('created_at', [now()->subDay(), now()]);
@@ -41,9 +43,10 @@ class GetExpensesPageDataJob extends Job
         $startDate      = $expenses->first()->date ?? now();
 
         return [
-            'expenses'  => $expenses,
+            'expenses'  => $paginated,
             'latest'    => $latest,
             'banks'     => $banks,
+            'total'     => $totalExpensesAmount,
             'dayExpenses'   => $dayExpenses,
             'monthExpenses' => $monthExpenses,
             'weekExpenses'  => $weekExpenses,

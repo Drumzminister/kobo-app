@@ -55,7 +55,7 @@ export const rentApp = {
             evt.preventDefault();
             this.isRequesting = true;
             let formData = new FormData(evt.target);
-            let rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(formData.get('amount'));
+            let rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(this.rentAmount);
             formData.set('amount', rentAmount);
             formData.append('other_costs', JSON.stringify(this.other_costs));
             axios.post('/client/rent/add', formData).then(res => {
@@ -134,7 +134,7 @@ export const rentApp = {
 
             let formData = new FormData(evt.target);
             formData.append('other_costs', JSON.stringify(this.other_costs));
-            let rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(formData.get('amount'));
+            let rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(this.editingRent.amount);
             formData.set('amount', rentAmount);
             this.isRequesting = true;
             axios.post(`/client/rent/update/${this.editingRent.id}`, formData).then((response) => {

@@ -15,9 +15,10 @@ class ListAllCompaniesExpensesJob extends Job
      *
      * @return void
      */
-    public function __construct($companyId)
+    public function __construct($companyId, $paginated = false)
     {
         $this->companyId = $companyId;
+        $this->paginated = $paginated;
         $this->expenses = new ExpenseRepository();
     }
 
@@ -28,6 +29,8 @@ class ListAllCompaniesExpensesJob extends Job
      */
     public function handle()
     {
-        return $this->expenses->getByAttributes(['company_id' => $this->companyId]);
+        if ($this->paginated)
+            return $this->expenses->paginated($this->companyId, 10);
+        return $this->expenses->getByCompany_Id($this->companyId);
     }
 }

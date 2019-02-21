@@ -128,7 +128,6 @@
                                                 <td>12,000</td>
                                             </tr>
                                         </tbody>
-            
                                 </table>
                         </div>
                     </div>
@@ -168,48 +167,18 @@
                                     <th scope="col">Total Invoices Owed (&#8358;)</th>
                                     <th scope="col">Total Payment (&#8358;)</th>
                                     <th scope="col">Amount Receivables</th>
-        
-                        
                                   </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($debtors as $debtor)
                                   <tr>
-                                        <td >21/08/2020 </td>                                       
-                                        <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
-                                        <td> 23,000</td>
-                                        <td> 43,000</td>
-                                        <td>50,000</td>
+                                        <td>{{ $debtor->created_at }}</td>
+                                        <td><a href="#">{{ $debtor->customer->name }}</a> </td>
+                                        <td>23,000</td>
+                                        <td>43,000</td>
+                                        <td>{{ $debtor->amount }}</td>
                                   </tr>
-        
-                                    <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>                                    </tr>
-        
-                                    <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a></td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>
-                                    </tr>
-                                    <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a> </td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>
-                                    </tr>
-                                    <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a></td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>
-                                    </tr>
-                                    
+                                @endforeach
                                 </tbody>
                         </table>
                 </div>
