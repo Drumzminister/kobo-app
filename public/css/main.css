@@ -269,7 +269,7 @@ loan section
 }
 .loa:hover {
   color: #FFFFFF!important;
-  background: #00C259!important;
+  /* background: #00C259!important; */
   box-shadow: 2px 3px 3px 2px rgba(0, 0, 0, 0.4);
 }
 .loa:hover .show-more {
@@ -931,4 +931,12 @@ margin: auto;
   background:#C4C4C4;
   border-radius:10px;
   padding-left:0;
+}
+.nav-link-black{
+  color: black;
+  font-weight:500
+}
+.nav-pill .nav-item:hover{
+text-decoration: none;
+color: black;
 }
