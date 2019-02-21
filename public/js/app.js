@@ -77370,7 +77370,7 @@ var rentApp = {
             evt.preventDefault();
             this.isRequesting = true;
             var formData = new FormData(evt.target);
-            var rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(formData.get('amount'));
+            var rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(this.rentAmount);
             formData.set('amount', rentAmount);
             formData.append('other_costs', JSON.stringify(this.other_costs));
             axios.post('/client/rent/add', formData).then(function (res) {
@@ -77445,7 +77445,7 @@ var rentApp = {
 
             var formData = new FormData(evt.target);
             formData.append('other_costs', JSON.stringify(this.other_costs));
-            var rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(formData.get('amount'));
+            var rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(this.editingRent.amount);
             formData.set('amount', rentAmount);
             this.isRequesting = true;
             axios.post("/client/rent/update/" + this.editingRent.id, formData).then(function (response) {
@@ -99147,7 +99147,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['model', 'options', 'classes'],
+    props: ['model', 'initial', 'options', 'classes'],
     data: function data() {
         return {
             localModel: ""
@@ -99159,7 +99159,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return this.localModel.replace(/,/gi, '');
         }
     },
+    mounted: function mounted() {
+        if (this.initial) this.localModel = Number(this.initial).toLocaleString("en-US");
+    },
+
     watch: {
+        initial: function initial() {
+            this.localModel = Number(this.initial).toLocaleString("en-US");
+        },
         localModel: function localModel(oldVal) {
             var _this = this;
 
@@ -99173,10 +99180,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var currentObj = null;
             parts.forEach(function (p) {
                 if (currentObj === null) {
-                    currentObj = _this.$parent[p];
+                    if (p.includes("[") && p.endsWith("]")) {
+                        var _parts = p.split('[');
+                        currentObj = _this.$parent[_parts[0]][Number(_parts[1].substring(0, _parts[1].length - 1))];
+                    } else {
+                        currentObj = _this.$parent[p];
+                    }
                 } else {
                     if (null !== currentObj[p] && _typeof(currentObj[p]) === "object") {
-                        currentObj = currentObj[p];
+                        if (p.includes("[") && p.endsWith("]")) {
+                            var _parts2 = p.split('[');
+                            currentObj = _this.$parent[_parts2[0]][Number(_parts2[1].substring(0, _parts2[1].length - 1))];
+                        } else {
+                            currentObj = _this.$parent[p];
+                        }
                     } else {
                         currentObj[p] = _this.numberValue;
                     }

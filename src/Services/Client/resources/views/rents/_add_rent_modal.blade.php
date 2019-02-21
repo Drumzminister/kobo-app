@@ -26,7 +26,8 @@
                         <div class="form-group">
                             <label for="amount" class="d-block"><h5>Rental Fee</h5></label>
                             <label  class="d-block"><small>Add the amount of the rent</small></label>
-                            <input type="number" step="0.01" class="form-control" v-model="rentAmount" name="amount" min="0.00" id="amount" placeholder="NGN 5,0000,000" required>
+                            <money-input :model="'rentAmount'" :classes="'form-control'" :options="{placeholder: '5,000, 000'}"></money-input>
+                            {{-- <input type="number" step="0.01" class="form-control" v-model="rentAmount" name="amount" min="0.00" id="amount" placeholder="NGN 5,0000,000" required> --}}
                         </div>
                         <div class="form-group shadow-textarea">
                             <label for=""><h5>Rental Properties</h5></label>
@@ -36,9 +37,10 @@
                         <div class="form-group">
                             <label for=""><h5>Other Rental Cost</h5></label>
                             <label for="" class="d-block"><small>Add other rental cost </small></label>
-                            <div class="d-flex mt-2" v-for="cost in other_costs">
+                            <div class="d-flex mt-2" v-for="(cost, index) in other_costs">
                                 <input type="text" class="form-control mr-4" v-model="cost.description" placeholder="Description" >
-                                <input type="number" placeholder="amount" v-model="cost.amount" class="form-control" id="" placeholder="">
+                                <money-input :model="'other_costs['+ index +'].amount'" :classes="'form-control'" :options="{placeholder: '5,000, 000'}"></money-input>
+                                {{-- <input type="number" placeholder="amount" v-model="cost.amount" class="form-control" id="" placeholder=""> --}}
                                 <span v-if="other_costs.length > 1" @click="removeOtherCost(cost.key)"><i class="fa fa-times ml-2" style="font-size:32px;color:#c22c29; cursor:pointer"></i></span>
                             </div>
                             <div class="d-flex justify-content-end">
