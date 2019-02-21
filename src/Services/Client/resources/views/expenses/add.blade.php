@@ -48,16 +48,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="expense in expenseRecords" class="records">
+                            <tr v-for="(expense, index) in expenseRecords" class="records">
                                 <td class="pt-3-half">
                                     <input type="text" v-model="expense.description" name="description" class="form-control expenseDescription">
                                 </td>
                                 <td class="pt-3-half">
-                                    <input type="number" v-model="expense.amount" name="amount" class="form-control expenseAmount">
+                                    <money-input :model="'expenseRecords['+ index +'].amount'" :classes="'form-control expenseAmount'" :options="{placeholder: '5,000'}"></money-input>
+                                    {{-- <input type="number" v-model="expense.amount" name="amount" class="form-control expenseAmount"> --}}
                                 </td>
                                 <td>
                                     <button class="btn btn-primary px-4 payBtn" type="button" @click="showPayExpenseModal($event, expense)">Pay</button>
                                     <button class="btn btn-success px-4 paid" style="display: none" type="button" disabled>Paid</button>
+                                    <span class="ml-3" style="cursor: pointer; margin-top: 20px" v-show="(expenseRecords.length > 1 && !expense.paid)" @click="removeUnpaidExpense(expense)"><i class="fa fa-times" style="font-size:32px;color:#c22c29;"></i></span>
                                 </td>
                             </tr>
                         </tbody>
@@ -70,7 +72,7 @@
                 <!-- Modal -->
                 <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <expense-payment :expense="currentExpense" :row="currentExpenseRow" :banks="{{$banks}}"></expense-payment>
+                        <expense-payment v-on:has-paid-expense="currentExpense.paid = true" :expense="currentExpense" :row="currentExpenseRow" :banks="{{$banks}}"></expense-payment>
                     </div>
                 </div>
 

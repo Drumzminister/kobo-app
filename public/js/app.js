@@ -95817,6 +95817,11 @@ var expenseApp = {
         }
     },
     methods: {
+        removeUnpaidExpense: function removeUnpaidExpense(expense) {
+            this.expenseRecords.splice(this.expenseRecords.findIndex(function (ex) {
+                return ex === expense;
+            }), 1);
+        },
         showOriginalExpenses: function showOriginalExpenses() {
             this.hasSearchResults = false;
             this.expenses = [].concat(_toConsumableArray(this.oldExpenses));
@@ -95885,29 +95890,27 @@ var expenseApp = {
         beforeSavingExpenses: function beforeSavingExpenses() {
             var _this2 = this;
 
-            var rows = document.querySelectorAll('.records');
-            var details = [];
+            var inValidRecords = [];
             var hasUnpaid = false;
             if (!document.querySelector("#expense_date").value) {
                 swal("Oops", "No date specified", "warning");
                 return;
             }
-            swal({
-                timer: 2000,
-                toast: true,
-                type: 'info',
-                position: 'top-end',
-                showConfirmButton: false,
-                text: "All unfilled records will be ignored"
+
+            inValidRecords = this.expenseRecords.filter(function (expense) {
+                return expense.description === null || expense.amount === null || expense.description.trim() === "";
             });
-            for (var i = 0; i < rows.length; i++) {
-                if (rows[i].querySelector('.expenseDescription').value.trim()) {
-                    details.push(rows[i]);
-                    if (!rows[i].querySelector('.expenseAmount').readOnly) {
-                        hasUnpaid = true;
-                    }
-                }
+            if (inValidRecords.length !== 0) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])("Some required fields are missing", "error");
+                return;
             }
+
+            this.expenseRecords.forEach(function (expense) {
+                if (!expense.paid) {
+                    hasUnpaid = true;
+                }
+            });
+
             if (hasUnpaid) {
                 swal({
                     title: 'Are you sure?',
@@ -95920,11 +95923,11 @@ var expenseApp = {
                     confirmButtonText: 'No, Proceed!'
                 }).then(function (result) {
                     if (result.value) {
-                        _this2.saveExpenses(details);
+                        _this2.saveExpenses(_this2.expenseRecords);
                     }
                 });
             } else {
-                this.saveExpenses(details);
+                this.saveExpenses(this.expenseRecords);
             }
         },
         saveExpenses: function saveExpenses(details) {
@@ -95933,22 +95936,10 @@ var expenseApp = {
             var saved = 0;
             var date = document.querySelector("#expense_date").value;
             details.forEach(function (expense) {
-                if (!expense.querySelector('.expenseAmount').value) {
-                    swal({
-                        timer: 2000,
-                        toast: true,
-                        type: 'error',
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        text: "Some records have no amount entered"
-                    });
-                    return;
-                }
-
                 var formData = new FormData();
-                formData.append('date', date);
-                formData.append('details', expense.querySelector('.expenseDescription').value.trim());
-                formData.append('amount', expense.querySelector('.expenseAmount').value.trim());
+                formData.set('date', date);
+                formData.set('details', expense.description.trim());
+                formData.set('amount', expense.amount);
 
                 _this3.isSavingExpense = true;
                 axios.post('/client/expenses/add', formData).then(function (res) {
@@ -95962,6 +95953,8 @@ var expenseApp = {
                         showConfirmButton: false,
                         title: "Unable to save: " + err.response.data.message
                     });
+                    clearInterval(checkSaved);
+                    _this3.isSavingExpense = false;
                 });
             });
             var checkSaved = setInterval(function () {
@@ -98094,9 +98087,9 @@ var render = function() {
                       class: "form-control",
                       attrs: {
                         model:
-                          "salePaymentMethods." +
+                          "salePaymentMethods[" +
                           index +
-                          ".paymentMethod.amount",
+                          "].paymentMethod.amount",
                         options: { placeholder: "0.00" }
                       }
                     })
@@ -98652,6 +98645,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 payBtn.style.display = "none";
                 paidBtn.style.display = "block";
                 _this.$parent.closeModal('#paymentModal');
+                _this.$emit('has-paid-expense');
             }).catch(function (err) {
                 swal({
                     timer: 3000,

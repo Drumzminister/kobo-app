@@ -54,7 +54,7 @@
                 <div class="col-md-4">
                     <div class="show input-group input-group-lg mt-3">
                         <!--<money-input :model="'salePaymentMethods.' + index + '.paymentMethod.amount'" :class="'form-control'" :placeholder="'0.00'"></money-input>-->
-                        <money-input :model="'salePaymentMethods.' + index + '.paymentMethod.amount'" :class="'form-control'" :options="{ placeholder: '0.00' }"></money-input>
+                        <money-input :model="'salePaymentMethods[' + index + '].paymentMethod.amount'" :class="'form-control'" :options="{ placeholder: '0.00' }"></money-input>
                         <!--<input v-model="paymentMethod.amount" :disabled="readOnly" type="number" min="1" style="height: 39px;" class="form-control" aria-label="Sizing example input" aria-describedby="" placeholder="0.00">-->
                     </div>
                 </div>
