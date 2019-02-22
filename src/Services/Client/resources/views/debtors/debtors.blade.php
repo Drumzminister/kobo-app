@@ -174,9 +174,9 @@
                                   <tr>
                                         <td>{{ $debtor->created_at }}</td>
                                         <td><a href="#">{{ $debtor->customer->name }}</a> </td>
-                                        <td>23,000</td>
+                                        <td>{{ $debtor->sale ? $debtor->sale->total_amount : 0 }}</td>
                                         <td>43,000</td>
-                                        <td>{{ $debtor->amount }}</td>
+                                        <td>{{ $debtor->sale ? $debtor->sale->balance : 0}}</td>
                                   </tr>
                                 @endforeach
                                 </tbody>

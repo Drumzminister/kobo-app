@@ -27,6 +27,6 @@ class Debtor extends Model
 
     public function sale()
     {
-        return $this->belongsTo(Sale::class, 'source_id', 'id');
+        return $this->belongsTo(Sale::class);
     }
 }
