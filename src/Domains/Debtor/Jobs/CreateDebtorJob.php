@@ -23,6 +23,7 @@ class CreateDebtorJob extends Job
      * @var \Illuminate\Foundation\Application|CustomerRepository
      */
     private $customer;
+    private $sale;
 
     /**
      * Create a new job instance.
@@ -30,12 +31,13 @@ class CreateDebtorJob extends Job
      * @param string $customerId
      * @param $balance
      */
-    public function __construct(string $customerId, $balance)
+    public function __construct(string $customerId, $balance, $sale)
     {
         $this->customerId = $customerId;
         $this->balance = $balance;
         $this->debtor = app(DebtorRepository::class);
         $this->customer = app(CustomerRepository::class);
+        $this->sale = $sale;
     }
 
     /**
@@ -48,7 +50,9 @@ class CreateDebtorJob extends Job
         $data = [
             'company_id' => $customer->company->id,
             'customer_id' => $this->customerId,
-            'amount' => $this->balance
+            'amount' => $this->balance,
+            'sale_id' => $this->sale->id,
+            'source' => 'sale'
         ];
 
         return $this->debtor->fillAndSave($data);

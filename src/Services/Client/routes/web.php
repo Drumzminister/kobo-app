@@ -104,7 +104,7 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::post('/expenses/add', 'ExpensesController@addExpense')->name('client.expenses.add');
     Route::get('/expenses/list', 'ExpensesController@listExpenses')->name('client.expenses.list');
     Route::post('/expenses/update/{expenseId}', 'ExpensesController@updateExpense')->name('client.expenses.update');
-    Route::get('/expenses/search/{param}', 'ExpensesController@searchExpense')->name('client.expenses.search');
+    Route::get('/expenses/search/{param}', 'ExpensesController@searchExpenses')->name('client.expenses.search');
     Route::post('/expenses/{expenseId}/pay', 'ExpensesController@payExpense')->name('client.expenses.pay');
 
     Route::get('/vendor', 'VendorController@showVendorPage')->name('vendor.index');
@@ -137,6 +137,7 @@ Route::group([ 'prefix' => 'client'], function () {
     Route::post('/product/add-product-image', 'ProductController@addProductImage')->name('add-product-image');
 
     Route::get('/banking', 'BankingController@ShowBankingPages')->name('banking.bank');
+    Route::get('/view/banking', 'BankingController@ShowBankingTransactionPages')->name('banking.view-bank');
 
 });
 Route::get('/dashboard', 'ClientDashboardController@index')->name('client.dashboard');

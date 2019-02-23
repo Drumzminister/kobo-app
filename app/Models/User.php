@@ -63,7 +63,7 @@ class User extends Authenticatable
 
 	public function accountant()
 	{
-		return $this->hasOne('Koboaccountant\Models\Accountant');
+		return $this->belongsTo('Koboaccountant\Models\Accountant');
 	}
 
 	public function client()

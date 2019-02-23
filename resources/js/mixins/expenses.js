@@ -1,15 +1,21 @@
+import {toast} from '../helpers/alert';
+
 export const expenseApp = {
     data: {
         latest: [],
         expenses: [],
+        oldExpenses: [],
+        searchParam: "",
         expenseAmount: 0,
-        currentExpense: "",
-        currentExpenseRow: "",
-        selectedMethods: [],
+        isSearching: false,
         expenseRecords: [],
+        currentExpense: "",
+        selectedMethods: [],
+        currentExpenseRow: "",
         methodToBeChanged: {},
         isPayingExpense: false,
         isSavingExpense: false,
+        hasSearchResults: false,
         expenseShowPaymentMethods: false
     },
     filters: {
@@ -28,12 +34,40 @@ export const expenseApp = {
     computed: {
         selectedAccounts () {
             return this.$store.getters.selectedAccounts;
-        },
-        spreadAmount () {
-            return this.currentExpense.amount - this.currentExpense.amount_paid || 0;
         }
     },
     methods: {
+        showOriginalExpenses () {
+            this.hasSearchResults = false;
+            this.expenses = [...this.oldExpenses];
+        },
+        searchExpense () {
+            if (!this.searchParam.trim()) {
+                return;
+            } 
+            this.isSearching = true;
+            if (this.oldExpenses.length === 0) {
+                this.oldExpenses = [...this.expenses];
+            }
+            axios.get(`/client/expenses/search/${this.searchParam.trim()}`)
+                .then(res => {
+                    this.isSearching = false;
+                    if (res.data.expenses.length === 0) {
+                        toast("No result found for search param. Redefine search parameters", "error");
+                        return;
+                    }
+                    this.hasSearchResults = true;
+                    this.expenses = res.data.expenses;
+                    this.searchParam = "";
+
+                })
+                .catch(err => {
+                    this.isSearching = false;
+                    console.error(err);
+                    this.searchParam = "";
+                })
+            ;
+        },
         showExpenseDetails (expense) {
             this.currentExpense = expense;
             this.openModal('#expenseDetailsModal');

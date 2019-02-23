@@ -3,17 +3,20 @@
 namespace App\Domains\Accountant\Jobs;
 
 use Lucid\Foundation\Job;
+use App\Data\Repositories\AccountantRepository;
 
 class GetAccountantProfileJob extends Job
 {
+    private $accountantId;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($accountantId)
     {
-        //
+        $this->accountant = app()->make(AccountantRepository::class);
+        $this->accountantId = $accountantId;
     }
 
     /**
@@ -23,6 +26,6 @@ class GetAccountantProfileJob extends Job
      */
     public function handle()
     {
-        //
+        return $this->accountant->find($this->accountantId);
     }
 }

@@ -19,7 +19,10 @@ class ModifyAccountantsTable extends Migration
 		    $table->string('city');
 		    $table->string('state');
 		    $table->string('address');
+		    $table->string('picture')->nullable();
 		    $table->string('sex');
+		    $table->decimal('years_of_experience', 8, 2);
+		    $table->string('level');
 		    $table->string('country');
 		    $table->string('how_you_heard');
 		    $table->string('date_of_birth');

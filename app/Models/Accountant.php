@@ -47,11 +47,21 @@ class Accountant extends Authenticatable
      */
     public function clients()
     {
-        return $this->hasMany('Koboaccountant\Models\User');
+        return $this->hasMany('Koboaccountant\Models\Client');
     }
 
     public function user()
     {
     	return $this->belongsTo(User::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('Koboaccountant\Models\Review');
+    }
+
+    public function rating()
+    {
+        return $this->reviews->avg('rating');
     }
 }
