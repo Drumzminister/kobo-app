@@ -99134,8 +99134,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 //
 //
 //
@@ -99162,42 +99160,40 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             this.localModel = Number(this.initial).toLocaleString("en-US");
         },
         localModel: function localModel(oldVal) {
-            var _this = this;
-
-            var parts = this.model.split('.');
+            /* let parts = this.model.split('.');
             if (parts.length === 1 || parts.length === 0) {
                 this.$parent[this.model] = this.numberValue;
-
-                return;
+                 return;
             }
-
-            var currentObj = null;
-            parts.forEach(function (p) {
-                if (currentObj === null) {
-                    if (p.includes("[") && p.endsWith("]")) {
-                        var _parts = p.split('[');
-                        currentObj = _this.$parent[_parts[0]][Number(_parts[1].substring(0, _parts[1].length - 1))];
+             let currentObj = null;
+            parts.forEach(p => {
+                if(currentObj === null) {
+                    if (p.includes("[") && p.endsWith ("]")) {
+                        let parts = p.split('[');
+                        currentObj = this.$parent [parts[0]] [Number(parts[1].substring(0, parts[1].length-1 ))];
                     } else {
-                        currentObj = _this.$parent[p];
+                        currentObj = this.$parent[p];
                     }
                 } else {
-                    if (null !== currentObj[p] && _typeof(currentObj[p]) === "object") {
-                        if (p.includes("[") && p.endsWith("]")) {
-                            var _parts2 = p.split('[');
-                            currentObj = _this.$parent[_parts2[0]][Number(_parts2[1].substring(0, _parts2[1].length - 1))];
+                    if (null !== currentObj[p] && typeof currentObj[p] === "object") {
+                        if (p.includes("[") && p.endsWith ("]")) {
+                            let parts = p.split('[');
+                            currentObj = this.$parent [parts[0]] [Number(parts[1].substring(0, parts[1].length-1 ))];
                         } else {
-                            currentObj = _this.$parent[p];
+                            currentObj = this.$parent[p];
                         }
                     } else {
-                        currentObj[p] = _this.numberValue;
+                        currentObj[p] = this.numberValue;
                     }
                 }
-            });
+            }); */
+
+            eval('this.$parent.' + this.model + ' = this.numberValue');
         }
     },
     methods: {
         beautify: function beautify(event) {
-            var _this2 = this;
+            var _this = this;
 
             event.srcElement.onkeyup = function (ev) {
                 var selection = window.getSelection().toString();
@@ -99215,7 +99211,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                 input = input.replace(/[\D\s\._\-]+/g, "");
                 input = input ? parseInt(input, 10) : 0;
-                $this.value = _this2.localModel = input === 0 ? "" : input.toLocaleString("en-US");;
+                $this.value = _this.localModel = input === 0 ? "" : input.toLocaleString("en-US");;
             };
         }
     }
