@@ -11,7 +11,7 @@ class DebtorRepository extends Repository
         parent::__construct($model);
     }
 
-    public function getPublishedSalesOrderedByDate($companyId)
+    public function getDebtorsOrderedByDate($companyId)
     {
         return $this->model->where([
             ['company_id', '=', $companyId],

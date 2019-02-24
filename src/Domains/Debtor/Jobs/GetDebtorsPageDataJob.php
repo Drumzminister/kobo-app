@@ -42,7 +42,7 @@ class GetDebtorsPageDataJob extends Job
     		abort(404);
 	    }
 
-    	$debtors = $this->debtor->getPublishedSalesOrderedByDate($company->id);
+    	$debtors = $this->debtor->getDebtorsOrderedByDate($company->id);
 
     	$firstDebtor = $debtors->first();
 
