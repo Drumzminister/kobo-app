@@ -63,10 +63,10 @@ class GetDebtorsPageDataJob extends Job
 
 	    return [
 	        'debtors'       => $debtors,
-	    	'monthSales'    => $monthDebtors,
-	    	'daySales'      => $dayDebtors,
-	    	'weekSales'     => $weekDebtors,
-	    	'yearSales'     => $yearDebtors,
+	    	'monthDebtors'    => $monthDebtors,
+	    	'dayDebtors'      => $dayDebtors,
+	    	'weekDebtors'     => $weekDebtors,
+	    	'yearDebtors'     => $yearDebtors,
 //		    'sales'         => $sales,
 //		    'topSales'      => $topSales ?? collect([]),
 		    'startDate'     => $firstDebtor ? $firstDebtor->created_at : now()->toDateString(),
