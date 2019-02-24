@@ -42,11 +42,6 @@ class GetDebtorsPageDataJob extends Job
     		abort(404);
 	    }
 
-//    	$topSales = $soldInventoryItems->sortByDesc(function ($item) {
-//    		return !$item->saleItems ? 0 : array_sum($item->saleItems->pluck('quantity')->toArray());
-//	    })->chunk(5)->first();
-
-
     	$debtors = $this->debtor->getPublishedSalesOrderedByDate($company->id);
 
     	$firstDebtor = $debtors->first();
@@ -59,7 +54,6 @@ class GetDebtorsPageDataJob extends Job
 
     	$debtors = $this->createDebtorCollectionsFromDebtors($debtors);
 
-//        $debtors = (new GetCompanyDebtorsJob($company->id))->handle();
 
 	    return [
 	        'totalInvoice' => $debtors->map(function ($debtor) { return $debtor->sale->total_amount; })->sum(),
@@ -70,8 +64,6 @@ class GetDebtorsPageDataJob extends Job
 	    	'dayDebtors'      => $dayDebtors,
 	    	'weekDebtors'     => $weekDebtors,
 	    	'yearDebtors'     => $yearDebtors,
-//		    'sales'         => $sales,
-//		    'topSales'      => $topSales ?? collect([]),
 		    'startDate'     => $firstDebtor ? $firstDebtor->created_at : now()->toDateString(),
 	    ];
     }
