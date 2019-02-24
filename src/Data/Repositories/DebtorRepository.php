@@ -15,6 +15,6 @@ class DebtorRepository extends Repository
     {
         return $this->model->where([
             ['company_id', '=', $companyId],
-        ])->orderBy('created_at', 'desc')->get();
+        ])->orderBy('created_at', 'desc')->paginate();
     }
 }

@@ -62,6 +62,9 @@ class GetDebtorsPageDataJob extends Job
 //        $debtors = (new GetCompanyDebtorsJob($company->id))->handle();
 
 	    return [
+	        'totalInvoice' => $debtors->map(function ($debtor) { return $debtor->sale->total_amount; })->sum(),
+	        'totalPaid' => $debtors->map(function ($debtor) { return $debtor->sale->transactions->pluck('amount')->sum(); })->sum(),
+	        'debtTotal' => $debtors->pluck('amount')->sum(),
 	        'debtors'       => $debtors,
 	    	'monthDebtors'    => $monthDebtors,
 	    	'dayDebtors'      => $dayDebtors,
