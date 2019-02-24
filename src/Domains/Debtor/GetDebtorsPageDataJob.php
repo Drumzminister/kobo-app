@@ -6,6 +6,7 @@ use App\Data\Repositories\CompanyRepository;
 use App\Data\Repositories\InventoryItemRepository;
 use App\Data\Repositories\InventoryRepository;
 use App\Data\Repositories\SaleRepository;
+use App\Domains\Debtor\Jobs\GetCompanyDebtorsJob;
 use Illuminate\Support\Collection;
 use Koboaccountant\Http\Resources\SaleCollection;
 use Koboaccountant\Models\Sale;
@@ -25,7 +26,7 @@ class GetDebtorsPageDataJob extends Job
 	/**
 	 * @var \Illuminate\Foundation\Application|SaleRepository
 	 */
-	private $sale;
+	private $debtor;
 
 	/**
 	 * @var \Illuminate\Foundation\Application|CompanyRepository
@@ -45,7 +46,7 @@ class GetDebtorsPageDataJob extends Job
     public function __construct($user)
     {
 	    $this->user = $user;
-	    $this->sale = app(SaleRepository::class);
+	    $this->debtor = app(SaleRepository::class);
 	    $this->company = app(CompanyRepository::class);
 	    $this->inventory = app(InventoryRepository::class);
     }
@@ -61,41 +62,36 @@ class GetDebtorsPageDataJob extends Job
     		abort(404);
 	    }
 
-    	$inventories        = $this->inventory->getByAttributes(['company_id' => $company->id]);
-	    $soldInventoryItems = $inventories->pluck('inventoryItem')
-	                                  ->flatten()
-	                                  ->filter(function ($item) {
-	                                  	    return $item->saleItems && $item->saleItems->first() && $item->saleItems->first()->sale && $item->saleItems->first()->sale->type === 'published';
-							          });
-
-    	$topSales = $soldInventoryItems->sortByDesc(function ($item) {
-    		return !$item->saleItems ? 0 : array_sum($item->saleItems->pluck('quantity')->toArray());
-	    })->chunk(5)->first();
+//    	$topSales = $soldInventoryItems->sortByDesc(function ($item) {
+//    		return !$item->saleItems ? 0 : array_sum($item->saleItems->pluck('quantity')->toArray());
+//	    })->chunk(5)->first();
 
 
-    	$sales = $this->sale->getPublishedSalesOrderedByDate($company->id, 'published');
+    	$debtors = $this->debtor->getPublishedSalesOrderedByDate($company->id, 'published');
 
-    	$firstSale = $sales->first();
+    	$firstDebtor = $debtors->first();
 
-	    $daySales   = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subDay(), now()]));
-	    $weekSales  = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subWeek(), now()]));
-	    $monthSales = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subMonth(), now()]));
-	    $yearSales  = $this->createSaleCollectionsFromSales($sales->whereBetween('sale_date', [now()->subYear(), now()]));
+	    $dayDebtors   = $this->createSaleCollectionsFromSales($debtors->whereBetween('created_at', [now()->subDay(), now()]));
+	    $weekDebtors  = $this->createSaleCollectionsFromSales($debtors->whereBetween('created_at', [now()->subWeek(), now()]));
+	    $monthDebtors = $this->createSaleCollectionsFromSales($debtors->whereBetween('created_at', [now()->subMonth(), now()]));
+	    $yearDebtors  = $this->createSaleCollectionsFromSales($debtors->whereBetween('created_at', [now()->subYear(), now()]));
 
 
-    	$sales = $sales->map(function ($sale)  {
-    		return new SaleCollection($sale);
-	    });
+//    	$debtors = $debtors->map(function ($sale)  {
+//    		return new SaleCollection($sale);
+//	    });
 
+        $debtors = (new GetCompanyDebtorsJob($company->id))->handle();
 
 	    return [
-	    	'monthSales'    => $monthSales,
-	    	'daySales'      => $daySales,
-	    	'weekSales'     => $weekSales,
-	    	'yearSales'     => $yearSales,
-		    'sales'         => $sales,
-		    'topSales'      => $topSales ?? collect([]),
-		    'startDate'     => $firstSale ? $firstSale->created_at : now()->toDateString(),
+	        'debtors'       => $debtors,
+	    	'monthSales'    => $monthDebtors,
+	    	'daySales'      => $dayDebtors,
+	    	'weekSales'     => $weekDebtors,
+	    	'yearSales'     => $yearDebtors,
+//		    'sales'         => $sales,
+//		    'topSales'      => $topSales ?? collect([]),
+		    'startDate'     => $firstDebtor ? $firstDebtor->created_at : now()->toDateString(),
 	    ];
     }
 
