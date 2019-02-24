@@ -39,9 +39,7 @@
 
 <section id="sale-table">
         <div class="container mt-4">
-                        
-            <div class="bg-white p-4"> 
-
+            <div class="bg-white p-4">
                 <div class="row py-2">
                     <div class="col-md-10 col-6">
                         <div class="input-group">
