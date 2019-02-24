@@ -56,15 +56,15 @@ class GetDebtorsPageDataJob extends Job
 
 
 	    return [
-	        'totalInvoice' => $debtors->map(function ($debtor) { return $debtor->sale->total_amount; })->sum(),
-	        'totalPaid' => $debtors->map(function ($debtor) { return $debtor->sale->transactions->pluck('amount')->sum(); })->sum(),
-	        'debtTotal' => $debtors->pluck('amount')->sum(),
-	        'debtors'       => $debtors,
-	    	'monthDebtors'    => $monthDebtors,
-	    	'dayDebtors'      => $dayDebtors,
-	    	'weekDebtors'     => $weekDebtors,
-	    	'yearDebtors'     => $yearDebtors,
-		    'startDate'     => $firstDebtor ? $firstDebtor->created_at : now()->toDateString(),
+	        'totalInvoice'      => $debtors->map(function ($debtor) { return $debtor->sale->total_amount; })->sum(),
+	        'totalPaid'         => $debtors->map(function ($debtor) { return $debtor->sale->transactions->pluck('amount')->sum(); })->sum(),
+	        'debtTotal'         => $debtors->pluck('amount')->sum(),
+	        'debtors'           => $debtors,
+	    	'monthDebtors'      => $monthDebtors,
+	    	'dayDebtors'        => $dayDebtors,
+	    	'weekDebtors'       => $weekDebtors,
+	    	'yearDebtors'       => $yearDebtors,
+		    'startDate'         => $firstDebtor ? $firstDebtor->created_at : now()->toDateString(),
 	    ];
     }
 

@@ -124,32 +124,21 @@
             {{-- transaction --}}
             <div class="col-md-7 ">
                 <div class="bg-white p-4" >
-                    <h5 class="h5 text-green">TRANSACTION</h5>
-                    {{-- transaction chart --}}
-
-                    <div class="row">
-                            <div class="col">
+                    @if($transactions->count() > 0)
+                        <mini-chart-component :options="{ mode: 'day', page: 'debts', dateRangeStart: '{{ $startDate }}', dateColumn: 'created_at', xColumn: 'created_at', yColumn: 'amount', label: '# of Transaction'}"
+                                              :month="{{ $monthTransactions }}"
+                                              :data="{{ $transactions }}"
+                                              :year="{{ $yearTransactions }}"
+                                              :week="{{ $weekTransactions }}"
+                                              :day="{{ $dayTransactions }}">
+                        </mini-chart-component>
+                    @else
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="h5">No Transaction Record</h5>
                             </div>
-                            <div class="col">
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>D</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>W</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>M</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>Y</span></label>
-                                    </div>
-
-                            </div>
-                    </div>
-
-                    <div>
-                            <canvas id="canvas" height="100"></canvas>
-                    </div>
+                        </div>
+                    @endif
                 </div>
             </div>
             {{-- end of transaction --}}
