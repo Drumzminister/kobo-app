@@ -49,6 +49,7 @@
                 <div class="col-md-4">
                     <div class="bg-white p-3" id="topp">
                         {{-- <h4 class="sale-h4">Most Expenses Transaction</h4> --}}
+                        @if($debtors->count() > 0)
                         <div class="dropdown show text-orange">
                                 <span class="text-orange bg-white" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Most Recent Debtors                                    
@@ -62,40 +63,29 @@
                                 <table class="table table-striped table-hover" id="table">
                                         <thead class="sale-head">
                                           <tr>
-                                            <th scope="col">Company Name</th>
+                                            <th scope="col">Customer Name</th>
                                             <th scope="col">Amount</th>
                                           </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($debtors->chunk(5)->first() as $tdebtor)
                                           <tr>
-                                            <td>Broomstick Ltd</td>
-                                            <td>12,000</td>
+                                            <td>{{ $tdebtor->customer->name }}</td>
+                                            <td>{{ number_format($tdebtor->amount) }}</td>
                                           </tr>
-                                          <tr>
-                                                <td>Broomstick Ltd</td>
-                                                <td>12,000</td>
-                                            <tr>
-                                            <tr>
-                                                <td>Broomstick Ltd</td>
-                                                <td>12,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Broomstick Ltd</td>
-                                                <td>12,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Broomstick Ltd</td>
-                                                <td>12,000</td>
-                                            </tr>
+                                        @endforeach
                                         </tbody>
                                 </table>
                         </div>
+                        @else
+                            <h5 class="text-center">
+                                Your most recent Debs will appear here!
+                            </h5>
+                        @endif
                     </div>
                     </div>
                 </div>
             </div>
-{{-- end of sales chart --}}
-        </div>
     </section>
 
     <section id="sale-table">
