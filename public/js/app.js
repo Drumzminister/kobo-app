@@ -95817,6 +95817,11 @@ var expenseApp = {
         }
     },
     methods: {
+        removeUnpaidExpense: function removeUnpaidExpense(expense) {
+            this.expenseRecords.splice(this.expenseRecords.findIndex(function (ex) {
+                return ex === expense;
+            }), 1);
+        },
         showOriginalExpenses: function showOriginalExpenses() {
             this.hasSearchResults = false;
             this.expenses = [].concat(_toConsumableArray(this.oldExpenses));
@@ -95885,29 +95890,27 @@ var expenseApp = {
         beforeSavingExpenses: function beforeSavingExpenses() {
             var _this2 = this;
 
-            var rows = document.querySelectorAll('.records');
-            var details = [];
+            var inValidRecords = [];
             var hasUnpaid = false;
             if (!document.querySelector("#expense_date").value) {
                 swal("Oops", "No date specified", "warning");
                 return;
             }
-            swal({
-                timer: 2000,
-                toast: true,
-                type: 'info',
-                position: 'top-end',
-                showConfirmButton: false,
-                text: "All unfilled records will be ignored"
+
+            inValidRecords = this.expenseRecords.filter(function (expense) {
+                return expense.description === null || expense.amount === null || expense.description.trim() === "";
             });
-            for (var i = 0; i < rows.length; i++) {
-                if (rows[i].querySelector('.expenseDescription').value.trim()) {
-                    details.push(rows[i]);
-                    if (!rows[i].querySelector('.expenseAmount').readOnly) {
-                        hasUnpaid = true;
-                    }
-                }
+            if (inValidRecords.length !== 0) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])("Some required fields are missing", "error");
+                return;
             }
+
+            this.expenseRecords.forEach(function (expense) {
+                if (!expense.paid) {
+                    hasUnpaid = true;
+                }
+            });
+
             if (hasUnpaid) {
                 swal({
                     title: 'Are you sure?',
@@ -95920,11 +95923,11 @@ var expenseApp = {
                     confirmButtonText: 'No, Proceed!'
                 }).then(function (result) {
                     if (result.value) {
-                        _this2.saveExpenses(details);
+                        _this2.saveExpenses(_this2.expenseRecords);
                     }
                 });
             } else {
-                this.saveExpenses(details);
+                this.saveExpenses(this.expenseRecords);
             }
         },
         saveExpenses: function saveExpenses(details) {
@@ -95933,22 +95936,10 @@ var expenseApp = {
             var saved = 0;
             var date = document.querySelector("#expense_date").value;
             details.forEach(function (expense) {
-                if (!expense.querySelector('.expenseAmount').value) {
-                    swal({
-                        timer: 2000,
-                        toast: true,
-                        type: 'error',
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        text: "Some records have no amount entered"
-                    });
-                    return;
-                }
-
                 var formData = new FormData();
-                formData.append('date', date);
-                formData.append('details', expense.querySelector('.expenseDescription').value.trim());
-                formData.append('amount', expense.querySelector('.expenseAmount').value.trim());
+                formData.set('date', date);
+                formData.set('details', expense.description.trim());
+                formData.set('amount', expense.amount);
 
                 _this3.isSavingExpense = true;
                 axios.post('/client/expenses/add', formData).then(function (res) {
@@ -95962,6 +95953,8 @@ var expenseApp = {
                         showConfirmButton: false,
                         title: "Unable to save: " + err.response.data.message
                     });
+                    clearInterval(checkSaved);
+                    _this3.isSavingExpense = false;
                 });
             });
             var checkSaved = setInterval(function () {
@@ -98652,6 +98645,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 payBtn.style.display = "none";
                 paidBtn.style.display = "block";
                 _this.$parent.closeModal('#paymentModal');
+                _this.$emit('has-paid-expense');
             }).catch(function (err) {
                 swal({
                     timer: 3000,
@@ -99140,8 +99134,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 //
 //
 //
@@ -99168,42 +99160,40 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             this.localModel = Number(this.initial).toLocaleString("en-US");
         },
         localModel: function localModel(oldVal) {
-            var _this = this;
-
-            var parts = this.model.split('.');
+            /* let parts = this.model.split('.');
             if (parts.length === 1 || parts.length === 0) {
                 this.$parent[this.model] = this.numberValue;
-
-                return;
+                 return;
             }
-
-            var currentObj = null;
-            parts.forEach(function (p) {
-                if (currentObj === null) {
-                    if (p.includes("[") && p.endsWith("]")) {
-                        var _parts = p.split('[');
-                        currentObj = _this.$parent[_parts[0]][Number(_parts[1].substring(0, _parts[1].length - 1))];
+             let currentObj = null;
+            parts.forEach(p => {
+                if(currentObj === null) {
+                    if (p.includes("[") && p.endsWith ("]")) {
+                        let parts = p.split('[');
+                        currentObj = this.$parent [parts[0]] [Number(parts[1].substring(0, parts[1].length-1 ))];
                     } else {
-                        currentObj = _this.$parent[p];
+                        currentObj = this.$parent[p];
                     }
                 } else {
-                    if (null !== currentObj[p] && _typeof(currentObj[p]) === "object") {
-                        if (p.includes("[") && p.endsWith("]")) {
-                            var _parts2 = p.split('[');
-                            currentObj = _this.$parent[_parts2[0]][Number(_parts2[1].substring(0, _parts2[1].length - 1))];
+                    if (null !== currentObj[p] && typeof currentObj[p] === "object") {
+                        if (p.includes("[") && p.endsWith ("]")) {
+                            let parts = p.split('[');
+                            currentObj = this.$parent [parts[0]] [Number(parts[1].substring(0, parts[1].length-1 ))];
                         } else {
-                            currentObj = _this.$parent[p];
+                            currentObj = this.$parent[p];
                         }
                     } else {
-                        currentObj[p] = _this.numberValue;
+                        currentObj[p] = this.numberValue;
                     }
                 }
-            });
+            }); */
+
+            eval('this.$parent.' + this.model + ' = this.numberValue');
         }
     },
     methods: {
         beautify: function beautify(event) {
-            var _this2 = this;
+            var _this = this;
 
             event.srcElement.onkeyup = function (ev) {
                 var selection = window.getSelection().toString();
@@ -99221,7 +99211,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                 input = input.replace(/[\D\s\._\-]+/g, "");
                 input = input ? parseInt(input, 10) : 0;
-                $this.value = _this2.localModel = input === 0 ? "" : input.toLocaleString("en-US");;
+                $this.value = _this.localModel = input === 0 ? "" : input.toLocaleString("en-US");;
             };
         }
     }
@@ -123533,7 +123523,7 @@ var bankDetailModule = {
 /* 544 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed: ModuleBuildError: Module build failed: Error: Missing binding C:\\laragon\\www\\kobo-app\\node_modules\\node-sass\\vendor\\win32-x64-67\\binding.node\nNode Sass could not find a binding for your current environment: Windows 64-bit with Node.js 11.x\n\nFound bindings for the following environments:\n  - Windows 64-bit with Node.js 8.x\n\nThis usually happens because your environment has changed since running `npm install`.\nRun `npm rebuild node-sass` to download the binding for your current environment.\n    at module.exports (C:\\laragon\\www\\kobo-app\\node_modules\\node-sass\\lib\\binding.js:15:13)\n    at Object.<anonymous> (C:\\laragon\\www\\kobo-app\\node_modules\\node-sass\\lib\\index.js:14:35)\n    at Module._compile (internal/modules/cjs/loader.js:734:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:745:10)\n    at Module.load (internal/modules/cjs/loader.js:626:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:566:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:558:3)\n    at Module.require (internal/modules/cjs/loader.js:663:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at Object.<anonymous> (C:\\laragon\\www\\kobo-app\\node_modules\\sass-loader\\lib\\loader.js:3:14)\n    at Module._compile (internal/modules/cjs/loader.js:734:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:745:10)\n    at Module.load (internal/modules/cjs/loader.js:626:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:566:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:558:3)\n    at Module.require (internal/modules/cjs/loader.js:663:17)\n    at require (internal/modules/cjs/helpers.js:20:18)\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:13:17)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:173:18\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:36:3)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:173:18\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:36:3)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at runLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:362:2)\n    at NormalModule.doBuild (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModule.js:182:3)\n    at NormalModule.build (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModule.js:275:15)\n    at runLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModule.js:195:19)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:364:11\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:170:18\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:27:11)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:173:18\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:36:3)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:165:10)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:173:18\n    at loadLoader (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\loadLoader.js:36:3)\n    at iteratePitchingLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:169:2)\n    at runLoaders (C:\\laragon\\www\\kobo-app\\node_modules\\loader-runner\\lib\\LoaderRunner.js:362:2)\n    at NormalModule.doBuild (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModule.js:182:3)\n    at NormalModule.build (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModule.js:275:15)\n    at Compilation.buildModule (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\Compilation.js:157:10)\n    at moduleFactory.create (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\Compilation.js:460:10)\n    at factory (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModuleFactory.js:243:5)\n    at applyPluginsAsyncWaterfall (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModuleFactory.js:94:13)\n    at C:\\laragon\\www\\kobo-app\\node_modules\\tapable\\lib\\Tapable.js:268:11\n    at NormalModuleFactory.params.normalModuleFactory.plugin (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\CompatibilityPlugin.js:52:5)\n    at NormalModuleFactory.applyPluginsAsyncWaterfall (C:\\laragon\\www\\kobo-app\\node_modules\\tapable\\lib\\Tapable.js:272:13)\n    at resolver (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModuleFactory.js:69:10)\n    at process.nextTick (C:\\laragon\\www\\kobo-app\\node_modules\\webpack\\lib\\NormalModuleFactory.js:196:7)\n    at processTicksAndRejections (internal/process/next_tick.js:74:9)");
 
 /***/ })
 /******/ ]);

@@ -103,6 +103,7 @@
                         payBtn.style.display = "none";
                         paidBtn.style.display = "block";
                         this.$parent.closeModal('#paymentModal');
+                        this.$emit('has-paid-expense');
                     })
                     .catch(err => {
                         swal({

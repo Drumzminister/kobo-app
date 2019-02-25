@@ -37,6 +37,9 @@ export const expenseApp = {
         }
     },
     methods: {
+        removeUnpaidExpense (expense) {
+            this.expenseRecords.splice(this.expenseRecords.findIndex(ex => ex === expense), 1);
+        },
         showOriginalExpenses () {
             this.hasSearchResults = false;
             this.expenses = [...this.oldExpenses];
@@ -106,29 +109,27 @@ export const expenseApp = {
             this.expenseRecords.push(expense);
         },
         beforeSavingExpenses () {
-            let rows = document.querySelectorAll('.records');
-            let details = [];
+            let inValidRecords = []
             let hasUnpaid = false;
             if (!document.querySelector("#expense_date").value) {
                 swal("Oops", "No date specified", "warning");
                 return;
             }
-            swal({
-                timer: 2000,
-                toast: true,
-                type: 'info',
-                position: 'top-end',
-                showConfirmButton: false,
-                text: `All unfilled records will be ignored`,
-            });
-            for (let i = 0; i < rows.length; i++) {
-                if (rows[i].querySelector('.expenseDescription').value.trim()) {
-                    details.push(rows[i]);
-                    if (!rows[i].querySelector('.expenseAmount').readOnly) {
-                        hasUnpaid = true;
-                    }
-                }
+
+            inValidRecords = this.expenseRecords.filter(expense => {
+                return (expense.description === null) || (expense.amount === null) || (expense.description.trim() === "");
+            })
+            if (inValidRecords.length !== 0) {
+                toast("Some required fields are missing", "error");
+                return;
             }
+
+            this.expenseRecords.forEach(expense => {
+                if (!expense.paid) {
+                    hasUnpaid = true;
+                }
+            });
+
             if (hasUnpaid) {
                 swal({
                     title: 'Are you sure?',
@@ -141,33 +142,21 @@ export const expenseApp = {
                     confirmButtonText: 'No, Proceed!'
                 }).then((result) => {
                     if (result.value) {
-                        this.saveExpenses(details);
+                        this.saveExpenses(this.expenseRecords);
                     }
                 })
             } else {
-                this.saveExpenses(details);
+                this.saveExpenses(this.expenseRecords);
             }
         },
         saveExpenses (details) {
             let saved = 0;
             let date = document.querySelector("#expense_date").value;
             details.forEach(expense => {
-                if (!expense.querySelector('.expenseAmount').value) {
-                    swal({
-                        timer: 2000,
-                        toast: true,
-                        type: 'error',
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        text: `Some records have no amount entered`,
-                    });
-                    return;
-                }
-
                 let formData = new FormData();
-                formData.append('date', date);
-                formData.append('details', expense.querySelector('.expenseDescription').value.trim());
-                formData.append('amount', expense.querySelector('.expenseAmount').value.trim());
+                formData.set('date', date);
+                formData.set('details', expense.description.trim());
+                formData.set('amount', expense.amount);
 
                 this.isSavingExpense = true;
                 axios
@@ -184,7 +173,10 @@ export const expenseApp = {
                             showConfirmButton: false,
                             title: `Unable to save: ${err.response.data.message}`,
                         });
+                        clearInterval(checkSaved);
+                        this.isSavingExpense = false;
                     })
+                ;
             });
             let checkSaved = setInterval(function () {
                 if (saved === details.length) {
