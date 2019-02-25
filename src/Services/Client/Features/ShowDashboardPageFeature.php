@@ -11,7 +11,7 @@ class ShowDashboardPageFeature extends Feature
 {
     public function handle(Request $request)
     {
-    	$data = $this->run(GetClientDashboardDataJob::class);
+    	$data = $this->run(GetClientDashboardDataJob::class, ['user' => auth()->user()]);
 		return $this->run(new RespondWithViewJob('dashboard', $data));
     }
 }

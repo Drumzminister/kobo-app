@@ -4,6 +4,8 @@ namespace App\Domains\Dashboard\Jobs;
 
 use App\Data\Repositories\ExpenseRepository;
 use App\Data\Repositories\SaleRepository;
+use App\Domains\Transaction\Jobs\GetDashboardTransactionDataJob;
+use Koboaccountant\Models\User;
 use Lucid\Foundation\Job;
 
 class GetClientDashboardDataJob extends Job
@@ -20,15 +22,18 @@ class GetClientDashboardDataJob extends Job
 	 */
 	private $expense;
 
-	/**
+    private $user;
+
+    /**
      * Create a new job instance.
      *
-     * @return void
+     * @param User $user
      */
-    public function __construct()
+    public function __construct(User $user)
     {
     	$this->sale = app(SaleRepository::class);
     	$this->expense = app(ExpenseRepository::class);
+        $this->user = $user;
     }
 
     /**
@@ -40,8 +45,8 @@ class GetClientDashboardDataJob extends Job
     	$expenses = $this->expense->all();
     	$totalSales = $sales->pluck('total_amount')->sum();
     	$totalExpenses = $expenses->pluck('amount')->sum();
-
-    	return ['totalExpenses' => $totalExpenses, 'totalSales' => $totalSales];
+        $transactionsData = (new GetDashboardTransactionDataJob($this->user))->handle();
+    	return array_merge($transactionsData, ['totalExpenses' => $totalExpenses, 'totalSales' => $totalSales]);
         // Get Total Sales, Total Expenses, Total Profit
     }
 }

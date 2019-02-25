@@ -15,6 +15,11 @@ class DebtorCollection extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $otherData =  [
+            'totalPaid' => $this->sale->transactions->pluck('amount')->sum(),
+            'totalInvoice' => $this->sale->total_amount,
+        ];
+
+        return array_merge(parent::toArray($request), $otherData);
     }
 }
