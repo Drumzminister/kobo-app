@@ -29,8 +29,8 @@ class ShowCompanySalesFeature extends Feature
 
 	public function handle(Request $request)
     {
-    	$sales = $this->run(GetSalesPageDataJob::class, ['user' => auth()->user()]);
+    	$data = $this->run(GetSalesPageDataJob::class, ['user' => auth()->user()]);
 
-    	return $this->run(new RespondWithViewJob('sales', $sales));
+    	return $this->run(new RespondWithViewJob('sales', $data));
     }
 }

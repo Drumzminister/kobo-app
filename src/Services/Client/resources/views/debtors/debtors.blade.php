@@ -28,114 +28,64 @@
         <div class="container">
             <div class="row mt-4">
                 <div class="col-md-8">
-                    <div class="bg-white px-3 py-2" id="topp"> 
-                            <div class="dropdown show ">
-                                    <a class="btn btn-filter dropdown-toggle" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Switch Graph                                    
-                                    </a>                                   
-                                    <div class="dropdown-menu text-green" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#" class="text-orange">Debt Profile</a>
-                                        <a class="dropdown-item" href="#" class="text-orange">Collection Profile</a>
-                                    </div>
+                    <div class="bg-white px-3 py-2" id="topp">
+                        @if($debtors->count() > 0)
+                            <mini-chart-component :options="{ mode: 'day', page: 'debts', dateRangeStart: '{{ $startDate }}', dateColumn: 'created_at', xColumn: 'created_at', yColumn: 'amount', label: '# of Debt'}"
+                                                  :month="{{ $monthDebtors }}"
+                                                  :data="{{ $debtors }}"
+                                                  :year="{{ $yearDebtors }}"
+                                                  :week="{{ $weekDebtors }}"
+                                                  :day="{{ $dayDebtors }}">
+                            </mini-chart-component>
+                        @else
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="h5">No Debt Record</h5>
+                                </div>
                             </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h6 class="h6">Debtors Overview</h6>
-                            </div>
-                            <div class="col-md-3">
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>D</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>W</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>M</span></label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <label><input type="radio" name="select" /><span>Y</span></label>
-                                    </div>
-                                          
-                            </div>
-                            <div class="col-md-6 row">
-                                    <div class="form-group col">
-                                        <select id="inputState" class="form-control btn-loginn">
-                                            <option selected>Start Date</option>
-                                            <option>January</option>
-                                            <option>Feburary</option>
-                                            <option>March</option>
-                                            <option>April</option>
-                                            <option>May</option>
-                                            <option>June</option>                                            
-                                        </select>
-                                    </div>
-                                    <div class="form-group col">
-                                        <select id="inputState" class="form-control btn-loginn">
-                                            <option selected class>End Date</option>
-                                            <option>January</option>
-                                            <option>Feburary</option>
-                                            <option>March</option>
-                                            <option>April</option>
-                                            <option>May</option>
-                                            <option>June</option>                                
-                                        </select>
-                                    </div>
-                            </div>
-                        </div>
-                            <canvas id="canvasSale" height="90"></canvas>
-
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="bg-white p-3" id="topp">
                         {{-- <h4 class="sale-h4">Most Expenses Transaction</h4> --}}
+                        @if($debtors->count() > 0)
                         <div class="dropdown show text-orange">
-                                <a class="text-orange dropdown-toggle bg-white" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="text-orange bg-white" href="#" role="button" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Most Recent Debtors                                    
-                                </a>                                   
-                                <div class="dropdown-menu text-green" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="#" class="text-orange">Highest Debtors</a>
-                                    <a class="dropdown-item" href="#" class="text-orange">Fastest Paying Debtors</a>
-                                </div>
+                                </span>
+                                {{--<div class="dropdown-menu text-green" aria-labelledby="dropdownMenuLink">--}}
+                                    {{--<a class="dropdown-item" href="#" class="text-orange">Highest Debtors</a>--}}
+                                    {{--<a class="dropdown-item" href="#" class="text-orange">Fastest Paying Debtors</a>--}}
+                                {{--</div>--}}
                         </div>
                         <div class="all-scroll">
                                 <table class="table table-striped table-hover" id="table">
                                         <thead class="sale-head">
                                           <tr>
-                                            <th scope="col">Company Name</th>
+                                            <th scope="col">Customer Name</th>
                                             <th scope="col">Amount</th>
                                           </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($debtors->chunk(5)->first() as $tdebtor)
                                           <tr>
-                                            <td>Broomstick Ltd</td>
-                                            <td>12,000</td>
+                                            <td>{{ $tdebtor->customer->name }}</td>
+                                            <td>{{ number_format($tdebtor->amount) }}</td>
                                           </tr>
-                                          <tr>
-                                                <td>Broomstick Ltd</td>
-                                                <td>12,000</td>
-                                            <tr>
-                                            <tr>
-                                                <td>Broomstick Ltd</td>
-                                                <td>12,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Broomstick Ltd</td>
-                                                <td>12,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Broomstick Ltd</td>
-                                                <td>12,000</td>
-                                            </tr>
+                                        @endforeach
                                         </tbody>
                                 </table>
                         </div>
+                        @else
+                            <h5 class="text-center">
+                                Your most recent Debs will appear here!
+                            </h5>
+                        @endif
                     </div>
                     </div>
                 </div>
             </div>
-{{-- end of sales chart --}}
-        </div>
     </section>
 
     <section id="sale-table">
@@ -174,9 +124,9 @@
                                   <tr>
                                         <td>{{ $debtor->created_at }}</td>
                                         <td><a href="#">{{ $debtor->customer->name }}</a> </td>
-                                        <td>23,000</td>
-                                        <td>43,000</td>
-                                        <td>{{ $debtor->amount }}</td>
+                                        <td>{{ $debtor->sale ? number_format($debtor->sale->total_amount) : 0 }}</td>
+                                        <td>{{ $debtor->sale ? number_format($debtor->sale->transactions->pluck('amount')->sum()) : 0 }}</td>
+                                        <td>{{ $debtor->sale ? number_format($debtor->sale->balance) : 0}}</td>
                                   </tr>
                                 @endforeach
                                 </tbody>
@@ -190,5 +140,4 @@
            
         </div>
     </section>
-    
 @endsection

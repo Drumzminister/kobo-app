@@ -30562,84 +30562,84 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var axios = __webpack_require__(38);
 
 var API = function () {
-        function API(_ref) {
-                var baseUri = _ref.baseUri;
+    function API(_ref) {
+        var baseUri = _ref.baseUri;
 
-                _classCallCheck(this, API);
+        _classCallCheck(this, API);
 
-                this.baseUri = window.location.protocol + '//' + window.location.hostname + baseUri;
-                this.endpoints = {};
+        this.baseUri = window.location.protocol + '//' + window.location.hostname + baseUri;
+        this.endpoints = {};
+    }
+    /**
+     * Create and store a single entity's endpoints
+     * @param {A entity Object} entity
+     */
+
+
+    _createClass(API, [{
+        key: 'createEntity',
+        value: function createEntity(entity) {
+            this.endpoints[entity.name] = this.createBasicCRUDEndpoints(entity);
+        }
+    }, {
+        key: 'createEntities',
+        value: function createEntities(arrayOfEntity) {
+            arrayOfEntity.forEach(this.createEntity.bind(this));
         }
         /**
-         * Create and store a single entity's endpoints
+         * Create the basic endpoints handlers for CRUD operations
          * @param {A entity Object} entity
          */
 
+    }, {
+        key: 'createBasicCRUDEndpoints',
+        value: function createBasicCRUDEndpoints(_ref2) {
+            var name = _ref2.name;
 
-        _createClass(API, [{
-                key: 'createEntity',
-                value: function createEntity(entity) {
-                        this.endpoints[entity.name] = this.createBasicCRUDEndpoints(entity);
-                }
-        }, {
-                key: 'createEntities',
-                value: function createEntities(arrayOfEntity) {
-                        arrayOfEntity.forEach(this.createEntity.bind(this));
-                }
-                /**
-                 * Create the basic endpoints handlers for CRUD operations
-                 * @param {A entity Object} entity
-                 */
+            var endpoints = {};
 
-        }, {
-                key: 'createBasicCRUDEndpoints',
-                value: function createBasicCRUDEndpoints(_ref2) {
-                        var name = _ref2.name;
+            var resourceURL = this.baseUri + '/' + name;
 
-                        var endpoints = {};
+            endpoints.getAll = function (_ref3) {
+                var _ref3$query = _ref3.query,
+                    query = _ref3$query === undefined ? {} : _ref3$query;
+                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                return axios.get(resourceURL, Object.assign({ params: { query: query }, config: config }));
+            };
 
-                        var resourceURL = this.baseUri + '/' + name;
+            endpoints.getOne = function (_ref4) {
+                var id = _ref4.id;
+                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                return axios.get(resourceURL + '/' + id, config);
+            };
 
-                        endpoints.getAll = function (_ref3) {
-                                var _ref3$query = _ref3.query,
-                                    query = _ref3$query === undefined ? {} : _ref3$query;
-                                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-                                return axios.get(resourceURL, Object.assign({ params: { query: query }, config: config }));
-                        };
+            endpoints.create = function (toCreate) {
+                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                return axios.post(resourceURL, toCreate, config);
+            };
 
-                        endpoints.getOne = function (_ref4) {
-                                var id = _ref4.id;
-                                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-                                return axios.get(resourceURL + '/' + id, config);
-                        };
+            endpoints.update = function (toUpdate) {
+                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                return axios.put(resourceURL + '/' + toUpdate.id, toUpdate, config);
+            };
 
-                        endpoints.create = function (toCreate) {
-                                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-                                return axios.post(resourceURL, toCreate, config);
-                        };
+            endpoints.patch = function (_ref5, toPatch) {
+                var id = _ref5.id;
+                var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+                return axios.patch(resourceURL + '/' + id, toPatch, config);
+            };
 
-                        endpoints.update = function (toUpdate) {
-                                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-                                return axios.put(resourceURL + '/' + toUpdate.id, toUpdate, config);
-                        };
+            endpoints.delete = function (_ref6) {
+                var id = _ref6.id;
+                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                return axios.delete(resourceURL + '/' + id, config);
+            };
 
-                        endpoints.patch = function (_ref5, toPatch) {
-                                var id = _ref5.id;
-                                var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-                                return axios.patch(resourceURL + '/' + id, toPatch, config);
-                        };
+            return endpoints;
+        }
+    }]);
 
-                        endpoints.delete = function (_ref6) {
-                                var id = _ref6.id;
-                                var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-                                return axios.delete(resourceURL + '/' + id, config);
-                        };
-
-                        return endpoints;
-                }
-        }]);
-
-        return API;
+    return API;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (API);
@@ -95817,6 +95817,11 @@ var expenseApp = {
         }
     },
     methods: {
+        removeUnpaidExpense: function removeUnpaidExpense(expense) {
+            this.expenseRecords.splice(this.expenseRecords.findIndex(function (ex) {
+                return ex === expense;
+            }), 1);
+        },
         showOriginalExpenses: function showOriginalExpenses() {
             this.hasSearchResults = false;
             this.expenses = [].concat(_toConsumableArray(this.oldExpenses));
@@ -95885,29 +95890,27 @@ var expenseApp = {
         beforeSavingExpenses: function beforeSavingExpenses() {
             var _this2 = this;
 
-            var rows = document.querySelectorAll('.records');
-            var details = [];
+            var inValidRecords = [];
             var hasUnpaid = false;
             if (!document.querySelector("#expense_date").value) {
                 swal("Oops", "No date specified", "warning");
                 return;
             }
-            swal({
-                timer: 2000,
-                toast: true,
-                type: 'info',
-                position: 'top-end',
-                showConfirmButton: false,
-                text: "All unfilled records will be ignored"
+
+            inValidRecords = this.expenseRecords.filter(function (expense) {
+                return expense.description === null || expense.amount === null || expense.description.trim() === "";
             });
-            for (var i = 0; i < rows.length; i++) {
-                if (rows[i].querySelector('.expenseDescription').value.trim()) {
-                    details.push(rows[i]);
-                    if (!rows[i].querySelector('.expenseAmount').readOnly) {
-                        hasUnpaid = true;
-                    }
-                }
+            if (inValidRecords.length !== 0) {
+                Object(__WEBPACK_IMPORTED_MODULE_0__helpers_alert__["b" /* toast */])("Some required fields are missing", "error");
+                return;
             }
+
+            this.expenseRecords.forEach(function (expense) {
+                if (!expense.paid) {
+                    hasUnpaid = true;
+                }
+            });
+
             if (hasUnpaid) {
                 swal({
                     title: 'Are you sure?',
@@ -95920,11 +95923,11 @@ var expenseApp = {
                     confirmButtonText: 'No, Proceed!'
                 }).then(function (result) {
                     if (result.value) {
-                        _this2.saveExpenses(details);
+                        _this2.saveExpenses(_this2.expenseRecords);
                     }
                 });
             } else {
-                this.saveExpenses(details);
+                this.saveExpenses(this.expenseRecords);
             }
         },
         saveExpenses: function saveExpenses(details) {
@@ -95933,22 +95936,10 @@ var expenseApp = {
             var saved = 0;
             var date = document.querySelector("#expense_date").value;
             details.forEach(function (expense) {
-                if (!expense.querySelector('.expenseAmount').value) {
-                    swal({
-                        timer: 2000,
-                        toast: true,
-                        type: 'error',
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        text: "Some records have no amount entered"
-                    });
-                    return;
-                }
-
                 var formData = new FormData();
-                formData.append('date', date);
-                formData.append('details', expense.querySelector('.expenseDescription').value.trim());
-                formData.append('amount', expense.querySelector('.expenseAmount').value.trim());
+                formData.set('date', date);
+                formData.set('details', expense.description.trim());
+                formData.set('amount', expense.amount);
 
                 _this3.isSavingExpense = true;
                 axios.post('/client/expenses/add', formData).then(function (res) {
@@ -95962,6 +95953,8 @@ var expenseApp = {
                         showConfirmButton: false,
                         title: "Unable to save: " + err.response.data.message
                     });
+                    clearInterval(checkSaved);
+                    _this3.isSavingExpense = false;
                 });
             });
             var checkSaved = setInterval(function () {
@@ -98094,9 +98087,9 @@ var render = function() {
                       class: "form-control",
                       attrs: {
                         model:
-                          "salePaymentMethods." +
+                          "salePaymentMethods[" +
                           index +
-                          ".paymentMethod.amount",
+                          "].paymentMethod.amount",
                         options: { placeholder: "0.00" }
                       }
                     })
@@ -98479,7 +98472,7 @@ var content = __webpack_require__(309);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(12)("3fa98d2a", content, false, {});
+var update = __webpack_require__(12)("61c7b2ec", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -98652,6 +98645,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 payBtn.style.display = "none";
                 paidBtn.style.display = "block";
                 _this.$parent.closeModal('#paymentModal');
+                _this.$emit('has-paid-expense');
             }).catch(function (err) {
                 swal({
                     timer: 3000,
@@ -98889,7 +98883,7 @@ var content = __webpack_require__(315);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(12)("099de64d", content, false, {});
+var update = __webpack_require__(12)("1ec2a0ed", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -99140,8 +99134,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 //
 //
 //
@@ -99168,42 +99160,40 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             this.localModel = Number(this.initial).toLocaleString("en-US");
         },
         localModel: function localModel(oldVal) {
-            var _this = this;
-
-            var parts = this.model.split('.');
+            /* let parts = this.model.split('.');
             if (parts.length === 1 || parts.length === 0) {
                 this.$parent[this.model] = this.numberValue;
-
-                return;
+                 return;
             }
-
-            var currentObj = null;
-            parts.forEach(function (p) {
-                if (currentObj === null) {
-                    if (p.includes("[") && p.endsWith("]")) {
-                        var _parts = p.split('[');
-                        currentObj = _this.$parent[_parts[0]][Number(_parts[1].substring(0, _parts[1].length - 1))];
+             let currentObj = null;
+            parts.forEach(p => {
+                if(currentObj === null) {
+                    if (p.includes("[") && p.endsWith ("]")) {
+                        let parts = p.split('[');
+                        currentObj = this.$parent [parts[0]] [Number(parts[1].substring(0, parts[1].length-1 ))];
                     } else {
-                        currentObj = _this.$parent[p];
+                        currentObj = this.$parent[p];
                     }
                 } else {
-                    if (null !== currentObj[p] && _typeof(currentObj[p]) === "object") {
-                        if (p.includes("[") && p.endsWith("]")) {
-                            var _parts2 = p.split('[');
-                            currentObj = _this.$parent[_parts2[0]][Number(_parts2[1].substring(0, _parts2[1].length - 1))];
+                    if (null !== currentObj[p] && typeof currentObj[p] === "object") {
+                        if (p.includes("[") && p.endsWith ("]")) {
+                            let parts = p.split('[');
+                            currentObj = this.$parent [parts[0]] [Number(parts[1].substring(0, parts[1].length-1 ))];
                         } else {
-                            currentObj = _this.$parent[p];
+                            currentObj = this.$parent[p];
                         }
                     } else {
-                        currentObj[p] = _this.numberValue;
+                        currentObj[p] = this.numberValue;
                     }
                 }
-            });
+            }); */
+
+            eval('this.$parent.' + this.model + ' = this.numberValue');
         }
     },
     methods: {
         beautify: function beautify(event) {
-            var _this2 = this;
+            var _this = this;
 
             event.srcElement.onkeyup = function (ev) {
                 var selection = window.getSelection().toString();
@@ -99221,7 +99211,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                 input = input.replace(/[\D\s\._\-]+/g, "");
                 input = input ? parseInt(input, 10) : 0;
-                $this.value = _this2.localModel = input === 0 ? "" : input.toLocaleString("en-US");;
+                $this.value = _this.localModel = input === 0 ? "" : input.toLocaleString("en-US");;
             };
         }
     }
@@ -99333,7 +99323,7 @@ var content = __webpack_require__(323);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(12)("5466ea06", content, false, {});
+var update = __webpack_require__(12)("27e80a28", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -99466,7 +99456,7 @@ var content = __webpack_require__(328);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(12)("b58efa38", content, false, {});
+var update = __webpack_require__(12)("1fc2d704", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -100460,7 +100450,7 @@ var content = __webpack_require__(333);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(12)("22e45ddc", content, false, {});
+var update = __webpack_require__(12)("0cb6e488", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -101134,7 +101124,7 @@ var content = __webpack_require__(338);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(12)("0421f6ef", content, false, {});
+var update = __webpack_require__(12)("69b589e2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -101461,7 +101451,7 @@ var content = __webpack_require__(346);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(12)("7dd8d74a", content, false, {});
+var update = __webpack_require__(12)("efd24f0a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags

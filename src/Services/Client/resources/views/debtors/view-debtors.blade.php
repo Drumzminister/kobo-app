@@ -4,7 +4,7 @@
 <section id="top">
     <div class="container py-3">
         <div class="row">
-                <h3><a href="/client/debtors" class="text-dark">Debtors</a></h2>
+                <h3><a href="/client/debtors" class="text-dark">Debtors</a></h3>
                @include('client::accountant-button')
         </div>
     </div>
@@ -17,19 +17,19 @@
                     <div class="col-md-3">
                         <div class="p-2 bg-white" id="topp">
                             <h5 class="h5">Total Debtors Amount</h5>
-                            <h4 class="text-orange">&#8358;18,000</h4>
+                            <h4 class="text-orange">&#8358;{{ number_format($totalInvoice) }}</h4>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="p-2 bg-white" id="topp">
                             <h5 class="h5">Total Amount Paid</h5>
-                            <h4 class="text-orange">&#8358;18,000.45</h4>
+                            <h4 class="text-orange">&#8358;{{ number_format($totalPaid) }}</h4>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="p-2 bg-white" id="topp">
                             <h5 class="h5 ">Total Amount Owed</h5>
-                            <h4 class="text-orange">&#8358;18,000.53</h4>
+                            <h4 class="text-orange">&#8358; {{ number_format($debtTotal) }}</h4>
                         </div>
                     </div>
                 </div>
@@ -39,9 +39,7 @@
 
 <section id="sale-table">
         <div class="container mt-4">
-                        
-            <div class="bg-white p-4"> 
-
+            <div class="bg-white p-4">
                 <div class="row py-2">
                     <div class="col-md-10 col-6">
                         <div class="input-group">
@@ -72,71 +70,15 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                        <td >21/08/2020 </td>                                       
-                                        <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
-                                        <td> 23,000</td>
-                                        <td> 43,000</td>
-                                        <td>50,000</td>
-                                  </tr>
-        
-                                    <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>                                    </tr>
-        
-                                    <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a></td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>
-                                    </tr>
-                                    <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a> </td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>
-                                    </tr>
-                                    <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor"> Mercy Ikpe</a></td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>
-                                    </tr>
-                                    <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>
-                                      </tr>
-                                      <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>
-                                      </tr>
-                                      <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>
-                                      </tr>
-                                      <tr>
-                                            <td >21/08/2020 </td>                                       
-                                            <td><a href="/client/debtors/debtor">Mercy Ikpe</a> </td>                                        
-                                            <td> 23,000</td>
-                                            <td> 43,000</td>
-                                            <td>50,000</td>
-                                      </tr>
-
+                                    @foreach($debtors as $debtor)
+                                        <tr>
+                                            <td>{{ $debtor->created_at }}</td>
+                                            <td><a href="#">{{ $debtor->customer->name }}</a> </td>
+                                            <td>{{ $debtor->sale ? number_format($debtor->sale->total_amount) : 0 }}</td>
+                                            <td>{{ $debtor->sale ? number_format($debtor->sale->transactions->pluck('amount')->sum()) : 0 }}</td>
+                                            <td>{{ $debtor->sale ? number_format($debtor->sale->balance) : 0}}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                         </table>  
                     </div>

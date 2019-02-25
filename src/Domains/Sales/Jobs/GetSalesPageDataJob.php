@@ -14,10 +14,6 @@ use Lucid\Foundation\Job;
 class GetSalesPageDataJob extends Job
 {
 	/**
-	 * @var string
-	 */
-	private $slug;
-	/**
 	 * @var
 	 */
 	private $user;
