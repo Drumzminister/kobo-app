@@ -26,3 +26,6 @@
     @include('sales._modal')
     {{--End of modal --}}
 @endsection
+
+@include('components.confirm-exit')
+

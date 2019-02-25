@@ -334,12 +334,10 @@ class Repository
         }
     }
 
-    /**
-     * Implement a convenience call to storeImage
-     * to s3 bucket
-     * @param string $fileName
-     * @param string  path
-     *
-     * @return mixed
-     */
+    public function getAndOrderedByDate($companyId)
+    {
+        return $this->model->where([
+            ['company_id', '=', $companyId],
+        ])->orderBy('created_at', 'desc')->get();
+    }
 }

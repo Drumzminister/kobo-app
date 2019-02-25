@@ -10,4 +10,11 @@ class DebtorRepository extends Repository
     {
         parent::__construct($model);
     }
+
+    public function getDebtorsOrderedByDate($companyId)
+    {
+        return $this->model->where([
+            ['company_id', '=', $companyId],
+        ])->orderBy('created_at', 'desc')->paginate();
+    }
 }

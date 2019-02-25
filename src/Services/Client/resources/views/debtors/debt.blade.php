@@ -70,7 +70,7 @@
                             <th scope="col">Total Invoices Owed (&#8358;)</th>
                             <th scope="col">Total Payment (&#8358;)</th>
                             <th scope="col">Amount Receivables</th>
-
+                            <th scope="col"></th>
                 
                           </tr>
                         </thead>
