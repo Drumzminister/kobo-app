@@ -125,7 +125,7 @@
             <div class="col-md-7 ">
                 <div class="bg-white p-4" >
                     @if($transactions->count() > 0)
-                        <mini-chart-component :options="{ mode: 'day', page: 'debts', dateRangeStart: '{{ $startDate }}', dateColumn: 'created_at', xColumn: 'created_at', yColumn: 'amount', label: '# of Transaction'}"
+                        <mini-chart-component :options="{ mode: 'day', page: 'transactions', dateRangeStart: '{{ $startDate }}', dateColumn: 'created_at', xColumn: 'created_at', yColumn: 'amount', label: '# of Transaction'}"
                                               :month="{{ $monthTransactions }}"
                                               :data="{{ $transactions }}"
                                               :year="{{ $yearTransactions }}"
