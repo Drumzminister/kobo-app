@@ -22,7 +22,7 @@
                 this.localModel = Number(this.initial).toLocaleString( "en-US" );
             },
             localModel (oldVal) {
-                let parts = this.model.split('.');
+                /* let parts = this.model.split('.');
                 if (parts.length === 1 || parts.length === 0) {
                     this.$parent[this.model] = this.numberValue;
 
@@ -50,7 +50,9 @@
                             currentObj[p] = this.numberValue;
                         }
                     }
-                });
+                }); */
+
+                eval(`this.$parent.${this.model} = this.numberValue`);
             }
         },
         methods: {
