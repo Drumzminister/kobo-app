@@ -32,6 +32,7 @@ class SaleCollection extends JsonResource
 
 	        // Custom Fields
 	        'transactions' => ClientTransactionCollection::collection($this->transactions),
+            'amountPaid'   => $this->transactions ? $this->transactions->pluck('amount')->sum() : 0,
 	        'customer_name' => $this->customer ? $this->customer->name : null,
 	        'quantity'  => array_sum($this->saleItems->pluck('quantity')->toArray()),
         ];

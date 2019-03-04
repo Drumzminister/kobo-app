@@ -37,11 +37,19 @@
 </p>
 
 <p>
-	Date: 12-10-1994
+	Date: {{ $sale->sale_date }}
 </p>
 
 <p>
-	Sale For: House
+	Sale Total: {{ number_format($sale->total_amount) }}
+</p>
+
+<p>
+    Amount Paid: {{ number_format($sale->amountPaid) }}
+</p>
+
+<p>
+    Balance: {{ number_format($sale->balance) }}
 </p>
 
 <table id="customers">
@@ -75,6 +83,19 @@
 		{{--</tr>--}}
 	{{--@endforeach--}}
 </table>
+
+@if($sale->transactions->count() > 0)
+    <div>
+        <h3>Payment Methods</h3>
+        <ul>
+            @foreach($sale->transactions as $transaction)
+                <li>
+                    {{ $transaction->bank['bank_name'] }}
+                </li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <p>
 	Created with Kobo
