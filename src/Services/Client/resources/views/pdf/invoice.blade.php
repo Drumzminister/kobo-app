@@ -116,7 +116,7 @@
 </div>
 
 <p>
-	Created with Kobo
+	Created with Kobo Accountant
 </p>
 
 </body>

@@ -28,7 +28,7 @@ Route::group([ 'prefix' => 'client'], function () {
 //	    $pdf->loadHTML($html);
 //	    return $pdf->inline();
 	    $pdf = PDF::loadHTML($html)->setPaper('a4')->setOrientation('portrait')->setOption('margin-bottom', 0);
-	    return $pdf->inline();
+	    return $pdf->save(storage_path('pdfs/mail/'. $sale->id . '.pdf'));
     });
 
     Route::get('{userId}/banks', 'BankDetailController@listBanks')->name('client.banks');
