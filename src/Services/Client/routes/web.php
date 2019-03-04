@@ -19,8 +19,9 @@ Route::group([ 'prefix' => 'client'], function () {
     // Route::get('/', 'UserController@index');
 
     Route::get('/', function () {
-        $sale = new \Koboaccountant\Http\Resources\SaleCollection(\Koboaccountant\Models\Sale::find('21f873a6-36e1-11e9-8c32-b33f538c67ae'));
-        $data['sale'] = $sale;
+        $sale = new \Koboaccountant\Http\Resources\SaleCollection($saleX = \Koboaccountant\Models\Sale::find('21f873a6-36e1-11e9-8c32-b33f538c67ae'));
+//        dd($saleX->transactions->pluck('amount')->sum());
+        $data['sale'] = (object) $sale->toArray(request());
 	    $html = view('client::pdf.invoice', $data)->render();
 	    $pdf = \Illuminate\Support\Facades\App::make('snappy.pdf.wrapper');
 

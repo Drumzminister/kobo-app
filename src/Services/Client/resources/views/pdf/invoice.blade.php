@@ -41,15 +41,15 @@
 </p>
 
 <p>
-	Sale Total: {{ number_format($sale->total_amount) }}
+	Sale Total: N{{ number_format($sale->total_amount) }}
 </p>
 
 <p>
-    Amount Paid: {{ number_format($sale->amountPaid) }}
+    Amount Paid: N{{ number_format($sale->amountPaid) }}
 </p>
 
 <p>
-    Balance: {{ number_format($sale->balance) }}
+    Balance: N{{ number_format($sale->balance) }}
 </p>
 
 <table id="customers">
@@ -90,12 +90,21 @@
         <ul>
             @foreach($sale->transactions as $transaction)
                 <li>
-                    {{ $transaction->bank['bank_name'] }}
+                    {{ $transaction->paymentMode->bank_name }} - N{{ $transaction->amount }}
                 </li>
             @endforeach
         </ul>
     </div>
 @endif
+
+<div>
+    <h3>Delivery Cost</h3>
+    <ul>
+        <li>
+            {{ $transaction->paymentMode->bank_name }} - N{{ $transaction->amount }}
+        </li>
+    </ul>
+</div>
 
 <p>
 	Created with Kobo
