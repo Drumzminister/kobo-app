@@ -101,7 +101,16 @@
     <h3>Delivery Cost</h3>
     <ul>
         <li>
-            {{ $transaction->paymentMode->bank_name }} - N{{ $transaction->amount }}
+            N{{ $sale->delivery_cost ?? 0 }}
+        </li>
+    </ul>
+</div>
+
+<div>
+    <h3>Discount</h3>
+    <ul>
+        <li>
+            N{{ $sale->discount?? 0 }}
         </li>
     </ul>
 </div>
