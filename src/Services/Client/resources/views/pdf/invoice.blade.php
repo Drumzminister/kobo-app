@@ -13,7 +13,7 @@
 			padding: 8px;
 		}
 
-		#customers tr:nth-child(even){background-color: #f2f2f2;}
+		#customers tbody > tr:nth-child(even){background-color: #f2f2f2;}
 
 		#customers tr:hover {background-color: #ddd;}
 
@@ -33,7 +33,7 @@
 </h1>
 
 <p>
-	Invoice For: Lode
+	Invoice No: {{ $sale->invoice_number }}
 </p>
 
 <p>
@@ -45,13 +45,26 @@
 </p>
 
 <table id="customers">
-	<tr>
-		<th>S/N</th>
-		<th>Name</th>
-		<th>Quantity</th>
-		<th>Rate (N)</th>
-		<th>Price (N)</th>
-	</tr>
+    <thead>
+        <tr>
+            <th>S/N</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Rate (N)</th>
+            <th>Price (N)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($sale->saleItems as $key => $item)
+            <tr>
+                <th>{{ $key + 1 }}</th>
+                <th>{{ $item->inventory->name }}</th>
+                <th>{{ $sale->quantity }}</th>
+                <th>{{ number_format($item->inventory->sales_price) }}</th>
+                <th>{{ number_format($item->inventory->sales_price * $item->quantity) }}</th>
+            </tr>
+        @endforeach
+    </tbody>
 	{{--@foreach($budget->items as $key => $item)--}}
 		{{--<tr>--}}
 			{{--<td>{{ $key + 1 }}</td>--}}
@@ -61,14 +74,6 @@
 			{{--<td>{{ number_format(($item->rate * $item->quantity), 2) }}</td>--}}
 		{{--</tr>--}}
 	{{--@endforeach--}}
-
-	<tr>
-		<th>Total</th>
-		<th></th>
-		<th></th>
-		<th></th>
-		<th>1000000</th>
-	</tr>
 </table>
 
 <p>

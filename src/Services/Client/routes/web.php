@@ -19,9 +19,11 @@ Route::group([ 'prefix' => 'client'], function () {
     // Route::get('/', 'UserController@index');
 
     Route::get('/', function () {
-
-	    $html = view('client::pdf.invoice')->render();
+        $sale = new \Koboaccountant\Http\Resources\SaleCollection(\Koboaccountant\Models\Sale::first());
+        $data['sale'] = $sale;
+	    $html = view('client::pdf.invoice', $data)->render();
 	    $pdf = \Illuminate\Support\Facades\App::make('snappy.pdf.wrapper');
+
 //	    $pdf->loadHTML($html);
 //	    return $pdf->inline();
 	    $pdf = PDF::loadHTML($html)->setPaper('a4')->setOrientation('portrait')->setOption('margin-bottom', 0);
