@@ -41,4 +41,8 @@ class RentRepository extends Repository
         $rent->update($data);
         return $rent;
     }
+
+    public function getOpening($companyId) {
+        return Rent::where('company_id', $companyId)->where('type', 'opening')->get();
+    }
 }

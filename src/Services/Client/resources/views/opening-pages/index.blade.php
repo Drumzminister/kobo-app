@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client::layouts.app')
 
 @section('content')
 
@@ -132,35 +132,7 @@
               </div>
             </div>
           </div>
-          <div class="card border-0 mb-5">
-            <div class="card-header bg-white border-0" id="headingFive">
-              <h5 class="mb-0">
-                <button class="btn bg-transparent w-100 collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                  <div class="title-div d-flex">
-                    <div class="mr-auto text-left">
-                      <p class="title">Rent</p>
-                      <p class="subtitle">Already existing Rents</p>
-                    </div>
-                    <div class="pt-3 pr-3">
-                      <i class="fas fa-chevron-up fa-2x"></i>
-                    </div>
-                  </div>
-                </button>
-              </h5>
-            </div>
-            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-              <div class="card-body">
-                <div class="input-group">
-                  <input type="text" class="form-control " placeholder="Search Assets" aria-label="Search Assets" aria-describedby="button-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-orange" type="button" id="button-addon2">Filter</button>
-                  </div>
-                </div>
-
-                @include('includes.opening-pages._balance-table-5')
-              </div>
-            </div>
-          </div>
+          <opening-rent rents="{{$openingRents}}"></opening-rent>
         </div>
         <div class="d-flex justify-content-end">
           <button type="button" class="btn btn-green mr-4"> + Add to Opening Balance</button>
@@ -170,4 +142,7 @@
     </div>
   </div>
 </section>
+@include('client::rents._add_rent_modal')
+@endsection
+@section('other_js')
 @endsection
