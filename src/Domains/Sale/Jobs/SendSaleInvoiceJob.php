@@ -4,6 +4,7 @@ namespace App\Domains\Sale\Jobs;
 
 use App\Data\Repositories\SaleRepository;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Koboaccountant\Models\Sale;
 use Lucid\Foundation\QueueableJob;
 
 class SendSaleInvoiceJob extends QueueableJob
@@ -24,15 +25,14 @@ class SendSaleInvoiceJob extends QueueableJob
 	 */
 	private $data;
 
-	/**
-	 * Create a new job instance.
-	 *
-	 * @param string $saleId
-	 */
-    public function __construct(string $saleId)
+    /**
+     * Create a new job instance.
+     *
+     * @param Sale $sale
+     */
+    public function __construct(Sale $sale)
     {
-	    $this->saleId = $saleId;
-	    $this->sale = app(SaleRepository::class);
+        $this->sale = $sale;
     }
 
     /**

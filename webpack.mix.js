@@ -16,5 +16,20 @@ mix.js('resources/js/app.js', 'public/js')
    // .sass('resources/sass/opening-pages.scss', 'public/css/nedy.css')
    .options({
         processCssUrls: false,
-        postCss: [ tailwindcss('./tailwind.js') ],
-   });
+        postCss: [tailwindcss('./tailwind.js')],
+   })
+    .webpackConfig({
+        module: {
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    loader: "ts-loader",
+                    options: { appendTsSuffixTo: [/\.vue$/] },
+                    exclude: /node_modules/
+                }
+            ]
+        },
+        resolve: {
+            extensions: ["*", ".js", ".jsx", ".vue", ".ts", ".tsx"]
+        }
+    });
