@@ -29,6 +29,7 @@ class CreateRentsTable extends Migration
             $table->integer('periods_passed')->default(0);
             $table->boolean('is_active')->default(true);
             $table->text('comment')->nullable();
+            $table->enum('type', ['opening', 'normal'])->default('normal');
             $table->timestamps();
         });
     }

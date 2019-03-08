@@ -2,6 +2,7 @@ export const rentApp = {
     data: {
         rents: [],
         banks: [],
+        rentType: null,
         rentAmount: "",
         rentEndDate: "",
         editingRent: {},
@@ -57,12 +58,18 @@ export const rentApp = {
             let formData = new FormData(evt.target);
             let rentAmount = Number(this.purifyCostsAndGetRentAmount()) + Number(this.rentAmount);
             formData.set('amount', rentAmount);
+            if (this.rentType) {
+                formData.set('type', this.rentType);
+            }
             formData.append('other_costs', JSON.stringify(this.other_costs));
             axios.post('/client/rent/add', formData).then(res => {
-                this.rents.unshift(res.data.rent);
                 swal("Success", "Rent added successfully", "success");
                 this.isRequesting = false;
-                location.reload();
+                if (this.rentType) {
+                    this.$eventHub.$emit('newOpeningRent', res.data.rent);
+                } else {
+                    location.reload();
+                }
                 $('#addRentModal').modal('toggle');
             });
         },
@@ -149,6 +156,6 @@ export const rentApp = {
 
         setRentParams () {
             this.openModal('#addRentModal');
-        }
+        },
     }
 };
