@@ -43,6 +43,18 @@ import ModalHelper from './plugins/ModalHelper';
 Vue.use(Currency);
 Vue.use(ModalHelper);
 
+Vue.filter('numberFormat', function (value) {
+    let number = Number(value);
+    if (isNaN(number)) { return value; }
+    const formatter = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+    return formatter.format(number);
+})
+
+Vue.prototype.$eventHub = new Vue(); // A Global event bus
+
 window.app = new Vue({
     el: '#app',
     store,
@@ -62,16 +74,6 @@ window.app = new Vue({
     ],
     // components: {PaymentMethodSelection: PaymentMethodSelection},
     filters: {
-        numberFormat (value) {
-            let number = Number(value);
-            if (isNaN(number)) {return value;}
-            const formatter = new Intl.NumberFormat('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-            return formatter.format(number);
-        },
-
         dateTime(value) {
             if (!value) return '';
             return moment(value).format('l'); // here u modify data
