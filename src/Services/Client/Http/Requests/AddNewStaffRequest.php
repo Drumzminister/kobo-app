@@ -31,7 +31,9 @@ class AddNewStaffRequest extends FormRequest
             'salary' => 'required',
             'phone' => 'required|size:11',
             'email' => 'required',
-            'years_of_experience' => 'required|min:1,max:50'
+            'years_of_experience' => 'required|min:1,max:50',
+            'avatar'        => 'file|max:10000|image',
+//            'avatar'        => 'file|max:1000|image|dimensions:min_width=100,max_with=200',
         ];
     }
 }
