@@ -12,7 +12,7 @@ class CreateStaffTable extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->string('id', 36);
             $table->string('first_name');
-            $table->string('last_name')->nullable();
+            $table->string('last_name');
             $table->string('company_id', 36);
             $table->string('user_id', 36);
             $table->string('role');

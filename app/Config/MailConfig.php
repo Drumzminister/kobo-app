@@ -14,6 +14,9 @@ use ReflectionClass;
 class MailConfig
 {
 	const DEFAULT_EMAIL_NAME    = "Kobo Accountant Team";
+	const SUPPORT_EMAIL         = "support@koboaccountant.co";
+	const SUPPORT_EMAIL_NAME    = "Kobo Accountant Support";
+	const NEW_STAFF_SUBJECT     = "New Staff Account on Kobo Accountant";
 
 	/**
 	 * @param $key

@@ -38,7 +38,7 @@ class NewStaffCreated extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->from(MailConfig::getConfig('SUPPORT_EMAIL'), MailConfig::getConfig('SUPPORT_EMAIL_NAME'))
-            ->subject(MailConfig::getConfig('NEW_MESSAGE_SUBJECT'))
+            ->subject(MailConfig::getConfig('NEW_STAFF_SUBJECT'))
             ->markdown('email.new-staff')
             ->with([
                 'user' => $this->user,

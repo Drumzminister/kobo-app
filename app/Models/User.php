@@ -5,10 +5,11 @@ namespace Koboaccountant\Models;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-	use Cachable;
+	use Cachable, HasRoles;
 
     // use Uuids;
     use Notifiable;
