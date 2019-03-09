@@ -73,7 +73,7 @@
                             <input name="years_of_experience" placeholder="Not less than 50" type="number" class="form-control bg-grey">
                             @include('errors.form-validation-error', ['inputName' => 'years_of_experience'])
                             <br>
-                            <label for="Role">Date  Of Employment</label>
+                            <label for="Role">Date Of Employment</label>
                             <input class="form-control" name="employed_date" type="date" />
                             @include('errors.form-validation-error', ['inputName' => 'employed_date'])
                         </div>
@@ -83,7 +83,7 @@
 
                     <div class="form-group row py-2">
                         <div class="col-md-4 text-center">
-                            <label for="decription" class="col-form-label">Salary</label>
+                            <label for="description" class="col-form-label">Salary</label>
                             {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
                         </div>
                         <div class="col-md-8">
