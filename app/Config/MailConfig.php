@@ -13,22 +13,8 @@ use ReflectionClass;
  */
 class MailConfig
 {
-	const DEFAULT_EMAIL_NAME    = "Storehouse Team";
-	const DEFAULT_EMAIL         = "support@storehouse.com.ng";
-	const SUPPORT_EMAIL         = "support@storehouseng";
-	const CONTACT_EMAIL         = "contact@storehouse.com.ng";
-	const CONTACT_EMAIL_NAME    = "Storehouse Contact";
-	const SUPPORT_EMAIL_NAME    = "Storehouse Team";
-	const BUDGET_SHARED_SUBJECT = "A budget has been shared with you!";
-	const JOB_STATUS_SUBJECT    = "Storehouse Job Request Update";
-	const VENDOR_STATUS_SUBJECT = "Storehouse Vendor Update";
-	const BUDGETS_EMAIL         = "budgets@storehouse.com.ng";
-	const BUDGETS_NAME          = "Budget Update";
-	const NEW_USER_SUBJECT      = "New Customer account on Storehouse";
-	const NEW_MESSAGE_SUBJECT   = "New Notification from Storehouse.ng";
-	const NEW_CODE_SUBJECT      = "Storehouse Activation Code";
-	const NEW_VENDOR_SUBJECT    = "New Vendor account on Storehouse";
-	const WITHDRAWAL_DATE       = "Your withdrawal Day is it Today! You can now withdraw on Storehouse.";
+	const DEFAULT_EMAIL_NAME    = "Kobo Accountant Team";
+
 	/**
 	 * @param $key
 	 *
