@@ -18,7 +18,7 @@
             </div>
             <form>
                 <div class="form-group row py-2">
-                    <div class="col-md-4">
+                    <div class="col-md-4 text-center">
                         <label for="name" class="col-md-3 col-form-label">Account</label>
                         {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, natus!</p>--}}
                     </div>
@@ -41,7 +41,7 @@
                 <hr>
 
                 <div class="form-group row py-2">
-                    <div class="col-md-4">
+                    <div class="col-md-4 text-center">
                         <label for="decription" class="col-form-label">Designation</label>
                         {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
                     </div>
@@ -57,7 +57,7 @@
 
                 <hr>
                 <div class="form-group row py-2">
-                        <div class="col-md-4">
+                        <div class="col-md-4 text-center">
                             <label for="name" class="col-md-3 col-form-label">Experience</label>
                             {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, natus!</p>--}}
                         </div>
@@ -74,7 +74,7 @@
 
                     <hr>
 
-                    <div class="form-group row py-2">
+                    <div class="form-group row py-2 text-center">
                         <div class="col-md-4">
                             <label for="decription" class="col-form-label">Salary</label>
                             {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
@@ -86,7 +86,7 @@
                     </div>
                 <hr>
                     <div class="form-group row py-2">
-                            <div class="col-md-4">
+                            <div class="col-md-4 text-center">
                                 <label for="decription" class="col-form-label">Comment</label>
                                 {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
                             </div>
