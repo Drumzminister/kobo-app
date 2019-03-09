@@ -1,6 +1,6 @@
 <template>
     <div class="col-md-4 img-in">
-        <img src="/img/person.png" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle">
+        <img src="/img/person.png" alt="client logo" srcset="" id="profilePicturePreview" class="rounded-circle img-fluid img-circle">
         <div class="overlay">
             <div class="text form-group">
                 <input type="file" class="form-control-file" accept="image/*" name="avatar" @change="previewImage('profilePicture', '#profilePicturePreview')" id="profilePicture">

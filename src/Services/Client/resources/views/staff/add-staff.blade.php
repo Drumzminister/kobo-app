@@ -14,18 +14,7 @@
     <div class="container my-4">
         <div class="bg-white p-5">
             <div class="row">
-                <div class="col-md-4 img-in">
-                    <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle">
-                    <div class="overlay">
-                        <div class="text form-group">
-                            {{--<input type="file" @change="getAndProcessImage($event)" class="form-control-file" id="staffPhoto">--}}
-                            <input type="file" class="form-control-file" accept="image/*" name="avatar" @change="previewImage('profilePicture', '#profilePicturePreview')" id="profilePicture">
-{{--                            @include('errors.form-validation-error', ['inputName' => 'avatar'])--}}
-                        </div>
-                    </div>
-
-                    <h5 class="h5 px-4 py-2 ">Add Photo</h5>
-                </div>
+                <new-image></new-image>
             </div>
             <form>
                 <div class="form-group row py-2">
