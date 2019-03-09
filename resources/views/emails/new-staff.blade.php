@@ -13,7 +13,7 @@
     Regards,<br>
     {{ \App\Config\MailConfig::getConfig('DEFAULT_EMAIL_NAME') }}
 
-    @component('mail::button', ['url' => \Illuminate\Support\Facades\URL::signedRoute('activate.account', ['activation_key' => $user->activation_token])])
+    @component('mail::button', ['url' => route('password.request')])
         Reset Password
     @endcomponent
 
