@@ -3,7 +3,7 @@
 namespace Koboaccountant\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Koboaccountant\Repositories\Inventory\InventoryRepository;
+use Koboaccountant\Repositories\Opening\InventoryRepository;
 
 class InventoryController extends Controller
 {

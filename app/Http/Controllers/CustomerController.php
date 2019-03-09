@@ -1,9 +1,8 @@
-
 <?php
 
 namespace Koboaccountant\Http\Controllers;
 
-use Koboaccountant\Repositories\Customer\CustomerRepository;
+use App\Data\Repositories\CustomerRepository;
 use Koboaccountant\Http\Requests\CustomerRegistrationRequest;
 
 class CustomerController extends Controller

@@ -2,8 +2,8 @@
 
 namespace Koboaccountant\Http\Controllers;
 
+use App\Data\Repositories\VendorRepository;
 use Illuminate\Http\Request;
-use Koboaccountant\Repositories\Vendor\VendorRepository;
 class VendorController extends Controller
 {
     public function __construct(VendorRepository $vendor)
