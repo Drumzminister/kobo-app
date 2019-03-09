@@ -2,8 +2,8 @@
 namespace StoreHouse\Domains\Notification\Jobs;
 
 use Koboaccountant\Mail\NewMessageEmail;
-use Koboaccountant\StoreHouse\AppQueues;
-use App\User;
+use Koboaccountant\Config\AppQueues;
+use Koboaccountant\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Lucid\Foundation\Job;
 
@@ -32,6 +32,6 @@ class NotifyUserJob extends Job
     public function handle()
     {
         // ToDo: Implement other means of Notifications here. Maybe push, or save in the database or something close to all that.
-        Mail::to($this->user->email)->queue((new NewMessageEmail($this->user, $this->message))->onQueue(AppQueues::NEW_USER_EMAIL));
+        Mail::to($this->user->email)->queue((new NewMessageEmail($this->user, $this->message))->onQueue(AppQueues::MAIL));
     }
 }

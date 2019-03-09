@@ -1,6 +1,6 @@
 <?php
 
-namespace App\StoreHouse;
+namespace Koboaccountant\Config;
 
 
 class AppQueues {
