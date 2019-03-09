@@ -84517,7 +84517,8 @@ var render = function() {
     class: _vm.classes,
     attrs: {
       type: "text",
-      placeholder: _vm.options.placeholder || "Money Input"
+      placeholder: _vm.options.placeholder || "Money Input",
+      name: _vm.options.name
     },
     domProps: { value: _vm.localModel },
     on: {

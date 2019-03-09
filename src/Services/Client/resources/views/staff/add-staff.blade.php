@@ -17,6 +17,7 @@
                 <new-image :options="{name:'image'}" {{ $errors->has('image') ? ':error="'. $errors->first('image') .'"' : ':error=""' }}></new-image>
             </div>
             <form action="{{ route('client.single-staff.add') }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="form-group row py-2">
                     <div class="col-md-4 text-center">
                         <label for="name" class="col-md-3 col-form-label">Account</label>
@@ -56,6 +57,8 @@
                             'Cleaner', 'Developer', 'Accountant', 'Data Entry', 'Reception', 'HR', 'Sales',
                             'Driver', 'Typist', 'Executive/Personal Assistant',
                         ]"></Select2>
+
+                        @include('errors.form-validation-error', ['inputName' => 'role'])
                     </div>
                 </div>
 
@@ -68,24 +71,26 @@
                         <div class="col-md-8">
                             <label for="first name">Years of Experience</label>
                             <input name="years_of_experience" placeholder="Not less than 50" type="number" class="form-control bg-grey">
-                            <span class="text-danger">@{{ errors.first('yearsOfExperience') }}</span>
+                            @include('errors.form-validation-error', ['inputName' => 'years_of_experience'])
                             <br>
                             <label for="Role">Date  Of Employment</label>
-                            <input class="form-control" v-model="staffForm.employed_date" type="date" />
-
+                            <input class="form-control" name="employed_date" type="date" />
+                            @include('errors.form-validation-error', ['inputName' => 'employed_date'])
                         </div>
                     </div>
 
                     <hr>
 
-                    <div class="form-group row py-2 text-center">
-                        <div class="col-md-4">
+                    <div class="form-group row py-2">
+                        <div class="col-md-4 text-center">
                             <label for="decription" class="col-form-label">Salary</label>
                             {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
                         </div>
                         <div class="col-md-8">
                             <label for="Role">Amount</label>
-                            <input type="number" @keyup="validateInput" v-model="staffForm.salary" id="number" class="number form-control bg-grey">
+                            <money-input :model="'staffForm.salary'" :class="'number form-control bg-grey'" :options="{ placeholder: '0.00', name: 'salary' }"></money-input>
+                            {{--<input type="number" @keyup="validateInput" v-model="staffForm.salary" id="number" class="number form-control bg-grey">--}}
+                            @include('errors.form-validation-error', ['inputName' => 'salary'])
                         </div>
                     </div>
                 <hr>
@@ -103,7 +108,7 @@
                     <div class="form-row mt-3">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-                            <button type="submit"  @click="createStaff" class="btn btn-addsale">Save Information</button>
+                            <button type="submit" class="btn btn-addsale">Save Information</button>
                         </div>
                     </div>
               </form>

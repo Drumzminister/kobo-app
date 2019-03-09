@@ -1,5 +1,5 @@
 <template>
-    <input type="text" @keyup="beautify" v-model="localModel" :placeholder="options.placeholder || 'Money Input'" :class="classes"/>
+    <input type="text" @keyup="beautify" v-model="localModel" :placeholder="options.placeholder || 'Money Input'" :name="options.name" :class="classes"/>
 </template>
 <script>
     export default {
