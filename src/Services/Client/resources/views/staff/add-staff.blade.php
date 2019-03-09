@@ -18,18 +18,20 @@
                     <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle">
                     <div class="overlay">
                         <div class="text form-group">
-                            <input type="file" @change="getAndProcessImage($event)" class="form-control-file" id="staffPhoto">
+                            {{--<input type="file" @change="getAndProcessImage($event)" class="form-control-file" id="staffPhoto">--}}
+                            <input type="file" class="form-control-file" accept="image/*" name="avatar" @change="previewImage('profilePicture', '#profilePicturePreview')" id="profilePicture">
+{{--                            @include('errors.form-validation-error', ['inputName' => 'avatar'])--}}
                         </div>
-                    </div>           
-                
-                <h5 class="h5 px-4 py-2 ">Add Photo</h5>
+                    </div>
+
+                    <h5 class="h5 px-4 py-2 ">Add Photo</h5>
                 </div>
             </div>
             <form>
                 <div class="form-group row py-2">
                     <div class="col-md-4">
                         <label for="name" class="col-md-3 col-form-label">Account</label>
-                        <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, natus!</p>
+                        {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, natus!</p>--}}
                     </div>
                     <div class="col-md-8">
                         <label for="first name">First Name</label>
@@ -52,7 +54,7 @@
                 <div class="form-group row py-2">
                     <div class="col-md-4">
                         <label for="decription" class="col-form-label">Designation</label>
-                        <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>
+                        {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
                     </div>
                     <div class="col-md-8">
                         <label for="Role">Role</label>
@@ -68,7 +70,7 @@
                 <div class="form-group row py-2">
                         <div class="col-md-4">
                             <label for="name" class="col-md-3 col-form-label">Experience</label>
-                            <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, natus!</p>
+                            {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, natus!</p>--}}
                         </div>
                         <div class="col-md-8">
                             <label for="first name">Years of Experience</label>
@@ -86,7 +88,7 @@
                     <div class="form-group row py-2">
                         <div class="col-md-4">
                             <label for="decription" class="col-form-label">Salary</label>
-                            <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>
+                            {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
                         </div>
                         <div class="col-md-8">
                             <label for="Role">Amount</label>
@@ -97,7 +99,7 @@
                     <div class="form-group row py-2">
                             <div class="col-md-4">
                                 <label for="decription" class="col-form-label">Comment</label>
-                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>
+                                {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
                             </div>
                             <div class="col-md-8">
                                 <label for="Role">Brief Comment</label>
