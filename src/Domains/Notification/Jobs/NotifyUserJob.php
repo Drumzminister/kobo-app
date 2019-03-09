@@ -3,7 +3,6 @@ namespace StoreHouse\Domains\Notification\Jobs;
 
 use Koboaccountant\Mail\NewMessageEmail;
 use Koboaccountant\Config\AppQueues;
-use Koboaccountant\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Lucid\Foundation\Job;
 
