@@ -8,6 +8,8 @@ class Role extends Model
 {
     protected $fillable = ['role'];
 
+    protected $table = 'user_roles';
+
     public $incrementing = false;
     
     public function users()

@@ -3,7 +3,7 @@
 namespace Koboaccountant\Mail;
 
 use App\Config\MailConfig;
-use App\User;
+use Koboaccountant\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -24,7 +24,7 @@ class NewStaffCreated extends Mailable implements ShouldQueue
      * @param User $user
      * @param      $message
      */
-    public function __construct($user, $message)
+    public function __construct(User $user, string $message)
     {
         $this->user = $user;
         $this->message = $message;
