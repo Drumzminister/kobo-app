@@ -33,11 +33,11 @@
                         @include('errors.form-validation-error', ['inputName' => 'last_name'])
 
                         <label for="phone">Phone number</label>
-                        <input name="phone"  @keyup="validateInput"   type="text" class="form-control bg-grey" id="" >
+                        <input name="phone"  @keyup="validateInput"   type="text" class="form-control bg-grey" id="" required>
                         @include('errors.form-validation-error', ['inputName' => 'phone'])
 
                         <label for="email">Email</label>
-                        <input name="email" type="text" class="form-control bg-grey" id="" >
+                        <input name="email" type="email" class="form-control bg-grey" id="" required>
                         @include('errors.form-validation-error', ['inputName' => 'email'])
 
                     </div>
@@ -69,12 +69,12 @@
                             {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, natus!</p>--}}
                         </div>
                         <div class="col-md-8">
-                            <label for="first name">Years of Experience</label>
-                            <input name="years_of_experience" placeholder="Not less than 50" type="number" class="form-control bg-grey">
+                            <label for="yearsOfExperience">Years of Experience (Max is 50)</label>
+                            <input id="yearsOfExperience" name="years_of_experience" type="number" min="1" max="50" class="form-control bg-grey">
                             @include('errors.form-validation-error', ['inputName' => 'years_of_experience'])
                             <br>
                             <label for="Role">Date Of Employment</label>
-                            <input class="form-control" name="employed_date" type="date" />
+                            <input class="form-control" name="employed_date" type="date"/>
                             @include('errors.form-validation-error', ['inputName' => 'employed_date'])
                         </div>
                     </div>
@@ -96,12 +96,12 @@
                 <hr>
                     <div class="form-group row py-2">
                             <div class="col-md-4 text-center">
-                                <label for="decription" class="col-form-label">Comment</label>
+                                <label class="col-form-label">Comment</label>
                                 {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
                             </div>
                             <div class="col-md-8">
                                 <label for="Role">Brief Comment</label>
-                                <textarea @click="validateInput" v-model="staffForm.comment" rows="10" class="form-control bg-grey"></textarea>
+                                <textarea name="comment" rows="10" class="form-control bg-grey"></textarea>
                             </div>
                         </div>
 
