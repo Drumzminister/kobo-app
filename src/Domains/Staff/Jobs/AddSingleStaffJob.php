@@ -3,10 +3,12 @@
 namespace App\Domains\Staff\Jobs;
 
 use App\Data\Repositories\StaffRepository;
+use Koboaccountant\Traits\HelpsResponse;
 use Lucid\Foundation\Job;
 
 class AddSingleStaffJob extends Job
 {
+    use HelpsResponse;
     /**
      * Create a new job instance.
      *
@@ -22,11 +24,15 @@ class AddSingleStaffJob extends Job
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle()
     {
-        return $this->staff->fillAndSave($this->data);
+        $staff = $this->staff->fillAndSave($this->data);
+
+        if ($staff) {
+            return $this->createJobResponse('success', 'Staff created Successfully!', $staff);
+        }
+
+        return $this->createJobResponse('error', 'Staff cannot be created!', null);
     }
 }

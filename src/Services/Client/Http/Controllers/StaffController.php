@@ -50,8 +50,9 @@ class StaffController extends Controller
      */
     public function addSingleStaff()
     {
-        return $this->serve(addSingleStaffFeature::class);
+        return $this->serve(AddSingleStaffFeature::class);
     }
+
     public function addMultipleStaff()
     {
         return $this->serve(addMultipleStaffFeature::class);

@@ -16,7 +16,7 @@
             <div class="row">
                 <new-image :options="{name:'image'}" {{ $errors->has('image') ? ':error="'. $errors->first('image') .'"' : ':error=""' }}></new-image>
             </div>
-            <form>
+            <form action="{{ route('add.new.staff') }}">
                 <div class="form-group row py-2">
                     <div class="col-md-4 text-center">
                         <label for="name" class="col-md-3 col-form-label">Account</label>
@@ -24,16 +24,16 @@
                     </div>
                     <div class="col-md-8">
                         <label for="first name">First Name</label>
-                        <input v-model="staffForm.first_name" type="text" class="form-control bg-grey" id="" >
+                        <input name="first_name" type="text" class="form-control bg-grey" id="" >
 
                         <label for="last name">Last name</label>
-                        <input v-model="staffForm.last_name" type="text" class="form-control bg-grey" id="" >
+                        <input name="last_name" type="text" class="form-control bg-grey" id="" >
 
                         <label for="phone">Phone number</label>
-                        <input v-model="staffForm.phone"  @keyup="validateInput"   type="text" class="form-control bg-grey" id="" >
+                        <input name="phone"  @keyup="validateInput"   type="text" class="form-control bg-grey" id="" >
 
                         <label for="email">Email</label>
-                        <input v-model="staffForm.email" type="text" class="form-control bg-grey" id="" >
+                        <input name="email" type="text" class="form-control bg-grey" id="" >
 
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-md-8">
                         <label for="Role">Role</label>
-                        <Select2 v-model="staffForm.role":settings="{placeholder: 'Select Role' }" :options="[
+                        <Select2 v-model="staffForm.role":settings="{placeholder: 'Select Role', name: 'role' }" :options="[
                             'Manager', 'Secretary', 'Office Assistant', 'Human Resource', 'Personal Assistant',
                             'Cleaner', 'Developer', 'Accountant', 'Data Entry', 'Reception', 'HR', 'Sales',
                             'Driver', 'Typist', 'Executive/Personal Assistant',
@@ -63,7 +63,7 @@
                         </div>
                         <div class="col-md-8">
                             <label for="first name">Years of Experience</label>
-                            <input v-model="staffForm.years_of_experience" @keyup="validateInput" name="yearsOfExperience" v-validate="'max_value:50'" placeholder="Not less than 50" type="number" class="form-control bg-grey">
+                            <input name="years_of_experience" placeholder="Not less than 50" type="number" class="form-control bg-grey">
                             <span class="text-danger">@{{ errors.first('yearsOfExperience') }}</span>
                             <br>
                             <label for="Role">Date  Of Employment</label>
