@@ -43,5 +43,12 @@ class SendSaleInvoiceJob extends QueueableJob
     public function handle()
     {
     	$sale = $this->sale->items;
+
+        $html = view('client::pdf.invoice', $sale)->render();
+        $pdf = app()->make('snappy.pdf.wrapper');
+//	    $pdf->loadHTML($html);
+//	    return $pdf->inline();
+        $pdf = PDF::loadHTML($html)->setPaper('a4')->setOrientation('portrait')->setOption('margin-bottom', 0);
+        return $pdf->inline();
     }
 }

@@ -19,13 +19,16 @@ Route::group([ 'prefix' => 'client'], function () {
     // Route::get('/', 'UserController@index');
 
     Route::get('/', function () {
-
-	    $html = view('client::pdf.invoice')->render();
+        $sale = new \Koboaccountant\Http\Resources\SaleCollection($saleX = \Koboaccountant\Models\Sale::find('21f873a6-36e1-11e9-8c32-b33f538c67ae'));
+//      dd($saleX->transactions->pluck('amount')->sum());
+        $data['sale'] = (object) $sale->toArray(request());
+	    $html = view('client::pdf.invoice', $data)->render();
 	    $pdf = \Illuminate\Support\Facades\App::make('snappy.pdf.wrapper');
+
 //	    $pdf->loadHTML($html);
 //	    return $pdf->inline();
 	    $pdf = PDF::loadHTML($html)->setPaper('a4')->setOrientation('portrait')->setOption('margin-bottom', 0);
-	    return $pdf->inline();
+	    return $pdf->save(storage_path('pdfs/mail/'. $sale->id . '.pdf'));
     });
 
     Route::get('{userId}/banks', 'BankDetailController@listBanks')->name('client.banks');

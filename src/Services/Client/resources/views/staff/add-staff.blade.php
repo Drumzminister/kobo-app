@@ -14,35 +14,31 @@
     <div class="container my-4">
         <div class="bg-white p-5">
             <div class="row">
-                <div class="col-md-4 img-in">
-                    <img src="{{asset('img/person.png')}}" alt="client logo" srcset="" class="rounded-circle img-fluid img-circle">
-                    <div class="overlay">
-                        <div class="text form-group">
-                            <input type="file" @change="getAndProcessImage($event)" class="form-control-file" id="staffPhoto">
-                        </div>
-                    </div>           
-                
-                <h5 class="h5 px-4 py-2 ">Add Photo</h5>
-                </div>
+                <new-image :options="{name:'image'}" {{ $errors->has('image') ? ':error="'. $errors->first('image') .'"' : ':error=""' }}></new-image>
             </div>
-            <form>
+            <form action="{{ route('client.single-staff.add') }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="form-group row py-2">
-                    <div class="col-md-4">
+                    <div class="col-md-4 text-center">
                         <label for="name" class="col-md-3 col-form-label">Account</label>
-                        <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, natus!</p>
+                        {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, natus!</p>--}}
                     </div>
                     <div class="col-md-8">
                         <label for="first name">First Name</label>
-                        <input v-model="staffForm.first_name" type="text" class="form-control bg-grey" id="" >
+                        <input name="first_name" type="text" class="form-control bg-grey" id="">
+                        @include('errors.form-validation-error', ['inputName' => 'first_name'])
 
                         <label for="last name">Last name</label>
-                        <input v-model="staffForm.last_name" type="text" class="form-control bg-grey" id="" >
+                        <input name="last_name" type="text" class="form-control bg-grey" id="" >
+                        @include('errors.form-validation-error', ['inputName' => 'last_name'])
 
                         <label for="phone">Phone number</label>
-                        <input v-model="staffForm.phone"  @keyup="validateInput"   type="text" class="form-control bg-grey" id="" >
+                        <input name="phone"  @keyup="validateInput"   type="text" class="form-control bg-grey" id="" required>
+                        @include('errors.form-validation-error', ['inputName' => 'phone'])
 
                         <label for="email">Email</label>
-                        <input v-model="staffForm.email" type="text" class="form-control bg-grey" id="" >
+                        <input name="email" type="email" class="form-control bg-grey" id="" required>
+                        @include('errors.form-validation-error', ['inputName' => 'email'])
 
                     </div>
                 </div>
@@ -50,65 +46,69 @@
                 <hr>
 
                 <div class="form-group row py-2">
-                    <div class="col-md-4">
+                    <div class="col-md-4 text-center">
                         <label for="decription" class="col-form-label">Designation</label>
-                        <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>
+                        {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
                     </div>
                     <div class="col-md-8">
                         <label for="Role">Role</label>
-                        <Select2 v-model="staffForm.role":settings="{placeholder: 'Select Role' }" :options="[
+                        <Select2 v-model="staffForm.role" :settings="{placeholder: 'Select Role', name: 'role' }" :options="[
                             'Manager', 'Secretary', 'Office Assistant', 'Human Resource', 'Personal Assistant',
                             'Cleaner', 'Developer', 'Accountant', 'Data Entry', 'Reception', 'HR', 'Sales',
                             'Driver', 'Typist', 'Executive/Personal Assistant',
                         ]"></Select2>
+
+                        @include('errors.form-validation-error', ['inputName' => 'role'])
                     </div>
                 </div>
 
                 <hr>
                 <div class="form-group row py-2">
-                        <div class="col-md-4">
+                        <div class="col-md-4 text-center">
                             <label for="name" class="col-md-3 col-form-label">Experience</label>
-                            <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, natus!</p>
+                            {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel, natus!</p>--}}
                         </div>
                         <div class="col-md-8">
-                            <label for="first name">Years of Experience</label>
-                            <input v-model="staffForm.years_of_experience" @keyup="validateInput" name="yearsOfExperience" v-validate="'max_value:50'" placeholder="Not less than 50" type="number" class="form-control bg-grey">
-                            <span class="text-danger">@{{ errors.first('yearsOfExperience') }}</span>
+                            <label for="yearsOfExperience">Years of Experience (Max is 50)</label>
+                            <input id="yearsOfExperience" name="years_of_experience" type="number" min="1" max="50" class="form-control bg-grey">
+                            @include('errors.form-validation-error', ['inputName' => 'years_of_experience'])
                             <br>
-                            <label for="Role">Date  Of Employment</label>
-                            <input class="form-control" v-model="staffForm.employed_date" type="date" />
-
+                            <label for="Role">Date Of Employment</label>
+                            <input class="form-control" name="employed_date" type="date"/>
+                            @include('errors.form-validation-error', ['inputName' => 'employed_date'])
                         </div>
                     </div>
 
                     <hr>
 
                     <div class="form-group row py-2">
-                        <div class="col-md-4">
-                            <label for="decription" class="col-form-label">Salary</label>
-                            <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>
+                        <div class="col-md-4 text-center">
+                            <label for="description" class="col-form-label">Salary</label>
+                            {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
                         </div>
                         <div class="col-md-8">
                             <label for="Role">Amount</label>
-                            <input type="number" @keyup="validateInput" v-model="staffForm.salary" id="number" class="number form-control bg-grey">
+                            <money-input :model="'staffForm.salary'" :class="'number form-control bg-grey'" :options="{ placeholder: '0.00', name: 'salary' }"></money-input>
+                            {{--<input type="number" @keyup="validateInput" v-model="staffForm.salary" id="number" class="number form-control bg-grey">--}}
+                            @include('errors.form-validation-error', ['inputName' => 'salary'])
                         </div>
                     </div>
                 <hr>
                     <div class="form-group row py-2">
-                            <div class="col-md-4">
-                                <label for="decription" class="col-form-label">Comment</label>
-                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>
+                            <div class="col-md-4 text-center">
+                                <label class="col-form-label">Comment</label>
+                                {{--<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, totam?</p>--}}
                             </div>
                             <div class="col-md-8">
                                 <label for="Role">Brief Comment</label>
-                                <textarea @click="validateInput" v-model="staffForm.comment" rows="10" class="form-control bg-grey"></textarea>
+                                <textarea name="comment" rows="10" class="form-control bg-grey"></textarea>
                             </div>
                         </div>
 
                     <div class="form-row mt-3">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-                            <button type="submit"  @click="createStaff" class="btn btn-addsale">Save Information</button>
+                            <button type="submit" class="btn btn-addsale">Save Information</button>
                         </div>
                     </div>
               </form>

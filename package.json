@@ -25,6 +25,7 @@
         "chart.js": "^2.7.3",
         "collect.js": "^4.6.1",
         "daterangepicker": "^3.0.3",
+        "form-backend-validation": "^2.3.6",
         "moment": "^2.23.0",
         "select2": "^4.0.6-rc.1",
         "sweetalert2": "^7.33.1",

@@ -1,6 +1,3 @@
-
-import Chart from "chart.js";
-
 export const salesListView = {
     data: {
         saleSearchQuery: "",

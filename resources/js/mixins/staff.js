@@ -37,7 +37,7 @@ export const staffApp = {
                     toast('Image has successfully uploaded', 'success');
                     let data = res.data.data;
                     this.staffForm.avatar = `https://s3.us-east-2.amazonaws.com/koboapp/${data}`
-            })
+            });
         },
         createStaff(evt) {
             evt.preventDefault();

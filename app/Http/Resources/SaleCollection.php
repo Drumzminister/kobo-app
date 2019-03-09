@@ -15,6 +15,7 @@ class SaleCollection extends JsonResource
      */
     public function toArray($request)
     {
+//        dd($this->transactions->pluck('amount')->sum());
         return [
 	        'id' => $this->id,
 	        'tax' => $this->tax,
@@ -31,7 +32,8 @@ class SaleCollection extends JsonResource
 	        'balance' => $this->balance,
 
 	        // Custom Fields
-	        'transactions' => ClientTransactionCollection::collection($this->transactions),
+            'amountPaid'   => $this->transactions->pluck('amount')->sum(),
+            'transactions' => ClientTransactionCollection::collection($this->transactions),
 	        'customer_name' => $this->customer ? $this->customer->name : null,
 	        'quantity'  => array_sum($this->saleItems->pluck('quantity')->toArray()),
         ];
