@@ -91300,40 +91300,70 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-4 img-in" }, [
-    _c("img", {
-      staticClass: "rounded-circle img-fluid img-circle",
-      attrs: {
-        src: "/img/person.png",
-        alt: "client logo",
-        srcset: "",
-        id: "profilePicturePreview"
-      }
-    }),
+  return _c("div", { staticClass: "col-md-4 img-in text-center" }, [
+    _c("h5", { staticClass: "h5" }, [_vm._v("Add Photo")]),
     _vm._v(" "),
-    _c("div", { staticClass: "overlay" }, [
-      _c("div", { staticClass: "text form-group" }, [
+    _c("div", { staticClass: "text-center" }, [
+      _c("img", {
+        staticClass: "rounded-circle img-fluid img-circle",
+        attrs: {
+          src: "/img/person.png",
+          alt: "client logo",
+          srcset: "",
+          id: "profilePicturePreview"
+        }
+      }),
+      _vm._v(" "),
+      _c("div", {}, [
         _c("input", {
           staticClass: "form-control-file",
           attrs: {
             type: "file",
             accept: "image/*",
-            name: "avatar",
-            id: "profilePicture"
+            name: _vm.options.name,
+            id: "profilePicture",
+            hidden: ""
           },
           on: {
             change: function($event) {
               _vm.previewImage("profilePicture", "#profilePicturePreview")
             }
           }
-        })
-      ])
-    ]),
-    _vm._v(" "),
-    _c("h5", { staticClass: "h5 px-4 py-2 " }, [_vm._v("Add Photo")])
+        }),
+        _vm._v(" "),
+        _vm._m(0)
+      ]),
+      _vm._v(" "),
+      _vm.error !== ""
+        ? _c(
+            "span",
+            {
+              staticClass: "invalid-feedback",
+              staticStyle: { display: "block" },
+              attrs: { role: "alert" }
+            },
+            [
+              _c("strong", { staticClass: "text-center" }, [
+                _vm._v(_vm._s(_vm.error))
+              ])
+            ]
+          )
+        : _vm._e()
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "choose-image-label", attrs: { for: "profilePicture" } },
+      [_c("i", { staticClass: "fa fa-camera" })]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -109335,8 +109365,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['options', 'error'],
     methods: {
         previewImage: function previewImage(input, target) {
             var fileInput = document.getElementById(input);

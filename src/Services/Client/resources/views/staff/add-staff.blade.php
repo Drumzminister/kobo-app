@@ -14,7 +14,7 @@
     <div class="container my-4">
         <div class="bg-white p-5">
             <div class="row">
-                <new-image></new-image>
+                <new-image :options="{name:'image'}" {{ $errors->has('image') ? ':error="'. $errors->first('image') .'"' : ':error=""' }}></new-image>
             </div>
             <form>
                 <div class="form-group row py-2">
