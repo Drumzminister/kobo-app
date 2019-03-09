@@ -24,16 +24,20 @@
                     </div>
                     <div class="col-md-8">
                         <label for="first name">First Name</label>
-                        <input name="first_name" type="text" class="form-control bg-grey" id="" >
+                        <input name="first_name" type="text" class="form-control bg-grey" id="">
+                        @include('errors.form-validation-error', ['inputName' => 'first_name'])
 
                         <label for="last name">Last name</label>
                         <input name="last_name" type="text" class="form-control bg-grey" id="" >
+                        @include('errors.form-validation-error', ['inputName' => 'last_name'])
 
                         <label for="phone">Phone number</label>
                         <input name="phone"  @keyup="validateInput"   type="text" class="form-control bg-grey" id="" >
+                        @include('errors.form-validation-error', ['inputName' => 'phone'])
 
                         <label for="email">Email</label>
                         <input name="email" type="text" class="form-control bg-grey" id="" >
+                        @include('errors.form-validation-error', ['inputName' => 'email'])
 
                     </div>
                 </div>
@@ -47,7 +51,7 @@
                     </div>
                     <div class="col-md-8">
                         <label for="Role">Role</label>
-                        <Select2 v-model="staffForm.role":settings="{placeholder: 'Select Role', name: 'role' }" :options="[
+                        <Select2 v-model="staffForm.role" :settings="{placeholder: 'Select Role', name: 'role' }" :options="[
                             'Manager', 'Secretary', 'Office Assistant', 'Human Resource', 'Personal Assistant',
                             'Cleaner', 'Developer', 'Accountant', 'Data Entry', 'Reception', 'HR', 'Sales',
                             'Driver', 'Typist', 'Executive/Personal Assistant',
