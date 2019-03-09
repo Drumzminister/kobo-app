@@ -15,7 +15,7 @@ class CreateStaffTable extends Migration
             $table->string('last_name')->nullable();
             $table->string('role');
             $table->date('employed_date');
-            $table->double('salary')->default('0.0000');
+            $table->string('salary')->default('0');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('years_of_experience')->nullable();

@@ -11,15 +11,22 @@ class AddSingleStaffJob extends Job
     use HelpsResponse;
     /**
      * Create a new job instance.
-     *
-     * @return void
      */
-    private $data, $staff;
+    private $data;
 
+    /**
+     * @var \Illuminate\Foundation\Application|StaffRepository
+     */
+    private $staff;
+
+    /**
+     * AddSingleStaffJob constructor.
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         $this->data = $data;
-        $this->staff = new StaffRepository();
+        $this->staff = app(StaffRepository::class);
     }
 
     /**

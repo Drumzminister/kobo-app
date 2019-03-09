@@ -3,21 +3,26 @@
 namespace App\Services\Client\Features;
 
 use App\Domains\Staff\Jobs\AddSingleStaffJob;
+use App\Services\Client\Http\Requests\AddNewStaffRequest;
 use Lucid\Foundation\Feature;
-use Illuminate\Http\Request;
 
 class AddSingleStaffFeature extends Feature
 {
-    public function handle(Request $request)
+    public function handle(AddNewStaffRequest $request)
     {
         $data = $request->all();
         $data['company_id'] = auth()->user()->company->id;
         $data['user_id'] = auth()->id();
-        $added = $this->run(AddSingleStaffJob::class, ['data' => $data]);
+        $response = $this->run(AddSingleStaffJob::class, ['data' => $data]);
 
-        if($added)
-            return response()->json(['message' => 'Staff added successfully']);
+        if ($response->status === "success") {
+            alert()->success('', $response->message)->autoClose(3000);
 
-        return response()->json(['error', 'Unable to add staff']);
+            return back();
+        }
+
+        alert()->error('', $response->message)->autoClose(3000);
+
+        return back();
     }
 }

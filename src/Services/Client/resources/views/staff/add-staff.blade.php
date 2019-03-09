@@ -16,7 +16,7 @@
             <div class="row">
                 <new-image :options="{name:'image'}" {{ $errors->has('image') ? ':error="'. $errors->first('image') .'"' : ':error=""' }}></new-image>
             </div>
-            <form action="{{ route('add.new.staff') }}">
+            <form action="{{ route('client.single-staff.add') }}" method="post" enctype="multipart/form-data">
                 <div class="form-group row py-2">
                     <div class="col-md-4 text-center">
                         <label for="name" class="col-md-3 col-form-label">Account</label>
